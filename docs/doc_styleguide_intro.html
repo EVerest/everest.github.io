@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Styleguide &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="_static/contentui.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/contentui.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to git" href="how_to_git/index.html" />
+    <link rel="prev" title="How To: Develop New Modules" href="doc_tutorial_new_modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="how_to_git/index.html" title="How to git"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="doc_tutorial_new_modules.html" title="How To: Develop New Modules"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="doc_tutorial_intro.html" accesskey="U">Tutorials</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Styleguide</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="styleguide">
+<h1>Styleguide<a class="headerlink" href="#styleguide" title="Permalink to this headline">¶</a></h1>
+<p><em>Current status of Q1 2021</em></p>
+<section id="namespacing">
+<h2>Namespacing<a class="headerlink" href="#namespacing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="take-the-most-advantage-of-the-interfaces-of-the-framework">
+<h2>Take the most advantage of the interfaces of the Framework<a class="headerlink" href="#take-the-most-advantage-of-the-interfaces-of-the-framework" title="Permalink to this headline">¶</a></h2>
+<section id="no-stringchains">
+<h3>No Stringchains<a class="headerlink" href="#no-stringchains" title="Permalink to this headline">¶</a></h3>
+<p>Stringchains to tranfere commulated informations as a variable are to aviod. This kind of communications corrupt the informationstyle</p>
+<p><strong>Wrong</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">power_config</span> <span class="o">=</span> <span class="s2">&quot;Solar#23A#3phase#EcoA&quot;</span>
+</pre></div>
+</div>
+<p><strong>Better</strong></p>
+<p>Dictionaries are possible to send bounded informations with clearly understandable keys and can be eximaned by the restrictions in the manifest</p>
+<p>entpacken von config am vorteil bei sehr tiefschichtigen configs</p>
+</section>
+<section id="try-to-reduce-variables-when-possbile">
+<h3>Try to reduce variables when possbile<a class="headerlink" href="#try-to-reduce-variables-when-possbile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Try to integragte functions directly like:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">car_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Maximum number of cars for charging is reached&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Use dictionaries instead of many diverse suffixes:</strong></p>
+<p>Instead of</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">car_config_user_renault_zoe_power_min</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">car_config_user_renault_zoe_power_max</span> <span class="o">=</span> <span class="mi">52</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">car_config_user_renault_zoe_battery_voltage</span> <span class="o">=</span> <span class="mi">400</span>
+</pre></div>
+</div>
+<p>use</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">car_config_user</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Renault Zoe&quot;</span><span class="p">,</span> <span class="s2">&quot;power_min&quot;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span> <span class="s2">&quot;power_max&quot;</span><span class="p">:</span> <span class="mi">52</span><span class="p">,</span> <span class="s2">&quot;battery_voltage&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Try to reduce variables when possbile<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Don’t use different types for one variable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">power_list</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_current</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_current</span> <span class="o">=</span> <span class="n">max_current</span>
+</pre></div>
+</div>
+<p>It is possible, but the json-code is cleaner if there is only one type for one variable.
+At example, when in the manifest <em>max_current</em> is defined as number, in the unit-script it should be used only as float.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">power_list</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_current</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_current</span> <span class="o">=</span> <span class="n">max_current</span>
+</pre></div>
+</div>
+<p><strong>Hier sollte noch gezeigt werden wie mehrere typen sonst aussehen</strong></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Styleguide</a><ul>
+<li><a class="reference internal" href="#namespacing">Namespacing</a></li>
+<li><a class="reference internal" href="#take-the-most-advantage-of-the-interfaces-of-the-framework">Take the most advantage of the interfaces of the Framework</a><ul>
+<li><a class="reference internal" href="#no-stringchains">No Stringchains</a></li>
+<li><a class="reference internal" href="#try-to-reduce-variables-when-possbile">Try to reduce variables when possbile</a></li>
+<li><a class="reference internal" href="#id1">Try to reduce variables when possbile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="doc_tutorial_new_modules.html"
+                        title="previous chapter">How To: Develop New Modules</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="how_to_git/index.html"
+                        title="next chapter">How to git</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/doc_styleguide_intro.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="how_to_git/index.html" title="How to git"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="doc_tutorial_new_modules.html" title="How To: Develop New Modules"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="doc_tutorial_intro.html" >Tutorials</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Styleguide</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+    </div>
+  </body>
+</html>

@@ -53,14 +53,15 @@ After this, install the ev-cli tool by going into the directory everest-utils/ev
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
+</section>
 <section id="new-directory">
-<h3>1. New directory<a class="headerlink" href="#new-directory" title="Permalink to this headline">¶</a></h3>
+<h2>1. New directory<a class="headerlink" href="#new-directory" title="Permalink to this headline">¶</a></h2>
 <p>Create a new directory inside the modules directory of the everest-core directory inside your workspace.
 The name of your directory is the name of your new module.
 Please use the prefix “Js” for JavaScript modules to make them distinguishable from C++ modules without looking into the directory.</p>
 </section>
 <section id="creating-your-module-s-manifest">
-<h3>2. Creating your module’s manifest<a class="headerlink" href="#creating-your-module-s-manifest" title="Permalink to this headline">¶</a></h3>
+<h2>2. Creating your module’s manifest<a class="headerlink" href="#creating-your-module-s-manifest" title="Permalink to this headline">¶</a></h2>
 <p>Every module needs a manifest file that describes the module and its dependencies.
 Make sure to familiarize yourself with json and json-schema. You will need it to define the config for your module as well as new interface definitions.
 Good documentation can be found here: <a class="reference external" href="https://json-schema.org/understanding-json-schema/reference/">https://json-schema.org/understanding-json-schema/reference/</a></p>
@@ -126,8 +127,9 @@ Good documentation can be found here: <a class="reference external" href="https:
 <span class="linenos">59</span><span class="p">}</span>
 </pre></div>
 </div>
+</section>
 <section id="writing-a-jsmodule-creating-some-more-essential-files">
-<h4>3.1. Writing a Jsmodule: Creating some more essential files<a class="headerlink" href="#writing-a-jsmodule-creating-some-more-essential-files" title="Permalink to this headline">¶</a></h4>
+<h2>3.1. Writing a Jsmodule: Creating some more essential files<a class="headerlink" href="#writing-a-jsmodule-creating-some-more-essential-files" title="Permalink to this headline">¶</a></h2>
 <p>If you want to write a JavaScript module, you can copy over the <em>CMakeLists.txt</em> file found in the module directory <em>JsPN532TokenProvider</em>.
 The <em>CMakeLists.txt</em> file is dynamic and will infer your module’s name from the directory name it resides in.
 You need to create a <em>package.json</em> file, too.
@@ -135,9 +137,8 @@ This file lists all dependencies on external nodejs packages your module has, li
 You can specify an empty object <cite>{}</cite> if you do not have any dependencies on external packages.
 The EVerest build system will automatically install all needed dependencies using npm.</p>
 </section>
-</section>
 <section id="writing-a-c-module-creating-some-more-essential-files">
-<h3>3.2. Writing a C++ module: Creating some more essential files<a class="headerlink" href="#writing-a-c-module-creating-some-more-essential-files" title="Permalink to this headline">¶</a></h3>
+<h2>3.2. Writing a C++ module: Creating some more essential files<a class="headerlink" href="#writing-a-c-module-creating-some-more-essential-files" title="Permalink to this headline">¶</a></h2>
 <p>To create the needed (template) files for your C++ module you have to use the <em>ev-cli</em> tool installed in <span class="xref std std-ref">step 0</span>.
 Call:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">mod</span> <span class="n">create</span> <span class="o">&lt;</span><span class="n">your_module_name</span><span class="o">&gt;</span>
@@ -145,12 +146,12 @@ Call:</p>
 </div>
 <p>inside the <em>everest-core</em> directory in your workspace.
 It will create a directory for each “provides” key in the manifest and a top-level C++ file named <em>“&lt;module_name&gt;.cpp”</em>.
-The top-level C++ file contains an init method and a ready method called on module load and framework ready events (see step 4: <span class="xref std std-ref">module lifecycle</span>).
+The top-level C++ file contains an init method and a ready method called on module load and framework ready events (see step 4 <span class="xref std std-ref">Module lifecycle</span>.
 The C++ files in the generated subdirs contain all CMDs and VARs you have to implement to implement the interface you specified in your manifest.
 The methods “init” and “ready” can be implemented on the interface implementation level, too.</p>
 </section>
 <section id="module-lifecycle">
-<h3>4. Module lifecycle<a class="headerlink" href="#module-lifecycle" title="Permalink to this headline">¶</a></h3>
+<h2>4. Module lifecycle<a class="headerlink" href="#module-lifecycle" title="Permalink to this headline">¶</a></h2>
 <p>Every module resides in it’s own process invoked by the manager.
 Upon loading a module the <cite>init()</cite> method will be invoked by the framework.
 Once all modules are loaded and initialized, the framework will call the <cite>ready()</cite> method.
@@ -160,7 +161,7 @@ Correspondingly other modules will only receive new published VARs or get CMDs a
 Modules cannot be stopped or unloaded.The creator of a new module is responsible to provide internal functionality to disable the module’s inner workings, should that be a desired state.</p>
 </section>
 <section id="interface-files">
-<h3>5. Interface files<a class="headerlink" href="#interface-files" title="Permalink to this headline">¶</a></h3>
+<h2>5. Interface files<a class="headerlink" href="#interface-files" title="Permalink to this headline">¶</a></h2>
 <p>Make sure to familiarize yourself with json and json-schema. You will need it to define new interface definitions.
 Good documentation can be found here: <a class="reference external" href="https://json-schema.org/understanding-json-schema/reference/">https://json-schema.org/understanding-json-schema/reference/</a></p>
 <p>The interface definitions that modules can implement or require are located in the everest-framework/interfaces directory inside your workspace.
@@ -228,7 +229,6 @@ For three interface definitions A, B and C defined like this:</p>
 <p>If module X requires a module implementing interface B, it can use <strong>VARs</strong>/<strong>CMDs</strong> defined in <strong>C</strong> or <strong>B</strong>, but not those defined in <strong>A</strong>.</p>
 </section>
 </section>
-</section>
 
 
             <div class="clearer"></div>
@@ -240,17 +240,13 @@ For three interface definitions A, B and C defined like this:</p>
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">How To: Develop New Modules</a><ul>
-<li><a class="reference internal" href="#introduction">0. Introduction</a><ul>
+<li><a class="reference internal" href="#introduction">0. Introduction</a></li>
 <li><a class="reference internal" href="#new-directory">1. New directory</a></li>
-<li><a class="reference internal" href="#creating-your-module-s-manifest">2. Creating your module’s manifest</a><ul>
+<li><a class="reference internal" href="#creating-your-module-s-manifest">2. Creating your module’s manifest</a></li>
 <li><a class="reference internal" href="#writing-a-jsmodule-creating-some-more-essential-files">3.1. Writing a Jsmodule: Creating some more essential files</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#writing-a-c-module-creating-some-more-essential-files">3.2. Writing a C++ module: Creating some more essential files</a></li>
 <li><a class="reference internal" href="#module-lifecycle">4. Module lifecycle</a></li>
 <li><a class="reference internal" href="#interface-files">5. Interface files</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

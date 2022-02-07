@@ -17,7 +17,7 @@
     <script src="_static/contentui.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Styleguide" href="doc_styleguide_intro.html" />
+    <link rel="next" title="How to git" href="how_to_git/index.html" />
     <link rel="prev" title="Tutorials" href="doc_tutorial_intro.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -27,7 +27,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="doc_styleguide_intro.html" title="Styleguide"
+          <a href="how_to_git/index.html" title="How to git"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="doc_tutorial_intro.html" title="Tutorials"
@@ -130,52 +130,52 @@ Good documentation can be found here: <a class="reference external" href="https:
 </section>
 <section id="writing-a-jsmodule-creating-some-more-essential-files">
 <h2>3.1. Writing a Jsmodule: Creating some more essential files<a class="headerlink" href="#writing-a-jsmodule-creating-some-more-essential-files" title="Permalink to this headline">¶</a></h2>
-<p>If you want to write a JavaScript module, you can copy over the <em>CMakeLists.txt</em> file found in the module directory <em>JsPN532TokenProvider</em>.
-The <em>CMakeLists.txt</em> file is dynamic and will infer your module’s name from the directory name it resides in.
-You need to create a <em>package.json</em> file, too.
+<p>If you want to write a JavaScript module, you can copy over the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file found in the module directory <code class="docutils literal notranslate"><span class="pre">JsPN532TokenProvider</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file is dynamic and will infer your module’s name from the directory name it resides in.
+You need to create a <code class="docutils literal notranslate"><span class="pre">package.json</span></code> file, too.
 This file lists all dependencies on external nodejs packages your module has, like it’s done in any other nodejs project.
-You can specify an empty object <cite>{}</cite> if you do not have any dependencies on external packages.
-The EVerest build system will automatically install all needed dependencies using npm.</p>
+You can specify an empty object <code class="docutils literal notranslate"><span class="pre">{}</span></code> if you do not have any dependencies on external packages.
+The EVerest build system will automatically install all needed dependencies using <code class="docutils literal notranslate"><span class="pre">npm</span></code>.</p>
+<img alt="_images/diagram1.svg" src="_images/diagram1.svg" /><p>[Image 1: Files to create/modify when adding a new module]</p>
 </section>
 <section id="writing-a-c-module-creating-some-more-essential-files">
 <h2>3.2. Writing a C++ module: Creating some more essential files<a class="headerlink" href="#writing-a-c-module-creating-some-more-essential-files" title="Permalink to this headline">¶</a></h2>
-<p>To create the needed (template) files for your C++ module you have to use the <em>ev-cli</em> tool installed in <span class="xref std std-ref">step 0</span>.
+<p>To create the needed (template) files for your C++ module you have to use the <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> tool installed in <span class="xref std std-ref">step 0</span>.
 Call:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">mod</span> <span class="n">create</span> <span class="o">&lt;</span><span class="n">your_module_name</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>inside the <em>everest-core</em> directory in your workspace.
-It will create a directory for each “provides” key in the manifest and a top-level C++ file named <em>“&lt;module_name&gt;.cpp”</em>.
-The top-level C++ file contains an init method and a ready method called on module load and framework ready events (see step 4 <span class="xref std std-ref">Module lifecycle</span>.
-The C++ files in the generated subdirs contain all CMDs and VARs you have to implement to implement the interface you specified in your manifest.
-The methods “init” and “ready” can be implemented on the interface implementation level, too.</p>
+<p>inside the <code class="docutils literal notranslate"><span class="pre">everest-core</span></code> directory in your workspace.
+It will create a directory for each <code class="docutils literal notranslate"><span class="pre">provides</span></code> key in the manifest and a top-level C++ file named <code class="docutils literal notranslate"><span class="pre">&lt;module_name&gt;.cpp</span></code>.
+The top-level C++ file contains an <code class="docutils literal notranslate"><span class="pre">init()</span></code> method and a <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method called on module load and framework <code class="docutils literal notranslate"><span class="pre">ready()</span></code> events (see step 4 <span class="xref std std-ref">Module lifecycle</span>).
+The C++ files in the generated subdirs contain all <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> and <code class="docutils literal notranslate"><span class="pre">VARs</span></code> you have to implement to implement the interface you specified in your manifest.
+The methods <code class="docutils literal notranslate"><span class="pre">init()</span></code> and <code class="docutils literal notranslate"><span class="pre">ready()</span></code> can be implemented on the interface implementation level, too.</p>
 </section>
 <section id="module-lifecycle">
 <h2>4. Module lifecycle<a class="headerlink" href="#module-lifecycle" title="Permalink to this headline">¶</a></h2>
 <p>Every module resides in it’s own process invoked by the manager.
-Upon loading a module the <cite>init()</cite> method will be invoked by the framework.
-Once all modules are loaded and initialized, the framework will call the <cite>ready()</cite> method.
-Only in the ready() method or after the method was called, the module is allowed to call CMDs of other modules.
-VARs can only be published inside the ready() method or after the ready() method was called.
-Correspondingly other modules will only receive new published VARs or get CMDs after their ready() method was called.
-Modules cannot be stopped or unloaded.The creator of a new module is responsible to provide internal functionality to disable the module’s inner workings, should that be a desired state.</p>
+Upon loading a module the <code class="docutils literal notranslate"><span class="pre">init()</span></code> method will be invoked by the framework.
+Once all modules are loaded and initialized, the framework will call the <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method.
+Only in the <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method or after the method was called, the module is allowed to call <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> of other modules.
+<code class="docutils literal notranslate"><span class="pre">VARs</span></code> can only be published inside the <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method or after the <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method was called.
+Correspondingly other modules will only receive new published <code class="docutils literal notranslate"><span class="pre">VARs</span></code> or get <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> after their <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method was called.
+Modules cannot be stopped or unloaded. The creator of a new module is responsible to provide internal functionality to disable the module’s inner workings, should that be a desired state.</p>
 </section>
 <section id="interface-files">
 <h2>5. Interface files<a class="headerlink" href="#interface-files" title="Permalink to this headline">¶</a></h2>
 <p>Make sure to familiarize yourself with json and json-schema. You will need it to define new interface definitions.
 Good documentation can be found here: <a class="reference external" href="https://json-schema.org/understanding-json-schema/reference/">https://json-schema.org/understanding-json-schema/reference/</a></p>
-<p>The interface definitions that modules can implement or require are located in the everest-framework/interfaces directory inside your workspace.
-An interface definition can contain two different kinds of declarations: <strong>VARs</strong> and <strong>CMDs</strong>.
-A <strong>CMD</strong> is an RPC command, the module implementing the interface provides for other modules. It can take zero or more named arguments and optionally return a result.
-A <strong>VAR</strong> is a value that is published by the module implementing the interface and can be consumed by other modules having a requirement for this interface
+<p>The interface definitions that modules can implement or require are located in the <code class="docutils literal notranslate"><span class="pre">/everest-framework/interfaces</span></code> directory inside your workspace.
+An interface definition can contain two different kinds of declarations: <code class="docutils literal notranslate"><span class="pre">VARs</span></code> and <code class="docutils literal notranslate"><span class="pre">CMDs</span></code>.
+A <code class="docutils literal notranslate"><span class="pre">CMD</span></code> is an RPC command, the module implementing the interface provides for other modules. It can take zero or more named arguments and optionally return a result.
+A <code class="docutils literal notranslate"><span class="pre">VAR</span></code> is a value that is published by the module implementing the interface and can be consumed by other modules having a requirement for this interface
 (e.g. require a module implementing this interface).
-Thus <strong>VARs</strong> exhibit push semantics where the publishing module drives the data exchange (e.g. decides when to publish something) whereas <strong>CMDs</strong> exhibit pull semantics
-(e.g. the module <em>calling</em> the <strong>CMD</strong> drives the data exchange).
-Furthermore exchanging data via <strong>VARs</strong> means the <em>consuming</em> module has to define a requirement for the publishing module in it’s manifest
-whereas exchanging data via <strong>CMDs</strong> means the <em>calling</em> module (not the module consuming the cmd call) has to require the module it wants to call the <strong>CMD</strong> from.
-Using <strong>CMDs</strong> is bidirectional (arguments and return values) whereas using <strong>VARs</strong> is unidirectional (e.g. you need module A and module B to define a requirement for each other
-and let each of them publish a <strong>VAR</strong>, if you want to do a bidirectional data exchange via <strong>VARs</strong>).</p>
-<p>Arguments and return values of <strong>CMDs</strong> as well as the values published in <strong>CMDs</strong> have to be described using json-schema (like the config entries in the manifest.json).</p>
+Thus <code class="docutils literal notranslate"><span class="pre">VARs</span></code> exhibit push semantics where the publishing module drives the data exchange (e.g. decides when to publish something) whereas <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> exhibit pull semantics
+(e.g. the module <em>calling</em> the <code class="docutils literal notranslate"><span class="pre">CMD</span></code> drives the data exchange).
+Furthermore exchanging data via <code class="docutils literal notranslate"><span class="pre">VARs</span></code> means the <em>consuming</em> module has to define a requirement for the publishing module in it’s manifest
+whereas exchanging data via <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> means the <em>calling</em> module (not the module consuming the cmd call) has to require the module it wants to call the <code class="docutils literal notranslate"><span class="pre">CMD</span></code> from.
+Using <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> is bidirectional (arguments and return values) whereas using <code class="docutils literal notranslate"><span class="pre">VARs</span></code> is unidirectional (e.g. you need module A and module B to define a requirement for each other and let each of them publish a <code class="docutils literal notranslate"><span class="pre">VAR</span></code> if you want to do a bidirectional data exchange via <code class="docutils literal notranslate"><span class="pre">VARs</span></code>).</p>
+<p>Arguments and return values of <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> as well as the values published in <code class="docutils literal notranslate"><span class="pre">CMDs</span></code> have to be described using json-schema (like the config entries in the <code class="docutils literal notranslate"><span class="pre">manifest.json</span></code>).</p>
 <p>With all of this theroretical background in mind, let’s look at an actual real world example (all description fields are mandatory):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span>    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Interface of authentication framework&quot;</span><span class="p">,</span>
@@ -220,13 +220,48 @@ and let each of them publish a <strong>VAR</strong>, if you want to do a bidirec
 </pre></div>
 </div>
 <p>Interface definitions can inherit from other interface definitions. This means you can extend a definition by inheriting from it and adding
-new <strong>VARs</strong>/<strong>CMDs</strong>. You <em>can not</em> overwrite the definition of a <strong>VAR</strong>/<strong>CMD</strong> from the parent interface in the child, nor can you remove a <strong>VAR</strong>/<strong>CMD</strong> defined in the parent.</p>
+new <code class="docutils literal notranslate"><span class="pre">VARs</span></code>/<code class="docutils literal notranslate"><span class="pre">CMDs</span></code>. You <em>can not</em> overwrite the definition of a <code class="docutils literal notranslate"><span class="pre">VAR</span></code>/<code class="docutils literal notranslate"><span class="pre">CMD</span></code> from the parent interface in the child, nor can you remove a <code class="docutils literal notranslate"><span class="pre">VAR</span></code>/<code class="docutils literal notranslate"><span class="pre">CMD</span></code> defined in the parent.</p>
 <p>If one module requires another to implement a base interface, other modules derived from this one will need to match this requirement.
-The module defining the requirement will not be able to use <strong>VARs</strong>/<strong>CMDs</strong> defined in the derived interface, only the ones defined in the interface it defined its requirement
-for (and the <strong>VARs</strong>/<strong>CMDs</strong> defined in the parent interfaces of this interface, of course).
+The module defining the requirement will not be able to use <code class="docutils literal notranslate"><span class="pre">VARs</span></code>/<code class="docutils literal notranslate"><span class="pre">CMDs</span></code> defined in the derived interface, only the ones defined in the interface it defined its requirement
+for (and the <code class="docutils literal notranslate"><span class="pre">VARs</span></code>/<code class="docutils literal notranslate"><span class="pre">CMDs</span></code> defined in the parent interfaces of this interface, of course).
 For three interface definitions A, B and C defined like this:</p>
 <p><strong>A</strong> ===derived from===&gt; <strong>B</strong> ===derived from===&gt; <strong>C</strong></p>
-<p>If module X requires a module implementing interface B, it can use <strong>VARs</strong>/<strong>CMDs</strong> defined in <strong>C</strong> or <strong>B</strong>, but not those defined in <strong>A</strong>.</p>
+<p>If module X requires a module implementing interface <strong>B</strong>, it can use <code class="docutils literal notranslate"><span class="pre">VARs</span></code>/<code class="docutils literal notranslate"><span class="pre">CMDs</span></code> defined in <strong>C</strong> or <strong>B</strong>, but not those defined in <strong>A</strong>.</p>
+</section>
+<section id="example-js-modules">
+<h2>6. Example Js Modules<a class="headerlink" href="#example-js-modules" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>As an example of inter-module communication we will create two new modules:</dt><dd><ul class="simple">
+<li><p>a “writer” module (JsExampleWriter), which will send data to other modules and provide a function to control its own data-rate</p></li>
+<li><p>and a “reader” module which will receive data from the “writer” module and control its data-rate</p></li>
+</ul>
+</dd>
+</dl>
+<p>The new modules will be interconnected like this:</p>
+<img alt="_images/diagram2.svg" src="_images/diagram2.svg" /><p>[Image 2: Connections between two modules]</p>
+<dl class="simple">
+<dt>The JsExampleWriter module will provide two different interface objects:</dt><dd><ul class="simple">
+<li><p>an external variable (“writer-published-var”) which provides data to other modules</p></li>
+<li><p>an external function (“set-tx-prescaler”) with which other modules can control the writer module’s data-rate</p></li>
+</ul>
+</dd>
+</dl>
+<img alt="_images/diagram3.svg" src="_images/diagram3.svg" /><p>[Image 3: Relevant file contents for writer module (JsExampleWriter)]</p>
+<dl class="simple">
+<dt>The JsExampleReader module will:</dt><dd><ul class="simple">
+<li><p>subsribe to the variable “writer-published-var” (of connection “example-writer-connection”) and</p></li>
+<li><p>control the data-rate of the JsExampleWriter module via function “set_tx_prescaler”</p></li>
+</ul>
+</dd>
+</dl>
+<img alt="_images/diagram4.svg" src="_images/diagram4.svg" /><p>[Image 4: Relevant file contents for reader module (JsExampleReader)]</p>
+<p>The linking of both modules will be defined in the configuration (<code class="docutils literal notranslate"><span class="pre">/config/config-sil.json</span></code>), where the JsExampleReader module receives a connection (“example-writer-connection”) to the “example_writer” submodule (“example_writer_submodule”).</p>
+<img alt="_images/diagram5.svg" src="_images/diagram5.svg" /><p>[Image 5: Interconnection of key-value-elements between two modules’ json files (and the configuration file)]</p>
+</section>
+<section id="further-steps-to-make-the-project-buildable">
+<h2>6.1 Further steps to make the project buildable<a class="headerlink" href="#further-steps-to-make-the-project-buildable" title="Permalink to this headline">¶</a></h2>
+<p>So far, the modules have been written (each in their corresponding folder in “/modules/”), each module has defined an own interface (in the <code class="docutils literal notranslate"><span class="pre">/interfaces/</span></code> folder; note that the JsExampleReader’s interface is currently empty, as it provides no interface for other modules to use) and both modules have been linked (and possibly received configuration values) in the project’s config file (<code class="docutils literal notranslate"><span class="pre">/config/config-sil.json</span></code>). The last thing missing is to add the modules’ names (“JsExampleWriter” and “JsExampleReader”) to the project’s module list (<code class="docutils literal notranslate"><span class="pre">EVEREST_MODULES_LIST</span></code> in <code class="docutils literal notranslate"><span class="pre">/modules/CmakeLists.txt</span></code>).</p>
+<p>If the modules’ code is correct, the project can now be successfully built from the <code class="docutils literal notranslate"><span class="pre">/everest-core/build/</span></code> folder (e.g. run <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">..</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">-j$(nproc)</span> <span class="pre">install</span></code>) and executed (run from same folder <code class="docutils literal notranslate"><span class="pre">../run-sil.sh</span></code>).</p>
 </section>
 </section>
 
@@ -247,6 +282,8 @@ For three interface definitions A, B and C defined like this:</p>
 <li><a class="reference internal" href="#writing-a-c-module-creating-some-more-essential-files">3.2. Writing a C++ module: Creating some more essential files</a></li>
 <li><a class="reference internal" href="#module-lifecycle">4. Module lifecycle</a></li>
 <li><a class="reference internal" href="#interface-files">5. Interface files</a></li>
+<li><a class="reference internal" href="#example-js-modules">6. Example Js Modules</a></li>
+<li><a class="reference internal" href="#further-steps-to-make-the-project-buildable">6.1 Further steps to make the project buildable</a></li>
 </ul>
 </li>
 </ul>
@@ -255,8 +292,8 @@ For three interface definitions A, B and C defined like this:</p>
   <p class="topless"><a href="doc_tutorial_intro.html"
                         title="previous chapter">Tutorials</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="doc_styleguide_intro.html"
-                        title="next chapter">Styleguide</a></p>
+  <p class="topless"><a href="how_to_git/index.html"
+                        title="next chapter">How to git</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -285,7 +322,7 @@ For three interface definitions A, B and C defined like this:</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="doc_styleguide_intro.html" title="Styleguide"
+          <a href="how_to_git/index.html" title="How to git"
              >next</a> |</li>
         <li class="right" >
           <a href="doc_tutorial_intro.html" title="Tutorials"

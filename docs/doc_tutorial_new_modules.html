@@ -72,64 +72,60 @@ Good documentation can be found here: <a class="reference external" href="https:
 <span class="linenos"> 4</span>        <span class="c1">// Config set for the whole module (including possible default values) declared as JSON schema</span>
 <span class="linenos"> 5</span>        <span class="s2">&quot;some_config_key&quot;</span><span class="o">:</span> <span class="p">{</span>
 <span class="linenos"> 6</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a module-global config key&quot;</span><span class="p">,</span>
-<span class="linenos"> 7</span>            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="linenos"> 8</span>            <span class="c1">// if you don&#39;t specify a default, the config key must be specified in the everest config,</span>
-<span class="linenos"> 9</span>            <span class="c1">// if a default is present, the config key can be omitted in your everest config.</span>
-<span class="linenos">10</span>            <span class="s2">&quot;default&quot;</span><span class="o">:</span> <span class="s2">&quot;some default value if this key is not provided in everest config&quot;</span>
-<span class="linenos">11</span>        <span class="p">}</span>
-<span class="linenos">12</span>    <span class="p">},</span>
-<span class="linenos">13</span>    <span class="s2">&quot;provides&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">14</span>        <span class="c1">// List all provided interface implementations of this module alongside their interface implementation specific config.</span>
-<span class="linenos">15</span>        <span class="c1">// You can use an arbitrary name, but this name has to be specified in the everest config file when this module is loaded.</span>
-<span class="linenos">16</span>        <span class="c1">// For a module containing only one implementation you should use &quot;main&quot;.</span>
-<span class="linenos">17</span>        <span class="s2">&quot;main&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">18</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is the implementation of the interface &#39;interface_definition_used&#39;.&quot;</span><span class="p">,</span>
-<span class="linenos">19</span>            <span class="c1">// The interface definition is a JSON file found in everest-framework/interfaces/interface_definition_used.json</span>
-<span class="linenos">20</span>            <span class="s2">&quot;interface&quot;</span><span class="o">:</span> <span class="s2">&quot;interface_definition_used&quot;</span><span class="p">,</span>
-<span class="linenos">21</span>            <span class="c1">// Config set for the implementation &quot;main&quot; (including possible default values) declared as JSON schema</span>
-<span class="linenos">22</span>            <span class="s2">&quot;config&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">23</span>                <span class="s2">&quot;some_implementation_local_config_key&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">24</span>                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a config key only visible to the part of your module implementing &#39;main&#39;.&quot;</span><span class="p">,</span>
-<span class="linenos">25</span>                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
-<span class="linenos">26</span>                    <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span>
-<span class="linenos">27</span>                    <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mf">64</span><span class="p">,</span>
-<span class="linenos">28</span>                    <span class="c1">// if you don&#39;t specify a default, the config key must be specified in the everest config,</span>
-<span class="linenos">29</span>                    <span class="c1">// if a default is present, the config key can be omitted in your everest config.</span>
-<span class="linenos">30</span>                    <span class="s2">&quot;default&quot;</span><span class="o">:</span> <span class="mf">42</span>
-<span class="linenos">31</span>                <span class="p">},</span>
-<span class="linenos">32</span>                <span class="s2">&quot;some_other_config_key&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">33</span>                                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is some other config key&quot;</span><span class="p">,</span>
-<span class="linenos">34</span>                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="linenos">35</span>                    <span class="s2">&quot;minLength&quot;</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
-<span class="linenos">36</span>                    <span class="s2">&quot;maxLength&quot;</span><span class="o">:</span> <span class="mf">100</span>
-<span class="linenos">37</span>                            <span class="p">}</span>
-<span class="linenos">38</span>            <span class="p">}</span>
-<span class="linenos">39</span>        <span class="p">}</span>
-<span class="linenos">40</span>    <span class="p">},</span>
-<span class="linenos">41</span>    <span class="c1">// this part lists all requirements on other modules, which your module may have</span>
-<span class="linenos">42</span>    <span class="s2">&quot;requires&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">43</span>        <span class="s2">&quot;requirement_name_used_in_config_file_later_on&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">44</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Some optional text describing this dependency&quot;</span><span class="p">,</span>
-<span class="linenos">45</span>            <span class="s2">&quot;interface&quot;</span><span class="o">:</span> <span class="s2">&quot;the_interface_definition_the_required_module_has_to_implement&quot;</span>
-<span class="linenos">46</span>        <span class="p">},</span>
-<span class="linenos">47</span>        <span class="s2">&quot;some_other_requirement_id&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">48</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Some other optional text describing this dependency&quot;</span><span class="p">,</span>
-<span class="linenos">49</span>            <span class="s2">&quot;interface&quot;</span><span class="o">:</span> <span class="s2">&quot;other_interface&quot;</span>
-<span class="linenos">50</span>        <span class="p">}</span>
-<span class="linenos">51</span>    <span class="p">},</span>
-<span class="linenos">52</span>    <span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
-<span class="linenos">53</span>        <span class="s2">&quot;base_license&quot;</span><span class="o">:</span> <span class="s2">&quot;URI pointing to the base license of your module if you use code from another poject under a different license&quot;</span><span class="p">,</span>
-<span class="linenos">54</span>        <span class="c1">// license and authors is required</span>
-<span class="linenos">55</span>        <span class="s2">&quot;license&quot;</span><span class="o">:</span> <span class="s2">&quot;URI pointing to the license of your module, like: https://opensource.org/licenses/Apache-2.0&quot;</span><span class="p">,</span>
-<span class="linenos">56</span>        <span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Your name&quot;</span><span class="p">,</span> <span class="s2">&quot;Some more name&quot;</span><span class="p">,</span> <span class="s2">&quot;Third author name&quot;</span><span class="p">,</span> <span class="s2">&quot;etc.&quot;</span><span class="p">]</span>
-<span class="linenos">57</span>    <span class="p">},</span>
-<span class="linenos">58</span>    <span class="s2">&quot;enable_external_mqtt&quot;</span><span class="o">:</span> <span class="kc">false</span>       <span class="c1">// default value if not specified</span>
-<span class="linenos">59</span><span class="p">}</span>
+<span class="linenos"> 7</span>            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span>
+<span class="linenos"> 8</span>            <span class="c1">// the default value for the config key must be specified in the everest config</span>
+<span class="linenos"> 9</span>        <span class="p">}</span>
+<span class="linenos">10</span>    <span class="p">},</span>
+<span class="linenos">11</span>    <span class="s2">&quot;provides&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">12</span>        <span class="c1">// List all provided interface implementations of this module alongside their interface implementation specific config.</span>
+<span class="linenos">13</span>        <span class="c1">// You can use an arbitrary name, but this name has to be specified in the everest config file when this module is loaded.</span>
+<span class="linenos">14</span>        <span class="c1">// For a module containing only one implementation you should use &quot;main&quot;.</span>
+<span class="linenos">15</span>        <span class="s2">&quot;main&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">16</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is the implementation of the interface &#39;interface_definition_used&#39;.&quot;</span><span class="p">,</span>
+<span class="linenos">17</span>            <span class="c1">// The interface definition is a JSON file found in everest-framework/interfaces/interface_definition_used.json</span>
+<span class="linenos">18</span>            <span class="s2">&quot;interface&quot;</span><span class="o">:</span> <span class="s2">&quot;interface_definition_used&quot;</span><span class="p">,</span>
+<span class="linenos">19</span>            <span class="c1">// Config set for the implementation &quot;main&quot; (including possible default values) declared as JSON schema</span>
+<span class="linenos">20</span>            <span class="s2">&quot;config&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">21</span>                <span class="s2">&quot;some_implementation_local_config_key&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">22</span>                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a config key only visible to the part of your module implementing &#39;main&#39;.&quot;</span><span class="p">,</span>
+<span class="linenos">23</span>                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+<span class="linenos">24</span>                    <span class="s2">&quot;min&quot;</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span>
+<span class="linenos">25</span>                    <span class="s2">&quot;max&quot;</span><span class="o">:</span> <span class="mf">64</span>
+<span class="linenos">26</span>                    <span class="c1">// the default value for the config key must be specified in the everest config</span>
+<span class="linenos">27</span>                <span class="p">},</span>
+<span class="linenos">28</span>                <span class="s2">&quot;some_other_config_key&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">29</span>                                    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;This is some other config key&quot;</span><span class="p">,</span>
+<span class="linenos">30</span>                    <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="linenos">31</span>                    <span class="s2">&quot;minLength&quot;</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span>
+<span class="linenos">32</span>                    <span class="s2">&quot;maxLength&quot;</span><span class="o">:</span> <span class="mf">100</span>
+<span class="linenos">33</span>                            <span class="p">}</span>
+<span class="linenos">34</span>            <span class="p">}</span>
+<span class="linenos">35</span>        <span class="p">}</span>
+<span class="linenos">36</span>    <span class="p">},</span>
+<span class="linenos">37</span>    <span class="c1">// this part lists all requirements on other modules, which your module may have</span>
+<span class="linenos">38</span>    <span class="s2">&quot;requires&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">39</span>        <span class="s2">&quot;requirement_name_used_in_config_file_later_on&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">40</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Some optional text describing this dependency&quot;</span><span class="p">,</span>
+<span class="linenos">41</span>            <span class="s2">&quot;interface&quot;</span><span class="o">:</span> <span class="s2">&quot;the_interface_definition_the_required_module_has_to_implement&quot;</span>
+<span class="linenos">42</span>        <span class="p">},</span>
+<span class="linenos">43</span>        <span class="s2">&quot;some_other_requirement_id&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">44</span>            <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Some other optional text describing this dependency&quot;</span><span class="p">,</span>
+<span class="linenos">45</span>            <span class="s2">&quot;interface&quot;</span><span class="o">:</span> <span class="s2">&quot;other_interface&quot;</span>
+<span class="linenos">46</span>        <span class="p">}</span>
+<span class="linenos">47</span>    <span class="p">},</span>
+<span class="linenos">48</span>    <span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+<span class="linenos">49</span>        <span class="s2">&quot;base_license&quot;</span><span class="o">:</span> <span class="s2">&quot;URI pointing to the base license of your module if you use code from another poject under a different license&quot;</span><span class="p">,</span>
+<span class="linenos">50</span>        <span class="c1">// license and authors is required</span>
+<span class="linenos">51</span>        <span class="s2">&quot;license&quot;</span><span class="o">:</span> <span class="s2">&quot;URI pointing to the license of your module, like: https://opensource.org/licenses/Apache-2.0&quot;</span><span class="p">,</span>
+<span class="linenos">52</span>        <span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Your name&quot;</span><span class="p">,</span> <span class="s2">&quot;Some more name&quot;</span><span class="p">,</span> <span class="s2">&quot;Third author name&quot;</span><span class="p">,</span> <span class="s2">&quot;etc.&quot;</span><span class="p">]</span>
+<span class="linenos">53</span>    <span class="p">},</span>
+<span class="linenos">54</span>    <span class="s2">&quot;enable_external_mqtt&quot;</span><span class="o">:</span> <span class="kc">false</span>       <span class="c1">// default value if not specified</span>
+<span class="linenos">55</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="interface-files">
-<h2>3. Interface files<a class="headerlink" href="#interface-files" title="Permalink to this headline">¶</a></h2>
+<h2>1. Interface files<a class="headerlink" href="#interface-files" title="Permalink to this headline">¶</a></h2>
 <p>Make sure to familiarize yourself with JSON and JSON-schema. You will need it to define new interface definitions.
 Good documentation can be found here: <a class="reference external" href="https://json-schema.org/understanding-json-schema/reference/">https://json-schema.org/understanding-json-schema/reference/</a></p>
 <p>The interface definitions that modules can implement or require are located in the <code class="docutils literal notranslate"><span class="pre">/everest-core/interfaces/</span></code> directory inside your workspace.
@@ -324,7 +320,7 @@ Correspondingly, other modules will only receive new published <code class="docu
 <li><a class="reference internal" href="#introduction">0. Introduction</a></li>
 <li><a class="reference internal" href="#new-directory">1. New directory</a></li>
 <li><a class="reference internal" href="#creating-your-module-s-manifest">2. Creating your module’s manifest</a></li>
-<li><a class="reference internal" href="#interface-files">3. Interface files</a></li>
+<li><a class="reference internal" href="#interface-files">1. Interface files</a></li>
 <li><a class="reference internal" href="#writing-a-module">4. Writing a module</a><ul>
 <li><a class="reference internal" href="#writing-a-js-module-creating-some-more-essential-files">4.1. Writing a Js module: Creating some more essential files</a></li>
 <li><a class="reference internal" href="#writing-a-c-module-creating-some-more-essential-files">4.2. Writing a C++ module: Creating some more essential files</a></li>

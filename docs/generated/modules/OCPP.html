@@ -1,24 +1,25 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>OCPP &#8212; EVerest  documentation</title>
+    <title>5.22. OCPP &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Power" href="Power.html" />
-    <link rel="prev" title="ModbusMeter" href="ModbusMeter.html" /> 
+    <link rel="next" title="5.23. PN532TokenProvider" href="PN532TokenProvider.html" />
+    <link rel="prev" title="5.21. ModbusMeter" href="ModbusMeter.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,14 +28,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Power.html" title="Power"
+          <a href="PN532TokenProvider.html" title="5.23. PN532TokenProvider"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ModbusMeter.html" title="ModbusMeter"
+          <a href="ModbusMeter.html" title="5.21. ModbusMeter"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U">EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">OCPP</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.22. </span>OCPP</a></li> 
       </ul>
     </div>  
 
@@ -44,58 +45,81 @@
           <div class="body" role="main">
             
   <section id="ocpp">
-<h1>OCPP<a class="headerlink" href="#ocpp" title="Permalink to this headline">¶</a></h1>
-<section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>A OCPP charge point / charging station module, currently targeting OCPP-J 1.6</p>
-</section>
+<span id="everest-modules-ocpp"></span><h1><span class="section-number">5.22. </span>OCPP<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">A OCPP charge point / charging station module, currently targeting OCPP-J 1.6</div>
+</div>
 <section id="module-configuration">
-<h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.22.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>ChargePointConfigPath</strong>:<em>string</em></div>
-<div class="line"><em>default:    charge_point_config.json</em></div>
+<div class="line"><em>default: charge_point_config.json</em></div>
+<div class="line-block">
 <div class="line">Path to the configuration file</div>
 </div>
-<div class="line-block">
 <div class="line"><strong>DatabasePath</strong>:<em>string</em></div>
-<div class="line"><em>default:    /tmp/ocpp_1_6_charge_point</em></div>
+<div class="line"><em>default: /tmp/ocpp_1_6_charge_point</em></div>
+<div class="line-block">
 <div class="line">Path to the persistent SQLite database folder</div>
 </div>
+<div class="line"><strong>EnableExternalWebsocketControl</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
 <div class="line-block">
+<div class="line">If true websocket can be disconnected and connected externally</div>
+</div>
+<div class="line"><strong>OcppMainPath</strong>:<em>string</em></div>
+<div class="line"><em>default: dist/ocpp</em></div>
+<div class="line-block">
+<div class="line">Main path of OCPP module</div>
+</div>
 <div class="line"><strong>SchemasPath</strong>:<em>string</em></div>
-<div class="line"><em>default:    /tmp/ocpp_1_6_charge_point</em></div>
+<div class="line"><em>default: /tmp/ocpp_1_6_charge_point</em></div>
+<div class="line-block">
 <div class="line">Path to the schemas folder in which the OCPP 1.6 schemas reside</div>
+</div>
+<div class="line"><strong>ScriptsPath</strong>:<em>string</em></div>
+<div class="line"><em>default: dist/bin</em></div>
+<div class="line-block">
+<div class="line">Path to the script folder in which the OCPP 1.6 scripts for firmware update und log upload reside</div>
+</div>
 </div>
 </section>
 <section id="provides">
-<h2>Provides<a class="headerlink" href="#provides" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.22.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>auth_validator</strong>:<em>auth_token_validator</em></div>
+<div class="line"><strong>auth_provider</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
+<div class="line-block">
+<div class="line">Provides auth tokens from OCPP</div>
+</div>
+<div class="line"><strong>auth_validator</strong>:<a class="reference internal" href="../interfaces/auth_token_validator.html#everest-interfaces-auth-token-validator"><span class="std std-ref">auth_token_validator</span></a></div>
+<div class="line-block">
 <div class="line">Validates the provided auth token with OCPP</div>
 </div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/ocpp_1_6_charge_point.html#everest-interfaces-ocpp-1-6-charge-point"><span class="std std-ref">ocpp_1_6_charge_point</span></a></div>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<em>ocpp_1_6_charge_point</em></div>
 <div class="line">This is a OCPP 1.6 charge point</div>
+</div>
 </div>
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.22.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>evse_manager</strong>:<em>evse_manager</em></div>
-<div class="line"><strong>powermeter</strong>:<em>powermeter</em></div>
+<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
 </div>
 </section>
 <section id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.22.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.22.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Kai-Uwe Hermann</div>
 </div>
 </section>
 <section id="license">
-<h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></p>
+<h3><span class="section-number">5.22.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
 </section>
 </section>
 </section>
@@ -107,28 +131,33 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">OCPP</a><ul>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
-<li><a class="reference internal" href="#provides">Provides</a></li>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
-<li><a class="reference internal" href="#metadata">Metadata</a><ul>
-<li><a class="reference internal" href="#authors">Authors</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">5.22. OCPP</a><ul>
+<li><a class="reference internal" href="#module-configuration">5.22.1. Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">5.22.2. Provides</a></li>
+<li><a class="reference internal" href="#requirements">5.22.3. Requirements</a></li>
+<li><a class="reference internal" href="#metadata">5.22.4. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">5.22.4.1. Authors</a></li>
+<li><a class="reference internal" href="#license">5.22.4.2. License</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="ModbusMeter.html"
-                        title="previous chapter">ModbusMeter</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="Power.html"
-                        title="next chapter">Power</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ModbusMeter.html"
+                          title="previous chapter"><span class="section-number">5.21. </span>ModbusMeter</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="PN532TokenProvider.html"
+                          title="next chapter"><span class="section-number">5.23. </span>PN532TokenProvider</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -145,7 +174,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -157,19 +186,19 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Power.html" title="Power"
+          <a href="PN532TokenProvider.html" title="5.23. PN532TokenProvider"
              >next</a> |</li>
         <li class="right" >
-          <a href="ModbusMeter.html" title="ModbusMeter"
+          <a href="ModbusMeter.html" title="5.21. ModbusMeter"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" >EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">OCPP</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.22. </span>OCPP</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
     </div>
   </body>
 </html>

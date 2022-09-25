@@ -1,25 +1,23 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>5.29. YetiDriver &#8212; EVerest  documentation</title>
+    <title>YetiDriver &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="6. EVerest Interfaces" href="../everest_interfaces.html" />
-    <link rel="prev" title="5.28. SunspecScanner" href="SunspecScanner.html" /> 
+    <link rel="prev" title="Store" href="Store.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,14 +26,11 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../everest_interfaces.html" title="6. EVerest Interfaces"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="SunspecScanner.html" title="5.28. SunspecScanner"
+          <a href="Store.html" title="Store"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.29. </span>YetiDriver</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U">EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YetiDriver</a></li> 
       </ul>
     </div>  
 
@@ -45,77 +40,68 @@
           <div class="body" role="main">
             
   <section id="yetidriver">
-<span id="everest-modules-yetidriver"></span><h1><span class="section-number">5.29. </span>YetiDriver<a class="headerlink" href="#yetidriver" title="Permalink to this heading">¶</a></h1>
-<div class="line-block">
-<div class="line">Driver module for the YETI hardware v1.0</div>
-</div>
+<h1>YetiDriver<a class="headerlink" href="#yetidriver" title="Permalink to this headline">¶</a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Driver module for the YETI hardware v1.0</p>
+</section>
 <section id="module-configuration">
-<h2><span class="section-number">5.29.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>baud_rate</strong>:<em>integer</em></div>
-<div class="line"><em>default: 115200</em></div>
-<div class="line-block">
+<div class="line"><em>default:    115200</em></div>
 <div class="line">Serial baud rate to use when communicating with Yeti hardware</div>
 </div>
+<div class="line-block">
 <div class="line"><strong>control_mode</strong>:<em>string</em></div>
-<div class="line"><em>default: low</em></div>
-<div class="line-block">
+<div class="line"><em>default:    low</em></div>
 <div class="line">none, high or low</div>
-<div class="line">enum: none, high, low</div>
 </div>
-<div class="line"><strong>reset_gpio</strong>:<em>integer</em></div>
-<div class="line"><em>default: -1</em></div>
 <div class="line-block">
-<div class="line">Reset GPIO number to use to HW reset Yeti. If set &lt;0 it is disabled.</div>
-</div>
 <div class="line"><strong>serial_port</strong>:<em>string</em></div>
-<div class="line"><em>default: /dev/ttyUSB0</em></div>
-<div class="line-block">
+<div class="line"><em>default:    /dev/ttyUSB0</em></div>
 <div class="line">Serial port the Yeti hardware is connected to</div>
-</div>
 </div>
 </section>
 <section id="provides">
-<h2><span class="section-number">5.29.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2>Provides<a class="headerlink" href="#provides" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>board_support</strong>:<a class="reference internal" href="../interfaces/board_support_AC.html#everest-interfaces-board-support-ac"><span class="std std-ref">board_support_AC</span></a></div>
-<div class="line-block">
+<div class="line"><strong>board_support</strong>:<em>board_support_AC</em></div>
 <div class="line">provides the board support Interface to low level control control pilot, relais, rcd, motor lock</div>
 </div>
-<div class="line"><strong>debug_keepalive</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
 <div class="line-block">
+<div class="line"><strong>debug_keepalive</strong>:<em>debug_json</em></div>
 <div class="line">Provides the keepalive as a json object</div>
 </div>
-<div class="line"><strong>debug_powermeter</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
 <div class="line-block">
+<div class="line"><strong>debug_powermeter</strong>:<em>debug_json</em></div>
 <div class="line">Provides the powermeter as a json object</div>
 </div>
-<div class="line"><strong>debug_state</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
 <div class="line-block">
+<div class="line"><strong>debug_state</strong>:<em>debug_json</em></div>
 <div class="line">Provides the state as a json object</div>
 </div>
-<div class="line"><strong>debug_yeti</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
 <div class="line-block">
+<div class="line"><strong>debug_yeti</strong>:<em>debug_json</em></div>
 <div class="line">provides the debug information of the charging driver</div>
 </div>
-<div class="line"><strong>powermeter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
 <div class="line-block">
+<div class="line"><strong>powermeter</strong>:<em>powermeter</em></div>
 <div class="line">provides the Yeti Internal Power Meter</div>
 </div>
-<div class="line"><strong>yeti_extras</strong>:<a class="reference internal" href="../interfaces/yeti_extras.html#everest-interfaces-yeti-extras"><span class="std std-ref">yeti_extras</span></a></div>
 <div class="line-block">
+<div class="line"><strong>yeti_extras</strong>:<em>yeti_extras</em></div>
 <div class="line">extra functionality special for Yeti</div>
 </div>
-<div class="line"><strong>yeti_simulation_control</strong>:<a class="reference internal" href="../interfaces/yeti_simulation_control.html#everest-interfaces-yeti-simulation-control"><span class="std std-ref">yeti_simulation_control</span></a></div>
 <div class="line-block">
+<div class="line"><strong>yeti_simulation_control</strong>:<em>yeti_simulation_control</em></div>
 <div class="line">Interface for the Yeti HIL simulator</div>
-</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">5.29.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">5.29.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
 <div class="line">Cornelius Claussen</div>
 <div class="line">Kai-Uwe Hermann</div>
@@ -124,10 +110,8 @@
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">5.29.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
-</div>
+<h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></p>
 </section>
 </section>
 </section>
@@ -139,32 +123,24 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <div>
-    <h3><a href="../../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">5.29. YetiDriver</a><ul>
-<li><a class="reference internal" href="#module-configuration">5.29.1. Module Configuration</a></li>
-<li><a class="reference internal" href="#provides">5.29.2. Provides</a></li>
-<li><a class="reference internal" href="#metadata">5.29.3. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">5.29.3.1. Authors</a></li>
-<li><a class="reference internal" href="#license">5.29.3.2. License</a></li>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">YetiDriver</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">Provides</a></li>
+<li><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li><a class="reference internal" href="#authors">Authors</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="SunspecScanner.html"
-                          title="previous chapter"><span class="section-number">5.28. </span>SunspecScanner</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="../everest_interfaces.html"
-                          title="next chapter"><span class="section-number">6. </span>EVerest Interfaces</a></p>
-  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Store.html"
+                        title="previous chapter">Store</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -181,7 +157,7 @@
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -193,19 +169,16 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../everest_interfaces.html" title="6. EVerest Interfaces"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="SunspecScanner.html" title="5.28. SunspecScanner"
+          <a href="Store.html" title="Store"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.29. </span>YetiDriver</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" >EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">YetiDriver</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
     </div>
   </body>
 </html>

@@ -1,109 +1,54 @@
+.. EvseManager
 
-.. _everest_modules_EvseManager:
-
-###########
+******************************
 EvseManager
+******************************
+
+Description
 ###########
-| EVSE Manager
+EVSE Manager
 
 
-********************
 Module Configuration
-********************
-| **ac_enforce_hlc**:*boolean*
-| *default: False*
-|  Combine with 5percent option to really enforce HLC even with EIM. It is not ISO15118-2/-3 compliant as it waits for matching even if EIM is available before SLAC reaches matched state. On cars that do not support ISO15118 on AC this will take a very long time to timeout and fall back to basic nominal PWM charging, but it will eventually.
-| **ac_hlc_enabled**:*boolean*
-| *default: False*
-|  Enable or disable HLC (aka ISO15118) for AC mode
-| **ac_hlc_use_5percent**:*boolean*
-| *default: False*
-|  Use 5 percent PWM signalling to try to enforce HLC on AC. Note that if EIM arrives before SLAC matching, we will fall back to nominal PWM charging. So most cars will never use HLC in this mode, especially on a free service where EIM is always available, but that is what ISO15118-2/-3 requires to be compliant - it wants to use HLC only for PnC and not for EIM.
-| **ac_nominal_voltage**:*number*
-| *default: 230*
-|  Nominal AC voltage between phase and neutral in Volt
-| **ac_with_soc**:*boolean*
-| *default: False*
-|  Special mode that switches between AC and DC charging to get SoC percentage with AC charging
-| **charge_mode**:*string*
-| *default: AC*
-|  Select charging mode
-|  enum: AC, DC
+####################
 | **country_code**:*string*
-| *default: DE*
-|  Country Code
-| **dbg_hlc_auth_after_tstep**:*boolean*
-| *default: False*
-|  Special mode: send HLC auth ok only after t_step_XX is finished (true) or directly when available (false)
-| **dc_current_regulation_tolerance**:*number*
-| *default: 5*
-|  DC current regulation tolerance in Ampere
-| **dc_peak_current_ripple**:*number*
-| *default: 5*
-|  DC peal current ripple in Ampere
-| **ev_receipt_required**:*boolean*
-| *default: False*
-|  Unsupported: request receipt from EV with HLC
-| **evse_id**:*string*
-| *default: DE*PNX*E1234567*1*
-|  EVSE ID
+| *default:    DE*
+| Country Code
+
 | **has_ventilation**:*boolean*
-| *default: True*
-|  Allow ventilated charging or not
-| **max_current**:*number*
-| *default: 32*
-|  User configurable current limit for this EVSE
-| **payment_enable_contract**:*boolean*
-| *default: True*
-|  Set to true to enable contract (aka plug and charge) authorization
-| **payment_enable_eim**:*boolean*
-| *default: True*
-|  Set to true to enable EIM (e.g. RFID card or mobile app) authorization
+| *default:    True*
+| Allow ventilated charging or not
+
 | **rcd_enabled**:*boolean*
-| *default: True*
-|  Enable or disable RCD
-| **session_logging**:*boolean*
-| *default: False*
-|  Enable/Disable session log file output
-| **session_logging_path**:*string*
-| *default: /tmp*
-|  Output directory for session log files
-| **session_logging_xml**:*boolean*
-| *default: True*
-|  Log full XML messages for HLC
+| *default:    True*
+| Enable or disable RCD
+
 | **three_phases**:*boolean*
-| *default: True*
-|  Limit to three phases (true) or one phase (false)
+| *default:    True*
+| Start with three phases enabled or not
 
-********
+
 Provides
-********
-| **energy_grid**::ref:`energy <everest_interfaces_energy>`
-|  This is the tree leaf interface to build the energy supply tree
-| **evse**::ref:`evse_manager <everest_interfaces_evse_manager>`
-|  This is the main evsemanager interface
-| **token_provider**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`
-|  Provides authtokens for autocharge or plug and charge
+########
+| **evse**:*evse_manager*
+| This is the main evsemanager interface
 
-************
+| **evse_energy_control**:*evse_manager_energy_control*
+| Singelton interface: implements energy control interface for energy manager
+
+
 Requirements
-************
-| **auth**::ref:`auth <everest_interfaces_auth>`
-| **bsp**::ref:`board_support_AC <everest_interfaces_board_support_AC>`
-| **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>`
-| **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>`
-| **powermeter**::ref:`powermeter <everest_interfaces_powermeter>`
-| **slac**::ref:`slac <everest_interfaces_slac>`
+############
+| **bsp**:*board_support_AC*
+| **powermeter**:*powermeter*
 
-********
+
 Metadata
-********
+########
 Authors
-=======
+*******
 | Cornelius Claussen
 | Anton Woellert
-
 License
-=======
-| https://spdx.org/licenses/Apache-2.0.html
-
+*******
+https://spdx.org/licenses/Apache-2.0.html

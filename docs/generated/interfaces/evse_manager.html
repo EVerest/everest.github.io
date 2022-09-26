@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>6.3. evse_manager &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6.4. powermeter" href="powermeter.html" />
+    <link rel="prev" title="6.2. isolation_monitor" href="isolation_monitor.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="powermeter.html" title="6.4. powermeter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="6.2. isolation_monitor"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" accesskey="U"><span class="section-number">6. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.3. </span>evse_manager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="evse-manager">
+<span id="everest-interfaces-evse-manager"></span><h1><span class="section-number">6.3. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This interface defines the main evse manager</div>
+</div>
+<section id="variables">
+<h2><span class="section-number">6.3.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>session_events</strong>:<em>object</em> (<a class="reference internal" href="../types/evse_manager.html#evse-manager-sessionevents"><span class="std std-ref">evse_manager-SessionEvents</span></a>)</div>
+<div class="line-block">
+<div class="line">Emits all events related to sessions</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-sessionevents"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>limits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Limits of this evse, published on change</div>
+<div class="line">required: max_current, nr_of_phases_available</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>uuid</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This module’s UUID for global identification</div>
+</div>
+<div class="line"><strong>max_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Instantaneous maximum current available to car</div>
+</div>
+<div class="line"><strong>nr_of_phases_available</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Instantaneous phase count available to car</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>telemetry</strong>:<em>object</em> (<a class="reference internal" href="../types/board_support.html#board-support-telemetry"><span class="std std-ref">board_support-Telemetry</span></a>)</div>
+<div class="line-block">
+<div class="line">Other telemetry</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support.html#board-support-telemetry"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>powermeter</strong>:<em>object</em> (<a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line-block">
+<div class="line">Measured dataset</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>evse_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVSE ID including the connector number, e.g. DE*PNX*E123456*1</div>
+</div>
+</div>
+</section>
+<section id="commands">
+<h2><span class="section-number">6.3.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>enable</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Enables the evse</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if evse was enabled (or was enabled before), returns false if enable failed e.g. due to permanent fault.</div>
+</div>
+</div>
+<div class="line"><strong>disable</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Disables the evse</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if evse was disabled (or was disabled before), returns false if it could not be disabled (i.e. due to communication error with hardware)</div>
+</div>
+</div>
+<div class="line"><strong>set_faulted</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Sets the evse manager to faulted</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if evse was set to faulted (or is already in that state)</div>
+</div>
+</div>
+<div class="line"><strong>pause_charging</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Pauses charging</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if successfully paused or was already in paused_by_evse mode</div>
+</div>
+</div>
+<div class="line"><strong>resume_charging</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Resumes charging</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if resume was successful, false otherwise (e.g. resuming a car pause won’t work)</div>
+</div>
+</div>
+<div class="line"><strong>cancel_charging</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Cancels charging, can only be resumed by replugging car</div>
+<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="../types/evse_manager.html#evse-manager-sessioncancellationreason"><span class="std std-ref">evse_manager-SessionCancellationReason</span></a>)</div>
+<div class="line-block">
+<div class="line">Reason for session cancellation</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-sessioncancellationreason"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if successful</div>
+</div>
+</div>
+<div class="line"><strong>accept_new_session</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Call when cleanup is done and new cars are allowed to plugin. Do not use multiple cleanup handlers, call from only one module!</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if successful</div>
+</div>
+</div>
+<div class="line"><strong>reserve_now</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Reserves this evse for a given auth token. No support for parent id tags or id 0 reservations.</div>
+<div class="line"><strong>reservation_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Reservation id for this reservation</div>
+</div>
+<div class="line"><strong>auth_token</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The authentication token that this evse will be reserved for</div>
+</div>
+<div class="line"><strong>expiry_date</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Absolute UTC time point when reservation expires (RFC3339 format)</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>parent_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Parent id of the authentication token</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/evse_manager.html#evse-manager-reservationresult"><span class="std std-ref">evse_manager-ReservationResult</span></a>)</div>
+<div class="line-block">
+<div class="line">Returns Accepted if reservation was succesfull or specifies error code.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-reservationresult"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>cancel_reservation</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Cancels current reservation</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if reservation was cancelled. Returns false if there was no reservation to cancel.</div>
+</div>
+</div>
+<div class="line"><strong>force_unlock</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Force unlock connector now. During normal operation, connector will be locked/unlocked in the correct sequence. Do not use this function except if explicitly requested by e.g. management cloud.</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if unlocking sequence was successfully executed</div>
+</div>
+</div>
+<div class="line"><strong>set_local_max_current</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Sets the local maximum current limit for any phase.</div>
+<div class="line"><strong>max_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">maximum current</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/evse_manager.html#evse-manager-setlocalmaxcurrentresult"><span class="std std-ref">evse_manager-SetLocalMaxCurrentResult</span></a>)</div>
+<div class="line-block">
+<div class="line">Returns success or error code</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-setlocalmaxcurrentresult"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>switch_three_phases_while_charging</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Switch three phases while charging</div>
+<div class="line"><strong>three_phases</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True if switching three phases whilst charging, false if not</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/evse_manager.html#evse-manager-switchthreephaseswhilechargingresult"><span class="std std-ref">evse_manager-SwitchThreePhasesWhileChargingResult</span></a>)</div>
+<div class="line-block">
+<div class="line">Returns success or error code</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-switchthreephaseswhilechargingresult"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>get_signed_meter_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Returns a signed meter value. Includes current auth token if session is running.</div>
+<div class="line"><strong>Result</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Signed meter value</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">6.3. evse_manager</a><ul>
+<li><a class="reference internal" href="#variables">6.3.1. Variables</a></li>
+<li><a class="reference internal" href="#commands">6.3.2. Commands</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="isolation_monitor.html"
+                          title="previous chapter"><span class="section-number">6.2. </span>isolation_monitor</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermeter.html"
+                          title="next chapter"><span class="section-number">6.4. </span>powermeter</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/interfaces/evse_manager.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="powermeter.html" title="6.4. powermeter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="6.2. isolation_monitor"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" ><span class="section-number">6. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.3. </span>evse_manager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+  </body>
+</html>

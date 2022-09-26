@@ -1,0 +1,740 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>6.1. ISO15118_charger &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6.2. isolation_monitor" href="isolation_monitor.html" />
+    <link rel="prev" title="6. EVerest Interfaces" href="../everest_interfaces.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="6.2. isolation_monitor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../everest_interfaces.html" title="6. EVerest Interfaces"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" accesskey="U"><span class="section-number">6. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.1. </span>ISO15118_charger</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="iso15118-charger">
+<span id="everest-interfaces-iso15118-charger"></span><h1><span class="section-number">6.1. </span>ISO15118_charger<a class="headerlink" href="#iso15118-charger" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This interface defines a ISO15118 charger.</div>
+</div>
+<section id="variables">
+<h2><span class="section-number">6.1.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>Require_Auth_EIM</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">An EIM authorization is requiered</div>
+</div>
+<div class="line"><strong>Require_Auth_PnC</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">An PnC authorization is requiered</div>
+</div>
+<div class="line"><strong>Require_EVSEIsolationCheck</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">An insulation check of the DC cable of the EVSE is necessary</div>
+</div>
+<div class="line"><strong>AC_Close_Contactor</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">If true, the contactor should be closed</div>
+</div>
+<div class="line"><strong>AC_Open_Contactor</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">If true, the contactor should be opened</div>
+</div>
+<div class="line"><strong>V2G_Setup_Finished</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">V2G_Setup_Finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop</div>
+</div>
+<div class="line"><strong>EVCCIDD</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Specifies the EVs identification in a readable format. It contains the MAC address of the EVCC</div>
+<div class="line">pattern:</div>
+</div>
+<div class="line"><strong>SelectedPaymentOption</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This element is used for indicating the payment type</div>
+<div class="line">enum: Contract, ExternalPayment</div>
+</div>
+<div class="line"><strong>RequestedEnergyTransferMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Selected energy transfer mode for charging that is requested by the EVCC.</div>
+<div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
+</div>
+<div class="line"><strong>DepartureTime</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Optional: [RFC3339 UTC] This element is used to indicate when the vehicle intends to finish the charging process</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>AC_EAmount</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[Wh] Amount of energy reflecting the EV’s estimate how much energy is needed to fulfill the user configured charging goal for the current charging session</div>
+</div>
+<div class="line"><strong>AC_EVMaxVoltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] The RMS of the maximal nominal voltage the vehicle can accept, measured between one phase and neutral</div>
+</div>
+<div class="line"><strong>AC_EVMaxCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Maximum current supported by the EV per phase</div>
+</div>
+<div class="line"><strong>AC_EVMinCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] EVMinCurrent is used to indicate to the SECC that charging below this minimum is not energy/cost efficient for the EV</div>
+</div>
+<div class="line"><strong>DC_EVEnergyCapacity</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Optional: [Wh] Energy capacity of the EV</div>
+</div>
+<div class="line"><strong>DC_EVEnergyRequest</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Optional: [Wh] Amount of energy the EV requests from the EVSE</div>
+</div>
+<div class="line"><strong>DC_FullSOC</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Optional: [%] SOC at which the EV considers the battery to be fully charged</div>
+</div>
+<div class="line"><strong>DC_BulkSOC</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Optional: [%] SOC at which the EV considers a fast charge process to end</div>
+</div>
+<div class="line"><strong>DC_EVReady</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">If set to TRUE, the EV is ready to charge</div>
+</div>
+<div class="line"><strong>DC_EVErrorCode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the EV internal status</div>
+<div class="line">enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData</div>
+</div>
+<div class="line"><strong>DC_EVRESSSOC</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">State of charge of the EVs battery (RESS)</div>
+</div>
+<div class="line"><strong>EV_ChargingSession</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">ChargingSession indicates the intention of the EVCC to either pause or terminate a V2G Communication Session</div>
+<div class="line">enum: Terminate, Pause</div>
+</div>
+<div class="line"><strong>DC_BulkChargingComplete</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Optional: If set to TRUE, the EV indicates that bulk charge (approx. 80% SOC) is complete</div>
+</div>
+<div class="line"><strong>DC_ChargingComplete</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Optional: If set to TRUE, the EV indicates that full charge (100% SOC) is complete</div>
+</div>
+<div class="line"><strong>DC_EVTargetVoltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Target Voltage requested by EV</div>
+</div>
+<div class="line"><strong>DC_EVTargetCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Current demanded by EV</div>
+</div>
+<div class="line"><strong>DC_EVMaximumCurrentLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Maximum current supported and allowed by the EV</div>
+</div>
+<div class="line"><strong>DC_EVMaximumPowerLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Optional: [W] Maximum power supported and allowed by the EV</div>
+</div>
+<div class="line"><strong>DC_EVMaximumVoltageLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Maximum voltage supported and allowed by the EV</div>
+</div>
+<div class="line"><strong>EV_RemainingTimeToFullSoC</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">[RFC3339 UTC] Estimated or calculated time until full charge (100% SOC) is complete</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>EV_RemainingTimeToBulkSoC</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">[RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>EV_AppProtocol</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Debug_Lite - This request message provides a list of charging protocols supported by the EVCC</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line">ProtocolNamespace:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">VersionNumberMajor:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">VersionNumberMinor:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">SchemaID:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">Priority:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>V2G_Messages</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Debug - This element contains all V2G elements and should be used for debug purposes only</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>V2G_Message_ID</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This element contains the id of the v2g message body</div>
+<div class="line">enum: SupportedAppProtocolReq, SupportedAppProtocolRes, SessionSetupReq, SessionSetupRes, ServiceDiscoveryReq, ServiceDiscoveryRes, ServiceDetailReq, ServiceDetailRes, PaymentServiceSelectionReq, PaymentServiceSelectionRes, AuthorizationReq, AuthorizationRes, ChargeParameterDiscoveryReq, ChargeParameterDiscoveryRes, ChargingStatusReq, ChargingStatusRes, PowerDeliveryReq, PowerDeliveryRes, CableCheckReq, CableCheckRes, PreChargeReq, PreChargeRes, CurrentDemandReq, CurrentDemandRes, WeldingDetectionReq, WeldingDetectionRes, SessionStopReq, SessionStopRes</div>
+</div>
+<div class="line"><strong>V2G_Message_XML</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the decoded EXI stream as V2G message XML file</div>
+</div>
+<div class="line"><strong>V2G_Message_JSON</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the decoded EXI stream as V2G message JSON file</div>
+</div>
+<div class="line"><strong>V2G_Message_EXI_Hex</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the EXI stream as hex string</div>
+</div>
+<div class="line"><strong>V2G_Message_EXI_Base64</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the EXI stream as base64 string</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="commands">
+<h2><span class="section-number">6.1.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>set_EVSEID</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot - Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to</div>
+<div class="line"><strong>EVSEID</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVSE ID</div>
+</div>
+</div>
+<div class="line"><strong>set_PaymentOptions</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot - Providing a list of payment options to the EVCC</div>
+<div class="line"><strong>PaymentOptions</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">An array of payment options</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">enum: Contract, ExternalPayment</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>set_SupportedEnergyTransferMode</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot - Available energy transfer modes supported by the EVSE</div>
+<div class="line"><strong>SupportedEnergyTransferMode</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">An array of supported engery modes</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>set_AC_EVSENominalVoltage</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot - Set Line voltage supported by the EVSE. This is the voltage measured between one phases and neutral</div>
+<div class="line"><strong>EVSENominalVoltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Nominal Voltage</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSECurrentRegulationTolerance</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot (Optional) - Set the absolute magnitude of the regulation tolerance of the EVSA</div>
+<div class="line"><strong>EVSECurrentRegulationTolerance</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set EVSECurrentRegulationTolerance [A]</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEPeakCurrentRipple</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot - Set the peak-to-peak magnitude of the current ripple of the EVSE</div>
+<div class="line"><strong>EVSEPeakCurrentRipple</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set EVSEPeakCurrentRipple [A]</div>
+</div>
+</div>
+<div class="line"><strong>set_ReceiptRequired</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">One Time Setup at Boot (Optional) - This element is used by the SECC to indicate that the EVCC is required to send a MeteringReceiptReq message for the purpose of signing the meter info record</div>
+<div class="line"><strong>ReceiptRequired</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Receipt is required, False: Receipt is not required</div>
+</div>
+</div>
+<div class="line"><strong>set_FreeService</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">On Session Setup - Set FreeService so the EVCC can use the service free of charge or not</div>
+<div class="line"><strong>FreeService</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Charging is free, False: Charging is not free</div>
+</div>
+</div>
+<div class="line"><strong>set_EVSEEnergyToBeDelivered</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">On Session Setup (Optional) - Set the Amount of energy to be delivered by the EVSE</div>
+<div class="line"><strong>EVSEEnergyToBeDelivered</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set EVSEEnergyToBeDelivered [Wh]</div>
+</div>
+</div>
+<div class="line"><strong>enable_debug_mode</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line-block">
+<div class="line">On Session Setup - Set different modes for the debug mode.</div>
+</div>
+<div class="line"><strong>debug_mode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The various debug modes</div>
+<div class="line">enum: None, Lite, Full</div>
+</div>
+</div>
+<div class="line"><strong>set_Auth_Okay_EIM</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Response on Require_Auth_EIM - Set this element if the authorization was either successful or unsuccessful</div>
+<div class="line"><strong>auth_okay_eim</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Authentication is okay</div>
+</div>
+</div>
+<div class="line"><strong>set_Auth_Okay_PnC</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Response on Require_Auth_PnC - Set this element if the authorization was either successful or unsuccessful</div>
+<div class="line"><strong>auth_okay_pnc</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Authentication is okay</div>
+</div>
+</div>
+<div class="line"><strong>set_FAILED_ContactorError</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Any Time - Set this error when the contactor is opened or closed at the wrong moment</div>
+<div class="line"><strong>ContactorError</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: ContactError happend</div>
+</div>
+</div>
+<div class="line"><strong>set_RCD_Error</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Any Time - Indicates the current status of the Residual Current Device (RCD)</div>
+<div class="line"><strong>RCD</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">If RCD is equal to true, the RCD has detected an error. If RCD is equal to false, the RCD has not detected an error</div>
+</div>
+</div>
+<div class="line"><strong>stop_charging</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">During charging - Stops the charging process</div>
+<div class="line"><strong>stop_charging</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Stop, False: Continue</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEPresentVoltage</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Starting from PowerDelivery to WeldingDetection - Set the present voltage for the EVSE</div>
+<div class="line"><strong>EVSEPresentVoltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Output voltage of the EVSE as defined in IEC CDV 61851-23</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEPresentCurrent</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">During charging - Set the present current for the EVSE</div>
+<div class="line"><strong>EVSEPresentCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Present output current of the EVSE</div>
+</div>
+</div>
+<div class="line"><strong>set_AC_EVSEMaxCurrent</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ChargeParameterDiscovery and during charging - Set the Maximum allowed line current restriction per phase</div>
+<div class="line"><strong>EVSEMaxCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Max current</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEMaximumCurrentLimit</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ChargeParameterDiscovery and during charging - Set the maximum current for the EVSE</div>
+<div class="line"><strong>EVSEMaximumCurrentLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Maximum current the EVSE can deliver</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEMaximumPowerLimit</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ChargeParameterDiscovery and during charging - Set the maximum power for the EVSE</div>
+<div class="line"><strong>EVSEMaximumPowerLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[W] Maximum power the EVSE can deliver</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEMaximumVoltageLimit</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ChargeParameterDiscovery and during charging - Set the maximum voltage for the EVSE</div>
+<div class="line"><strong>EVSEMaximumVoltageLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Maximum voltage the EVSE can deliver</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEMinimumCurrentLimit</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ChargeParameterDiscovery - Set the minimum current for the EVSE</div>
+<div class="line"><strong>EVSEMinimumCurrentLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Minimum current the EVSE can deliver with the expected accuracy</div>
+</div>
+</div>
+<div class="line"><strong>set_DC_EVSEMinimumVoltageLimit</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ChargeParameterDiscovery - Set the minimum voltage for the EVSE</div>
+<div class="line"><strong>EVSEMinimumVoltageLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Minimum voltage the EVSE can deliver with the expected accuracy</div>
+</div>
+</div>
+<div class="line"><strong>set_EVSEIsolationStatus</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">From ChargeParameterDiscovery to WeldingDetection (Optional) - Set the isolation condition (result of the isolation monitoring)</div>
+<div class="line"><strong>EVSEIsolationStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Set the isolation status</div>
+<div class="line">enum: Invalid, Valid, Warning, Fault, No_IMD</div>
+</div>
+</div>
+<div class="line"><strong>set_EVSE_UtilityInterruptEvent</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">From ChargeParameterDiscovery to WeldingDetection - Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load</div>
+<div class="line"><strong>EVSE_UtilityInterruptEvent</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Interrupt Event happend</div>
+</div>
+</div>
+<div class="line"><strong>set_EVSE_Malfunction</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Any Time - A non-recoverable charger fault has occurred (Isolation Failure, …). It is permanently faulted</div>
+<div class="line"><strong>EVSE_Malfunction</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Malfunction fault</div>
+</div>
+</div>
+<div class="line"><strong>set_EVSE_EmergencyShutdown</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Any Time - Charging System Incompatibility, Emergency Shutdown or ‘E-Stop’ button pressed at charging station</div>
+<div class="line"><strong>EVSE_EmergencyShutdown</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Emergency Stop</div>
+</div>
+</div>
+<div class="line"><strong>set_MeterInfo</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">During charging (Optional) - Includes the meterInfo record containing the latest meter reading and other meter relevant data</div>
+<div class="line"><strong>powermeter</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Measured dataset</div>
+<div class="line">required: timestamp</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Timestamp of measurement</div>
+</div>
+<div class="line"><strong>meter_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">A (user defined) meter if (e.g. id printed on the case)</div>
+</div>
+<div class="line"><strong>phase_seq_error</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">true for 3 phase rotation error (ccw)</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Imported energy in Wh (from grid)</div>
+<div class="line">required: total</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>total</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Sum value (which is relevant for billing)</div>
+</div>
+<div class="line"><strong>L1</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L1 value only</div>
+</div>
+<div class="line"><strong>L2</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L2 value only</div>
+</div>
+<div class="line"><strong>L3</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L3 value only</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Exported energy in Wh (to grid)</div>
+<div class="line">required: total</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>total</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Sum value (which is relevant for billing)</div>
+</div>
+<div class="line"><strong>L1</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L1 value only</div>
+</div>
+<div class="line"><strong>L2</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L2 value only</div>
+</div>
+<div class="line"><strong>L3</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L3 value only</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>power_W</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Instantaneous power in Watt. Negative values are exported, positive values imported Energy.</div>
+<div class="line">required: total</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>total</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Sum value</div>
+</div>
+<div class="line"><strong>L1</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L1 value only</div>
+</div>
+<div class="line"><strong>L2</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L2 value only</div>
+</div>
+<div class="line"><strong>L3</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L3 value only</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>voltage_V</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Voltage in Volts</div>
+<div class="line">required: L1</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>L1</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L1 value only</div>
+</div>
+<div class="line"><strong>L2</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L2 value only</div>
+</div>
+<div class="line"><strong>L3</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L3 value only</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>current_A</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Current in ampere</div>
+<div class="line">required: L1</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>L1</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L1 value only</div>
+</div>
+<div class="line"><strong>L2</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L2 value only</div>
+</div>
+<div class="line"><strong>L3</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L3 value only</div>
+</div>
+<div class="line"><strong>N</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Neutral value only</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>frequency_Hz</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Grid frequency in Hertz</div>
+<div class="line">required: L1</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>L1</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L1 value</div>
+</div>
+<div class="line"><strong>L2</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L2 value</div>
+</div>
+<div class="line"><strong>L3</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">L3 value</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>contactor_closed</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Response on AC_Close_Contactor - Set this element if the contactor is closed</div>
+<div class="line"><strong>status</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Contactor is closed</div>
+</div>
+</div>
+<div class="line"><strong>contactor_open</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Response on AC_Open_Contactor - Set this element if the contactor is open</div>
+<div class="line"><strong>status</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Contactor is open</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">6.1. ISO15118_charger</a><ul>
+<li><a class="reference internal" href="#variables">6.1.1. Variables</a></li>
+<li><a class="reference internal" href="#commands">6.1.2. Commands</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../everest_interfaces.html"
+                          title="previous chapter"><span class="section-number">6. </span>EVerest Interfaces</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="isolation_monitor.html"
+                          title="next chapter"><span class="section-number">6.2. </span>isolation_monitor</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/interfaces/ISO15118_charger.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="6.2. isolation_monitor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../everest_interfaces.html" title="6. EVerest Interfaces"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" ><span class="section-number">6. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.1. </span>ISO15118_charger</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+  </body>
+</html>

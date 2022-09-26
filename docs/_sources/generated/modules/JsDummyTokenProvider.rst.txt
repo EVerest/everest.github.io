@@ -1,39 +1,55 @@
-.. JsDummyTokenProvider
 
-******************************
+.. _everest_modules_JsDummyTokenProvider:
+
+####################
 JsDummyTokenProvider
-******************************
-
-Description
-###########
-Dummy token provider always returning one configured token
+####################
+| Dummy token provider that listens to AuthRequired event from evse_manager and then publishes one token
 
 
+
+********
 Provides
-########
-| **main**:*auth_token_provider*
-| Main implementation of dummy token provider always returning one configured token
-| config:
-|  **sleep**:*number*
-|  *default:    15*
-|  Time to wait between every publish of our dummy token string (in s)
-|  **timeout**:*number*
-|  *default:    10*
-|  Time our dummy token is valid (in s)
-|  **token**:*string*
-|  *default:    DEADC0DE*
-|  Dummy token string to return
-|  **type**:*string*
-|  *default:    dummy*
-|  Type to report for our dummy token
+********
+| **main**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`
+|  Main implementation of dummy token provider always returning one configured token
+|  config:
+|   timeout:
+|    description:
+|    type:
+|   token:
+|    default:
+|    description:
+|    type:
+|   type:
+|    default:
+|    description:
+|    type:
+|  config:
+|   **timeout**:*number*
+|   *default: 10*
+|    Time our dummy token is valid (in s)
+|   **token**:*string*
+|   *default: DEADBEEF*
+|    Dummy token string to return
+|   **type**:*string*
+|   *default: dummy*
+|    Type to report for our dummy token
 
+************
+Requirements
+************
+| **evse**::ref:`evse_manager <everest_interfaces_evse_manager>`
 
-
+********
 Metadata
-########
+********
 Authors
-*******
+=======
 | Thilo Molitor
+| Cornelius Claussen
+
 License
-*******
-https://opensource.org/licenses/Apache-2.0
+=======
+| https://opensource.org/licenses/Apache-2.0
+

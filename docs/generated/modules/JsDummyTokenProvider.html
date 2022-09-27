@@ -1,24 +1,25 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>JsDummyTokenProvider &#8212; EVerest  documentation</title>
+    <title>5.11. JsDummyTokenProvider &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="JsDummyTokenValidator" href="JsDummyTokenValidator.html" />
-    <link rel="prev" title="JsCarSimulator" href="JsCarSimulator.html" /> 
+    <link rel="next" title="5.12. JsDummyTokenProviderManual" href="JsDummyTokenProviderManual.html" />
+    <link rel="prev" title="5.10. JsCarV2G" href="JsCarV2G.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,14 +28,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="JsDummyTokenValidator.html" title="JsDummyTokenValidator"
+          <a href="JsDummyTokenProviderManual.html" title="5.12. JsDummyTokenProviderManual"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="JsCarSimulator.html" title="JsCarSimulator"
+          <a href="JsCarV2G.html" title="5.10. JsCarV2G"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U">EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">JsDummyTokenProvider</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.11. </span>JsDummyTokenProvider</a></li> 
       </ul>
     </div>  
 
@@ -44,44 +45,77 @@
           <div class="body" role="main">
             
   <section id="jsdummytokenprovider">
-<h1>JsDummyTokenProvider<a class="headerlink" href="#jsdummytokenprovider" title="Permalink to this headline">¶</a></h1>
-<section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Dummy token provider always returning one configured token</p>
-</section>
-<section id="provides">
-<h2>Provides<a class="headerlink" href="#provides" title="Permalink to this headline">¶</a></h2>
+<span id="everest-modules-jsdummytokenprovider"></span><h1><span class="section-number">5.11. </span>JsDummyTokenProvider<a class="headerlink" href="#jsdummytokenprovider" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<em>auth_token_provider</em></div>
+<div class="line">Dummy token provider that listens to AuthRequired event from evse_manager and then publishes one token</div>
+</div>
+<section id="provides">
+<h2><span class="section-number">5.11.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
+<div class="line-block">
 <div class="line">Main implementation of dummy token provider always returning one configured token</div>
 <div class="line">config:</div>
 <div class="line-block">
-<div class="line"><strong>sleep</strong>:<em>number</em></div>
-<div class="line"><em>default:    15</em></div>
-<div class="line">Time to wait between every publish of our dummy token string (in s)</div>
+<div class="line">timeout:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">token:</div>
+<div class="line-block">
+<div class="line">default:</div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">type:</div>
+<div class="line-block">
+<div class="line">default:</div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+</div>
+<div class="line">config:</div>
+<div class="line-block">
 <div class="line"><strong>timeout</strong>:<em>number</em></div>
-<div class="line"><em>default:    10</em></div>
+<div class="line"><em>default: 10</em></div>
+<div class="line-block">
 <div class="line">Time our dummy token is valid (in s)</div>
+</div>
 <div class="line"><strong>token</strong>:<em>string</em></div>
-<div class="line"><em>default:    DEADC0DE</em></div>
+<div class="line"><em>default: DEADBEEF</em></div>
+<div class="line-block">
 <div class="line">Dummy token string to return</div>
+</div>
 <div class="line"><strong>type</strong>:<em>string</em></div>
-<div class="line"><em>default:    dummy</em></div>
+<div class="line"><em>default: dummy</em></div>
+<div class="line-block">
 <div class="line">Type to report for our dummy token</div>
 </div>
 </div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">5.11.2. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>evse</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
+</div>
 </section>
 <section id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.11.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.11.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Thilo Molitor</div>
+<div class="line">Cornelius Claussen</div>
 </div>
 </section>
 <section id="license">
-<h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></p>
+<h3><span class="section-number">5.11.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
 </section>
 </section>
 </section>
@@ -93,26 +127,32 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">JsDummyTokenProvider</a><ul>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#provides">Provides</a></li>
-<li><a class="reference internal" href="#metadata">Metadata</a><ul>
-<li><a class="reference internal" href="#authors">Authors</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">5.11. JsDummyTokenProvider</a><ul>
+<li><a class="reference internal" href="#provides">5.11.1. Provides</a></li>
+<li><a class="reference internal" href="#requirements">5.11.2. Requirements</a></li>
+<li><a class="reference internal" href="#metadata">5.11.3. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">5.11.3.1. Authors</a></li>
+<li><a class="reference internal" href="#license">5.11.3.2. License</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="JsCarSimulator.html"
-                        title="previous chapter">JsCarSimulator</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="JsDummyTokenValidator.html"
-                        title="next chapter">JsDummyTokenValidator</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="JsCarV2G.html"
+                          title="previous chapter"><span class="section-number">5.10. </span>JsCarV2G</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="JsDummyTokenProviderManual.html"
+                          title="next chapter"><span class="section-number">5.12. </span>JsDummyTokenProviderManual</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -129,7 +169,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -141,19 +181,19 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="JsDummyTokenValidator.html" title="JsDummyTokenValidator"
+          <a href="JsDummyTokenProviderManual.html" title="5.12. JsDummyTokenProviderManual"
              >next</a> |</li>
         <li class="right" >
-          <a href="JsCarSimulator.html" title="JsCarSimulator"
+          <a href="JsCarV2G.html" title="5.10. JsCarV2G"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" >EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">JsDummyTokenProvider</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.11. </span>JsDummyTokenProvider</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
     </div>
   </body>
 </html>

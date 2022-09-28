@@ -1,25 +1,24 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>5.4. EvseManager &#8212; EVerest  documentation</title>
+    <title>EvseManager &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5.5. EvseSlac" href="EvseSlac.html" />
-    <link rel="prev" title="5.3. EnergyNode" href="EnergyNode.html" /> 
+    <link rel="next" title="Example" href="Example.html" />
+    <link rel="prev" title="EVerest Modules" href="../everest_modules.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,14 +27,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="EvseSlac.html" title="5.5. EvseSlac"
+          <a href="Example.html" title="Example"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="EnergyNode.html" title="5.3. EnergyNode"
+          <a href="../everest_modules.html" title="EVerest Modules"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.4. </span>EvseManager</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U">EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EvseManager</a></li> 
       </ul>
     </div>  
 
@@ -45,167 +44,64 @@
           <div class="body" role="main">
             
   <section id="evsemanager">
-<span id="everest-modules-evsemanager"></span><h1><span class="section-number">5.4. </span>EvseManager<a class="headerlink" href="#evsemanager" title="Permalink to this heading">¶</a></h1>
-<div class="line-block">
-<div class="line">EVSE Manager</div>
-</div>
-<section id="additional-documentation">
-<h2><span class="section-number">5.4.1. </span>Additional documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading">¶</a></h2>
-<p>Some example documentation for the module <code class="docutils literal notranslate"><span class="pre">EvseManager</span></code>.</p>
+<h1>EvseManager<a class="headerlink" href="#evsemanager" title="Permalink to this headline">¶</a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>EVSE Manager</p>
 </section>
 <section id="module-configuration">
-<h2><span class="section-number">5.4.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>ac_enforce_hlc</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">Combine with 5percent option to really enforce HLC even with EIM. It is not ISO15118-2/-3 compliant as it waits for matching even if EIM is available before SLAC reaches matched state. On cars that do not support ISO15118 on AC this will take a very long time to timeout and fall back to basic nominal PWM charging, but it will eventually.</div>
-</div>
-<div class="line"><strong>ac_hlc_enabled</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">Enable or disable HLC (aka ISO15118) for AC mode</div>
-</div>
-<div class="line"><strong>ac_hlc_use_5percent</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">Use 5 percent PWM signalling to try to enforce HLC on AC. Note that if EIM arrives before SLAC matching, we will fall back to nominal PWM charging. So most cars will never use HLC in this mode, especially on a free service where EIM is always available, but that is what ISO15118-2/-3 requires to be compliant - it wants to use HLC only for PnC and not for EIM.</div>
-</div>
-<div class="line"><strong>ac_nominal_voltage</strong>:<em>number</em></div>
-<div class="line"><em>default: 230</em></div>
-<div class="line-block">
-<div class="line">Nominal AC voltage between phase and neutral in Volt</div>
-</div>
-<div class="line"><strong>ac_with_soc</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">Special mode that switches between AC and DC charging to get SoC percentage with AC charging</div>
-</div>
-<div class="line"><strong>charge_mode</strong>:<em>string</em></div>
-<div class="line"><em>default: AC</em></div>
-<div class="line-block">
-<div class="line">Select charging mode</div>
-<div class="line">enum: AC, DC</div>
-</div>
 <div class="line"><strong>country_code</strong>:<em>string</em></div>
-<div class="line"><em>default: DE</em></div>
-<div class="line-block">
+<div class="line"><em>default:    DE</em></div>
 <div class="line">Country Code</div>
 </div>
-<div class="line"><strong>dbg_hlc_auth_after_tstep</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Special mode: send HLC auth ok only after t_step_XX is finished (true) or directly when available (false)</div>
-</div>
-<div class="line"><strong>dc_current_regulation_tolerance</strong>:<em>number</em></div>
-<div class="line"><em>default: 5</em></div>
-<div class="line-block">
-<div class="line">DC current regulation tolerance in Ampere</div>
-</div>
-<div class="line"><strong>dc_peak_current_ripple</strong>:<em>number</em></div>
-<div class="line"><em>default: 5</em></div>
-<div class="line-block">
-<div class="line">DC peal current ripple in Ampere</div>
-</div>
-<div class="line"><strong>ev_receipt_required</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">Unsupported: request receipt from EV with HLC</div>
-</div>
-<div class="line"><strong>evse_id</strong>:<em>string</em></div>
-<div class="line"><em>default: DE*PNX*E1234567*1</em></div>
-<div class="line-block">
-<div class="line">EVSE ID</div>
-</div>
 <div class="line"><strong>has_ventilation</strong>:<em>boolean</em></div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
+<div class="line"><em>default:    True</em></div>
 <div class="line">Allow ventilated charging or not</div>
 </div>
-<div class="line"><strong>max_current</strong>:<em>number</em></div>
-<div class="line"><em>default: 32</em></div>
 <div class="line-block">
-<div class="line">User configurable current limit for this EVSE</div>
-</div>
-<div class="line"><strong>payment_enable_contract</strong>:<em>boolean</em></div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
-<div class="line">Set to true to enable contract (aka plug and charge) authorization</div>
-</div>
-<div class="line"><strong>payment_enable_eim</strong>:<em>boolean</em></div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
-<div class="line">Set to true to enable EIM (e.g. RFID card or mobile app) authorization</div>
-</div>
 <div class="line"><strong>rcd_enabled</strong>:<em>boolean</em></div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
+<div class="line"><em>default:    True</em></div>
 <div class="line">Enable or disable RCD</div>
 </div>
-<div class="line"><strong>session_logging</strong>:<em>boolean</em></div>
-<div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Enable/Disable session log file output</div>
-</div>
-<div class="line"><strong>session_logging_path</strong>:<em>string</em></div>
-<div class="line"><em>default: /tmp</em></div>
-<div class="line-block">
-<div class="line">Output directory for session log files</div>
-</div>
-<div class="line"><strong>session_logging_xml</strong>:<em>boolean</em></div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
-<div class="line">Log full XML messages for HLC</div>
-</div>
 <div class="line"><strong>three_phases</strong>:<em>boolean</em></div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
-<div class="line">Limit to three phases (true) or one phase (false)</div>
-</div>
+<div class="line"><em>default:    True</em></div>
+<div class="line">Start with three phases enabled or not</div>
 </div>
 </section>
 <section id="provides">
-<h2><span class="section-number">5.4.3. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2>Provides<a class="headerlink" href="#provides" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>energy_grid</strong>:<a class="reference internal" href="../interfaces/energy.html#everest-interfaces-energy"><span class="std std-ref">energy</span></a></div>
-<div class="line-block">
-<div class="line">This is the tree leaf interface to build the energy supply tree</div>
-</div>
-<div class="line"><strong>evse</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
-<div class="line-block">
+<div class="line"><strong>evse</strong>:<em>evse_manager</em></div>
 <div class="line">This is the main evsemanager interface</div>
 </div>
-<div class="line"><strong>token_provider</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
 <div class="line-block">
-<div class="line">Provides authtokens for autocharge or plug and charge</div>
-</div>
+<div class="line"><strong>evse_energy_control</strong>:<em>evse_manager_energy_control</em></div>
+<div class="line">Singelton interface: implements energy control interface for energy manager</div>
 </div>
 </section>
 <section id="requirements">
-<h2><span class="section-number">5.4.4. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>auth</strong>:<a class="reference internal" href="../interfaces/auth.html#everest-interfaces-auth"><span class="std std-ref">auth</span></a></div>
-<div class="line"><strong>bsp</strong>:<a class="reference internal" href="../interfaces/board_support_AC.html#everest-interfaces-board-support-ac"><span class="std std-ref">board_support_AC</span></a></div>
-<div class="line"><strong>hlc</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a></div>
-<div class="line"><strong>imd</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a></div>
-<div class="line"><strong>powermeter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
-<div class="line"><strong>slac</strong>:<a class="reference internal" href="../interfaces/slac.html#everest-interfaces-slac"><span class="std std-ref">slac</span></a></div>
+<div class="line"><strong>bsp</strong>:<em>board_support_AC</em></div>
+<div class="line"><strong>powermeter</strong>:<em>powermeter</em></div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">5.4.5. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">5.4.5.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
 <div class="line">Cornelius Claussen</div>
 <div class="line">Anton Woellert</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">5.4.5.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://spdx.org/licenses/Apache-2.0.html">https://spdx.org/licenses/Apache-2.0.html</a></div>
-</div>
+<h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://spdx.org/licenses/Apache-2.0.html">https://spdx.org/licenses/Apache-2.0.html</a></p>
 </section>
 </section>
 </section>
@@ -217,34 +113,28 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <div>
-    <h3><a href="../../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">5.4. EvseManager</a><ul>
-<li><a class="reference internal" href="#additional-documentation">5.4.1. Additional documentation</a></li>
-<li><a class="reference internal" href="#module-configuration">5.4.2. Module Configuration</a></li>
-<li><a class="reference internal" href="#provides">5.4.3. Provides</a></li>
-<li><a class="reference internal" href="#requirements">5.4.4. Requirements</a></li>
-<li><a class="reference internal" href="#metadata">5.4.5. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">5.4.5.1. Authors</a></li>
-<li><a class="reference internal" href="#license">5.4.5.2. License</a></li>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">EvseManager</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">Provides</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li><a class="reference internal" href="#authors">Authors</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="EnergyNode.html"
-                          title="previous chapter"><span class="section-number">5.3. </span>EnergyNode</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="EvseSlac.html"
-                          title="next chapter"><span class="section-number">5.5. </span>EvseSlac</a></p>
-  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../everest_modules.html"
+                        title="previous chapter">EVerest Modules</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Example.html"
+                        title="next chapter">Example</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -261,7 +151,7 @@
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -273,19 +163,19 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="EvseSlac.html" title="5.5. EvseSlac"
+          <a href="Example.html" title="Example"
              >next</a> |</li>
         <li class="right" >
-          <a href="EnergyNode.html" title="5.3. EnergyNode"
+          <a href="../everest_modules.html" title="EVerest Modules"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.4. </span>EvseManager</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" >EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EvseManager</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
     </div>
   </body>
 </html>

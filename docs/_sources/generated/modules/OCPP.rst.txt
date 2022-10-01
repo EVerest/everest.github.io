@@ -1,49 +1,58 @@
-.. OCPP
 
-******************************
+.. _everest_modules_OCPP:
+
+####
 OCPP
-******************************
-
-Description
-###########
-A OCPP charge point / charging station module, currently targeting OCPP-J 1.6
+####
+| A OCPP charge point / charging station module, currently targeting OCPP-J 1.6
 
 
+
+********************
 Module Configuration
-####################
+********************
 | **ChargePointConfigPath**:*string*
-| *default:    charge_point_config.json*
-| Path to the configuration file
-
+| *default: charge_point_config.json*
+|  Path to the configuration file
 | **DatabasePath**:*string*
-| *default:    /tmp/ocpp_1_6_charge_point*
-| Path to the persistent SQLite database folder
-
+| *default: /tmp/ocpp_1_6_charge_point*
+|  Path to the persistent SQLite database folder
+| **EnableExternalWebsocketControl**:*boolean*
+| *default: False*
+|  If true websocket can be disconnected and connected externally
+| **OcppMainPath**:*string*
+| *default: dist/ocpp*
+|  Main path of OCPP module
 | **SchemasPath**:*string*
-| *default:    /tmp/ocpp_1_6_charge_point*
-| Path to the schemas folder in which the OCPP 1.6 schemas reside
+| *default: /tmp/ocpp_1_6_charge_point*
+|  Path to the schemas folder in which the OCPP 1.6 schemas reside
+| **ScriptsPath**:*string*
+| *default: dist/bin*
+|  Path to the script folder in which the OCPP 1.6 scripts for firmware update und log upload reside
 
-
+********
 Provides
-########
-| **auth_validator**:*auth_token_validator*
-| Validates the provided auth token with OCPP
+********
+| **auth_provider**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`
+|  Provides auth tokens from OCPP
+| **auth_validator**::ref:`auth_token_validator <everest_interfaces_auth_token_validator>`
+|  Validates the provided auth token with OCPP
+| **main**::ref:`ocpp_1_6_charge_point <everest_interfaces_ocpp_1_6_charge_point>`
+|  This is a OCPP 1.6 charge point
 
-| **main**:*ocpp_1_6_charge_point*
-| This is a OCPP 1.6 charge point
-
-
+************
 Requirements
-############
-| **evse_manager**:*evse_manager*
-| **powermeter**:*powermeter*
+************
+| **evse_manager**::ref:`evse_manager <everest_interfaces_evse_manager>`
 
-
+********
 Metadata
-########
+********
 Authors
-*******
+=======
 | Kai-Uwe Hermann
+
 License
-*******
-https://opensource.org/licenses/Apache-2.0
+=======
+| https://opensource.org/licenses/Apache-2.0
+

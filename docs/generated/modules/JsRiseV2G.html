@@ -1,24 +1,25 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>JsRiseV2G &#8212; EVerest  documentation</title>
+    <title>5.17. JsRiseV2G &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="JsSimPowerMeter" href="JsSimPowerMeter.html" />
-    <link rel="prev" title="JsPowerIn" href="JsPowerIn.html" /> 
+    <link rel="next" title="5.18. JsSlacSimulator" href="JsSlacSimulator.html" />
+    <link rel="prev" title="5.16. JsPN532TokenProvider" href="JsPN532TokenProvider.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,14 +28,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="JsSimPowerMeter.html" title="JsSimPowerMeter"
+          <a href="JsSlacSimulator.html" title="5.18. JsSlacSimulator"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="JsPowerIn.html" title="JsPowerIn"
+          <a href="JsPN532TokenProvider.html" title="5.16. JsPN532TokenProvider"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U">EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">JsRiseV2G</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.17. </span>JsRiseV2G</a></li> 
       </ul>
     </div>  
 
@@ -44,49 +45,64 @@
           <div class="body" role="main">
             
   <section id="jsrisev2g">
-<h1>JsRiseV2G<a class="headerlink" href="#jsrisev2g" title="Permalink to this headline">¶</a></h1>
-<section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>This module implements ISO15118 ac and dc charging by proxying everything into a modified RISE-V2G implementation</p>
-</section>
+<span id="everest-modules-jsrisev2g"></span><h1><span class="section-number">5.17. </span>JsRiseV2G<a class="headerlink" href="#jsrisev2g" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This module implements ISO15118 ac and dc charging by proxying everything into a modified RISE-V2G implementation</div>
+</div>
 <section id="provides">
-<h2>Provides<a class="headerlink" href="#provides" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.17.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>ac_charger</strong>:<em>ISO15118_ac_charger</em></div>
-<div class="line">This module implements the ISO15118-2 implementation of an AC charger</div>
+<div class="line"><strong>charger</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a></div>
+<div class="line-block">
+<div class="line">This module implements the ISO15118-2 implementation of an AC or DC charger</div>
 </div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
 <div class="line-block">
-<div class="line"><strong>dc_charger</strong>:<em>ISO15118_dc_charger</em></div>
-<div class="line">This module implements the ISO15118-2 implementation of a DC charger</div>
-</div>
-<div class="line-block">
-<div class="line"><strong>main</strong>:<em>empty</em></div>
 <div class="line">This module implements a proxy to the RISE-V2G ISO15118-2 implementation in java</div>
 <div class="line">config:</div>
 <div class="line-block">
+<div class="line">device:</div>
+<div class="line-block">
+<div class="line">default:</div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">mqtt_base_path:</div>
+<div class="line-block">
+<div class="line">default:</div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+</div>
+<div class="line">config:</div>
+<div class="line-block">
+<div class="line"><strong>device</strong>:<em>string</em></div>
+<div class="line"><em>default: eth0</em></div>
+<div class="line-block">
+<div class="line">Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work.</div>
+</div>
 <div class="line"><strong>mqtt_base_path</strong>:<em>string</em></div>
-<div class="line"><em>default:    everest_external/iso15118/java</em></div>
+<div class="line"><em>default: everest_external/iso15118/java</em></div>
+<div class="line-block">
 <div class="line">Base path for the mqtt communication used by the java process</div>
 </div>
 </div>
-</section>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>optional:slac</strong>:<em>ISO15118_3_SLAC</em></div>
+</div>
 </div>
 </section>
 <section id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.17.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.17.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Thilo Molitor</div>
 </div>
 </section>
 <section id="license">
-<h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></p>
+<h3><span class="section-number">5.17.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
 </section>
 </section>
 </section>
@@ -98,27 +114,31 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">JsRiseV2G</a><ul>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#provides">Provides</a></li>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
-<li><a class="reference internal" href="#metadata">Metadata</a><ul>
-<li><a class="reference internal" href="#authors">Authors</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">5.17. JsRiseV2G</a><ul>
+<li><a class="reference internal" href="#provides">5.17.1. Provides</a></li>
+<li><a class="reference internal" href="#metadata">5.17.2. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">5.17.2.1. Authors</a></li>
+<li><a class="reference internal" href="#license">5.17.2.2. License</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="JsPowerIn.html"
-                        title="previous chapter">JsPowerIn</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="JsSimPowerMeter.html"
-                        title="next chapter">JsSimPowerMeter</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="JsPN532TokenProvider.html"
+                          title="previous chapter"><span class="section-number">5.16. </span>JsPN532TokenProvider</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="JsSlacSimulator.html"
+                          title="next chapter"><span class="section-number">5.18. </span>JsSlacSimulator</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -135,7 +155,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -147,19 +167,19 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="JsSimPowerMeter.html" title="JsSimPowerMeter"
+          <a href="JsSlacSimulator.html" title="5.18. JsSlacSimulator"
              >next</a> |</li>
         <li class="right" >
-          <a href="JsPowerIn.html" title="JsPowerIn"
+          <a href="JsPN532TokenProvider.html" title="5.16. JsPN532TokenProvider"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" >EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">JsRiseV2G</a></li> 
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.17. </span>JsRiseV2G</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
     </div>
   </body>
 </html>

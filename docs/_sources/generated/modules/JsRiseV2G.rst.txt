@@ -1,40 +1,47 @@
-.. JsRiseV2G
 
-******************************
+.. _everest_modules_JsRiseV2G:
+
+#########
 JsRiseV2G
-******************************
-
-Description
-###########
-This module implements ISO15118 ac and dc charging by proxying everything into a modified RISE-V2G implementation
+#########
+| This module implements ISO15118 ac and dc charging by proxying everything into a modified RISE-V2G implementation
 
 
+
+
+********
 Provides
-########
-| **ac_charger**:*ISO15118_ac_charger*
-| This module implements the ISO15118-2 implementation of an AC charger
+********
+| **charger**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>`
+|  This module implements the ISO15118-2 implementation of an AC or DC charger
+| **main**::ref:`empty <everest_interfaces_empty>`
+|  This module implements a proxy to the RISE-V2G ISO15118-2 implementation in java
+|  config:
+|   device:
+|    default:
+|    description:
+|    type:
+|   mqtt_base_path:
+|    default:
+|    description:
+|    type:
+|  config:
+|   **device**:*string*
+|   *default: eth0*
+|    Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work.
+|   **mqtt_base_path**:*string*
+|   *default: everest_external/iso15118/java*
+|    Base path for the mqtt communication used by the java process
 
-| **dc_charger**:*ISO15118_dc_charger*
-| This module implements the ISO15118-2 implementation of a DC charger
 
-| **main**:*empty*
-| This module implements a proxy to the RISE-V2G ISO15118-2 implementation in java
-| config:
-|  **mqtt_base_path**:*string*
-|  *default:    everest_external/iso15118/java*
-|  Base path for the mqtt communication used by the java process
-
-
-Requirements
-############
-| **optional:slac**:*ISO15118_3_SLAC*
-
-
+********
 Metadata
-########
+********
 Authors
-*******
+=======
 | Thilo Molitor
+
 License
-*******
-https://opensource.org/licenses/Apache-2.0
+=======
+| https://opensource.org/licenses/Apache-2.0
+

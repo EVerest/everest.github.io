@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>7.5. evse_manager &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.6. powermeter" href="powermeter.html" />
+    <link rel="prev" title="7.4. energy_price_information" href="energy_price_information.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="powermeter.html" title="7.6. powermeter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="energy_price_information.html" title="7.4. energy_price_information"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_types.html" accesskey="U"><span class="section-number">7. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.5. </span>evse_manager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="evse-manager">
+<span id="everest-types-evse-manager"></span><h1><span class="section-number">7.5. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h1>
+<p>EVSE manager types</p>
+<div class="line-block" id="evse-manager-sessioncancellationreason">
+<div class="line"><strong>SessionCancellationReason</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Reason for session cancellation</div>
+<div class="line">enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-reservationresult">
+<div class="line"><strong>ReservationResult</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Result of an attempted reservation</div>
+<div class="line">enum: Accepted, Faulted, Occupied, Rejected, Unavailable</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-setlocalmaxcurrentresult">
+<div class="line"><strong>SetLocalMaxCurrentResult</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Returns success or error code</div>
+<div class="line">enum: Success, Error_OutOfRange, Error_Hardware</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-switchthreephaseswhilechargingresult">
+<div class="line"><strong>SwitchThreePhasesWhileChargingResult</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Returns success or error code</div>
+<div class="line">enum: Success, Error_NotSupported, Error_NotCharging, Error_Hardware</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessionevent">
+<div class="line"><strong>SessionEvent</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Event enum</div>
+<div class="line">enum: Enabled, Disabled, SessionStarted, AuthRequired, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, ChargingResumed, SessionFinished, SessionCancelled, Error, PermanentFault, ReservationStart, ReservationEnd, ReservationAuthtokenMismatch, ReplugStarted, ReplugFinished</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessionstarted">
+<div class="line"><strong>SessionStarted</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">data for SessionStarted event</div>
+<div class="line">required: timestamp, energy_Wh_import</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session start timestamp</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session start Wh</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session start Wh</div>
+</div>
+<div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Signed meter value</div>
+</div>
+<div class="line"><strong>reservation_id</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Reservation Id</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessionfinished">
+<div class="line"><strong>SessionFinished</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">data for SessionFinished event that happens when car is plugged out</div>
+<div class="line">required: timestamp, energy_Wh_import</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session end timestamp</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session end Wh</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session end Wh</div>
+</div>
+<div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Signed meter value</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessioncancelled">
+<div class="line"><strong>SessionCancelled</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">data for SessionCancelled event that happens when e.g. user cancels charging before plug out. Note that SessionFinished will always be generated on plugout.</div>
+<div class="line">required: timestamp, energy_Wh_import</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session cancel timestamp</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session cancel Wh</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Session cancel Wh</div>
+</div>
+<div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Signed meter value</div>
+</div>
+<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-sessioncancellationreason"><span class="std std-ref">evse_manager-SessionCancellationReason</span></a>)</div>
+<div class="line-block">
+<div class="line">Reason for session cancellation</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessioncancellationreason"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-error">
+<div class="line"><strong>Error</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Details on error type</div>
+<div class="line">enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-reservationstart">
+<div class="line"><strong>ReservationStart</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Details on Reservation Start</div>
+<div class="line">required: reservation_id, id_tag</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reservation_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">reservation_id</div>
+</div>
+<div class="line"><strong>id_tag</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">id tag of the reservation</div>
+</div>
+<div class="line"><strong>parent_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">parent_id</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-reservationendreason">
+<div class="line"><strong>ReservationEndReason</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Reason why reservation ends</div>
+<div class="line">enum: Expired, Cancelled, UsedToStartCharging</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-reservationend">
+<div class="line"><strong>ReservationEnd</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Details on Reservation End</div>
+<div class="line">required: reason, reservation_id</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-reservationendreason"><span class="std std-ref">evse_manager-ReservationEndReason</span></a>)</div>
+<div class="line-block">
+<div class="line">Reason why reservation ends</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-reservationendreason"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>reservation_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">reservation_id</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessionevents">
+<div class="line"><strong>SessionEvents</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Emits all events related to sessions</div>
+<div class="line">required: uuid, event</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>uuid</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">An EVSE generated UUID for this session, can be used e.g. for database storage.</div>
+</div>
+<div class="line"><strong>event</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-sessionevent"><span class="std std-ref">evse_manager-SessionEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">Event enum. For some events an additional object is set, see below.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionevent"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>session_started</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-sessionstarted"><span class="std std-ref">evse_manager-SessionStarted</span></a>)</div>
+<div class="line-block">
+<div class="line">data for SessionStarted event</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionstarted"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>session_finished</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-sessionfinished"><span class="std std-ref">evse_manager-SessionFinished</span></a>)</div>
+<div class="line-block">
+<div class="line">data for SessionFinished event that happens when car is plugged out</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionfinished"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>session_cancelled</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-sessioncancelled"><span class="std std-ref">evse_manager-SessionCancelled</span></a>)</div>
+<div class="line-block">
+<div class="line">data for SessionCancelled event that happens when e.g. user cancels charging before plug out. Note that SessionFinished will always be generated on plugout.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessioncancelled"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>error</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-error"><span class="std std-ref">evse_manager-Error</span></a>)</div>
+<div class="line-block">
+<div class="line">Details on error type</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-error"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>reservation_start</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-reservationstart"><span class="std std-ref">evse_manager-ReservationStart</span></a>)</div>
+<div class="line-block">
+<div class="line">Details on Reservation Start</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-reservationstart"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>reservation_end</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-reservationend"><span class="std std-ref">evse_manager-ReservationEnd</span></a>)</div>
+<div class="line-block">
+<div class="line">Details on Reservation End</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-reservationend"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="energy_price_information.html"
+                          title="previous chapter"><span class="section-number">7.4. </span>energy_price_information</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermeter.html"
+                          title="next chapter"><span class="section-number">7.6. </span>powermeter</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/types/evse_manager.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="powermeter.html" title="7.6. powermeter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="energy_price_information.html" title="7.4. energy_price_information"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_types.html" ><span class="section-number">7. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.5. </span>evse_manager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+  </body>
+</html>

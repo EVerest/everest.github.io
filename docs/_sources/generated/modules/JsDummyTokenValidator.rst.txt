@@ -1,36 +1,53 @@
-.. JsDummyTokenValidator
 
-******************************
+.. _everest_modules_JsDummyTokenValidator:
+
+#####################
 JsDummyTokenValidator
-******************************
-
-Description
-###########
-Dummy token validator always returning the same configured token validation result for every token
+#####################
+| Dummy token validator always returning the same configured token validation result for every token
 
 
+
+
+********
 Provides
-########
-| **main**:*auth_token_validator*
-| Main implementation of dummy token validator always returning the same configured token validation result for every token
-| config:
-|  **sleep**:*number*
-|  *default:    0.5*
-|  Time to wait before returning the dumy validation result (in s)
-|  **validation_reason**:*string*
-|  *default:    Token valid*
-|  Dummy validation reason to return
-|  **validation_result**:*string*
-|  *default:    Accepted*
-|  Dummy validation result to return
+********
+| **main**::ref:`auth_token_validator <everest_interfaces_auth_token_validator>`
+|  Main implementation of dummy token validator always returning the same configured token validation result for every token
+|  config:
+|   sleep:
+|    description:
+|    type:
+|   validation_reason:
+|    default:
+|    description:
+|    type:
+|   validation_result:
+|    default:
+|    description:
+|    enum: Accepted, Blocked, Expired, Invalid
+|    type:
+|  config:
+|   **sleep**:*number*
+|   *default: 0.5*
+|    Time to wait before returning the dumy validation result (in s)
+|   **validation_reason**:*string*
+|   *default: Token valid*
+|    Dummy validation reason to return
+|   **validation_result**:*string*
+|   *default: Accepted*
+|    Dummy validation result to return
+|    enum: Accepted, Blocked, Expired, Invalid
 
 
-
+********
 Metadata
-########
+********
 Authors
-*******
+=======
 | Thilo Molitor
+
 License
-*******
-https://opensource.org/licenses/Apache-2.0
+=======
+| https://opensource.org/licenses/Apache-2.0
+

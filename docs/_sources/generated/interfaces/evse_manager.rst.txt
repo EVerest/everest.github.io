@@ -6,25 +6,18 @@
 evse_manager
 ############
 
-| This interface defines the main evse manager
+| This interface defines the evse manager. An evse manager represents the charging kernel of one physical connector.
 
 
 *********
 Variables
 *********
-| **session_events**:*object* (:ref:`evse_manager-SessionEvents <evse_manager-SessionEvents>`)
+| **session_event**:*object* (:ref:`evse_manager-SessionEvent <evse_manager-SessionEvent>`)
 |  Emits all events related to sessions
-|  **There is an extended definition for this object** :ref:`here <evse_manager-SessionEvents>`.
-| **limits**:*object*
+|  **There is an extended definition for this object** :ref:`here <evse_manager-SessionEvent>`.
+| **limits**:*object* (:ref:`evse_manager-Limits <evse_manager-Limits>`)
 |  Limits of this evse, published on change
-|  required: max_current, nr_of_phases_available
-|  properties:
-|   **uuid**:*string*
-|    This module's UUID for global identification
-|   **max_current**:*number*
-|    Instantaneous maximum current available to car
-|   **nr_of_phases_available**:*integer*
-|    Instantaneous phase count available to car
+|  **There is an extended definition for this object** :ref:`here <evse_manager-Limits>`.
 | **telemetry**:*object* (:ref:`board_support-Telemetry <board_support-Telemetry>`)
 |  Other telemetry
 |  **There is an extended definition for this object** :ref:`here <board_support-Telemetry>`.
@@ -33,61 +26,58 @@ Variables
 |  **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 | **evse_id**:*string*
 |  EVSE ID including the connector number, e.g. DE*PNX*E123456*1
+| **hw_capabilities**:*object* (:ref:`board_support-HardwareCapabilities <board_support-HardwareCapabilities>`)
+|   Hardware capability/limits
+|  **There is an extended definition for this object** :ref:`here <board_support-HardwareCapabilities>`.
 
 ********
 Commands
 ********
+| **get_id**:*integer*
+|  Call to get the connector id of the evse manager
+|  **Result**:*integer*
+|   Returns the connector id of the evse manager
 | **enable**:*boolean*
-|  Enables the evse
+|  Enables the evse. EVSE is available for charging after this operation
 |  **Result**:*boolean*
 |   Returns true if evse was enabled (or was enabled before), returns false if enable failed e.g. due to permanent fault.
 | **disable**:*boolean*
-|  Disables the evse
+|  Disables the evse. EVSE is not available for charging after this operation
 |  **Result**:*boolean*
 |   Returns true if evse was disabled (or was disabled before), returns false if it could not be disabled (i.e. due to communication error with hardware)
-| **set_faulted**:*boolean*
-|  Sets the evse manager to faulted
+| **authorize**:*void*
+|  Authorizes the evse manager to start a transaction using the given id tag.
+|  **id_tag**:*string*
+|   The authorized id tag
+| **withdraw_authorization**:*void*
+|  Call to signals that EVSE is not further authorized to start a transaction (e.g. on a connection_timeout)
+| **reserve**:*boolean*
+|  Call to signal that EVSE is reserved. This can be used to e.g. change the color of the HMI LEDs to indicate reservation.
+|  **reservation_id**:*integer*
+|   The reservation id (should be added to the TransactionStarted event)
 |  **Result**:*boolean*
-|   Returns true if evse was set to faulted (or is already in that state)
+|   Returns true if the EVSE accepted the reservation, else false.
+| **cancel_reservation**:*void*
+|  Call to signal that EVSE is not reserved anymore
+| **set_faulted**:*void*
+|  Sets the evse manager to faulted externally. It may also switch to faulted itself if it detects an internal error.
 | **pause_charging**:*boolean*
-|  Pauses charging
+|  Call to signal EVSE to pause charging
 |  **Result**:*boolean*
 |   Returns true if successfully paused or was already in paused_by_evse mode
 | **resume_charging**:*boolean*
-|  Resumes charging
+|  Call to signal EVSE to resume charging
 |  **Result**:*boolean*
 |   Returns true if resume was successful, false otherwise (e.g. resuming a car pause won't work)
-| **cancel_charging**:*boolean*
-|  Cancels charging, can only be resumed by replugging car
-|  **reason**:*string* (:ref:`evse_manager-SessionCancellationReason <evse_manager-SessionCancellationReason>`)
-|   Reason for session cancellation
-|   **There is an extended definition for this object** :ref:`here <evse_manager-SessionCancellationReason>`.
+| **stop_transaction**:*boolean*
+|  Stops transaction and cancels charging externally, charging can only be resumed by replugging car. EVSE will also stop transaction automatically e.g. on disconnect, so this only needs to be called if the transaction should end before.
+|  **request**:*object* (:ref:`evse_manager-StopTransactionRequest <evse_manager-StopTransactionRequest>`)
+|   Request to stop the transaction.
+|   **There is an extended definition for this object** :ref:`here <evse_manager-StopTransactionRequest>`.
 |  **Result**:*boolean*
 |   Returns true if successful
-| **accept_new_session**:*boolean*
-|  Call when cleanup is done and new cars are allowed to plugin. Do not use multiple cleanup handlers, call from only one module!
-|  **Result**:*boolean*
-|   Returns true if successful
-| **reserve_now**:*string*
-|  Reserves this evse for a given auth token. No support for parent id tags or id 0 reservations.
-|  **reservation_id**:*integer*
-|   Reservation id for this reservation
-|  **auth_token**:*string*
-|   The authentication token that this evse will be reserved for
-|  **expiry_date**:*string*
-|   Absolute UTC time point when reservation expires (RFC3339 format)
-|   format:
-|  **parent_id**:*string*
-|   Parent id of the authentication token
-|  **Result**:*string* (:ref:`evse_manager-ReservationResult <evse_manager-ReservationResult>`)
-|   Returns Accepted if reservation was succesfull or specifies error code.
-|   **There is an extended definition for this object** :ref:`here <evse_manager-ReservationResult>`.
-| **cancel_reservation**:*boolean*
-|  Cancels current reservation
-|  **Result**:*boolean*
-|   Returns true if reservation was cancelled. Returns false if there was no reservation to cancel.
 | **force_unlock**:*boolean*
-|  Force unlock connector now. During normal operation, connector will be locked/unlocked in the correct sequence. Do not use this function except if explicitly requested by e.g. management cloud.
+|  Forces EVSE to unlock connector now. During normal operation, connector will be locked/unlocked in the correct sequence. Do not use this function except if explicitly requested by e.g. management cloud.
 |  **Result**:*boolean*
 |   Returns true if unlocking sequence was successfully executed
 | **set_local_max_current**:*string*
@@ -100,11 +90,11 @@ Commands
 | **switch_three_phases_while_charging**:*string*
 |  Switch three phases while charging
 |  **three_phases**:*boolean*
-|   True if switching three phases whilst charging, false if not
+|   True: switch to three phases, false: switch to single phase
 |  **Result**:*string* (:ref:`evse_manager-SwitchThreePhasesWhileChargingResult <evse_manager-SwitchThreePhasesWhileChargingResult>`)
 |   Returns success or error code
 |   **There is an extended definition for this object** :ref:`here <evse_manager-SwitchThreePhasesWhileChargingResult>`.
 | **get_signed_meter_value**:*string*
-|  Returns a signed meter value. Includes current auth token if session is running.
+|  Returns a signed meter value. Includes current id_token if session is running.
 |  **Result**:*string*
 |   Signed meter value

@@ -21,14 +21,17 @@ Module Configuration
 | *default: False*
 |  If true websocket can be disconnected and connected externally
 | **OcppMainPath**:*string*
-| *default: dist/ocpp*
+| *default: share/everest/ocpp*
 |  Main path of OCPP module
-| **SchemasPath**:*string*
-| *default: /tmp/ocpp_1_6_charge_point*
-|  Path to the schemas folder in which the OCPP 1.6 schemas reside
-| **ScriptsPath**:*string*
-| *default: dist/bin*
-|  Path to the script folder in which the OCPP 1.6 scripts for firmware update und log upload reside
+| **PublishChargingScheduleDurationS**:*integer*
+| *default: 600*
+|  Duration in seconds that defines the duration of the requested charging schedules starting from now
+| **PublishChargingScheduleIntervalS**:*integer*
+| *default: 30*
+|  Interval in seconds in which charging schedules received from OCPP are be published
+| **UserConfigPath**:*string*
+| *default: share/everest/ocpp/user_config.json*
+|  Path to the file of the OCPP user config
 
 ********
 Provides
@@ -43,7 +46,10 @@ Provides
 ************
 Requirements
 ************
+| **auth**::ref:`auth <everest_interfaces_auth>`
 | **evse_manager**::ref:`evse_manager <everest_interfaces_evse_manager>`
+| **reservation**::ref:`reservation <everest_interfaces_reservation>`
+| **system**::ref:`system <everest_interfaces_system>`
 
 ********
 Metadata

@@ -71,18 +71,19 @@
 <div class="line"><strong>StopTransactionReason</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Reason for stopping transaction</div>
-<div class="line">Reason for stopping the transaction:</div>
+<div class="line-block">
 <div class="line">EmergencyStop: Emergency stop button was used</div>
-<div class="line">EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit.</div>
+<div class="line">EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit</div>
 <div class="line">HardReset: A hard reset command was received previously</div>
-<div class="line">Local: Stopped locally on request of the user at the Charge Point. This is a regular termination of a transaction. Examples: presenting an RFID tag, pressing a button to stop.</div>
-<div class="line">Other: Any other reason.</div>
-<div class="line">PowerLoss: Complete loss of power.</div>
-<div class="line">Reboot: A locally initiated reset/reboot occurred.</div>
+<div class="line">Local: Stopped locally on request of the user at the Charge Point. This is a regular termination of a transaction. Examples: presenting an RFID tag, pressing a button to stop</div>
+<div class="line">Other: Any other reason</div>
+<div class="line">PowerLoss: Complete loss of power</div>
+<div class="line">Reboot: A locally initiated reset/reboot occurred</div>
 <div class="line">Remote: Stopped remotely on request of the user. This is a regular termination of a transaction. Examples: termination using a smartphone app, exceeding a (non local) prepaid credit</div>
-<div class="line">SoftReset: A soft reset command was received.</div>
-<div class="line">UnlockCommand: Central System sent an Unlock Connector command.</div>
+<div class="line">SoftReset: A soft reset command was received</div>
+<div class="line">UnlockCommand: Central System sent an Unlock Connector command</div>
 <div class="line">DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf</div>
+</div>
 <div class="line">enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized</div>
 </div>
 </div>
@@ -90,9 +91,10 @@
 <div class="line"><strong>StartSessionReason</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Reason for session start</div>
-<div class="line">Reason for starting the session:</div>
+<div class="line-block">
 <div class="line">EVConnected: Session was started because an EV was plugged in</div>
 <div class="line">Authorized: Session was started because a valid authorization was presented and the EVSE is authorized to start a transaction immediately when an EV is plugged in</div>
+</div>
 <div class="line">enum: EVConnected, Authorized</div>
 </div>
 </div>
@@ -100,10 +102,11 @@
 <div class="line"><strong>SetLocalMaxCurrentResult</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Result for set_local_max_current command</div>
-<div class="line">Result of Setting local max current:</div>
+<div class="line-block">
 <div class="line">Success: LocalMaxCurrent was set successfully</div>
 <div class="line">Error_OutOfRange: The LocalMaxCurrent that was set is not in range of the EVSE capabilities</div>
 <div class="line">Error_Hardware: There was a hardware error on setting the LocalMaxCurrent</div>
+</div>
 <div class="line">enum: Success, Error_OutOfRange, Error_Hardware</div>
 </div>
 </div>
@@ -111,11 +114,12 @@
 <div class="line"><strong>SwitchThreePhasesWhileChargingResult</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Returns success or error code</div>
-<div class="line">Result of switching phases while charging:</div>
+<div class="line-block">
 <div class="line">Success: Switching phases was successful</div>
 <div class="line">Error_NotSupported: Switching phases is not supported</div>
 <div class="line">Error_NotCharging: EVSE is not charging</div>
 <div class="line">Error_Hardware: There was a hardware error on switching phases</div>
+</div>
 <div class="line">enum: Success, Error_NotSupported, Error_NotCharging, Error_Hardware</div>
 </div>
 </div>
@@ -123,7 +127,7 @@
 <div class="line"><strong>SessionEventEnum</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Session Event enum</div>
-<div class="line">Events that the EVSE signals:</div>
+<div class="line-block">
 <div class="line">Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)</div>
 <div class="line">Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)</div>
 <div class="line">SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)</div>
@@ -139,6 +143,7 @@
 <div class="line">ReservationEnd: Signaled when a reservation ends</div>
 <div class="line">ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction</div>
 <div class="line">ReplugFinished: Signaled when the virtual replug process has finished</div>
+</div>
 <div class="line">enum: Enabled, Disabled, SessionStarted, TransactionStarted, AuthRequired, ChargingPausedEV, ChargingPausedEVSE, ChargingResumed, TransactionFinished, SessionFinished, Error, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished</div>
 </div>
 </div>
@@ -237,7 +242,7 @@
 <div class="line"><strong>Error</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Details on error type</div>
-<div class="line">Error that the EVSE signals:</div>
+<div class="line-block">
 <div class="line">Car: Signals a car error</div>
 <div class="line">CarDiodeFault: Signals a car diode fault</div>
 <div class="line">Relais: Signals a relais error</div>
@@ -247,6 +252,7 @@
 <div class="line">Internal: Signals an internal error</div>
 <div class="line">SLAC: Signals a SLAC communication error</div>
 <div class="line">HLC: Signals a HLC error</div>
+</div>
 <div class="line">enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC</div>
 </div>
 </div>

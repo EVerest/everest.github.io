@@ -24,70 +24,65 @@ EVSE manager types
 
 | **StopTransactionReason**:*string*
 |  Reason for stopping transaction
-|  Reason for stopping the transaction:
-|  EmergencyStop: Emergency stop button was used
-|  EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit.
-|  HardReset: A hard reset command was received previously
-|  Local: Stopped locally on request of the user at the Charge Point. This is a regular termination of a transaction. Examples: presenting an RFID tag, pressing a button to stop.
-|  Other: Any other reason.
-|  PowerLoss: Complete loss of power.
-|  Reboot: A locally initiated reset/reboot occurred.
-|  Remote: Stopped remotely on request of the user. This is a regular termination of a transaction. Examples: termination using a smartphone app, exceeding a (non local) prepaid credit
-|  SoftReset: A soft reset command was received.
-|  UnlockCommand: Central System sent an Unlock Connector command.
-|  DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf
+|   EmergencyStop: Emergency stop button was used
+|   EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit
+|   HardReset: A hard reset command was received previously
+|   Local: Stopped locally on request of the user at the Charge Point. This is a regular termination of a transaction. Examples: presenting an RFID tag, pressing a button to stop
+|   Other: Any other reason
+|   PowerLoss: Complete loss of power
+|   Reboot: A locally initiated reset/reboot occurred
+|   Remote: Stopped remotely on request of the user. This is a regular termination of a transaction. Examples: termination using a smartphone app, exceeding a (non local) prepaid credit
+|   SoftReset: A soft reset command was received
+|   UnlockCommand: Central System sent an Unlock Connector command
+|   DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf
 |  enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized
 
 .. _evse_manager-StartSessionReason:
 
 | **StartSessionReason**:*string*
 |  Reason for session start
-|  Reason for starting the session:
-|  EVConnected: Session was started because an EV was plugged in
-|  Authorized: Session was started because a valid authorization was presented and the EVSE is authorized to start a transaction immediately when an EV is plugged in
+|   EVConnected: Session was started because an EV was plugged in
+|   Authorized: Session was started because a valid authorization was presented and the EVSE is authorized to start a transaction immediately when an EV is plugged in
 |  enum: EVConnected, Authorized
 
 .. _evse_manager-SetLocalMaxCurrentResult:
 
 | **SetLocalMaxCurrentResult**:*string*
 |  Result for set_local_max_current command
-|  Result of Setting local max current:
-|  Success: LocalMaxCurrent was set successfully
-|  Error_OutOfRange: The LocalMaxCurrent that was set is not in range of the EVSE capabilities
-|  Error_Hardware: There was a hardware error on setting the LocalMaxCurrent
+|   Success: LocalMaxCurrent was set successfully
+|   Error_OutOfRange: The LocalMaxCurrent that was set is not in range of the EVSE capabilities
+|   Error_Hardware: There was a hardware error on setting the LocalMaxCurrent
 |  enum: Success, Error_OutOfRange, Error_Hardware
 
 .. _evse_manager-SwitchThreePhasesWhileChargingResult:
 
 | **SwitchThreePhasesWhileChargingResult**:*string*
 |  Returns success or error code
-|  Result of switching phases while charging:
-|  Success: Switching phases was successful
-|  Error_NotSupported: Switching phases is not supported
-|  Error_NotCharging: EVSE is not charging
-|  Error_Hardware: There was a hardware error on switching phases
+|   Success: Switching phases was successful
+|   Error_NotSupported: Switching phases is not supported
+|   Error_NotCharging: EVSE is not charging
+|   Error_Hardware: There was a hardware error on switching phases
 |  enum: Success, Error_NotSupported, Error_NotCharging, Error_Hardware
 
 .. _evse_manager-SessionEventEnum:
 
 | **SessionEventEnum**:*string*
 |  Session Event enum
-|  Events that the EVSE signals: 
-|  Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)
-|  Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)
-|  SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)
-|  TransactionStarted: Signaled when a transaction has been started. Transaction starts at the point that all conditions for charging are met: EV is connected and user has been authorized.
-|  AuthRequired: Signaled when an EVSE needs authorization to start a transaction
-|  ChargingPausedEV: Signaled when charging is paused by the EV
-|  ChargingPausedEVSE: Signaled when charging is paused by the EVSE
-|  TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
-|  SessionFinished: Signaled when the transaction finished. Session finishes at the point that the EVSE is available again (no cable plugged)
-|  Error: Signaled when an error occured
-|  PermanentFault: Signaled when there is a permanent fault at the EVSE
-|  ReservationStart: Signaled when a reservation starts
-|  ReservationEnd: Signaled when a reservation ends
-|  ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
-|  ReplugFinished: Signaled when the virtual replug process has finished
+|   Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)
+|   Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)
+|   SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)
+|   TransactionStarted: Signaled when a transaction has been started. Transaction starts at the point that all conditions for charging are met: EV is connected and user has been authorized.
+|   AuthRequired: Signaled when an EVSE needs authorization to start a transaction
+|   ChargingPausedEV: Signaled when charging is paused by the EV
+|   ChargingPausedEVSE: Signaled when charging is paused by the EVSE
+|   TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
+|   SessionFinished: Signaled when the transaction finished. Session finishes at the point that the EVSE is available again (no cable plugged)
+|   Error: Signaled when an error occured
+|   PermanentFault: Signaled when there is a permanent fault at the EVSE
+|   ReservationStart: Signaled when a reservation starts
+|   ReservationEnd: Signaled when a reservation ends
+|   ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
+|   ReplugFinished: Signaled when the virtual replug process has finished
 |  enum: Enabled, Disabled, SessionStarted, TransactionStarted, AuthRequired, ChargingPausedEV, ChargingPausedEVSE, ChargingResumed, TransactionFinished, SessionFinished, Error, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished
 
 .. _evse_manager-SessionStarted:
@@ -148,16 +143,15 @@ EVSE manager types
 
 | **Error**:*string*
 |  Details on error type
-|  Error that the EVSE signals: 
-|  Car: Signals a car error
-|  CarDiodeFault: Signals a car diode fault
-|  Relais: Signals a relais error
-|  RCD: Signals an RCD error
-|  VentilationNotAvailable: Signals that ventilation is not available
-|  OverCurrent: Signals an overcurrent error
-|  Internal: Signals an internal error
-|  SLAC: Signals a SLAC communication error
-|  HLC: Signals a HLC error
+|   Car: Signals a car error
+|   CarDiodeFault: Signals a car diode fault
+|   Relais: Signals a relais error
+|   RCD: Signals an RCD error
+|   VentilationNotAvailable: Signals that ventilation is not available
+|   OverCurrent: Signals an overcurrent error
+|   Internal: Signals an internal error
+|   SLAC: Signals a SLAC communication error
+|   HLC: Signals a HLC error
 |  enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC
 
 .. _evse_manager-SessionEvent:

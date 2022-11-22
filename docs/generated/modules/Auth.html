@@ -53,6 +53,11 @@
 <section id="module-configuration">
 <h2><span class="section-number">5.2.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
+<div class="line"><strong>selection_algorithm</strong>:<em>string</em></div>
+<div class="line"><em>default: PlugEvents</em></div>
+<div class="line-block">
+<div class="line">The algorithm that is used to map an incoming token to a connector</div>
+</div>
 <div class="line"><strong>connection_timeout</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Defines how many seconds an authorization is valid before it is discarded. Defines how many seconds a user can provide authorization after the plug in of a car</div>
@@ -60,24 +65,10 @@
 <div class="line"><strong>prioritize_authorization_over_stopping_transaction</strong>:<em>boolean</em></div>
 <div class="line"><em>default: True</em></div>
 <div class="line-block">
-<div class="line">Boolean value to describe the handling of parent id tokens</div>
-<div class="line">If true, a new token will be preferably used for authorization</div>
-<div class="line">of a new connector if a connector is available. It will not</div>
-<div class="line">be used to finish a transaction using its parent_id_token.</div>
-<div class="line">parent_id_token will only be used to finish transaction if</div>
-<div class="line">no connector is available for authorization anymore.</div>
-<div class="line"><br /></div>
-<div class="line">If false, a new token will be used to finish a transaction</div>
-<div class="line">if the parent_id_token of a present transaction matches the</div>
-<div class="line">parent_id_token of the provided_token. Authorization to</div>
-<div class="line">available connectors will only be provided if no transaction</div>
-<div class="line">can be stopped using the given parent_id_token</div>
+<div class="line">Boolean value to describe the handling of parent id tokens.</div>
 </div>
-<div class="line"><strong>selection_algorithm</strong>:<em>string</em></div>
-<div class="line"><em>default: PlugEvents</em></div>
-<div class="line-block">
-<div class="line">The algorithm that is used to map an incoming token to a connector</div>
-</div>
+<div class="line">If true, a new token will be preferably used for authorization of a new connector if a connector is available. It will not be used to finish a transaction using its parent_id_token. parent_id_token will only be used to finish transaction if no connector is available for authorization anymore.</div>
+<div class="line">If false, a new token will be used to finish a transaction if the parent_id_token of a present transaction matches the parent_id_token of the provided_token. Authorization to available connectors will only be provided if no transaction can be stopped using the given parent_id_token</div>
 </div>
 </section>
 <section id="provides">
@@ -96,9 +87,9 @@
 <section id="requirements">
 <h2><span class="section-number">5.2.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
 <div class="line"><strong>token_provider</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
 <div class="line"><strong>token_validator</strong>:<a class="reference internal" href="../interfaces/auth_token_validator.html#everest-interfaces-auth-token-validator"><span class="std std-ref">auth_token_validator</span></a></div>
+<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
 </div>
 </section>
 <section id="metadata">

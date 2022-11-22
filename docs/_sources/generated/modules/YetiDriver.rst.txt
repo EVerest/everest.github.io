@@ -11,6 +11,9 @@ YetiDriver
 ********************
 Module Configuration
 ********************
+| **serial_port**:*string*
+| *default: /dev/ttyUSB0*
+|  Serial port the Yeti hardware is connected to
 | **baud_rate**:*integer*
 | *default: 115200*
 |  Serial baud rate to use when communicating with Yeti hardware
@@ -21,27 +24,24 @@ Module Configuration
 | **reset_gpio**:*integer*
 | *default: -1*
 |  Reset GPIO number to use to HW reset Yeti. If set <0 it is disabled.
-| **serial_port**:*string*
-| *default: /dev/ttyUSB0*
-|  Serial port the Yeti hardware is connected to
 
 ********
 Provides
 ********
+| **powermeter**::ref:`powermeter <everest_interfaces_powermeter>`
+|  provides the Yeti Internal Power Meter
 | **board_support**::ref:`board_support_AC <everest_interfaces_board_support_AC>`
 |  provides the board support Interface to low level control control pilot, relais, rcd, motor lock
-| **debug_keepalive**::ref:`debug_json <everest_interfaces_debug_json>`
-|  Provides the keepalive as a json object
+| **yeti_extras**::ref:`yeti_extras <everest_interfaces_yeti_extras>`
+|  extra functionality special for Yeti
+| **debug_yeti**::ref:`debug_json <everest_interfaces_debug_json>`
+|  provides the debug information of the charging driver
 | **debug_powermeter**::ref:`debug_json <everest_interfaces_debug_json>`
 |  Provides the powermeter as a json object
 | **debug_state**::ref:`debug_json <everest_interfaces_debug_json>`
 |  Provides the state as a json object
-| **debug_yeti**::ref:`debug_json <everest_interfaces_debug_json>`
-|  provides the debug information of the charging driver
-| **powermeter**::ref:`powermeter <everest_interfaces_powermeter>`
-|  provides the Yeti Internal Power Meter
-| **yeti_extras**::ref:`yeti_extras <everest_interfaces_yeti_extras>`
-|  extra functionality special for Yeti
+| **debug_keepalive**::ref:`debug_json <everest_interfaces_debug_json>`
+|  Provides the keepalive as a json object
 | **yeti_simulation_control**::ref:`yeti_simulation_control <everest_interfaces_yeti_simulation_control>`
 |  Interface for the Yeti HIL simulator
 
@@ -54,7 +54,7 @@ Authors
 | Cornelius Claussen
 | Kai-Uwe Hermann
 | Thilo Molitor
-| Anton Woellert
+| Anton Wöllert
 
 License
 =======

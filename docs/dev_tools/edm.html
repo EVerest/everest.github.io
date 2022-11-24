@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>2.1. EDM &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.2. ev-cli" href="ev_cli.html" />
+    <link rel="prev" title="2. EVerest development tools" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ev_cli.html" title="2.2. ev-cli"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="2. EVerest development tools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U"><span class="section-number">2. </span>EVerest development tools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2.1. </span>EDM</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="edm">
+<h1><span class="section-number">2.1. </span>EDM<a class="headerlink" href="#edm" title="Permalink to this heading">¶</a></h1>
+<p>So far this is the edm - the Everest Dependency Manager which helps you orchestrating the dependencies between the different everest repositories.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#dependency-manager-for-everest" id="id2">Dependency Manager for EVerest</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-and-quick-start" id="id3">Install and Quick Start</a></p></li>
+<li><p><a class="reference internal" href="#installing-edm" id="id4">Installing edm</a></p></li>
+<li><p><a class="reference internal" href="#enabling-cpm-source-cache" id="id5">Enabling CPM_SOURCE_CACHE</a></p></li>
+<li><p><a class="reference internal" href="#building-everest" id="id6">Building everest</a></p></li>
+<li><p><a class="reference internal" href="#python-packages-needed-to-run-edm" id="id7">Python packages needed to run edm</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setting-up-cmake-integration" id="id8">Setting up CMake integration</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-a-workspace" id="id9">Setting up a workspace</a></p></li>
+<li><p><a class="reference internal" href="#updating-a-workspace" id="id10">Updating a workspace</a></p></li>
+<li><p><a class="reference internal" href="#using-the-edm-cmake-module-and-dependencies-yaml" id="id11">Using the EDM CMake module and dependencies.yaml</a></p></li>
+<li><p><a class="reference internal" href="#create-a-workspace-config-from-an-existing-directory-tree" id="id12">Create a workspace config from an existing directory tree</a></p></li>
+<li><p><a class="reference internal" href="#git-information-at-a-glance" id="id13">Git information at a glance</a></p></li>
+</ul>
+</nav>
+<section id="dependency-manager-for-everest">
+<h2><span class="section-number">2.1.1. </span>Dependency Manager for EVerest<a class="headerlink" href="#dependency-manager-for-everest" title="Permalink to this heading">¶</a></h2>
+<section id="install-and-quick-start">
+<h3><span class="section-number">2.1.1.1. </span>Install and Quick Start<a class="headerlink" href="#install-and-quick-start" title="Permalink to this heading">¶</a></h3>
+<p>To install the <strong>edm</strong> dependency manager for EVerest you have to perform the following steps.</p>
+<p>Please make sure you are running a sufficiently recent version of <strong>Python3 (&gt;=3.6)</strong> and that you are able to install Python packages from source. Usually you just have to ensure that you have <strong>pip</strong>, <strong>setuptools</strong> and <strong>wheel</strong> available. Refer to the <a class="reference external" href="https://packaging.python.org/tutorials/installing-packages/#requirements-for-installing-packages">Python Installing Packages</a> documentation for indepth guidance if any problems arise.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install --upgrade pip setuptools wheel
+</pre></div>
+</div>
+</section>
+<section id="installing-edm">
+<h3><span class="section-number">2.1.1.2. </span>Installing edm<a class="headerlink" href="#installing-edm" title="Permalink to this heading">¶</a></h3>
+<p>Now you can clone this repository and install <strong>edm</strong>:
+(make sure you have <a class="reference external" href="https://www.atlassian.com/git/tutorials/git-ssh">set up your ssh key in github</a> first!)</p>
+<p>A script for the steps below can be found <a class="reference external" href="https://github.com/EVerest/everest-utils/tree/main/everest-cpp">here</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:EVerest/everest-dev-environment.git
+<span class="nb">cd</span> everest-dev-environment/dependency_manager
+python3 -m pip install .
+edm --register-cmake-module --config ../everest-complete.yaml --workspace ~/checkout/everest-workspace
+</pre></div>
+</div>
+<p>The last command registers the <a class="reference internal" href="#cmake-integration-setup"><span class="std std-ref">EDM CMake module</span></a> and creates a workspace in the <em>~/checkout/everest-workspace</em> directory from a <a class="reference external" href="https://github.com/EVerest/everest-dev-environment/blob/main/everest-complete.yaml">config that is shipped with this repository</a>. The workspace will have the following structure containing all current dependencies for everest:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>everest-workspace/
+├── everest-core
+├── everest-deploy-devkit
+├── everest-dev-environment
+├── everest-framework
+├── everest-utils
+├── liblog
+├── libmodbus
+├── libocpp
+├── libsunspec
+├── libtimer
+├── open-plc-utils
+├── RISE-V2G
+└── workspace-config.yamleverest-core
+</pre></div>
+</div>
+<p>The workspace-config.yaml contains a copy of the config that was used to create this workspace.</p>
+</section>
+<section id="enabling-cpm-source-cache">
+<h3><span class="section-number">2.1.1.3. </span>Enabling CPM_SOURCE_CACHE<a class="headerlink" href="#enabling-cpm-source-cache" title="Permalink to this heading">¶</a></h3>
+<p>The <strong>edm</strong> dependency manager uses <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a>
+for its CMake integration. This means you <em>can</em> and <strong>should</strong> set the
+<em>CPM_SOURCE_CACHE</em> environment variable. This makes sure that dependencies
+that you do not manage in the workspace are not re-downloaded multiple times.
+For detailed information and other useful environment variables please
+refer to the <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake/blob/master/README.md#CPM_SOURCE_CACHE">CPM Documentation</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CPM_SOURCE_CACHE</span><span class="o">=</span><span class="nv">$HOME</span>/.cache/CPM
+</pre></div>
+</div>
+</section>
+<section id="building-everest">
+<h3><span class="section-number">2.1.1.4. </span>Building everest<a class="headerlink" href="#building-everest" title="Permalink to this heading">¶</a></h3>
+<p>Make sure you have installed <a class="reference external" href="doc_tutorial_EV-CLI.html">ev_cli</a> first.
+You can now use the following commands to build everest-core:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/checkout/everest-workspace/everest-core
+mkdir build
+<span class="nb">cd</span> build
+cmake ..
+make install
+</pre></div>
+</div>
+</section>
+<section id="python-packages-needed-to-run-edm">
+<h3><span class="section-number">2.1.1.5. </span>Python packages needed to run edm<a class="headerlink" href="#python-packages-needed-to-run-edm" title="Permalink to this heading">¶</a></h3>
+<p>The following Python3 packages are needed to run the <strong>edm</strong> dependency manager. If you installed edm using the guide above they were already installed automatically.</p>
+<ul class="simple">
+<li><p>Python &gt;= 3.6</p></li>
+<li><p>Jinja2 &gt;= 3.0</p></li>
+<li><p>PyYAML &gt;= 5.4</p></li>
+</ul>
+</section>
+</section>
+<section id="setting-up-cmake-integration">
+<span id="cmake-integration-setup"></span><h2><span class="section-number">2.1.2. </span>Setting up CMake integration<a class="headerlink" href="#setting-up-cmake-integration" title="Permalink to this heading">¶</a></h2>
+<p>To use the EDM CMake module you must register it in the CMake package registry. You can use the following command to achieve this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --register-cmake-module
+</pre></div>
+</div>
+<p>This will create a file at ~/.cmake/packages/EDM/edm that points to the directory in which the EDM CMake module has been installed. You probably have to do this only once after the initial installation, but be advised that this might have to be done again if you reinstall edm with a different version of Python.</p>
+</section>
+<section id="setting-up-a-workspace">
+<h2><span class="section-number">2.1.3. </span>Setting up a workspace<a class="headerlink" href="#setting-up-a-workspace" title="Permalink to this heading">¶</a></h2>
+<p>A sample workspace config, everest-complete.yaml, for the EVerest project is provided in the root directory of this repository. You can set up this workspace with the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --register-cmake-module --config ../everest-complete.yaml --workspace ~/checkout/everest-workspace
+</pre></div>
+</div>
+</section>
+<section id="updating-a-workspace">
+<h2><span class="section-number">2.1.4. </span>Updating a workspace<a class="headerlink" href="#updating-a-workspace" title="Permalink to this heading">¶</a></h2>
+<p>To update a workspace you can edit the workspace-config.yaml file in the root of the workspace. You can then use the following command to apply these changes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --workspace ~/checkout/everest-workspace --update
+</pre></div>
+</div>
+<p>If you are currently in the everest-workspace directory the following command has the same effect.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --update
+</pre></div>
+</div>
+<p>Be advised that even if you remove a repository from the config file it WILL NOT be deleted from the workspace.</p>
+<p>An attempt will be made to switch branches to the ones specified in the config, however this will be aborted if the repository is dirty.</p>
+<p>Repositories also WILL NOT be pulled, you should check the state of your repositories afterwards with the commands described in <a class="reference internal" href="#git-information-at-a-glance"><span class="std std-ref">Git information at a glance</span></a></p>
+</section>
+<section id="using-the-edm-cmake-module-and-dependencies-yaml">
+<h2><span class="section-number">2.1.5. </span>Using the EDM CMake module and dependencies.yaml<a class="headerlink" href="#using-the-edm-cmake-module-and-dependencies-yaml" title="Permalink to this heading">¶</a></h2>
+<p>To use edm from CMake you have to add the following line to the top-level CMakeLists.txt file in the respective source repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find_package<span class="o">(</span>EDM REQUIRED<span class="o">)</span>
+</pre></div>
+</div>
+<p>The EDM CMake module will be discovered automatically if you registered the CMake module in the way it described in the Setting up CMake integration section of this readme.</p>
+<p>To define dependencies you can now add a dependencies.yaml file to your source repository. It should look like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---
+liblog:
+  git: git@github.com:EVerest/liblog.git
+  git_tag: main
+  options: <span class="o">[</span><span class="s2">&quot;BUILD_EXAMPLES OFF&quot;</span><span class="o">]</span>
+libtimer:
+  git: git@github.com:EVerest/libtimer.git
+  git_tag: main
+  options: <span class="o">[</span><span class="s2">&quot;BUILD_EXAMPLES OFF&quot;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>If you want to automatically check out certain dependencies into a workspace you can add a <strong>workspace.yaml</strong> file to the root of your source repository. It should look like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---
+workspace: ~/workspace
+local_dependencies:
+  liblog:
+  libtimer:
+</pre></div>
+</div>
+<p>You can overwrite the git_tag in your workspace.yaml, so you can use a development version in your workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---
+workspace: ~/workspace
+local_dependencies:
+  liblog:
+    git_tag: devel
+  timer :
+</pre></div>
+</div>
+</section>
+<section id="create-a-workspace-config-from-an-existing-directory-tree">
+<h2><span class="section-number">2.1.6. </span>Create a workspace config from an existing directory tree<a class="headerlink" href="#create-a-workspace-config-from-an-existing-directory-tree" title="Permalink to this heading">¶</a></h2>
+<p>Suppose you already have a directory tree that you want to save into a config file. You can do this with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --create-config custom-config.yaml
+</pre></div>
+</div>
+<p>This is a short form of</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --create-config custom-config.yaml --include-remotes git@github.com:EVerest/*
+</pre></div>
+</div>
+<p>and only includes repositories from the EVerest namespace. You can add as many remotes to this list as you want.</p>
+<p>For example if you only want to include certain repositories you can use the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --create-config custom-config.yaml --include-remotes git@github.com:EVerest/everest* git@github.com:EVerest/liblog.git
+</pre></div>
+</div>
+<p>If you want to include all repositories, including external dependencies, in the config you can use the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --create-config custom-config.yaml --external-in-config
+</pre></div>
+</div>
+</section>
+<section id="git-information-at-a-glance">
+<span id="id1"></span><h2><span class="section-number">2.1.7. </span>Git information at a glance<a class="headerlink" href="#git-information-at-a-glance" title="Permalink to this heading">¶</a></h2>
+<p>You can get a list of all git repositories in the current directory and their state using the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --git-info --git-fetch
+</pre></div>
+</div>
+<p>If you want to know the state of all repositories in a workspace you can use the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm --workspace ~/checkout/everest-workspace --git-info --git-fetch
+</pre></div>
+</div>
+<p>This creates output that is similar to the following example.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>edm<span class="o">]</span>: Git info <span class="k">for</span> <span class="s2">&quot;~/checkout/everest-workspace&quot;</span>:
+<span class="o">[</span>edm<span class="o">]</span>: Using git-fetch to update remote information. This might take a few seconds.
+<span class="o">[</span>edm<span class="o">]</span>: <span class="s2">&quot;everest-dev-environment&quot;</span> @ branch: main <span class="o">[</span>remote: origin/main<span class="o">]</span> <span class="o">[</span>behind <span class="m">6</span><span class="o">]</span> <span class="o">[</span>clean<span class="o">]</span>
+<span class="o">[</span>edm<span class="o">]</span>: <span class="s2">&quot;everest-framework&quot;</span> @ branch: main <span class="o">[</span>remote: origin/main<span class="o">]</span> <span class="o">[</span>dirty<span class="o">]</span>
+<span class="o">[</span>edm<span class="o">]</span>: <span class="s2">&quot;everest-deploy-devkit&quot;</span> @ branch: main <span class="o">[</span>remote: origin/main<span class="o">]</span> <span class="o">[</span>clean<span class="o">]</span>
+<span class="o">[</span>edm<span class="o">]</span>: <span class="s2">&quot;libtimer&quot;</span> @ branch: main <span class="o">[</span>remote: origin/main<span class="o">]</span> <span class="o">[</span>dirty<span class="o">]</span>
+<span class="o">[</span>edm<span class="o">]</span>: <span class="m">2</span>/4 repositories are dirty.
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">2.1. EDM</a><ul>
+<li><a class="reference internal" href="#dependency-manager-for-everest">2.1.1. Dependency Manager for EVerest</a><ul>
+<li><a class="reference internal" href="#install-and-quick-start">2.1.1.1. Install and Quick Start</a></li>
+<li><a class="reference internal" href="#installing-edm">2.1.1.2. Installing edm</a></li>
+<li><a class="reference internal" href="#enabling-cpm-source-cache">2.1.1.3. Enabling CPM_SOURCE_CACHE</a></li>
+<li><a class="reference internal" href="#building-everest">2.1.1.4. Building everest</a></li>
+<li><a class="reference internal" href="#python-packages-needed-to-run-edm">2.1.1.5. Python packages needed to run edm</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-cmake-integration">2.1.2. Setting up CMake integration</a></li>
+<li><a class="reference internal" href="#setting-up-a-workspace">2.1.3. Setting up a workspace</a></li>
+<li><a class="reference internal" href="#updating-a-workspace">2.1.4. Updating a workspace</a></li>
+<li><a class="reference internal" href="#using-the-edm-cmake-module-and-dependencies-yaml">2.1.5. Using the EDM CMake module and dependencies.yaml</a></li>
+<li><a class="reference internal" href="#create-a-workspace-config-from-an-existing-directory-tree">2.1.6. Create a workspace config from an existing directory tree</a></li>
+<li><a class="reference internal" href="#git-information-at-a-glance">2.1.7. Git information at a glance</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter"><span class="section-number">2. </span>EVerest development tools</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ev_cli.html"
+                          title="next chapter"><span class="section-number">2.2. </span>ev-cli</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/dev_tools/edm.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ev_cli.html" title="2.2. ev-cli"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="2. EVerest development tools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" ><span class="section-number">2. </span>EVerest development tools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2.1. </span>EDM</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

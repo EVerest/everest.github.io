@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.32. YetiDriver &#8212; EVerest  documentation</title>
+    <title>Additional documentation &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -18,9 +18,7 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="6. EVerest Interfaces" href="../everest_interfaces.html" />
-    <link rel="prev" title="5.31. System" href="System.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,15 +26,8 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../everest_interfaces.html" title="6. EVerest Interfaces"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="System.html" title="5.31. System"
-             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.32. </span>YetiDriver</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Additional documentation</a></li> 
       </ul>
     </div>  
 
@@ -45,17 +36,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="yetidriver">
-<span id="everest-modules-yetidriver"></span><h1><span class="section-number">5.32. </span>YetiDriver<a class="headerlink" href="#yetidriver" title="Permalink to this heading">¶</a></h1>
-<div class="line-block">
-<div class="line">Driver module for the YETI hardware v1.0</div>
-</div>
-<section id="additional-documentation">
-<h2><span class="section-number">5.32.1. </span>Additional documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading">¶</a></h2>
+  <section id="additional-documentation">
+<h1>Additional documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading">¶</a></h1>
 <p>The module <code class="docutils literal notranslate"><span class="pre">YetiDriver</span></code> is a board support driver for Pionix Yeti Power
 Board.</p>
 <section id="communication-between-the-yeti-microcontroller-and-this-driver-module">
-<h3><span class="section-number">5.32.1.1. </span>Communication between the Yeti microcontroller and this driver module<a class="headerlink" href="#communication-between-the-yeti-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h3>
+<h2>Communication between the Yeti microcontroller and this driver module<a class="headerlink" href="#communication-between-the-yeti-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
 <p>The hardware connection between Yeti and Yak (the board running EVerest and
 this module) is 3.3V TTL UART plus 2 GPIOs (one to reset the microcontroller
 from Linux and one to wakeup Linux from the microcontroller, which is
@@ -63,7 +49,7 @@ currrently unused).</p>
 <p>The default configuration is 115200 bps 8N1.</p>
 </section>
 <section id="protocol">
-<h3><span class="section-number">5.32.1.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h3>
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
 <p>EVerest can send commands to Yeti and Yeti publishes data and events back
 to EVerest. The packets are defined with protobuf to serialize the C structs
 into a binary representation that is transferred over the serial wire in a
@@ -73,7 +59,7 @@ stream:</p>
 before it is transmitted on the UART:</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing">https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing</a></p>
 <section id="cobs">
-<h4><span class="section-number">5.32.1.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h4>
+<h3>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
 <p>COBS is implemented in <code class="docutils literal notranslate"><span class="pre">yeti_comms/evSerial.cpp</span></code>. Whenever a new packet
 was extracted from the stream <code class="docutils literal notranslate"><span class="pre">handlePacket()</span></code> is called to decode protobuf
 and generate the corresponding signals.
@@ -82,7 +68,7 @@ packets.</p>
 <p>For TX <code class="docutils literal notranslate"><span class="pre">linkWrite</span></code> encodes the packet with COBS and outputs it to the UART.</p>
 </section>
 <section id="protobuf">
-<h4><span class="section-number">5.32.1.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h4>
+<h3>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
 <p>The actual packet definitions are located under <code class="docutils literal notranslate"><span class="pre">yeti_comms/protobuf</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hi2lo.proto</span></code> contains all messages that can be sent from EVerest to Yeti
 while <code class="docutils literal notranslate"><span class="pre">lo2hi.proto</span></code> defines all messages that Yeti sends to EVerest.</p>
@@ -94,7 +80,7 @@ frequently.</p>
 definition is used on both sides when making changes.</p>
 </section>
 <section id="everest-to-yeti">
-<h4><span class="section-number">5.32.1.2.3. </span>EVerest to Yeti<a class="headerlink" href="#everest-to-yeti" title="Permalink to this heading">¶</a></h4>
+<h3>EVerest to Yeti<a class="headerlink" href="#everest-to-yeti" title="Permalink to this heading">¶</a></h3>
 <p>The most important commands that EVerest sends to Yeti are the following:</p>
 <p><code class="docutils literal notranslate"><span class="pre">SetControlMode(mode)</span></code>: Yeti firmware can operate in different modes:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Mode</span> <span class="pre">NONE</span> <span class="pre">=</span> <span class="pre">0</span></code>: In this mode Yeti does not allow control over UART. It will
@@ -112,7 +98,7 @@ safety remains within the microcontroller and not within EVerest.
 It generates more human readable events from state A-F transitions.</p>
 <p>PWM is directly controlled from EVerest in this mode.</p>
 <section id="low-control-mode">
-<h5><span class="section-number">5.32.1.2.3.1. </span>Low control mode:<a class="headerlink" href="#low-control-mode" title="Permalink to this heading">¶</a></h5>
+<h4>Low control mode:<a class="headerlink" href="#low-control-mode" title="Permalink to this heading">¶</a></h4>
 <p>The following commands describe the Low level control mode only:</p>
 <p><code class="docutils literal notranslate"><span class="pre">AllowPowerOn(bool)</span></code>: Inform yeti that it is allowed to switch on the power
 relais/contactors to the car on (true) or must switch off now (false). The
@@ -125,7 +111,7 @@ car is in CP state B etc). On power off Yeti must switch off immediately.</p>
 </dl>
 </section>
 <section id="other-commands-for-all-modes">
-<h5><span class="section-number">5.32.1.2.3.2. </span>Other commands for all modes:<a class="headerlink" href="#other-commands-for-all-modes" title="Permalink to this heading">¶</a></h5>
+<h4>Other commands for all modes:<a class="headerlink" href="#other-commands-for-all-modes" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">FirmwareUpdate(bool)</span></code>: Send true to reboot Yeti into ROM boot loader.
 After that stm32flash tool can be used to flash any firmware binary to it.
 Note that this is a dev kit and for a real product this needs to be implemented
@@ -153,7 +139,7 @@ phase to three phase while charging is running (E.g. Zoe 1)</p>
 </section>
 </section>
 <section id="yeti-to-everest">
-<h4><span class="section-number">5.32.1.2.4. </span>Yeti to EVerest<a class="headerlink" href="#yeti-to-everest" title="Permalink to this heading">¶</a></h4>
+<h3>Yeti to EVerest<a class="headerlink" href="#yeti-to-everest" title="Permalink to this heading">¶</a></h3>
 <p>The following messages are relevant for LOW control mode:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Event</span></code>: This is the most important message from Yeti. It will send an event
 on CP transitions:</p>
@@ -183,88 +169,6 @@ on CP transitions:</p>
 </section>
 </section>
 </section>
-<section id="module-configuration">
-<h2><span class="section-number">5.32.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>serial_port</strong>:<em>string</em></div>
-<div class="line"><em>default: /dev/ttyUSB0</em></div>
-<div class="line-block">
-<div class="line">Serial port the Yeti hardware is connected to</div>
-</div>
-<div class="line"><strong>baud_rate</strong>:<em>integer</em></div>
-<div class="line"><em>default: 115200</em></div>
-<div class="line-block">
-<div class="line">Serial baud rate to use when communicating with Yeti hardware</div>
-</div>
-<div class="line"><strong>control_mode</strong>:<em>string</em></div>
-<div class="line"><em>default: low</em></div>
-<div class="line-block">
-<div class="line">none, high or low</div>
-<div class="line">enum: none, high, low</div>
-</div>
-<div class="line"><strong>reset_gpio</strong>:<em>integer</em></div>
-<div class="line"><em>default: -1</em></div>
-<div class="line-block">
-<div class="line">Reset GPIO number to use to HW reset Yeti. If set &lt;0 it is disabled.</div>
-</div>
-</div>
-</section>
-<section id="provides">
-<h2><span class="section-number">5.32.3. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>powermeter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
-<div class="line-block">
-<div class="line">provides the Yeti Internal Power Meter</div>
-</div>
-<div class="line"><strong>board_support</strong>:<a class="reference internal" href="../interfaces/board_support_AC.html#everest-interfaces-board-support-ac"><span class="std std-ref">board_support_AC</span></a></div>
-<div class="line-block">
-<div class="line">provides the board support Interface to low level control control pilot, relais, rcd, motor lock</div>
-</div>
-<div class="line"><strong>yeti_extras</strong>:<a class="reference internal" href="../interfaces/yeti_extras.html#everest-interfaces-yeti-extras"><span class="std std-ref">yeti_extras</span></a></div>
-<div class="line-block">
-<div class="line">extra functionality special for Yeti</div>
-</div>
-<div class="line"><strong>debug_yeti</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
-<div class="line-block">
-<div class="line">provides the debug information of the charging driver</div>
-</div>
-<div class="line"><strong>debug_powermeter</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
-<div class="line-block">
-<div class="line">Provides the powermeter as a json object</div>
-</div>
-<div class="line"><strong>debug_state</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
-<div class="line-block">
-<div class="line">Provides the state as a json object</div>
-</div>
-<div class="line"><strong>debug_keepalive</strong>:<a class="reference internal" href="../interfaces/debug_json.html#everest-interfaces-debug-json"><span class="std std-ref">debug_json</span></a></div>
-<div class="line-block">
-<div class="line">Provides the keepalive as a json object</div>
-</div>
-<div class="line"><strong>yeti_simulation_control</strong>:<a class="reference internal" href="../interfaces/yeti_simulation_control.html#everest-interfaces-yeti-simulation-control"><span class="std std-ref">yeti_simulation_control</span></a></div>
-<div class="line-block">
-<div class="line">Interface for the Yeti HIL simulator</div>
-</div>
-</div>
-</section>
-<section id="metadata">
-<h2><span class="section-number">5.32.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
-<section id="authors">
-<h3><span class="section-number">5.32.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line">Cornelius Claussen</div>
-<div class="line">Kai-Uwe Hermann</div>
-<div class="line">Thilo Molitor</div>
-<div class="line">Anton Wöllert</div>
-</div>
-</section>
-<section id="license">
-<h3><span class="section-number">5.32.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
-</div>
-</section>
-</section>
-</section>
 
 
             <div class="clearer"></div>
@@ -276,27 +180,17 @@ on CP transitions:</p>
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">5.32. YetiDriver</a><ul>
-<li><a class="reference internal" href="#additional-documentation">5.32.1. Additional documentation</a><ul>
-<li><a class="reference internal" href="#communication-between-the-yeti-microcontroller-and-this-driver-module">5.32.1.1. Communication between the Yeti microcontroller and this driver module</a></li>
-<li><a class="reference internal" href="#protocol">5.32.1.2. Protocol</a><ul>
-<li><a class="reference internal" href="#cobs">5.32.1.2.1. COBS</a></li>
-<li><a class="reference internal" href="#protobuf">5.32.1.2.2. Protobuf</a></li>
-<li><a class="reference internal" href="#everest-to-yeti">5.32.1.2.3. EVerest to Yeti</a><ul>
-<li><a class="reference internal" href="#low-control-mode">5.32.1.2.3.1. Low control mode:</a></li>
-<li><a class="reference internal" href="#other-commands-for-all-modes">5.32.1.2.3.2. Other commands for all modes:</a></li>
+<li><a class="reference internal" href="#">Additional documentation</a><ul>
+<li><a class="reference internal" href="#communication-between-the-yeti-microcontroller-and-this-driver-module">Communication between the Yeti microcontroller and this driver module</a></li>
+<li><a class="reference internal" href="#protocol">Protocol</a><ul>
+<li><a class="reference internal" href="#cobs">COBS</a></li>
+<li><a class="reference internal" href="#protobuf">Protobuf</a></li>
+<li><a class="reference internal" href="#everest-to-yeti">EVerest to Yeti</a><ul>
+<li><a class="reference internal" href="#low-control-mode">Low control mode:</a></li>
+<li><a class="reference internal" href="#other-commands-for-all-modes">Other commands for all modes:</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#yeti-to-everest">5.32.1.2.4. Yeti to EVerest</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-configuration">5.32.2. Module Configuration</a></li>
-<li><a class="reference internal" href="#provides">5.32.3. Provides</a></li>
-<li><a class="reference internal" href="#metadata">5.32.4. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">5.32.4.1. Authors</a></li>
-<li><a class="reference internal" href="#license">5.32.4.2. License</a></li>
+<li><a class="reference internal" href="#yeti-to-everest">Yeti to EVerest</a></li>
 </ul>
 </li>
 </ul>
@@ -304,20 +198,10 @@ on CP transitions:</p>
 </ul>
 
   </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="System.html"
-                          title="previous chapter"><span class="section-number">5.31. </span>System</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="../everest_interfaces.html"
-                          title="next chapter"><span class="section-number">6. </span>EVerest Interfaces</a></p>
-  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/generated/modules/YetiDriver.rst.txt"
+      <li><a href="../../_sources/included/modules/YetiDriver.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -341,15 +225,8 @@ on CP transitions:</p>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="../everest_interfaces.html" title="6. EVerest Interfaces"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="System.html" title="5.31. System"
-             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.32. </span>YetiDriver</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Additional documentation</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

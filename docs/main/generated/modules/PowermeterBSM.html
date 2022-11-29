@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>5.25. PowermeterBSM &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.26. SerialCommHub" href="SerialCommHub.html" />
+    <link rel="prev" title="5.24. PN532TokenProvider" href="PN532TokenProvider.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="SerialCommHub.html" title="5.26. SerialCommHub"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PN532TokenProvider.html" title="5.24. PN532TokenProvider"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.25. </span>PowermeterBSM</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+
+
+  <section id="powermeterbsm">
+<span id="everest-modules-powermeterbsm"></span><h1><span class="section-number">5.25. </span>PowermeterBSM<a class="headerlink" href="#powermeterbsm" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">Module that collects power and energy measurements from a MODBUS RTU device</div>
+</div>
+<section id="module-configuration">
+<h2><span class="section-number">5.25.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>power_unit_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Modbus unit_id, mostly 1</div>
+</div>
+<div class="line"><strong>sunspec_base_address</strong>:<em>integer</em></div>
+<div class="line"><em>default: 40000</em></div>
+<div class="line-block">
+<div class="line">sunspec base address of device ( 0, 40000 or 50000 )</div>
+</div>
+<div class="line"><strong>update_interval</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Update interval in seconds.</div>
+</div>
+<div class="line"><strong>watchdog_wakeup_interval</strong>:<em>integer</em></div>
+<div class="line"><em>default: 60</em></div>
+<div class="line-block">
+<div class="line">wakup interval of watchdog in seconds (default 60 seconds).</div>
+</div>
+<div class="line"><strong>serial_device</strong>:<em>string</em></div>
+<div class="line"><em>default: /dev/ttyUSB0</em></div>
+<div class="line-block">
+<div class="line">Serial port the BSM hardware is connected to</div>
+</div>
+<div class="line"><strong>baud</strong>:<em>integer</em></div>
+<div class="line"><em>default: 19200</em></div>
+<div class="line-block">
+<div class="line">Baud rate on RS-485, allowed value range: 2400 115200 (19200 is default)</div>
+</div>
+<div class="line"><strong>use_serial_comm_hub</strong>:<em>boolean</em></div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">When enabled, use a serial serial_communication_hub, otherwise use the configured serial device.</div>
+</div>
+<div class="line"><strong>meter_id</strong>:<em>string</em></div>
+<div class="line"><em>default: no_meter_id</em></div>
+<div class="line-block">
+<div class="line">Arbitrary string id, used as power_meter_id in interface powermeter.</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">5.25.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
+<div class="line-block">
+<div class="line">This is the main unit of the module</div>
+</div>
+<div class="line"><strong>ac_meter</strong>:<a class="reference internal" href="../interfaces/sunspec_ac_meter.html#everest-interfaces-sunspec-ac-meter"><span class="std std-ref">sunspec_ac_meter</span></a></div>
+<div class="line-block">
+<div class="line">sunspec ac meter</div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">5.25.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>serial_com_0_connection</strong>:<a class="reference internal" href="../interfaces/serial_communication_hub.html#everest-interfaces-serial-communication-hub"><span class="std std-ref">serial_communication_hub</span></a></div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">5.25.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">5.25.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Christoph Kliemt</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">5.25.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3>Branches</h3>
+<ul>
+  <li><a href="../../../feature/deploy-multiple-versions/index.html">feature/deploy-multiple-versions</a></li>
+  <li><a href="../../../ah_add_doc_how_to_contribute/index.html">ah_add_doc_how_to_contribute</a></li>
+  <li><a href="../../../ah_rework_sphinx_workflow/index.html">ah_rework_sphinx_workflow</a></li>
+  <li><a href="../../../doc/mz-quick-start/index.html">doc/mz-quick-start</a></li>
+  <li><a href="PowermeterBSM.html">main</a></li>
+</ul>
+<h3>Tags</h3>
+<ul>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="SerialCommHub.html" title="5.26. SerialCommHub"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="PN532TokenProvider.html" title="5.24. PN532TokenProvider"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.25. </span>PowermeterBSM</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+
+.. _everest_interfaces_energy:
+
+
+######
+energy
+######
+
+| This interface defines a forecast schedule of energy import/export capability/limits, pricing and current energy usage.
+
+
+*********
+Variables
+*********
+| **energy**:*object*
+|  Energy object to supply/limit energy import (direction from grid to car) and/or consume/limit energy export (car to grid).
+|  required: node_type, uuid
+|  properties:
+|   **children**:*array*
+|    Array of child nodes (in the direction to consumer/car
+|   **node_type**:*string* (:ref:`energy-NodeType <energy-NodeType>`)
+|    Type of energy source/sink. Use Limit if this purely enforces limits but is not a physical energy source/sink.
+|    **There is an extended definition for this object** :ref:`here <energy-NodeType>`.
+|   **uuid**:*string*
+|    UUID for this node. This UUID will be used again when enforce_limits() command propagates through the tree.
+|   **optimizer_target**:*object* (:ref:`energy-OptimizerTarget <energy-OptimizerTarget>`)
+|    User defined optimizer targets for this evse
+|    **There is an extended definition for this object** :ref:`here <energy-OptimizerTarget>`.
+|   **schedule_import**:*array*
+|    Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|    items:
+|     description:
+|     type:
+|     $ref:
+|   **schedule_export**:*array*
+|    Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|    items:
+|     description:
+|     type:
+|     $ref:
+|   **energy_usage**:*object*
+|    Energy usage of this node (powermeter struct)
+
+********
+Commands
+********
+| **enforce_limits**:*void*
+|  The EnergyManager enforces a limit using this command.
+|  **uuid**:*string*
+|   UUID of node that this limit applies to
+|  **limits_import**:*object* (:ref:`energy-Limits <energy-Limits>`)
+|   Enforced limits that must be respected.
+|   **There is an extended definition for this object** :ref:`here <energy-Limits>`.
+|  **limits_export**:*object* (:ref:`energy-Limits <energy-Limits>`)
+|   Enforced limits that must be respected.
+|   **There is an extended definition for this object** :ref:`here <energy-Limits>`.
+|  **schedule_import**:*array*
+|   Informative only. Do not use for actual limiting. Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|   items:
+|    description:
+|    type:
+|    $ref:
+|  **schedule_export**:*array*
+|   Informative only. Do not use for actual limiting. Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|   items:
+|    description:
+|    type:
+|    $ref:

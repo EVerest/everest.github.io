@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>2. A Real Quick Guide To EVerest &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. EVerest development tools" href="../dev_tools/index.html" />
+    <link rel="prev" title="1. EVerest framework" href="framework.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../dev_tools/index.html" title="3. EVerest development tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="framework.html" title="1. EVerest framework"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2. </span>A Real Quick Guide To EVerest</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+
+<p>
+  <strong>
+    
+    You're reading the documentation for a development version.
+    For the latest released version, please have a look at <a href="../../../main/index.html">main</a>.
+    
+  </strong>
+</p>
+
+
+  <section id="a-real-quick-guide-to-everest">
+<h1><span class="section-number">2. </span>A Real Quick Guide To EVerest<a class="headerlink" href="#a-real-quick-guide-to-everest" title="Permalink to this heading">¶</a></h1>
+<section id="everest-framework-overview">
+<h2><span class="section-number">2.1. </span>EVerest - Framework Overview<a class="headerlink" href="#everest-framework-overview" title="Permalink to this heading">¶</a></h2>
+<p>EVerest is a modular framework for setting up a full stack environment for EV charging.</p>
+<p>You can think of it as an operating system for EV chargers with implementations of communication protocols, software modules for representations of hardware devices (chargers, cars, …) and tools for simulating the charging process.</p>
+<p>Some very high level overviews of the framework can be seen here:</p>
+<img alt="../_images/quick-start-high-level-1.png" src="../_images/quick-start-high-level-1.png" />
+<p>The EVerest framework helps with building your dedicated development scenario with all needed modules for your specific developer’s use case.</p>
+<p>Modules in EVerest can be everything like hardware drivers, protocols, authentication logic and more. Build up your development scenario as needed and enhance it by adding your own additional modules.</p>
+<p>Another way to look at EVerest is the layer architecture:</p>
+<img alt="../_images/quick-start-high-level-2.png" src="../_images/quick-start-high-level-2.png" />
+<p>Depending on your project use case, you can define the suitable module stack and set module connections and module parameters.</p>
+<p>Additionally, you have some tools and helpers that work with the framework which makes your EV developer’s life easier:</p>
+<img alt="../_images/quick-start-high-level-3.png" src="../_images/quick-start-high-level-3.png" />
+<p>Lets have a short look at those tools right away:</p>
+<ul class="simple">
+<li><p><strong>Admin Panel</strong>: See all modules connections and dependencies including the parameters set for the modules.</p></li>
+<li><p><strong>EVerest Dependency Manager</strong> (edm): A tool that helps you getting all needed repositories from Git for your specific setup.</p></li>
+<li><p><strong>ev-cli</strong>: Generates module and interface scaffolds based on templates. This way you can start implementing new modules very fast.</p></li>
+<li><p><strong>MQTT Explorer</strong>: Great for debugging the messages sent between your modules during development phase.</p></li>
+<li><p><strong>NodeRed</strong> for simulating your EVerest setup</p></li>
+<li><p><strong>SteVe</strong>: Just in case you want to test your EVerest instance with some OCPP backend functionality: SteVe is an external tool that lets you do exactly that.</p></li>
+</ul>
+<p>How to setup and use those tools will be shown later.</p>
+</section>
+<section id="prerequisites">
+<h2><span class="section-number">2.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h2>
+<p>To get EVerest running and develop new modules, you will need some things prepared:</p>
+<section id="hardware">
+<h3><span class="section-number">2.2.1. </span>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">¶</a></h3>
+<p>It is recommended to have at least 4GB of RAM available to build EVerest. More CPU cores will optionally boost the build process, while requiring more RAM accordingly.</p>
+</section>
+<section id="operating-system">
+<h3><span class="section-number">2.2.2. </span>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this heading">¶</a></h3>
+<p>EVerest has been tested with Ubuntu, OpenSUSE and Fedora 36.</p>
+</section>
+<section id="needed-packages">
+<h3><span class="section-number">2.2.3. </span>Needed Packages<a class="headerlink" href="#needed-packages" title="Permalink to this heading">¶</a></h3>
+<p>Needed packages to get EVerest properly running:</p>
+<ul class="simple">
+<li><p>Python (greater than 3.6)</p></li>
+<li><p>Jinja2</p></li>
+<li><p>PyYAML</p></li>
+</ul>
+<p>See the section about prerequisites here: <a class="reference external" href="https://github.com/EVerest/everest-core#prerequisites">Prerequisites for EVerest</a> to get all needed packages setup for your dedicated system.</p>
+<p>After having finished the Prerequisites paragraph, join here again as we will continue for setting up all needed EVerest Git repositories.</p>
+</section>
+</section>
+<section id="download-and-install">
+<h2><span class="section-number">2.3. </span>Download And Install<a class="headerlink" href="#download-and-install" title="Permalink to this heading">¶</a></h2>
+<section id="get-the-needed-everest-repositories">
+<h3><span class="section-number">2.3.1. </span>Get The Needed EVerest Repositories<a class="headerlink" href="#get-the-needed-everest-repositories" title="Permalink to this heading">¶</a></h3>
+<section id="everest-dependency-manager-edm">
+<h4><span class="section-number">2.3.1.1. </span>EVerest Dependency Manager - edm<a class="headerlink" href="#everest-dependency-manager-edm" title="Permalink to this heading">¶</a></h4>
+<p>As EVerest is highly modular, you will need multiple repos, which can be found on GitHub.</p>
+<p>To get the right repos as needed, the EVerest Dependency Manager - short edm - will help you.</p>
+<p>To start with that, let’s get edm ready to work.</p>
+<p>You will first of all need to pull <em>everest-dev-environment</em> to your development environment.</p>
+<p>Python and its tools pip, setuptools and wheel have already been installed in the Prerequisites section above. So, you can pull the said repository and install the dependency manager:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:EVerest/everest-dev-environment.git
+<span class="nb">cd</span> everest-dev-environment/dependency_manager
+python3 -m pip install .
+edm --config ../everest-complete.yaml --workspace ~/checkout/everest-workspace
+</pre></div>
+</div>
+<p>(In future, as your system has edm properly setup, you can always initialise a new workspace by calling <em>edm init</em>.)</p>
+<p>edm will now prepare the most common repos to start with. It will also create a YAML file which describes your newly created workspace. You can change that YAML file later if you want to adopt the workspace to another scenario.</p>
+<p>The YAML file can be found in the directory which you have chosen as workspace directory. In the above example, it is located at ~/checkout/everest-workspace.</p>
+</section>
+<section id="everest-command-line-interface-ev-cli">
+<h4><span class="section-number">2.3.1.2. </span>EVerest Command Line Interface: ev-cli<a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
+<p>In its current version, ev-cli supports you by generating module templates.</p>
+<p>To install ev-cli, change into the everest-utils/ev-dev-tools/ directory and install ev-cli:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install .
+</pre></div>
+</div>
+<p>That is all to install ev-cli. In a later step, we will use ev-cli to create module stubs.</p>
+</section>
+</section>
+<section id="build-everest">
+<h3><span class="section-number">2.3.2. </span>Build EVerest<a class="headerlink" href="#build-everest" title="Permalink to this heading">¶</a></h3>
+<p>Now it is time to build EVerest:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/checkout/everest-workspace/everest-core
+mkdir build
+<span class="nb">cd</span> build
+cmake ..
+make install
+</pre></div>
+</div>
+<p>edm helped you to keep it that simple. Let’s now dive into simulating our current workspace.</p>
+<p>If you get an error during the build process stating that ev-cli is installed in an old version, go to your everest-workspace directory and call <em>edm –git-pull</em>. This will update the EVerest repositories. After that, repeat building ev-cli and you should be good to go again.</p>
+</section>
+</section>
+<section id="simulating-everest">
+<h2><span class="section-number">2.4. </span>Simulating EVerest<a class="headerlink" href="#simulating-everest" title="Permalink to this heading">¶</a></h2>
+<section id="software-in-a-loop">
+<h3><span class="section-number">2.4.1. </span>Software in a loop<a class="headerlink" href="#software-in-a-loop" title="Permalink to this heading">¶</a></h3>
+<p>You will have to setup and run an MQTT Broker first. Please check this documentation here to set it up with the help of a docker container: <a class="reference external" href="https://everest.github.io/tutorials/run_sil/index.html#how-to-simulate-everest-in-software">How to simulate EVerest</a></p>
+<p>After having done that, change to the directory /everest-core/build/, which has been created during EVerest install.</p>
+<p>We will startup EVerest now with a software-in-a-loop (SIL) config.</p>
+<p>Start the software-in-a-loop simulation via script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run-scripts/run-sil.sh
+</pre></div>
+</div>
+<p>In a new terminal window, run the NodeRed script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run-scripts/nodered-sil.sh
+</pre></div>
+</div>
+<p>This will let us control the simulation with the help of NodeRed.</p>
+<p>You can analyse the output of the two scripts in the terminal windows to get a little bit of insights about what is going on and which ports are used etc.</p>
+<p>If everything worked well, you will be able to reach a charging web GUI at <em>localhost:1880/ui</em>.</p>
+<p>With that GUI, you can simulate charging states of a charging process in an electric vehicle.</p>
+<p>You can play around with that a little bit to see some output in your two terminal windows. Try to get a first idea!</p>
+</section>
+<section id="admin-panel">
+<h3><span class="section-number">2.4.2. </span>Admin Panel<a class="headerlink" href="#admin-panel" title="Permalink to this heading">¶</a></h3>
+<p>The Admin Panel gives you a nice overview of the modules and the connections between them.</p>
+<p>As it resides in an own repository, which is not delivered automatically by edm in default, you will have to get the repo manually here: <a class="reference external" href="https://github.com/EVerest/everest-admin-panel">EVerest Admin Panel</a></p>
+<p>You will have to install and run it via npm. After that, you can reach the Admin Panel locally via your standard web port 80.</p>
+<p>A detailed walk-through to assist you with that is in preparation.</p>
+</section>
+</section>
+<section id="module-overview">
+<h2><span class="section-number">2.5. </span>Module Overview<a class="headerlink" href="#module-overview" title="Permalink to this heading">¶</a></h2>
+<p>What parts does a module in EVerest consist of?</p>
+<ul class="simple">
+<li><p>Interface definition</p></li>
+<li><p>Types definition</p></li>
+<li><p>Module implementation</p></li>
+</ul>
+<p>Let’s have a quick look to those parts in the following sections.</p>
+<section id="interfaces">
+<h3><span class="section-number">2.5.1. </span>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this heading">¶</a></h3>
+<p>An interface generally describes a specific object in the EVerest world. Those objects can be device types, protocol standards, authentication instances and so on.</p>
+<p>Everything that you will want to integrate into EVerest as a module will need to have an interface definition.</p>
+<p>A short view on an interface describing a powermeter:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This interface defines a generic powermeter for 5 wire TN networks.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;cmds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;get_signed_meter_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Returns a signed meter value with the given auth token&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;auth_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Auth token&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;minLength&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;maxLength&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">          </span><span class="p">},</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Signed meter value&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;vars&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;powermeter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Measured dataset&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;$ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/powermeter#/Powermeter&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The description simply tells you in short, which type of object the interface describes.</p>
+<p>Interfaces have commands (cmds) which can be called on the implementing modules based on that interface.</p>
+<p>Besides that, the vars can by consumed by other modules in an asynchronous way.</p>
+<p>Both cmds and vars can be defined as simple data types (string, bool etc) or as object type - in case you want to have a more sophisticated structure than a simple type.</p>
+<p>Those object types have to be defined. In EVerest, we do this as a Type Definition.</p>
+</section>
+<section id="types">
+<h3><span class="section-number">2.5.2. </span>Types<a class="headerlink" href="#types" title="Permalink to this heading">¶</a></h3>
+<p>A short view on how the powermeter type could look like:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Powermeter types&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Powermeter&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Measured dataset&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">              </span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s2">&quot;energy_Wh_import&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">],</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timestamp of measurement&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="w"></span>
+<span class="w">              </span><span class="p">},</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;meter_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A (user defined) meter if (e.g. id printed on the case)&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">          </span><span class="c1">// ...</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This type has been used and referenced in the powermeter interface.</p>
+<p>You can understand the interface description as the description of a general powermeter device and the powermeter type as a data object that is used by a powermeter device to exchange measurement information.</p>
+<p>The type definition tells EVerest which properties this type has. This is the data structure of the type. The JSON key <em>required</em> defines what is needed.</p>
+<p>With this, we have now interfaces and types set. Let’s have a look at the module:</p>
+</section>
+<section id="modules">
+<h3><span class="section-number">2.5.3. </span>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h3>
+<p>Each module resides in the modules directory as a subdirectory.</p>
+<p>In that directory are several files:</p>
+<ul class="simple">
+<li><p>manifest.json to give information about what the module provides (the interfaces which this module implements including the parameters needed for the interfaces) and which interface implementations are required for connections to this module</p></li>
+<li><p>.cpp and .hpp code files for the implementations</p></li>
+<li><p>CMakeList.txt file to define needed libraries for the cmake run</p></li>
+<li><p>Implementations of interfaces in separate code files</p></li>
+</ul>
+<p>How the code files look like and what is needed for a quick start, we will see in the next section in which we implement a simple module.</p>
+</section>
+</section>
+<section id="implementing-a-new-module">
+<h2><span class="section-number">2.6. </span>Implementing a New Module<a class="headerlink" href="#implementing-a-new-module" title="Permalink to this heading">¶</a></h2>
+<p>To create a new module in EVerest, we need to do some small steps shown in the following. No worries: We will go through them in more detail afterwards.</p>
+<ul class="simple">
+<li><p>Create a new subdirectory in the modules directory.</p></li>
+<li><p>Create a CMakeLists.txt (or borrow it from another module) with all needed libraries to build the module</p></li>
+<li><p>Create a manifest with information about which interface implementations are provided and which interfaces are required from connected modules.</p></li>
+</ul>
+<p>Now, let’s make ev-cli do its job of generating a module stub from a template:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli mod create MyModuleName
+</pre></div>
+</div>
+<p>The name of the module is the one given as directory name.</p>
+<p>You will see that you get cpp and hpp files for your main module class and also for the interfaces to be implemented.</p>
+<p>You main cpp file will have to special functions:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>When initialising, the EVerest framework will call all init() functions of all modules one after the other. After having initialised all modules in that way, the framework calls the ready() functions.</p>
+<p>This allows you to do setup things that relate only to your current module in the init() function and all stuff requiring other modules being initialised in your ready() function.</p>
+<p>TODO: mod-&gt;p_board_support-&gt;publish_n_of_phases_available(3); documentation how vars can be published and how to interact with required modules from the outside.</p>
+<p>(TODO: Show the Functions, Events, …)</p>
+</section>
+</section>
+
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3>Branches</h3>
+<ul>
+  <li><a href="../../../feature/deploy-multiple-versions/index.html">feature/deploy-multiple-versions</a></li>
+  <li><a href="../../../ah_add_doc_how_to_contribute/index.html">ah_add_doc_how_to_contribute</a></li>
+  <li><a href="../../../ah_rework_sphinx_workflow/index.html">ah_rework_sphinx_workflow</a></li>
+  <li><a href="quick_start_guide.html">doc/mz-quick-start</a></li>
+  <li><a href="../../../main/index.html">main</a></li>
+</ul>
+<h3>Tags</h3>
+<ul>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../dev_tools/index.html" title="3. EVerest development tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="framework.html" title="1. EVerest framework"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2. </span>A Real Quick Guide To EVerest</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

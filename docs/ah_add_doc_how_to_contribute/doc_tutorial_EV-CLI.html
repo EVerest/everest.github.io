@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>ev-cli &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="_static/contentui.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/contentui.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Docker setup" href="doc_docker_setup.html" />
+    <link rel="prev" title="EDM" href="doc_tutorial_EDM.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="doc_docker_setup.html" title="Docker setup"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="doc_tutorial_EDM.html" title="EDM"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="doc_overview-tools.html" accesskey="U">EVerest development tools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ev-cli</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+
+<p>
+  <strong>
+    
+    You're reading the documentation for a development version.
+    For the latest released version, please have a look at <a href="../main/index.html">main</a>.
+    
+  </strong>
+</p>
+
+
+  <section id="ev-cli">
+<h1>ev-cli<a class="headerlink" href="#ev-cli" title="Permalink to this heading">¶</a></h1>
+<p>This python project currently consists of the following packages</p>
+<ul class="simple">
+<li><p><cite>ev_cli</cite>: EVerest module auto generation</p></li>
+</ul>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this heading">¶</a></h2>
+<p>To install <cite>ev_cli</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">everest</span><span class="o">-</span><span class="n">utils</span><span class="o">/</span><span class="n">ev</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">tool</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>The <cite>ev_cli</cite> package comes with a command line tool, named <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code>.
+It has the following subcommands</p>
+<ul class="simple">
+<li><p>module:
+auto generation and update of EVerest modules from its interface and
+manifest definitions</p></li>
+<li><p>interface:
+auto generation of c++ header files for defined interfaces</p></li>
+<li><p>helpers:
+utility commands</p></li>
+</ul>
+<p>There exist short forms, for all subcommands and options.  Simply call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>for getting the list of short forms.</p>
+<p>Both the <cite>module</cite> and <cite>interface</cite> command have the following options in
+common:</p>
+<ul class="simple">
+<li><p><cite>–everest-dir</cite>:
+root directory of EVerest core or any directory containing interface
+and module definitions (default: <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p></li>
+<li><p><cite>–framework-dir</cite>:
+root directory of the EVerest framework, containing the schema
+definitions (default: <code class="docutils literal notranslate"><span class="pre">../everest-framework</span></code>)</p></li>
+<li><p><cite>–clang-format-file</cite>:
+if c++output should be formatted, set this to the path of the
+.clang-format file</p></li>
+</ul>
+</section>
+<section id="generating-c-header-files-for-defined-interfaces">
+<h2>Generating c++ header files for defined interfaces<a class="headerlink" href="#generating-c-header-files-for-defined-interfaces" title="Permalink to this heading">¶</a></h2>
+<p>Assuming that the interface definitions in json format are located at
+<code class="docutils literal notranslate"><span class="pre">./interfaces/*.json</span></code>, simply:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">interfaces</span> <span class="n">generate</span><span class="o">-</span><span class="n">headers</span>
+</pre></div>
+</div>
+<p>This will generate the c++ header files for all interfaces and output them
+to <code class="docutils literal notranslate"><span class="pre">./generated/include/generated</span></code>.  To generate only a single interface, call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">interfaces</span> <span class="n">generate</span><span class="o">-</span><span class="n">headers</span> <span class="n">InterfaceName</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>For each interface an <code class="docutils literal notranslate"><span class="pre">Implementation.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">Interface.hpp</span></code>
+header file will be generated.  The former represents the <cite>implementers</cite>
+view, and the latter the <cite>users</cite> view of the interface, when used in a
+module.</p>
+</section>
+<section id="creating-and-updating-auto-generated-files-for-modules-c-only">
+<h2>Creating and updating auto generated files for modules (c++ only)<a class="headerlink" href="#creating-and-updating-auto-generated-files-for-modules-c-only" title="Permalink to this heading">¶</a></h2>
+<p>Assuming the modules are located at <code class="docutils literal notranslate"><span class="pre">./modules</span></code> and the initial
+skeleton for a module named <cite>Example</cite> with its manifest in
+<code class="docutils literal notranslate"><span class="pre">./modules/Example/manifest.json</span></code> should be created, call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">module</span> <span class="n">create</span> <span class="n">Example</span>
+</pre></div>
+</div>
+<p>This will create the following files inside the <code class="docutils literal notranslate"><span class="pre">./modules/Example</span></code>
+subdirectory</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:
+build instruction file for CMake</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ld-ev.hpp</span></code>/<code class="docutils literal notranslate"><span class="pre">ld-ev.cpp</span></code>:
+glue code files for this module to get hooked up by the EVerest
+framework</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Example.hpp</span></code>/<code class="docutils literal notranslate"><span class="pre">Example.cpp</span></code>:
+header and source file for the module</p></li>
+</ul>
+<p>Furthermore, for each interface provided by the module a subdirectory
+with the name of the <cite>interface id</cite> will be created.  If, for example,
+the manifest looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example module&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;provides&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;SampleInterface implementation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;interface&quot;</span><span class="p">:</span> <span class="s2">&quot;SampleInterface&quot;</span><span class="p">,</span>
+            <span class="o">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>a subdirectory named <code class="docutils literal notranslate"><span class="pre">main</span></code> will be created, including two files
+<code class="docutils literal notranslate"><span class="pre">SampleInterfaceImpl.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">SampleInterfaceImpl.cpp</span></code>.  The header
+file declares the implementation of <cite>SampleInterface</cite>, which derives
+from the auto generated interface header files from the previous
+subsection.</p>
+<p>Now it is up to the user to implement logic in the module and interface
+implementation <cite>cpp</cite> source files.</p>
+<p>If the modules’ <code class="docutils literal notranslate"><span class="pre">manifest.json</span></code> or inferface definitions, used by the
+module, change, you can update the generated files by using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">module</span> <span class="n">update</span> <span class="n">Example</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>:</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpp</span></code> source files will never be changed or overwritten by the
+<cite>update</cite> subcommand.  The <cite>create</cite> subcommand only resets / overrides
+the files when using the <code class="docutils literal notranslate"><span class="pre">--force</span></code> option</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hpp</span></code> header files and the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file will get
+updated, if its interface dependencies definitions change and the
+<cite>update</cite> subcommand is used.  You can force an update by using the
+<code class="docutils literal notranslate"><span class="pre">--force</span></code> option.  During an update, the sections marked like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">ev</span><span class="o">@</span><span class="mi">75</span><span class="n">ac1216</span><span class="o">-</span><span class="mi">19</span><span class="n">eb</span><span class="o">-</span><span class="mi">4182</span><span class="o">-</span><span class="n">a85c</span><span class="o">-</span><span class="mi">820</span><span class="n">f1fc2c091</span><span class="p">:</span><span class="n">v1</span>
+<span class="o">.....</span>
+<span class="o">//</span> <span class="n">ev</span><span class="o">@</span><span class="mi">75</span><span class="n">ac1216</span><span class="o">-</span><span class="mi">19</span><span class="n">eb</span><span class="o">-</span><span class="mi">4182</span><span class="o">-</span><span class="n">a85c</span><span class="o">-</span><span class="mi">820</span><span class="n">f1fc2c091</span><span class="p">:</span><span class="n">v1</span>
+</pre></div>
+</div>
+<p>will be kept.  If you want to completely reset / override these
+files, you need to recreate the using <cite>create</cite> subcommand with the
+<code class="docutils literal notranslate"><span class="pre">--force</span></code> option.</p>
+</li>
+<li><p>Generated files will never be deleted.  So make sure, you do this if
+you, for example, change the interface ids or remove interfaces from
+the module</p></li>
+</ol>
+<p>These additional options might be useful for the <cite>create</cite> and <cite>update</cite>
+subcommands:</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:
+force creation or update</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--diff</span></code>:
+don’t touch anything, only show a <cite>diff</cite> of what would be changed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--only</span></code>:
+this option takes a comma separated list of files, that should be
+touched only.  This is especially helpful, if you want to recreate
+only a single interface implementation <code class="docutils literal notranslate"><span class="pre">cpp</span></code> file, because you
+changed the corresponding interface a lot.  To get a list of possible files, you can simply call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">module</span> <span class="n">create</span> <span class="n">Example</span> <span class="o">--</span><span class="n">only</span> <span class="n">which</span>
+</pre></div>
+</div>
+<p>this would output for the above mentioned example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">files</span> <span class="k">for</span> <span class="n">category</span> <span class="s2">&quot;core&quot;</span>
+  <span class="n">cmakelists</span>
+  <span class="n">ld</span><span class="o">-</span><span class="n">ev</span><span class="o">.</span><span class="n">hpp</span>
+  <span class="n">ld</span><span class="o">-</span><span class="n">ev</span><span class="o">.</span><span class="n">cpp</span>
+  <span class="n">module</span><span class="o">.</span><span class="n">hpp</span>
+  <span class="n">module</span><span class="o">.</span><span class="n">cpp</span>
+<span class="n">Available</span> <span class="n">files</span> <span class="k">for</span> <span class="n">category</span> <span class="s2">&quot;interfaces&quot;</span>
+  <span class="n">main</span><span class="o">.</span><span class="n">hpp</span>
+  <span class="n">main</span><span class="o">.</span><span class="n">cpp</span>
+</pre></div>
+</div>
+<p>So calling:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">module</span> <span class="n">create</span> <span class="n">Example</span> <span class="o">--</span><span class="n">only</span> <span class="n">main</span><span class="o">.</span><span class="n">cpp</span><span class="p">,</span><span class="n">cmakelists</span> <span class="o">--</span><span class="n">force</span>
+</pre></div>
+</div>
+<p>would recreate the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and the
+<code class="docutils literal notranslate"><span class="pre">main/SampleInterfaceImpl.cpp</span></code> files, whereas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">clie</span> <span class="n">module</span> <span class="n">update</span> <span class="n">Example</span> <span class="o">--</span><span class="n">only</span> <span class="n">module</span><span class="o">.</span><span class="n">hpp</span>
+</pre></div>
+</div>
+<p>would update only the module header file <code class="docutils literal notranslate"><span class="pre">Example.hpp</span></code></p>
+</li>
+</ol>
+</section>
+<section id="auto-generating-nodejs-modules">
+<h2>Auto generating NodeJS modules<a class="headerlink" href="#auto-generating-nodejs-modules" title="Permalink to this heading">¶</a></h2>
+<p><strong>tbd</strong></p>
+</section>
+</section>
+
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3>Branches</h3>
+<ul>
+  <li><a href="../feature/deploy-multiple-versions/index.html">feature/deploy-multiple-versions</a></li>
+  <li><a href="doc_tutorial_EV-CLI.html">ah_add_doc_how_to_contribute</a></li>
+  <li><a href="../ah_rework_sphinx_workflow/index.html">ah_rework_sphinx_workflow</a></li>
+  <li><a href="../doc/mz-quick-start/index.html">doc/mz-quick-start</a></li>
+  <li><a href="../main/index.html">main</a></li>
+</ul>
+<h3>Tags</h3>
+<ul>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="doc_docker_setup.html" title="Docker setup"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="doc_tutorial_EDM.html" title="EDM"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="doc_overview-tools.html" >EVerest development tools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ev-cli</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

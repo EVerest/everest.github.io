@@ -18,10 +18,13 @@ Auth token validator types
 
 | **Identifier**:*object*
 |  Contains meta information about the identifier
-|  required: id_token
+|  required: id_token, type
 |  properties:
 |   **id_token**:*string*
 |    Arbitrary id token string: this has to be printable case insensitive ascii
+|   **type**:*string* (:ref:`authorization-TokenType <authorization-TokenType>`)
+|    Type of the provider of the identifier
+|    **There is an extended definition for this object** :ref:`here <authorization-TokenType>`.
 |   **authorization_status**:*string* (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
 |    
 |    **There is an extended definition for this object** :ref:`here <authorization-AuthorizationStatus>`.
@@ -39,8 +42,9 @@ Auth token validator types
 |  properties:
 |   **id_token**:*string*
 |    Arbitrary token string: this has to be printable case insensitive ascii: !!!FIXME!!! write a regex to allow only printable ascii
-|   **type**:*string*
-|    Type of token provider
+|   **type**:*string* (:ref:`authorization-TokenType <authorization-TokenType>`)
+|    Type of the token
+|    **There is an extended definition for this object** :ref:`here <authorization-TokenType>`.
 |   **connectors**:*array*
 |    A list of connector ids to which the authorization can be assigned
 |    items:
@@ -73,3 +77,9 @@ Auth token validator types
 |   UserInput: This algorithm waits for a user to input for which connector the authorization is provided
 |   PlugEvents: This algorithms derives the selected connector based on the order of plug in events of EVs
 |  enum: UserInput, PlugEvents
+
+.. _authorization-TokenType:
+
+| **TokenType**:*string*
+|  Type of the provided token
+|  enum: OCPP, RFID, Autocharge, PlugAndCharge

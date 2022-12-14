@@ -172,25 +172,28 @@ tar xfz bullseye-toolchain.tgz
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/checkout/everest-workspace/everest-core
 </pre></div>
 </div>
-<p>Crosscompile by changing the given paths accordingly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_FIND_ROOT_PATH<span class="o">=</span>/full-path-to/everest-core/cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>/full-path-to/bullseye-toolchain/toolchain.cmake -DCMAKE_CROSSCOMPILING<span class="o">=</span><span class="m">1</span> -DCMAKE_INSTALL_PREFIX<span class="o">=</span>./dist  -S . -B build-cross
+<p>Cross-compile by changing the given paths accordingly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake <span class="se">\</span>
+ -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>/full-path-to/bullseye-toolchain/toolchain.cmake <span class="se">\</span>
+ -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/mnt/user_data/opt/everest <span class="se">\</span>
+ -S . -B build-cross
 </pre></div>
 </div>
 <p>Now build EVerest with the following commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> build-cross <span class="o">&amp;&amp;</span> make -j<span class="k">$(</span>nproc<span class="k">)</span>
-make -j<span class="k">$(</span>nproc<span class="k">)</span> install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make -j<span class="k">$(</span>nproc<span class="k">)</span> -C build-cross
+make -j<span class="k">$(</span>nproc<span class="k">)</span> <span class="nv">DESTDIR</span><span class="o">=</span>./dist -C build-cross install
 </pre></div>
 </div>
 </section>
 <section id="deploy-a-custom-everest-on-belaybox">
 <h3><span class="section-number">5.4.2. </span>Deploy a custom EVerest on BelayBox<a class="headerlink" href="#deploy-a-custom-everest-on-belaybox" title="Permalink to this heading">¶</a></h3>
-<p>The binaries are now installed under <code class="docutils literal notranslate"><span class="pre">build/dist</span></code>.
-You can use <code class="docutils literal notranslate"><span class="pre">rsync</span></code> within the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder to copy the files to
+<p>The binaries are now installed under <code class="docutils literal notranslate"><span class="pre">build-cross/dist</span></code>.
+You can use <code class="docutils literal notranslate"><span class="pre">rsync</span></code> within the <code class="docutils literal notranslate"><span class="pre">build-cross</span></code> folder to copy the files to
 BelayBox:</p>
-<p><cite>rsync -a dist/* everest&#64;the.ip.add.res:/mnt/user_data/opt/everest</cite></p>
+<p><code class="docutils literal notranslate"><span class="pre">rsync</span> <span class="pre">-a</span> <span class="pre">build-cross/dist/mnt/user_data/opt/everest/*</span> <span class="pre">everest&#64;the.ip.add.res:/mnt/user_data/opt/everest</span></code></p>
 <p>The first time you need to create the folder <code class="docutils literal notranslate"><span class="pre">/mnt/user_data/opt/everest</span></code>
 on the BelayBox before syncing
-(<cite>ssh everest&#64;the.ip.add.res mkdir -p /mnt/user_data/opt/everest</cite>)</p>
+(<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">everest&#64;the.ip.add.res</span> <span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">/mnt/user_data/opt/everest</span></code>)</p>
 <p>You can also copy to another folder on the BelayBox, but using
 <code class="docutils literal notranslate"><span class="pre">/mnt/user_data/opt/everest</span></code> will make your new custom everest installation
 auto start at boot (see <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code>). This way you can have a

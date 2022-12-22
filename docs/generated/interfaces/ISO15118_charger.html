@@ -61,10 +61,6 @@
 <div class="line-block">
 <div class="line">An PnC authorization is requiered</div>
 </div>
-<div class="line"><strong>Require_EVSEIsolationCheck</strong>:<em>null</em></div>
-<div class="line-block">
-<div class="line">An insulation check of the DC cable of the EVSE is necessary</div>
-</div>
 <div class="line"><strong>AC_Close_Contactor</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">If true, the contactor should be closed</div>
@@ -73,24 +69,40 @@
 <div class="line-block">
 <div class="line">If true, the contactor should be opened</div>
 </div>
+<div class="line"><strong>Start_CableCheck</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">The charger should now start a cable check</div>
+</div>
+<div class="line"><strong>DC_Open_Contactor</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">If true, the contactor should be opened</div>
+</div>
 <div class="line"><strong>V2G_Setup_Finished</strong>:<em>null</em></div>
 <div class="line-block">
 <div class="line">V2G_Setup_Finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop</div>
+</div>
+<div class="line"><strong>currentDemand_Started</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">The charging process has started and the EV wants to be charged</div>
+</div>
+<div class="line"><strong>currentDemand_Finished</strong>:<em>null</em></div>
+<div class="line-block">
+<div class="line">The charging process was finished</div>
 </div>
 <div class="line"><strong>EVCCIDD</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Specifies the EVs identification in a readable format. It contains the MAC address of the EVCC</div>
 <div class="line">pattern:</div>
 </div>
-<div class="line"><strong>SelectedPaymentOption</strong>:<em>string</em></div>
+<div class="line"><strong>SelectedPaymentOption</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-paymentoption"><span class="std std-ref">iso15118_charger-PaymentOption</span></a>)</div>
 <div class="line-block">
 <div class="line">This element is used for indicating the payment type</div>
-<div class="line">enum: Contract, ExternalPayment</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-paymentoption"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>RequestedEnergyTransferMode</strong>:<em>string</em></div>
+<div class="line"><strong>RequestedEnergyTransferMode</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-energytransfermode"><span class="std std-ref">iso15118_charger-EnergyTransferMode</span></a>)</div>
 <div class="line-block">
 <div class="line">Selected energy transfer mode for charging that is requested by the EVCC.</div>
-<div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-energytransfermode"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>DepartureTime</strong>:<em>string</em></div>
 <div class="line-block">
@@ -129,23 +141,15 @@
 <div class="line-block">
 <div class="line">Optional: [%] SOC at which the EV considers a fast charge process to end</div>
 </div>
-<div class="line"><strong>DC_EVReady</strong>:<em>boolean</em></div>
+<div class="line"><strong>DC_EVStatus</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evstatustype"><span class="std std-ref">iso15118_charger-DC_EVStatusType</span></a>)</div>
 <div class="line-block">
-<div class="line">If set to TRUE, the EV is ready to charge</div>
+<div class="line">Current status of the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evstatustype"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>DC_EVErrorCode</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Indicates the EV internal status</div>
-<div class="line">enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData</div>
-</div>
-<div class="line"><strong>DC_EVRESSSOC</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">State of charge of the EVs battery (RESS)</div>
-</div>
-<div class="line"><strong>EV_ChargingSession</strong>:<em>string</em></div>
+<div class="line"><strong>EV_ChargingSession</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-chargingsession"><span class="std std-ref">iso15118_charger-ChargingSession</span></a>)</div>
 <div class="line-block">
 <div class="line">ChargingSession indicates the intention of the EVCC to either pause or terminate a V2G Communication Session</div>
-<div class="line">enum: Terminate, Pause</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-chargingsession"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>DC_BulkChargingComplete</strong>:<em>boolean</em></div>
 <div class="line-block">
@@ -155,35 +159,20 @@
 <div class="line-block">
 <div class="line">Optional: If set to TRUE, the EV indicates that full charge (100% SOC) is complete</div>
 </div>
-<div class="line"><strong>DC_EVTargetVoltage</strong>:<em>number</em></div>
+<div class="line"><strong>DC_EVTargetVoltageCurrent</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evtargetvalues"><span class="std std-ref">iso15118_charger-DC_EVTargetValues</span></a>)</div>
 <div class="line-block">
-<div class="line">[V] Target Voltage requested by EV</div>
+<div class="line">Target voltage and current requested by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evtargetvalues"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>DC_EVTargetCurrent</strong>:<em>number</em></div>
+<div class="line"><strong>DC_EVMaximumLimits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evmaximumlimits"><span class="std std-ref">iso15118_charger-DC_EVMaximumLimits</span></a>)</div>
 <div class="line-block">
-<div class="line">[A] Current demanded by EV</div>
+<div class="line">Maximum Values (current, power and voltage) supported and allowed by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evmaximumlimits"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>DC_EVMaximumCurrentLimit</strong>:<em>number</em></div>
+<div class="line"><strong>DC_EVRemainingTime</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evremainingtime"><span class="std std-ref">iso15118_charger-DC_EVRemainingTime</span></a>)</div>
 <div class="line-block">
-<div class="line">[A] Maximum current supported and allowed by the EV</div>
-</div>
-<div class="line"><strong>DC_EVMaximumPowerLimit</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Optional: [W] Maximum power supported and allowed by the EV</div>
-</div>
-<div class="line"><strong>DC_EVMaximumVoltageLimit</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[V] Maximum voltage supported and allowed by the EV</div>
-</div>
-<div class="line"><strong>EV_RemainingTimeToFullSoC</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">[RFC3339 UTC] Estimated or calculated time until full charge (100% SOC) is complete</div>
-<div class="line">format:</div>
-</div>
-<div class="line"><strong>EV_RemainingTimeToBulkSoC</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">[RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete</div>
-<div class="line">format:</div>
+<div class="line">Estimated or calculated time until bulk and full charge is complete</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evremainingtime"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>EV_AppProtocol</strong>:<em>array</em></div>
 <div class="line-block">
@@ -222,33 +211,10 @@
 </div>
 </div>
 </div>
-<div class="line"><strong>V2G_Messages</strong>:<em>object</em></div>
+<div class="line"><strong>V2G_Messages</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-v2g-messages"><span class="std std-ref">iso15118_charger-V2G_Messages</span></a>)</div>
 <div class="line-block">
 <div class="line">Debug - This element contains all V2G elements and should be used for debug purposes only</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>V2G_Message_ID</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">This element contains the id of the v2g message body</div>
-<div class="line">enum: SupportedAppProtocolReq, SupportedAppProtocolRes, SessionSetupReq, SessionSetupRes, ServiceDiscoveryReq, ServiceDiscoveryRes, ServiceDetailReq, ServiceDetailRes, PaymentServiceSelectionReq, PaymentServiceSelectionRes, AuthorizationReq, AuthorizationRes, ChargeParameterDiscoveryReq, ChargeParameterDiscoveryRes, ChargingStatusReq, ChargingStatusRes, PowerDeliveryReq, PowerDeliveryRes, CableCheckReq, CableCheckRes, PreChargeReq, PreChargeRes, CurrentDemandReq, CurrentDemandRes, WeldingDetectionReq, WeldingDetectionRes, SessionStopReq, SessionStopRes</div>
-</div>
-<div class="line"><strong>V2G_Message_XML</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Contains the decoded EXI stream as V2G message XML file</div>
-</div>
-<div class="line"><strong>V2G_Message_JSON</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Contains the decoded EXI stream as V2G message JSON file</div>
-</div>
-<div class="line"><strong>V2G_Message_EXI_Hex</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Contains the EXI stream as hex string</div>
-</div>
-<div class="line"><strong>V2G_Message_EXI_Base64</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Contains the EXI stream as base64 string</div>
-</div>
-</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-v2g-messages"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </section>
@@ -261,6 +227,10 @@
 <div class="line"><strong>EVSEID</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">EVSE ID</div>
+</div>
+<div class="line"><strong>EVSEID_DIN</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVSE ID (DIN70121) after DIN SPEC 91286</div>
 </div>
 </div>
 <div class="line"><strong>set_PaymentOptions</strong>:<em>void</em></div>
@@ -342,10 +312,10 @@
 <div class="line"><strong>enable_debug_mode</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">On Session Setup - Set different modes for the debug mode.</div>
-<div class="line"><strong>debug_mode</strong>:<em>string</em></div>
+<div class="line"><strong>debug_mode</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-debugmode"><span class="std std-ref">iso15118_charger-DebugMode</span></a>)</div>
 <div class="line-block">
 <div class="line">The various debug modes</div>
-<div class="line">enum: None, Lite, Full</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-debugmode"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>set_Auth_Okay_EIM</strong>:<em>void</em></div>
@@ -388,20 +358,13 @@
 <div class="line">True: Stop, False: Continue</div>
 </div>
 </div>
-<div class="line"><strong>set_DC_EVSEPresentVoltage</strong>:<em>void</em></div>
+<div class="line"><strong>set_DC_EVSEPresentVoltageCurrent</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Starting from PowerDelivery to WeldingDetection - Set the present voltage for the EVSE</div>
-<div class="line"><strong>EVSEPresentVoltage</strong>:<em>number</em></div>
+<div class="line">Starting from PowerDelivery to WeldingDetection - Set the present voltage and current for the EVSE</div>
+<div class="line"><strong>EVSEPresentVoltage_Current</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsepresentvoltage-current"><span class="std std-ref">iso15118_charger-DC_EVSEPresentVoltage_Current</span></a>)</div>
 <div class="line-block">
-<div class="line">[V] Output voltage of the EVSE as defined in IEC CDV 61851-23</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEPresentCurrent</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">During charging - Set the present current for the EVSE</div>
-<div class="line"><strong>EVSEPresentCurrent</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[A] Present output current of the EVSE</div>
+<div class="line">Present values (current and voltage) for the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsepresentvoltage-current"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>set_AC_EVSEMaxCurrent</strong>:<em>void</em></div>
@@ -412,53 +375,31 @@
 <div class="line">[A] Max current</div>
 </div>
 </div>
-<div class="line"><strong>set_DC_EVSEMaximumCurrentLimit</strong>:<em>void</em></div>
+<div class="line"><strong>set_DC_EVSEMaximumLimits</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">ChargeParameterDiscovery and during charging - Set the maximum current for the EVSE</div>
-<div class="line"><strong>EVSEMaximumCurrentLimit</strong>:<em>number</em></div>
+<div class="line">ChargeParameterDiscovery and during charging - Set the maximum current, power and voltage for the EVSE</div>
+<div class="line"><strong>EVSEMaximumLimits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMaximumLimits</span></a>)</div>
 <div class="line-block">
-<div class="line">[A] Maximum current the EVSE can deliver</div>
+<div class="line">Maximum Values (current, power and voltage) the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
-<div class="line"><strong>set_DC_EVSEMaximumPowerLimit</strong>:<em>void</em></div>
+<div class="line"><strong>set_DC_EVSEMinimumLimits</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">ChargeParameterDiscovery and during charging - Set the maximum power for the EVSE</div>
-<div class="line"><strong>EVSEMaximumPowerLimit</strong>:<em>number</em></div>
+<div class="line">ChargeParameterDiscovery - Set the minimum current and voltage for the EVSE</div>
+<div class="line"><strong>EVSEMinimumLimits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMinimumLimits</span></a>)</div>
 <div class="line-block">
-<div class="line">[W] Maximum power the EVSE can deliver</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEMaximumVoltageLimit</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ChargeParameterDiscovery and during charging - Set the maximum voltage for the EVSE</div>
-<div class="line"><strong>EVSEMaximumVoltageLimit</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[V] Maximum voltage the EVSE can deliver</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEMinimumCurrentLimit</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ChargeParameterDiscovery - Set the minimum current for the EVSE</div>
-<div class="line"><strong>EVSEMinimumCurrentLimit</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[A] Minimum current the EVSE can deliver with the expected accuracy</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEMinimumVoltageLimit</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ChargeParameterDiscovery - Set the minimum voltage for the EVSE</div>
-<div class="line"><strong>EVSEMinimumVoltageLimit</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[V] Minimum voltage the EVSE can deliver with the expected accuracy</div>
+<div class="line">Minimum Values (current and voltage) the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>set_EVSEIsolationStatus</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">From ChargeParameterDiscovery to WeldingDetection (Optional) - Set the isolation condition (result of the isolation monitoring)</div>
-<div class="line"><strong>EVSEIsolationStatus</strong>:<em>string</em></div>
+<div class="line"><strong>EVSEIsolationStatus</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-isolationstatus"><span class="std std-ref">iso15118_charger-IsolationStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">Set the isolation status</div>
-<div class="line">enum: Invalid, Valid, Warning, Fault, No_IMD</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-isolationstatus"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>set_EVSE_UtilityInterruptEvent</strong>:<em>void</em></div>
@@ -488,161 +429,10 @@
 <div class="line"><strong>set_MeterInfo</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">During charging (Optional) - Includes the meterInfo record containing the latest meter reading and other meter relevant data</div>
-<div class="line"><strong>powermeter</strong>:<em>object</em></div>
+<div class="line"><strong>powermeter</strong>:<em>object</em> (<a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
 <div class="line">Measured dataset</div>
-<div class="line">required: timestamp</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Timestamp of measurement</div>
-</div>
-<div class="line"><strong>meter_id</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">A (user defined) meter if (e.g. id printed on the case)</div>
-</div>
-<div class="line"><strong>phase_seq_error</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">true for 3 phase rotation error (ccw)</div>
-</div>
-<div class="line"><strong>energy_Wh_import</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Imported energy in Wh (from grid)</div>
-<div class="line">required: total</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>total</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Sum value (which is relevant for billing)</div>
-</div>
-<div class="line"><strong>L1</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L1 value only</div>
-</div>
-<div class="line"><strong>L2</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L2 value only</div>
-</div>
-<div class="line"><strong>L3</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L3 value only</div>
-</div>
-</div>
-</div>
-<div class="line"><strong>energy_Wh_export</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Exported energy in Wh (to grid)</div>
-<div class="line">required: total</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>total</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Sum value (which is relevant for billing)</div>
-</div>
-<div class="line"><strong>L1</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L1 value only</div>
-</div>
-<div class="line"><strong>L2</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L2 value only</div>
-</div>
-<div class="line"><strong>L3</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L3 value only</div>
-</div>
-</div>
-</div>
-<div class="line"><strong>power_W</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Instantaneous power in Watt. Negative values are exported, positive values imported Energy.</div>
-<div class="line">required: total</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>total</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Sum value</div>
-</div>
-<div class="line"><strong>L1</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L1 value only</div>
-</div>
-<div class="line"><strong>L2</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L2 value only</div>
-</div>
-<div class="line"><strong>L3</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L3 value only</div>
-</div>
-</div>
-</div>
-<div class="line"><strong>voltage_V</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Voltage in Volts</div>
-<div class="line">required: L1</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>L1</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L1 value only</div>
-</div>
-<div class="line"><strong>L2</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L2 value only</div>
-</div>
-<div class="line"><strong>L3</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L3 value only</div>
-</div>
-</div>
-</div>
-<div class="line"><strong>current_A</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Current in ampere</div>
-<div class="line">required: L1</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>L1</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L1 value only</div>
-</div>
-<div class="line"><strong>L2</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L2 value only</div>
-</div>
-<div class="line"><strong>L3</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L3 value only</div>
-</div>
-<div class="line"><strong>N</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Neutral value only</div>
-</div>
-</div>
-</div>
-<div class="line"><strong>frequency_Hz</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Grid frequency in Hertz</div>
-<div class="line">required: L1</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>L1</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L1 value</div>
-</div>
-<div class="line"><strong>L2</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L2 value</div>
-</div>
-<div class="line"><strong>L3</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">L3 value</div>
-</div>
-</div>
-</div>
-</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>contactor_closed</strong>:<em>void</em></div>
@@ -659,6 +449,14 @@
 <div class="line"><strong>status</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">True: Contactor is open</div>
+</div>
+</div>
+<div class="line"><strong>cableCheck_Finished</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Cable check is finished, voltage is under 20V and insulation resistor on the cable is alright</div>
+<div class="line"><strong>status</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Cable check is okay</div>
 </div>
 </div>
 </div>

@@ -16,23 +16,29 @@ Variables
 |  An EIM authorization is requiered
 | **Require_Auth_PnC**:*null*
 |  An PnC authorization is requiered
-| **Require_EVSEIsolationCheck**:*null*
-|  An insulation check of the DC cable of the EVSE is necessary
 | **AC_Close_Contactor**:*boolean*
 |  If true, the contactor should be closed
 | **AC_Open_Contactor**:*boolean*
 |  If true, the contactor should be opened
+| **Start_CableCheck**:*null*
+|  The charger should now start a cable check
+| **DC_Open_Contactor**:*boolean*
+|  If true, the contactor should be opened
 | **V2G_Setup_Finished**:*null*
 |  V2G_Setup_Finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop
+| **currentDemand_Started**:*null*
+|  The charging process has started and the EV wants to be charged
+| **currentDemand_Finished**:*null*
+|  The charging process was finished
 | **EVCCIDD**:*string*
 |  Specifies the EVs identification in a readable format. It contains the MAC address of the EVCC
 |  pattern:
-| **SelectedPaymentOption**:*string*
+| **SelectedPaymentOption**:*string* (:ref:`iso15118_charger-PaymentOption <iso15118_charger-PaymentOption>`)
 |  This element is used for indicating the payment type
-|  enum: Contract, ExternalPayment
-| **RequestedEnergyTransferMode**:*string*
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-PaymentOption>`.
+| **RequestedEnergyTransferMode**:*string* (:ref:`iso15118_charger-EnergyTransferMode <iso15118_charger-EnergyTransferMode>`)
 |  Selected energy transfer mode for charging that is requested by the EVCC.
-|  enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-EnergyTransferMode>`.
 | **DepartureTime**:*string*
 |  Optional: [RFC3339 UTC] This element is used to indicate when the vehicle intends to finish the charging process
 |  format:
@@ -52,36 +58,25 @@ Variables
 |  Optional: [%] SOC at which the EV considers the battery to be fully charged
 | **DC_BulkSOC**:*number*
 |  Optional: [%] SOC at which the EV considers a fast charge process to end
-| **DC_EVReady**:*boolean*
-|  If set to TRUE, the EV is ready to charge
-| **DC_EVErrorCode**:*string*
-|  Indicates the EV internal status
-|  enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData
-| **DC_EVRESSSOC**:*number*
-|  State of charge of the EVs battery (RESS)
-| **EV_ChargingSession**:*string*
+| **DC_EVStatus**:*object* (:ref:`iso15118_charger-DC_EVStatusType <iso15118_charger-DC_EVStatusType>`)
+|  Current status of the EV
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVStatusType>`.
+| **EV_ChargingSession**:*string* (:ref:`iso15118_charger-ChargingSession <iso15118_charger-ChargingSession>`)
 |  ChargingSession indicates the intention of the EVCC to either pause or terminate a V2G Communication Session
-|  enum: Terminate, Pause
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-ChargingSession>`.
 | **DC_BulkChargingComplete**:*boolean*
 |  Optional: If set to TRUE, the EV indicates that bulk charge (approx. 80% SOC) is complete
 | **DC_ChargingComplete**:*boolean*
 |  Optional: If set to TRUE, the EV indicates that full charge (100% SOC) is complete
-| **DC_EVTargetVoltage**:*number*
-|  [V] Target Voltage requested by EV
-| **DC_EVTargetCurrent**:*number*
-|  [A] Current demanded by EV
-| **DC_EVMaximumCurrentLimit**:*number*
-|  [A] Maximum current supported and allowed by the EV
-| **DC_EVMaximumPowerLimit**:*number*
-|  Optional: [W] Maximum power supported and allowed by the EV
-| **DC_EVMaximumVoltageLimit**:*number*
-|  [V] Maximum voltage supported and allowed by the EV
-| **EV_RemainingTimeToFullSoC**:*string*
-|  [RFC3339 UTC] Estimated or calculated time until full charge (100% SOC) is complete
-|  format:
-| **EV_RemainingTimeToBulkSoC**:*string*
-|  [RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete
-|  format:
+| **DC_EVTargetVoltageCurrent**:*object* (:ref:`iso15118_charger-DC_EVTargetValues <iso15118_charger-DC_EVTargetValues>`)
+|  Target voltage and current requested by the EV
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVTargetValues>`.
+| **DC_EVMaximumLimits**:*object* (:ref:`iso15118_charger-DC_EVMaximumLimits <iso15118_charger-DC_EVMaximumLimits>`)
+|  Maximum Values (current, power and voltage) supported and allowed by the EV
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVMaximumLimits>`.
+| **DC_EVRemainingTime**:*object* (:ref:`iso15118_charger-DC_EVRemainingTime <iso15118_charger-DC_EVRemainingTime>`)
+|  Estimated or calculated time until bulk and full charge is complete
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVRemainingTime>`.
 | **EV_AppProtocol**:*array*
 |  Debug_Lite - This request message provides a list of charging protocols supported by the EVCC
 |  items:
@@ -103,20 +98,9 @@ Variables
 |    Priority:
 |     description:
 |     type:
-| **V2G_Messages**:*object*
+| **V2G_Messages**:*object* (:ref:`iso15118_charger-V2G_Messages <iso15118_charger-V2G_Messages>`)
 |  Debug - This element contains all V2G elements and should be used for debug purposes only
-|  properties:
-|   **V2G_Message_ID**:*string*
-|    This element contains the id of the v2g message body
-|    enum: SupportedAppProtocolReq, SupportedAppProtocolRes, SessionSetupReq, SessionSetupRes, ServiceDiscoveryReq, ServiceDiscoveryRes, ServiceDetailReq, ServiceDetailRes, PaymentServiceSelectionReq, PaymentServiceSelectionRes, AuthorizationReq, AuthorizationRes, ChargeParameterDiscoveryReq, ChargeParameterDiscoveryRes, ChargingStatusReq, ChargingStatusRes, PowerDeliveryReq, PowerDeliveryRes, CableCheckReq, CableCheckRes, PreChargeReq, PreChargeRes, CurrentDemandReq, CurrentDemandRes, WeldingDetectionReq, WeldingDetectionRes, SessionStopReq, SessionStopRes
-|   **V2G_Message_XML**:*string*
-|    Contains the decoded EXI stream as V2G message XML file
-|   **V2G_Message_JSON**:*string*
-|    Contains the decoded EXI stream as V2G message JSON file
-|   **V2G_Message_EXI_Hex**:*string*
-|    Contains the EXI stream as hex string
-|   **V2G_Message_EXI_Base64**:*string*
-|    Contains the EXI stream as base64 string
+|  **There is an extended definition for this object** :ref:`here <iso15118_charger-V2G_Messages>`.
 
 ********
 Commands
@@ -125,6 +109,8 @@ Commands
 |  One Time Setup at Boot - Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to
 |  **EVSEID**:*string*
 |   EVSE ID
+|  **EVSEID_DIN**:*string*
+|   EVSE ID (DIN70121) after DIN SPEC 91286
 | **set_PaymentOptions**:*void*
 |  One Time Setup at Boot - Providing a list of payment options to the EVCC
 |  **PaymentOptions**:*array*
@@ -167,9 +153,9 @@ Commands
 |   Set EVSEEnergyToBeDelivered [Wh]
 | **enable_debug_mode**:*void*
 |  On Session Setup - Set different modes for the debug mode.
-|  **debug_mode**:*string*
+|  **debug_mode**:*string* (:ref:`iso15118_charger-DebugMode <iso15118_charger-DebugMode>`)
 |   The various debug modes
-|   enum: None, Lite, Full
+|   **There is an extended definition for this object** :ref:`here <iso15118_charger-DebugMode>`.
 | **set_Auth_Okay_EIM**:*void*
 |  Response on Require_Auth_EIM - Set this element if the authorization was either successful or unsuccessful
 |  **auth_okay_eim**:*boolean*
@@ -190,43 +176,30 @@ Commands
 |  During charging - Stops the charging process
 |  **stop_charging**:*boolean*
 |   True: Stop, False: Continue
-| **set_DC_EVSEPresentVoltage**:*void*
-|  Starting from PowerDelivery to WeldingDetection - Set the present voltage for the EVSE
-|  **EVSEPresentVoltage**:*number*
-|   [V] Output voltage of the EVSE as defined in IEC CDV 61851-23
-| **set_DC_EVSEPresentCurrent**:*void*
-|  During charging - Set the present current for the EVSE
-|  **EVSEPresentCurrent**:*number*
-|   [A] Present output current of the EVSE
+| **set_DC_EVSEPresentVoltageCurrent**:*void*
+|  Starting from PowerDelivery to WeldingDetection - Set the present voltage and current for the EVSE
+|  **EVSEPresentVoltage_Current**:*object* (:ref:`iso15118_charger-DC_EVSEPresentVoltage_Current <iso15118_charger-DC_EVSEPresentVoltage_Current>`)
+|   Present values (current and voltage) for the EVSE
+|   **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEPresentVoltage_Current>`.
 | **set_AC_EVSEMaxCurrent**:*void*
 |  ChargeParameterDiscovery and during charging - Set the Maximum allowed line current restriction per phase
 |  **EVSEMaxCurrent**:*number*
 |   [A] Max current
-| **set_DC_EVSEMaximumCurrentLimit**:*void*
-|  ChargeParameterDiscovery and during charging - Set the maximum current for the EVSE
-|  **EVSEMaximumCurrentLimit**:*number*
-|   [A] Maximum current the EVSE can deliver
-| **set_DC_EVSEMaximumPowerLimit**:*void*
-|  ChargeParameterDiscovery and during charging - Set the maximum power for the EVSE
-|  **EVSEMaximumPowerLimit**:*number*
-|   [W] Maximum power the EVSE can deliver
-| **set_DC_EVSEMaximumVoltageLimit**:*void*
-|  ChargeParameterDiscovery and during charging - Set the maximum voltage for the EVSE
-|  **EVSEMaximumVoltageLimit**:*number*
-|   [V] Maximum voltage the EVSE can deliver
-| **set_DC_EVSEMinimumCurrentLimit**:*void*
-|  ChargeParameterDiscovery - Set the minimum current for the EVSE
-|  **EVSEMinimumCurrentLimit**:*number*
-|   [A] Minimum current the EVSE can deliver with the expected accuracy
-| **set_DC_EVSEMinimumVoltageLimit**:*void*
-|  ChargeParameterDiscovery - Set the minimum voltage for the EVSE
-|  **EVSEMinimumVoltageLimit**:*number*
-|   [V] Minimum voltage the EVSE can deliver with the expected accuracy
+| **set_DC_EVSEMaximumLimits**:*void*
+|  ChargeParameterDiscovery and during charging - Set the maximum current, power and voltage for the EVSE
+|  **EVSEMaximumLimits**:*object* (:ref:`iso15118_charger-DC_EVSEMaximumLimits <iso15118_charger-DC_EVSEMaximumLimits>`)
+|   Maximum Values (current, power and voltage) the EVSE can deliver
+|   **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMaximumLimits>`.
+| **set_DC_EVSEMinimumLimits**:*void*
+|  ChargeParameterDiscovery - Set the minimum current and voltage for the EVSE
+|  **EVSEMinimumLimits**:*object* (:ref:`iso15118_charger-DC_EVSEMinimumLimits <iso15118_charger-DC_EVSEMinimumLimits>`)
+|   Minimum Values (current and voltage) the EVSE can deliver
+|   **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMinimumLimits>`.
 | **set_EVSEIsolationStatus**:*void*
 |  From ChargeParameterDiscovery to WeldingDetection (Optional) - Set the isolation condition (result of the isolation monitoring)
-|  **EVSEIsolationStatus**:*string*
+|  **EVSEIsolationStatus**:*string* (:ref:`iso15118_charger-IsolationStatus <iso15118_charger-IsolationStatus>`)
 |   Set the isolation status
-|   enum: Invalid, Valid, Warning, Fault, No_IMD
+|   **There is an extended definition for this object** :ref:`here <iso15118_charger-IsolationStatus>`.
 | **set_EVSE_UtilityInterruptEvent**:*void*
 |  From ChargeParameterDiscovery to WeldingDetection - Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load
 |  **EVSE_UtilityInterruptEvent**:*boolean*
@@ -241,84 +214,9 @@ Commands
 |   True: Emergency Stop
 | **set_MeterInfo**:*void*
 |  During charging (Optional) - Includes the meterInfo record containing the latest meter reading and other meter relevant data
-|  **powermeter**:*object*
+|  **powermeter**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
 |   Measured dataset
-|   required: timestamp
-|   properties:
-|    **timestamp**:*number*
-|     Timestamp of measurement
-|    **meter_id**:*string*
-|     A (user defined) meter if (e.g. id printed on the case)
-|    **phase_seq_error**:*boolean*
-|     true for 3 phase rotation error (ccw)
-|    **energy_Wh_import**:*object*
-|     Imported energy in Wh (from grid)
-|     required: total
-|     properties:
-|      **total**:*number*
-|       Sum value (which is relevant for billing)
-|      **L1**:*number*
-|       L1 value only
-|      **L2**:*number*
-|       L2 value only
-|      **L3**:*number*
-|       L3 value only
-|    **energy_Wh_export**:*object*
-|     Exported energy in Wh (to grid)
-|     required: total
-|     properties:
-|      **total**:*number*
-|       Sum value (which is relevant for billing)
-|      **L1**:*number*
-|       L1 value only
-|      **L2**:*number*
-|       L2 value only
-|      **L3**:*number*
-|       L3 value only
-|    **power_W**:*object*
-|     Instantaneous power in Watt. Negative values are exported, positive values imported Energy.
-|     required: total
-|     properties:
-|      **total**:*number*
-|       Sum value
-|      **L1**:*number*
-|       L1 value only
-|      **L2**:*number*
-|       L2 value only
-|      **L3**:*number*
-|       L3 value only
-|    **voltage_V**:*object*
-|     Voltage in Volts
-|     required: L1
-|     properties:
-|      **L1**:*number*
-|       L1 value only
-|      **L2**:*number*
-|       L2 value only
-|      **L3**:*number*
-|       L3 value only
-|    **current_A**:*object*
-|     Current in ampere
-|     required: L1
-|     properties:
-|      **L1**:*number*
-|       L1 value only
-|      **L2**:*number*
-|       L2 value only
-|      **L3**:*number*
-|       L3 value only
-|      **N**:*number*
-|       Neutral value only
-|    **frequency_Hz**:*object*
-|     Grid frequency in Hertz
-|     required: L1
-|     properties:
-|      **L1**:*number*
-|       L1 value
-|      **L2**:*number*
-|       L2 value
-|      **L3**:*number*
-|       L3 value
+|   **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 | **contactor_closed**:*void*
 |  Response on AC_Close_Contactor - Set this element if the contactor is closed
 |  **status**:*boolean*
@@ -327,3 +225,7 @@ Commands
 |  Response on AC_Open_Contactor - Set this element if the contactor is open
 |  **status**:*boolean*
 |   True: Contactor is open
+| **cableCheck_Finished**:*void*
+|  Cable check is finished, voltage is under 20V and insulation resistor on the cable is alright
+|  **status**:*boolean*
+|   True: Cable check is okay

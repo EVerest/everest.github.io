@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>6.15. JsIMDSimulator &#8212; EVerest  documentation</title>
+    <title>6.16. JsIMDSimulator &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="6.16. JsPN532TokenProvider" href="JsPN532TokenProvider.html" />
-    <link rel="prev" title="6.14. JsForecastDotSolar" href="JsForecastDotSolar.html" /> 
+    <link rel="next" title="6.17. JsPN532TokenProvider" href="JsPN532TokenProvider.html" />
+    <link rel="prev" title="6.15. JsForecastDotSolar" href="JsForecastDotSolar.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="JsPN532TokenProvider.html" title="6.16. JsPN532TokenProvider"
+          <a href="JsPN532TokenProvider.html" title="6.17. JsPN532TokenProvider"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="JsForecastDotSolar.html" title="6.14. JsForecastDotSolar"
+          <a href="JsForecastDotSolar.html" title="6.15. JsForecastDotSolar"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">6. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.15. </span>JsIMDSimulator</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.16. </span>JsIMDSimulator</a></li> 
       </ul>
     </div>  
 
@@ -46,26 +46,29 @@
           <div class="body" role="main">
             
   <section id="jsimdsimulator">
-<span id="everest-modules-jsimdsimulator"></span><h1><span class="section-number">6.15. </span>JsIMDSimulator<a class="headerlink" href="#jsimdsimulator" title="Permalink to this heading">¶</a></h1>
+<span id="everest-modules-jsimdsimulator"></span><h1><span class="section-number">6.16. </span>JsIMDSimulator<a class="headerlink" href="#jsimdsimulator" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
 <div class="line">SIL Implementation of an Isolation Monitoring Device (IMD) for DC charging</div>
 </div>
 <section id="provides">
-<h2><span class="section-number">6.15.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.16.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a></div>
 <div class="line-block">
 <div class="line">Main interface for the IMD</div>
 <div class="line">config:</div>
 <div class="line-block">
-<div class="line">status:</div>
+<div class="line">resistance_N_Ohm:</div>
 <div class="line-block">
 <div class="line">description:</div>
 <div class="line">type:</div>
-<div class="line">enum: Invalid, Valid, Warning, Fault, No_IMD</div>
-<div class="line">default:</div>
 </div>
-<div class="line">duration:</div>
+<div class="line">resistance_P_Ohm:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">interval:</div>
 <div class="line-block">
 <div class="line">description:</div>
 <div class="line">type:</div>
@@ -73,31 +76,35 @@
 </div>
 <div class="line">config:</div>
 <div class="line-block">
-<div class="line"><strong>status</strong>:<em>string</em></div>
-<div class="line"><em>default: Valid</em></div>
+<div class="line"><strong>resistance_N_Ohm</strong>:<em>number</em></div>
+<div class="line"><em>default: 900000</em></div>
 <div class="line-block">
-<div class="line">Status to return after simulated measurement</div>
-<div class="line">enum: Invalid, Valid, Warning, Fault, No_IMD</div>
+<div class="line">Resistance to return for the simulated measurements in Ohm</div>
 </div>
-<div class="line"><strong>duration</strong>:<em>integer</em></div>
-<div class="line"><em>default: 5</em></div>
+<div class="line"><strong>resistance_P_Ohm</strong>:<em>number</em></div>
+<div class="line"><em>default: 910000</em></div>
 <div class="line-block">
-<div class="line">Measurement duration in seconds</div>
+<div class="line">Resistance to return for the simulated measurements in Ohm</div>
+</div>
+<div class="line"><strong>interval</strong>:<em>integer</em></div>
+<div class="line"><em>default: 1000</em></div>
+<div class="line-block">
+<div class="line">Measurement update interval in milliseconds</div>
 </div>
 </div>
 </div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">6.15.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.16.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">6.15.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">6.16.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Cornelius Claussen (Pionix GmbH)</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">6.15.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">6.16.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -115,11 +122,11 @@
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">6.15. JsIMDSimulator</a><ul>
-<li><a class="reference internal" href="#provides">6.15.1. Provides</a></li>
-<li><a class="reference internal" href="#metadata">6.15.2. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">6.15.2.1. Authors</a></li>
-<li><a class="reference internal" href="#license">6.15.2.2. License</a></li>
+<li><a class="reference internal" href="#">6.16. JsIMDSimulator</a><ul>
+<li><a class="reference internal" href="#provides">6.16.1. Provides</a></li>
+<li><a class="reference internal" href="#metadata">6.16.2. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">6.16.2.1. Authors</a></li>
+<li><a class="reference internal" href="#license">6.16.2.2. License</a></li>
 </ul>
 </li>
 </ul>
@@ -130,12 +137,12 @@
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="JsForecastDotSolar.html"
-                          title="previous chapter"><span class="section-number">6.14. </span>JsForecastDotSolar</a></p>
+                          title="previous chapter"><span class="section-number">6.15. </span>JsForecastDotSolar</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="JsPN532TokenProvider.html"
-                          title="next chapter"><span class="section-number">6.16. </span>JsPN532TokenProvider</a></p>
+                          title="next chapter"><span class="section-number">6.17. </span>JsPN532TokenProvider</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -165,14 +172,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="JsPN532TokenProvider.html" title="6.16. JsPN532TokenProvider"
+          <a href="JsPN532TokenProvider.html" title="6.17. JsPN532TokenProvider"
              >next</a> |</li>
         <li class="right" >
-          <a href="JsForecastDotSolar.html" title="6.14. JsForecastDotSolar"
+          <a href="JsForecastDotSolar.html" title="6.15. JsForecastDotSolar"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">6. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.15. </span>JsIMDSimulator</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.16. </span>JsIMDSimulator</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

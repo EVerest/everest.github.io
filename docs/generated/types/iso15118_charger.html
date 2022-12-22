@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>8.6. iso15118_charger &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.7. isolation_monitor" href="isolation_monitor.html" />
+    <link rel="prev" title="8.5. evse_manager" href="evse_manager.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="8.7. isolation_monitor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="evse_manager.html" title="8.5. evse_manager"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_types.html" accesskey="U"><span class="section-number">8. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8.6. </span>iso15118_charger</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="iso15118-charger">
+<span id="everest-types-iso15118-charger"></span><h1><span class="section-number">8.6. </span>iso15118_charger<a class="headerlink" href="#iso15118-charger" title="Permalink to this heading">¶</a></h1>
+<p>ISO15118 charger types</p>
+<div class="line-block" id="iso15118-charger-paymentoption">
+<div class="line"><strong>PaymentOption</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Payment options for the SECC and EVCC</div>
+<div class="line">enum: Contract, ExternalPayment</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-energytransfermode">
+<div class="line"><strong>EnergyTransferMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Possible energy transfer modes</div>
+<div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-debugmode">
+<div class="line"><strong>DebugMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The different debug modes</div>
+<div class="line">enum: None, Lite, Full</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-isolationstatus">
+<div class="line"><strong>IsolationStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The different charger isolation status</div>
+<div class="line">enum: Invalid, Valid, Warning, Fault, No_IMD</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-everrorcode">
+<div class="line"><strong>DC_EVErrorCode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the DC EV internal status</div>
+<div class="line">enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-chargingsession">
+<div class="line"><strong>ChargingSession</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">ChargingSession indicates the intention of the EVCC to either pause or terminate a V2G Communication Session</div>
+<div class="line">enum: Terminate, Pause</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-v2g-message-id">
+<div class="line"><strong>V2G_Message_ID</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This element contains the id of the v2g message body</div>
+<div class="line">enum: SupportedAppProtocolReq, SupportedAppProtocolRes, SessionSetupReq, SessionSetupRes, ServiceDiscoveryReq, ServiceDiscoveryRes, ServiceDetailReq, ServiceDetailRes, PaymentServiceSelectionReq, PaymentServiceSelectionRes, ServicePaymentSelectionReq, ServicePaymentSelectionRes, AuthorizationReq, AuthorizationRes, ContractAuthenticationReq, ContractAuthenticationRes, ChargeParameterDiscoveryReq, ChargeParameterDiscoveryRes, ChargingStatusReq, ChargingStatusRes, PowerDeliveryReq, PowerDeliveryRes, CableCheckReq, CableCheckRes, PreChargeReq, PreChargeRes, CurrentDemandReq, CurrentDemandRes, WeldingDetectionReq, WeldingDetectionRes, SessionStopReq, SessionStopRes</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evsepresentvoltage-current">
+<div class="line"><strong>DC_EVSEPresentVoltage_Current</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Set the present voltage and current for the EVSE</div>
+<div class="line">required: EVSEPresentVoltage</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>EVSEPresentVoltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Output voltage of the EVSE as defined in IEC CDV 61851-23</div>
+</div>
+<div class="line"><strong>EVSEPresentCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Present output current of the EVSE</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evsemaximumlimits">
+<div class="line"><strong>DC_EVSEMaximumLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Maximum Values (current, power and voltage) the EVSE can deliver</div>
+<div class="line">required: EVSEMaximumCurrentLimit, EVSEMaximumPowerLimit, EVSEMaximumVoltageLimit</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>EVSEMaximumCurrentLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Maximum current the EVSE can deliver</div>
+</div>
+<div class="line"><strong>EVSEMaximumPowerLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[W] Maximum power the EVSE can deliver</div>
+</div>
+<div class="line"><strong>EVSEMaximumVoltageLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Maximum voltage the EVSE can deliver</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evseminimumlimits">
+<div class="line"><strong>DC_EVSEMinimumLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Minimum Values (current and voltage) the EVSE can deliver</div>
+<div class="line">required: EVSEMinimumCurrentLimit, EVSEMinimumVoltageLimit</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>EVSEMinimumCurrentLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Minimum current the EVSE can deliver with the expected accuracy</div>
+</div>
+<div class="line"><strong>EVSEMinimumVoltageLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Minimum voltage the EVSE can deliver with the expected accuracy</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evstatustype">
+<div class="line"><strong>DC_EVStatusType</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Current status of the EV</div>
+<div class="line">required: DC_EVReady, DC_EVErrorCode, DC_EVRESSSOC</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>DC_EVReady</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">If set to TRUE, the EV is ready to charge</div>
+</div>
+<div class="line"><strong>DC_EVErrorCode</strong>:<em>string</em> (<a class="reference internal" href="#iso15118-charger-dc-everrorcode"><span class="std std-ref">iso15118_charger-DC_EVErrorCode</span></a>)</div>
+<div class="line-block">
+<div class="line">Indicates the EV internal status</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-dc-everrorcode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>DC_EVRESSSOC</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">State of charge of the EVs battery (RESS)</div>
+</div>
+<div class="line"><strong>DC_EVCabinConditioning</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">‘DIN70121 only: The EV is using energy from the DC supply toheat or cool the passenger compartment.’</div>
+</div>
+<div class="line"><strong>DC_EVRESSConiditioning</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">‘DIN70121 only: The vehicle is using energy from the DC charger to condition the RESS to a target temperature.’</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evtargetvalues">
+<div class="line"><strong>DC_EVTargetValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Target voltage and current requested by the EV</div>
+<div class="line">required: DC_EVTargetVoltage, DC_EVTargetCurrent</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>DC_EVTargetVoltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Target Voltage requested by EV</div>
+</div>
+<div class="line"><strong>DC_EVTargetCurrent</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Current demanded by EV</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evmaximumlimits">
+<div class="line"><strong>DC_EVMaximumLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Maximum Values (current, power and voltage) supported and allowed by the EV</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>DC_EVMaximumCurrentLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[A] Maximum current supported and allowed by the EV</div>
+</div>
+<div class="line"><strong>DC_EVMaximumPowerLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Optional: [W] Maximum power supported and allowed by the EV</div>
+</div>
+<div class="line"><strong>DC_EVMaximumVoltageLimit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">[V] Maximum voltage supported and allowed by the EV</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-dc-evremainingtime">
+<div class="line"><strong>DC_EVRemainingTime</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Estimated or calculated time until bulk and full charge is complete</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>EV_RemainingTimeToFullSoC</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">[RFC3339 UTC] Estimated or calculated time until full charge (100% SOC) is complete</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>EV_RemainingTimeToBulkSoC</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">[RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete</div>
+<div class="line">format:</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-appprotocol">
+<div class="line"><strong>AppProtocol</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC for transmitting the list of supported protocols</div>
+<div class="line">required: ProtocolNamespace, VersionNumberMajor, VersionNumberMinor, SchemaID, Priority</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ProtocolNamespace</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to uniquely identify the Namespace URI of a specific protocol supported by the EVCC</div>
+</div>
+<div class="line"><strong>VersionNumberMajor</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to indicate the major version number of the protocol</div>
+</div>
+<div class="line"><strong>VersionNumberMinor</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to indicate the minor version number of the protocol</div>
+</div>
+<div class="line"><strong>SchemaID</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to indicate the SchemaID assigned by the EVCC to the protocol</div>
+</div>
+<div class="line"><strong>Priority</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC for indicating the protocol priority of a specific protocol allowing the SECC to select a protocol based on priorities</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-appprotocols">
+<div class="line"><strong>AppProtocols</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC for transmitting the list of supported protocols</div>
+<div class="line">required: Protocols</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>Protocols</strong>:<em>array</em></div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-v2g-messages">
+<div class="line"><strong>V2G_Messages</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">This element contains all V2G elements</div>
+<div class="line">required: V2G_Message_ID</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>V2G_Message_ID</strong>:<em>string</em> (<a class="reference internal" href="#iso15118-charger-v2g-message-id"><span class="std std-ref">iso15118_charger-V2G_Message_ID</span></a>)</div>
+<div class="line-block">
+<div class="line">This element contains the id of the v2g message body</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-v2g-message-id"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>V2G_Message_XML</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the decoded EXI stream as V2G message XML file</div>
+</div>
+<div class="line"><strong>V2G_Message_JSON</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the decoded EXI stream as V2G message JSON file</div>
+</div>
+<div class="line"><strong>V2G_Message_EXI_Hex</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the EXI stream as hex string</div>
+</div>
+<div class="line"><strong>V2G_Message_EXI_Base64</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Contains the EXI stream as base64 string</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="evse_manager.html"
+                          title="previous chapter"><span class="section-number">8.5. </span>evse_manager</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="isolation_monitor.html"
+                          title="next chapter"><span class="section-number">8.7. </span>isolation_monitor</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/types/iso15118_charger.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="8.7. isolation_monitor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="evse_manager.html" title="8.5. evse_manager"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_types.html" ><span class="section-number">8. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8.6. </span>iso15118_charger</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

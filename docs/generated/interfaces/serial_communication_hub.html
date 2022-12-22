@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>7.23. serial_communication_hub &#8212; EVerest  documentation</title>
+    <title>7.24. serial_communication_hub &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="7.24. slac" href="slac.html" />
-    <link rel="prev" title="7.22. reservation" href="reservation.html" /> 
+    <link rel="next" title="7.25. slac" href="slac.html" />
+    <link rel="prev" title="7.23. reservation" href="reservation.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="slac.html" title="7.24. slac"
+          <a href="slac.html" title="7.25. slac"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="reservation.html" title="7.22. reservation"
+          <a href="reservation.html" title="7.23. reservation"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" accesskey="U"><span class="section-number">7. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.23. </span>serial_communication_hub</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.24. </span>serial_communication_hub</a></li> 
       </ul>
     </div>  
 
@@ -46,12 +46,12 @@
           <div class="body" role="main">
             
   <section id="serial-communication-hub">
-<span id="everest-interfaces-serial-communication-hub"></span><h1><span class="section-number">7.23. </span>serial_communication_hub<a class="headerlink" href="#serial-communication-hub" title="Permalink to this heading">¶</a></h1>
+<span id="everest-interfaces-serial-communication-hub"></span><h1><span class="section-number">7.24. </span>serial_communication_hub<a class="headerlink" href="#serial-communication-hub" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
 <div class="line">This interface provides multiplexed access to one serial port (e.g. RS485) for multiple clients.</div>
 </div>
 <section id="commands">
-<h2><span class="section-number">7.23.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.24.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>send_raw</strong>:<em>string</em></div>
 <div class="line-block">
@@ -112,6 +112,10 @@
 <div class="line-block">
 <div class="line">Number of registers to read (16 bit each)</div>
 </div>
+<div class="line"><strong>pause_between_messages</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Ensure a pause between packets on the wire in ms. Some Modbus devices require a minimal pause between the last message and this message. Set to 0 if not needed.</div>
+</div>
 <div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-result"><span class="std std-ref">serial_comm_hub_requests-Result</span></a>)</div>
 <div class="line-block">
 <div class="line">Result of the transfer</div>
@@ -134,6 +138,10 @@
 <div class="line">Data content to be written to the above selected registers (in 16 bit words)</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-vectoruint16"><span class="std std-ref">here</span></a>.</div>
 </div>
+<div class="line"><strong>pause_between_messages</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Ensure a pause between packets on the wire in ms. Some Modbus devices require a minimal pause between the last message and this message. Set to 0 if not needed.</div>
+</div>
 <div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">serial_comm_hub_requests-StatusCodeEnum</span></a>)</div>
 <div class="line-block">
 <div class="line">Status code of the transfer</div>
@@ -154,8 +162,8 @@
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">7.23. serial_communication_hub</a><ul>
-<li><a class="reference internal" href="#commands">7.23.1. Commands</a></li>
+<li><a class="reference internal" href="#">7.24. serial_communication_hub</a><ul>
+<li><a class="reference internal" href="#commands">7.24.1. Commands</a></li>
 </ul>
 </li>
 </ul>
@@ -164,12 +172,12 @@
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="reservation.html"
-                          title="previous chapter"><span class="section-number">7.22. </span>reservation</a></p>
+                          title="previous chapter"><span class="section-number">7.23. </span>reservation</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="slac.html"
-                          title="next chapter"><span class="section-number">7.24. </span>slac</a></p>
+                          title="next chapter"><span class="section-number">7.25. </span>slac</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -199,14 +207,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="slac.html" title="7.24. slac"
+          <a href="slac.html" title="7.25. slac"
              >next</a> |</li>
         <li class="right" >
-          <a href="reservation.html" title="7.22. reservation"
+          <a href="reservation.html" title="7.23. reservation"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" ><span class="section-number">7. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.23. </span>serial_communication_hub</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.24. </span>serial_communication_hub</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

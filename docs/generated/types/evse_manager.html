@@ -19,7 +19,7 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="8.6. powermeter" href="powermeter.html" />
+    <link rel="next" title="8.6. iso15118_charger" href="iso15118_charger.html" />
     <link rel="prev" title="8.4. energy_price_information" href="energy_price_information.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -29,7 +29,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="powermeter.html" title="8.6. powermeter"
+          <a href="iso15118_charger.html" title="8.6. iso15118_charger"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="energy_price_information.html" title="8.4. energy_price_information"
@@ -131,20 +131,26 @@
 <div class="line">Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)</div>
 <div class="line">Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)</div>
 <div class="line">SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)</div>
-<div class="line">TransactionStarted: Signaled when a transaction has been started. Transaction starts at the point that all conditions for charging are met: EV is connected and user has been authorized.</div>
 <div class="line">AuthRequired: Signaled when an EVSE needs authorization to start a transaction</div>
+<div class="line">TransactionStarted: Signaled when a transaction has been started. Transaction starts at the point that all conditions for charging are met: EV is connected and user has been authorized</div>
+<div class="line">PrepareCharging: EVSE started to prepare for charging. DC: CableCheck, PreCharge, PowerDelivery. AC: wait for the car to proceed to state C/D</div>
+<div class="line">ChargingStarted: DC: CurrentDemand has started. AC: Auth is ok and car requested power (state C/D)</div>
 <div class="line">ChargingPausedEV: Signaled when charging is paused by the EV</div>
 <div class="line">ChargingPausedEVSE: Signaled when charging is paused by the EVSE</div>
+<div class="line">ChargingResumed: Charging has resumed from a pause</div>
+<div class="line">StoppingCharging: EVSE has started to stop the charging process. DC: CurrentDemand has finished, now doing WeldingCheck etc, AC: Wait for car to return to state B or A</div>
+<div class="line">ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity</div>
 <div class="line">TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.</div>
-<div class="line">SessionFinished: Signaled when the transaction finished. Session finishes at the point that the EVSE is available again (no cable plugged)</div>
+<div class="line">SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)</div>
 <div class="line">Error: Signaled when an error occured</div>
+<div class="line">AllErrorsCleared: Signalled when all errors are cleared</div>
 <div class="line">PermanentFault: Signaled when there is a permanent fault at the EVSE</div>
 <div class="line">ReservationStart: Signaled when a reservation starts</div>
 <div class="line">ReservationEnd: Signaled when a reservation ends</div>
 <div class="line">ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction</div>
 <div class="line">ReplugFinished: Signaled when the virtual replug process has finished</div>
 </div>
-<div class="line">enum: Enabled, Disabled, SessionStarted, TransactionStarted, AuthRequired, ChargingPausedEV, ChargingPausedEVSE, ChargingResumed, TransactionFinished, SessionFinished, Error, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished</div>
+<div class="line">enum: Enabled, Disabled, SessionStarted, AuthRequired, TransactionStarted, PrepareCharging, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, ChargingResumed, StoppingCharging, ChargingFinished, TransactionFinished, SessionFinished, Error, AllErrorsCleared, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished</div>
 </div>
 </div>
 <div class="line-block" id="evse-manager-sessionstarted">
@@ -317,6 +323,87 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="evse-manager-evinfo">
+<div class="line"><strong>EVInfo</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Information about the connected EV if available</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>soc</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">State of charge of the vehicle’s battery in percent</div>
+</div>
+<div class="line"><strong>present_voltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Current voltage of the vehicles battery [V]</div>
+</div>
+<div class="line"><strong>present_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Current current of the vehicles battery [A]</div>
+</div>
+<div class="line"><strong>target_voltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Target voltage that the vehicle requested [V]</div>
+</div>
+<div class="line"><strong>target_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Target current that the vehicle requested [A]</div>
+</div>
+<div class="line"><strong>maximum_current_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Maximum current that the vehicle supports [A]</div>
+</div>
+<div class="line"><strong>minimum_current_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Charging below this limit is not energy efficient [A]</div>
+</div>
+<div class="line"><strong>maximum_voltage_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Maximum voltage that the vehicle supports [V]</div>
+</div>
+<div class="line"><strong>maximum_power_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Maximum power that the vehicle supports [W]</div>
+</div>
+<div class="line"><strong>estimated_time_full</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Estimated time when the vehicle is fully charged</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>departure_time</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Time when the vehicle intends to depart (If set by the user)</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>estimated_time_bulk</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Estimated time when the vehicle finished bulk charging (e.g. 80%)</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>evcc_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVCC ID (typically MAC address)</div>
+<div class="line">pattern:</div>
+</div>
+<div class="line"><strong>remaining_energy_needed</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Remaining energy needed to fulfill charging goal [Wh]</div>
+</div>
+<div class="line"><strong>battery_capacity</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Vehicle’s battery capacity [Wh]</div>
+</div>
+<div class="line"><strong>battery_full_soc</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">SoC which the vehicle considers fully charged [%]</div>
+</div>
+<div class="line"><strong>battery_bulk_soc</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">SoC which the vehicle considers bulk charging reached [%]</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 
@@ -333,8 +420,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="powermeter.html"
-                          title="next chapter"><span class="section-number">8.6. </span>powermeter</a></p>
+    <p class="topless"><a href="iso15118_charger.html"
+                          title="next chapter"><span class="section-number">8.6. </span>iso15118_charger</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -364,7 +451,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="powermeter.html" title="8.6. powermeter"
+          <a href="iso15118_charger.html" title="8.6. iso15118_charger"
              >next</a> |</li>
         <li class="right" >
           <a href="energy_price_information.html" title="8.4. energy_price_information"

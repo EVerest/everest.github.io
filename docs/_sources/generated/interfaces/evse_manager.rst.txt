@@ -18,6 +18,9 @@ Variables
 | **limits**:*object* (:ref:`evse_manager-Limits <evse_manager-Limits>`)
 |  Limits of this evse, published on change
 |  **There is an extended definition for this object** :ref:`here <evse_manager-Limits>`.
+| **ev_info**:*object* (:ref:`evse_manager-EVInfo <evse_manager-EVInfo>`)
+|  More details about the EV if available
+|  **There is an extended definition for this object** :ref:`here <evse_manager-EVInfo>`.
 | **telemetry**:*object* (:ref:`board_support-Telemetry <board_support-Telemetry>`)
 |  Other telemetry
 |  **There is an extended definition for this object** :ref:`here <board_support-Telemetry>`.
@@ -27,7 +30,7 @@ Variables
 | **evse_id**:*string*
 |  EVSE ID including the connector number, e.g. DE*PNX*E123456*1
 | **hw_capabilities**:*object* (:ref:`board_support-HardwareCapabilities <board_support-HardwareCapabilities>`)
-|   Hardware capability/limits
+|  Hardware capability/limits
 |  **There is an extended definition for this object** :ref:`here <board_support-HardwareCapabilities>`.
 
 ********
@@ -49,6 +52,8 @@ Commands
 |  Authorizes the evse manager to start a transaction using the given id tag.
 |  **id_tag**:*string*
 |   The authorized id tag
+|  **pnc**:*boolean*
+|   true Pnc auth, false EIM auth
 | **withdraw_authorization**:*void*
 |  Call to signals that EVSE is not further authorized to start a transaction (e.g. on a connection_timeout)
 | **reserve**:*boolean*

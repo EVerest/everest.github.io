@@ -6,18 +6,20 @@
 isolation_monitor
 #################
 
-| This interface defines an isolation monitoring device (IMD) according to IEC 61557-8 for DC charging. This is used to verify isolation of the DC lines before starting high voltage charging.
+| This interface defines an isolation monitoring device (IMD) according to IEC 61557-8 for DC charging. This is used to verify isolation of the DC lines before starting high voltage charging and during charging.
 
 
 *********
 Variables
 *********
-| **IsolationStatus**:*string*
-|  Publishes the isolation status after measurement
-|  enum: Invalid, Valid, Warning, Fault, No_IMD
+| **IsolationMeasurement**:*object* (:ref:`isolation_monitor-IsolationMeasurement <isolation_monitor-IsolationMeasurement>`)
+|  Isolation monitoring measurement results
+|  **There is an extended definition for this object** :ref:`here <isolation_monitor-IsolationMeasurement>`.
 
 ********
 Commands
 ********
-| **startIsolationTest**:*void*
-|  start a single isolation measurement
+| **start**:*void*
+|  Start recurring isolation measurements. The device should monitor the isolation status until stopped and publish the resistance data in regular intervals. The actual interval is device dependent.
+| **stop**:*void*
+|  Stop recurring measurements. The device should stop to monitor the isolation resistance and stop publishing the data.

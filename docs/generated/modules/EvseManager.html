@@ -48,7 +48,7 @@
   <section id="evsemanager">
 <span id="everest-modules-evsemanager"></span><h1><span class="section-number">6.5. </span>EvseManager<a class="headerlink" href="#evsemanager" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">EVSE Manager</div>
+<div class="line">EVSE Manager. Grid side power meter: Will be used for energy management. Will also be used for billing if no car side power meter connected. Car side powermeter: Will be used for billing if present.</div>
 </div>
 <section id="additional-documentation">
 <h2><span class="section-number">6.5.1. </span>Additional documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading">¶</a></h2>
@@ -212,6 +212,11 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <div class="line-block">
 <div class="line">EVSE ID</div>
 </div>
+<div class="line"><strong>evse_id_din</strong>:<em>string</em></div>
+<div class="line"><em>default: 49A80737A45678</em></div>
+<div class="line-block">
+<div class="line">EVSE ID DIN after DIN SPEC 91286</div>
+</div>
 <div class="line"><strong>payment_enable_eim</strong>:<em>boolean</em></div>
 <div class="line"><em>default: True</em></div>
 <div class="line-block">
@@ -226,16 +231,6 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <div class="line"><em>default: 230</em></div>
 <div class="line-block">
 <div class="line">Nominal AC voltage between phase and neutral in Volt</div>
-</div>
-<div class="line"><strong>dc_current_regulation_tolerance</strong>:<em>number</em></div>
-<div class="line"><em>default: 5</em></div>
-<div class="line-block">
-<div class="line">DC current regulation tolerance in Ampere</div>
-</div>
-<div class="line"><strong>dc_peak_current_ripple</strong>:<em>number</em></div>
-<div class="line"><em>default: 5</em></div>
-<div class="line-block">
-<div class="line">DC peal current ripple in Ampere</div>
 </div>
 <div class="line"><strong>ev_receipt_required</strong>:<em>boolean</em></div>
 <div class="line"><em>default: False</em></div>
@@ -308,10 +303,35 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <div class="line-block">
 <div class="line">Special mode that switches between AC and DC charging to get SoC percentage with AC charging</div>
 </div>
+<div class="line"><strong>dc_isolation_voltage</strong>:<em>integer</em></div>
+<div class="line"><em>default: 500</em></div>
+<div class="line-block">
+<div class="line">DC voltage used to test isolation in CableCheck. Set to 500V.</div>
+</div>
 <div class="line"><strong>dbg_hlc_auth_after_tstep</strong>:<em>boolean</em></div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
 <div class="line">Special mode: send HLC auth ok only after t_step_XX is finished (true) or directly when available (false)</div>
+</div>
+<div class="line"><strong>hack_sleep_in_cable_check</strong>:<em>integer</em></div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Hack: Sleep for n seconds at the end of cable check.</div>
+</div>
+<div class="line"><strong>switch_to_minimum_voltage_after_cable_check</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">When cable check is completed, switch to minimal voltage of DC output. Normally disabled.</div>
+</div>
+<div class="line"><strong>hack_skoda_enyaq</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Skoda Enyaq requests DC charging voltages below its battery level or even below 0 initially. Set to true to enable dirty workaround.</div>
+</div>
+<div class="line"><strong>hack_present_current_offset</strong>:<em>integer</em></div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Adds an offset [A] to the present current reported to the car on HLC. Set to 0 unless you really know what you are doing.</div>
 </div>
 </div>
 </section>
@@ -336,10 +356,12 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <h2><span class="section-number">6.5.4. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>bsp</strong>:<a class="reference internal" href="../interfaces/board_support_AC.html#everest-interfaces-board-support-ac"><span class="std std-ref">board_support_AC</span></a></div>
-<div class="line"><strong>powermeter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
+<div class="line"><strong>powermeter_grid_side</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
+<div class="line"><strong>powermeter_car_side</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
 <div class="line"><strong>slac</strong>:<a class="reference internal" href="../interfaces/slac.html#everest-interfaces-slac"><span class="std std-ref">slac</span></a></div>
 <div class="line"><strong>hlc</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a></div>
 <div class="line"><strong>imd</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a></div>
+<div class="line"><strong>powersupply_DC</strong>:<a class="reference internal" href="../interfaces/power_supply_DC.html#everest-interfaces-power-supply-dc"><span class="std std-ref">power_supply_DC</span></a></div>
 </div>
 </section>
 <section id="metadata">
@@ -348,7 +370,7 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <h3><span class="section-number">6.5.5.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Cornelius Claussen</div>
-<div class="line">Anton Wöllert</div>
+<div class="line">Anton Woellert</div>
 </div>
 </section>
 <section id="license">

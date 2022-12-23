@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Prepare Your Development Environment &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Prepare Your Development Environment</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="prepare-your-development-environment">
+<h1>Prepare Your Development Environment<a class="headerlink" href="#prepare-your-development-environment" title="Permalink to this heading">¶</a></h1>
+<p>To get EVerest running properly, you will mainly need the following packages:</p>
+<ul class="simple">
+<li><p>Python (greater than 3.6)</p></li>
+<li><p>Jinja2</p></li>
+<li><p>PyYAML</p></li>
+<li><p>Compiler:</p>
+<ul>
+<li><p>GCC 9 (lower versions could work with some tweaking but are not recommended)</p></li>
+<li><p>Clang (starting with version 12) has been used with EVerest but is not officially supported.</p></li>
+</ul>
+</li>
+</ul>
+<p>A complete list of libraries to be installed is given by the following best practices which setup a development environment on a number of operating systems.</p>
+<section id="ubuntu">
+<h2>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this heading">¶</a></h2>
+<p>Use <cite>apt</cite> to get your needed libraries installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt update
+sudo apt install -y python3-pip git rsync wget cmake doxygen graphviz build-essential clang-tidy cppcheck maven openjdk-11-jdk npm docker docker-compose libboost-all-dev nodejs libssl-dev libsqlite3-dev clang-format curl rfkill
+</pre></div>
+</div>
+<p>Please make sure to have <cite>nodejs</cite> installed with minimum version 10.20 for <cite>node_api</cite> version 6+. For updating to a supported version, please follow the install procedure here: <a class="reference external" href="https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions">https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions</a>.</p>
+</section>
+<section id="opensuse">
+<h2>OpenSUSE<a class="headerlink" href="#opensuse" title="Permalink to this heading">¶</a></h2>
+<p>Use <cite>zypper</cite> to get your needed libraries installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>zypper update <span class="o">&amp;&amp;</span> zypper install -y sudo shadow
+zypper install -y --type pattern devel_basis
+zypper install -y git rsync wget cmake doxygen graphviz clang-tools cppcheck boost-devel libboost_filesystem-devel libboost_log-devel libboost_program_options-devel libboost_system-devel libboost_thread-devel maven java-11-openjdk java-11-openjdk-devel nodejs nodejs-devel npm python3-pip gcc-c++ libopenssl-devel sqlite3-devel
+</pre></div>
+</div>
+</section>
+<section id="fedora">
+<h2>Fedora<a class="headerlink" href="#fedora" title="Permalink to this heading">¶</a></h2>
+<p>Tested with Fedora 36. Here is how to get your needed libraries with <cite>dnf</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo dnf update
+sudo dnf install make automake gcc gcc-c++ kernel-devel python3-pip git rsync wget cmake doxygen graphviz clang-tools-extra cppcheck maven java-11-openjdk java-11-openjdk-devel boost-devel nodejs nodejs-devel npm openssl-devel libsqlite3x-devel curl rfkill
+</pre></div>
+</div>
+<p>Now, it’s time to continue with the <a class="reference external" href="quick_start_guide.html#download-and-install">Quick Start Guide to install EVerest</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Prepare Your Development Environment</a><ul>
+<li><a class="reference internal" href="#ubuntu">Ubuntu</a></li>
+<li><a class="reference internal" href="#opensuse">OpenSUSE</a></li>
+<li><a class="reference internal" href="#fedora">Fedora</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/general/detail_pre_setup.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Prepare Your Development Environment</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

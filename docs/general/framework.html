@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2. A Real Quick Guide To EVerest" href="quick_start_guide.html" />
-    <link rel="prev" title="EVerest" href="../index.html" /> 
+    <link rel="prev" title="What Is EVerest" href="../index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -32,7 +32,7 @@
           <a href="quick_start_guide.html" title="2. A Real Quick Guide To EVerest"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="EVerest"
+          <a href="../index.html" title="What Is EVerest"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href=""><span class="section-number">1. </span>EVerest framework</a></li> 
@@ -46,46 +46,52 @@
             
   <section id="everest-framework">
 <h1><span class="section-number">1. </span>EVerest framework<a class="headerlink" href="#everest-framework" title="Permalink to this heading">¶</a></h1>
-<p>See our Quick Start Guide for a fast overview and first steps to create new modules: <a class="reference internal" href="quick_start_guide.html#a-real-quick-guide-to-everest"><span class="std std-ref">A Real Quick Guide To EVerest</span></a></p>
-<p>EVerest uses the principle of loose coupling of modules that allow configuration during runtime.</p>
-<section id="modules">
-<h2><span class="section-number">1.1. </span>Modules<a class="headerlink" href="#modules" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference external" href="https://github.com/EVerest/everest-core/tree/main/modules">Modules</a> consist of one or more interfaces.
-Each module is defined by its <cite>manifest.json</cite> file:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>JSON KEY</p></th>
-<th class="head"><p>description</p></th>
-<th class="head"><p>value type</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><em>description</em></p></td>
-<td><p>useful description of what the module does</p></td>
-<td><p>string</p></td>
-</tr>
-<tr class="row-odd"><td><p><em>provides</em></p></td>
-<td><p>interfaces provided by the module,
-can be required by other modules</p></td>
-<td><p>{&lt;interface id1&gt;: {interface, description, [config]},
-&lt;interface id2&gt;: {interface, description, [config]}, … }</p></td>
-</tr>
-<tr class="row-even"><td><p><em>requires</em></p></td>
-<td><p>interfaces required by the module,
-needs to be provided by other module(s)</p></td>
-<td><p>{&lt;interface id1&gt;: {interface}, &lt;interface id2&gt;: {interface},…}</p></td>
-</tr>
-<tr class="row-odd"><td><p><em>metadata</em></p></td>
-<td><p>metadata</p></td>
-<td><p>{license: &lt;string&gt;, authors: &lt;array&gt;}</p></td>
-</tr>
-</tbody>
-</table>
-<p>An example module can be found <a class="reference external" href="https://github.com/EVerest/everest-core/tree/main/modules/Example">here</a>.</p>
+<p>You can think of EVerest as an operating system for EV chargers with implementations of communication protocols, software modules for representations of hardware devices (chargers, cars, …) and tools for simulating the charging process.</p>
+<p>It’s a full stack environment for EV charging.</p>
+<section id="a-visual-introduction">
+<h2><span class="section-number">1.1. </span>A Visual Introduction<a class="headerlink" href="#a-visual-introduction" title="Permalink to this heading">¶</a></h2>
+<p>A first very high level overview of the framework can be seen here:</p>
+<img alt="../_images/quick-start-high-level-1.png" src="../_images/quick-start-high-level-1.png" />
+<p>The EVerest framework helps with building your dedicated development scenario with all needed modules for your specific developer’s use case. The modules are connected by using the principle of loose coupling.</p>
+<p>Modules in EVerest can be everything like hardware drivers, protocols, authentication logic and more. Build up your development scenario as needed and enhance it by adding your own additional modules.</p>
+<p>Another way to look at EVerest is its layer architecture:</p>
+<img alt="../_images/quick-start-high-level-2.png" src="../_images/quick-start-high-level-2.png" />
+<p>Depending on your project use case, you can define the suitable module stack and configure module connections and module parameters.</p>
+<p>What modules EVerest already delivers as ready-to-use implementations and which features they currently ship will be explained in detail in the modules documentation.</p>
 </section>
-<section id="interfaces">
-<h2><span class="section-number">1.2. </span>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this heading">¶</a></h2>
-<p>WIP</p>
+<section id="tools-and-helpers">
+<h2><span class="section-number">1.2. </span>Tools And Helpers<a class="headerlink" href="#tools-and-helpers" title="Permalink to this heading">¶</a></h2>
+<p>Additionally, you have some tools and helpers that work with the framework which makes your EVerest developer’s life easier:</p>
+<img alt="../_images/quick-start-high-level-3.png" src="../_images/quick-start-high-level-3.png" />
+<p>To understand the benefit delivered by those tools, let’s have a sneak preview:</p>
+<ul class="simple">
+<li><p><strong>Admin Panel</strong>: Tool to show all modules connections and dependencies including the parameters set for the modules.</p></li>
+<li><p><strong>EVerest Dependency Manager</strong> (edm): Tool that helps you getting all needed repositories from Git for your specific setup.</p></li>
+<li><p><strong>ev-cli</strong>: Generates module and interface scaffolds based on templates. This way you can start implementing new modules very fast.</p></li>
+<li><p><strong>MQTT Explorer</strong>: Great for debugging the messages sent between your modules during development phase.</p></li>
+<li><p><strong>NodeRed</strong> for simulating your EVerest setup</p></li>
+<li><p><strong>SteVe</strong>: Just in case you want to test your EVerest instance with some OCPP backend functionality: SteVe is an external tool that lets you do exactly that.</p></li>
+</ul>
+<p>How to setup and use those tools will be shown later.</p>
+</section>
+<section id="system-requirements-and-prerequisites">
+<h2><span class="section-number">1.3. </span>System Requirements and Prerequisites<a class="headerlink" href="#system-requirements-and-prerequisites" title="Permalink to this heading">¶</a></h2>
+<p>What is needed to run EVerest?</p>
+<section id="hardware">
+<h3><span class="section-number">1.3.1. </span>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">¶</a></h3>
+<p>It is recommended to have at least 4GB of RAM available to build EVerest. More CPU cores will optionally boost the build process, while requiring more RAM accordingly.</p>
+<p>We have setup EVerest successfully on Raspberry Pi 4.</p>
+</section>
+<section id="operating-system">
+<h3><span class="section-number">1.3.2. </span>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this heading">¶</a></h3>
+<p>EVerest has been tested with Ubuntu, OpenSUSE and Fedora 36. In general, it can be expected to run on most Linux-based systems.</p>
+</section>
+<section id="libraries-and-tools">
+<h3><span class="section-number">1.3.3. </span>Libraries And Tools<a class="headerlink" href="#libraries-and-tools" title="Permalink to this heading">¶</a></h3>
+<p>To create your development environment with all needed tools, libraries and compilers, the section “Prepare Your Environment” in our <a class="reference external" href="./quick_start_guide.html">Quick Start Guide</a> will walk you through the setup phase.</p>
+<p>That guide will also give you a first overview how modules look like and how to get a first simulation running.</p>
+<p>That’s your next step: <a class="reference external" href="./quick_start_guide.html">Quick Start Guide</a></p>
+</section>
 </section>
 </section>
 
@@ -100,8 +106,14 @@ needs to be provided by other module(s)</p></td>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">1. EVerest framework</a><ul>
-<li><a class="reference internal" href="#modules">1.1. Modules</a></li>
-<li><a class="reference internal" href="#interfaces">1.2. Interfaces</a></li>
+<li><a class="reference internal" href="#a-visual-introduction">1.1. A Visual Introduction</a></li>
+<li><a class="reference internal" href="#tools-and-helpers">1.2. Tools And Helpers</a></li>
+<li><a class="reference internal" href="#system-requirements-and-prerequisites">1.3. System Requirements and Prerequisites</a><ul>
+<li><a class="reference internal" href="#hardware">1.3.1. Hardware</a></li>
+<li><a class="reference internal" href="#operating-system">1.3.2. Operating System</a></li>
+<li><a class="reference internal" href="#libraries-and-tools">1.3.3. Libraries And Tools</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -110,7 +122,7 @@ needs to be provided by other module(s)</p></td>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="../index.html"
-                          title="previous chapter">EVerest</a></p>
+                          title="previous chapter">What Is EVerest</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -148,7 +160,7 @@ needs to be provided by other module(s)</p></td>
           <a href="quick_start_guide.html" title="2. A Real Quick Guide To EVerest"
              >next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="EVerest"
+          <a href="../index.html" title="What Is EVerest"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href=""><span class="section-number">1. </span>EVerest framework</a></li> 

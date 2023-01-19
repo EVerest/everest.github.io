@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>6.25. PN532TokenProvider &#8212; EVerest  documentation</title>
+    <title>6.23. OCPP201 &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="6.26. PowermeterBSM" href="PowermeterBSM.html" />
-    <link rel="prev" title="6.24. PersistentStore" href="PersistentStore.html" /> 
+    <link rel="next" title="6.24. PersistentStore" href="PersistentStore.html" />
+    <link rel="prev" title="6.22. OCPP" href="OCPP.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="PowermeterBSM.html" title="6.26. PowermeterBSM"
+          <a href="PersistentStore.html" title="6.24. PersistentStore"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="PersistentStore.html" title="6.24. PersistentStore"
+          <a href="OCPP.html" title="6.22. OCPP"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">6. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.25. </span>PN532TokenProvider</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.23. </span>OCPP201</a></li> 
       </ul>
     </div>  
 
@@ -45,80 +45,52 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="pn532tokenprovider">
-<span id="everest-modules-pn532tokenprovider"></span><h1><span class="section-number">6.25. </span>PN532TokenProvider<a class="headerlink" href="#pn532tokenprovider" title="Permalink to this heading">¶</a></h1>
+  <section id="ocpp201">
+<span id="everest-modules-ocpp201"></span><h1><span class="section-number">6.23. </span>OCPP201<a class="headerlink" href="#ocpp201" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">PN532 RFID/NFC token provider returning the token as soon as the tag can be read by the reader</div>
+<div class="line">A OCPP charge point / charging station module for OCPP 2.0.1</div>
 </div>
+<section id="module-configuration">
+<h2><span class="section-number">6.23.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>ChargePointConfigPath</strong>:<em>string</em></div>
+<div class="line"><em>default: ocpp-config.json</em></div>
+<div class="line-block">
+<div class="line">Path to the configuration file</div>
+</div>
+<div class="line"><strong>MessageLogPath</strong>:<em>string</em></div>
+<div class="line"><em>default: /tmp/everest_ocpp_logs</em></div>
+<div class="line-block">
+<div class="line">Path to folder where logs of all OCPP messages get written to</div>
+</div>
+</div>
+</section>
 <section id="provides">
-<h2><span class="section-number">6.25.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.23.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
 <div class="line-block">
-<div class="line">Implementation of PN532 RFID/NFC token provider</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line">serial_port:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">default:</div>
-</div>
-<div class="line">baud_rate:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-</div>
-<div class="line">timeout:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-</div>
-<div class="line">read_timeout:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
+<div class="line">This is a OCPP 2.0.1 charge point</div>
 </div>
 </div>
-<div class="line">config:</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">6.23.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>serial_port</strong>:<em>string</em></div>
-<div class="line"><em>default: /dev/ttyS0</em></div>
-<div class="line-block">
-<div class="line">Serial port the PN532 hardware is connected to</div>
-</div>
-<div class="line"><strong>baud_rate</strong>:<em>integer</em></div>
-<div class="line"><em>default: 115200</em></div>
-<div class="line-block">
-<div class="line">Serial baud rate to use when communicating with PN532 hardware</div>
-</div>
-<div class="line"><strong>timeout</strong>:<em>number</em></div>
-<div class="line"><em>default: 30</em></div>
-<div class="line-block">
-<div class="line">Time a new token is valid (in s)</div>
-</div>
-<div class="line"><strong>read_timeout</strong>:<em>integer</em></div>
-<div class="line"><em>default: 5</em></div>
-<div class="line-block">
-<div class="line">Time between subsequent card reads (in s)</div>
-</div>
-</div>
-</div>
+<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">6.25.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.23.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">6.25.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">6.23.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Cornelius Claussen</div>
+<div class="line">Piet Gömpel</div>
 <div class="line">Kai-Uwe Hermann</div>
-<div class="line">Thilo Molitor</div>
-<div class="line">Anton Wöllert</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">6.25.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">6.23.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -136,11 +108,13 @@
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">6.25. PN532TokenProvider</a><ul>
-<li><a class="reference internal" href="#provides">6.25.1. Provides</a></li>
-<li><a class="reference internal" href="#metadata">6.25.2. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">6.25.2.1. Authors</a></li>
-<li><a class="reference internal" href="#license">6.25.2.2. License</a></li>
+<li><a class="reference internal" href="#">6.23. OCPP201</a><ul>
+<li><a class="reference internal" href="#module-configuration">6.23.1. Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">6.23.2. Provides</a></li>
+<li><a class="reference internal" href="#requirements">6.23.3. Requirements</a></li>
+<li><a class="reference internal" href="#metadata">6.23.4. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">6.23.4.1. Authors</a></li>
+<li><a class="reference internal" href="#license">6.23.4.2. License</a></li>
 </ul>
 </li>
 </ul>
@@ -150,18 +124,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="PersistentStore.html"
-                          title="previous chapter"><span class="section-number">6.24. </span>PersistentStore</a></p>
+    <p class="topless"><a href="OCPP.html"
+                          title="previous chapter"><span class="section-number">6.22. </span>OCPP</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="PowermeterBSM.html"
-                          title="next chapter"><span class="section-number">6.26. </span>PowermeterBSM</a></p>
+    <p class="topless"><a href="PersistentStore.html"
+                          title="next chapter"><span class="section-number">6.24. </span>PersistentStore</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/generated/modules/PN532TokenProvider.rst.txt"
+      <li><a href="../../_sources/generated/modules/OCPP201.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -186,14 +160,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="PowermeterBSM.html" title="6.26. PowermeterBSM"
+          <a href="PersistentStore.html" title="6.24. PersistentStore"
              >next</a> |</li>
         <li class="right" >
-          <a href="PersistentStore.html" title="6.24. PersistentStore"
+          <a href="OCPP.html" title="6.22. OCPP"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">6. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.25. </span>PN532TokenProvider</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6.23. </span>OCPP201</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

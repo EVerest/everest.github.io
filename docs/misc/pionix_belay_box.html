@@ -58,7 +58,7 @@
 <p>For more information about vendors working with EVerest, contact us via the <a class="reference external" href="https://lists.lfenergy.org/g/everest">EVerest mailing list</a>.</p>
 </section>
 <section id="installation-mounting">
-<h3><span class="section-number">5.1.2. </span>Installation/mounting<a class="headerlink" href="#installation-mounting" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.1.2. </span>Installation / Mounting<a class="headerlink" href="#installation-mounting" title="Permalink to this heading">¶</a></h3>
 </section>
 </section>
 <section id="raspbian">
@@ -105,11 +105,10 @@ Mounted under <code class="docutils literal notranslate"><span class="pre">/mnt/
 Only writable partition. All data generated during the use of the box will be
 stored here. Also various configuration overrides can be set here, see Cheat
 sheet.
-Mounted under <code class="docutils literal notranslate"><span class="pre">/mnt/user_data</span></code>. Format this partition to reset the BelayBox
-to factory defaults.</p>
+Mounted under <code class="docutils literal notranslate"><span class="pre">/mnt/user_data</span></code>.</p>
 </section>
 <section id="using-online-updates">
-<h3><span class="section-number">5.2.2. </span>Using Online updates<a class="headerlink" href="#using-online-updates" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.2.2. </span>Using Online Updates<a class="headerlink" href="#using-online-updates" title="Permalink to this heading">¶</a></h3>
 <p>BelayBox comes with a very simple online update tool that is controlled by
 two systemd services:</p>
 <p><code class="docutils literal notranslate"><span class="pre">ota-update.service</span></code>: This service starts a shell script that checks for
@@ -117,10 +116,8 @@ online updates on Pionix update servers. It is triggered by the second systemd
 service:</p>
 <p><code class="docutils literal notranslate"><span class="pre">ota-update.timer</span></code>: This is the systemd timer unit that starts
 <code class="docutils literal notranslate"><span class="pre">ota-update.service</span></code> on regular intervals.</p>
-<p>To disable online updates use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">disable</span> <span class="pre">ota-update.timer</span></code>.
-The online update updates always the full root partition, partial updates
-are not implemented yet. All data that needs to survive the update needs
-to be stored in <code class="docutils literal notranslate"><span class="pre">/mnt/user_data</span></code>.</p>
+<p>To disable online updates use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">disable</span> <span class="pre">ota-update.service</span></code>.
+The online update updates always the full root partition. All data that needs to survive the update needs to be stored in <code class="docutils literal notranslate"><span class="pre">/mnt/user_data</span></code>.</p>
 <p>The root partition should normally never be modified, it is read only. All
 changes will also be lost on the next online update.</p>
 <p>If you still want to modify something, use the <code class="docutils literal notranslate"><span class="pre">rw</span></code> and <code class="docutils literal notranslate"><span class="pre">ro</span></code> commands
@@ -211,51 +208,21 @@ custom installation and still use the online updates for the base system.</p>
 <ul class="simple">
 <li><p>rw: make root partition read/writable</p></li>
 <li><p>ro: make it read only again</p></li>
-<li><p>/mnt/user_data/etc/wpa_supplicant.conf: file containing wifi settings</p></li>
+<li><p>/mnt/user_data/etc/wpa_supplicant/wpa_supplicant.conf: file containing wifi settings</p></li>
+<li><p>/mnt/user_data/opt/everest/&lt;crosscompiled everest binaries&gt; force the use of custom everest build or config by automated start of <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code> instead of <code class="docutils literal notranslate"><span class="pre">everest.service</span></code></p></li>
+<li><p>/mnt/user_data/etc/update_channel contains either stable or unstable to define release channels</p></li>
+<li><p>/mnt/user_data/etc/wireguard/wg0.conf for a wireguard VPN configuration</p></li>
+<li><p>/mnt/user_data/user-config/config-deploy-devboard.yaml for a persistent user config containing only the diffs to the default config.</p></li>
+<li><p>to stop automatic updates: rw; sudo systemctl disable ota-update.service</p></li>
 <li><dl class="simple">
-<dt>/mnt/user_data/opt/everest/&lt;everest binaries TBD&gt; force the use of custom</dt><dd><p>everest build or config by automated start of <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code>
-instead of <code class="docutils literal notranslate"><span class="pre">everest.service</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>/mnt/user_data/etc/update_channel contains either stable or unstable to</dt><dd><p>define release channels</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>/mnt/user_data/etc/wireguard/&lt;wireguard interface name&gt;.conf for a wireguard</dt><dd><p>VPN configuration</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>/mnt/user_data/user-config/config-deploy-devboard.json for a persistent user</dt><dd><p>config containing only the diffs to the default config.</p>
-</dd>
-</dl>
-</li>
-<li><p>to stop automatic updates: rw; sudo systemctl disable ota-update.timer</p></li>
-<li><dl class="simple">
-<dt>/mnt/user_data/etc/mosquitto/conf.d:</dt><dd><p>here you can add additional config files
-for the mqtt broker. For example a “public_mqtt.conf” file with the
-following contents:
-<code class="docutils literal notranslate"><span class="pre">listener</span> <span class="pre">1883</span></code>
-<code class="docutils literal notranslate"><span class="pre">allow_anonymous</span> <span class="pre">true</span></code> to allow anonymous external connections to the
-mqtt broker for debugging purposes</p>
+<dt>/mnt/user_data/etc/mosquitto/conf.d: here you can add additional config files for the mqtt broker. For example a “public_mqtt.conf” file with the following contents:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">listener</span> <span class="pre">1883</span></code>
+<code class="docutils literal notranslate"><span class="pre">allow_anonymous</span> <span class="pre">true</span></code> to allow anonymous external connections to the mqtt broker for debugging purposes</p>
 </dd>
 </dl>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-fu</span> <span class="pre">everest.service</span></code>: watch the output of everest.service</p></li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-fu</span> <span class="pre">everest-dev.service</span></code>:</dt><dd><p>watch the output of <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/opt/everest/bin/run.sh</span></code></dt><dd><p>run EVerst in the terminal (Make sure the
-systemd service is not running)</p>
-</dd>
-</dl>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-fu</span> <span class="pre">everest-dev.service</span></code>: watch the output of <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/opt/everest/bin/manager</span> <span class="pre">--conf</span> <span class="pre">/opt/everest/conf/config-deploy-devboard.yaml</span></code>: run EVerest in the terminal. Make sure the systemd service is not running.</p></li>
 </ul>
 </section>
 </section>
@@ -274,12 +241,12 @@ systemd service is not running)</p>
 <li><a class="reference internal" href="#">5. Pionix BelayBox</a><ul>
 <li><a class="reference internal" href="#introduction">5.1. Introduction</a><ul>
 <li><a class="reference internal" href="#detailed-description-of-the-hardware">5.1.1. Detailed description of the hardware</a></li>
-<li><a class="reference internal" href="#installation-mounting">5.1.2. Installation/mounting</a></li>
+<li><a class="reference internal" href="#installation-mounting">5.1.2. Installation / Mounting</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#raspbian">5.2. Raspbian</a><ul>
 <li><a class="reference internal" href="#partitioning-scheme">5.2.1. Partitioning scheme</a></li>
-<li><a class="reference internal" href="#using-online-updates">5.2.2. Using Online updates</a></li>
+<li><a class="reference internal" href="#using-online-updates">5.2.2. Using Online Updates</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#everest">5.3. EVerest</a><ul>

@@ -324,6 +324,74 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="iso15118-charger-response-exi-stream-status">
+<div class="line"><strong>Response_Exi_Stream_Status</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">The response raw exi stream and the status from the CSMS system</div>
+<div class="line">required: status</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates whether the message was processed properly Accepted - The message was processed properly, exiResponse included Failed - Processing of the message was not successful, no exiResponse included</div>
+<div class="line">enum: Accepted, Failed</div>
+</div>
+<div class="line"><strong>exiResponse</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Raw CertificateInstallationRes or CertificateUpdateRes message as exi stream (Base64 encoded)</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-request-exi-stream-schema">
+<div class="line"><strong>Request_Exi_Stream_Schema</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">The request raw exi stream and the schema version for the CSMS system</div>
+<div class="line">required: exiRequest, iso15118SchemaVersion</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>exiRequest</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Raw CertificateInstallationReq or CertificateUpdateReq message as exi stream (Base64 encoded)</div>
+</div>
+<div class="line"><strong>iso15118SchemaVersion</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Schema Version used for CertificateReq message between EV and Charger</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-certificatehashdatainfo">
+<div class="line"><strong>CertificateHashDataInfo</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Contains the certificate information</div>
+<div class="line">required: hashAlgorithm, issuerNameHash, issuerKeyHash, serialNumber, responderURL</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>hashAlgorithm</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Used algorithms for the hashes provided</div>
+<div class="line">enum: SHA256, SHA384, SHA512</div>
+</div>
+<div class="line"><strong>issuerNameHash</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Hashed value of the Issuer Distinguished Name</div>
+</div>
+<div class="line"><strong>issuerKeyHash</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Hashed value of the issuers public key</div>
+</div>
+<div class="line"><strong>serialNumber</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The serial number of the certificate</div>
+</div>
+<div class="line"><strong>responderURL</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This contains the responder URL</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 

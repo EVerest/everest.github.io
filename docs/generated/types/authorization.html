@@ -52,7 +52,14 @@
 <div class="line"><strong>AuthorizationStatus</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Authorization Status enum</div>
-<div class="line">enum: Accepted, Blocked, Expired, Invalid</div>
+<div class="line">enum: Accepted, Blocked, ConcurrentTx, Expired, Invalid, NoCredit, NotAllowedTypeEVSE, NotAtThisLocation, NotAtThisTime, Unknown</div>
+</div>
+</div>
+<div class="line-block" id="authorization-certificatestatus">
+<div class="line"><strong>CertificateStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Certificate status information</div>
+<div class="line">enum: Accepted, SignatureError, CertificateExpired, CertificateRevoked, NoCertificateAvailable, CertChainError, ContractCancelled</div>
 </div>
 </div>
 <div class="line-block" id="authorization-identifier">
@@ -116,6 +123,20 @@
 <div class="line-block">
 <div class="line">Indicates that the id token is already validated by the provider</div>
 </div>
+<div class="line"><strong>certificate</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The X.509 certificated presented by EV and encoded in PEM format</div>
+</div>
+<div class="line"><strong>iso15118CertificateHashData</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Contains the information needed to verify the EV Contract Certificate via OCSP</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -130,6 +151,11 @@
 <div class="line"><br /></div>
 <div class="line-block">
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-authorizationstatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>certificate_status</strong>:<em>string</em> (<a class="reference internal" href="#authorization-certificatestatus"><span class="std std-ref">authorization-CertificateStatus</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-certificatestatus"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>reason</strong>:<em>string</em></div>
 <div class="line"><br /></div>

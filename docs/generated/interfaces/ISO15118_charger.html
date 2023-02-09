@@ -57,9 +57,10 @@
 <div class="line-block">
 <div class="line">An EIM authorization is requiered</div>
 </div>
-<div class="line"><strong>Require_Auth_PnC</strong>:<em>null</em></div>
+<div class="line"><strong>Require_Auth_PnC</strong>:<em>object</em> (<a class="reference internal" href="../types/authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
 <div class="line-block">
-<div class="line">An PnC authorization is requiered</div>
+<div class="line">The EVCC provides the payment details for a PnC authorization by sending the signature certificate chain and eMAID.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/authorization.html#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>AC_Close_Contactor</strong>:<em>boolean</em></div>
 <div class="line-block">
@@ -173,6 +174,16 @@
 <div class="line-block">
 <div class="line">Estimated or calculated time until bulk and full charge is complete</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evremainingtime"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>Install_Request_Certificate</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">iso15118_charger-Request_Exi_Stream_Schema</span></a>)</div>
+<div class="line-block">
+<div class="line">The vehicle requests the SECC to deliver the certificate that belong  to the currently valid contract of the vehicle.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>Update_Request_Certificate</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">iso15118_charger-Request_Exi_Stream_Schema</span></a>)</div>
+<div class="line-block">
+<div class="line">The vehicle requests the SECC to deliver new certificate that belongs to the currently valid contract of the vehicle.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>EV_AppProtocol</strong>:<em>array</em></div>
 <div class="line-block">
@@ -328,10 +339,16 @@
 </div>
 <div class="line"><strong>set_Auth_Okay_PnC</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Response on Require_Auth_PnC - Set this element if the authorization was either successful or unsuccessful</div>
-<div class="line"><strong>auth_okay_pnc</strong>:<em>boolean</em></div>
+<div class="line">PaymentDetails - With this message the SECC informs the EVCC whether the previously provided payment details were accepted or not</div>
+<div class="line"><strong>status</strong>:<em>string</em> (<a class="reference internal" href="../types/authorization.html#authorization-authorizationstatus"><span class="std std-ref">authorization-AuthorizationStatus</span></a>)</div>
 <div class="line-block">
-<div class="line">True: Authentication is okay</div>
+<div class="line">Authorization status of the ID Token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/authorization.html#authorization-authorizationstatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>certificateStatus</strong>:<em>string</em> (<a class="reference internal" href="../types/authorization.html#authorization-certificatestatus"><span class="std std-ref">authorization-CertificateStatus</span></a>)</div>
+<div class="line-block">
+<div class="line">Certificate status information</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/authorization.html#authorization-certificatestatus"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>set_FAILED_ContactorError</strong>:<em>void</em></div>
@@ -457,6 +474,32 @@
 <div class="line"><strong>status</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">True: Cable check is okay</div>
+</div>
+</div>
+<div class="line"><strong>set_Certificate_Service_Supported</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">ServiceDiscoveryRes - The charger supports the certificate installation/update service and has a connection to an SA for this purpose</div>
+<div class="line"><strong>status</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: The service is supported</div>
+</div>
+</div>
+<div class="line"><strong>set_Response_Certificate_Install</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">CertificateInstallationRes - The new Contract Certificate (including the certificate chain) and the corresponding encrypted private key are sent via the SECC to the vehicle</div>
+<div class="line"><strong>Existream_Status</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">iso15118_charger-Response_Exi_Stream_Status</span></a>)</div>
+<div class="line-block">
+<div class="line">The response raw exi stream and the status from the CSMS system</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>set_Response_Certificate_Update</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">CertificateUpdateRes - The updated Contract Certificate (including the certificate chain) and the corresponding encrypted private key are sent via the SECC to the vehicle</div>
+<div class="line"><strong>Existream_Status</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">iso15118_charger-Response_Exi_Stream_Status</span></a>)</div>
+<div class="line-block">
+<div class="line">The response raw exi stream and the status n from the CSMS system</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

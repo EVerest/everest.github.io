@@ -12,7 +12,13 @@ Auth token validator types
 
 | **AuthorizationStatus**:*string*
 |  Authorization Status enum
-|  enum: Accepted, Blocked, Expired, Invalid
+|  enum: Accepted, Blocked, ConcurrentTx, Expired, Invalid, NoCredit, NotAllowedTypeEVSE, NotAtThisLocation, NotAtThisTime, Unknown
+
+.. _authorization-CertificateStatus:
+
+| **CertificateStatus**:*string*
+|  Certificate status information
+|  enum: Accepted, SignatureError, CertificateExpired, CertificateRevoked, NoCertificateAvailable, CertChainError, ContractCancelled
 
 .. _authorization-Identifier:
 
@@ -51,6 +57,14 @@ Auth token validator types
 |     type:
 |   **prevalidated**:*boolean*
 |    Indicates that the id token is already validated by the provider
+|   **certificate**:*string*
+|    The X.509 certificated presented by EV and encoded in PEM format
+|   **iso15118CertificateHashData**:*array*
+|    Contains the information needed to verify the EV Contract Certificate via OCSP
+|    items:
+|     description:
+|     type:
+|     $ref:
 
 .. _authorization-ValidationResult:
 
@@ -61,6 +75,9 @@ Auth token validator types
 |   **authorization_status**:*string* (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
 |    
 |    **There is an extended definition for this object** :ref:`here <authorization-AuthorizationStatus>`.
+|   **certificate_status**:*string* (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
+|    
+|    **There is an extended definition for this object** :ref:`here <authorization-CertificateStatus>`.
 |   **reason**:*string*
 |    
 |   **expiry_time**:*string*

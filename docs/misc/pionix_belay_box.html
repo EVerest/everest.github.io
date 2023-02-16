@@ -11,9 +11,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/contentui.js"></script>
@@ -166,24 +163,24 @@ uses stm32flash tool to upload the new firmware.</p>
 <p>First, make sure you have successfully built EVerest natively on your laptop as
 described here: <a class="reference external" href="https://github.com/EVerest/everest-core#everest-core">https://github.com/EVerest/everest-core#everest-core</a></p>
 <p>Download and untar the bullseye-toolchain:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://build.pionix.de:8888/release/toolchains/bullseye-toolchain.tgz
-tar xfz bullseye-toolchain.tgz
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://build.pionix.de:8888/release/toolchains/bullseye-toolchain.tgz
+tar<span class="w"> </span>xfz<span class="w"> </span>bullseye-toolchain.tgz
 </pre></div>
 </div>
 <p>Change directory to everest-core in your workspace e.g.:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/checkout/everest-workspace/everest-core
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/everest-core
 </pre></div>
 </div>
 <p>Cross-compile by changing the given paths accordingly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake <span class="se">\</span>
- -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>/full-path-to/bullseye-toolchain/toolchain.cmake <span class="se">\</span>
- -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/mnt/user_data/opt/everest <span class="se">\</span>
- -S . -B build-cross
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>/full-path-to/bullseye-toolchain/toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/mnt/user_data/opt/everest<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-cross
 </pre></div>
 </div>
 <p>Now build EVerest with the following commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make -j<span class="k">$(</span>nproc<span class="k">)</span> -C build-cross
-make -j<span class="k">$(</span>nproc<span class="k">)</span> <span class="nv">DESTDIR</span><span class="o">=</span>./dist -C build-cross install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span>build-cross
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span><span class="nv">DESTDIR</span><span class="o">=</span>./dist<span class="w"> </span>-C<span class="w"> </span>build-cross<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
@@ -314,7 +311,7 @@ custom installation and still use the online updates for the base system.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
     </div>
   </body>
 </html>

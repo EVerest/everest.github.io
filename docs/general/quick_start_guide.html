@@ -11,9 +11,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/contentui.js"></script>
@@ -65,10 +62,10 @@
 <p>To start with that, let’s get edm ready to work.</p>
 <p>You will first of all need to pull <em>everest-dev-environment</em> to your development environment.</p>
 <p>Python and its tools pip, setuptools and wheel have already been installed in the Prerequisites section above. So, you can pull the said repository and install the dependency manager, which will reside inside of .local/bin/ in your HOME directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:EVerest/everest-dev-environment.git
-<span class="nb">cd</span> everest-dev-environment/dependency_manager
-python3 -m pip install .
-edm --config ../everest-complete.yaml --workspace ~/checkout/everest-workspace
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:EVerest/everest-dev-environment.git
+<span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+edm<span class="w"> </span>--config<span class="w"> </span>../everest-complete.yaml<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
 </pre></div>
 </div>
 <p>(In future, as your system has edm properly setup, you can always initialise a new workspace by calling <em>edm init</em>.)</p>
@@ -79,7 +76,7 @@ edm --config ../everest-complete.yaml --workspace ~/checkout/everest-workspace
 <h4><span class="section-number">2.2.1.2. </span>EVerest Command Line Interface: ev-cli<a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
 <p>In its current version, ev-cli supports you by generating module templates. It is also necessary to build EVerest.</p>
 <p>To install ev-cli, change into the everest-utils/ev-dev-tools/ directory and install ev-cli:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install .
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
 <p>That is all to install ev-cli. You can find the binary file of ev-cli in your HOME directory in .local/bin/</p>
@@ -89,11 +86,11 @@ edm --config ../everest-complete.yaml --workspace ~/checkout/everest-workspace
 <section id="build-everest">
 <h3><span class="section-number">2.2.2. </span>Build EVerest<a class="headerlink" href="#build-everest" title="Permalink to this heading">¶</a></h3>
 <p>Now it is time to build EVerest:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/checkout/everest-workspace/everest-core
-mkdir build
-<span class="nb">cd</span> build
-cmake ..
-make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/everest-core
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>edm helped you to keep it that simple. Let’s now dive into simulating our current workspace.</p>
@@ -106,12 +103,12 @@ make install
 <h3><span class="section-number">2.3.1. </span>Prepare The Helpers<a class="headerlink" href="#prepare-the-helpers" title="Permalink to this heading">¶</a></h3>
 <p>EVerest comes with prepared Docker containers, which are needed for simulation and further development. To get this working, make sure you have Docker and Docker-Compose installed during the previous install phase. (If not, see install instructions for <a class="reference external" href="https://docs.docker.com/engine/install/#server">Docker</a> and <a class="reference external" href="https://docs.docker.com/compose/install/#install-compose)">Docker-Compose</a>!)</p>
 <p>In order for custom or local containers being able to talk to the services, provided by the docker-compose containers, we need to create a common docker network. It is called <cite>infranet_network</cite> and needs to be created by the following command (IPv6 is enabled for containers which might it):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker network create --driver bridge --ipv6  --subnet fd00::/80 infranet_network --attachable
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>bridge<span class="w"> </span>--ipv6<span class="w">  </span>--subnet<span class="w"> </span>fd00::/80<span class="w"> </span>infranet_network<span class="w"> </span>--attachable
 </pre></div>
 </div>
 <p>Now, change into the directory of the local everest-utils repo, which should have been cloned from Git by EDM before.</p>
 <p>Enter directory <cite>docker</cite> and startup some containers:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up -d
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </pre></div>
 </div>
 <p>This will give you the following services up and running:</p>
@@ -186,14 +183,14 @@ WebSocket/JSON endpoint for OCPP</p></li>
 <li><p>Create a manifest with information about which interface implementations are provided and which interfaces are required from connected modules.</p></li>
 </ul>
 <p>Now, let’s make ev-cli do its job of generating a module stub from a template:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli mod create MyModuleName
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli<span class="w"> </span>mod<span class="w"> </span>create<span class="w"> </span>MyModuleName
 </pre></div>
 </div>
 <p>The name of the module is the one given as directory name.</p>
 <p>You will see that you get cpp and hpp files for your main module class and also for the interfaces to be implemented.</p>
 <p>You main cpp file will have to special functions:</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
 <p>When initialising, the EVerest framework will call all init() functions of all modules one after the other. After having initialised all modules in that way, the framework calls the ready() functions.</p>
@@ -291,7 +288,7 @@ WebSocket/JSON endpoint for OCPP</p></li>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
     </div>
   </body>
 </html>

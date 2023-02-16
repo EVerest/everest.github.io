@@ -11,9 +11,6 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/contentui.js"></script>
@@ -166,11 +163,11 @@ repository.  Let’s say for example, the main repository is located at
 repository at <code class="docutils literal notranslate"><span class="pre">https://github.com/PrivateUser/PrivateRepo</span></code>.
 Furthermore the main repository is checked out in <code class="docutils literal notranslate"><span class="pre">/main_repo</span></code>, the
 you can do the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/main_repo$ git checkout -b wip/new_stuff develop
-/main_repo$ <span class="c1"># do some work, add and commit</span>
-/main_repo$ <span class="c1"># add private repo as additional remote, called &#39;private&#39;</span>
-/main_repo$ git remote add private git@github.com:PrivateUser/PrivateRepo.git
-/main_repo$ git push private
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/main_repo$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>wip/new_stuff<span class="w"> </span>develop
+/main_repo$<span class="w"> </span><span class="c1"># do some work, add and commit</span>
+/main_repo$<span class="w"> </span><span class="c1"># add private repo as additional remote, called &#39;private&#39;</span>
+/main_repo$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>private<span class="w"> </span>git@github.com:PrivateUser/PrivateRepo.git
+/main_repo$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>private
 </pre></div>
 </div>
 <p>Now, the branch <code class="docutils literal notranslate"><span class="pre">wip/new_stuff</span></code> will be pushed to your private
@@ -189,22 +186,22 @@ remote name is usually origin.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 
 <span class="c1"># some setup</span>
-rm -rf ./rnd_git_dir
-mkdir rnd_git_dir <span class="o">&amp;&amp;</span> <span class="nb">cd</span> rnd_git_dir
-git init
-git config user.email <span class="s2">&quot;dev@pionier-manufaktur.de&quot;</span>
-git config user.name <span class="s2">&quot;git bot&quot;</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>./rnd_git_dir
+mkdir<span class="w"> </span>rnd_git_dir<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>rnd_git_dir
+git<span class="w"> </span>init
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;dev@pionier-manufaktur.de&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;git bot&quot;</span>
 
 <span class="c1">#</span>
 <span class="c1"># start develop branch</span>
 <span class="c1"># and create first commit</span>
 <span class="c1">#</span>
-git checkout -b develop
-<span class="nb">echo</span> <span class="s2">&quot;pionix&quot;</span> &gt; contributors
-mkdir src
-touch src/main
-git add contributors src/main
-git commit -m <span class="s2">&quot;initial&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>develop
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;pionix&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>contributors
+mkdir<span class="w"> </span>src
+touch<span class="w"> </span>src/main
+git<span class="w"> </span>add<span class="w"> </span>contributors<span class="w"> </span>src/main
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;initial&quot;</span>
 
 
 <span class="c1">#</span>
@@ -212,15 +209,15 @@ git commit -m <span class="s2">&quot;initial&quot;</span>
 <span class="c1"># this feature is small and simple, so fast-forward</span>
 <span class="c1"># merge is a good option</span>
 <span class="c1">#</span>
-git checkout -b feature/a
-<span class="nb">echo</span> <span class="s2">&quot;fancy&quot;</span> &gt; src/feature_a
-git add src/feature_a
-git commit -m <span class="s2">&quot;added feature a&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/a
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;fancy&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_a
+git<span class="w"> </span>add<span class="w"> </span>src/feature_a
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added feature a&quot;</span>
 <span class="c1"># merge back with fast forward, no rebase necessary</span>
-git checkout develop
-git merge --ff-only feature/a
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>feature/a
 <span class="c1"># we don&#39;t keep references for feature branches</span>
-git branch -d feature/a
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/a
 
 
 <span class="c1">#</span>
@@ -229,27 +226,27 @@ git branch -d feature/a
 <span class="c1"># intermediate steps, that are not stable - so a</span>
 <span class="c1"># regulare merge might be the better option</span>
 <span class="c1">#</span>
-git checkout -b feature/b
-<span class="nb">echo</span> <span class="s2">&quot;broken&quot;</span> &gt; src/feature_b
-git add src/feature_b
-git commit -m <span class="s2">&quot;added feature b&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;not broken&quot;</span> &gt; src/feature_b
-git add -u
-git commit -m <span class="s2">&quot;finished feature b&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/b
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;broken&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_b
+git<span class="w"> </span>add<span class="w"> </span>src/feature_b
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added feature b&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;not broken&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_b
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;finished feature b&quot;</span>
 <span class="c1"># regular merge</span>
-git checkout develop
-git merge -m <span class="s2">&quot;Merging large feature b&quot;</span> --no-ff feature/b
-git branch -d feature/b
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Merging large feature b&quot;</span><span class="w"> </span>--no-ff<span class="w"> </span>feature/b
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/b
 
 
 <span class="c1">#</span>
 <span class="c1"># starting on feature C</span>
 <span class="c1">#</span>
-git checkout develop
-git checkout -b feature/c
-<span class="nb">echo</span> <span class="s2">&quot;something new&quot;</span> &gt; src/feature_c
-git add src/feature_c
-git commit -m <span class="s2">&quot;added feature c&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/c
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;something new&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_c
+git<span class="w"> </span>add<span class="w"> </span>src/feature_c
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added feature c&quot;</span>
 
 
 <span class="c1">#</span>
@@ -257,25 +254,25 @@ git commit -m <span class="s2">&quot;added feature c&quot;</span>
 <span class="c1"># a small bugfix, which can be merged back using</span>
 <span class="c1"># fast-forward</span>
 <span class="c1">#</span>
-git checkout develop
-git checkout -b bugfix/a
-<span class="nb">echo</span> <span class="s2">&quot;not broken for now&quot;</span> &gt; src/feature_b
-git add -u
-git commit -m <span class="s2">&quot;bugfix a&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>bugfix/a
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;not broken for now&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_b
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;bugfix a&quot;</span>
 <span class="c1"># merge back using fast-forward</span>
-git checkout develop
-git merge --ff-only bugfix/a
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>bugfix/a
 <span class="c1"># we don&#39;t keep references for bugfix branches</span>
-git branch -d bugfix/a
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>bugfix/a
 
 
 <span class="c1">#</span>
 <span class="c1"># starting release 0.1</span>
 <span class="c1">#</span>
-git checkout -b rc/0.1
-<span class="nb">echo</span> <span class="s2">&quot;0.1&quot;</span> &gt; release
-git add release
-git commit -m <span class="s2">&quot;going for release 0.1&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>rc/0.1
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>release
+git<span class="w"> </span>add<span class="w"> </span>release
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;going for release 0.1&quot;</span>
 
 
 <span class="c1">#</span>
@@ -284,21 +281,21 @@ git commit -m <span class="s2">&quot;going for release 0.1&quot;</span>
 <span class="c1"># but this is now not possible, as bugfix A has happened</span>
 <span class="c1"># in between - therefor we need to rebase against master</span>
 <span class="c1">#</span>
-git checkout feature/c
-git rebase develop
-git checkout develop
-git merge --ff-only feature/c
-git branch -d feature/c
+git<span class="w"> </span>checkout<span class="w"> </span>feature/c
+git<span class="w"> </span>rebase<span class="w"> </span>develop
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>feature/c
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/c
 
 
 <span class="c1">#</span>
 <span class="c1"># back on working on release 0.1, we</span>
 <span class="c1"># ran tests and things, and realized something needs to be fixed</span>
 <span class="c1">#</span>
-git checkout rc/0.1
-<span class="nb">echo</span> <span class="s2">&quot; at all&quot;</span> &gt;&gt; src/feature_b
-git add -u
-git commit -m <span class="s2">&quot;Fixed something&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>rc/0.1
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; at all&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>src/feature_b
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Fixed something&quot;</span>
 
 
 <span class="c1">#</span>
@@ -309,12 +306,12 @@ git commit -m <span class="s2">&quot;Fixed something&quot;</span>
 <span class="c1"># a simple new branch off to master is enough</span>
 <span class="c1"># (later on, we will need to merge)</span>
 <span class="c1">#</span>
-git checkout -b release/0.1
-git tag <span class="s2">&quot;v0.1&quot;</span>
-git checkout -b master
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release/0.1
+git<span class="w"> </span>tag<span class="w"> </span><span class="s2">&quot;v0.1&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>master
 <span class="c1"># and we need to merge back the release candidate to develop</span>
-git checkout develop
-git merge -m <span class="s2">&quot;merging back release 0.1&quot;</span> rc/0.1
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;merging back release 0.1&quot;</span><span class="w"> </span>rc/0.1
 <span class="c1"># we don&#39;t delete the branch reference for later use</span>
 
 
@@ -322,15 +319,15 @@ git merge -m <span class="s2">&quot;merging back release 0.1&quot;</span> rc/0.1
 <span class="c1"># in production of v0.1, a serious bug was found, which needs</span>
 <span class="c1"># to be fixed immediately, so we create a hotfix (a)</span>
 <span class="c1">#</span>
-git checkout release/0.1
-git checkout -b hotfix/a
-<span class="nb">echo</span> <span class="s2">&quot;not broken at all&quot;</span> &gt; src/feature_b
-<span class="nb">echo</span> <span class="s2">&quot;0.1.1&quot;</span> &gt; release
-git add -u
-git commit -m <span class="s2">&quot;small hotfix for feature b&quot;</span>
-git checkout release/0.1
-git merge --ff-only hotfix/a
-git tag <span class="s2">&quot;v0.1.1&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>release/0.1
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/a
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;not broken at all&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_b
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0.1.1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>release
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;small hotfix for feature b&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>release/0.1
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>hotfix/a
+git<span class="w"> </span>tag<span class="w"> </span><span class="s2">&quot;v0.1.1&quot;</span>
 
 
 <span class="c1">#</span>
@@ -341,8 +338,8 @@ git tag <span class="s2">&quot;v0.1.1&quot;</span>
 <span class="c1"># this step would not be taken because master should</span>
 <span class="c1"># point only to the latest releases</span>
 <span class="c1">#</span>
-git checkout master
-git merge --ff-only release/0.1
+git<span class="w"> </span>checkout<span class="w"> </span>master
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>release/0.1
 
 
 <span class="c1">#</span>
@@ -350,12 +347,12 @@ git merge --ff-only release/0.1
 <span class="c1"># due to fact, that it is a small fix, we can cherry pick</span>
 <span class="c1"># it from the hotfix/a branch</span>
 <span class="c1">#</span>
-git checkout develop
-git cherry-pick hotfix/a
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>cherry-pick<span class="w"> </span>hotfix/a
 <span class="c1"># remove the hotfix</span>
 <span class="c1"># now we don&#39;t need the reference for the hotfix anymore</span>
-git checkout release/0.1
-git branch -d hotfix/a
+git<span class="w"> </span>checkout<span class="w"> </span>release/0.1
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>hotfix/a
 
 
 <span class="c1"># </span>
@@ -365,64 +362,64 @@ git branch -d hotfix/a
 <span class="c1"># can be taken into develop, so a fast-forward</span>
 <span class="c1"># will be ok</span>
 <span class="c1">#</span>
-git checkout -b feature/d
-<span class="nb">echo</span> <span class="s2">&quot;working&quot;</span> &gt; src/feature_d_1
-git add src/feature_d_1
-git commit -m <span class="s2">&quot;Added feature d1&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;also working&quot;</span> &gt; src/feature_d_2
-git add src/feature_d_2
-git commit -m <span class="s2">&quot;Added feature d2&quot;</span>
-git checkout develop
-git merge --no-ff --no-edit feature/d
-git branch -d feature/d
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/d
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;working&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_d_1
+git<span class="w"> </span>add<span class="w"> </span>src/feature_d_1
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Added feature d1&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;also working&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_d_2
+git<span class="w"> </span>add<span class="w"> </span>src/feature_d_2
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Added feature d2&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>--no-edit<span class="w"> </span>feature/d
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/d
 
 
 <span class="c1">#</span>
 <span class="c1"># starting on release candidate v0.2</span>
 <span class="c1">#</span>
-git checkout -b rc/0.2
-<span class="nb">echo</span> <span class="s2">&quot;0.2&quot;</span> &gt; release
-<span class="nb">echo</span> <span class="s2">&quot;anonymous&quot;</span> &gt;&gt; contributors
-git add -u
-git commit -m <span class="s2">&quot;Getting ready for 0.2&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>rc/0.2
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0.2&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>release
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;anonymous&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>contributors
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Getting ready for 0.2&quot;</span>
 
 
 <span class="c1">#</span>
 <span class="c1"># meanwhile, feature E (small one)</span>
 <span class="c1">#</span>
-git checkout develop
-git checkout -b feature/e
-<span class="nb">echo</span> <span class="s2">&quot;properly working&quot;</span> &gt; src/feature_e
-git add src/feature_e
-git commit -m <span class="s2">&quot;added feature e&quot;</span>
-git checkout develop
-git merge --ff-only feature/e
-git branch -d feature/e
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/e
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;properly working&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_e
+git<span class="w"> </span>add<span class="w"> </span>src/feature_e
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added feature e&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>feature/e
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/e
 
 
 <span class="c1">#</span>
 <span class="c1"># now we would like to incorporate the commit</span>
 <span class="c1"># on rc/0.2 immediately into develop, so lets merge</span>
 <span class="c1"># it back</span>
-git checkout develop
-git merge --no-edit rc/0.2
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--no-edit<span class="w"> </span>rc/0.2
 
 
 <span class="c1">#</span>
 <span class="c1"># meanwhile a second hotfix (b) on release 0.1</span>
 <span class="c1">#</span>
-git checkout release/0.1
-git checkout -b hotfix/b
-<span class="nb">echo</span> <span class="s2">&quot;not broken at all for ever&quot;</span> &gt; src/feature_b
-<span class="nb">echo</span> <span class="s2">&quot;0.1.2&quot;</span> &gt; release
-git add -u
-git commit -m <span class="s2">&quot;fixed more issues with feature b&quot;</span>
-git checkout release/0.1
-git merge --ff-only hotfix/b
-git tag <span class="s2">&quot;v0.1.2&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>release/0.1
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/b
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;not broken at all for ever&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>src/feature_b
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;0.1.2&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>release
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fixed more issues with feature b&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>release/0.1
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>hotfix/b
+git<span class="w"> </span>tag<span class="w"> </span><span class="s2">&quot;v0.1.2&quot;</span>
 <span class="c1"># propagate to master</span>
-git checkout master
-git merge --ff-only release/0.1
+git<span class="w"> </span>checkout<span class="w"> </span>master
+git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>release/0.1
 
 
 <span class="c1">#</span>
@@ -432,32 +429,32 @@ git merge --ff-only release/0.1
 <span class="c1"># and from there it will be merged into the</span>
 <span class="c1"># development branch by finishing the rc branch</span>
 <span class="c1">#</span>
-git checkout rc/0.2
-git cherry-pick hotfix/b <span class="o">||</span> <span class="nb">true</span>
-git checkout --ours release
-git add -u
-git commit --no-edit
-git checkout release/0.1
-git branch -d hotfix/b
+git<span class="w"> </span>checkout<span class="w"> </span>rc/0.2
+git<span class="w"> </span>cherry-pick<span class="w"> </span>hotfix/b<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+git<span class="w"> </span>checkout<span class="w"> </span>--ours<span class="w"> </span>release
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>--no-edit
+git<span class="w"> </span>checkout<span class="w"> </span>release/0.1
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>hotfix/b
 
 
 <span class="c1">#</span>
 <span class="c1"># finishing release 0.2</span>
 <span class="c1">#</span>
 <span class="c1"># create release branch 0.2</span>
-git checkout rc/0.2
-git checkout -b release/0.2
+git<span class="w"> </span>checkout<span class="w"> </span>rc/0.2
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release/0.2
 <span class="c1"># tag it</span>
-git tag <span class="s2">&quot;v0.2&quot;</span>
+git<span class="w"> </span>tag<span class="w"> </span><span class="s2">&quot;v0.2&quot;</span>
 <span class="c1"># merge to master</span>
-git checkout master
-git merge release/0.2 <span class="o">||</span> <span class="nb">true</span>
-git checkout --theirs release
-git add -u
-git commit --no-edit
+git<span class="w"> </span>checkout<span class="w"> </span>master
+git<span class="w"> </span>merge<span class="w"> </span>release/0.2<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+git<span class="w"> </span>checkout<span class="w"> </span>--theirs<span class="w"> </span>release
+git<span class="w"> </span>add<span class="w"> </span>-u
+git<span class="w"> </span>commit<span class="w"> </span>--no-edit
 <span class="c1"># merge to develop</span>
-git checkout develop
-git merge -m <span class="s2">&quot;merging changes from release 0.2&quot;</span> rc/0.2
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;merging changes from release 0.2&quot;</span><span class="w"> </span>rc/0.2
 </pre></div>
 </div>
 </section>
@@ -541,7 +538,7 @@ git merge -m <span class="s2">&quot;merging changes from release 0.2&quot;</span
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
     </div>
   </body>
 </html>

@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>9.9. JsCarSimulator &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9.10. JsCarV2G" href="JsCarV2G.html" />
+    <link rel="prev" title="9.8. ExampleUser" href="ExampleUser.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="JsCarV2G.html" title="9.10. JsCarV2G"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ExampleUser.html" title="9.8. ExampleUser"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.9. </span>JsCarSimulator</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="jscarsimulator">
+<span id="everest-modules-jscarsimulator"></span><h1><span class="section-number">9.9. </span>JsCarSimulator<a class="headerlink" href="#jscarsimulator" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This module implements a Car simulator that can execute charging sessions using the yeti-simulation-control interface</div>
+</div>
+<section id="module-configuration">
+<h2><span class="section-number">9.9.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>connector_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Connector id of the evse manager to which this simulator is connected to</div>
+</div>
+<div class="line"><strong>auto_enable</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Enable this simulation directly at start. Set to true for pure SIL configs, set to false for HIL.</div>
+</div>
+<div class="line"><strong>auto_exec</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Enable automatic execution of simulation commands at startup from auto_exec_commands config option.</div>
+</div>
+<div class="line"><strong>auto_exec_commands</strong>:<em>string</em></div>
+<div class="line"><a href="#id1"><span class="problematic" id="id2">*</span></a>default: *</div>
+<div class="line-block">
+<div class="line">Simulation commands, e.g. sleep 1;iec_wait_pwr_ready;sleep 1;draw_power_regulated 16,3;sleep 30;unplug</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">9.9.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/car_simulator.html#everest-interfaces-car-simulator"><span class="std std-ref">car_simulator</span></a></div>
+<div class="line-block">
+<div class="line">This implements the car simulator</div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">9.9.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>simulation_control</strong>:<a class="reference internal" href="../interfaces/yeti_simulation_control.html#everest-interfaces-yeti-simulation-control"><span class="std std-ref">yeti_simulation_control</span></a></div>
+<div class="line"><strong>ev</strong>:<a class="reference internal" href="../interfaces/ISO15118_ev.html#everest-interfaces-iso15118-ev"><span class="std std-ref">ISO15118_ev</span></a></div>
+<div class="line"><strong>slac</strong>:<a class="reference internal" href="../interfaces/slac.html#everest-interfaces-slac"><span class="std std-ref">slac</span></a></div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">9.9.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">9.9.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Cornelius Claussen</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">9.9.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">9.9. JsCarSimulator</a><ul>
+<li><a class="reference internal" href="#module-configuration">9.9.1. Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">9.9.2. Provides</a></li>
+<li><a class="reference internal" href="#requirements">9.9.3. Requirements</a></li>
+<li><a class="reference internal" href="#metadata">9.9.4. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">9.9.4.1. Authors</a></li>
+<li><a class="reference internal" href="#license">9.9.4.2. License</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ExampleUser.html"
+                          title="previous chapter"><span class="section-number">9.8. </span>ExampleUser</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="JsCarV2G.html"
+                          title="next chapter"><span class="section-number">9.10. </span>JsCarV2G</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/modules/JsCarSimulator.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="JsCarV2G.html" title="9.10. JsCarV2G"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ExampleUser.html" title="9.8. ExampleUser"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.9. </span>JsCarSimulator</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>9.6. EvseSlac &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9.7. Example" href="Example.html" />
+    <link rel="prev" title="9.5. EvseManager" href="EvseManager.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Example.html" title="9.7. Example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="EvseManager.html" title="9.5. EvseManager"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.6. </span>EvseSlac</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="evseslac">
+<span id="everest-modules-evseslac"></span><h1><span class="section-number">9.6. </span>EvseSlac<a class="headerlink" href="#evseslac" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">Implementation of SLAC data link negotiation according to ISO15118-3.</div>
+</div>
+<section id="provides">
+<h2><span class="section-number">9.6.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/slac.html#everest-interfaces-slac"><span class="std std-ref">slac</span></a></div>
+<div class="line-block">
+<div class="line">SLAC interface implementation.</div>
+<div class="line">config:</div>
+<div class="line-block">
+<div class="line">device:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">default:</div>
+</div>
+<div class="line">evse_id:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">default:</div>
+</div>
+<div class="line">nid:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">default:</div>
+</div>
+<div class="line">number_of_sounds:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">ac_mode_five_percent:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+<div class="line">set_key_timeout_ms:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+</div>
+</div>
+<div class="line">config:</div>
+<div class="line-block">
+<div class="line"><strong>device</strong>:<em>string</em></div>
+<div class="line"><em>default: eth1</em></div>
+<div class="line-block">
+<div class="line">Ethernet device used for PLC.</div>
+</div>
+<div class="line"><strong>evse_id</strong>:<em>string</em></div>
+<div class="line"><em>default: PIONIX_SAYS_HELLO</em></div>
+<div class="line-block">
+<div class="line">EVSE id - 17 octets.</div>
+</div>
+<div class="line"><strong>nid</strong>:<em>string</em></div>
+<div class="line"><em>default: pionix!</em></div>
+<div class="line-block">
+<div class="line">NID (Network Identification Key) - 7 octets.</div>
+</div>
+<div class="line"><strong>number_of_sounds</strong>:<em>integer</em></div>
+<div class="line"><em>default: 10</em></div>
+<div class="line-block">
+<div class="line">SLAC number of sounds.</div>
+</div>
+<div class="line"><strong>ac_mode_five_percent</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Use 5% mode in AC (true). Set to false for DC. The only difference is the handling of retries.</div>
+</div>
+<div class="line"><strong>set_key_timeout_ms</strong>:<em>integer</em></div>
+<div class="line"><em>default: 500</em></div>
+<div class="line-block">
+<div class="line">Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">9.6.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">9.6.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="mailto:aw&#37;&#52;&#48;pionix&#46;de">aw<span>&#64;</span>pionix<span>&#46;</span>de</a></div>
+<div class="line">Cornelius Claussen (Pionix GmbH)</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">9.6.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+<section id="misc">
+<h3><span class="section-number">9.6.2.3. </span>Misc<a class="headerlink" href="#misc" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">base_license:</div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">9.6. EvseSlac</a><ul>
+<li><a class="reference internal" href="#provides">9.6.1. Provides</a></li>
+<li><a class="reference internal" href="#metadata">9.6.2. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">9.6.2.1. Authors</a></li>
+<li><a class="reference internal" href="#license">9.6.2.2. License</a></li>
+<li><a class="reference internal" href="#misc">9.6.2.3. Misc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="EvseManager.html"
+                          title="previous chapter"><span class="section-number">9.5. </span>EvseManager</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Example.html"
+                          title="next chapter"><span class="section-number">9.7. </span>Example</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/modules/EvseSlac.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Example.html" title="9.7. Example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="EvseManager.html" title="9.5. EvseManager"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.6. </span>EvseSlac</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+
+.. _everest_types_reservation:
+
+
+###########
+reservation
+###########
+
+Auth module types
+
+.. _reservation-ReservationResult:
+
+| **ReservationResult**:*string*
+|  Data of a ReservationResult
+|   Accepted: Reservation has been made
+|   Faulted: Reservation has not been made, because connectors or specified connector are in a faulted state
+|   Occupied: Reservation has not been made. All connectors or the specified connector are occupied
+|   Rejected: Reservation has not been made. Charge Point is not configured to accept reservations
+|   Unavailable: Reservation has not been made, because connectors or specified connector are in an unavailable state
+|  enum: Accepted, Faulted, Occupied, Rejected, Unavailable
+
+.. _reservation-Reservation:
+
+| **Reservation**:*object*
+|  Details on Reservation
+|  required: reservation_id, id_token, expiry_time
+|  properties:
+|   **reservation_id**:*integer*
+|    Id of the reservation
+|   **id_token**:*string*
+|    id token of the reservation
+|   **expiry_time**:*string*
+|    Absolute UTC time point when reservation expires in RFC3339 format
+|    format:
+|   **parent_id_token**:*string*
+|    parent_id
+
+.. _reservation-ReservationEndReason:
+
+| **ReservationEndReason**:*string*
+|  Reason for reservation end
+|   Expired: When the reservation expired before the reserved token was used for a session
+|   Cancelled: When the reservation was cancelled manually
+|   UsedToStartCharging: When the reservation ended because the reserved token was used for a session
+|  enum: Expired, Cancelled, UsedToStartCharging
+
+.. _reservation-ReservationEnd:
+
+| **ReservationEnd**:*object*
+|  Details on Reservation End
+|  required: reason, reservation_id
+|  properties:
+|   **reason**:*string* (:ref:`reservation-ReservationEndReason <reservation-ReservationEndReason>`)
+|    Reason why reservation ends
+|    **There is an extended definition for this object** :ref:`here <reservation-ReservationEndReason>`.
+|   **reservation_id**:*integer*
+|    reservation_id

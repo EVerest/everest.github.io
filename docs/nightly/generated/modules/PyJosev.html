@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>9.28. PyJosev &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9.29. SerialCommHub" href="SerialCommHub.html" />
+    <link rel="prev" title="9.27. PowermeterBSM" href="PowermeterBSM.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="SerialCommHub.html" title="9.29. SerialCommHub"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PowermeterBSM.html" title="9.27. PowermeterBSM"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.28. </span>PyJosev</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pyjosev">
+<span id="everest-modules-pyjosev"></span><h1><span class="section-number">9.28. </span>PyJosev<a class="headerlink" href="#pyjosev" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This module includes a DIN70121, ISO15118-2 and ISO15118-20 implementation by the Josev project</div>
+</div>
+<section id="module-configuration">
+<h2><span class="section-number">9.28.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>device</strong>:<em>string</em></div>
+<div class="line"><em>default: eth0</em></div>
+<div class="line-block">
+<div class="line">Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work.</div>
+</div>
+<div class="line"><strong>enforce_tls</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The SECC will enforce a TLS connection</div>
+</div>
+<div class="line"><strong>supported_DIN70121</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The EVSE supports the DIN SPEC</div>
+</div>
+<div class="line"><strong>supported_ISO15118_2</strong>:<em>boolean</em></div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">The EVSE supports ISO15118-2</div>
+</div>
+<div class="line"><strong>supported_ISO15118_20_AC</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The EVSE supports ISO15118-20 AC</div>
+</div>
+<div class="line"><strong>supported_ISO15118_20_DC</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The EVSE supports ISO15118-20 DC</div>
+</div>
+<div class="line"><strong>free_cert_install_service</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The certificate install service is free</div>
+</div>
+<div class="line"><strong>allow_cert_install_service</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The SECC allows the car to install certificates when necessary</div>
+</div>
+<div class="line"><strong>ignore_physical_values_limits</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Set to True if Josev should ignore the physical value limits. This way the charging process will not be terminated if e.g. the EV requests more than 400A</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">9.28.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>charger</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a></div>
+<div class="line-block">
+<div class="line">This module implements the ISO15118-2 implementation of an AC or DC charger</div>
+</div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">9.28.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">9.28.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Sebastian Lukas</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">9.28.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">9.28. PyJosev</a><ul>
+<li><a class="reference internal" href="#module-configuration">9.28.1. Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">9.28.2. Provides</a></li>
+<li><a class="reference internal" href="#metadata">9.28.3. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">9.28.3.1. Authors</a></li>
+<li><a class="reference internal" href="#license">9.28.3.2. License</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="PowermeterBSM.html"
+                          title="previous chapter"><span class="section-number">9.27. </span>PowermeterBSM</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="SerialCommHub.html"
+                          title="next chapter"><span class="section-number">9.29. </span>SerialCommHub</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/modules/PyJosev.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="SerialCommHub.html" title="9.29. SerialCommHub"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="PowermeterBSM.html" title="9.27. PowermeterBSM"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.28. </span>PyJosev</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

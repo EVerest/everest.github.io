@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>10.9. powermeter &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="10.10. reservation" href="reservation.html" />
+    <link rel="prev" title="10.8. power_supply_DC" href="power_supply_DC.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="reservation.html" title="10.10. reservation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="power_supply_DC.html" title="10.8. power_supply_DC"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_types.html" accesskey="U"><span class="section-number">10. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">10.9. </span>powermeter</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="powermeter">
+<span id="everest-types-powermeter"></span><h1><span class="section-number">10.9. </span>powermeter<a class="headerlink" href="#powermeter" title="Permalink to this heading">¶</a></h1>
+<p>Powermeter types</p>
+<div class="line-block" id="powermeter-powermeter">
+<div class="line"><strong>Powermeter</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Measured dataset (AC or DC)</div>
+<div class="line">required: timestamp, energy_Wh_import</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Timestamp of measurement</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>meter_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">A (user defined) meter if (e.g. id printed on the case)</div>
+</div>
+<div class="line"><strong>phase_seq_error</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">AC only: true for 3 phase rotation error (ccw)</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-energy"><span class="std std-ref">units-Energy</span></a>)</div>
+<div class="line-block">
+<div class="line">Imported energy in Wh (from grid)</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-energy"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-energy"><span class="std std-ref">units-Energy</span></a>)</div>
+<div class="line-block">
+<div class="line">Exported energy in Wh (to grid)</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-energy"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>power_W</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Instantaneous power in Watt. Negative values are exported, positive values imported Energy.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>voltage_V</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-voltage"><span class="std std-ref">units-Voltage</span></a>)</div>
+<div class="line-block">
+<div class="line">Voltage in Volts</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-voltage"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>VAR</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-reactivepower"><span class="std std-ref">units-ReactivePower</span></a>)</div>
+<div class="line-block">
+<div class="line">Reactive power VAR</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-reactivepower"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>current_A</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-current"><span class="std std-ref">units-Current</span></a>)</div>
+<div class="line-block">
+<div class="line">Current in ampere</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-current"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>frequency_Hz</strong>:<em>object</em> (<a class="reference internal" href="units.html#units-frequency"><span class="std std-ref">units-Frequency</span></a>)</div>
+<div class="line-block">
+<div class="line">Grid frequency in Hertz</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-frequency"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="power_supply_DC.html"
+                          title="previous chapter"><span class="section-number">10.8. </span>power_supply_DC</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="reservation.html"
+                          title="next chapter"><span class="section-number">10.10. </span>reservation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/generated/types/powermeter.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="reservation.html" title="10.10. reservation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="power_supply_DC.html" title="10.8. power_supply_DC"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../everest_types.html" ><span class="section-number">10. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">10.9. </span>powermeter</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

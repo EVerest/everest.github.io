@@ -45,60 +45,15 @@
   <section id="energy">
 <span id="everest-interfaces-energy"></span><h1><span class="section-number">8.9. </span>energy<a class="headerlink" href="#energy" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This interface defines a forecast schedule of energy import/export capability/limits, pricing and current energy usage.</div>
+<div class="line">This interface is the internal energy management inteface between nodes.</div>
 </div>
 <section id="variables">
 <h2><span class="section-number">8.9.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>energy</strong>:<em>object</em></div>
+<div class="line"><strong>energy_flow_request</strong>:<em>object</em> (<a class="reference internal" href="../types/energy.html#energy-energyflowrequest"><span class="std std-ref">energy-EnergyFlowRequest</span></a>)</div>
 <div class="line-block">
-<div class="line">Energy object to supply/limit energy import (direction from grid to car) and/or consume/limit energy export (car to grid).</div>
-<div class="line">required: node_type, uuid</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>children</strong>:<em>array</em></div>
-<div class="line-block">
-<div class="line">Array of child nodes (in the direction to consumer/car</div>
-</div>
-<div class="line"><strong>node_type</strong>:<em>string</em> (<a class="reference internal" href="../types/energy.html#energy-nodetype"><span class="std std-ref">energy-NodeType</span></a>)</div>
-<div class="line-block">
-<div class="line">Type of energy source/sink. Use Limit if this purely enforces limits but is not a physical energy source/sink.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-nodetype"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>uuid</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">UUID for this node. This UUID will be used again when enforce_limits() command propagates through the tree.</div>
-</div>
-<div class="line"><strong>optimizer_target</strong>:<em>object</em> (<a class="reference internal" href="../types/energy.html#energy-optimizertarget"><span class="std std-ref">energy-OptimizerTarget</span></a>)</div>
-<div class="line-block">
-<div class="line">User defined optimizer targets for this evse</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-optimizertarget"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>schedule_import</strong>:<em>array</em></div>
-<div class="line-block">
-<div class="line">Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line">items:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">$ref:</div>
-</div>
-</div>
-<div class="line"><strong>schedule_export</strong>:<em>array</em></div>
-<div class="line-block">
-<div class="line">Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line">items:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">$ref:</div>
-</div>
-</div>
-<div class="line"><strong>energy_usage</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Energy usage of this node (powermeter struct)</div>
-</div>
-</div>
+<div class="line">Request energy flow to supply/limit energy import (direction from grid to car) and/or consume/limit energy export (car to grid).</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-energyflowrequest"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </section>
@@ -108,39 +63,10 @@
 <div class="line"><strong>enforce_limits</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">The EnergyManager enforces a limit using this command.</div>
-<div class="line"><strong>uuid</strong>:<em>string</em></div>
+<div class="line"><strong>value</strong>:<em>object</em> (<a class="reference internal" href="../types/energy.html#energy-enforcedlimits"><span class="std std-ref">energy-EnforcedLimits</span></a>)</div>
 <div class="line-block">
-<div class="line">UUID of node that this limit applies to</div>
-</div>
-<div class="line"><strong>limits_import</strong>:<em>object</em> (<a class="reference internal" href="../types/energy.html#energy-limits"><span class="std std-ref">energy-Limits</span></a>)</div>
-<div class="line-block">
-<div class="line">Enforced limits that must be respected.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-limits"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>limits_export</strong>:<em>object</em> (<a class="reference internal" href="../types/energy.html#energy-limits"><span class="std std-ref">energy-Limits</span></a>)</div>
-<div class="line-block">
-<div class="line">Enforced limits that must be respected.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-limits"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>schedule_import</strong>:<em>array</em></div>
-<div class="line-block">
-<div class="line">Informative only. Do not use for actual limiting. Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line">items:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">$ref:</div>
-</div>
-</div>
-<div class="line"><strong>schedule_export</strong>:<em>array</em></div>
-<div class="line-block">
-<div class="line">Informative only. Do not use for actual limiting. Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line">items:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">$ref:</div>
-</div>
+<div class="line">Limit object that will be routed through the tree.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-enforcedlimits"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>8.17. ISO15118_ev &#8212; EVerest  documentation</title>
+    <title>8.32. test_control &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -16,8 +16,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="8.18. isolation_monitor" href="isolation_monitor.html" />
-    <link rel="prev" title="8.16. ISO15118_charger" href="ISO15118_charger.html" /> 
+    <link rel="next" title="8.33. tibber_price_forecast" href="tibber_price_forecast.html" />
+    <link rel="prev" title="8.31. system" href="system.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -26,14 +26,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="isolation_monitor.html" title="8.18. isolation_monitor"
+          <a href="tibber_price_forecast.html" title="8.33. tibber_price_forecast"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ISO15118_charger.html" title="8.16. ISO15118_charger"
+          <a href="system.html" title="8.31. system"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" accesskey="U"><span class="section-number">8. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8.17. </span>ISO15118_ev</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8.32. </span>test_control</a></li> 
       </ul>
     </div>  
 
@@ -42,60 +42,34 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="iso15118-ev">
-<span id="everest-interfaces-iso15118-ev"></span><h1><span class="section-number">8.17. </span>ISO15118_ev<a class="headerlink" href="#iso15118-ev" title="Permalink to this heading">¶</a></h1>
+  <section id="test-control">
+<span id="everest-interfaces-test-control"></span><h1><span class="section-number">8.32. </span>test_control<a class="headerlink" href="#test-control" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This interface defines a simple ISO15118 ev.</div>
+<div class="line">This interface defines the everest-testing control functions on everest-core</div>
 </div>
 <section id="variables">
-<h2><span class="section-number">8.17.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">8.32.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>V2G_Session_Finished</strong>:<em>null</em></div>
+<div class="line"><strong>state</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">The v2g session between the charger and the car is finished</div>
-</div>
-<div class="line"><strong>AC_EVPowerReady</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">The car is ready for power (HLC)</div>
-</div>
-<div class="line"><strong>AC_EVSEMaxCurrent</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">EVSE max current per phase</div>
-</div>
-<div class="line"><strong>AC_StopFromCharger</strong>:<em>null</em></div>
-<div class="line-block">
-<div class="line">The charger wants to stop the charging process</div>
+<div class="line">State of the test control instance</div>
 </div>
 </div>
 </section>
 <section id="commands">
-<h2><span class="section-number">8.17.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">8.32.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>start_charging</strong>:<em>boolean</em></div>
+<div class="line"><strong>start_charging</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Start the ev charging process</div>
-<div class="line"><strong>PaymentOption</strong>:<em>string</em></div>
+<div class="line">Enables the CarSimulator to begin charging</div>
+<div class="line"><strong>mode</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">This element is used for indicating the payment type</div>
-<div class="line">enum: Contract, ExternalPayment</div>
+<div class="line">Sets charging mode (e.g. raw, iso15118)</div>
 </div>
-<div class="line"><strong>EnergyTransferMode</strong>:<em>string</em></div>
+<div class="line"><strong>Result</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Selected energy transfer mode for charging that is requested by the EVCC</div>
-<div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
+<div class="line">Charging state of the CarSimulator</div>
 </div>
-<div class="line"><strong>Result</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">Returns true if the evcc simulation started</div>
-</div>
-</div>
-<div class="line"><strong>stop_charging</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Stop the ev charging communication process</div>
-</div>
-<div class="line"><strong>set_fault</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">TODO_SL: Set the different ev faults to communicate these errors to the charging station</div>
 </div>
 </div>
 </section>
@@ -111,9 +85,9 @@
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">8.17. ISO15118_ev</a><ul>
-<li><a class="reference internal" href="#variables">8.17.1. Variables</a></li>
-<li><a class="reference internal" href="#commands">8.17.2. Commands</a></li>
+<li><a class="reference internal" href="#">8.32. test_control</a><ul>
+<li><a class="reference internal" href="#variables">8.32.1. Variables</a></li>
+<li><a class="reference internal" href="#commands">8.32.2. Commands</a></li>
 </ul>
 </li>
 </ul>
@@ -121,18 +95,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ISO15118_charger.html"
-                          title="previous chapter"><span class="section-number">8.16. </span>ISO15118_charger</a></p>
+    <p class="topless"><a href="system.html"
+                          title="previous chapter"><span class="section-number">8.31. </span>system</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="isolation_monitor.html"
-                          title="next chapter"><span class="section-number">8.18. </span>isolation_monitor</a></p>
+    <p class="topless"><a href="tibber_price_forecast.html"
+                          title="next chapter"><span class="section-number">8.33. </span>tibber_price_forecast</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/generated/interfaces/ISO15118_ev.rst.txt"
+      <li><a href="../../_sources/generated/interfaces/test_control.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -157,14 +131,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="isolation_monitor.html" title="8.18. isolation_monitor"
+          <a href="tibber_price_forecast.html" title="8.33. tibber_price_forecast"
              >next</a> |</li>
         <li class="right" >
-          <a href="ISO15118_charger.html" title="8.16. ISO15118_charger"
+          <a href="system.html" title="8.31. system"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_interfaces.html" ><span class="section-number">8. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8.17. </span>ISO15118_ev</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8.32. </span>test_control</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

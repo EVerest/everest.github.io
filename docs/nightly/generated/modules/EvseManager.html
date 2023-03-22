@@ -269,10 +269,15 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <div class="line-block">
 <div class="line">Enable or disable RCD</div>
 </div>
-<div class="line"><strong>max_current</strong>:<em>number</em></div>
+<div class="line"><strong>max_current_import_A</strong>:<em>number</em></div>
 <div class="line"><em>default: 32</em></div>
 <div class="line-block">
-<div class="line">User configurable current limit for this EVSE</div>
+<div class="line">User configurable current limit for this EVSE in Ampere</div>
+</div>
+<div class="line"><strong>max_current_export_A</strong>:<em>number</em></div>
+<div class="line"><em>default: 32</em></div>
+<div class="line-block">
+<div class="line">User configurable current limit for this EVSE in Ampere</div>
 </div>
 <div class="line"><strong>charge_mode</strong>:<em>string</em></div>
 <div class="line"><em>default: AC</em></div>
@@ -300,7 +305,7 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <div class="line-block">
 <div class="line">Special mode that switches between AC and DC charging to get SoC percentage with AC charging</div>
 </div>
-<div class="line"><strong>dc_isolation_voltage</strong>:<em>integer</em></div>
+<div class="line"><strong>dc_isolation_voltage_V</strong>:<em>integer</em></div>
 <div class="line"><em>default: 500</em></div>
 <div class="line-block">
 <div class="line">DC voltage used to test isolation in CableCheck. Set to 500V.</div>
@@ -340,6 +345,11 @@ to the AC side and watt limits apply to both AC and DC side.</p>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
 <div class="line">Disable IMD at the end of CableCheck and re-enable when current is flowing in CurrentDemand. Some DCDC power supplies do not start current flow when insulation measurement is active. Set to true to enable dirty workaround for some IMD hardware.</div>
+</div>
+<div class="line"><strong>hack_allow_bpt_with_iso2</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Hack. Allow bidirectional power transfer with DIN spec and ISO-2. Currents communicated on HLC will always be positive but power supply may actually discharge the car.</div>
 </div>
 </div>
 </section>

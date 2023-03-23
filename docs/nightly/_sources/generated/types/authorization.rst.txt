@@ -20,26 +20,6 @@ Auth token validator types
 |  Certificate status information
 |  enum: Accepted, SignatureError, CertificateExpired, CertificateRevoked, NoCertificateAvailable, CertChainError, ContractCancelled
 
-.. _authorization-Identifier:
-
-| **Identifier**:*object*
-|  Contains meta information about the identifier
-|  required: id_token, type
-|  properties:
-|   **id_token**:*string*
-|    Arbitrary id token string: this has to be printable case insensitive ascii
-|   **type**:*string* (:ref:`authorization-TokenType <authorization-TokenType>`)
-|    Type of the provider of the identifier
-|    **There is an extended definition for this object** :ref:`here <authorization-TokenType>`.
-|   **authorization_status**:*string* (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
-|    
-|    **There is an extended definition for this object** :ref:`here <authorization-AuthorizationStatus>`.
-|   **expiry_time**:*string*
-|    Absolute UTC time point when reservation expires in RFC3339 format
-|    format:
-|   **parent_id_token**:*string*
-|    Parent id token of the id token
-
 .. _authorization-ProvidedIdToken:
 
 | **ProvidedIdToken**:*object*
@@ -85,6 +65,10 @@ Auth token validator types
 |    format:
 |   **parent_id_token**:*string*
 |    Parent Id Tag of the validated token
+|   **evse_ids**:*array*
+|    Only used when the id token is valid for one or more specific evses,  not for the whole charging station. Indicates for which evse ids the provided token is valid
+|    items:
+|     type:
 
 .. _authorization-SelectionAlgorithm:
 

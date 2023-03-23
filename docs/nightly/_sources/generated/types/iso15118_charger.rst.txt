@@ -189,24 +189,30 @@ ISO15118 charger types
 
 | **Response_Exi_Stream_Status**:*object*
 |  The response raw exi stream and the status from the CSMS system
-|  required: status
+|  required: status, certificateAction
 |  properties:
 |   **status**:*string*
 |    Indicates whether the message was processed properly Accepted - The message was processed properly, exiResponse included Failed - Processing of the message was not successful, no exiResponse included
 |    enum: Accepted, Failed
 |   **exiResponse**:*string*
 |    Raw CertificateInstallationRes or CertificateUpdateRes message as exi stream (Base64 encoded)
+|   **certificateAction**:*string* (:ref:`iso15118_charger-CertificateActionEnum <iso15118_charger-CertificateActionEnum>`)
+|    Type of the certificate request
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-CertificateActionEnum>`.
 
 .. _iso15118_charger-Request_Exi_Stream_Schema:
 
 | **Request_Exi_Stream_Schema**:*object*
 |  The request raw exi stream and the schema version for the CSMS system
-|  required: exiRequest, iso15118SchemaVersion
+|  required: exiRequest, iso15118SchemaVersion, certificateAction
 |  properties:
 |   **exiRequest**:*string*
 |    Raw CertificateInstallationReq or CertificateUpdateReq message as exi stream (Base64 encoded)
 |   **iso15118SchemaVersion**:*string*
 |    Schema Version used for CertificateReq message between EV and Charger
+|   **certificateAction**:*string* (:ref:`iso15118_charger-CertificateActionEnum <iso15118_charger-CertificateActionEnum>`)
+|    Type of the certificate request
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-CertificateActionEnum>`.
 
 .. _iso15118_charger-CertificateHashDataInfo:
 
@@ -225,3 +231,9 @@ ISO15118 charger types
 |    The serial number of the certificate
 |   **responderURL**:*string*
 |    This contains the responder URL
+
+.. _iso15118_charger-CertificateActionEnum:
+
+| **CertificateActionEnum**:*string*
+|  Specifies the type of a certificate request
+|  enum: Install, Update

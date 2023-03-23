@@ -172,14 +172,9 @@
 <div class="line">Estimated or calculated time until bulk and full charge is complete</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evremainingtime"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>Install_Request_Certificate</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">iso15118_charger-Request_Exi_Stream_Schema</span></a>)</div>
+<div class="line"><strong>Certificate_Request</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">iso15118_charger-Request_Exi_Stream_Schema</span></a>)</div>
 <div class="line-block">
-<div class="line">The vehicle requests the SECC to deliver the certificate that belong  to the currently valid contract of the vehicle.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>Update_Request_Certificate</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">iso15118_charger-Request_Exi_Stream_Schema</span></a>)</div>
-<div class="line-block">
-<div class="line">The vehicle requests the SECC to deliver new certificate that belongs to the currently valid contract of the vehicle.</div>
+<div class="line">The vehicle requests the SECC to deliver the certificate that belong  to the currently valid contract of the vehicle. Response will be reported async via  set_Get_Certificate_Response</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-request-exi-stream-schema"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>EV_AppProtocol</strong>:<em>array</em></div>
@@ -481,21 +476,16 @@
 <div class="line">True: The service is supported</div>
 </div>
 </div>
-<div class="line"><strong>set_Response_Certificate_Install</strong>:<em>void</em></div>
+<div class="line"><strong>set_Get_Certificate_Response</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">CertificateInstallationRes - The new Contract Certificate (including the certificate chain) and the corresponding encrypted private key are sent via the SECC to the vehicle</div>
+<div class="line">CertificateInstallationRes/CertificateUpdateRes - The new/updated</div>
+<div class="line">Contract Certificate (including the certificate chain)</div>
+</div>
+<div class="line">and the corresponding encrypted private key are sent via the SECC to the EVCC This is an async response to a previously published Certificate_Request</div>
+<div class="line-block">
 <div class="line"><strong>Existream_Status</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">iso15118_charger-Response_Exi_Stream_Status</span></a>)</div>
 <div class="line-block">
 <div class="line">The response raw exi stream and the status from the CSMS system</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>set_Response_Certificate_Update</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">CertificateUpdateRes - The updated Contract Certificate (including the certificate chain) and the corresponding encrypted private key are sent via the SECC to the vehicle</div>
-<div class="line"><strong>Existream_Status</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">iso15118_charger-Response_Exi_Stream_Status</span></a>)</div>
-<div class="line-block">
-<div class="line">The response raw exi stream and the status n from the CSMS system</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>

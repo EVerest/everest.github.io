@@ -325,7 +325,7 @@
 <div class="line"><strong>Response_Exi_Stream_Status</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">The response raw exi stream and the status from the CSMS system</div>
-<div class="line">required: status</div>
+<div class="line">required: status, certificateAction</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>status</strong>:<em>string</em></div>
@@ -337,6 +337,11 @@
 <div class="line-block">
 <div class="line">Raw CertificateInstallationRes or CertificateUpdateRes message as exi stream (Base64 encoded)</div>
 </div>
+<div class="line"><strong>certificateAction</strong>:<em>string</em> (<a class="reference internal" href="#iso15118-charger-certificateactionenum"><span class="std std-ref">iso15118_charger-CertificateActionEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the certificate request</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-certificateactionenum"><span class="std std-ref">here</span></a>.</div>
+</div>
 </div>
 </div>
 </div>
@@ -344,7 +349,7 @@
 <div class="line"><strong>Request_Exi_Stream_Schema</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">The request raw exi stream and the schema version for the CSMS system</div>
-<div class="line">required: exiRequest, iso15118SchemaVersion</div>
+<div class="line">required: exiRequest, iso15118SchemaVersion, certificateAction</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>exiRequest</strong>:<em>string</em></div>
@@ -354,6 +359,11 @@
 <div class="line"><strong>iso15118SchemaVersion</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Schema Version used for CertificateReq message between EV and Charger</div>
+</div>
+<div class="line"><strong>certificateAction</strong>:<em>string</em> (<a class="reference internal" href="#iso15118-charger-certificateactionenum"><span class="std std-ref">iso15118_charger-CertificateActionEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the certificate request</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-certificateactionenum"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -387,6 +397,13 @@
 <div class="line">This contains the responder URL</div>
 </div>
 </div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-certificateactionenum">
+<div class="line"><strong>CertificateActionEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Specifies the type of a certificate request</div>
+<div class="line">enum: Install, Update</div>
 </div>
 </div>
 </section>

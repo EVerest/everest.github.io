@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>9.18. JsIMDSimulator &#8212; EVerest  documentation</title>
+    <title>9.7. EvseV2G &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -16,8 +16,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="9.19. JsPN532TokenProvider" href="JsPN532TokenProvider.html" />
-    <link rel="prev" title="9.17. JsForecastDotSolar" href="JsForecastDotSolar.html" /> 
+    <link rel="next" title="9.8. Example" href="Example.html" />
+    <link rel="prev" title="9.6. EvseSlac" href="EvseSlac.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -26,14 +26,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="JsPN532TokenProvider.html" title="9.19. JsPN532TokenProvider"
+          <a href="Example.html" title="9.8. Example"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="JsForecastDotSolar.html" title="9.17. JsForecastDotSolar"
+          <a href="EvseSlac.html" title="9.6. EvseSlac"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.18. </span>JsIMDSimulator</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.7. </span>EvseV2G</a></li> 
       </ul>
     </div>  
 
@@ -42,66 +42,63 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="jsimdsimulator">
-<span id="everest-modules-jsimdsimulator"></span><h1><span class="section-number">9.18. </span>JsIMDSimulator<a class="headerlink" href="#jsimdsimulator" title="Permalink to this heading">¶</a></h1>
+  <section id="evsev2g">
+<span id="everest-modules-evsev2g"></span><h1><span class="section-number">9.7. </span>EvseV2G<a class="headerlink" href="#evsev2g" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">SIL Implementation of an Isolation Monitoring Device (IMD) for DC charging</div>
+<div class="line">This module includes a DIN70121 and ISO15118-2 implementation provided by chargebyte GmbH</div>
 </div>
+<section id="module-configuration">
+<h2><span class="section-number">9.7.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>device</strong>:<em>string</em></div>
+<div class="line"><em>default: eth0</em></div>
+<div class="line-block">
+<div class="line">Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work</div>
+</div>
+<div class="line"><strong>supported_DIN70121</strong>:<em>boolean</em></div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">The EVSE supports the DIN SPEC</div>
+</div>
+<div class="line"><strong>supported_ISO15118_2</strong>:<em>boolean</em></div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">The EVSE supports ISO15118-2</div>
+</div>
+<div class="line"><strong>highlevel_authentication_mode</strong>:<em>string</em></div>
+<div class="line"><em>default: eim</em></div>
+<div class="line-block">
+<div class="line">Specify the authentication mode for the high level charging session. In case charging type is basic this parameter doesn’t have any effect</div>
+<div class="line">enum: eim, pnc, eim+pnc</div>
+</div>
+<div class="line"><strong>tls_security</strong>:<em>string</em></div>
+<div class="line"><em>default: prohibit</em></div>
+<div class="line-block">
+<div class="line">Controls how to handle encrypted communication</div>
+<div class="line">enum: prohibit, allow, force</div>
+</div>
+</div>
+</section>
 <section id="provides">
-<h2><span class="section-number">9.18.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.7.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a></div>
+<div class="line"><strong>charger</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a></div>
 <div class="line-block">
-<div class="line">Main interface for the IMD</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line">resistance_N_Ohm:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-</div>
-<div class="line">resistance_P_Ohm:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-</div>
-<div class="line">interval:</div>
-<div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-</div>
-</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line"><strong>resistance_N_Ohm</strong>:<em>number</em></div>
-<div class="line"><em>default: 900000</em></div>
-<div class="line-block">
-<div class="line">Resistance to return for the simulated measurements in Ohm</div>
-</div>
-<div class="line"><strong>resistance_P_Ohm</strong>:<em>number</em></div>
-<div class="line"><em>default: 910000</em></div>
-<div class="line-block">
-<div class="line">Resistance to return for the simulated measurements in Ohm</div>
-</div>
-<div class="line"><strong>interval</strong>:<em>integer</em></div>
-<div class="line"><em>default: 1000</em></div>
-<div class="line-block">
-<div class="line">Measurement update interval in milliseconds</div>
-</div>
-</div>
+<div class="line">This module implements the ISO15118-2 implementation of an AC or DC charger</div>
 </div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">9.18.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.7.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">9.18.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.7.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Cornelius Claussen (Pionix GmbH)</div>
+<div class="line">Fabian Hartung</div>
+<div class="line">Mohannad Oraby</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">9.18.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.7.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -119,11 +116,12 @@
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">9.18. JsIMDSimulator</a><ul>
-<li><a class="reference internal" href="#provides">9.18.1. Provides</a></li>
-<li><a class="reference internal" href="#metadata">9.18.2. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">9.18.2.1. Authors</a></li>
-<li><a class="reference internal" href="#license">9.18.2.2. License</a></li>
+<li><a class="reference internal" href="#">9.7. EvseV2G</a><ul>
+<li><a class="reference internal" href="#module-configuration">9.7.1. Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">9.7.2. Provides</a></li>
+<li><a class="reference internal" href="#metadata">9.7.3. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">9.7.3.1. Authors</a></li>
+<li><a class="reference internal" href="#license">9.7.3.2. License</a></li>
 </ul>
 </li>
 </ul>
@@ -133,18 +131,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="JsForecastDotSolar.html"
-                          title="previous chapter"><span class="section-number">9.17. </span>JsForecastDotSolar</a></p>
+    <p class="topless"><a href="EvseSlac.html"
+                          title="previous chapter"><span class="section-number">9.6. </span>EvseSlac</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="JsPN532TokenProvider.html"
-                          title="next chapter"><span class="section-number">9.19. </span>JsPN532TokenProvider</a></p>
+    <p class="topless"><a href="Example.html"
+                          title="next chapter"><span class="section-number">9.8. </span>Example</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/generated/modules/JsIMDSimulator.rst.txt"
+      <li><a href="../../_sources/generated/modules/EvseV2G.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -169,14 +167,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="JsPN532TokenProvider.html" title="9.19. JsPN532TokenProvider"
+          <a href="Example.html" title="9.8. Example"
              >next</a> |</li>
         <li class="right" >
-          <a href="JsForecastDotSolar.html" title="9.17. JsForecastDotSolar"
+          <a href="EvseSlac.html" title="9.6. EvseSlac"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.18. </span>JsIMDSimulator</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.7. </span>EvseV2G</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

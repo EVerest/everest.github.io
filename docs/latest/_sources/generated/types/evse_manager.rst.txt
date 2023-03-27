@@ -1,0 +1,235 @@
+
+.. _everest_types_evse_manager:
+
+
+############
+evse_manager
+############
+
+EVSE manager types
+
+.. _evse_manager-StopTransactionRequest:
+
+| **StopTransactionRequest**:*object*
+|  Request for a stop transaction containing the reason and an optional id tag
+|  required: reason
+|  properties:
+|   **reason**:*string* (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
+|    Reason for stopping the transaction
+|    **There is an extended definition for this object** :ref:`here <evse_manager-StopTransactionReason>`.
+|   **id_tag**:*string*
+|    Id tag that was used to stop the transaction.
+
+.. _evse_manager-StopTransactionReason:
+
+| **StopTransactionReason**:*string*
+|  Reason for stopping transaction
+|   EmergencyStop: Emergency stop button was used
+|   EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit
+|   HardReset: A hard reset command was received previously
+|   Local: Stopped locally on request of the user at the Charge Point. This is a regular termination of a transaction. Examples: presenting an RFID tag, pressing a button to stop
+|   Other: Any other reason
+|   PowerLoss: Complete loss of power
+|   Reboot: A locally initiated reset/reboot occurred
+|   Remote: Stopped remotely on request of the user. This is a regular termination of a transaction. Examples: termination using a smartphone app, exceeding a (non local) prepaid credit
+|   SoftReset: A soft reset command was received
+|   UnlockCommand: Central System sent an Unlock Connector command
+|   DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf
+|  enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized
+
+.. _evse_manager-StartSessionReason:
+
+| **StartSessionReason**:*string*
+|  Reason for session start
+|   EVConnected: Session was started because an EV was plugged in
+|   Authorized: Session was started because a valid authorization was presented and the EVSE is authorized to start a transaction immediately when an EV is plugged in
+|  enum: EVConnected, Authorized
+
+.. _evse_manager-SwitchThreePhasesWhileChargingResult:
+
+| **SwitchThreePhasesWhileChargingResult**:*string*
+|  Returns success or error code
+|   Success: Switching phases was successful
+|   Error_NotSupported: Switching phases is not supported
+|   Error_NotCharging: EVSE is not charging
+|   Error_Hardware: There was a hardware error on switching phases
+|  enum: Success, Error_NotSupported, Error_NotCharging, Error_Hardware
+
+.. _evse_manager-SessionEventEnum:
+
+| **SessionEventEnum**:*string*
+|  Session Event enum
+|   Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)
+|   Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)
+|   SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)
+|   AuthRequired: Signaled when an EVSE needs authorization to start a transaction
+|   TransactionStarted: Signaled when a transaction has been started. Transaction starts at the point that all conditions for charging are met: EV is connected and user has been authorized
+|   PrepareCharging: EVSE started to prepare for charging. DC: CableCheck, PreCharge, PowerDelivery. AC: wait for the car to proceed to state C/D
+|   ChargingStarted: DC: CurrentDemand has started. AC: Auth is ok and car requested power (state C/D)
+|   ChargingPausedEV: Signaled when charging is paused by the EV
+|   ChargingPausedEVSE: Signaled when charging is paused by the EVSE
+|   ChargingResumed: Charging has resumed from a pause
+|   StoppingCharging: EVSE has started to stop the charging process. DC: CurrentDemand has finished, now doing WeldingCheck etc, AC: Wait for car to return to state B or A
+|   ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity
+|   TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
+|   SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)
+|   Error: Signaled when an error occured
+|   AllErrorsCleared: Signalled when all errors are cleared
+|   PermanentFault: Signaled when there is a permanent fault at the EVSE
+|   ReservationStart: Signaled when a reservation starts
+|   ReservationEnd: Signaled when a reservation ends
+|   ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
+|   ReplugFinished: Signaled when the virtual replug process has finished
+|  enum: Enabled, Disabled, SessionStarted, AuthRequired, TransactionStarted, PrepareCharging, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, WaitingForEnergy, ChargingResumed, StoppingCharging, ChargingFinished, TransactionFinished, SessionFinished, Error, AllErrorsCleared, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished
+
+.. _evse_manager-SessionStarted:
+
+| **SessionStarted**:*object*
+|  Data for the SessionStarted event
+|  required: timestamp, reason
+|  properties:
+|   **timestamp**:*string*
+|    Session start time in RFC3339 format
+|    format:
+|   **reason**:*string* (:ref:`evse_manager-StartSessionReason <evse_manager-StartSessionReason>`)
+|    Reason for session start
+|    **There is an extended definition for this object** :ref:`here <evse_manager-StartSessionReason>`.
+|   **logging_path**:*string*
+|    File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with "incomplete-" when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.
+
+.. _evse_manager-TransactionStarted:
+
+| **TransactionStarted**:*object*
+|  Data for the TransactionStarted event
+|  required: timestamp, energy_Wh_import, id_tag
+|  properties:
+|   **timestamp**:*string*
+|    Transaction start time in RFC3339 format
+|    format:
+|   **energy_Wh_import**:*number*
+|    Transaction start imported meter value in Wh
+|   **id_tag**:*string*
+|    The id tag assigned to this transaction
+|   **energy_Wh_export**:*number*
+|    Transaction start exported meter value Wh
+|   **signed_meter_value**:*string*
+|    Signed meter value
+|   **reservation_id**:*number*
+|    Id of the reservation
+
+.. _evse_manager-TransactionFinished:
+
+| **TransactionFinished**:*object*
+|  Data for TransactionFinished event
+|  required: timestamp, energy_Wh_import
+|  properties:
+|   **timestamp**:*string*
+|    Transaction end time in RFC3339 format
+|    format:
+|   **energy_Wh_import**:*number*
+|    Transaction finished imported meter value in Wh
+|   **energy_Wh_export**:*number*
+|    Transaction finished exported meter value in Wh
+|   **signed_meter_value**:*string*
+|    Signed meter value
+|   **reason**:*string* (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
+|    Reason for stopping transaction
+|    **There is an extended definition for this object** :ref:`here <evse_manager-StopTransactionReason>`.
+|   **id_tag**:*string*
+|    Id tag that was used to stop the transaction
+
+.. _evse_manager-Error:
+
+| **Error**:*string*
+|  Details on error type
+|   Car: Signals a car error
+|   CarDiodeFault: Signals a car diode fault
+|   Relais: Signals a relais error
+|   RCD: Signals an RCD error
+|   VentilationNotAvailable: Signals that ventilation is not available
+|   OverCurrent: Signals an overcurrent error
+|   Internal: Signals an internal error
+|   SLAC: Signals a SLAC communication error
+|   HLC: Signals a HLC error
+|  enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC
+
+.. _evse_manager-SessionEvent:
+
+| **SessionEvent**:*object*
+|  Emits all events related to sessions
+|  required: uuid, event
+|  properties:
+|   **uuid**:*string*
+|    An EVSE generated UUID for this session, can be used e.g. for database storage.
+|   **event**:*string* (:ref:`evse_manager-SessionEventEnum <evse_manager-SessionEventEnum>`)
+|    Event enum. For some events an additional object is set, see below.
+|    **There is an extended definition for this object** :ref:`here <evse_manager-SessionEventEnum>`.
+|   **session_started**:*object* (:ref:`evse_manager-SessionStarted <evse_manager-SessionStarted>`)
+|    data for SessionStarted event
+|    **There is an extended definition for this object** :ref:`here <evse_manager-SessionStarted>`.
+|   **transaction_started**:*object* (:ref:`evse_manager-TransactionStarted <evse_manager-TransactionStarted>`)
+|    data for TransactionStarted event
+|    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionStarted>`.
+|   **transaction_finished**:*object* (:ref:`evse_manager-TransactionFinished <evse_manager-TransactionFinished>`)
+|    data for TransactionFinished event that happens when car is plugged out
+|    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionFinished>`.
+|   **error**:*string* (:ref:`evse_manager-Error <evse_manager-Error>`)
+|    Details on error type
+|    **There is an extended definition for this object** :ref:`here <evse_manager-Error>`.
+
+.. _evse_manager-Limits:
+
+| **Limits**:*object*
+|  Limits of this EVSE
+|  required: max_current, nr_of_phases_available
+|  properties:
+|   **uuid**:*string*
+|    This module's UUID for global identification
+|   **max_current**:*number*
+|    Instantaneous maximum current available to car
+|   **nr_of_phases_available**:*integer*
+|    Instantaneous phase count available to car
+
+.. _evse_manager-EVInfo:
+
+| **EVInfo**:*object*
+|  Information about the connected EV if available
+|  properties:
+|   **soc**:*number*
+|    State of charge of the vehicle's battery in percent
+|   **present_voltage**:*number*
+|    Current voltage of the vehicles battery [V]
+|   **present_current**:*number*
+|    Current current of the vehicles battery [A]
+|   **target_voltage**:*number*
+|    Target voltage that the vehicle requested [V]
+|   **target_current**:*number*
+|    Target current that the vehicle requested [A]
+|   **maximum_current_limit**:*number*
+|    Maximum current that the vehicle supports [A]
+|   **minimum_current_limit**:*number*
+|    Charging below this limit is not energy efficient [A]
+|   **maximum_voltage_limit**:*number*
+|    Maximum voltage that the vehicle supports [V]
+|   **maximum_power_limit**:*number*
+|    Maximum power that the vehicle supports [W]
+|   **estimated_time_full**:*string*
+|    Estimated time when the vehicle is fully charged
+|    format:
+|   **departure_time**:*string*
+|    Time when the vehicle intends to depart (If set by the user)
+|    format:
+|   **estimated_time_bulk**:*string*
+|    Estimated time when the vehicle finished bulk charging (e.g. 80%)
+|    format:
+|   **evcc_id**:*string*
+|    EVCC ID (typically MAC address)
+|    pattern:
+|   **remaining_energy_needed**:*number*
+|    Remaining energy needed to fulfill charging goal [Wh]
+|   **battery_capacity**:*number*
+|    Vehicle's battery capacity [Wh]
+|   **battery_full_soc**:*number*
+|    SoC which the vehicle considers fully charged [%]
+|   **battery_bulk_soc**:*number*
+|    SoC which the vehicle considers bulk charging reached [%]

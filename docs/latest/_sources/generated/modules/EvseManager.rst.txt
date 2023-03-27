@@ -1,0 +1,139 @@
+
+.. _everest_modules_EvseManager:
+
+###########
+EvseManager
+###########
+| EVSE Manager. Grid side power meter: Will be used for energy management. Will also be used for billing if no car side power meter connected. Car side powermeter: Will be used for billing if present.
+
+
+.. include:: ../../included/modules/EvseManager.rst
+
+********************
+Module Configuration
+********************
+| **connector_id**:*integer*
+|  Connector id of this evse manager
+| **evse_id**:*string*
+| *default: DE*PNX*E1234567*1*
+|  EVSE ID
+| **evse_id_din**:*string*
+| *default: 49A80737A45678*
+|  EVSE ID DIN after DIN SPEC 91286
+| **payment_enable_eim**:*boolean*
+| *default: True*
+|  Set to true to enable EIM (e.g. RFID card or mobile app) authorization
+| **payment_enable_contract**:*boolean*
+| *default: True*
+|  Set to true to enable contract (aka plug and charge) authorization
+| **ac_nominal_voltage**:*number*
+| *default: 230*
+|  Nominal AC voltage between phase and neutral in Volt
+| **ev_receipt_required**:*boolean*
+| *default: False*
+|  Unsupported: request receipt from EV with HLC
+| **session_logging**:*boolean*
+| *default: False*
+|  Enable/Disable session log file output
+| **session_logging_path**:*string*
+| *default: /tmp*
+|  Output directory for session log files
+| **session_logging_xml**:*boolean*
+| *default: True*
+|  Log full XML messages for HLC
+| **three_phases**:*boolean*
+| *default: True*
+|  Limit to three phases (true) or one phase (false)
+| **has_ventilation**:*boolean*
+| *default: True*
+|  Allow ventilated charging or not
+| **country_code**:*string*
+| *default: DE*
+|  Country Code
+| **rcd_enabled**:*boolean*
+| *default: True*
+|  Enable or disable RCD
+| **max_current_import_A**:*number*
+| *default: 32*
+|  User configurable current limit for this EVSE in Ampere
+| **max_current_export_A**:*number*
+| *default: 32*
+|  User configurable current limit for this EVSE in Ampere
+| **charge_mode**:*string*
+| *default: AC*
+|  Select charging mode
+|  enum: AC, DC
+| **ac_hlc_enabled**:*boolean*
+| *default: False*
+|  Enable or disable HLC (aka ISO15118) for AC mode
+| **ac_hlc_use_5percent**:*boolean*
+| *default: False*
+|  Use 5 percent PWM signalling to try to enforce HLC on AC. Note that if EIM arrives before SLAC matching, we will fall back to nominal PWM charging. So most cars will never use HLC in this mode, especially on a free service where EIM is always available, but that is what ISO15118-2/-3 requires to be compliant - it wants to use HLC only for PnC and not for EIM.
+| **ac_enforce_hlc**:*boolean*
+| *default: False*
+|  Combine with 5percent option to really enforce HLC even with EIM. It is not ISO15118-2/-3 compliant as it waits for matching even if EIM is available before SLAC reaches matched state. On cars that do not support ISO15118 on AC this will take a very long time to timeout and fall back to basic nominal PWM charging, but it will eventually.
+| **ac_with_soc**:*boolean*
+| *default: False*
+|  Special mode that switches between AC and DC charging to get SoC percentage with AC charging
+| **dc_isolation_voltage_V**:*integer*
+| *default: 500*
+|  DC voltage used to test isolation in CableCheck. Set to 500V.
+| **dbg_hlc_auth_after_tstep**:*boolean*
+| *default: False*
+|  Special mode: send HLC auth ok only after t_step_XX is finished (true) or directly when available (false)
+| **hack_sleep_in_cable_check**:*integer*
+| *default: 0*
+|  Hack: Sleep for n seconds at the end of cable check.
+| **switch_to_minimum_voltage_after_cable_check**:*boolean*
+| *default: False*
+|  When cable check is completed, switch to minimal voltage of DC output. Normally disabled.
+| **hack_skoda_enyaq**:*boolean*
+| *default: False*
+|  Skoda Enyaq requests DC charging voltages below its battery level or even below 0 initially. Set to true to enable dirty workaround.
+| **hack_present_current_offset**:*integer*
+| *default: 0*
+|  Adds an offset [A] to the present current reported to the car on HLC. Set to 0 unless you really know what you are doing.
+| **connector_type**:*string*
+| *default: IEC62196Type2Cable*
+|  Type of charging connector available at this EVSE
+|  enum: IEC62196Type2Cable, IEC62196Type2Socket
+| **hack_pause_imd_during_precharge**:*boolean*
+| *default: False*
+|  Disable IMD at the end of CableCheck and re-enable when current is flowing in CurrentDemand. Some DCDC power supplies do not start current flow when insulation measurement is active. Set to true to enable dirty workaround for some IMD hardware.
+| **hack_allow_bpt_with_iso2**:*boolean*
+| *default: False*
+|  Hack. Allow bidirectional power transfer with DIN spec and ISO-2. Currents communicated on HLC will always be positive but power supply may actually discharge the car.
+
+********
+Provides
+********
+| **evse**::ref:`evse_manager <everest_interfaces_evse_manager>`
+|  This is the main evsemanager interface
+| **energy_grid**::ref:`energy <everest_interfaces_energy>`
+|  This is the tree leaf interface to build the energy supply tree
+| **token_provider**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`
+|  Provides authtokens for autocharge or plug and charge
+
+************
+Requirements
+************
+| **bsp**::ref:`board_support_AC <everest_interfaces_board_support_AC>`
+| **powermeter_grid_side**::ref:`powermeter <everest_interfaces_powermeter>`
+| **powermeter_car_side**::ref:`powermeter <everest_interfaces_powermeter>`
+| **slac**::ref:`slac <everest_interfaces_slac>`
+| **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>`
+| **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>`
+| **powersupply_DC**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>`
+
+********
+Metadata
+********
+Authors
+=======
+| Cornelius Claussen
+| Anton Woellert
+
+License
+=======
+| https://spdx.org/licenses/Apache-2.0.html
+

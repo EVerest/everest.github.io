@@ -25,13 +25,16 @@ Module Configuration
 |  If true websocket can be disconnected and connected externally
 | **PublishChargingScheduleIntervalS**:*integer*
 | *default: 30*
-|  Interval in seconds in which charging schedules received from OCPP are be published
+|  Interval in seconds in which charging schedules received from OCPP are be published over MQTT and signalled to connected modules. If the value is set to 0, charging schedules are only published when changed by CSMS
 | **PublishChargingScheduleDurationS**:*integer*
 | *default: 600*
 |  Duration in seconds that defines the duration of the requested charging schedules starting from now
 | **MessageLogPath**:*string*
 | *default: /tmp/everest_ocpp_logs*
 |  Path to folder where logs of all OCPP messages get written to
+| **CertsPath**:*string*
+| *default: *
+|  Path to folder where certificates are located. If empty uses everest prefix + etc/everest/certs
 
 ********
 Provides
@@ -47,6 +50,7 @@ Provides
 Requirements
 ************
 | **evse_manager**::ref:`evse_manager <everest_interfaces_evse_manager>`
+| **connector_zero_sink**::ref:`external_energy_limits <everest_interfaces_external_energy_limits>`
 | **reservation**::ref:`reservation <everest_interfaces_reservation>`
 | **auth**::ref:`auth <everest_interfaces_auth>`
 | **system**::ref:`system <everest_interfaces_system>`

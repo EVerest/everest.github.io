@@ -36,6 +36,12 @@ Provides
 |   set_key_timeout_ms:
 |    description:
 |    type:
+|   publish_mac_on_match_cnf:
+|    description:
+|    type:
+|   publish_mac_on_first_parm_req:
+|    description:
+|    type:
 |  config:
 |   **device**:*string*
 |   *default: eth1*
@@ -55,6 +61,12 @@ Provides
 |   **set_key_timeout_ms**:*integer*
 |   *default: 500*
 |    Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.
+|   **publish_mac_on_match_cnf**:*boolean*
+|   *default: True*
+|    Publish the EV MAC address on the token_provider interface when matching is confirmed (CM_SLAC_MATCH.CNF). This can be used for autocharge as an alternative to the EVCCID derived from HLC and published by EvseManager.  This can be used for AC autocharge on cars that do not support actual HLC on AC.
+|   **publish_mac_on_first_parm_req**:*boolean*
+|   *default: False*
+|    Publish the EV MAC address when the first CM_SLAC_PARM.REQ. This should not be used as it is quite error prone: The MAC address might be from another car via cross talk. It is better to wait for the matching to be done.
 
 
 ********

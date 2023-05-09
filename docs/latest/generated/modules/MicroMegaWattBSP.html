@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>9.27. OCPP201 &#8212; EVerest  documentation</title>
+    <title>9.25. MicroMegaWattBSP &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="9.28. PacketSniffer" href="PacketSniffer.html" />
-    <link rel="prev" title="9.26. OCPP" href="OCPP.html" /> 
+    <link rel="next" title="9.26. OCPP" href="OCPP.html" />
+    <link rel="prev" title="9.24. JsYetiSimulator" href="JsYetiSimulator.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,14 +25,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="PacketSniffer.html" title="9.28. PacketSniffer"
+          <a href="OCPP.html" title="9.26. OCPP"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="OCPP.html" title="9.26. OCPP"
+          <a href="JsYetiSimulator.html" title="9.24. JsYetiSimulator"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" accesskey="U"><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.27. </span>OCPP201</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.25. </span>MicroMegaWattBSP</a></li> 
       </ul>
     </div>  
 
@@ -41,52 +41,58 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="ocpp201">
-<span id="everest-modules-ocpp201"></span><h1><span class="section-number">9.27. </span>OCPP201<a class="headerlink" href="#ocpp201" title="Permalink to this heading">¶</a></h1>
+  <section id="micromegawattbsp">
+<span id="everest-modules-micromegawattbsp"></span><h1><span class="section-number">9.25. </span>MicroMegaWattBSP<a class="headerlink" href="#micromegawattbsp" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">A OCPP charge point / charging station module for OCPP 2.0.1</div>
+<div class="line">Driver module for the Micro Mega Watt DC Charging Tester v1.0</div>
 </div>
 <section id="module-configuration">
-<h2><span class="section-number">9.27.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.25.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>ChargePointConfigPath</strong>:<em>string</em></div>
-<div class="line"><em>default: ocpp-config.json</em></div>
+<div class="line"><strong>serial_port</strong>:<em>string</em></div>
+<div class="line"><em>default: /dev/ttyUSB0</em></div>
 <div class="line-block">
-<div class="line">Path to the configuration file</div>
+<div class="line">Serial port the Yeti hardware is connected to</div>
 </div>
-<div class="line"><strong>MessageLogPath</strong>:<em>string</em></div>
-<div class="line"><em>default: /tmp/everest_ocpp_logs</em></div>
+<div class="line"><strong>baud_rate</strong>:<em>integer</em></div>
+<div class="line"><em>default: 115200</em></div>
 <div class="line-block">
-<div class="line">Path to folder where logs of all OCPP messages get written to</div>
+<div class="line">Serial baud rate to use when communicating with Yeti hardware</div>
+</div>
+<div class="line"><strong>reset_gpio</strong>:<em>integer</em></div>
+<div class="line"><em>default: -1</em></div>
+<div class="line-block">
+<div class="line">Reset GPIO number to use to HW reset uMWC. If set &lt;0 it is disabled.</div>
 </div>
 </div>
 </section>
 <section id="provides">
-<h2><span class="section-number">9.27.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.25.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
+<div class="line"><strong>dc_supply</strong>:<a class="reference internal" href="../interfaces/power_supply_DC.html#everest-interfaces-power-supply-dc"><span class="std std-ref">power_supply_DC</span></a></div>
 <div class="line-block">
-<div class="line">This is a OCPP 2.0.1 charge point</div>
+<div class="line">Interface for the DC/DC output supply</div>
 </div>
-</div>
-</section>
-<section id="requirements">
-<h2><span class="section-number">9.27.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line"><strong>powermeter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
 <div class="line-block">
-<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a></div>
+<div class="line">provides the Yeti Internal Power Meter</div>
+</div>
+<div class="line"><strong>board_support</strong>:<a class="reference internal" href="../interfaces/board_support_AC.html#everest-interfaces-board-support-ac"><span class="std std-ref">board_support_AC</span></a></div>
+<div class="line-block">
+<div class="line">provides the board support Interface to low level control control pilot, relais, rcd, motor lock</div>
+</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">9.27.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.25.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">9.27.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.25.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Piet Gömpel</div>
-<div class="line">Kai-Uwe Hermann</div>
+<div class="line">Cornelius Claussen</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">9.27.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.25.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -104,13 +110,12 @@
   <div>
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">9.27. OCPP201</a><ul>
-<li><a class="reference internal" href="#module-configuration">9.27.1. Module Configuration</a></li>
-<li><a class="reference internal" href="#provides">9.27.2. Provides</a></li>
-<li><a class="reference internal" href="#requirements">9.27.3. Requirements</a></li>
-<li><a class="reference internal" href="#metadata">9.27.4. Metadata</a><ul>
-<li><a class="reference internal" href="#authors">9.27.4.1. Authors</a></li>
-<li><a class="reference internal" href="#license">9.27.4.2. License</a></li>
+<li><a class="reference internal" href="#">9.25. MicroMegaWattBSP</a><ul>
+<li><a class="reference internal" href="#module-configuration">9.25.1. Module Configuration</a></li>
+<li><a class="reference internal" href="#provides">9.25.2. Provides</a></li>
+<li><a class="reference internal" href="#metadata">9.25.3. Metadata</a><ul>
+<li><a class="reference internal" href="#authors">9.25.3.1. Authors</a></li>
+<li><a class="reference internal" href="#license">9.25.3.2. License</a></li>
 </ul>
 </li>
 </ul>
@@ -120,18 +125,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="OCPP.html"
-                          title="previous chapter"><span class="section-number">9.26. </span>OCPP</a></p>
+    <p class="topless"><a href="JsYetiSimulator.html"
+                          title="previous chapter"><span class="section-number">9.24. </span>JsYetiSimulator</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="PacketSniffer.html"
-                          title="next chapter"><span class="section-number">9.28. </span>PacketSniffer</a></p>
+    <p class="topless"><a href="OCPP.html"
+                          title="next chapter"><span class="section-number">9.26. </span>OCPP</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/generated/modules/OCPP201.rst.txt"
+      <li><a href="../../_sources/generated/modules/MicroMegaWattBSP.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -156,14 +161,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="PacketSniffer.html" title="9.28. PacketSniffer"
+          <a href="OCPP.html" title="9.26. OCPP"
              >next</a> |</li>
         <li class="right" >
-          <a href="OCPP.html" title="9.26. OCPP"
+          <a href="JsYetiSimulator.html" title="9.24. JsYetiSimulator"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../everest_modules.html" ><span class="section-number">9. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.27. </span>OCPP201</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.25. </span>MicroMegaWattBSP</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

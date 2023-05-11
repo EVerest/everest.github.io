@@ -49,50 +49,6 @@
 <section id="commands">
 <h2><span class="section-number">8.25.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>send_raw</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Send a (user-defined, pre-structured) command via serial interface to the target hardware</div>
-<div class="line"><strong>target_device_id</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">ID (1 byte) of the device to send the commands to</div>
-</div>
-<div class="line"><strong>data_raw</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-vectoruint8"><span class="std std-ref">serial_comm_hub_requests-VectorUint8</span></a>)</div>
-<div class="line-block">
-<div class="line">Data content (raw data bytes) to be sent to the target. User must take care of correct structure.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-vectoruint8"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>add_crc16</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">Add a CRC16 at the end of the message (true) or not (false)</div>
-</div>
-<div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">serial_comm_hub_requests-StatusCodeEnum</span></a>)</div>
-<div class="line-block">
-<div class="line">Status code of the transfer</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>send_raw_wait_reply</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Send a (user-defined, pre-structured) command via serial interface to the target hardware and wait for a reply</div>
-<div class="line"><strong>target_device_id</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">ID (1 byte) of the device to send the commands to</div>
-</div>
-<div class="line"><strong>data_raw</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-vectoruint8"><span class="std std-ref">serial_comm_hub_requests-VectorUint8</span></a>)</div>
-<div class="line-block">
-<div class="line">Data content (raw data bytes) to be sent to the target. User must take care of correct structure.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-vectoruint8"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>add_crc16</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">Add a CRC16 at the end of the message (true) or not (false)</div>
-</div>
-<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-resultraw"><span class="std std-ref">serial_comm_hub_requests-ResultRaw</span></a>)</div>
-<div class="line-block">
-<div class="line">Result of the transfer</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-resultraw"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
 <div class="line"><strong>modbus_read_holding_registers</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Send a Modbus RTU ‘read holding registers’ command via serial interface to the target hardware. (return value: response)</div>
@@ -107,10 +63,6 @@
 <div class="line"><strong>num_registers_to_read</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Number of registers to read (16 bit each)</div>
-</div>
-<div class="line"><strong>pause_between_messages</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Ensure a pause between packets on the wire in ms. Some Modbus devices require a minimal pause between the last message and this message. Set to 0 if not needed.</div>
 </div>
 <div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-result"><span class="std std-ref">serial_comm_hub_requests-Result</span></a>)</div>
 <div class="line-block">
@@ -132,10 +84,6 @@
 <div class="line"><strong>num_registers_to_read</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Number of registers to read (16 bit each)</div>
-</div>
-<div class="line"><strong>pause_between_messages</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Ensure a pause between packets on the wire in ms. Some Modbus devices require a minimal pause between the last message and this message. Set to 0 if not needed.</div>
 </div>
 <div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-result"><span class="std std-ref">serial_comm_hub_requests-Result</span></a>)</div>
 <div class="line-block">
@@ -159,14 +107,47 @@
 <div class="line">Data content to be written to the above selected registers (in 16 bit words)</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-vectoruint16"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>pause_between_messages</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Ensure a pause between packets on the wire in ms. Some Modbus devices require a minimal pause between the last message and this message. Set to 0 if not needed.</div>
-</div>
 <div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">serial_comm_hub_requests-StatusCodeEnum</span></a>)</div>
 <div class="line-block">
 <div class="line">Status code of the transfer</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>nonstd_write</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Non standard mode to write registers in read discrete input mode without waiting for reply. Used e.g. by GYDCG-UBC1 isolation monitor.</div>
+<div class="line"><strong>target_device_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">ID (1 byte) of the device to send the commands to</div>
+</div>
+<div class="line"><strong>first_register_address</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Start address for read operation (16 bit address)</div>
+</div>
+<div class="line"><strong>num_registers_to_read</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Number of registers to read (16 bit each)</div>
+</div>
+</div>
+<div class="line"><strong>nonstd_read</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Non standard mode to read registers in read coils mode, but getting a malformed reply. Used e.g. by GYDCG-UBC1 isolation monitor.</div>
+<div class="line"><strong>target_device_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">ID (1 byte) of the device to send the commands to</div>
+</div>
+<div class="line"><strong>first_register_address</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Start address for write operation (16 bit address)</div>
+</div>
+<div class="line"><strong>num_registers_to_read</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Number of registers to read (16 bit each)</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-result"><span class="std std-ref">serial_comm_hub_requests-Result</span></a>)</div>
+<div class="line-block">
+<div class="line">Result of the transfer</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-result"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

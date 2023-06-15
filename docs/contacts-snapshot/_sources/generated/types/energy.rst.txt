@@ -1,0 +1,178 @@
+
+.. _everest_types_energy:
+
+
+######
+energy
+######
+
+Energy import/export capability/limit types
+
+.. _energy-NodeType:
+
+| **NodeType**:*string*
+|  Enum Type for different Nodes on the energy tree
+|  enum: Undefined, Evse, Generic
+
+.. _energy-LimitsReq:
+
+| **LimitsReq**:*object*
+|  Energy flow limiting object request (Evses to EnergyManager)
+|  properties:
+|   **total_power_W**:*number*
+|    Total power limit in Watt. Can be used for DC or as additional limit for AC.
+|   **ac_max_current_A**:*number*
+|    Max current limit (per phase) in Ampere. AC only.
+|   **ac_min_current_A**:*number*
+|    Min AC current limit per phase in Ampere. Values below that value indicate the  device will not work properly, i.e. it will not charge below 6 amps. AC only.
+|   **ac_max_phase_count**:*integer*
+|    Limit to number of phases. Omit if number of phases are not limited.
+|   **ac_min_phase_count**:*integer*
+|    Minimal number of phases. Omit if number of phases are not limited.
+|   **ac_supports_changing_phases_during_charging**:*boolean*
+|    Indicate whether phase switching is allowed during charging or not
+
+.. _energy-LimitsRes:
+
+| **LimitsRes**:*object*
+|  Energy flow limiting object Result (Energy manager to Evses)
+|  properties:
+|   **total_power_W**:*number*
+|    Total power limit in Watt. Can be used for DC or as additional limit for AC. Negative numbers mean export to grid direction.
+|   **ac_max_current_A**:*number*
+|    Max current limit (per phase) in Ampere. AC only. Negative numbers mean export to grid direction.
+|   **ac_max_phase_count**:*integer*
+|    Limit to number of phases. Omit if number of phases are not limited.
+
+.. _energy-OptimizerTarget:
+
+| **OptimizerTarget**:*object*
+|  User defined optimizer targets for this evse
+|  properties:
+|   **energy_amount_needed**:*number*
+|    Amount of kwh the car needs to fulfill its charging target
+|   **charge_to_max_percent**:*number*
+|    Charge car battery to max NN percent
+|   **car_battery_soc**:*number*
+|    Car battery State Of Charge in percent
+|   **leave_time**:*string*
+|    RFC3339 UTC format time when the car needs to drive away with charging targets fullfilled. Will charge cheapest within this timeframe.
+|   **price_limit**:*number*
+|    Always charge if price below this limit. This includes solar charging and price for solar energy if price levels set correctly.
+|   **full_autonomy**:*boolean*
+|    Only charge from locally generated energy. Do not draw power from grid for charging.
+
+.. _energy-ScheduleReqEntry:
+
+| **ScheduleReqEntry**:*object*
+|  One entry for the time series (request)
+|  required: timestamp, limits_to_root, limits_to_leaves
+|  properties:
+|   **timestamp**:*string*
+|    Absolute timestamp for this sample in RFC3339 UTC format
+|    format:
+|   **limits_to_root**:*object* (:ref:`energy-LimitsReq <energy-LimitsReq>`)
+|    Limit for this timestamp, for the root facing side
+|    **There is an extended definition for this object** :ref:`here <energy-LimitsReq>`.
+|   **limits_to_leaves**:*object* (:ref:`energy-LimitsReq <energy-LimitsReq>`)
+|    Limit for this timestamp, for the leaves facing side
+|    **There is an extended definition for this object** :ref:`here <energy-LimitsReq>`.
+|   **conversion_efficiency**:*number*
+|    Conversion efficiency from root to leaves side (e.g. AC/DC efficiency). Defaults to one if not specified.
+|   **price_per_kwh**:*object* (:ref:`energy_price_information-PricePerkWh <energy_price_information-PricePerkWh>`)
+|    Price information for this timepoint
+|    **There is an extended definition for this object** :ref:`here <energy_price_information-PricePerkWh>`.
+
+.. _energy-ScheduleResEntry:
+
+| **ScheduleResEntry**:*object*
+|  One entry for the time series (result)
+|  required: timestamp, limits_to_root
+|  properties:
+|   **timestamp**:*string*
+|    Absolute timestamp for this sample in RFC3339 UTC format
+|    format:
+|   **limits_to_root**:*object* (:ref:`energy-LimitsRes <energy-LimitsRes>`)
+|    Limit for this timestamp, for the root facing side
+|    **There is an extended definition for this object** :ref:`here <energy-LimitsRes>`.
+|   **price_per_kwh**:*object* (:ref:`energy_price_information-PricePerkWh <energy_price_information-PricePerkWh>`)
+|    Price information for this timepoint
+|    **There is an extended definition for this object** :ref:`here <energy_price_information-PricePerkWh>`.
+
+.. _energy-EnergyFlowRequest:
+
+| **EnergyFlowRequest**:*object*
+|  Request energy flow parameters to supply/limit energy import (direction from grid to car) and/or consume/limit energy export (car to grid) at a specific point in the tree
+|  required: uuid, children, node_type
+|  properties:
+|   **children**:*array*
+|    Array of child node energy flow requests (in the direction to consumer/car
+|    items:
+|     description:
+|     type:
+|     $ref:
+|   **uuid**:*string*
+|    UUID for this node. This UUID will be used again when enforce_limits() command propagates through the tree.
+|   **node_type**:*string* (:ref:`energy-NodeType <energy-NodeType>`)
+|    Node Type Enum
+|    **There is an extended definition for this object** :ref:`here <energy-NodeType>`.
+|   **optimizer_target**:*object* (:ref:`energy-OptimizerTarget <energy-OptimizerTarget>`)
+|    User defined optimizer targets for this evse
+|    **There is an extended definition for this object** :ref:`here <energy-OptimizerTarget>`.
+|   **energy_usage_root**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Energy usage measurement of this node at root side
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
+|   **energy_usage_leaves**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Energy usage measurement of this node at leaves side
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
+|   **schedule_import**:*array*
+|    Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|    items:
+|     description:
+|     type:
+|     $ref:
+|   **schedule_export**:*array*
+|    Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|    items:
+|     description:
+|     type:
+|     $ref:
+
+.. _energy-EnforcedLimits:
+
+| **EnforcedLimits**:*object*
+|  Enforce Limits data type
+|  required: uuid, valid_until
+|  properties:
+|   **uuid**:*string*
+|    UUID of node that this limit applies to
+|   **valid_until**:*string*
+|    Limits are valid until this timepoint in RFC3339 UTC. If no new update is received, power consumption must be stopped afer that timepoint.
+|    format:
+|   **limits_root_side**:*object* (:ref:`energy-LimitsRes <energy-LimitsRes>`)
+|    Enforced limits that must be respected at the root side.
+|    **There is an extended definition for this object** :ref:`here <energy-LimitsRes>`.
+|   **schedule**:*array*
+|    Informative only. Do not use for actual limiting. Energy import/export limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.
+|    items:
+|     description:
+|     type:
+|     $ref:
+
+.. _energy-ExternalLimits:
+
+| **ExternalLimits**:*object*
+|  External Limits data type
+|  properties:
+|   **schedule_import**:*array*
+|    Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.  The last entry is valid for any time after the schedule ends.
+|    items:
+|     description:
+|     type:
+|     $ref:
+|   **schedule_export**:*array*
+|    Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time. The last entry is valid for any time after the schedule ends.
+|    items:
+|     description:
+|     type:
+|     $ref:

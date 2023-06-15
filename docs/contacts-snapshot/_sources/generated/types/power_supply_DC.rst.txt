@@ -1,0 +1,69 @@
+
+.. _everest_types_power_supply_DC:
+
+
+###############
+power_supply_DC
+###############
+
+Power supply DC types
+
+.. _power_supply_DC-Mode:
+
+| **Mode**:*string*
+|  Operation mode of power supply. Power supply delivers power in Export mode and draws power in Import mode.
+|  enum: Off, Export, Import, Fault
+
+.. _power_supply_DC-VoltageCurrent:
+
+| **VoltageCurrent**:*object*
+|  Voltage (V) and Current (A) at the input/output of the power supply
+|  required: voltage_V, current_A
+|  properties:
+|   **voltage_V**:*number*
+|    Voltage in V
+|   **current_A**:*number*
+|    Current in A
+
+.. _power_supply_DC-Capabilities:
+
+| **Capabilities**:*object*
+|  Capabilities for this power supply.
+|  required: bidirectional, max_export_voltage_V, min_export_voltage_V, max_export_current_A, min_export_current_A, max_export_power_W, current_regulation_tolerance_A, peak_current_ripple_A
+|  properties:
+|   **bidirectional**:*boolean*
+|    'true: support bidirectional energy flow, false: support only Export mode (output)'
+|   **current_regulation_tolerance_A**:*number*
+|    Absolute magnitude of the regulation tolerance in Ampere
+|   **peak_current_ripple_A**:*number*
+|    Peak-to-peak magnitude of the current ripple in Ampere
+|   **max_export_voltage_V**:*number*
+|    Maximum voltage that the power supply can output in Volt
+|   **min_export_voltage_V**:*number*
+|    Minimum voltage that the power supply can output in Volt
+|   **max_export_current_A**:*number*
+|    Maximum current that the power supply can output in Ampere
+|   **min_export_current_A**:*number*
+|    Minimum current limit that the power supply can set in Ampere
+|   **max_import_voltage_V**:*number*
+|    Maximum voltage that the power supply supports to import energy in Volt
+|   **min_import_voltage_V**:*number*
+|    Minimum voltage that the power supply requires to import energy in Volt
+|   **max_import_current_A**:*number*
+|    Maximum current that the power supply can output in Ampere
+|   **min_import_current_A**:*number*
+|    Minimum current limit that the power supply can set in Ampere
+|   **max_export_power_W**:*number*
+|    Maximum export power that the power supply can output in Watt
+|   **max_import_power_W**:*number*
+|    Maximum import power that the power supply can sink in Watt
+|   **conversion_efficiency_import**:*number*
+|    Typical import efficiency used for energy management
+|   **conversion_efficiency_export**:*number*
+|    Typical export efficiency used for energy management
+
+.. _power_supply_DC-FaultCode:
+
+| **FaultCode**:*string*
+|  Fault codes
+|  enum: CommunicationFailure, ConfigurationError, HardwareFault, OverTemperature, UnderTemperature, UnderVoltageAC, OverVoltageAC, UnderVoltageDC, OverVoltageDC, UnderVoltageBattery, OverVoltageBattery, OverCurrentAC, OverCurrentBattery, OverCurrentDC, WrongCabling, Other, NoError

@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Tutorials" href="../tutorials/index.html" />
-    <link rel="prev" title="5.1. EDM" href="edm.html" /> 
+    <link rel="prev" title="5.1. edm" href="edm.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,7 +28,7 @@
           <a href="../tutorials/index.html" title="6. Tutorials"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="edm.html" title="5.1. EDM"
+          <a href="edm.html" title="5.1. edm"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U"><span class="section-number">5. </span>EVerest development tools</a> &#187;</li>
@@ -42,7 +42,7 @@
           <div class="body" role="main">
             
   <section id="ev-cli">
-<h1><span class="section-number">5.2. </span>ev-cli<a class="headerlink" href="#ev-cli" title="Permalink to this heading">¶</a></h1>
+<span id="evcli-main"></span><h1><span class="section-number">5.2. </span>ev-cli<a class="headerlink" href="#ev-cli" title="Permalink to this heading">¶</a></h1>
 <p>This python project currently consists of the following packages</p>
 <ul class="simple">
 <li><p><cite>ev_cli</cite>: EVerest module auto generation</p></li>
@@ -61,7 +61,7 @@ It has the following subcommands</p>
 auto generation and update of EVerest modules from its interface and
 manifest definitions</p></li>
 <li><p>interface:
-auto generation of c++ header files for defined interfaces</p></li>
+auto generation of C++ header files for defined interfaces</p></li>
 <li><p>helpers:
 utility commands</p></li>
 </ul>
@@ -80,12 +80,12 @@ and module definitions (default: <code class="docutils literal notranslate"><spa
 root directory of the EVerest framework, containing the schema
 definitions (default: <code class="docutils literal notranslate"><span class="pre">../everest-framework</span></code>)</p></li>
 <li><p><cite>–clang-format-file</cite>:
-if c++output should be formatted, set this to the path of the
+if C++ output should be formatted, set this to the path of the
 .clang-format file</p></li>
 </ul>
 </section>
 <section id="generating-c-header-files-for-defined-interfaces">
-<h2><span class="section-number">5.2.2. </span>Generating c++ header files for defined interfaces<a class="headerlink" href="#generating-c-header-files-for-defined-interfaces" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.2.2. </span>Generating C++ header files for defined interfaces<a class="headerlink" href="#generating-c-header-files-for-defined-interfaces" title="Permalink to this heading">¶</a></h2>
 <p>Assuming that the interface definitions in json format are located at
 <code class="docutils literal notranslate"><span class="pre">./interfaces/*.json</span></code>, simply:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">interfaces</span> <span class="n">generate</span><span class="o">-</span><span class="n">headers</span>
@@ -102,7 +102,7 @@ view, and the latter the <cite>users</cite> view of the interface, when used in 
 module.</p>
 </section>
 <section id="creating-and-updating-auto-generated-files-for-modules-c-only">
-<h2><span class="section-number">5.2.3. </span>Creating and updating auto generated files for modules (c++ only)<a class="headerlink" href="#creating-and-updating-auto-generated-files-for-modules-c-only" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.2.3. </span>Creating and updating auto generated files for modules (C++ only)<a class="headerlink" href="#creating-and-updating-auto-generated-files-for-modules-c-only" title="Permalink to this heading">¶</a></h2>
 <p>Assuming the modules are located at <code class="docutils literal notranslate"><span class="pre">./modules</span></code> and the initial
 skeleton for a module named <cite>Example</cite> with its manifest in
 <code class="docutils literal notranslate"><span class="pre">./modules/Example/manifest.json</span></code> should be created, call:</p>
@@ -203,10 +203,10 @@ changed the corresponding interface a lot.  To get a list of possible files, you
 </div>
 <p>would recreate the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and the
 <code class="docutils literal notranslate"><span class="pre">main/SampleInterfaceImpl.cpp</span></code> files, whereas:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">clie</span> <span class="n">module</span> <span class="n">update</span> <span class="n">Example</span> <span class="o">--</span><span class="n">only</span> <span class="n">module</span><span class="o">.</span><span class="n">hpp</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">module</span> <span class="n">update</span> <span class="n">Example</span> <span class="o">--</span><span class="n">only</span> <span class="n">module</span><span class="o">.</span><span class="n">hpp</span>
 </pre></div>
 </div>
-<p>would update only the module header file <code class="docutils literal notranslate"><span class="pre">Example.hpp</span></code></p>
+<p>would update only the module header file <code class="docutils literal notranslate"><span class="pre">Example.hpp</span></code>.</p>
 </li>
 </ol>
 </section>
@@ -230,7 +230,7 @@ changed the corresponding interface a lot.  To get a list of possible files, you
 <li class="toctree-l1"><a class="reference internal" href="../general/03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">5. EVerest development tools</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="edm.html">5.1. EDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="edm.html">5.1. edm</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">5.2. ev-cli</a></li>
 </ul>
 </li>
@@ -245,7 +245,7 @@ changed the corresponding interface a lot.  To get a list of possible files, you
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="edm.html"
-                          title="previous chapter"><span class="section-number">5.1. </span>EDM</a></p>
+                          title="previous chapter"><span class="section-number">5.1. </span>edm</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -289,7 +289,7 @@ changed the corresponding interface a lot.  To get a list of possible files, you
           <a href="../tutorials/index.html" title="6. Tutorials"
              >next</a> |</li>
         <li class="right" >
-          <a href="edm.html" title="5.1. EDM"
+          <a href="edm.html" title="5.1. edm"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" ><span class="section-number">5. </span>EVerest development tools</a> &#187;</li>

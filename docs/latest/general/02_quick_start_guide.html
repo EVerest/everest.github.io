@@ -41,17 +41,21 @@
           <div class="body" role="main">
             
   <section id="a-real-quick-guide-to-everest">
-<h1><span class="section-number">2. </span>A Real Quick Guide To EVerest<a class="headerlink" href="#a-real-quick-guide-to-everest" title="Permalink to this heading">¶</a></h1>
+<span id="quickstartguide-main"></span><h1><span class="section-number">2. </span>A Real Quick Guide To EVerest<a class="headerlink" href="#a-real-quick-guide-to-everest" title="Permalink to this heading">¶</a></h1>
 <section id="prepare-your-development-environment">
 <h2><span class="section-number">2.1. </span>Prepare Your Development Environment<a class="headerlink" href="#prepare-your-development-environment" title="Permalink to this heading">¶</a></h2>
 <section id="needed-packages">
 <h3><span class="section-number">2.1.1. </span>Needed Packages<a class="headerlink" href="#needed-packages" title="Permalink to this heading">¶</a></h3>
-<p>You will need Python, Jinja2, PyYAML, a compiler and some more system libraries set up. See the detailed page for <a class="reference external" href="03_detail_pre_setup.html">setting up your development environment</a> to see some examples for operating systems.</p>
-<p>After having created your environment, return back here, where we will go on with downloading and installing EVerest.</p>
+<p>You will need Python, Jinja2, PyYAML, a compiler and some more system libraries
+set up. See the detailed page for
+<a class="reference internal" href="03_detail_pre_setup.html#preparedevenv-main"><span class="std std-ref">setting up your development environment</span></a> to see some
+examples for operating systems.</p>
+<p>After having created your environment, return back here, where we will go on
+with downloading and installing EVerest.</p>
 </section>
 </section>
 <section id="download-and-install">
-<h2><span class="section-number">2.2. </span>Download And Install<a class="headerlink" href="#download-and-install" title="Permalink to this heading">¶</a></h2>
+<span id="quickstartguide-download-install"></span><h2><span class="section-number">2.2. </span>Download And Install<a class="headerlink" href="#download-and-install" title="Permalink to this heading">¶</a></h2>
 <section id="get-the-needed-everest-repositories">
 <h3><span class="section-number">2.2.1. </span>Get The Needed EVerest Repositories<a class="headerlink" href="#get-the-needed-everest-repositories" title="Permalink to this heading">¶</a></h3>
 <section id="everest-dependency-manager-edm">
@@ -64,28 +68,42 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:EVerest/everest-dev-environment.git
 <span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
-edm<span class="w"> </span>--config<span class="w"> </span>../everest-complete.yaml<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
 </pre></div>
 </div>
-<p>(In future, as your system has edm properly setup, you can always initialise a new workspace by calling <em>edm init</em>.)</p>
-<p>edm will now prepare the most common repos to start with. It will also create a YAML file which describes your newly created workspace. You can change that YAML file later if you want to adopt the workspace to another scenario.</p>
-<p>The YAML file can be found in the directory which you have chosen as workspace directory. In the above example, it is located at ~/checkout/everest-workspace.</p>
+<p>To let edm prepare the most common repos for a simple start with EVerest,
+let us use a default config file and set a workspace directory for the repos.
+Set your preferred directory instead of <cite>{EVerest Workspace Directory}</cite>, e.g.
+use <cite>~/checkout/everest-workspace</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--config<span class="w"> </span>../everest-complete.yaml<span class="w"> </span>--workspace<span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>
+</pre></div>
+</div>
+<p>(In future, as your system has edm properly setup, you can always initialise a
+new workspace by calling <em>edm init</em>.)</p>
+<p>edm will now prepare the most common repos to start with. It will also create a
+YAML file which describes your newly created workspace. You can change that
+YAML file later if you want to adopt the workspace to another scenario.</p>
+<p>The YAML file can be found in the directory which you have chosen as workspace
+directory. In the above example, it is located at</p>
+<p><cite>{EVerest Workspace Directory}</cite>.</p>
 </section>
 <section id="everest-command-line-interface-ev-cli">
 <h4><span class="section-number">2.2.1.2. </span>EVerest Command Line Interface: ev-cli<a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
-<p>In its current version, ev-cli supports you by generating module templates. It is also necessary to build EVerest.</p>
-<p>To install ev-cli, change into the everest-utils/ev-dev-tools/ directory and install ev-cli:</p>
+<p>In its current version, ev-cli supports you by generating module templates. It
+is also necessary to build EVerest.</p>
+<p>To install ev-cli, change into the everest-utils/ev-dev-tools/ directory and
+install ev-cli:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
-<p>That is all to install ev-cli. You can find the binary file of ev-cli in your HOME directory in .local/bin/</p>
+<p>That is all to install ev-cli. You can find the binary file of ev-cli in your
+HOME directory in .local/bin/</p>
 <p>In a later step, we will use ev-cli to create module stubs.</p>
 </section>
 <section id="packages-for-iso-15118-communication">
 <h4><span class="section-number">2.2.1.3. </span>Packages for ISO 15118 communication<a class="headerlink" href="#packages-for-iso-15118-communication" title="Permalink to this heading">¶</a></h4>
 <p>To be able to build EVerest with ISO 15118 capability, you will have to
-install the needed requirements for Josev:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/Josev
+install the requirements for Josev:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/Josev
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
@@ -94,117 +112,141 @@ python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </s
 <section id="build-everest">
 <h3><span class="section-number">2.2.2. </span>Build EVerest<a class="headerlink" href="#build-everest" title="Permalink to this heading">¶</a></h3>
 <p>Now it is time to build EVerest:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/everest-core
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core
 mkdir<span class="w"> </span>build
 <span class="nb">cd</span><span class="w"> </span>build
 cmake<span class="w"> </span>..
 make<span class="w"> </span>install
 </pre></div>
 </div>
-<p>edm helped you to keep it that simple. Let’s now dive into simulating our current workspace.</p>
-<p>If you get an error during the build process stating that ev-cli is installed in an old version, go to your everest-workspace directory and call <em>edm –git-pull</em>. This will update the EVerest repositories. After that, repeat building ev-cli and you should be good to go again.</p>
+<p>edm helped you to keep it that simple. Let’s now dive into simulating our
+current workspace.</p>
+<p>If you get an error during the build process stating that ev-cli is installed
+in an old version, go to your everest workspace directory and call <em>edm
+–git-pull</em>. This will update the EVerest repositories. After that, repeat
+building ev-cli and you should be good to go again.</p>
 </section>
 </section>
 <section id="simulating-everest">
 <h2><span class="section-number">2.3. </span>Simulating EVerest<a class="headerlink" href="#simulating-everest" title="Permalink to this heading">¶</a></h2>
 <section id="prepare-the-helpers">
-<h3><span class="section-number">2.3.1. </span>Prepare The Helpers<a class="headerlink" href="#prepare-the-helpers" title="Permalink to this heading">¶</a></h3>
-<p>EVerest comes with prepared Docker containers, which are needed for simulation and further development. To get this working, make sure you have Docker and Docker-Compose installed during the previous install phase. (If not, see install instructions for <a class="reference external" href="https://docs.docker.com/engine/install/#server">Docker</a> and <a class="reference external" href="https://docs.docker.com/compose/install/#install-compose)">Docker-Compose</a>!)</p>
-<p>In order for custom or local containers being able to talk to the services, provided by the docker-compose containers, we need to create a common docker network. It is called <cite>infranet_network</cite> and needs to be created by the following command (IPv6 is enabled for containers which might it):</p>
+<span id="quickstartguide-helpers"></span><h3><span class="section-number">2.3.1. </span>Prepare The Helpers<a class="headerlink" href="#prepare-the-helpers" title="Permalink to this heading">¶</a></h3>
+<p>EVerest comes with prepared Docker containers. The one that starts Mosquitto
+(an MQTT broker) is required to run EVerest. This documentation section shows
+the necessary steps to start the simulation and get the user interface running.</p>
+<p>Further tools are not required to run EVerest (e.g. SteVe for OCPP). Further
+information about EVerest Docker containers can be found on the
+<a class="reference external" href="../tutorials/docker_setup.html">EVerest Docker Setup page</a>.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>To get all this working, make sure you have docker and docker-compose installed during the previous install phase. (If not, see install instructions for <a class="reference external" href="https://docs.docker.com/engine/install/#server">docker</a> and <a class="reference external" href="https://docs.docker.com/compose/install/#install-compose)">docker-compose</a>!)</p>
+</div>
+<p>In order for custom or local containers being able to talk to the services,
+provided by the docker-compose containers, we need to create a common docker
+network. It is called <cite>infranet_network</cite> and needs to be created by the
+following command (IPv6 is enabled for containers which might need it):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>bridge<span class="w"> </span>--ipv6<span class="w">  </span>--subnet<span class="w"> </span>fd00::/80<span class="w"> </span>infranet_network<span class="w"> </span>--attachable
 </pre></div>
 </div>
-<p>Now, change into the directory of the local everest-utils repo, which should have been cloned from Git by EDM before.</p>
-<p>Enter directory <cite>docker</cite> and startup some containers:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+<p>Now, change into your workspace directory and enter the directory with the
+prepared docker containers. Start the the mosquitto broker which will be
+used by EVerest for the communication between the EVerest modules:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-utils/docker
+sudo<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>mqtt-server
 </pre></div>
 </div>
-<p>This will give you the following services up and running:</p>
-<ul class="simple">
-<li><p><strong>Mosquitto MQTT broker</strong> (service name: mqtt-server) with ports</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">1883</span></code>: mqtt tcp connection</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">9001</span></code>: mqtt websocket connection</p></li>
-</ul>
-</li>
-<li><p><strong>mariadb</strong> (service name: ocpp-db), sql database needed by <strong>SteVe</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">3306</span></code>: sql tcp connection</p></li>
-</ul>
-</li>
-<li><p><strong>SteVe</strong> (service name: steve) on port 8180 with endpoints</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">:8180/steve/manager/home</span></code>: web interface (login = admin:1234)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">:8180/steve/services/CentralSystemService</span></code>: SOAP endpoint for
-OCPP</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">:8180/steve/websocket/CentralSystemService/(chargeBoxId)</span></code>:
-WebSocket/JSON endpoint for OCPP</p></li>
-</ul>
-</li>
-</ul>
-<p>That makes us ready for entering the simulation phase described in the next chapter.</p>
+<p>That makes us ready for entering the simulation phase described in the next
+chapter.</p>
 </section>
 <section id="software-in-a-loop">
 <h3><span class="section-number">2.3.2. </span>Software in a loop<a class="headerlink" href="#software-in-a-loop" title="Permalink to this heading">¶</a></h3>
-<p>Make sure you have prepared the helpers necessary for simulating EVerest as shown in the <a class="reference external" href="02_quick_start_guide.html#prepare-the-helpers">previous section</a>.</p>
-<p>After having done that, change to the directory /everest-core/build/, which has been created during EVerest install.</p>
-<p>We will startup EVerest now with a software-in-a-loop (SIL) config.</p>
-<p>Start the software-in-a-loop simulation via script:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run-scripts/run-sil.sh
+<p>In the following, we will start EVerest as a simple AC charging station with
+software-in-the-loop configuration. This means that all hardware related
+parts like Powermeter, RFID-Reader or even actual Electric Vehicles are
+loaded as simulated modules.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Make sure you have prepared the helpers necessary for simulating EVerest as
+shown in the <a class="reference internal" href="#quickstartguide-helpers"><span class="std std-ref">previous section</span></a>.</p>
+</div>
+<p>Change to the directory <cite>everest-core/build</cite>, which has been created during
+EVerest install.</p>
+<p>Start EVerest with a software-in-the-loop configuration via script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core/build/run-scripts/run-sil.sh
 </pre></div>
 </div>
-<p>In a new terminal window, run the NodeRed script:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run-scripts/nodered-sil.sh
+<p>In a new terminal window, run the Node-RED script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core/build/run-scripts/nodered-sil.sh
 </pre></div>
 </div>
-<p>This will let us control the simulation with the help of NodeRed.</p>
-<p>You can analyse the output of the two scripts in the terminal windows to get a little bit of insights about what is going on and which ports are used etc.</p>
-<p>If everything worked well, you will be able to reach a web GUI showing a charging process at <em>localhost:1880/ui</em>.</p>
-<p>With that GUI, you can simulate charging states of a charging process in an electric vehicle.</p>
-<p>You can play around with that a little bit to see some output in your two terminal windows. Try to get a first idea!</p>
+<p>For a user interface, just direct your browser to <cite>http://localhost:1880/ui</cite> -
+the required web-server has already been started via the shell scripts.</p>
+<p>This will let us control the simulation in a very simple GUI.</p>
+<p>You can analyse the output of the two shell scripts in the terminal windows to
+get a little bit of insights about what is going on and which ports are used
+etc.</p>
+<p>In the GUI, you can simulate car charging sessions using the available buttons,
+e.g. <cite>CAR PLUGIN</cite>, <cite>PAUSE</cite>, <cite>RESUME</cite> and so on:</p>
+<a class="reference internal image-reference" href="../_images/quick-start-sil-gui.png"><img alt="../_images/quick-start-sil-gui.png" src="../_images/quick-start-sil-gui.png" style="width: 200px;" /></a>
+</section>
+<section id="your-own-simulations">
+<h3><span class="section-number">2.3.3. </span>Your own simulations<a class="headerlink" href="#your-own-simulations" title="Permalink to this heading">¶</a></h3>
+<p>To use simulation with your own custom flows, visit <a class="reference external" href="../tutorials/run_sil/index.html">Tuturial For Simulating EVerest</a>.</p>
 </section>
 <section id="admin-panel">
-<h3><span class="section-number">2.3.3. </span>Admin Panel<a class="headerlink" href="#admin-panel" title="Permalink to this heading">¶</a></h3>
-<p>The Admin Panel gives you a nice overview of the modules and the connections between them.</p>
+<h3><span class="section-number">2.3.4. </span>Admin Panel<a class="headerlink" href="#admin-panel" title="Permalink to this heading">¶</a></h3>
+<p>The Admin Panel gives you a nice overview of the modules and the connections
+between them.</p>
 <p>As it resides in an own repository, which is not delivered automatically by edm in default, you will have to get the repo manually here: <a class="reference external" href="https://github.com/EVerest/everest-admin-panel">EVerest Admin Panel</a></p>
-<p>You will have to install and run it via npm. After that, you can reach the Admin Panel locally via your standard web port 80.</p>
+<p>You will have to install and run it via npm. After that, you can reach the
+Admin Panel locally via your standard web port 80.</p>
 <p>A detailed walk-through to assist you with that is in preparation.</p>
 </section>
 </section>
 <section id="module-setup">
-<h2><span class="section-number">2.4. </span>Module Setup<a class="headerlink" href="#module-setup" title="Permalink to this heading">¶</a></h2>
+<span id="quickstartguide-modulesetup"></span><h2><span class="section-number">2.4. </span>Module Setup<a class="headerlink" href="#module-setup" title="Permalink to this heading">¶</a></h2>
 <p>What parts does a module in EVerest consist of?</p>
 <ul class="simple">
 <li><p>Interface definition</p></li>
 <li><p>Types definition</p></li>
 <li><p>Module implementation</p></li>
 </ul>
-<p>Get a more detailed insight into the module config and implementation files on the <a class="reference external" href="04_detail_module_concept.html">EVerest Module Concept page</a>.</p>
-<p>Here, we want to go on with setting up a module template to use that as a base for our own implementation.</p>
+<p>Get a more detailed insight into the module config and implementation files on
+the <a class="reference internal" href="04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">EVerest Module Concept page</span></a>.</p>
+<p>Here, we want to go on with setting up a module template to use that as a base
+for our own implementation.</p>
 </section>
 <section id="implementing-a-new-module">
 <h2><span class="section-number">2.5. </span>Implementing a New Module<a class="headerlink" href="#implementing-a-new-module" title="Permalink to this heading">¶</a></h2>
-<p>To create a new module in EVerest, we need to do some small steps shown in the following. No worries: We will go through them in more detail afterwards.</p>
+<p>To create a new module in EVerest, we need to do some small steps shown in the
+following. No worries: We will go through them in more detail afterwards.</p>
 <ul class="simple">
 <li><p>Create a new subdirectory in the modules directory.</p></li>
-<li><p>Create a CMakeLists.txt (or borrow it from another module) with all needed libraries to build the module</p></li>
-<li><p>Create a manifest with information about which interface implementations are provided and which interfaces are required from connected modules.</p></li>
+<li><p>Create a CMakeLists.txt (or borrow it from another module) with all
+required libraries to build the module</p></li>
+<li><p>Create a manifest with information about which interface implementations are
+provided and which interfaces are required from connected modules.</p></li>
 </ul>
 <p>Now, let’s make ev-cli do its job of generating a module stub from a template:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli<span class="w"> </span>mod<span class="w"> </span>create<span class="w"> </span>MyModuleName
 </pre></div>
 </div>
 <p>The name of the module is the one given as directory name.</p>
-<p>You will see that you get cpp and hpp files for your main module class and also for the interfaces to be implemented.</p>
-<p>You main cpp file will have to special functions:</p>
+<p>You will see that you get cpp and hpp files for your main module class and also
+for the interfaces to be implemented.</p>
+<p>Your main cpp file will have two special functions:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
-<p>When initialising, the EVerest framework will call all init() functions of all modules one after the other. After having initialised all modules in that way, the framework calls the ready() functions.</p>
-<p>This allows you to do setup things that relate only to your current module in the init() function and all stuff requiring other modules being initialised in your ready() function.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<p>When initialising, the EVerest framework will call all init() functions of all
+modules one after the other. After having initialised all modules in that way,
+the framework calls the ready() functions.</p>
+<p>This allows you to do setup things that relate only to your current module in
+the init() function and all stuff requiring other modules being initialised in
+your ready() function.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
 <p>We will add additional documentation here soon to get you an idea about how vars can be published and how to interact with required modules from the outside. We will show callback functions and events and how all this works together in your module.</p>
 </div>
 </section>

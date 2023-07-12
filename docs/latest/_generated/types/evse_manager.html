@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>10.3.5. evse_manager &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="10.3.6. iso15118_charger" href="iso15118_charger.html" />
+    <link rel="prev" title="10.3.4. energy_price_information" href="energy_price_information.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="iso15118_charger.html" title="10.3.6. iso15118_charger"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="energy_price_information.html" title="10.3.4. energy_price_information"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">10. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">10.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">10.3.5. </span>evse_manager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="evse-manager">
+<span id="everest-types-evse-manager"></span><h1><span class="section-number">10.3.5. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h1>
+<p>EVSE manager types</p>
+<div class="line-block" id="evse-manager-stoptransactionrequest">
+<div class="line"><strong>StopTransactionRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Request for a stop transaction containing the reason and an optional id tag</div>
+<div class="line">required: reason</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-stoptransactionreason"><span class="std std-ref">evse_manager-StopTransactionReason</span></a>)</div>
+<div class="line-block">
+<div class="line">Reason for stopping the transaction</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-stoptransactionreason"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>id_tag</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Id tag that was used to stop the transaction.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-stoptransactionreason">
+<div class="line"><strong>StopTransactionReason</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Reason for stopping transaction</div>
+<div class="line-block">
+<div class="line">EmergencyStop: Emergency stop button was used</div>
+<div class="line">EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit</div>
+<div class="line">HardReset: A hard reset command was received previously</div>
+<div class="line">Local: Stopped locally on request of the user at the Charge Point. This is a regular termination of a transaction. Examples: presenting an RFID tag, pressing a button to stop</div>
+<div class="line">Other: Any other reason</div>
+<div class="line">PowerLoss: Complete loss of power</div>
+<div class="line">Reboot: A locally initiated reset/reboot occurred</div>
+<div class="line">Remote: Stopped remotely on request of the user. This is a regular termination of a transaction. Examples: termination using a smartphone app, exceeding a (non local) prepaid credit</div>
+<div class="line">SoftReset: A soft reset command was received</div>
+<div class="line">UnlockCommand: Central System sent an Unlock Connector command</div>
+<div class="line">DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf</div>
+</div>
+<div class="line">enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-startsessionreason">
+<div class="line"><strong>StartSessionReason</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Reason for session start</div>
+<div class="line-block">
+<div class="line">EVConnected: Session was started because an EV was plugged in</div>
+<div class="line">Authorized: Session was started because a valid authorization was presented and the EVSE is authorized to start a transaction immediately when an EV is plugged in</div>
+</div>
+<div class="line">enum: EVConnected, Authorized</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-switchthreephaseswhilechargingresult">
+<div class="line"><strong>SwitchThreePhasesWhileChargingResult</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Returns success or error code</div>
+<div class="line-block">
+<div class="line">Success: Switching phases was successful</div>
+<div class="line">Error_NotSupported: Switching phases is not supported</div>
+<div class="line">Error_NotCharging: EVSE is not charging</div>
+<div class="line">Error_Hardware: There was a hardware error on switching phases</div>
+</div>
+<div class="line">enum: Success, Error_NotSupported, Error_NotCharging, Error_Hardware</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessioneventenum">
+<div class="line"><strong>SessionEventEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Session Event enum</div>
+<div class="line-block">
+<div class="line">Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)</div>
+<div class="line">Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)</div>
+<div class="line">SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)</div>
+<div class="line">AuthRequired: Signaled when an EVSE needs authorization to start a transaction</div>
+<div class="line">TransactionStarted: Signaled when a transaction has been started. Transaction starts at the point that all conditions for charging are met: EV is connected and user has been authorized</div>
+<div class="line">PrepareCharging: EVSE started to prepare for charging. DC: CableCheck, PreCharge, PowerDelivery. AC: wait for the car to proceed to state C/D</div>
+<div class="line">ChargingStarted: DC: CurrentDemand has started. AC: Auth is ok and car requested power (state C/D)</div>
+<div class="line">ChargingPausedEV: Signaled when charging is paused by the EV</div>
+<div class="line">ChargingPausedEVSE: Signaled when charging is paused by the EVSE</div>
+<div class="line">ChargingResumed: Charging has resumed from a pause</div>
+<div class="line">StoppingCharging: EVSE has started to stop the charging process. DC: CurrentDemand has finished, now doing WeldingCheck etc, AC: Wait for car to return to state B or A</div>
+<div class="line">ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity</div>
+<div class="line">TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.</div>
+<div class="line">SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)</div>
+<div class="line">Error: Signaled when an error occured</div>
+<div class="line">AllErrorsCleared: Signalled when all errors are cleared</div>
+<div class="line">PermanentFault: Signaled when there is a permanent fault at the EVSE</div>
+<div class="line">ReservationStart: Signaled when a reservation starts</div>
+<div class="line">ReservationEnd: Signaled when a reservation ends</div>
+<div class="line">ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction</div>
+<div class="line">ReplugFinished: Signaled when the virtual replug process has finished</div>
+</div>
+<div class="line">enum: Enabled, Disabled, SessionStarted, AuthRequired, TransactionStarted, PrepareCharging, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, WaitingForEnergy, ChargingResumed, StoppingCharging, ChargingFinished, TransactionFinished, SessionFinished, Error, AllErrorsCleared, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessionstarted">
+<div class="line"><strong>SessionStarted</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Data for the SessionStarted event</div>
+<div class="line">required: timestamp, reason</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Session start time in RFC3339 format</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-startsessionreason"><span class="std std-ref">evse_manager-StartSessionReason</span></a>)</div>
+<div class="line-block">
+<div class="line">Reason for session start</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-startsessionreason"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>logging_path</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with “incomplete-” when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-transactionstarted">
+<div class="line"><strong>TransactionStarted</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Data for the TransactionStarted event</div>
+<div class="line">required: timestamp, energy_Wh_import, id_tag</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Transaction start time in RFC3339 format</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Transaction start imported meter value in Wh</div>
+</div>
+<div class="line"><strong>id_tag</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The id tag assigned to this transaction</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Transaction start exported meter value Wh</div>
+</div>
+<div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Signed meter value</div>
+</div>
+<div class="line"><strong>reservation_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Id of the reservation</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-transactionfinished">
+<div class="line"><strong>TransactionFinished</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Data for TransactionFinished event</div>
+<div class="line">required: timestamp, energy_Wh_import</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Transaction end time in RFC3339 format</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Transaction finished imported meter value in Wh</div>
+</div>
+<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Transaction finished exported meter value in Wh</div>
+</div>
+<div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Signed meter value</div>
+</div>
+<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-stoptransactionreason"><span class="std std-ref">evse_manager-StopTransactionReason</span></a>)</div>
+<div class="line-block">
+<div class="line">Reason for stopping transaction</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-stoptransactionreason"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>id_tag</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Id tag that was used to stop the transaction</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-error">
+<div class="line"><strong>Error</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Details on error type</div>
+<div class="line-block">
+<div class="line">Car: Signals a car error</div>
+<div class="line">CarDiodeFault: Signals a car diode fault</div>
+<div class="line">Relais: Signals a relais error</div>
+<div class="line">RCD: Signals an RCD error</div>
+<div class="line">VentilationNotAvailable: Signals that ventilation is not available</div>
+<div class="line">OverCurrent: Signals an overcurrent error</div>
+<div class="line">Internal: Signals an internal error</div>
+<div class="line">SLAC: Signals a SLAC communication error</div>
+<div class="line">HLC: Signals a HLC error</div>
+</div>
+<div class="line">enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-sessionevent">
+<div class="line"><strong>SessionEvent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Emits all events related to sessions</div>
+<div class="line">required: uuid, event</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>uuid</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">An EVSE generated UUID for this session, can be used e.g. for database storage.</div>
+</div>
+<div class="line"><strong>event</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-sessioneventenum"><span class="std std-ref">evse_manager-SessionEventEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Event enum. For some events an additional object is set, see below.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessioneventenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>session_started</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-sessionstarted"><span class="std std-ref">evse_manager-SessionStarted</span></a>)</div>
+<div class="line-block">
+<div class="line">data for SessionStarted event</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionstarted"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>transaction_started</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-transactionstarted"><span class="std std-ref">evse_manager-TransactionStarted</span></a>)</div>
+<div class="line-block">
+<div class="line">data for TransactionStarted event</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-transactionstarted"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>transaction_finished</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-transactionfinished"><span class="std std-ref">evse_manager-TransactionFinished</span></a>)</div>
+<div class="line-block">
+<div class="line">data for TransactionFinished event that happens when car is plugged out</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-transactionfinished"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>error</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-error"><span class="std std-ref">evse_manager-Error</span></a>)</div>
+<div class="line-block">
+<div class="line">Details on error type</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-error"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-limits">
+<div class="line"><strong>Limits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Limits of this EVSE</div>
+<div class="line">required: max_current, nr_of_phases_available</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>uuid</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This module’s UUID for global identification</div>
+</div>
+<div class="line"><strong>max_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Instantaneous maximum current available to car</div>
+</div>
+<div class="line"><strong>nr_of_phases_available</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Instantaneous phase count available to car</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-evinfo">
+<div class="line"><strong>EVInfo</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Information about the connected EV if available</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>soc</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">State of charge of the vehicle’s battery in percent</div>
+</div>
+<div class="line"><strong>present_voltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Current voltage of the vehicles battery [V]</div>
+</div>
+<div class="line"><strong>present_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Current current of the vehicles battery [A]</div>
+</div>
+<div class="line"><strong>target_voltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Target voltage that the vehicle requested [V]</div>
+</div>
+<div class="line"><strong>target_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Target current that the vehicle requested [A]</div>
+</div>
+<div class="line"><strong>maximum_current_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Maximum current that the vehicle supports [A]</div>
+</div>
+<div class="line"><strong>minimum_current_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Charging below this limit is not energy efficient [A]</div>
+</div>
+<div class="line"><strong>maximum_voltage_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Maximum voltage that the vehicle supports [V]</div>
+</div>
+<div class="line"><strong>maximum_power_limit</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Maximum power that the vehicle supports [W]</div>
+</div>
+<div class="line"><strong>estimated_time_full</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Estimated time when the vehicle is fully charged</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>departure_time</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Time when the vehicle intends to depart (If set by the user)</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>estimated_time_bulk</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Estimated time when the vehicle finished bulk charging (e.g. 80%)</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>evcc_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVCC ID (typically MAC address)</div>
+<div class="line">pattern:</div>
+</div>
+<div class="line"><strong>remaining_energy_needed</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Remaining energy needed to fulfill charging goal [Wh]</div>
+</div>
+<div class="line"><strong>battery_capacity</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Vehicle’s battery capacity [Wh]</div>
+</div>
+<div class="line"><strong>battery_full_soc</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">SoC which the vehicle considers fully charged [%]</div>
+</div>
+<div class="line"><strong>battery_bulk_soc</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">SoC which the vehicle considers bulk charging reached [%]</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-carmanufacturer">
+<div class="line"><strong>CarManufacturer</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Enum type for car manufacturers derived from MAC address. May be different from actual brand, so e.g. Skoda falls under Volkswagen_Group.</div>
+<div class="line">enum: VolkswagenGroup, Tesla, Unknown</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Real Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">8. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">9. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">10. EVerest Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">10.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">10.2. EVerest Interfaces</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">10.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="energy_price_information.html"
+                          title="previous chapter"><span class="section-number">10.3.4. </span>energy_price_information</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="iso15118_charger.html"
+                          title="next chapter"><span class="section-number">10.3.6. </span>iso15118_charger</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/types/evse_manager.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="iso15118_charger.html" title="10.3.6. iso15118_charger"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="energy_price_information.html" title="10.3.4. energy_price_information"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">10. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">10.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">10.3.5. </span>evse_manager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

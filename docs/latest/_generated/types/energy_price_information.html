@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>10.3.4. energy_price_information &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="10.3.5. evse_manager" href="evse_manager.html" />
+    <link rel="prev" title="10.3.3. energy" href="energy.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="evse_manager.html" title="10.3.5. evse_manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="energy.html" title="10.3.3. energy"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">10. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">10.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">10.3.4. </span>energy_price_information</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="energy-price-information">
+<span id="everest-types-energy-price-information"></span><h1><span class="section-number">10.3.4. </span>energy_price_information<a class="headerlink" href="#energy-price-information" title="Permalink to this heading">¶</a></h1>
+<p>Energy price information types</p>
+<div class="line-block" id="energy-price-information-priceperkwh">
+<div class="line"><strong>PricePerkWh</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Price information for this timepoint</div>
+<div class="line">required: timestamp, value, currency</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Absolute timestamp for this sample in RFC3339 UTC format</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>value</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Price per kWh (cost)</div>
+</div>
+<div class="line"><strong>currency</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Currency in 3 digit ISO 4217</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="energy-price-information-energypriceschedule">
+<div class="line"><strong>EnergyPriceSchedule</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Forecast JSON Object containing timestamps and the price forecast for both import and export.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>schedule_import</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Pricing time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
+<div class="line"><strong>schedule_export</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Pricing time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Real Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">8. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">9. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">10. EVerest Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">10.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">10.2. EVerest Interfaces</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">10.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="energy.html"
+                          title="previous chapter"><span class="section-number">10.3.3. </span>energy</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="evse_manager.html"
+                          title="next chapter"><span class="section-number">10.3.5. </span>evse_manager</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/types/energy_price_information.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="evse_manager.html" title="10.3.5. evse_manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="energy.html" title="10.3.3. energy"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">10. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">10.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">10.3.4. </span>energy_price_information</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

@@ -107,6 +107,22 @@ install the requirements for Josev:</p>
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
+<p>For ISO 15118 communication including Plug&amp;Charge, install Josev and some CA certificates:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/Josev
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/Josev/iso15118/shared/pki
+./create_certs.sh<span class="w"> </span>-v<span class="w"> </span>iso-2<span class="w"> </span>-i<span class="w"> </span>~/checkout/everest-workspace/everest-core
+</pre></div>
+</div>
+<p>This will enable ISO 15118 communication including Plug&amp;Charge and install The
+required CA certificates inside <em>config/certs/ca</em> and the client certificates,
+private keys and password files inside <em>config/certs/client</em>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This will generate an example PKI setup that can only be used for testing
+and simulation. It will not work and is not recommended for production.</p>
+</div>
+<p>The script for setting up PKI can also be used with the EvseV2G module.</p>
 </section>
 </section>
 <section id="build-everest">
@@ -118,6 +134,15 @@ mkdir<span class="w"> </span>build
 cmake<span class="w"> </span>..
 make<span class="w"> </span>install
 </pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>In case you have more than one CPU core and more RAM availble you can use the
+following command to significantly speed up the build process:</p>
+<p><em>cmake  -j$(nproc) ..</em></p>
+<p><em>make -j$(nproc) install</em></p>
+<p><em>$(nproc)</em> puts out the core count of your machine, so it is using all
+available CPU cores. You can also specify any number of CPU cores you like.</p>
 </div>
 <p>edm helped you to keep it that simple. Let’s now dive into simulating our
 current workspace.</p>

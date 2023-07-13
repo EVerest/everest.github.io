@@ -51,7 +51,7 @@ orchestrating the dependencies between the different EVerest repositories.</p>
 <ul>
 <li><p><a class="reference internal" href="#install-and-quick-start" id="id3">Install and Quick Start</a></p></li>
 <li><p><a class="reference internal" href="#installing-edm" id="id4">Installing edm</a></p></li>
-<li><p><a class="reference internal" href="#enabling-cpm-source-cache" id="id5">Enabling CPM_SOURCE_CACHE</a></p></li>
+<li><p><a class="reference internal" href="#enabling-cpm-source-cache-and-setting-path" id="id5">Enabling CPM_SOURCE_CACHE and setting PATH</a></p></li>
 <li><p><a class="reference internal" href="#building-everest" id="id6">Building EVerest</a></p></li>
 <li><p><a class="reference internal" href="#python-packages-needed-to-run-edm" id="id7">Python packages needed to run edm</a></p></li>
 </ul>
@@ -71,8 +71,11 @@ orchestrating the dependencies between the different EVerest repositories.</p>
 <p>To install the dependency manager for EVerest you have to perform the following
 steps.</p>
 <p>Please make sure you are running a sufficiently recent version of <strong>Python3 (&gt;=3.6)</strong> and that you are able to install Python packages from source.
-Usually, you just have to ensure that you have <strong>pip</strong>, <strong>setuptools</strong> and <strong>wheel</strong> available. Refer to the <a class="reference external" href="https://packaging.python.org/tutorials/installing-packages/#requirements-for-installing-packages">Python Installing Packages</a> documentation for indepth guidance if any problems arise.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+See the <em>python3</em> command below for upgrading the required packages. Refer to
+the
+<a class="reference external" href="https://packaging.python.org/tutorials/installing-packages/#requirements-for-installing-packages">Python Installing Packages</a>
+documentation for indepth guidance if any problems arise.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w"> </span>jstyleson<span class="w"> </span>jsonschema
 </pre></div>
 </div>
 </section>
@@ -107,8 +110,8 @@ edm<span class="w"> </span>--register-cmake-module<span class="w"> </span>--conf
 <p>The workspace-config.yaml contains a copy of the config that was used to create
 this workspace.</p>
 </section>
-<section id="enabling-cpm-source-cache">
-<h3><span class="section-number">6.1.1.3. </span>Enabling CPM_SOURCE_CACHE<a class="headerlink" href="#enabling-cpm-source-cache" title="Permalink to this heading">¶</a></h3>
+<section id="enabling-cpm-source-cache-and-setting-path">
+<h3><span class="section-number">6.1.1.3. </span>Enabling CPM_SOURCE_CACHE and setting PATH<a class="headerlink" href="#enabling-cpm-source-cache-and-setting-path" title="Permalink to this heading">¶</a></h3>
 <p>The EVerest dependency manager uses
 <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a>
 for its CMake integration. This means you <em>can</em> and <strong>should</strong> set the
@@ -116,7 +119,9 @@ for its CMake integration. This means you <em>can</em> and <strong>should</stron
 that you do not manage in the workspace are not re-downloaded multiple times.
 For detailed information and other useful environment variables please
 refer to the <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake/blob/master/README.md#CPM_SOURCE_CACHE">CPM Documentation</a>.</p>
+<p>Also set the PATH variable:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CPM_SOURCE_CACHE</span><span class="o">=</span><span class="nv">$HOME</span>/.cache/CPM
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/<span class="k">$(</span>whoami<span class="k">)</span>/.local/bin
 </pre></div>
 </div>
 </section>

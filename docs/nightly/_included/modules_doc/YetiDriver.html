@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5.3. YetiDriver &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6. EVerest development tools" href="../../dev_tools/index.html" />
+    <link rel="prev" title="5.2. GenericPowermeter" href="GenericPowermeter.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../dev_tools/index.html" title="6. EVerest development tools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="GenericPowermeter.html" title="5.2. GenericPowermeter"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3. </span>YetiDriver</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="yetidriver">
+<span id="everest-modules-handwritten-yetidriver"></span><h1><span class="section-number">5.3. </span>YetiDriver<a class="headerlink" href="#yetidriver" title="Permalink to this heading">¶</a></h1>
+<p>See also module’s <a class="reference internal" href="../../_generated/modules/YetiDriver.html#everest-modules-yetidriver"><span class="std std-ref">auto-generated reference</span></a>.
+The module <code class="docutils literal notranslate"><span class="pre">YetiDriver</span></code> is a board support driver for Pionix Yeti Power
+Board.</p>
+<section id="communication-between-the-yeti-microcontroller-and-this-driver-module">
+<h2><span class="section-number">5.3.1. </span>Communication between the Yeti microcontroller and this driver module<a class="headerlink" href="#communication-between-the-yeti-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
+<p>The hardware connection between Yeti and Yak (the board running EVerest and
+this module) is 3.3V TTL UART plus 2 GPIOs (one to reset the microcontroller
+from Linux and one to wakeup Linux from the microcontroller, which is
+currrently unused).</p>
+<p>The default configuration is 115200 bps 8N1.</p>
+</section>
+<section id="protocol">
+<h2><span class="section-number">5.3.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
+<p>EVerest can send commands to Yeti and Yeti publishes data and events back
+to EVerest. The packets are defined with protobuf to serialize the C structs
+into a binary representation that is transferred over the serial wire in a
+stream:</p>
+<p><a class="reference external" href="https://developers.google.com/protocol-buffers">https://developers.google.com/protocol-buffers</a></p>
+<p>To be able to split the stream back into packets all data is encoded using COBS
+before it is transmitted on the UART:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing">https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing</a></p>
+<section id="cobs">
+<h3><span class="section-number">5.3.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
+<p>COBS is implemented in <code class="docutils literal notranslate"><span class="pre">yeti_comms/evSerial.cpp</span></code>. Whenever a new packet
+was extracted from the stream <code class="docutils literal notranslate"><span class="pre">handlePacket()</span></code> is called to decode protobuf
+and generate the corresponding signals.
+Other parts of the module subscribe to these signals to handle the incoming
+packets.</p>
+<p>For TX <code class="docutils literal notranslate"><span class="pre">linkWrite</span></code> encodes the packet with COBS and outputs it to the UART.</p>
+</section>
+<section id="protobuf">
+<h3><span class="section-number">5.3.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
+<p>The actual packet definitions are located under <code class="docutils literal notranslate"><span class="pre">yeti_comms/protobuf</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">hi2lo.proto</span></code> contains all messages that can be sent from EVerest to Yeti
+while <code class="docutils literal notranslate"><span class="pre">lo2hi.proto</span></code> defines all messages that Yeti sends to EVerest.</p>
+<p>Refer to these files for an up to date definition as they may change
+frequently.</p>
+<p>To generate the C code nanopb is used:</p>
+<p><code class="docutils literal notranslate"><span class="pre">nanopb_generator</span> <span class="pre">-I</span> <span class="pre">.</span> <span class="pre">-D</span> <span class="pre">.</span> <span class="pre">*.proto</span></code></p>
+<p>The output should also be manually copied to Yeti Firmware to ensure the same
+definition is used on both sides when making changes.</p>
+</section>
+<section id="everest-to-yeti">
+<h3><span class="section-number">5.3.2.3. </span>EVerest to Yeti<a class="headerlink" href="#everest-to-yeti" title="Permalink to this heading">¶</a></h3>
+<p>The most important commands that EVerest sends to Yeti are the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">SetControlMode(mode)</span></code>: Yeti firmware can operate in different modes:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Mode</span> <span class="pre">NONE</span> <span class="pre">=</span> <span class="pre">0</span></code>: In this mode Yeti does not allow control over UART. It will
+still send telemetry data. Yeti operates as a standalone non-smart AC charger
+and EVerest does not need to be running.</p>
+<p><code class="docutils literal notranslate"><span class="pre">HIGH</span> <span class="pre">=</span> <span class="pre">1</span></code>: In this mode high level control is possible.
+Yeti operates as a standalone AC charger and EVerest does not need to be
+running, but it does allow certain control such as setMaxCurrent from EVerest.
+This mode is not documented here as it is not used by EVerest anymore.</p>
+<p><code class="docutils literal notranslate"><span class="pre">LOW</span> <span class="pre">=</span> <span class="pre">2</span></code>: In this mode Yeti allows low level control. Yeti does not act
+as a standalone charger, it needs to be controlled by EVerest. It does however
+still run the very basic state machine to follow the car’s states A-F and
+switches relais on and off accordingly. This ensures that basic electrical
+safety remains within the microcontroller and not within EVerest.
+It generates more human readable events from state A-F transitions.</p>
+<p>PWM is directly controlled from EVerest in this mode.</p>
+<section id="low-control-mode">
+<h4><span class="section-number">5.3.2.3.1. </span>Low control mode:<a class="headerlink" href="#low-control-mode" title="Permalink to this heading">¶</a></h4>
+<p>The following commands describe the Low level control mode only:</p>
+<p><code class="docutils literal notranslate"><span class="pre">AllowPowerOn(bool)</span></code>: Inform yeti that it is allowed to switch on the power
+relais/contactors to the car on (true) or must switch off now (false). The
+final decision remains with Yeti in case of power on, it should only power on
+after all other requirements are met (such as RCD current is below limit,
+car is in CP state B etc). On power off Yeti must switch off immediately.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">SetPWM(mode,</span> <span class="pre">duty_cycle)</span></code>: mode 0: OFF (+12V), 1: ON (PWM with duty_cycle),</dt><dd><p>2: F (-12V). Yeti sets the PWM immediately.</p>
+</dd>
+</dl>
+</section>
+<section id="other-commands-for-all-modes">
+<h4><span class="section-number">5.3.2.3.2. </span>Other commands for all modes:<a class="headerlink" href="#other-commands-for-all-modes" title="Permalink to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">FirmwareUpdate(bool)</span></code>: Send true to reboot Yeti into ROM boot loader.
+After that stm32flash tool can be used to flash any firmware binary to it.
+Note that this is a dev kit and for a real product this needs to be implemented
+differently.</p>
+<p><code class="docutils literal notranslate"><span class="pre">KeepAliveHi</span></code>: Send this packet to Yeti at 1Hz. If no heartbeat is received
+for a longer amount of time Yeti may fall back to control mode NONE to act
+as a stand alone emergency backup charger or go into failure mode (can be
+modified in the firmware).</p>
+<p><code class="docutils literal notranslate"><span class="pre">SetThreePhases</span></code>: true: switches to 3ph on next switch on, else single phase.
+Only works on hardware configurations with dual relais. Does not switch while
+charging session is running, Yeti firmware will delay the change to the next
+charging session.</p>
+<p><code class="docutils literal notranslate"><span class="pre">EnableRCD</span></code>: enable or disable the onboard RCD. Some cars generate quite high
+residual current spikes and may not charge properly if RCD is enabled.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Enable</span></code>: Enable CP output</p>
+<p><code class="docutils literal notranslate"><span class="pre">Disable</span></code>: Disable CP output (goes to floating/high impedance)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Reset</span></code>: Reset yeti firmware</p>
+<p><code class="docutils literal notranslate"><span class="pre">Replug</span></code>: Initiate special virtual replug sequence without starting a new
+charging session.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SwitchThreePhasesWhileCharging</span></code>: Change between 1 and 3 phases while
+charging. This is currently not implemented in yeti firmware and will need
+special precautions because some cars may be destroyed by switching from one
+phase to three phase while charging is running (E.g. Zoe 1)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ForceUnlock</span></code>: Force unlock motor lock now regardless of state.</p>
+</section>
+</section>
+<section id="yeti-to-everest">
+<h3><span class="section-number">5.3.2.4. </span>Yeti to EVerest<a class="headerlink" href="#yeti-to-everest" title="Permalink to this heading">¶</a></h3>
+<p>The following messages are relevant for LOW control mode:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Event</span></code>: This is the most important message from Yeti. It will send an event
+on CP transitions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CAR_PLUGGED_IN</span></code>: CP State A -&gt; B</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CAR_REQUESTED_POWER</span></code>: CP State B-&gt;C or B-&gt;D</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POWER_ON</span></code>: Relais switched on succesfully (i.e. after mirror contact check)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POWER_OFF</span></code>: Relais switched off succesfully</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CAR_REQUESTED_STOP_POWER</span></code>: CP State C/D -&gt; any other state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CAR_UNPLUGGED</span></code>: any other state -&gt; A</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR_E</span></code>: any other state -&gt; E</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR_DF</span></code>: Car diode failure detected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR_RELAIS</span></code>: Relais error (mirror contact check failed)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR_RCD</span></code>:: RCD over current event</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR_VENTILATION_NOT_AVAILABLE</span></code>: Car requested D but no ventilation available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR_OVER_CURRENT</span></code>: Yeti detected quick over current on AC lines</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ENTER_BCD</span></code>: any other state -&gt; B/C/D. Used to start SLAC</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LEAVE_BCD</span></code>: B/C/D -&gt; any other state. Stops SLAC.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PERMANENT_FAULT</span></code>: Permanent fault that cannot be cleared by unplugging car</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EVSE_REPLUG_STARTED</span></code>: Replugging sequence started</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EVSE_REPLUG_FINISHED</span></code>: Replugging sequence completed</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">PowerMeter</span></code>: Contains all data from the power measurement, sent at roughly
+1Hz</p>
+<p><code class="docutils literal notranslate"><span class="pre">KeepAliveLo</span></code>: Yeti sends this at 1Hz to keep up connection.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ResetDone</span></code>: Sent once on boot of yeti firmware.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Real Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EvseManager.html">5.1. EvseManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenericPowermeter.html">5.2. GenericPowermeter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.3. YetiDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">8. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">9. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">10. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="GenericPowermeter.html"
+                          title="previous chapter"><span class="section-number">5.2. </span>GenericPowermeter</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../../dev_tools/index.html"
+                          title="next chapter"><span class="section-number">6. </span>EVerest development tools</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_included/modules_doc/YetiDriver.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../dev_tools/index.html" title="6. EVerest development tools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="GenericPowermeter.html" title="5.2. GenericPowermeter"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3. </span>YetiDriver</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+  </body>
+</html>

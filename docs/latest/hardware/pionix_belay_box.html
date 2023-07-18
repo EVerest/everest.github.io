@@ -331,7 +331,7 @@ custom installation and still use the online updates for the base system.</p>
 <span id="belaybox-furtherinfo"></span><h2><span class="section-number">8.4. </span>BelayBox Further Information<a class="headerlink" href="#belaybox-further-information" title="Permalink to this heading">¶</a></h2>
 <section id="reference-cheat-sheet">
 <h3><span class="section-number">8.4.1. </span>Reference Cheat Sheet<a class="headerlink" href="#reference-cheat-sheet" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
+<ul>
 <li><p>rw: make root partition read/writable</p></li>
 <li><p>ro: make it read only again</p></li>
 <li><p>/mnt/user_data/etc/wpa_supplicant/wpa_supplicant.conf: file containing wifi settings</p></li>
@@ -340,9 +340,9 @@ custom installation and still use the online updates for the base system.</p>
 <li><p>/mnt/user_data/etc/wireguard/wg0.conf for a wireguard VPN configuration</p></li>
 <li><p>/mnt/user_data/user-config/config-deploy-devboard.yaml for a persistent user config containing only the diffs to the default config.</p></li>
 <li><p>to stop automatic updates: rw; sudo systemctl disable ota-update.service</p></li>
-<li><dl class="simple">
-<dt>/mnt/user_data/etc/mosquitto/conf.d: here you can add additional config files for the mqtt broker. For example a “public_mqtt.conf” file with the following contents:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">listener</span> <span class="pre">1883</span></code>
-<code class="docutils literal notranslate"><span class="pre">allow_anonymous</span> <span class="pre">true</span></code> to allow anonymous external connections to the mqtt broker for debugging purposes</p>
+<li><dl>
+<dt>/mnt/user_data/etc/mosquitto/conf.d: here you can add additional config files for the mqtt broker. For example a “public_mqtt.conf” file with the following contents:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">listener</span> <span class="pre">1883</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">allow_anonymous</span> <span class="pre">true</span></code> to allow anonymous external connections to the mqtt broker for debugging purposes</p>
 </dd>
 </dl>
 </li>
@@ -406,6 +406,39 @@ changes will also be lost on the next online update.</p>
 to re-mount root read-write/read-only.</p>
 <p>In rw mode you can e.g. use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">...</span></code> to install new software.</p>
 <p>Disable online update if you need the changes to stay.</p>
+</section>
+<section id="factory-reset">
+<h3><span class="section-number">8.4.4. </span>Factory reset<a class="headerlink" href="#factory-reset" title="Permalink to this heading">¶</a></h3>
+<p>For a factory reset of the BelayBox, the following partition has to be
+formatted:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/
+</pre></div>
+</div>
+<p>Before that, all services accessing that partition have to be stopped:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>everest
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>nodered
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Depending of your setup, the EVerest service could also be called
+<em>everest-dev</em> or <em>everest-rpi</em> instead of just <em>everest</em>.</p>
+</div>
+<p>After this, unmount the partition:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>umount<span class="w"> </span>/dev/mmcblk0p6
+</pre></div>
+</div>
+<p>Finally, formatting can start:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkfs<span class="w"> </span>-t<span class="w"> </span>ext4<span class="w"> </span>/dev/mmcblk0p6
+</pre></div>
+</div>
+<p>Confirm with “y” as soon as you are happy with losing all previous
+configuation settings (e.g. WiFi credentials).</p>
+<p>After formatting, reboot the BelayBox to let it setup the factory default
+configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
 </section>
 </section>
 </section>

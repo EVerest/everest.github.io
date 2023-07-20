@@ -63,17 +63,26 @@
 <div class="line"><strong>ProvidedIdToken</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Type for Token provided by auth token providers</div>
-<div class="line">required: id_token, type</div>
+<div class="line">required: id_token, authorization_type</div>
 <div class="line">properties:</div>
 <div class="line-block">
+<div class="line"><strong>request_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1</div>
+</div>
 <div class="line"><strong>id_token</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Arbitrary token string: this has to be printable case insensitive ascii: !!!FIXME!!! write a regex to allow only printable ascii</div>
 </div>
-<div class="line"><strong>type</strong>:<em>string</em> (<a class="reference internal" href="#authorization-tokentype"><span class="std std-ref">authorization-TokenType</span></a>)</div>
+<div class="line"><strong>authorization_type</strong>:<em>string</em> (<a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">authorization-AuthorizationType</span></a>)</div>
 <div class="line-block">
-<div class="line">Type of the token</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-tokentype"><span class="std std-ref">here</span></a>.</div>
+<div class="line">Authorization type of the token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>id_token_type</strong>:<em>string</em> (<a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">authorization-IdTokenType</span></a>)</div>
+<div class="line-block">
+<div class="line">IdTokenType of the token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>connectors</strong>:<em>array</em></div>
 <div class="line-block">
@@ -157,11 +166,18 @@
 <div class="line">enum: UserInput, PlugEvents</div>
 </div>
 </div>
-<div class="line-block" id="authorization-tokentype">
-<div class="line"><strong>TokenType</strong>:<em>string</em></div>
+<div class="line-block" id="authorization-authorizationtype">
+<div class="line"><strong>AuthorizationType</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Type of the provided token</div>
+<div class="line">Type of authorization of the provided token</div>
 <div class="line">enum: OCPP, RFID, Autocharge, PlugAndCharge</div>
+</div>
+</div>
+<div class="line-block" id="authorization-idtokentype">
+<div class="line"><strong>IdTokenType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">IdTokenType of the provided token</div>
+<div class="line">enum: Central, eMAID, MacAddress, ISO14443, ISO15693, KeyCode, Local, NoAuthorization</div>
 </div>
 </div>
 </section>
@@ -176,7 +192,7 @@
 <h3><a href="../../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Real Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Kind Of Quick Guide To EVerest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Modules</a></li>

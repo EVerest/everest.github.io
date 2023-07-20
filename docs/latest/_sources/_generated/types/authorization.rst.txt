@@ -24,13 +24,18 @@ Auth token validator types
 
 | **ProvidedIdToken**:*object*
 |  Type for Token provided by auth token providers
-|  required: id_token, type
+|  required: id_token, authorization_type
 |  properties:
+|   **request_id**:*integer*
+|    Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1
 |   **id_token**:*string*
 |    Arbitrary token string: this has to be printable case insensitive ascii: !!!FIXME!!! write a regex to allow only printable ascii
-|   **type**:*string* (:ref:`authorization-TokenType <authorization-TokenType>`)
-|    Type of the token
-|    **There is an extended definition for this object** :ref:`here <authorization-TokenType>`.
+|   **authorization_type**:*string* (:ref:`authorization-AuthorizationType <authorization-AuthorizationType>`)
+|    Authorization type of the token
+|    **There is an extended definition for this object** :ref:`here <authorization-AuthorizationType>`.
+|   **id_token_type**:*string* (:ref:`authorization-IdTokenType <authorization-IdTokenType>`)
+|    IdTokenType of the token
+|    **There is an extended definition for this object** :ref:`here <authorization-IdTokenType>`.
 |   **connectors**:*array*
 |    A list of connector ids to which the authorization can be assigned
 |    items:
@@ -79,8 +84,14 @@ Auth token validator types
 |   PlugEvents: This algorithms derives the selected connector based on the order of plug in events of EVs
 |  enum: UserInput, PlugEvents
 
-.. _authorization-TokenType:
+.. _authorization-AuthorizationType:
 
-| **TokenType**:*string*
-|  Type of the provided token
+| **AuthorizationType**:*string*
+|  Type of authorization of the provided token
 |  enum: OCPP, RFID, Autocharge, PlugAndCharge
+
+.. _authorization-IdTokenType:
+
+| **IdTokenType**:*string*
+|  IdTokenType of the provided token
+|  enum: Central, eMAID, MacAddress, ISO14443, ISO15693, KeyCode, Local, NoAuthorization

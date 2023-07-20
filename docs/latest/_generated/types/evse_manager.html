@@ -80,8 +80,18 @@
 <div class="line">SoftReset: A soft reset command was received</div>
 <div class="line">UnlockCommand: Central System sent an Unlock Connector command</div>
 <div class="line">DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf</div>
+<div class="line">EnergyLimitReached: Maximum energy of charging reached. For example: in a pre-paid charging solution</div>
+<div class="line">GroundFault: A GroundFault has occurred</div>
+<div class="line">LocalOutOfCredit: A local credit limit enforced through the Charging Station has been exceeded.</div>
+<div class="line">MasterPass: The transaction was stopped using a token with a MasterPassGroupId.</div>
+<div class="line">OvercurrentFault: A larger than intended electric current has occurred</div>
+<div class="line">PowerQuality: Quality of power too low, e.g. voltage too low/high, phase imbalance, etc.</div>
+<div class="line">SOCLimitReached: Electric vehicle has reported reaching a locally enforced maximum battery State of Charge (SOC)</div>
+<div class="line">StoppedByEV: The transaction was stopped by the EV</div>
+<div class="line">TimeLimitReached: EV charging session reached a locally enforced time limit</div>
+<div class="line">Timeout: EV not connected within timeout</div>
 </div>
-<div class="line">enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized</div>
+<div class="line">enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized, EnergyLimitReached, GroundFault, LocalOutOfCredit, MasterPass, OvercurrentFault, PowerQuality, SOCLimitReached, StoppedByEV, TimeLimitReached, Timeout</div>
 </div>
 </div>
 <div class="line-block" id="evse-manager-startsessionreason">
@@ -166,7 +176,7 @@
 <div class="line"><strong>TransactionStarted</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Data for the TransactionStarted event</div>
-<div class="line">required: timestamp, energy_Wh_import, id_tag</div>
+<div class="line">required: timestamp, meter_value, id_tag</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>timestamp</strong>:<em>string</em></div>
@@ -174,17 +184,15 @@
 <div class="line">Transaction start time in RFC3339 format</div>
 <div class="line">format:</div>
 </div>
-<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Transaction start imported meter value in Wh</div>
-</div>
-<div class="line"><strong>id_tag</strong>:<em>string</em></div>
+<div class="line"><strong>id_tag</strong>:<em>object</em> (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
 <div class="line-block">
 <div class="line">The id tag assigned to this transaction</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
+<div class="line"><strong>meter_value</strong>:<em>object</em> (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
-<div class="line">Transaction start exported meter value Wh</div>
+<div class="line">Transaction start exported meter value</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
 <div class="line-block">
@@ -201,7 +209,7 @@
 <div class="line"><strong>TransactionFinished</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Data for TransactionFinished event</div>
-<div class="line">required: timestamp, energy_Wh_import</div>
+<div class="line">required: timestamp, meter_value</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>timestamp</strong>:<em>string</em></div>
@@ -209,13 +217,10 @@
 <div class="line">Transaction end time in RFC3339 format</div>
 <div class="line">format:</div>
 </div>
-<div class="line"><strong>energy_Wh_import</strong>:<em>number</em></div>
+<div class="line"><strong>meter_value</strong>:<em>object</em> (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
-<div class="line">Transaction finished imported meter value in Wh</div>
-</div>
-<div class="line"><strong>energy_Wh_export</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Transaction finished exported meter value in Wh</div>
+<div class="line">Transaction finished meter value</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>signed_meter_value</strong>:<em>string</em></div>
 <div class="line-block">
@@ -412,7 +417,7 @@
 <h3><a href="../../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Real Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_quick_start_guide.html">2. A Kind Of Quick Guide To EVerest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Modules</a></li>

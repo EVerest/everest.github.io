@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2. A Real Quick Guide To EVerest &#8212; EVerest  documentation</title>
+    <title>2. A Kind Of Quick Guide To EVerest &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
@@ -31,7 +31,7 @@
           <a href="01_framework.html" title="1. EVerest framework"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2. </span>A Real Quick Guide To EVerest</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2. </span>A Kind Of Quick Guide To EVerest</a></li> 
       </ul>
     </div>  
 
@@ -40,8 +40,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="a-real-quick-guide-to-everest">
-<span id="quickstartguide-main"></span><h1><span class="section-number">2. </span>A Real Quick Guide To EVerest<a class="headerlink" href="#a-real-quick-guide-to-everest" title="Permalink to this heading">¶</a></h1>
+  <section id="a-kind-of-quick-guide-to-everest">
+<span id="quickstartguide-main"></span><h1><span class="section-number">2. </span>A Kind Of Quick Guide To EVerest<a class="headerlink" href="#a-kind-of-quick-guide-to-everest" title="Permalink to this heading">¶</a></h1>
 <section id="prepare-your-development-environment">
 <h2><span class="section-number">2.1. </span>Prepare Your Development Environment<a class="headerlink" href="#prepare-your-development-environment" title="Permalink to this heading">¶</a></h2>
 <section id="needed-packages">
@@ -213,52 +213,216 @@ etc.</p>
 <p>In the GUI, you can simulate car charging sessions using the available buttons,
 e.g. <cite>CAR PLUGIN</cite>, <cite>PAUSE</cite>, <cite>RESUME</cite> and so on:</p>
 <a class="reference internal image-reference" href="../_images/quick-start-sil-gui.png"><img alt="../_images/quick-start-sil-gui.png" src="../_images/quick-start-sil-gui.png" style="width: 200px;" /></a>
+<p>Having a very first basic feeling for that will be enough for now. We are
+preparing a module tutorial, in which we will dig deeper into things.</p>
 </section>
-<section id="your-own-simulations">
-<h3><span class="section-number">2.3.3. </span>Your own simulations<a class="headerlink" href="#your-own-simulations" title="Permalink to this heading">¶</a></h3>
-<p>To use simulation with your own custom flows, visit <a class="reference external" href="../tutorials/run_sil/index.html">Tuturial For Simulating EVerest</a>.</p>
+<section id="admin-panel-and-simulations">
+<h3><span class="section-number">2.3.3. </span>Admin panel and simulations<a class="headerlink" href="#admin-panel-and-simulations" title="Permalink to this heading">¶</a></h3>
+<p>You can glue together the modules of EVerest (and also your custom ones) with
+the help of EVerest’s framework mechanisms. This way, you define simulation
+flows with which you can test and analyze complicated systems.</p>
+<p>As EVerest is a modular framework, you can define connections and data flows
+in a nice network of modules. As it would be a little bit exhausting to
+configure everything via code or config files, there is a nice helper: The
+admin panel.</p>
+<p>It gives you a nice overview of modules and connections between them. In a nice
+diagram, you can see and understand the simulation with all interfaces,
+configs, data flows and so on.</p>
+<p>Back to practice:</p>
+<p>Having run through the <em>Software-in-the-loop</em> section, you will already have
+prepared access to the admin panel. Just open your browser and direct it to
+port 8849 - the height of Mount EVerest in meters.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://localhost:8849
+</pre></div>
+</div>
+<p>You should see a rather empty page like that:</p>
+<a class="reference internal image-reference" href="../_images/quick-start-admin-panel-1.png"><img alt="../_images/quick-start-admin-panel-1.png" src="../_images/quick-start-admin-panel-1.png" style="width: 360px;" /></a>
+<p>Click on the menu symbol on the upper left corner of the page, then click on
+config. A left side column with further menu items opens. Choose <a href="#id1"><span class="problematic" id="id2">*</span></a>Available
+configs”:</p>
+<a class="reference internal image-reference" href="../_images/quick-start-admin-panel-2.png"><img alt="../_images/quick-start-admin-panel-2.png" src="../_images/quick-start-admin-panel-2.png" style="width: 360px;" /></a>
+<p>If you are here for the first time, you will see all pre-configured Node-RED
+flows here. For a first intro, you may want to take a look at <em>config-sil</em>.</p>
+<p>After opening it, you can see a diagram representation of some modules with
+connections between them.</p>
+<p>The role of each module in this system will be explained on page
+<a class="reference internal" href="04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">Module Concept</span></a>.</p>
+<p>To see how to create your own custom flows for simulations, visit the
+<a class="reference internal" href="../tutorials/run_sil/index.html#tutorial-sil-main"><span class="std std-ref">Tutorial for simulating EVerest</span></a>.</p>
+<p>Next, let’s see how fast we can create a new module in EVerest.</p>
 </section>
-<section id="admin-panel">
-<h3><span class="section-number">2.3.4. </span>Admin Panel<a class="headerlink" href="#admin-panel" title="Permalink to this heading">¶</a></h3>
-<p>The Admin Panel gives you a nice overview of the modules and the connections
-between them.</p>
-<p>As it resides in an own repository, which is not delivered automatically by edm in default, you will have to get the repo manually here: <a class="reference external" href="https://github.com/EVerest/everest-admin-panel">EVerest Admin Panel</a></p>
-<p>You will have to install and run it via npm. After that, you can reach the
-Admin Panel locally via your standard web port 80.</p>
-<p>A detailed walk-through to assist you with that is in preparation.</p>
 </section>
-</section>
-<section id="module-setup">
-<span id="quickstartguide-modulesetup"></span><h2><span class="section-number">2.4. </span>Module Setup<a class="headerlink" href="#module-setup" title="Permalink to this heading">¶</a></h2>
-<p>What parts does a module in EVerest consist of?</p>
+<section id="understanding-everest-modules">
+<span id="quickstartguide-modulesetup"></span><h2><span class="section-number">2.4. </span>Understanding EVerest Modules<a class="headerlink" href="#understanding-everest-modules" title="Permalink to this heading">¶</a></h2>
+<p>You reached the phase of writing a new EVerest module. Congrats!</p>
+<p>For this Quick Start Guide, we will give you a rocket start of understanding
+the basic elements of the EVerest module concept.</p>
+<p>So, let’s dig into the overview:</p>
+<p>EVerest is a modular framework. So, there are lots of modules for different
+entities in an EVerest workspace:</p>
 <ul class="simple">
-<li><p>Interface definition</p></li>
-<li><p>Types definition</p></li>
-<li><p>Module implementation</p></li>
+<li><p>EvseManager (a charging port as part of a charging station)</p></li>
+<li><p>Hardware driver modules</p></li>
+<li><p>Protocol implementations</p></li>
+<li><p>Car simulation modules</p></li>
+<li><p>Authentication modules</p></li>
+<li><p>Energy management modules</p></li>
 </ul>
-<p>Get a more detailed insight into the module config and implementation files on
-the <a class="reference internal" href="04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">EVerest Module Concept page</span></a>.</p>
-<p>Here, we want to go on with setting up a module template to use that as a base
-for our own implementation.</p>
+<p>and so on.</p>
+<p>Of course, you can change the functionality of those modules or add your
+custom ones to the whole module stack.</p>
+<p>In very short terms, a new module will be created by describing its structure
+via manifest and interface files. After that, an EVerest helper tool will
+create the necessary files as stub files, so that you can implement the
+details. The EVerest framework will also know how the modules can be connected
+by the restrictions you set in the manifest.</p>
+<p>How does all that look like? Read the next section!</p>
+<section id="basic-elements-of-a-module">
+<h3><span class="section-number">2.4.1. </span>Basic elements of a module<a class="headerlink" href="#basic-elements-of-a-module" title="Permalink to this heading">¶</a></h3>
+<section id="module-manifest">
+<h4><span class="section-number">2.4.1.1. </span>Module manifest<a class="headerlink" href="#module-manifest" title="Permalink to this heading">¶</a></h4>
+<p>Let’s look at the first step: Describing the structure of a new module.
+Starting with the manifest file, which could look like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describing what this module does.</span>
+<span class="linenos"> 2</span><span class="nt">config</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">some_key</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe the effect of this config key.</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 7</span><span class="nt">provides</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">main</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myinterface</span>
+<span class="linenos">10</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe what the implementation of this interface does.</span>
+<span class="linenos">11</span><span class="nt">requires</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">some_implementation</span><span class="p">:</span>
+<span class="linenos">13</span><span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">externalinterface</span>
+<span class="linenos">14</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">What do I expect from the required external implementation?</span>
+<span class="linenos">15</span><span class="nt">enable_external_mqtt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">16</span><span class="nt">metadata</span><span class="p">:</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://spdx.org/licenses/Apache-2.0.html</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">authors</span><span class="p">:</span>
+<span class="linenos">19</span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Your name, your company</span>
+</pre></div>
+</div>
+<p>Most of this should be self-explanatory. Just a few words:</p>
+<p>The config section gives you the possbility to define some config keys for the
+module to re-use it for different scenarios in your workspace.</p>
+<p>In line 7, the <em>provides</em> section let’s you tell other modules what your
+module is able to do. You tell the EVerest module framework which interfaces
+have been implemented - for example, a power meter. Of course, you can
+implement more than only one interface and list all of that in the <em>provides</em>
+section.</p>
+<p>Line 11 starts with the requirements of your own module. This is the other
+side: Your module tells the EVerest module framework which implementations it
+will require to work in the EVerest workspace.</p>
+<p>In EVerest, you find a manifest file for each module. See the module
+directories in <em>{EVerest Workspace Directory}/everest-core/modules</em>.</p>
 </section>
-<section id="implementing-a-new-module">
-<h2><span class="section-number">2.5. </span>Implementing a New Module<a class="headerlink" href="#implementing-a-new-module" title="Permalink to this heading">¶</a></h2>
-<p>To create a new module in EVerest, we need to do some small steps shown in the
-following. No worries: We will go through them in more detail afterwards.</p>
-<ul class="simple">
-<li><p>Create a new subdirectory in the modules directory.</p></li>
-<li><p>Create a CMakeLists.txt (or borrow it from another module) with all
-required libraries to build the module</p></li>
-<li><p>Create a manifest with information about which interface implementations are
-provided and which interfaces are required from connected modules.</p></li>
-</ul>
-<p>Now, let’s make ev-cli do its job of generating a module stub from a template:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli<span class="w"> </span>mod<span class="w"> </span>create<span class="w"> </span>MyModuleName
+<section id="interfaces">
+<h4><span class="section-number">2.4.1.2. </span>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this heading">¶</a></h4>
+<p>An interface describes - like a kind of construction manual - which information
+it delivers and which functionality it provides for other modules to use.</p>
+<p>A module, that implements an interface, publishes information via VARs (short
+for variables). VARs can be consumed by connected modules. Functionality is
+provided by CMDs (commands, that can be called from other modules).</p>
+<p>VARs and CMDs are defined in the interface files. Remember the manifest file?
+The previous section showd that the manifest file defines which interfaces your
+module implements. Those interfaces could already exist. If not, you would have
+to create a new one.</p>
+<p>You can find all interfaces in the directory
+<em>{EVerest Workspace Directory}/everest-core/interfaces</em> as yaml files.</p>
+<p>An easy one as an example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe why we need this interface.</span>
+<span class="linenos"> 2</span><span class="nt">cmds</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">get_id</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe what this command does when called.</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span>
+<span class="linenos"> 6</span><span class="w">      </span><span class="nt">verbose</span><span class="p">:</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An example for a method argument.</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nt">result</span><span class="p">:</span>
+<span class="linenos">10</span><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain the return value.</span>
+<span class="linenos">11</span><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="linenos">12</span><span class="nt">vars</span><span class="p">:</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="linenos">14</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe this value that gets published.</span>
+<span class="linenos">15</span><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">limits</span><span class="p">:</span>
+<span class="linenos">17</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe this struct that gets published.</span>
+<span class="linenos">18</span><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="linenos">19</span><span class="w">    </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/typedef#/Limits</span>
+</pre></div>
+</div>
+<p>A short interface file, but lots to learn here:</p>
+<p>You can see one CMD defined, which has the name <em>get_id</em>. If you want to
+implement this interface (and <em>provide</em> the functionality of the interface
+to other modules), this is the method you will have to fill with code in your
+implementation later.</p>
+<p>There is one argument defined for the method called <em>verbose</em>. A return value
+of type <em>integer</em> rounds things up for the one CMD of this interface.</p>
+<p>VARs are pieces of information which get published for the network of
+listening modules regularly. We have two VARs in this example. The first one
+is of type <em>integer</em>, the second one has type <em>object</em> and a reference to a
+type. This way, you can create structs or classes (however you would call a
+bunch of simple data-types grouped inside of one logical unit) for publishing.</p>
+<p>Let’s have a look at a type definition in the next section.</p>
+</section>
+<section id="types">
+<h4><span class="section-number">2.4.1.3. </span>Types<a class="headerlink" href="#types" title="Permalink to this heading">¶</a></h4>
+<p>As you have seen in the example interface yaml, you can use <em>types</em> instead
+of simple data entities (like boolean, string, integer and so on).</p>
+<p>In the interface, you saw a reference to an EVerest type definition.</p>
+<p>You can find the type definitions as yaml files in the following directory:</p>
+<p><em>{EVerest Workspace Directory}/everest-core/types</em></p>
+<p>An easy definition of a type could look like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe which group of types will follow.</span>
+<span class="linenos"> 2</span><span class="nt">types</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">SomeType</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe this type.</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="nt">additionalProperties</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="w">      </span><span class="nt">property_1</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe the first property.</span>
+<span class="linenos">10</span><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="linenos">11</span><span class="w">      </span><span class="nt">property_2</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe the second property.</span>
+<span class="linenos">13</span><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+</pre></div>
+</div>
+<p>You can see one defined type here. It has two properties. A property could
+again be another type reference.</p>
+<p>Now, as we have defined everything, it is time to let the EVerest command line
+interface - the ev-cli tool - generate the implementation stubs.</p>
+</section>
+</section>
+<section id="generate-the-stub-files">
+<h3><span class="section-number">2.4.2. </span>Generate the stub files<a class="headerlink" href="#generate-the-stub-files" title="Permalink to this heading">¶</a></h3>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>We will change the directory structure soon to make it more intuitive.
+Please be aware of some changes here.</p>
+</div>
+<p>To create a new module in EVerest, create a new directory inside of the
+<em>everest-core/modules</em> directory. Create a manifest file (or copy an existing
+one) like described above.</p>
+<p>After that prepare a interface yaml which will reside in the
+<em>everest-core/interfaces</em> directory.</p>
+<p>Eventually, you have also used types, which will go into the
+<em>everest-core/types</em> directory.</p>
+<p>Now, it is time for the EVerest tool <em>ev-cli</em> to create the stub files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core
+ev-cli<span class="w"> </span>mod<span class="w"> </span>create<span class="w"> </span>MyModuleName
 </pre></div>
 </div>
 <p>The name of the module is the one given as directory name.</p>
 <p>You will see that you get cpp and hpp files for your main module class and also
 for the interfaces to be implemented.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>It is also possible to work with Javascript or Python. At this point
+we will focus on C++.</p>
+</div>
 <p>Your main cpp file will have two special functions:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
@@ -270,10 +434,25 @@ the framework calls the ready() functions.</p>
 <p>This allows you to do setup things that relate only to your current module in
 the init() function and all stuff requiring other modules being initialised in
 your ready() function.</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>We will add additional documentation here soon to get you an idea about how vars can be published and how to interact with required modules from the outside. We will show callback functions and events and how all this works together in your module.</p>
-</div>
+<p>Furthermore, you will get generated files for all interfaces that you
+declared to be implemented in your module. Those interface files will contain
+handler methods for the CMDs you have declared in the interface files.</p>
+<p>You can walk through the generated files in your new module directory and
+have a look at the prepared classes.</p>
+</section>
+</section>
+<section id="one-deep-breath">
+<h2><span class="section-number">2.5. </span>One Deep Breath<a class="headerlink" href="#one-deep-breath" title="Permalink to this heading">¶</a></h2>
+<p>You made it. Great!</p>
+<p>Probably, now is a good time to take a deep breath and review what you have
+learnt about EVerest.</p>
+<p>You might have generated stub files now but still are not sure how to procede
+with implementing your specific scenarios?</p>
+<p>Good news is: We are working on a tutorial currently to show a short practical
+example of implementing an EVerest module.</p>
+<p>During waiting time, join us anytime in our weekly tech meeting. There are great people who are glad to give you a hint and push you in the right
+direction.</p>
+<p>Thanks for being a part of the EVerest community.</p>
 </section>
 </section>
 
@@ -287,12 +466,12 @@ your ready() function.</p>
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="01_framework.html">1. EVerest framework</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. A Real Quick Guide To EVerest</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. A Kind Of Quick Guide To EVerest</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prepare-your-development-environment">2.1. Prepare Your Development Environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#download-and-install">2.2. Download And Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#simulating-everest">2.3. Simulating EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-setup">2.4. Module Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implementing-a-new-module">2.5. Implementing a New Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-everest-modules">2.4. Understanding EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-deep-breath">2.5. One Deep Breath</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="03_detail_pre_setup.html">3. Prepare Your Development Environment</a></li>
@@ -355,7 +534,7 @@ your ready() function.</p>
           <a href="01_framework.html" title="1. EVerest framework"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2. </span>A Real Quick Guide To EVerest</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">2. </span>A Kind Of Quick Guide To EVerest</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

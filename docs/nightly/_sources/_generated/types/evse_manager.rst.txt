@@ -35,7 +35,17 @@ EVSE manager types
 |   SoftReset: A soft reset command was received
 |   UnlockCommand: Central System sent an Unlock Connector command
 |   DeAuthorized: The transaction was stopped because of the authorization status in a StartTransaction.conf
-|  enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized
+|   EnergyLimitReached: Maximum energy of charging reached. For example: in a pre-paid charging solution
+|   GroundFault: A GroundFault has occurred
+|   LocalOutOfCredit: A local credit limit enforced through the Charging Station has been exceeded.
+|   MasterPass: The transaction was stopped using a token with a MasterPassGroupId.
+|   OvercurrentFault: A larger than intended electric current has occurred
+|   PowerQuality: Quality of power too low, e.g. voltage too low/high, phase imbalance, etc.
+|   SOCLimitReached: Electric vehicle has reported reaching a locally enforced maximum battery State of Charge (SOC)
+|   StoppedByEV: The transaction was stopped by the EV
+|   TimeLimitReached: EV charging session reached a locally enforced time limit
+|   Timeout: EV not connected within timeout
+|  enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized, EnergyLimitReached, GroundFault, LocalOutOfCredit, MasterPass, OvercurrentFault, PowerQuality, SOCLimitReached, StoppedByEV, TimeLimitReached, Timeout
 
 .. _evse_manager-StartSessionReason:
 
@@ -101,17 +111,17 @@ EVSE manager types
 
 | **TransactionStarted**:*object*
 |  Data for the TransactionStarted event
-|  required: timestamp, energy_Wh_import, id_tag
+|  required: timestamp, meter_value, id_tag
 |  properties:
 |   **timestamp**:*string*
 |    Transaction start time in RFC3339 format
 |    format:
-|   **energy_Wh_import**:*number*
-|    Transaction start imported meter value in Wh
-|   **id_tag**:*string*
+|   **id_tag**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    The id tag assigned to this transaction
-|   **energy_Wh_export**:*number*
-|    Transaction start exported meter value Wh
+|    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
+|   **meter_value**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Transaction start exported meter value
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 |   **signed_meter_value**:*string*
 |    Signed meter value
 |   **reservation_id**:*integer*
@@ -121,15 +131,14 @@ EVSE manager types
 
 | **TransactionFinished**:*object*
 |  Data for TransactionFinished event
-|  required: timestamp, energy_Wh_import
+|  required: timestamp, meter_value
 |  properties:
 |   **timestamp**:*string*
 |    Transaction end time in RFC3339 format
 |    format:
-|   **energy_Wh_import**:*number*
-|    Transaction finished imported meter value in Wh
-|   **energy_Wh_export**:*number*
-|    Transaction finished exported meter value in Wh
+|   **meter_value**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Transaction finished meter value
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 |   **signed_meter_value**:*string*
 |    Signed meter value
 |   **reason**:*string* (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)

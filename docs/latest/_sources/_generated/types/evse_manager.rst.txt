@@ -83,9 +83,9 @@ EVSE manager types
 |   ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity
 |   TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
 |   SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)
-|   Error: Signaled when an error occured
+|   Error: Signaled when an error occured. An error doesnt prevent further charging operations.
 |   AllErrorsCleared: Signalled when all errors are cleared
-|   PermanentFault: Signaled when there is a permanent fault at the EVSE
+|   PermanentFault: Signaled when there is a permanent fault at the EVSE. A permanent fault prevents further charging operations
 |   ReservationStart: Signaled when a reservation starts
 |   ReservationEnd: Signaled when a reservation ends
 |   ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
@@ -147,9 +147,9 @@ EVSE manager types
 |   **id_tag**:*string*
 |    Id tag that was used to stop the transaction
 
-.. _evse_manager-Error:
+.. _evse_manager-ErrorEnum:
 
-| **Error**:*string*
+| **ErrorEnum**:*string*
 |  Details on error type
 |   Car: Signals a car error
 |   CarDiodeFault: Signals a car diode fault
@@ -160,7 +160,19 @@ EVSE manager types
 |   Internal: Signals an internal error
 |   SLAC: Signals a SLAC communication error
 |   HLC: Signals a HLC error
-|  enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC
+|  enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC, Other
+
+.. _evse_manager-Error:
+
+| **Error**:*object*
+|  Error object that contains information about the error and optional vendor error information
+|  required: error_code
+|  properties:
+|   **error_code**:*string* (:ref:`evse_manager-ErrorEnum <evse_manager-ErrorEnum>`)
+|    The error enum
+|    **There is an extended definition for this object** :ref:`here <evse_manager-ErrorEnum>`.
+|   **vendor_error**:*string*
+|    The error code of the vendor
 
 .. _evse_manager-SessionEvent:
 
@@ -182,7 +194,7 @@ EVSE manager types
 |   **transaction_finished**:*object* (:ref:`evse_manager-TransactionFinished <evse_manager-TransactionFinished>`)
 |    data for TransactionFinished event that happens when car is plugged out
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionFinished>`.
-|   **error**:*string* (:ref:`evse_manager-Error <evse_manager-Error>`)
+|   **error**:*object* (:ref:`evse_manager-Error <evse_manager-Error>`)
 |    Details on error type
 |    **There is an extended definition for this object** :ref:`here <evse_manager-Error>`.
 

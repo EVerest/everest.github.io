@@ -137,9 +137,9 @@
 <div class="line">ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity</div>
 <div class="line">TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.</div>
 <div class="line">SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)</div>
-<div class="line">Error: Signaled when an error occured</div>
+<div class="line">Error: Signaled when an error occured. An error doesnt prevent further charging operations.</div>
 <div class="line">AllErrorsCleared: Signalled when all errors are cleared</div>
-<div class="line">PermanentFault: Signaled when there is a permanent fault at the EVSE</div>
+<div class="line">PermanentFault: Signaled when there is a permanent fault at the EVSE. A permanent fault prevents further charging operations</div>
 <div class="line">ReservationStart: Signaled when a reservation starts</div>
 <div class="line">ReservationEnd: Signaled when a reservation ends</div>
 <div class="line">ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction</div>
@@ -238,8 +238,8 @@
 </div>
 </div>
 </div>
-<div class="line-block" id="evse-manager-error">
-<div class="line"><strong>Error</strong>:<em>string</em></div>
+<div class="line-block" id="evse-manager-errorenum">
+<div class="line"><strong>ErrorEnum</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Details on error type</div>
 <div class="line-block">
@@ -253,7 +253,26 @@
 <div class="line">SLAC: Signals a SLAC communication error</div>
 <div class="line">HLC: Signals a HLC error</div>
 </div>
-<div class="line">enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC</div>
+<div class="line">enum: Car, CarDiodeFault, Relais, RCD, VentilationNotAvailable, OverCurrent, Internal, SLAC, HLC, Other</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-error">
+<div class="line"><strong>Error</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Error object that contains information about the error and optional vendor error information</div>
+<div class="line">required: error_code</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>error_code</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-errorenum"><span class="std std-ref">evse_manager-ErrorEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">The error enum</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-errorenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>vendor_error</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The error code of the vendor</div>
+</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="evse-manager-sessionevent">
@@ -287,7 +306,7 @@
 <div class="line">data for TransactionFinished event that happens when car is plugged out</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-transactionfinished"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>error</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-error"><span class="std std-ref">evse_manager-Error</span></a>)</div>
+<div class="line"><strong>error</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-error"><span class="std std-ref">evse_manager-Error</span></a>)</div>
 <div class="line-block">
 <div class="line">Details on error type</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-error"><span class="std std-ref">here</span></a>.</div>

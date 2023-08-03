@@ -86,13 +86,17 @@ documentation for indepth guidance if any problems arise.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:EVerest/everest-dev-environment.git
 <span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
-edm<span class="w"> </span>--config<span class="w"> </span>../everest-complete.yaml<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
+edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
 </pre></div>
 </div>
-<p>The last command creates a workspace in the <em>~/checkout/everest-workspace</em> directory
-from a <a class="reference external" href="https://github.com/EVerest/everest-dev-environment/blob/main/everest-complete.yaml">config that is shipped with this repository</a>.
-The workspace will have the following structure containing all current dependencies
-for EVerest:</p>
+<p>The last command creates a workspace in the <em>~/checkout/everest-workspace</em>
+directory from the most recent release of EVerest. If you want the most recent
+main you can use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>main<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
+</pre></div>
+</div>
+<p>The workspace will have the following structure containing all current
+dependencies for EVerest:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>everest-workspace/
 ├──<span class="w"> </span>everest-core
 ├──<span class="w"> </span>everest-deploy-devkit
@@ -106,7 +110,7 @@ for EVerest:</p>
 ├──<span class="w"> </span>libtimer
 ├──<span class="w"> </span>open-plc-utils
 ├──<span class="w"> </span>RISE-V2G
-└──<span class="w"> </span>workspace-config.yamleverest-core
+└──<span class="w"> </span>workspace-config.yaml
 </pre></div>
 </div>
 <p>The workspace-config.yaml contains a copy of the config that was used to create

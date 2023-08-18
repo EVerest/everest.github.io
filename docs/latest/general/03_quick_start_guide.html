@@ -75,11 +75,23 @@ HOME directory:</p>
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
+<p>The EVerest dependency manager uses
+<a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a> for its CMake integration.
+This means you can and should set the CPM_SOURCE_CACHE environment variable.
+This makes sure that dependencies that you do not manage in the workspace are
+not re-downloaded multiple times. For detailed information and other useful
+environment variables please refer to the
+<a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake/blob/master/README.md#CPM_SOURCE_CACHE">CPM Documentation</a>.</p>
+<p>Also set the PATH variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CPM_SOURCE_CACHE</span><span class="o">=</span><span class="nv">$HOME</span>/.cache/CPM
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/<span class="k">$(</span>whoami<span class="k">)</span>/.local/bin
+</pre></div>
+</div>
 <p>To let edm prepare the most common repos for a simple start with EVerest,
 let us use a default config file and set a workspace directory for the repos.
 Set your preferred directory instead of <cite>{EVerest Workspace Directory}</cite>, e.g.
 use <cite>~/checkout/everest-workspace</cite>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--config<span class="w"> </span>../everest-complete.yaml<span class="w"> </span>--workspace<span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>
 </pre></div>
 </div>
 <p>(In future, as your system has edm properly setup, you can always initialise a
@@ -99,7 +111,8 @@ directory. In the above example, it is located at</p>
 is also necessary to build EVerest.</p>
 <p>To install ev-cli, change into the everest-utils/ev-dev-tools/ directory and
 install ev-cli:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-utils/ev-dev-tools
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
 <p>That is all to install ev-cli. You can find the binary file of ev-cli in your

@@ -56,11 +56,10 @@ dependencies between the different EVerest repositories.</p>
 <li><p><a class="reference internal" href="#python-packages-needed-to-run-edm" id="id7">Python packages needed to run edm</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#setting-up-a-workspace" id="id8">Setting up a workspace</a></p></li>
-<li><p><a class="reference internal" href="#updating-a-workspace" id="id9">Updating a workspace</a></p></li>
-<li><p><a class="reference internal" href="#using-the-edm-cmake-module-and-dependencies-yaml" id="id10">Using the edm CMake module and dependencies.yaml</a></p></li>
-<li><p><a class="reference internal" href="#create-a-workspace-config-from-an-existing-directory-tree" id="id11">Create a workspace config from an existing directory tree</a></p></li>
-<li><p><a class="reference internal" href="#git-information-at-a-glance" id="id12">Git information at a glance</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-and-updating-a-workspace" id="id8">Setting up and updating a workspace</a></p></li>
+<li><p><a class="reference internal" href="#using-the-edm-cmake-module-and-dependencies-yaml" id="id9">Using the edm CMake module and dependencies.yaml</a></p></li>
+<li><p><a class="reference internal" href="#create-a-workspace-config-from-an-existing-directory-tree" id="id10">Create a workspace config from an existing directory tree</a></p></li>
+<li><p><a class="reference internal" href="#git-information-at-a-glance" id="id11">Git information at a glance</a></p></li>
 </ul>
 </nav>
 <section id="dependency-manager-for-everest">
@@ -154,31 +153,25 @@ using the guide above they were already installed automatically.</p>
 </ul>
 </section>
 </section>
-<section id="setting-up-a-workspace">
-<span id="cmake-integration-setup"></span><h2><span class="section-number">6.1.2. </span>Setting up a workspace<a class="headerlink" href="#setting-up-a-workspace" title="Permalink to this heading">¶</a></h2>
-<p>A sample workspace config, everest-complete.yaml, for the EVerest project is
-provided in the root directory of this repository. You can set up this
-workspace with the following command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--config<span class="w"> </span>../everest-complete.yaml<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
-</pre></div>
-</div>
-</section>
-<section id="updating-a-workspace">
-<h2><span class="section-number">6.1.3. </span>Updating a workspace<a class="headerlink" href="#updating-a-workspace" title="Permalink to this heading">¶</a></h2>
-<p>To update a workspace you can edit the workspace-config.yaml file in the root
-of the workspace. You can then use the following command to apply these
-changes:</p>
+<section id="setting-up-and-updating-a-workspace">
+<span id="cmake-integration-setup"></span><h2><span class="section-number">6.1.2. </span>Setting up and updating a workspace<a class="headerlink" href="#setting-up-and-updating-a-workspace" title="Permalink to this heading">¶</a></h2>
+<p>For letting <strong>edm</strong> do the work of setting up an initial EVerest workspace,
+do this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
 </pre></div>
 </div>
 <p>If you are currently in the everest-workspace directory the following command
-has the same effect.</p>
+has the same effect:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init
 </pre></div>
 </div>
+<p>Advanced users would eventually want to use their customized lib versions or
+branches of repos. This can be achieved by editing the workspace-config.yaml
+file in the root of the workspace. An <strong>edm init</strong> will setup your current
+workspace accordingly.</p>
 </section>
 <section id="using-the-edm-cmake-module-and-dependencies-yaml">
-<h2><span class="section-number">6.1.4. </span>Using the edm CMake module and dependencies.yaml<a class="headerlink" href="#using-the-edm-cmake-module-and-dependencies-yaml" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.1.3. </span>Using the edm CMake module and dependencies.yaml<a class="headerlink" href="#using-the-edm-cmake-module-and-dependencies-yaml" title="Permalink to this heading">¶</a></h2>
 <p>To use edm from CMake you have to add the following line to the top-level
 CMakeLists.txt file in the respective source repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find_package<span class="o">(</span>EDM<span class="w"> </span>REQUIRED<span class="o">)</span>
@@ -199,7 +192,7 @@ libtimer:
 </div>
 </section>
 <section id="create-a-workspace-config-from-an-existing-directory-tree">
-<h2><span class="section-number">6.1.5. </span>Create a workspace config from an existing directory tree<a class="headerlink" href="#create-a-workspace-config-from-an-existing-directory-tree" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.1.4. </span>Create a workspace config from an existing directory tree<a class="headerlink" href="#create-a-workspace-config-from-an-existing-directory-tree" title="Permalink to this heading">¶</a></h2>
 <p>Suppose you already have a directory tree that you want to save into a config
 file. You can do this with the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml
@@ -223,7 +216,7 @@ the config you can use the following command:</p>
 </div>
 </section>
 <section id="git-information-at-a-glance">
-<span id="id1"></span><h2><span class="section-number">6.1.6. </span>Git information at a glance<a class="headerlink" href="#git-information-at-a-glance" title="Permalink to this heading">¶</a></h2>
+<span id="id1"></span><h2><span class="section-number">6.1.5. </span>Git information at a glance<a class="headerlink" href="#git-information-at-a-glance" title="Permalink to this heading">¶</a></h2>
 <p>You can get a list of all git repositories in the current directory and their
 state using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--git-info<span class="w"> </span>--git-fetch

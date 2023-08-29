@@ -118,6 +118,9 @@ Module Configuration
 | **soft_over_current_measurement_noise_A**:*number*
 | *default: 0.5*
 |  Set current measurement noise. Added to limit as an offset to avoid false triggers.
+| **hack_fix_hlc_integer_current_requests**:*boolean*
+| *default: False*
+|  Some cars request only integer ampere values during DC charging. For low power DC charging that  means that they charge a few hundred watts slower then needed. If enabled, this will charge at full power if the difference between EV requested current (integer) and HLC current limit is less then 1.0
 
 ********
 Provides

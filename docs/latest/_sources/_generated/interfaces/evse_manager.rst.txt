@@ -51,10 +51,14 @@ Commands
 |   Returns the connector id of the evse manager
 | **enable**:*boolean*
 |  Enables the evse. EVSE is available for charging after this operation
+|  **connector_id**:*integer*
+|   Specifies the ID of the connector to disable. If 0, the whole EVSE should be enabled
 |  **Result**:*boolean*
 |   Returns true if evse was enabled (or was enabled before), returns false if enable failed e.g. due to permanent fault.
 | **disable**:*boolean*
 |  Disables the evse. EVSE is not available for charging after this operation
+|  **connector_id**:*integer*
+|   Specifies the ID of the connector. If 0, the whole EVSE should be disabled
 |  **Result**:*boolean*
 |   Returns true if evse was disabled (or was disabled before), returns false if it could not be disabled (i.e. due to communication error with hardware)
 | **authorize_response**:*void*
@@ -93,7 +97,9 @@ Commands
 |  **Result**:*boolean*
 |   Returns true if successful
 | **force_unlock**:*boolean*
-|  Forces EVSE to unlock connector now. During normal operation, connector will be locked/unlocked in the correct sequence. Do not use this function except if explicitly requested by e.g. management cloud.
+|  Forces connector to unlock connector now. During normal operation, connector will be locked/unlocked in the correct sequence. Do not use this function except if explicitly requested by e.g. management cloud.
+|  **connector_id**:*integer*
+|   Specifies the ID of the connector that should be unlocked
 |  **Result**:*boolean*
 |   Returns true if unlocking sequence was successfully executed
 | **set_external_limits**:*void*

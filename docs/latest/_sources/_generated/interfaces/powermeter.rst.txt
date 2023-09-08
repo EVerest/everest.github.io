@@ -19,9 +19,16 @@ Variables
 ********
 Commands
 ********
-| **get_signed_meter_value**:*string*
-|  Returns a signed meter value with the given auth token
-|  **auth_token**:*string*
-|   Auth token
+| **start_transaction**:*boolean*
+|  Starts a transaction on the power meter (for signed metering according to German Eichrecht)
+|  **value**:*object* (:ref:`powermeter-TransactionReq <powermeter-TransactionReq>`)
+|   All information that should be included in the signed OCMF packet
+|   **There is an extended definition for this object** :ref:`here <powermeter-TransactionReq>`.
+|  **Result**:*boolean*
+|   True on success, False if transaction could not be started in the power meter
+| **stop_transaction**:*string*
+|  Stop the transaction on the power meter and return the signed metering information
+|  **transaction_id**:*string*
+|   Transaction id
 |  **Result**:*string*
-|   Signed meter value
+|   Returns OCMF signed meter values

@@ -333,25 +333,96 @@ custom installation and still use the online updates for the base system.</p>
 <span id="belaybox-furtherinfo"></span><h2><span class="section-number">9.4. </span>BelayBox Further Information<a class="headerlink" href="#belaybox-further-information" title="Permalink to this heading">¶</a></h2>
 <section id="reference-cheat-sheet">
 <h3><span class="section-number">9.4.1. </span>Reference Cheat Sheet<a class="headerlink" href="#reference-cheat-sheet" title="Permalink to this heading">¶</a></h3>
-<ul>
-<li><p>rw: make root partition read/writable</p></li>
-<li><p>ro: make it read only again</p></li>
-<li><p>/mnt/user_data/etc/wpa_supplicant/wpa_supplicant.conf: file containing wifi settings</p></li>
-<li><p>/mnt/user_data/opt/everest/&lt;crosscompiled everest binaries&gt; force the use of custom everest build or config by automated start of <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code> instead of <code class="docutils literal notranslate"><span class="pre">everest.service</span></code></p></li>
-<li><p>/mnt/user_data/etc/update_channel contains either stable or unstable to define release channels</p></li>
-<li><p>/mnt/user_data/etc/wireguard/wg0.conf for a wireguard VPN configuration</p></li>
-<li><p>/mnt/user_data/user-config/config-deploy-devboard.yaml for a persistent user config containing only the diffs to the default config.</p></li>
-<li><p>to stop automatic updates: rw; sudo systemctl disable ota-update.service</p></li>
-<li><dl>
-<dt>/mnt/user_data/etc/mosquitto/conf.d: here you can add additional config files for the mqtt broker. For example a “public_mqtt.conf” file with the following contents:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">listener</span> <span class="pre">1883</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">allow_anonymous</span> <span class="pre">true</span></code> to allow anonymous external connections to the mqtt broker for debugging purposes</p>
-</dd>
-</dl>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-fu</span> <span class="pre">everest.service</span></code>: watch the output of everest.service</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-fu</span> <span class="pre">everest-dev.service</span></code>: watch the output of <code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/opt/everest/bin/manager</span> <span class="pre">--conf</span> <span class="pre">/opt/everest/conf/config-deploy-devboard.yaml</span></code>: run EVerest in the terminal. Make sure the systemd service is not running.</p></li>
-</ul>
+<section id="make-root-partition-read-writable">
+<h4><span class="section-number">9.4.1.1. </span>Make root partition read/writable<a class="headerlink" href="#make-root-partition-read-writable" title="Permalink to this heading">¶</a></h4>
+<p>Use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rw
+</pre></div>
+</div>
+</section>
+<section id="make-it-read-only-again">
+<h4><span class="section-number">9.4.1.2. </span>Make it read only again<a class="headerlink" href="#make-it-read-only-again" title="Permalink to this heading">¶</a></h4>
+<p>Use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ro
+</pre></div>
+</div>
+</section>
+<section id="file-containing-wifi-settings">
+<h4><span class="section-number">9.4.1.3. </span>File containing wifi settings<a class="headerlink" href="#file-containing-wifi-settings" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/etc/wpa_supplicant/wpa_supplicant.conf
+</pre></div>
+</div>
+</section>
+<section id="use-of-custom-everest-build-or-config">
+<h4><span class="section-number">9.4.1.4. </span>Use of custom everest build or config<a class="headerlink" href="#use-of-custom-everest-build-or-config" title="Permalink to this heading">¶</a></h4>
+<p>Force the use of custom everest build or config by automated start of
+<code class="docutils literal notranslate"><span class="pre">everest-dev.service</span></code> instead of <code class="docutils literal notranslate"><span class="pre">everest.service</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/opt/everest/&lt;crosscompiled<span class="w"> </span>everest<span class="w"> </span>binaries&gt;
+</pre></div>
+</div>
+</section>
+<section id="define-release-channels">
+<h4><span class="section-number">9.4.1.5. </span>Define release channels<a class="headerlink" href="#define-release-channels" title="Permalink to this heading">¶</a></h4>
+<p>Contains either stable or unstable to define release channels:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/etc/update_channel
+</pre></div>
+</div>
+</section>
+<section id="wireguard-vpn-configuration">
+<h4><span class="section-number">9.4.1.6. </span>Wireguard VPN configuration<a class="headerlink" href="#wireguard-vpn-configuration" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/etc/wireguard/wg0.config
+</pre></div>
+</div>
+</section>
+<section id="persistent-user-config">
+<h4><span class="section-number">9.4.1.7. </span>Persistent user config<a class="headerlink" href="#persistent-user-config" title="Permalink to this heading">¶</a></h4>
+<p>Via a complete config:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/etc/everest/custom.yaml
+</pre></div>
+</div>
+<p>Via a config file containing only the diffs to the default config:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/user-config/config-deploy-devboard.yaml
+</pre></div>
+</div>
+</section>
+<section id="stop-automatic-updates">
+<h4><span class="section-number">9.4.1.8. </span>Stop automatic updates<a class="headerlink" href="#stop-automatic-updates" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rw<span class="p">;</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>ota-update.service
+</pre></div>
+</div>
+</section>
+<section id="additional-config-files-for-the-mqtt-broker">
+<h4><span class="section-number">9.4.1.9. </span>Additional config files for the mqtt broker<a class="headerlink" href="#additional-config-files-for-the-mqtt-broker" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/mnt/user_data/etc/mosquitto/conf.d
+</pre></div>
+</div>
+<p>This is the place where you can add for example a “public_mqtt.conf” file with the following contents:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>listener<span class="w"> </span><span class="m">1883</span>
+allow_anonymous<span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>With this, you allow anonymous external connections to the mqtt broker for
+debugging purposes.</p>
+</section>
+<section id="watch-the-output-of-everest-service">
+<h4><span class="section-number">9.4.1.10. </span>Watch the output of everest.service<a class="headerlink" href="#watch-the-output-of-everest-service" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>journalctl<span class="w"> </span>-fu<span class="w"> </span>everest.service
+</pre></div>
+</div>
+<p>For watching the output of everest-dev.service, set service name to
+<em>everest-dev.service</em>.</p>
+</section>
+<section id="run-everest-in-terminal">
+<h4><span class="section-number">9.4.1.11. </span>Run EVerest in terminal<a class="headerlink" href="#run-everest-in-terminal" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/everest/bin/manager<span class="w"> </span>--conf<span class="w"> </span>/opt/everest/conf/config-deploy-devboard.yaml
+</pre></div>
+</div>
+<p>or for using the custom user config:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/everest/bin/manager<span class="w"> </span>--conf<span class="w"> </span>/mnt/user_data/etc/everest/custom.yaml
+</pre></div>
+</div>
+<p>Make sure the systemd service is not running.</p>
+</section>
 </section>
 <section id="raspbian-partitioning-scheme">
 <h3><span class="section-number">9.4.2. </span>Raspbian partitioning scheme<a class="headerlink" href="#raspbian-partitioning-scheme" title="Permalink to this heading">¶</a></h3>

@@ -20,12 +20,50 @@ Powermeter types
 |    OCPP transaction UUID
 |   **client_id**:*string*
 |    User identification means, e.g. RFID card ID
-|   **tariff_id**:*string*
+|   **tariff_id**:*integer*
 |    Tariff ID
-|   **cable_id**:*string*
+|   **cable_id**:*integer*
 |    Cable ID
 |   **user_data**:*string*
 |    User data
+
+.. _powermeter-TransactionRequestStatus:
+
+| **TransactionRequestStatus**:*string*
+|  Status of a transaction start or stop request.
+|  enum: OK, NOT_SUPPORTED, UNEXPECTED_ERROR
+
+.. _powermeter-TransactionStartResponse:
+
+| **TransactionStartResponse**:*object*
+|  Return value when a transaction is started.
+|  required: status
+|  properties:
+|   **status**:** (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
+|    Response status that indicates whether the transaction start request could successfully be performed.
+|    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
+|   **error**:*string*
+|    If status is not OK, a verbose error message.
+|   **transaction_min_stop_time**:*string*
+|    Earliest point in time the started transaction can be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.
+|    format:
+|   **transaction_max_stop_time**:*string*
+|    Deadline for the transaction to be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.
+|    format:
+
+.. _powermeter-TransactionStopResponse:
+
+| **TransactionStopResponse**:*object*
+|  Report returned when a OCMF transaction is requested to stop. If successful, includes the signed OCMF string. In case of an error, an additional error message can be provided.
+|  required: status
+|  properties:
+|   **status**:** (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
+|    Response status that indicates whether the transaction stop request could successfully be performed.
+|    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
+|   **ocmf**:*string*
+|    The signed OCMF report of the stopped transaction. Must be provided if status is OK.
+|   **error**:*string*
+|    If status is not OK, a verbose error message.
 
 .. _powermeter-Powermeter:
 

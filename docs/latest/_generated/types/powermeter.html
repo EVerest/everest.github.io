@@ -64,17 +64,76 @@
 <div class="line-block">
 <div class="line">User identification means, e.g. RFID card ID</div>
 </div>
-<div class="line"><strong>tariff_id</strong>:<em>string</em></div>
+<div class="line"><strong>tariff_id</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Tariff ID</div>
 </div>
-<div class="line"><strong>cable_id</strong>:<em>string</em></div>
+<div class="line"><strong>cable_id</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Cable ID</div>
 </div>
 <div class="line"><strong>user_data</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">User data</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-transactionrequeststatus">
+<div class="line"><strong>TransactionRequestStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Status of a transaction start or stop request.</div>
+<div class="line">enum: OK, NOT_SUPPORTED, UNEXPECTED_ERROR</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-transactionstartresponse">
+<div class="line"><strong>TransactionStartResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Return value when a transaction is started.</div>
+<div class="line">required: status</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:** (<a class="reference internal" href="#powermeter-transactionrequeststatus"><span class="std std-ref">powermeter-TransactionRequestStatus</span></a>)</div>
+<div class="line-block">
+<div class="line">Response status that indicates whether the transaction start request could successfully be performed.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#powermeter-transactionrequeststatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>error</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">If status is not OK, a verbose error message.</div>
+</div>
+<div class="line"><strong>transaction_min_stop_time</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Earliest point in time the started transaction can be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>transaction_max_stop_time</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Deadline for the transaction to be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.</div>
+<div class="line">format:</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-transactionstopresponse">
+<div class="line"><strong>TransactionStopResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Report returned when a OCMF transaction is requested to stop. If successful, includes the signed OCMF string. In case of an error, an additional error message can be provided.</div>
+<div class="line">required: status</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:** (<a class="reference internal" href="#powermeter-transactionrequeststatus"><span class="std std-ref">powermeter-TransactionRequestStatus</span></a>)</div>
+<div class="line-block">
+<div class="line">Response status that indicates whether the transaction stop request could successfully be performed.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#powermeter-transactionrequeststatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ocmf</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The signed OCMF report of the stopped transaction. Must be provided if status is OK.</div>
+</div>
+<div class="line"><strong>error</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">If status is not OK, a verbose error message.</div>
 </div>
 </div>
 </div>

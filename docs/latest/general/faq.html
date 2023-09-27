@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8. Frequently Asked Questions And Best Practices &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=0a676766" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Pionix BelayBox" href="../hardware/pionix_belay_box.html" />
+    <link rel="prev" title="7.8. Sphinx style guide" href="../tutorials/sphinx_style_guide.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../hardware/pionix_belay_box.html" title="9. Pionix BelayBox"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../tutorials/sphinx_style_guide.html" title="7.8. Sphinx style guide"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8. </span>Frequently Asked Questions And Best Practices</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="frequently-asked-questions-and-best-practices">
+<span id="faq-main"></span><h1><span class="section-number">8. </span>Frequently Asked Questions And Best Practices<a class="headerlink" href="#frequently-asked-questions-and-best-practices" title="Permalink to this heading">¶</a></h1>
+<p>This page will grow with questions from the mailing list and topics that
+come up regularly in our EVerest development life. It is always a good idea
+to have a look here when running into problems before asking for help via
+the <a class="reference internal" href="../index.html#index-mailinglist"><span class="std std-ref">mailing list</span></a>.</p>
+<section id="debug-a-single-module">
+<h2><span class="section-number">8.1. </span>Debug a single module<a class="headerlink" href="#debug-a-single-module" title="Permalink to this heading">¶</a></h2>
+<p><strong>How can I debug a single module?</strong></p>
+<p>It is possible to use the GNU Debugger (GDB) to debug a single EVerest module.</p>
+<p>The easiest way is to run the module in standalone mode. Say, for example, you
+want to debug the Auth module for the SIL config (config-sil.yaml).</p>
+<p>Let’s assume you are in directory <em>build/dist</em>.</p>
+<p>Start the manager with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./bin/manager<span class="w"> </span>--config<span class="w"> </span>config-sil<span class="w"> </span>--standalone<span class="w"> </span>auth
+</pre></div>
+</div>
+<p>This will start EVerest with the config-sil.yaml as configuration, but it
+won’t start the Auth module (note <em>auth</em> is written small because it is the
+<em>module instance id</em> - this way there can be multiple Auth module instances
+in your config).</p>
+<p>Now you need to start the Auth module manual using gdb. When using
+Visual Studio Code, the debug configuration (launch.json) looks like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;configurations&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">      </span><span class="o">{</span>
+<span class="w">          </span><span class="s2">&quot;name&quot;</span>:<span class="w"> </span><span class="s2">&quot;AuthManager&quot;</span>,
+<span class="w">          </span><span class="s2">&quot;type&quot;</span>:<span class="w"> </span><span class="s2">&quot;cppdbg&quot;</span>,
+<span class="w">          </span><span class="s2">&quot;request&quot;</span>:<span class="w"> </span><span class="s2">&quot;launch&quot;</span>,
+<span class="w">          </span><span class="s2">&quot;program&quot;</span>:<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">workspaceFolder</span><span class="si">}</span><span class="s2">/build/dist/libexec/everest/modules/Auth/Auth&quot;</span>,
+<span class="w">          </span><span class="s2">&quot;args&quot;</span>:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;--config&quot;</span>,<span class="w"> </span><span class="s2">&quot;config-sil&quot;</span>,<span class="w"> </span><span class="s2">&quot;--module&quot;</span>,<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="o">]</span>,
+<span class="w">          </span><span class="s2">&quot;stopAtEntry&quot;</span>:<span class="w"> </span>false,
+<span class="w">          </span><span class="s2">&quot;cwd&quot;</span>:<span class="w"> </span><span class="s2">&quot;/workspace/everest-core&quot;</span>,
+<span class="w">          </span><span class="s2">&quot;environment&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">          </span><span class="s2">&quot;externalConsole&quot;</span>:<span class="w"> </span>false,
+<span class="w">          </span><span class="s2">&quot;MIMode&quot;</span>:<span class="w"> </span><span class="s2">&quot;gdb&quot;</span>,
+<span class="w">          </span><span class="s2">&quot;setupCommands&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">              </span><span class="o">{</span>
+<span class="w">                  </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Enable pretty-printing for gdb&quot;</span>,
+<span class="w">                  </span><span class="s2">&quot;text&quot;</span>:<span class="w"> </span><span class="s2">&quot;-enable-pretty-printing&quot;</span>,
+<span class="w">                  </span><span class="s2">&quot;ignoreFailures&quot;</span>:<span class="w"> </span><span class="nb">true</span>
+<span class="w">              </span><span class="o">}</span>,
+<span class="w">              </span><span class="o">{</span>
+<span class="w">                  </span><span class="s2">&quot;description&quot;</span>:<span class="w"> </span><span class="s2">&quot;Set Disassembly Flavor to Intel&quot;</span>,
+<span class="w">                  </span><span class="s2">&quot;text&quot;</span>:<span class="w"> </span><span class="s2">&quot;-gdb-set disassembly-flavor intel&quot;</span>,
+<span class="w">                  </span><span class="s2">&quot;ignoreFailures&quot;</span>:<span class="w"> </span><span class="nb">true</span>
+<span class="w">              </span><span class="o">}</span>
+<span class="w">          </span><span class="o">]</span>
+<span class="w">      </span><span class="o">}</span>,
+<span class="w">  </span><span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This will then start the Auth module instance.</p>
+<p>Also note the argument <em>–module auth</em>, which again specifies the module
+instance id and needs to match the one you’ve used for standalone.</p>
+<p>Now, EVerest will continue to start and breakpoints set in the source file of
+the Auth module should be taken.</p>
+<p>Furthermore and very important, don’t forget to compile the project with
+debugging enabled. One easy way to achieve this is to call</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+</pre></div>
+</div>
+<p>from the root folder of everest-core, assuming you have already created the
+<em>build</em> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is also possible to debug the whole manager process. This way, you will
+have the disadvantage of possibly bad performance. The reason is that the
+manager spawns/forks new processes, which then need to be attached to the
+debugger too.</p>
+<p>Just in case you want to go this direction, you need to
+“set detach-on-fork off” and “follow-fork-mode” depending on what you want to
+achieve.</p>
+</div>
+</section>
+<section id="rpc-communication-timeout">
+<h2><span class="section-number">8.2. </span>RPC communication timeout<a class="headerlink" href="#rpc-communication-timeout" title="Permalink to this heading">¶</a></h2>
+<p><strong>In the Admin Panel, I sometimes get the following error when saving a config
+file:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">save</span> <span class="n">test_config</span> <span class="n">Reason</span><span class="p">:</span> <span class="n">RPC</span> <span class="n">communication</span> <span class="n">timeout</span> <span class="n">to</span> <span class="n">everest</span>
+<span class="n">controller</span> <span class="n">process</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><strong>How can I solve this?</strong></p>
+<p>In this case, the Admin Panel timeouted while waiting for the response of the
+EVerest process trying to save the file.</p>
+<p>The timeout is currently 2s.</p>
+<p>The problem with your setup might be that running EVerest as well as running
+an UI session with a browser on one hardware is just too much for it. This
+can sometimes happen on Raspberry Pies, for example.</p>
+<p>You may try to connect from a desktop PC to IP_OF_THE_RASPBERRY:8849. This way,
+the client-side processing of the Admin Panel javascript code gets offloaded
+from the Raspberry and it might be able to process the save faster.</p>
+<p>Another hint for environments with very limited ressources is to fill in the
+workspace information into the yaml config manually without using the Admin
+Panel.</p>
+</section>
+<section id="energy-management">
+<h2><span class="section-number">8.3. </span>Energy management<a class="headerlink" href="#energy-management" title="Permalink to this heading">¶</a></h2>
+<p><strong>How does the EVSE Manager use information like `grid_connection_point`
+(with parameters `fuse_limit_A` and `phase_count`) or `energy_manager`
+(e.g. `nominal_ac_voltage`?</strong></p>
+<p>The EVSE Manager module defaults to 0A/0W energy consumption and requires that
+some other module allocates power through the <cite>energy</cite> interface.</p>
+<p>The <cite>energy manager</cite> just supplies whatever the limit on the power path is,
+and the fuse module is just loaded to model the typical input fuse limit of
+the charger connection (so the energy manager will limit to that even if the
+car is requesting more).</p>
+<p>As a visualization, imagine the energy management in EVerest as a tree
+structure. What makes energy management in EVerest quite flexible is the
+concept of having constraints and limits you can provide to it. For each node
+in that tree, limits can be provided which are recognized by the energy
+manager which calculates the energy that is to be provided by the EVSE
+managers.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Module Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_existing_modules.html">5. EVerest Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Frequently Asked Questions And Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#debug-a-single-module">8.1. Debug a single module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rpc-communication-timeout">8.2. RPC communication timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#energy-management">8.3. Energy management</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">10. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">11. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../tutorials/sphinx_style_guide.html"
+                          title="previous chapter"><span class="section-number">7.8. </span>Sphinx style guide</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../hardware/pionix_belay_box.html"
+                          title="next chapter"><span class="section-number">9. </span>Pionix BelayBox</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/general/faq.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../hardware/pionix_belay_box.html" title="9. Pionix BelayBox"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../tutorials/sphinx_style_guide.html" title="7.8. Sphinx style guide"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">8. </span>Frequently Asked Questions And Best Practices</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    </div>
+  </body>
+</html>

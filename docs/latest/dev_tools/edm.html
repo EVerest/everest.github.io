@@ -79,10 +79,9 @@ documentation for indepth guidance if any problems arise.</p>
 </section>
 <section id="installing-edm">
 <h3><span class="section-number">6.1.1.2. </span>Installing edm<a class="headerlink" href="#installing-edm" title="Permalink to this heading">¶</a></h3>
-<p>Now you can clone this repository and install <strong>edm</strong>:
-(make sure you have <a class="reference external" href="https://www.atlassian.com/git/tutorials/git-ssh">set up your ssh key in github</a> first!)</p>
+<p>Now you can clone this repository and install <strong>edm</strong>:</p>
 <p>A script for the steps below can be found <a class="reference external" href="https://github.com/EVerest/everest-utils/tree/main/everest-cpp">here</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:EVerest/everest-dev-environment.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-dev-environment
 <span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
@@ -181,11 +180,11 @@ CMakeLists.txt file in the respective source repository:</p>
 repository. It should look like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---
 liblog:
-<span class="w">  </span>git:<span class="w"> </span>git@github.com:EVerest/liblog.git
+<span class="w">  </span>git:<span class="w"> </span>https://github.com/EVerest/liblog
 <span class="w">  </span>git_tag:<span class="w"> </span>main
 <span class="w">  </span>options:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;BUILD_EXAMPLES OFF&quot;</span><span class="o">]</span>
 libtimer:
-<span class="w">  </span>git:<span class="w"> </span>git@github.com:EVerest/libtimer.git
+<span class="w">  </span>git:<span class="w"> </span>https://github.com/EVerest/libtimer
 <span class="w">  </span>git_tag:<span class="w"> </span>main
 <span class="w">  </span>options:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;BUILD_EXAMPLES OFF&quot;</span><span class="o">]</span>
 </pre></div>
@@ -199,14 +198,14 @@ file. You can do this with the following command:</p>
 </pre></div>
 </div>
 <p>This is a short form of:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml<span class="w"> </span>--include-remotes<span class="w"> </span>git@github.com:EVerest/*
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml<span class="w"> </span>--include-remotes<span class="w"> </span>https://github.com/EVerest/*
 </pre></div>
 </div>
 <p>and only includes repositories from the EVerest namespace. You can add as many
 remotes to this list as you want.</p>
 <p>For example, if you only want to include certain repositories you can use the
 following command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml<span class="w"> </span>--include-remotes<span class="w"> </span>git@github.com:EVerest/everest*<span class="w"> </span>git@github.com:EVerest/liblog.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml<span class="w"> </span>--include-remotes<span class="w"> </span>https://github.com/EVerest/everest*<span class="w"> </span>https://github.com/EVerest/liblog.git
 </pre></div>
 </div>
 <p>If you want to include all repositories, including external dependencies, in
@@ -254,7 +253,7 @@ the following command:</p>
 <li class="toctree-l1"><a class="reference internal" href="../general/01_framework.html">1. EVerest framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/04_detail_module_concept.html">4. EVerest Module Concept</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general/05_existing_modules.html">5. EVerest Modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">6. EVerest development tools</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">6.1. edm</a></li>
@@ -262,9 +261,10 @@ the following command:</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">7. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">8. Pionix BelayBox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">9. Snapshot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">10. EVerest Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/faq.html">8. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">10. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">11. EVerest Reference</a></li>
 </ul>
 
   <div>

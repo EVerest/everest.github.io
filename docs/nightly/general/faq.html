@@ -46,8 +46,10 @@
 come up regularly in our EVerest development life. It is always a good idea
 to have a look here when running into problems before asking for help via
 the <a class="reference internal" href="../index.html#index-mailinglist"><span class="std std-ref">mailing list</span></a>.</p>
+<section id="everest-modules">
+<h2><span class="section-number">8.1. </span>EVerest modules<a class="headerlink" href="#everest-modules" title="Permalink to this heading">¶</a></h2>
 <section id="debug-a-single-module">
-<h2><span class="section-number">8.1. </span>Debug a single module<a class="headerlink" href="#debug-a-single-module" title="Permalink to this heading">¶</a></h2>
+<h3><span class="section-number">8.1.1. </span>Debug a single module<a class="headerlink" href="#debug-a-single-module" title="Permalink to this heading">¶</a></h3>
 <p><strong>How can I debug a single module?</strong></p>
 <p>It is possible to use the GNU Debugger (GDB) to debug a single EVerest module.</p>
 <p>The easiest way is to run the module in standalone mode. Say, for example, you
@@ -117,8 +119,29 @@ debugger too.</p>
 achieve.</p>
 </div>
 </section>
+<section id="energy-management">
+<h3><span class="section-number">8.1.2. </span>Energy management<a class="headerlink" href="#energy-management" title="Permalink to this heading">¶</a></h3>
+<p><strong>How does the EVSE Manager use information like `grid_connection_point`
+(with parameters `fuse_limit_A` and `phase_count`) or `energy_manager`
+(e.g. `nominal_ac_voltage`?</strong></p>
+<p>The EVSE Manager module defaults to 0A/0W energy consumption and requires that
+some other module allocates power through the <cite>energy</cite> interface.</p>
+<p>The <cite>energy manager</cite> just supplies whatever the limit on the power path is,
+and the fuse module is just loaded to model the typical input fuse limit of
+the charger connection (so the energy manager will limit to that even if the
+car is requesting more).</p>
+<p>As a visualization, imagine the energy management in EVerest as a tree
+structure. What makes energy management in EVerest quite flexible is the
+concept of having constraints and limits you can provide to it. For each node
+in that tree, limits can be provided which are recognized by the energy
+manager which calculates the energy that is to be provided by the EVSE
+managers.</p>
+</section>
+</section>
+<section id="errors-warnings-and-troubleshooting">
+<h2><span class="section-number">8.2. </span>Errors, warnings and Troubleshooting<a class="headerlink" href="#errors-warnings-and-troubleshooting" title="Permalink to this heading">¶</a></h2>
 <section id="rpc-communication-timeout">
-<h2><span class="section-number">8.2. </span>RPC communication timeout<a class="headerlink" href="#rpc-communication-timeout" title="Permalink to this heading">¶</a></h2>
+<h3><span class="section-number">8.2.1. </span>RPC communication timeout<a class="headerlink" href="#rpc-communication-timeout" title="Permalink to this heading">¶</a></h3>
 <p><strong>In the Admin Panel, I sometimes get the following error when saving a config
 file:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">save</span> <span class="n">test_config</span> <span class="n">Reason</span><span class="p">:</span> <span class="n">RPC</span> <span class="n">communication</span> <span class="n">timeout</span> <span class="n">to</span> <span class="n">everest</span>
@@ -139,23 +162,19 @@ from the Raspberry and it might be able to process the save faster.</p>
 workspace information into the yaml config manually without using the Admin
 Panel.</p>
 </section>
-<section id="energy-management">
-<h2><span class="section-number">8.3. </span>Energy management<a class="headerlink" href="#energy-management" title="Permalink to this heading">¶</a></h2>
-<p><strong>How does the EVSE Manager use information like `grid_connection_point`
-(with parameters `fuse_limit_A` and `phase_count`) or `energy_manager`
-(e.g. `nominal_ac_voltage`?</strong></p>
-<p>The EVSE Manager module defaults to 0A/0W energy consumption and requires that
-some other module allocates power through the <cite>energy</cite> interface.</p>
-<p>The <cite>energy manager</cite> just supplies whatever the limit on the power path is,
-and the fuse module is just loaded to model the typical input fuse limit of
-the charger connection (so the energy manager will limit to that even if the
-car is requesting more).</p>
-<p>As a visualization, imagine the energy management in EVerest as a tree
-structure. What makes energy management in EVerest quite flexible is the
-concept of having constraints and limits you can provide to it. For each node
-in that tree, limits can be provided which are recognized by the energy
-manager which calculates the energy that is to be provided by the EVSE
-managers.</p>
+<section id="everest-ocpp-2-0-1-setup">
+<h3><span class="section-number">8.2.2. </span>EVerest OCPP 2.0.1 setup<a class="headerlink" href="#everest-ocpp-2-0-1-setup" title="Permalink to this heading">¶</a></h3>
+<p>After successfully setting up EVerest and configured the
+<a class="reference external" href="https://github.com/EVerest/libocpp">libocpp module</a>, I get errors about
+a failed websocket connection.</p>
+<p>The <cite>libocpp</cite> module of EVerest operates - for now - as an OCPP client.
+You will need to choose a backend system capable of OCPP 2.0.1 (like SteVe
+for OCPP 1.6).</p>
+<p>You may want to have a look at <a class="reference external" href="https://github.com/mobilityhouse/ocpp">https://github.com/mobilityhouse/ocpp</a> and
+implement message handlers to get the communication working. Or you can have
+a look at <a class="reference external" href="https://github.com/thoughtworks/maeve-csms">https://github.com/thoughtworks/maeve-csms</a>. Note: This has not been
+officially tested by us.</p>
+</section>
 </section>
 </section>
 
@@ -176,9 +195,8 @@ managers.</p>
 <li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">6. EVerest development tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">7. Tutorials</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">8. Frequently Asked Questions And Best Practices</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#debug-a-single-module">8.1. Debug a single module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rpc-communication-timeout">8.2. RPC communication timeout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#energy-management">8.3. Energy management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#everest-modules">8.1. EVerest modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#errors-warnings-and-troubleshooting">8.2. Errors, warnings and Troubleshooting</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>

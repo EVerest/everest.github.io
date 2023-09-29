@@ -319,12 +319,13 @@ Starting with the manifest file, which could look like this:</p>
 <span class="linenos">11</span><span class="nt">requires</span><span class="p">:</span>
 <span class="linenos">12</span><span class="w">  </span><span class="nt">some_implementation</span><span class="p">:</span>
 <span class="linenos">13</span><span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">externalinterface</span>
-<span class="linenos">14</span><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">What do I expect from the required external implementation?</span>
-<span class="linenos">15</span><span class="nt">enable_external_mqtt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="linenos">16</span><span class="nt">metadata</span><span class="p">:</span>
-<span class="linenos">17</span><span class="w">  </span><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://spdx.org/licenses/Apache-2.0.html</span>
-<span class="linenos">18</span><span class="w">  </span><span class="nt">authors</span><span class="p">:</span>
-<span class="linenos">19</span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Your name, your company</span>
+<span class="linenos">14</span><span class="w">    </span><span class="nt">min_connections</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="linenos">15</span><span class="w">    </span><span class="nt">max_connections</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos">16</span><span class="nt">enable_external_mqtt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">17</span><span class="nt">metadata</span><span class="p">:</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://spdx.org/licenses/Apache-2.0.html</span>
+<span class="linenos">19</span><span class="w">  </span><span class="nt">authors</span><span class="p">:</span>
+<span class="linenos">20</span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Your name, your company</span>
 </pre></div>
 </div>
 <p>Most of this should be self-explanatory. Just a few words:</p>
@@ -338,6 +339,8 @@ section.</p>
 <p>Line 11 starts with the requirements of your own module. This is the other
 side: Your module tells the EVerest module framework which implementations it
 will require to work in the EVerest workspace.</p>
+<p>With the <cite>min_connections</cite> and <cite>max_connections</cite> key you can configure how
+many connections are required or allowed for your module.</p>
 <p>In EVerest, you find a manifest file for each module. See the module
 directories in <em>{EVerest Workspace Directory}/everest-core/modules</em>.</p>
 </section>

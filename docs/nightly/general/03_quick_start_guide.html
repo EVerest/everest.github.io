@@ -61,15 +61,15 @@ EVerest.</p>
 <h4><span class="section-number">3.2.1.1. </span>EVerest Dependency Manager - edm<a class="headerlink" href="#everest-dependency-manager-edm" title="Permalink to this heading">¶</a></h4>
 <p>As EVerest is highly modular, you will need multiple repos, which can be found
 on GitHub.</p>
-<p>To get the right repos as needed, the EVerest Dependency Manager - short edm -
-will help you.</p>
-<p>To start with that, let’s get edm ready to work.</p>
-<p>You will first of all need to pull <em>everest-dev-environment</em> to your
+<p>To get the right repos as needed, the EVerest Dependency Manager - short
+<cite>edm</cite> - will help you.</p>
+<p>To start with that, let’s get <cite>edm</cite> ready to work.</p>
+<p>You will first of all need to pull <cite>everest-dev-environment</cite> to your
 development environment.</p>
 <p>Python and its tools pip, setuptools and wheel have already been installed in
 the Prerequisites section above. So, you can pull the said repository and
-install the dependency manager, which will reside inside of .local/bin/ in your
-HOME directory:</p>
+install the dependency manager, which will reside inside of <cite>.local/bin/</cite> in
+your HOME directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-dev-environment
 <span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
@@ -77,7 +77,7 @@ python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </s
 </div>
 <p>The EVerest dependency manager uses
 <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a> for its CMake integration.
-This means you can and should set the CPM_SOURCE_CACHE environment variable.
+This means you can and should set the <cite>CPM_SOURCE_CACHE</cite> environment variable.
 This makes sure that dependencies that you do not manage in the workspace are
 not re-downloaded multiple times. For detailed information and other useful
 environment variables please refer to the
@@ -94,29 +94,28 @@ use <cite>~/checkout/everest-workspace</cite>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>
 </pre></div>
 </div>
-<p>(In future, as your system has edm properly setup, you can always initialise a
-new workspace by calling <em>edm init</em>.)</p>
+<p>(In future, as your system has <cite>edm</cite> properly set up, you can always
+initialise a new workspace by calling <cite>edm init</cite>.)</p>
 <p>edm will now prepare the most common repos to start with. It will also create a
 YAML file which describes your newly created workspace. You can change that
 YAML file later if you want to adopt the workspace to another scenario.</p>
 <p>The YAML file can be found in the directory which you have chosen as workspace
-directory. In the above example, it is located at</p>
-<p><cite>{EVerest Workspace Directory}</cite>.</p>
+directory. In the above example, it is located at
+<cite>{EVerest Workspace Directory}</cite>.</p>
 <p>More details about edm, see the dedicated
 <a class="reference internal" href="../dev_tools/edm.html#edm-main"><span class="std std-ref">edm page in this documentation</span></a>.</p>
 </section>
 <section id="everest-command-line-interface-ev-cli">
-<h4><span class="section-number">3.2.1.2. </span>EVerest Command Line Interface: ev-cli<a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
-<p>In its current version, ev-cli supports you by generating module templates. It
-is also necessary to build EVerest.</p>
-<p>To install ev-cli, change into the everest-utils/ev-dev-tools/ directory and
-install ev-cli:</p>
+<h4><span class="section-number">3.2.1.2. </span>EVerest Command Line Interface: <cite>ev-cli</cite><a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
+<p>In its current version, <cite>ev-cli</cite> supports you by generating module templates.
+It is also necessary to build EVerest.</p>
+<p>To install <cite>ev-cli</cite>, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-utils/ev-dev-tools
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
-<p>That is all to install ev-cli. You can find the binary file of ev-cli in your
-HOME directory in .local/bin/</p>
+<p>That is all to install <cite>ev-cli</cite>. You can find the binary file in your
+HOME directory in <cite>.local/bin/</cite>.</p>
 <p>In a later step, we will use ev-cli to create module stubs.</p>
 </section>
 <section id="packages-for-iso-15118-communication">
@@ -129,15 +128,15 @@ python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </s
 </div>
 <p>For ISO 15118 communication including Plug&amp;Charge, install Josev and some CA
 certificates:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/Josev
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/Josev
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-<span class="nb">cd</span><span class="w"> </span>~/checkout/everest-workspace/Josev/iso15118/shared/pki
-./create_certs.sh<span class="w"> </span>-v<span class="w"> </span>iso-2<span class="w"> </span>-i<span class="w"> </span>~/checkout/everest-workspace/everest-core
+<span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/Josev/iso15118/shared/pki
+./create_certs.sh<span class="w"> </span>-v<span class="w"> </span>iso-2<span class="w"> </span>-i<span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core
 </pre></div>
 </div>
-<p>This will enable ISO 15118 communication including Plug&amp;Charge and install The
-required CA certificates inside <em>config/certs/ca</em> and the client certificates,
-private keys and password files inside <em>config/certs/client</em>.</p>
+<p>This will enable ISO 15118 communication including Plug&amp;Charge and install the
+required CA certificates inside <cite>config/certs/ca</cite> and the client certificates,
+private keys and password files inside <cite>config/certs/client</cite>.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>This will generate an example PKI setup that can only be used for testing
@@ -261,8 +260,8 @@ port 8849 - the height of Mount EVerest in meters.</p>
 <p>You should see a rather empty page like that:</p>
 <a class="reference internal image-reference" href="../_images/quick-start-admin-panel-1.png"><img alt="../_images/quick-start-admin-panel-1.png" src="../_images/quick-start-admin-panel-1.png" style="width: 360px;" /></a>
 <p>Click on the menu symbol on the upper left corner of the page, then click on
-config. A left side column with further menu items opens. Choose <a href="#id1"><span class="problematic" id="id2">*</span></a>Available
-configs”:</p>
+config. A left side column with further menu items opens. Choose <cite>Available
+configs</cite>:</p>
 <a class="reference internal image-reference" href="../_images/quick-start-admin-panel-2.png"><img alt="../_images/quick-start-admin-panel-2.png" src="../_images/quick-start-admin-panel-2.png" style="width: 360px;" /></a>
 <p>If you are here for the first time, you will see all pre-configured Node-RED
 flows here. For a first intro, you may want to take a look at <em>config-sil</em>.</p>
@@ -475,7 +474,8 @@ learnt about EVerest.</p>
 with implementing your specific scenarios?</p>
 <p>Good news is: We are working on a tutorial currently to show a short practical
 example of implementing an EVerest module.</p>
-<p>During waiting time, join us anytime in our weekly tech meeting. There are great people who are glad to give you a hint and push you in the right
+<p>During waiting time, join us anytime in our weekly tech meeting. There are
+great people who are glad to give you a hint and push you in the right
 direction.</p>
 <p>Thanks for being a part of the EVerest community.</p>
 </section>

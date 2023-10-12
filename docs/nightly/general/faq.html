@@ -140,8 +140,21 @@ managers.</p>
 </section>
 <section id="errors-warnings-and-troubleshooting">
 <h2><span class="section-number">8.2. </span>Errors, warnings and Troubleshooting<a class="headerlink" href="#errors-warnings-and-troubleshooting" title="Permalink to this heading">¶</a></h2>
+<section id="compiling-with-gnu-compilers">
+<span id="faq-gnu-compilers"></span><h3><span class="section-number">8.2.1. </span>Compiling with GNU compilers<a class="headerlink" href="#compiling-with-gnu-compilers" title="Permalink to this heading">¶</a></h3>
+<p>Building EVerest, you might want to use a GNU compiler. Handing over the flag
+<cite>CMAKE_CXX_COMPILER</cite> to <cite>cmake</cite> lets you do that.</p>
+<p>However, when using <cite>gcc</cite>, you might get errors about some
+<cite>unreferenced symbols</cite> or linking issues.</p>
+<p>Solution is simple: Use <cite>g++</cite> instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">D</span> <span class="n">CMAKE_CXX_COMPILER</span><span class="o">=</span><span class="n">g</span><span class="o">++</span>
+</pre></div>
+</div>
+<p><cite>g++</cite> will link std C++ files automatically
+(<a class="reference external" href="https://stackoverflow.com/a/173007/1168315">besides others</a>) which <cite>gcc</cite> won’t do.</p>
+</section>
 <section id="rpc-communication-timeout">
-<h3><span class="section-number">8.2.1. </span>RPC communication timeout<a class="headerlink" href="#rpc-communication-timeout" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">8.2.2. </span>RPC communication timeout<a class="headerlink" href="#rpc-communication-timeout" title="Permalink to this heading">¶</a></h3>
 <p><strong>In the Admin Panel, I sometimes get the following error when saving a config
 file:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">save</span> <span class="n">test_config</span> <span class="n">Reason</span><span class="p">:</span> <span class="n">RPC</span> <span class="n">communication</span> <span class="n">timeout</span> <span class="n">to</span> <span class="n">everest</span>
@@ -163,7 +176,7 @@ workspace information into the yaml config manually without using the Admin
 Panel.</p>
 </section>
 <section id="everest-ocpp-2-0-1-setup">
-<h3><span class="section-number">8.2.2. </span>EVerest OCPP 2.0.1 setup<a class="headerlink" href="#everest-ocpp-2-0-1-setup" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">8.2.3. </span>EVerest OCPP 2.0.1 setup<a class="headerlink" href="#everest-ocpp-2-0-1-setup" title="Permalink to this heading">¶</a></h3>
 <p>After successfully setting up EVerest and configured the
 <a class="reference external" href="https://github.com/EVerest/libocpp">libocpp module</a>, I get errors about
 a failed websocket connection.</p>

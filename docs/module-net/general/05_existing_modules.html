@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5. EVerest Modules &#8212; EVerest  documentation</title>
+    <title>5. EVerest Module Configurations &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
@@ -31,7 +31,7 @@
           <a href="04_detail_module_concept.html" title="4. EVerest Module Concept"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>EVerest Modules</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>EVerest Module Configurations</a></li> 
       </ul>
     </div>  
 
@@ -40,20 +40,26 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="everest-modules">
-<h1><span class="section-number">5. </span>EVerest Modules<a class="headerlink" href="#everest-modules" title="Permalink to this heading">¶</a></h1>
+  <section id="everest-module-configurations">
+<span id="existing-modules-main"></span><h1><span class="section-number">5. </span>EVerest Module Configurations<a class="headerlink" href="#everest-module-configurations" title="Permalink to this heading">¶</a></h1>
 <p>In the following, we will dive into some exemplatory scenarios to show how
 modules can interact with each other.</p>
-<p>Additionally, also a place for explaining module features in more detail will
-grow here.</p>
+<p>To understand the tool side, we will look at the mechanisms of the Admin Panel.</p>
+<p>Additionally, there will be a section which explains module features in more
+detail soon.</p>
 <section id="module-connections-for-dedicated-use-cases">
 <h2><span class="section-number">5.1. </span>Module connections for dedicated use cases<a class="headerlink" href="#module-connections-for-dedicated-use-cases" title="Permalink to this heading">¶</a></h2>
 <p>EVerest is a modular framework.</p>
 <p>For devices like powermeters or hardware boards, you will have implementations
-as a driver module. Energy management logic, authentication or protocol
-implementations - everything is delivered (or can be implemented by you) via
-a module.</p>
-<p>The real magic of EVerest will be unleashed by wiring those modules together.
+of a corresponding driver module. Fields like energy management,
+authentication or protocol implementations - everything is delivered (or can
+be implemented by you) via an EVerest module.</p>
+<p>All those modules required for a dedicated system environment will have to be
+connected so that they an communicate with each other. Such a configuration
+could look like this:</p>
+<img alt="../_images/module-config-overview.png" src="../_images/module-config-overview.png" />
+<p>The functional mechanisms behind this will be explained later.</p>
+<p>The real magic of EVerest will be unleashed by wiring the modules together.
 Based on the connections of modules, the core modules of EVerest will provide
 fancy stuff like automatic power-sharing between multiple EvseManagers or the
 correct representation of the charging environment inside the backend instances
@@ -61,12 +67,103 @@ via OCPP.</p>
 <p>To understand connections for different use cases and how to map hardware
 scenarios to EVerest configurations, let’s have a look at some simple
 connection scenarios and step by step walk on to some more complex ones.</p>
-<p>If you want to have a very quick overview without the details, see the
-upcoming section. We will go more into detail in the other sections.</p>
-<section id="quick-overview">
-<h3><span class="section-number">5.1.1. </span>Quick overview<a class="headerlink" href="#quick-overview" title="Permalink to this heading">¶</a></h3>
+<p>If you want to have a very quick overview without the details, see
+<a class="reference internal" href="#existing-modules-quick-overview"><span class="std std-ref">Quick Overview</span></a> on this page.</p>
+<p>More detailed scenarios and special relations between modules are shown
+afterwards.</p>
+<p>But first, let’s have one look at the Admin Panel and how you can build your
+own configuration.</p>
+<section id="module-configuration-with-the-admin-panel">
+<h3><span class="section-number">5.1.1. </span>Module configuration with the Admin Panel<a class="headerlink" href="#module-configuration-with-the-admin-panel" title="Permalink to this heading">¶</a></h3>
+<p>Having started MQTT, the EVerest manager process and Node-RED as shown in the
+<a class="reference internal" href="03_quick_start_guide.html#quickstartguide-helpers"><span class="std std-ref">dedicated Quick Start Guide sections</span></a>, you can
+access the Admin Panel on your machine with the following URL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8849</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Right in the beginning, the Admin Panel will just show a blank page.</p>
+<p>As soon as we will start working with module configurations, you will see
+something like the following picture, in which each box represents a module in
+EVerest:</p>
+<img alt="../_images/1-admin-panel-explanation.png" src="../_images/1-admin-panel-explanation.png" />
+<p>You can see five modules with their connections.</p>
+<p>The Admin Panel helps you with all needed steps to setup your dedicated
+configuration scenario:</p>
+<ul class="simple">
+<li><p>Setup all modules that you need for a use case,</p></li>
+<li><p>connect those modules,</p></li>
+<li><p>set the configuration of the modules</p></li>
+<li><p>analyze which implementations the modules require or provide.</p></li>
+</ul>
+<section id="add-modules-to-the-configuration">
+<h4><span class="section-number">5.1.1.1. </span>Add modules to the configuration<a class="headerlink" href="#add-modules-to-the-configuration" title="Permalink to this heading">¶</a></h4>
+<p>Click on the menu symbol at the upper left corner to open the main menu and
+click on <cite>Config</cite>. A new left side-menu will appear.</p>
+<p>There, you can see three menu items. Choose <cite>Available modules</cite> to access the
+list of existing modules. After left-clicking on the plus sign right to the
+module name, it will be shown in the main canvas.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Click on the name to get a short description of the module.</p>
+</div>
+<p>This way, you can add all modules that you will need.</p>
+<p>To start with an existing configuration, that you can then adjust to your
+needs, click on the <cite>Available configs</cite> menu item in the left side-menu and
+choose an existing configuration.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be aware that by loading an existing configuration, all your
+modules or changes will be discarded. So, be sure to save your
+setup by clicking on the <cite>save</cite> symbol in the lower right corner of the
+canvas.</p>
+</div>
+<p>Next, let’s see how modules can be connected to each other.</p>
+</section>
+<section id="module-connections-and-module-parameters">
+<h4><span class="section-number">5.1.1.2. </span>Module connections and module parameters<a class="headerlink" href="#module-connections-and-module-parameters" title="Permalink to this heading">¶</a></h4>
+<p>Each module has blue and/or yellow circles.</p>
+<a class="reference internal image-reference" href="../_images/1-1-admin-panel-module-explained.png"><img alt="../_images/1-1-admin-panel-module-explained.png" class="align-center" src="../_images/1-1-admin-panel-module-explained.png" style="width: 200px;" /></a>
+<p>They represent the interface implementations that the modules require (yellow)
+from respectively provide (blue) for other modules.</p>
+<p>If you click on one of those circles, you will get more information about the
+exact interface implementation that is provided or required:</p>
+<a class="reference internal image-reference" href="../_images/2-admin-panel-requirement.png"><img alt="../_images/2-admin-panel-requirement.png" class="align-center" src="../_images/2-admin-panel-requirement.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="../_images/3-admin-panel-provides.png"><img alt="../_images/3-admin-panel-provides.png" class="align-center" src="../_images/3-admin-panel-provides.png" style="width: 300px;" /></a>
+<p>The first picture shows the information that you get after clicking on the
+EvseManager’s lower yellow circle. You see that the EvseManager requires an
+implementation of SLAC which is described in the interface called <cite>slac</cite> in
+EVerest.</p>
+<p>The second picture is the information you get after clicking on the middle
+blue circle of the EvseManager module. It tells that the EvseManager module
+provides an implementation of the interface <cite>evse_manager</cite>.</p>
+<p>To close the information box again, click on <cite>Discard Selection</cite>.</p>
+<p>The other blue circles of EvseManager will tell you that it also provides
+implementations of the interfaces <cite>energy</cite> and <cite>auth_token_provider</cite> - which
+could be a little bit surprising, but we will learn about that in later
+sections when talking about the configurable use cases in EVerest.</p>
+<p>A module has also parameters that determine the behaviour of the module in
+a dedicated environment. You can see the parameters of a module by clicking
+on the module’s title. In a right side-bar, all config parameters will be
+listed:</p>
+<a class="reference internal image-reference" href="../_images/4-admin-panel-module-parameters.png"><img alt="../_images/4-admin-panel-module-parameters.png" src="../_images/4-admin-panel-module-parameters.png" style="width: 320px;" /></a>
+<p>For getting some information on the meaning of those parameters, click on the
+i-symbol to the right of each parameter.</p>
+<p>Now, it is time to connect one module to another one.</p>
+<p>Assuming, you have the EvseManager and a GenericPowermeter added to your
+canvas, click on the blue circle at the right of the GenericPowermeter (it
+provides a powermeter implementation) and after that click on the middle
+yellow circle to the left of the EvseManager (which represents the requirement
+for a powermeter implementation).</p>
+<p>You have created a connection between those two modules, which is indicated by
+a grey line between the modules:</p>
+<a class="reference internal image-reference" href="../_images/5-admin-panel-connect-modules.png"><img alt="../_images/5-admin-panel-connect-modules.png" src="../_images/5-admin-panel-connect-modules.png" style="width: 360px;" /></a>
+<p>In a next step, let’s look at an example module configuration.</p>
+</section>
+</section>
+<section id="very-quick-overview">
+<span id="existing-modules-quick-overview"></span><h3><span class="section-number">5.1.2. </span>Very quick overview<a class="headerlink" href="#very-quick-overview" title="Permalink to this heading">¶</a></h3>
+<p>Start analyzing the following picture at module <cite>evse_manager</cite>.</p>
 <img alt="../_images/module-config-overview.png" src="../_images/module-config-overview.png" />
-<p>Start analyzing this picture at module <cite>evse_manager</cite>.</p>
 <p>To the right, you will see two <strong>protocol implementations</strong> for ISO 15118 and
 SLAC. (This picture will be updated soon as the JsRiseV2G module is
 deprecated.)</p>
@@ -87,51 +184,50 @@ logic.</p>
 the picture that we haven’t talked about yet.</p>
 </section>
 <section id="charging-station-and-charging-points">
-<h3><span class="section-number">5.1.2. </span>Charging station and charging points<a class="headerlink" href="#charging-station-and-charging-points" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.1.3. </span>Charging station and charging points<a class="headerlink" href="#charging-station-and-charging-points" title="Permalink to this heading">¶</a></h3>
 <p>The EvseManager module is the central module for an EV charging scenario. It
 represents one charging point.</p>
 <p>An EvseManager will need protocol implementations, hardware drivers and a grid
 connection to work in a meaningful way.</p>
 <p>See this simple part of a module network:</p>
-<p><cite>TODO: Clean deprecated ISO15118-Rise-Module! Make pictures in EVerest CI.</cite></p>
 <img alt="../_images/module-config-charging-station.png" src="../_images/module-config-charging-station.png" />
 <p>The picture above shows a part of a module configuration from the EVerest
 Admin Panel. Yellow connection points show requirements for interface
 implementations, blue ones show interface implementations that the module
 provides. For more information on that, see the Module Concept page.</p>
-<p>The EvseManager has basic charging logic implemented (IEC 61851, PWM State
+<p>The <strong>EvseManager</strong> has basic charging logic implemented (IEC 61851, PWM State
 Machine). It knows the status of the current charging session regarding time of
 charging start, point of times to pause the session or the amount of energy
 already delivered to the output.</p>
-<p>For measuring the energy, a powermeter is necessary. The Yeti Driver module in
-the example above is a board support implementation, but also delivers an
-implementation of a powermeter. This is why you see two connections between the
-EvseManager and the YetiDriver: Each connection stands for one interface
-implementation that is provided from one module to another one that requires
-it.</p>
+<p>For measuring the energy, a powermeter is necessary. The <strong>Yeti Driver</strong>
+module in the example above is a board support implementation, but also
+delivers an implementation of a powermeter. This is why you see two
+connections between the EvseManager and the YetiDriver: Each connection
+stands for one interface implementation that is provided from one module to
+another one that requires it.</p>
 <p>This way, you could connect another powermeter module but keep the Yeti Driver
 module for board support. That makes things nicely flexible.</p>
 <p>Another two connections go from the EvseManager to two protocol
-implementations: ISO 15118 and SLAC. Such connections to protocol
+implementations: <strong>ISO 15118</strong> and <strong>SLAC</strong>. Such connections to protocol
 implementations allow the EvseManager to “talk” to other devices using that
 protocol. E.g. if you connect the EvseManager via the board module to a car,
 the car also needs to “know” about ISO 15118 so that communication can work.</p>
 <p>The connection to the left is needed for the EvseManager to get power from
-somewhere. In the example above, the grid connection module will deliver
+somewhere. In the example above, the <strong>grid connection</strong> module will deliver
 energy. This is the part where in more complex scenarios an energy management
 logic can be set up or loadbalancing between more than one EvseManagers will
 take place.</p>
 </section>
 <section id="authentication-for-charging">
-<h3><span class="section-number">5.1.3. </span>Authentication for charging<a class="headerlink" href="#authentication-for-charging" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.1.4. </span>Authentication for charging<a class="headerlink" href="#authentication-for-charging" title="Permalink to this heading">¶</a></h3>
 <p>For a power consumer to be allowed to take energy out of a charging point, we
 will need some kind of authentication mechanism. Let’s take a look at the
 following part of an EVerest configuration:</p>
-<a class="reference internal image-reference" href="../_images/module-config-auth.png"><img alt="../_images/module-config-auth.png" src="../_images/module-config-auth.png" style="width: 300px;" /></a>
-<p>We already know the two modules at the bottom of the picture. You can see the
-auth module, which obviously plays a big role for authentication. This module
-provides an implementation for managing authentication but also reservation of
-charging points.</p>
+<a class="reference internal image-reference" href="../_images/module-config-auth.png"><img alt="../_images/module-config-auth.png" src="../_images/module-config-auth.png" style="width: 400px;" /></a>
+<p>We already know the module in the lower left corner of the picture. You can
+see the auth module, which obviously plays a big role for authentication. This
+module provides an implementation for managing authentication but also
+reservation of charging points.</p>
 <p>Easily put, the auth module takes an authentication token, gives the token to
 some instances which can validate tokens and as soon as a validation arrives,
 the auth module chooses an EvseManager to be activated for charging.</p>
@@ -143,32 +239,45 @@ identify a token as an allowed consumer for energy.</p>
 after the other. If one of them can validate the token, power can flow.</p>
 </section>
 <section id="car-simulation">
-<h3><span class="section-number">5.1.4. </span>Car simulation<a class="headerlink" href="#car-simulation" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.1.5. </span>Car simulation<a class="headerlink" href="#car-simulation" title="Permalink to this heading">¶</a></h3>
 <p>One big strength of EVerest is the integrated possibility to allow for
 simulating real world scenarios with a charging car connected to an EVSE.</p>
 <p>Simply connect a <cite>car_simulator</cite> module to the board support module of an
 EvseManager like shown here:</p>
 <a class="reference internal image-reference" href="../_images/module-config-car-sim.png"><img alt="../_images/module-config-car-sim.png" src="../_images/module-config-car-sim.png" style="width: 360px;" /></a>
-<p>The modules in the upper part of this picture have been described earlier.
+<p>The modules in the left part of this picture have been described earlier.
 The car_simulator takes the role of a car to enable proper communication
 between car and EVSE.</p>
 <p>In fact, this simulates the voltages and the PWM duty cycle. (Hint: If you
 start a Node-RED simulation with EVerest, the car simulator module is the
 instance that controls the simulation regarding charging power and charging
 status).</p>
-<p>As the EvseManager “talks” ISO 15118 in this example (see the connection of
-the <cite>iso15118_charger</cite> module), it makes sense to also enable ISO 15118
-for the car simulation. The <cite>iso15118_car</cite> module does exactly that.</p>
+<p>See the <cite>iso15118_car</cite> module connected to the car simulator module. This
+enables ISO 15118 compliant communication for the car simulator. If we
+assume that the EvseManager also has a connection to a ISO 15118 protocol
+implementation (as seen in configuration before), this should work out well.</p>
 <p>One interesting detail is the connection of the SLAC module not only to the
 EvseManager but also to the car simulation module. This is due to the fact
 that SLAC sets up the physical communication between the EVSE and car
 (simulation).</p>
 </section>
 <section id="energy-management">
-<h3><span class="section-number">5.1.5. </span>Energy management<a class="headerlink" href="#energy-management" title="Permalink to this heading">¶</a></h3>
-<p><cite>TODO
-Show energy management scenario. Show
-multiple EvseManager configurations.</cite></p>
+<h3><span class="section-number">5.1.6. </span>Energy management<a class="headerlink" href="#energy-management" title="Permalink to this heading">¶</a></h3>
+<p>One simple scenario for energy management can be realized by connecting two
+EvseManagers with a grid connection module:</p>
+<img alt="../_images/6-admin-panel-energy-management-two-evse.png" src="../_images/6-admin-panel-energy-management-two-evse.png" />
+<p>In this case, as long as no other energy management logic is provided (e.g.
+via OCPP or other energy management implementations), there will be automatic
+power sharing between the two EvseManagers.</p>
+<p>More sophisticated energy management which is done for more than only one
+physical charging device will be possible soon as we are implementing a
+solution for remote communication between multiple EVerest instances.</p>
+</section>
+<section id="dc-charging">
+<h3><span class="section-number">5.1.7. </span>DC charging<a class="headerlink" href="#dc-charging" title="Permalink to this heading">¶</a></h3>
+<p>A short hint for realizing DC charging:</p>
+<img alt="../_images/7-admin-panel-dc-with-imd-and-dc-power.png" src="../_images/7-admin-panel-dc-with-imd-and-dc-power.png" />
+<p>A more detailed use case will follow.</p>
 </section>
 </section>
 <section id="module-functionality-in-detail">
@@ -199,7 +308,7 @@ here are eventually to be updated.</cite></p>
 <li class="toctree-l1"><a class="reference internal" href="02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Module Concept</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. EVerest Modules</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. EVerest Module Configurations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-functionality-in-detail">5.2. Module functionality in detail</a></li>
 </ul>
@@ -262,7 +371,7 @@ here are eventually to be updated.</cite></p>
           <a href="04_detail_module_concept.html" title="4. EVerest Module Concept"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>EVerest Modules</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>EVerest Module Configurations</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -46,10 +46,12 @@ Commands
 |  **Result**:*boolean*
 |   Indicates if the system can be reset
 | **reset**:*void*
-|  Call to reset the system
+|  Call to reset the system immediately
 |  **type**:*string* (:ref:`system-ResetType <system-ResetType>`)
 |   Type of the reset (Soft or Hard)
 |   **There is an extended definition for this object** :ref:`here <system-ResetType>`.
+|  **scheduled**:*boolean*
+|   Indicates if this reset command was scheduled or immediately executed. A scheduled reset means that the system was waiting for all transactions to finish before this command was executed. This value is only informational.
 | **set_system_time**:*boolean*
 |  Call to set the system time of EVerest
 |  **timestamp**:*string*
@@ -57,3 +59,8 @@ Commands
 |   format:
 |  **Result**:*boolean*
 |   Returns true if the system time could be set successfully, else false
+| **get_boot_reason**:*string*
+|  Call to get the boot reason of the system
+|  **Result**:*string* (:ref:`system-BootReason <system-BootReason>`)
+|   Returns the boot reason of the system
+|   **There is an extended definition for this object** :ref:`here <system-BootReason>`.

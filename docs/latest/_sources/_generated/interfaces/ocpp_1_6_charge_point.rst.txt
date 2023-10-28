@@ -19,6 +19,9 @@ Variables
 | **configuration_key**:*object* (:ref:`ocpp-KeyValue <ocpp-KeyValue>`)
 |  Published when a configuration key has been changed by the CSMS and a monitor has been registered using the command monitor_configuration_keys
 |  **There is an extended definition for this object** :ref:`here <ocpp-KeyValue>`.
+| **security_event**:*object* (:ref:`ocpp-SecurityEvent <ocpp-SecurityEvent>`)
+|  Published when an internal security event occured
+|  **There is an extended definition for this object** :ref:`here <ocpp-SecurityEvent>`.
 
 ********
 Commands
@@ -68,3 +71,9 @@ Commands
 |   items:
 |    description:
 |    type:
+| **security_event**:*void*
+|  Triggers a SecurityEventNotification.req at the CSMS. This event is queued with a guaranteed delivery to the CSMS.
+|  **type**:*string*
+|   type of the security event
+|  **info**:*string*
+|   Additional information about the occurred security event

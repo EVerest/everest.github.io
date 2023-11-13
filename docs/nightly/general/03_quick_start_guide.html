@@ -15,7 +15,7 @@
     <script src="../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. EVerest Module Concept" href="04_detail_module_concept.html" />
+    <link rel="next" title="4. EVerest Modules in Detail" href="04_detail_module_concept.html" />
     <link rel="prev" title="2. Prepare Your Development Environment" href="02_detail_pre_setup.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -25,7 +25,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="04_detail_module_concept.html" title="4. EVerest Module Concept"
+          <a href="04_detail_module_concept.html" title="4. EVerest Modules in Detail"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="02_detail_pre_setup.html" title="2. Prepare Your Development Environment"
@@ -267,8 +267,9 @@ configs</cite>:</p>
 flows here. For a first intro, you may want to take a look at <em>config-sil</em>.</p>
 <p>After opening it, you can see a diagram representation of some modules with
 connections between them.</p>
-<p>The role of each module in this system will be explained on page
-<a class="reference internal" href="04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">Module Concept</span></a>.</p>
+<p>The role of each module in this system and how to configure an EVerest module
+environment with the Admin Panel will be explained on page
+<a class="reference internal" href="05_existing_modules.html#existing-modules-main"><span class="std std-ref">EVerest Modules</span></a>.</p>
 <p>To see how to create your own custom flows for simulations, visit the
 <a class="reference internal" href="../tutorials/run_sil/index.html#tutorial-sil-main"><span class="std std-ref">Tutorial for simulating EVerest</span></a>.</p>
 <p>Next, let’s see how fast we can create a new module in EVerest.</p>
@@ -386,9 +387,16 @@ implementation later.</p>
 of type <em>integer</em> rounds things up for the one CMD of this interface.</p>
 <p>VARs are pieces of information which get published for the network of
 listening modules regularly. We have two VARs in this example. The first one
-is of type <em>integer</em>, the second one is a reference to a type definition.
-This way, you can create structs or classes (however you would call a
-bunch of simple data-types grouped inside of one logical unit) for publishing.</p>
+is of type <em>integer</em>, the second one is a reference to a type definition.</p>
+<p>This way, you can create structs or classes (however you would call a bunch
+of simple data-types grouped inside of one logical unit) for publishing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some yaml interface files in the EVerest GitHub project, you will still
+find an additional type attribute besides a <cite>$ref</cite> attribute. In most cases,
+the type will be of value <cite>object</cite>. This is considered bad practice and will
+be deprecated in future versions.</p>
+</div>
 <p>Let’s have a look at a type definition in the next section.</p>
 </section>
 <section id="types">
@@ -422,31 +430,6 @@ interface - the ev-cli tool - generate the implementation stubs.</p>
 </section>
 <section id="generate-the-stub-files">
 <h3><span class="section-number">3.4.2. </span>Generate the stub files<a class="headerlink" href="#generate-the-stub-files" title="Permalink to this heading">¶</a></h3>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>We will change the directory structure soon to make it more intuitive.
-Please be aware of some changes here.</p>
-</div>
-<p>To create a new module in EVerest, create a new directory inside of the
-<em>everest-core/modules</em> directory. Create a manifest file (or copy an existing
-one) like described above.</p>
-<p>After that prepare a interface yaml which will reside in the
-<em>everest-core/interfaces</em> directory.</p>
-<p>Eventually, you have also used types, which will go into the
-<em>everest-core/types</em> directory.</p>
-<p>Now, it is time for the EVerest tool <em>ev-cli</em> to create the stub files:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core
-ev-cli<span class="w"> </span>mod<span class="w"> </span>create<span class="w"> </span>MyModuleName
-</pre></div>
-</div>
-<p>The name of the module is the one given as directory name.</p>
-<p>You will see that you get cpp and hpp files for your main module class and also
-for the interfaces to be implemented.</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>It is also possible to work with Javascript or Python. At this point
-we will focus on C++.</p>
-</div>
 <p>Your main cpp file will have two special functions:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
@@ -465,19 +448,20 @@ handler methods for the CMDs you have declared in the interface files.</p>
 have a look at the prepared classes.</p>
 </section>
 </section>
-<section id="one-deep-breath">
-<h2><span class="section-number">3.5. </span>One Deep Breath<a class="headerlink" href="#one-deep-breath" title="Permalink to this heading">¶</a></h2>
+<section id="one-deep-breath-and-next-steps">
+<h2><span class="section-number">3.5. </span>One Deep Breath And Next Steps<a class="headerlink" href="#one-deep-breath-and-next-steps" title="Permalink to this heading">¶</a></h2>
 <p>You made it. Great!</p>
 <p>Probably, now is a good time to take a deep breath and review what you have
 learnt about EVerest.</p>
 <p>You might have generated stub files now but still are not sure how to procede
 with implementing your specific scenarios?</p>
-<p>Good news is: We are working on a tutorial currently to show a short practical
-example of implementing an EVerest module.</p>
-<p>During waiting time, join us anytime in our weekly tech meeting. There are
-great people who are glad to give you a hint and push you in the right
-direction.</p>
-<p>Thanks for being a part of the EVerest community.</p>
+<p>Good news: A tutorial about developing EVerest modules is waiting for you.</p>
+<p><a class="reference internal" href="../tutorials/new_modules/index.html#tutorial-create-modules-main"><span class="std std-ref">Continue with the tutorial here!</span></a></p>
+<p>Or - if you rather would like to have more theoretical input about EVerest
+modules - continue
+<a class="reference internal" href="04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">with the EVerest Module Concept page</span></a>.</p>
+<p>See you in our <a class="reference internal" href="../index.html#index-contact"><span class="std std-ref">weekly tech meetings</span></a> and thanks for
+being a part of the EVerest community!</p>
 </section>
 </section>
 
@@ -497,11 +481,11 @@ direction.</p>
 <li class="toctree-l2"><a class="reference internal" href="#download-and-install">3.2. Download And Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#simulating-everest">3.3. Simulating EVerest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#understanding-everest-modules">3.4. Understanding EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#one-deep-breath">3.5. One Deep Breath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-deep-breath-and-next-steps">3.5. One Deep Breath And Next Steps</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Module Concept</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_existing_modules.html">5. EVerest Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_existing_modules.html">5. EVerest Module Configurations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">6. EVerest development tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">7. Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">8. Frequently Asked Questions And Best Practices</a></li>
@@ -518,7 +502,7 @@ direction.</p>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="04_detail_module_concept.html"
-                          title="next chapter"><span class="section-number">4. </span>EVerest Module Concept</a></p>
+                          title="next chapter"><span class="section-number">4. </span>EVerest Modules in Detail</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -554,7 +538,7 @@ direction.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="04_detail_module_concept.html" title="4. EVerest Module Concept"
+          <a href="04_detail_module_concept.html" title="4. EVerest Modules in Detail"
              >next</a> |</li>
         <li class="right" >
           <a href="02_detail_pre_setup.html" title="2. Prepare Your Development Environment"

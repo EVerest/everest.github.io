@@ -20,6 +20,12 @@ Auth token validator types
 |  Certificate status information
 |  enum: Accepted, SignatureError, CertificateExpired, CertificateRevoked, NoCertificateAvailable, CertChainError, ContractCancelled
 
+.. _authorization-TokenValidationStatus:
+
+| **TokenValidationStatus**:*string*
+|  Ongoing token validation status
+|  enum: Processing, Accepted, Rejected
+
 .. _authorization-ProvidedIdToken:
 
 | **ProvidedIdToken**:*object*
@@ -50,6 +56,19 @@ Auth token validator types
 |     description:
 |     type:
 |     $ref:
+
+.. _authorization-TokenValidationStatusMessage:
+
+| **TokenValidationStatusMessage**:*object*
+|  The token validation status
+|  required: token, status
+|  properties:
+|   **token**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+|    The id tag assigned to this transaction
+|    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
+|   **status**:*string* (:ref:`authorization-TokenValidationStatus <authorization-TokenValidationStatus>`)
+|    
+|    **There is an extended definition for this object** :ref:`here <authorization-TokenValidationStatus>`.
 
 .. _authorization-ValidationResult:
 

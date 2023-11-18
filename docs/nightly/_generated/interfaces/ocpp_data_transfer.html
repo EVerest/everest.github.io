@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.2.33. sunspec_scanner &#8212; EVerest  documentation</title>
+    <title>11.2.23. ocpp_data_transfer &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="11.2.34. system" href="system.html" />
-    <link rel="prev" title="11.2.32. sunspec_reader" href="sunspec_reader.html" /> 
+    <link rel="next" title="11.2.24. power" href="power.html" />
+    <link rel="prev" title="11.2.22. ocpp_1_6_charge_point" href="ocpp_1_6_charge_point.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="system.html" title="11.2.34. system"
+          <a href="power.html" title="11.2.24. power"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="sunspec_reader.html" title="11.2.32. sunspec_reader"
+          <a href="ocpp_1_6_charge_point.html" title="11.2.22. ocpp_1_6_charge_point"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.33. </span>sunspec_scanner</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.23. </span>ocpp_data_transfer</a></li> 
       </ul>
     </div>  
 
@@ -42,71 +42,26 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="sunspec-scanner">
-<span id="everest-interfaces-sunspec-scanner"></span><h1><span class="section-number">11.2.33. </span>sunspec_scanner<a class="headerlink" href="#sunspec-scanner" title="Permalink to this heading">¶</a></h1>
+  <section id="ocpp-data-transfer">
+<span id="everest-interfaces-ocpp-data-transfer"></span><h1><span class="section-number">11.2.23. </span>ocpp_data_transfer<a class="headerlink" href="#ocpp-data-transfer" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This class defines the global Sunspec scanner</div>
+<div class="line">This interface defines a OCPP data transfer</div>
 </div>
 <section id="commands">
-<h2><span class="section-number">11.2.33.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.23.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>scan_unit</strong>:<em>object</em></div>
+<div class="line"><strong>data_transfer</strong>:<em>object</em></div>
 <div class="line-block">
-<div class="line">Scans specific unit at a device’s port</div>
-<div class="line"><strong>ip_address</strong>:<em>string</em></div>
+<div class="line">Performs a OCPP data transfer request and returns the response</div>
+<div class="line"><strong>request</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-datatransferrequest"><span class="std std-ref">ocpp-DataTransferRequest</span></a>)</div>
 <div class="line-block">
-<div class="line">local IP-address of the Sunspec device</div>
-<div class="line">pattern:</div>
+<div class="line">Request object containing data transfer request</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-datatransferrequest"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>port</strong>:<em>integer</em></div>
+<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-datatransferresponse"><span class="std std-ref">ocpp-DataTransferResponse</span></a>)</div>
 <div class="line-block">
-<div class="line">Modbus port</div>
-</div>
-<div class="line"><strong>unit</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Modbus unit id</div>
-</div>
-<div class="line"><strong>Result</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Returns a json overview of the scan</div>
-</div>
-</div>
-<div class="line"><strong>scan_port</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Scans all units at a device’s port</div>
-<div class="line"><strong>ip_address</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">local IP-address of the Sunspec device</div>
-<div class="line">pattern:</div>
-</div>
-<div class="line"><strong>port</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Modbus port</div>
-</div>
-<div class="line"><strong>Result</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Returns a json overview of the scan</div>
-</div>
-</div>
-<div class="line"><strong>scan_device</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Scans complete device</div>
-<div class="line"><strong>ip_address</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">local IP-address of the Sunspec device</div>
-<div class="line">pattern:</div>
-</div>
-<div class="line"><strong>Result</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Returns a json overview of the scan</div>
-</div>
-</div>
-<div class="line"><strong>scan_network</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Scans local network</div>
-<div class="line"><strong>Result</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Returns a json overview of the scan</div>
+<div class="line">Result object containing data transfer response</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-datatransferresponse"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -142,18 +97,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="sunspec_reader.html"
-                          title="previous chapter"><span class="section-number">11.2.32. </span>sunspec_reader</a></p>
+    <p class="topless"><a href="ocpp_1_6_charge_point.html"
+                          title="previous chapter"><span class="section-number">11.2.22. </span>ocpp_1_6_charge_point</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="system.html"
-                          title="next chapter"><span class="section-number">11.2.34. </span>system</a></p>
+    <p class="topless"><a href="power.html"
+                          title="next chapter"><span class="section-number">11.2.24. </span>power</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/interfaces/sunspec_scanner.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/ocpp_data_transfer.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -184,15 +139,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="system.html" title="11.2.34. system"
+          <a href="power.html" title="11.2.24. power"
              >next</a> |</li>
         <li class="right" >
-          <a href="sunspec_reader.html" title="11.2.32. sunspec_reader"
+          <a href="ocpp_1_6_charge_point.html" title="11.2.22. ocpp_1_6_charge_point"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.33. </span>sunspec_scanner</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.23. </span>ocpp_data_transfer</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

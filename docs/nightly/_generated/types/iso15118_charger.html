@@ -59,13 +59,6 @@
 <div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
 </div>
 </div>
-<div class="line-block" id="iso15118-charger-debugmode">
-<div class="line"><strong>DebugMode</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">The different debug modes</div>
-<div class="line">enum: None, Lite, Full</div>
-</div>
-</div>
 <div class="line-block" id="iso15118-charger-isolationstatus">
 <div class="line"><strong>IsolationStatus</strong>:<em>string</em></div>
 <div class="line-block">
@@ -80,6 +73,20 @@
 <div class="line">enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData</div>
 </div>
 </div>
+<div class="line-block" id="iso15118-charger-evseerror">
+<div class="line"><strong>EvseError</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Details on error type</div>
+<div class="line-block">
+<div class="line">Error_Contactor: The contactor is opened or closed at the wrong moment.</div>
+<div class="line">Error_RCD: The RCD has detected an error.</div>
+<div class="line">Error_UtilityInterruptEvent: Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load</div>
+<div class="line">Error_Malfunction: A non-recoverable charger fault has occurred (Isolation Failure, …). It is permanently faulted.</div>
+<div class="line">Error_EmergencyShutdown: Charging System Incompatibility, Emergency Shutdown or E-Stop button pressed at charging station</div>
+</div>
+<div class="line">enum: Error_Contactor, Error_RCD, Error_UtilityInterruptEvent, Error_Malfunction, Error_EmergencyShutdown</div>
+</div>
+</div>
 <div class="line-block" id="iso15118-charger-v2g-message-id">
 <div class="line"><strong>V2G_Message_ID</strong>:<em>string</em></div>
 <div class="line-block">
@@ -91,7 +98,25 @@
 <div class="line"><strong>SAE_J2847_Bidi_Mode</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Bidi mode for sae j2847_2</div>
-<div class="line">enum: V2G, V2H</div>
+<div class="line">enum: None, V2G, V2H</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-evseid">
+<div class="line"><strong>EVSEID</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">An ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to</div>
+<div class="line">required: EVSE_ID</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>EVSE_ID</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVSE ID</div>
+</div>
+<div class="line"><strong>EVSEID_DIN</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">EVSE ID (DIN70121) according to DIN SPEC 91286</div>
+</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="iso15118-charger-dc-evsepresentvoltage-current">
@@ -103,11 +128,11 @@
 <div class="line-block">
 <div class="line"><strong>EVSEPresentVoltage</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[V] Output voltage of the EVSE as defined in IEC CDV 61851-23</div>
+<div class="line">Output voltage of the EVSE as defined in IEC CDV 61851-23 in V</div>
 </div>
 <div class="line"><strong>EVSEPresentCurrent</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[A] Present output current of the EVSE</div>
+<div class="line">Present output current of the EVSE in A</div>
 </div>
 </div>
 </div>
@@ -121,15 +146,15 @@
 <div class="line-block">
 <div class="line"><strong>EVSEMaximumCurrentLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[A] Maximum current the EVSE can deliver</div>
+<div class="line">Maximum current the EVSE can deliver in A</div>
 </div>
 <div class="line"><strong>EVSEMaximumPowerLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[W] Maximum power the EVSE can deliver</div>
+<div class="line">Maximum power the EVSE can deliver in W</div>
 </div>
 <div class="line"><strong>EVSEMaximumVoltageLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[V] Maximum voltage the EVSE can deliver</div>
+<div class="line">Maximum voltage the EVSE can deliver in V</div>
 </div>
 </div>
 </div>
@@ -143,11 +168,50 @@
 <div class="line-block">
 <div class="line"><strong>EVSEMinimumCurrentLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[A] Minimum current the EVSE can deliver with the expected accuracy</div>
+<div class="line">Minimum current the EVSE can deliver with the expected accuracy in A</div>
 </div>
 <div class="line"><strong>EVSEMinimumVoltageLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[V] Minimum voltage the EVSE can deliver with the expected accuracy</div>
+<div class="line">Minimum voltage the EVSE can deliver with the expected accuracy in V</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-setupphysicalvalues">
+<div class="line"><strong>SetupPhysicalValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Initial physical values for setup a AC or DC charging session</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ac_max_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set the maximum allowed line current restriction per phase in A.</div>
+</div>
+<div class="line"><strong>ac_nominal_voltage</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set line voltage supported by the EVSE. This is the voltage measured between one phase and neutral in V.</div>
+</div>
+<div class="line"><strong>dc_current_regulation_tolerance</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set the absolute magnitude of the regulation tolerance of the EVSE in A.</div>
+</div>
+<div class="line"><strong>dc_peak_current_ripple</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set the peak-to-peak magnitude of the current ripple of the EVSE in A.</div>
+</div>
+<div class="line"><strong>dc_energy_to_be_delivered</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Set the amount of energy to be deliveredby the EVSE in Wh (optional)</div>
+</div>
+<div class="line"><strong>dc_minimum_limits</strong>:<em>object</em> (<a class="reference internal" href="#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMinimumLimits</span></a>)</div>
+<div class="line-block">
+<div class="line">Set the minimum limits for the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>dc_maximum_limits</strong>:<em>object</em> (<a class="reference internal" href="#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMaximumLimits</span></a>)</div>
+<div class="line-block">
+<div class="line">Set the maximum limits for the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -192,11 +256,11 @@
 <div class="line-block">
 <div class="line"><strong>DC_EVTargetVoltage</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[V] Target Voltage requested by EV</div>
+<div class="line">Target Voltage requested by EV in V</div>
 </div>
 <div class="line"><strong>DC_EVTargetCurrent</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[A] Current demanded by EV</div>
+<div class="line">Current demanded by EV in A</div>
 </div>
 </div>
 </div>
@@ -209,15 +273,15 @@
 <div class="line-block">
 <div class="line"><strong>DC_EVMaximumCurrentLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[A] Maximum current supported and allowed by the EV</div>
+<div class="line">Maximum current supported and allowed by the EV in A</div>
 </div>
 <div class="line"><strong>DC_EVMaximumPowerLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">Optional: [W] Maximum power supported and allowed by the EV</div>
+<div class="line">Maximum power supported and allowed by the EV in W (optional)</div>
 </div>
 <div class="line"><strong>DC_EVMaximumVoltageLimit</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">[V] Maximum voltage supported and allowed by the EV</div>
+<div class="line">Maximum voltage supported and allowed by the EV in V</div>
 </div>
 </div>
 </div>

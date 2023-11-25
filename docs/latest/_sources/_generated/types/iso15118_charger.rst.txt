@@ -20,12 +20,6 @@ ISO15118 charger types
 |  Possible energy transfer modes
 |  enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique
 
-.. _iso15118_charger-DebugMode:
-
-| **DebugMode**:*string*
-|  The different debug modes
-|  enum: None, Lite, Full
-
 .. _iso15118_charger-IsolationStatus:
 
 | **IsolationStatus**:*string*
@@ -38,6 +32,17 @@ ISO15118 charger types
 |  Indicates the DC EV internal status
 |  enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData
 
+.. _iso15118_charger-EvseError:
+
+| **EvseError**:*string*
+|  Details on error type
+|   Error_Contactor: The contactor is opened or closed at the wrong moment.
+|   Error_RCD: The RCD has detected an error.
+|   Error_UtilityInterruptEvent: Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load
+|   Error_Malfunction: A non-recoverable charger fault has occurred (Isolation Failure, ...). It is permanently faulted.
+|   Error_EmergencyShutdown: Charging System Incompatibility, Emergency Shutdown or E-Stop button pressed at charging station
+|  enum: Error_Contactor, Error_RCD, Error_UtilityInterruptEvent, Error_Malfunction, Error_EmergencyShutdown
+
 .. _iso15118_charger-V2G_Message_ID:
 
 | **V2G_Message_ID**:*string*
@@ -48,7 +53,18 @@ ISO15118 charger types
 
 | **SAE_J2847_Bidi_Mode**:*string*
 |  Bidi mode for sae j2847_2
-|  enum: V2G, V2H
+|  enum: None, V2G, V2H
+
+.. _iso15118_charger-EVSEID:
+
+| **EVSEID**:*object*
+|  An ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to
+|  required: EVSE_ID
+|  properties:
+|   **EVSE_ID**:*string*
+|    EVSE ID
+|   **EVSEID_DIN**:*string*
+|    EVSE ID (DIN70121) according to DIN SPEC 91286
 
 .. _iso15118_charger-DC_EVSEPresentVoltage_Current:
 
@@ -57,9 +73,9 @@ ISO15118 charger types
 |  required: EVSEPresentVoltage
 |  properties:
 |   **EVSEPresentVoltage**:*number*
-|    [V] Output voltage of the EVSE as defined in IEC CDV 61851-23
+|    Output voltage of the EVSE as defined in IEC CDV 61851-23 in V
 |   **EVSEPresentCurrent**:*number*
-|    [A] Present output current of the EVSE
+|    Present output current of the EVSE in A
 
 .. _iso15118_charger-DC_EVSEMaximumLimits:
 
@@ -68,11 +84,11 @@ ISO15118 charger types
 |  required: EVSEMaximumCurrentLimit, EVSEMaximumPowerLimit, EVSEMaximumVoltageLimit
 |  properties:
 |   **EVSEMaximumCurrentLimit**:*number*
-|    [A] Maximum current the EVSE can deliver
+|    Maximum current the EVSE can deliver in A
 |   **EVSEMaximumPowerLimit**:*number*
-|    [W] Maximum power the EVSE can deliver
+|    Maximum power the EVSE can deliver in W
 |   **EVSEMaximumVoltageLimit**:*number*
-|    [V] Maximum voltage the EVSE can deliver
+|    Maximum voltage the EVSE can deliver in V
 
 .. _iso15118_charger-DC_EVSEMinimumLimits:
 
@@ -81,9 +97,31 @@ ISO15118 charger types
 |  required: EVSEMinimumCurrentLimit, EVSEMinimumVoltageLimit
 |  properties:
 |   **EVSEMinimumCurrentLimit**:*number*
-|    [A] Minimum current the EVSE can deliver with the expected accuracy
+|    Minimum current the EVSE can deliver with the expected accuracy in A
 |   **EVSEMinimumVoltageLimit**:*number*
-|    [V] Minimum voltage the EVSE can deliver with the expected accuracy
+|    Minimum voltage the EVSE can deliver with the expected accuracy in V
+
+.. _iso15118_charger-SetupPhysicalValues:
+
+| **SetupPhysicalValues**:*object*
+|  Initial physical values for setup a AC or DC charging session
+|  properties:
+|   **ac_max_current**:*number*
+|    Set the maximum allowed line current restriction per phase in A.
+|   **ac_nominal_voltage**:*number*
+|    Set line voltage supported by the EVSE. This is the voltage measured between one phase and neutral in V.
+|   **dc_current_regulation_tolerance**:*number*
+|    Set the absolute magnitude of the regulation tolerance of the EVSE in A.
+|   **dc_peak_current_ripple**:*number*
+|    Set the peak-to-peak magnitude of the current ripple of the EVSE in A.
+|   **dc_energy_to_be_delivered**:*number*
+|    Set the amount of energy to be deliveredby the EVSE in Wh (optional)
+|   **dc_minimum_limits**:*object* (:ref:`iso15118_charger-DC_EVSEMinimumLimits <iso15118_charger-DC_EVSEMinimumLimits>`)
+|    Set the minimum limits for the EVSE
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMinimumLimits>`.
+|   **dc_maximum_limits**:*object* (:ref:`iso15118_charger-DC_EVSEMaximumLimits <iso15118_charger-DC_EVSEMaximumLimits>`)
+|    Set the maximum limits for the EVSE
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMaximumLimits>`.
 
 .. _iso15118_charger-DC_EVStatusType:
 
@@ -110,9 +148,9 @@ ISO15118 charger types
 |  required: DC_EVTargetVoltage, DC_EVTargetCurrent
 |  properties:
 |   **DC_EVTargetVoltage**:*number*
-|    [V] Target Voltage requested by EV
+|    Target Voltage requested by EV in V
 |   **DC_EVTargetCurrent**:*number*
-|    [A] Current demanded by EV
+|    Current demanded by EV in A
 
 .. _iso15118_charger-DC_EVMaximumLimits:
 
@@ -120,11 +158,11 @@ ISO15118 charger types
 |  Maximum Values (current, power and voltage) supported and allowed by the EV
 |  properties:
 |   **DC_EVMaximumCurrentLimit**:*number*
-|    [A] Maximum current supported and allowed by the EV
+|    Maximum current supported and allowed by the EV in A
 |   **DC_EVMaximumPowerLimit**:*number*
-|    Optional: [W] Maximum power supported and allowed by the EV
+|    Maximum power supported and allowed by the EV in W (optional)
 |   **DC_EVMaximumVoltageLimit**:*number*
-|    [V] Maximum voltage supported and allowed by the EV
+|    Maximum voltage supported and allowed by the EV in V
 
 .. _iso15118_charger-DC_EVRemainingTime:
 

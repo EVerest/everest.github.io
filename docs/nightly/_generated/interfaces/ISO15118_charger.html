@@ -239,269 +239,86 @@
 <section id="commands">
 <h2><span class="section-number">11.2.1.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>set_EVSEID</strong>:<em>void</em></div>
+<div class="line"><strong>setup</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">One Time Setup at Boot - Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to</div>
-<div class="line"><strong>EVSEID</strong>:<em>string</em></div>
+<div class="line">At startup all necessary info should be sent to the module once.</div>
+<div class="line"><strong>evse_id</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-evseid"><span class="std std-ref">iso15118_charger-EVSEID</span></a>)</div>
 <div class="line-block">
-<div class="line">EVSE ID</div>
+<div class="line">Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-evseid"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>EVSEID_DIN</strong>:<em>string</em></div>
+<div class="line"><strong>supported_energy_transfer_modes</strong>:<em>array</em></div>
 <div class="line-block">
-<div class="line">EVSE ID (DIN70121) after DIN SPEC 91286</div>
-</div>
-</div>
-<div class="line"><strong>set_PaymentOptions</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">One Time Setup at Boot - Providing a list of payment options to the EVCC</div>
-<div class="line"><strong>PaymentOptions</strong>:<em>array</em></div>
-<div class="line-block">
-<div class="line">An array of payment options</div>
+<div class="line">Available energy transfer modes supported by the EVSE</div>
 <div class="line">items:</div>
 <div class="line-block">
 <div class="line">description:</div>
 <div class="line">type:</div>
-<div class="line">enum: Contract, ExternalPayment</div>
+<div class="line">$ref:</div>
 </div>
 </div>
-</div>
-<div class="line"><strong>set_SupportedEnergyTransferMode</strong>:<em>void</em></div>
+<div class="line"><strong>sae_j2847_mode</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-sae-j2847-bidi-mode"><span class="std std-ref">iso15118_charger-SAE_J2847_Bidi_Mode</span></a>)</div>
 <div class="line-block">
-<div class="line">One Time Setup at Boot - Available energy transfer modes supported by the EVSE</div>
-<div class="line"><strong>SupportedEnergyTransferMode</strong>:<em>array</em></div>
+<div class="line">Charger is supporting SAE J2847 V2G/V2H version</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-sae-j2847-bidi-mode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>debug_mode</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">An array of supported engery modes</div>
+<div class="line">Enable/Disable debug mode</div>
+</div>
+<div class="line"><strong>physical_values</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-setupphysicalvalues"><span class="std std-ref">iso15118_charger-SetupPhysicalValues</span></a>)</div>
+<div class="line-block">
+<div class="line">Set up initial physical values for a AC or DC charging session</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-setupphysicalvalues"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>session_setup</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">At each session start this info should be sent to the module.</div>
+<div class="line"><strong>payment_options</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Providing a list of payment options to the EVCC</div>
 <div class="line">items:</div>
 <div class="line-block">
 <div class="line">description:</div>
 <div class="line">type:</div>
-<div class="line">enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique</div>
+<div class="line">$ref:</div>
 </div>
 </div>
-</div>
-<div class="line"><strong>set_AC_EVSENominalVoltage</strong>:<em>void</em></div>
+<div class="line"><strong>supported_certificate_service</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">One Time Setup at Boot - Set Line voltage supported by the EVSE. This is the voltage measured between one phases and neutral</div>
-<div class="line"><strong>EVSENominalVoltage</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[V] Nominal Voltage</div>
+<div class="line">The charger supports the certificate installation/update service and has a connection to an SA for this purpose</div>
 </div>
 </div>
-<div class="line"><strong>set_DC_EVSECurrentRegulationTolerance</strong>:<em>void</em></div>
+<div class="line"><strong>certificate_response</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">One Time Setup at Boot (Optional) - Set the absolute magnitude of the regulation tolerance of the EVSA</div>
-<div class="line"><strong>EVSECurrentRegulationTolerance</strong>:<em>number</em></div>
+<div class="line">This message is an async response to a previously published Certificate_Request. The new/updated Contract Certificate (including the certificate chain) and the corresponding encrypted private key are sent via the SECC to the EVCC.</div>
+<div class="line"><strong>exi_stream_status</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">iso15118_charger-Response_Exi_Stream_Status</span></a>)</div>
 <div class="line-block">
-<div class="line">Set EVSECurrentRegulationTolerance [A]</div>
+<div class="line">The response raw EXI stream and the status from the CSMS</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
-<div class="line"><strong>set_DC_EVSEPeakCurrentRipple</strong>:<em>void</em></div>
+<div class="line"><strong>authorization_response</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">One Time Setup at Boot - Set the peak-to-peak magnitude of the current ripple of the EVSE</div>
-<div class="line"><strong>EVSEPeakCurrentRipple</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Set EVSEPeakCurrentRipple [A]</div>
-</div>
-</div>
-<div class="line"><strong>set_ReceiptRequired</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">One Time Setup at Boot (Optional) - This element is used by the SECC to indicate that the EVCC is required to send a MeteringReceiptReq message for the purpose of signing the meter info record</div>
-<div class="line"><strong>ReceiptRequired</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Receipt is required, False: Receipt is not required</div>
-</div>
-</div>
-<div class="line"><strong>set_FreeService</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">On Session Setup - Set FreeService so the EVCC can use the service free of charge or not</div>
-<div class="line"><strong>FreeService</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Charging is free, False: Charging is not free</div>
-</div>
-</div>
-<div class="line"><strong>set_EVSEEnergyToBeDelivered</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">On Session Setup (Optional) - Set the Amount of energy to be delivered by the EVSE</div>
-<div class="line"><strong>EVSEEnergyToBeDelivered</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">Set EVSEEnergyToBeDelivered [Wh]</div>
-</div>
-</div>
-<div class="line"><strong>enable_debug_mode</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">On Session Setup - Set different modes for the debug mode.</div>
-<div class="line"><strong>debug_mode</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-debugmode"><span class="std std-ref">iso15118_charger-DebugMode</span></a>)</div>
-<div class="line-block">
-<div class="line">The various debug modes</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-debugmode"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>set_Auth_Okay_EIM</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Response on Require_Auth_EIM - Set this element if the authorization was either successful or unsuccessful</div>
-<div class="line"><strong>auth_okay_eim</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Authentication is okay</div>
-</div>
-</div>
-<div class="line"><strong>set_Auth_Okay_PnC</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">PaymentDetails - With this message the SECC informs the EVCC whether the previously provided payment details were accepted or not</div>
-<div class="line"><strong>status</strong>:<em>string</em> (<a class="reference internal" href="../types/authorization.html#authorization-authorizationstatus"><span class="std std-ref">authorization-AuthorizationStatus</span></a>)</div>
+<div class="line">This message is an async response to a previously published Require_Auth_EIM or Require_Auth_PnC. The SECC informs the EVCC whether the authorization is accecpted or not.</div>
+<div class="line"><strong>authorization_status</strong>:<em>string</em> (<a class="reference internal" href="../types/authorization.html#authorization-authorizationstatus"><span class="std std-ref">authorization-AuthorizationStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">Authorization status of the ID Token</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/authorization.html#authorization-authorizationstatus"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>certificateStatus</strong>:<em>string</em> (<a class="reference internal" href="../types/authorization.html#authorization-certificatestatus"><span class="std std-ref">authorization-CertificateStatus</span></a>)</div>
+<div class="line"><strong>certificate_status</strong>:<em>string</em> (<a class="reference internal" href="../types/authorization.html#authorization-certificatestatus"><span class="std std-ref">authorization-CertificateStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">Certificate status information</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/authorization.html#authorization-certificatestatus"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
-<div class="line"><strong>set_FAILED_ContactorError</strong>:<em>void</em></div>
+<div class="line"><strong>ac_contactor_closed</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Any Time - Set this error when the contactor is opened or closed at the wrong moment</div>
-<div class="line"><strong>ContactorError</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: ContactError happend</div>
-</div>
-</div>
-<div class="line"><strong>set_RCD_Error</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Any Time - Indicates the current status of the Residual Current Device (RCD)</div>
-<div class="line"><strong>RCD</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">If RCD is equal to true, the RCD has detected an error. If RCD is equal to false, the RCD has not detected an error</div>
-</div>
-</div>
-<div class="line"><strong>stop_charging</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">During charging - Stops the charging process</div>
-<div class="line"><strong>stop_charging</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Stop, False: Continue</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEPresentVoltageCurrent</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Starting from PowerDelivery to WeldingDetection - Set the present voltage and current for the EVSE</div>
-<div class="line"><strong>EVSEPresentVoltage_Current</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsepresentvoltage-current"><span class="std std-ref">iso15118_charger-DC_EVSEPresentVoltage_Current</span></a>)</div>
-<div class="line-block">
-<div class="line">Present values (current and voltage) for the EVSE</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsepresentvoltage-current"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>set_AC_EVSEMaxCurrent</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ChargeParameterDiscovery and during charging - Set the Maximum allowed line current restriction per phase</div>
-<div class="line"><strong>EVSEMaxCurrent</strong>:<em>number</em></div>
-<div class="line-block">
-<div class="line">[A] Max current</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEMaximumLimits</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ChargeParameterDiscovery and during charging - Set the maximum current, power and voltage for the EVSE</div>
-<div class="line"><strong>EVSEMaximumLimits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMaximumLimits</span></a>)</div>
-<div class="line-block">
-<div class="line">Maximum Values (current, power and voltage) the EVSE can deliver</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>set_DC_EVSEMinimumLimits</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ChargeParameterDiscovery - Set the minimum current and voltage for the EVSE</div>
-<div class="line"><strong>EVSEMinimumLimits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMinimumLimits</span></a>)</div>
-<div class="line-block">
-<div class="line">Minimum Values (current and voltage) the EVSE can deliver</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>set_EVSEIsolationStatus</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">From ChargeParameterDiscovery to WeldingDetection (Optional) - Set the isolation condition (result of the isolation monitoring)</div>
-<div class="line"><strong>EVSEIsolationStatus</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-isolationstatus"><span class="std std-ref">iso15118_charger-IsolationStatus</span></a>)</div>
-<div class="line-block">
-<div class="line">Set the isolation status</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-isolationstatus"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>set_EVSE_UtilityInterruptEvent</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">From ChargeParameterDiscovery to WeldingDetection - Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load</div>
-<div class="line"><strong>EVSE_UtilityInterruptEvent</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Interrupt Event happend</div>
-</div>
-</div>
-<div class="line"><strong>set_EVSE_Malfunction</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Any Time - A non-recoverable charger fault has occurred (Isolation Failure, …). It is permanently faulted</div>
-<div class="line"><strong>EVSE_Malfunction</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Malfunction fault</div>
-</div>
-</div>
-<div class="line"><strong>set_EVSE_EmergencyShutdown</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Any Time - Charging System Incompatibility, Emergency Shutdown or ‘E-Stop’ button pressed at charging station</div>
-<div class="line"><strong>EVSE_EmergencyShutdown</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Emergency Stop</div>
-</div>
-</div>
-<div class="line"><strong>set_MeterInfo</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">During charging (Optional) - Includes the meterInfo record containing the latest meter reading and other meter relevant data</div>
-<div class="line"><strong>powermeter</strong>:<em>object</em> (<a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
-<div class="line-block">
-<div class="line">Measured dataset</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
-<div class="line"><strong>contactor_closed</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Response on AC_Close_Contactor - Set this element if the contactor is closed</div>
+<div class="line">This message is an async response to a previously published AC_Close_Contactor or AC_Open_Contactor.</div>
 <div class="line"><strong>status</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">True: Contactor is closed</div>
-</div>
-</div>
-<div class="line"><strong>contactor_open</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Response on AC_Open_Contactor - Set this element if the contactor is open</div>
-<div class="line"><strong>status</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Contactor is open</div>
-</div>
-</div>
-<div class="line"><strong>cableCheck_Finished</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Cable check is finished, voltage is under 20V and insulation resistor on the cable is alright</div>
-<div class="line"><strong>status</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: Cable check is okay</div>
-</div>
-</div>
-<div class="line"><strong>set_Certificate_Service_Supported</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">ServiceDiscoveryRes - The charger supports the certificate installation/update service and has a connection to an SA for this purpose</div>
-<div class="line"><strong>status</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">True: The service is supported</div>
-</div>
-</div>
-<div class="line"><strong>set_Get_Certificate_Response</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">CertificateInstallationRes/CertificateUpdateRes - The new/updated</div>
-<div class="line">Contract Certificate (including the certificate chain)</div>
-</div>
-<div class="line">and the corresponding encrypted private key are sent via the SECC to the EVCC This is an async response to a previously published Certificate_Request</div>
-<div class="line-block">
-<div class="line"><strong>Existream_Status</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">iso15118_charger-Response_Exi_Stream_Status</span></a>)</div>
-<div class="line-block">
-<div class="line">The response raw exi stream and the status from the CSMS system</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
+<div class="line">Set to true when contactor is closed, false when contactor is open</div>
 </div>
 </div>
 <div class="line"><strong>dlink_ready</strong>:<em>void</em></div>
@@ -512,14 +329,95 @@
 <div class="line">Set to true when link becomes ready, false when the link is terminated</div>
 </div>
 </div>
-<div class="line"><strong>supporting_sae_j2847_bidi</strong>:<em>void</em></div>
+<div class="line"><strong>cable_check_finished</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Charger is supporting SAE J2847 V2G/V2H version</div>
-<div class="line"><strong>mode</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-sae-j2847-bidi-mode"><span class="std std-ref">iso15118_charger-SAE_J2847_Bidi_Mode</span></a>)</div>
+<div class="line">Cable check is finished, voltage is under 20V and insulation resistor on the cable is alright</div>
+<div class="line"><strong>status</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Mode V2G or V2H</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-sae-j2847-bidi-mode"><span class="std std-ref">here</span></a>.</div>
+<div class="line">Set to true when cable check is okay</div>
 </div>
+</div>
+<div class="line"><strong>receipt_is_required</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">This element is used by the SECC to indicate that the EVCC is required to send a MeteringReceiptReq message for the purpose of signing the meter info record.</div>
+<div class="line"><strong>receipt_required</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Set to true when receipt is required, set to false when not</div>
+</div>
+</div>
+<div class="line"><strong>stop_charging</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Stops the charging process</div>
+<div class="line"><strong>stop</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Set to true when to stop, set to false when to continue</div>
+</div>
+</div>
+<div class="line"><strong>update_ac_max_current</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the maximum allowed line current restriction per phase</div>
+<div class="line"><strong>max_current</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Max current in A</div>
+</div>
+</div>
+<div class="line"><strong>update_dc_maximum_limits</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the maximum limits</div>
+<div class="line"><strong>maximum_limits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMaximumLimits</span></a>)</div>
+<div class="line-block">
+<div class="line">Maximum values (current, power and voltage) the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsemaximumlimits"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_dc_minimum_limits</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the minimum limits</div>
+<div class="line"><strong>minimum_limits</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">iso15118_charger-DC_EVSEMinimumLimits</span></a>)</div>
+<div class="line-block">
+<div class="line">Minimum values (current and voltage) the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evseminimumlimits"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_isolation_status</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the isolation condition</div>
+<div class="line"><strong>isolation_status</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-isolationstatus"><span class="std std-ref">iso15118_charger-IsolationStatus</span></a>)</div>
+<div class="line-block">
+<div class="line">Result of the isolation monitoring</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-isolationstatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_dc_present_values</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the present values from the DC powersupply</div>
+<div class="line"><strong>present_voltage_current</strong>:<em>object</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsepresentvoltage-current"><span class="std std-ref">iso15118_charger-DC_EVSEPresentVoltage_Current</span></a>)</div>
+<div class="line-block">
+<div class="line">Present voltage and current</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-dc-evsepresentvoltage-current"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_meter_info</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update meter info</div>
+<div class="line"><strong>powermeter</strong>:<em>object</em> (<a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line-block">
+<div class="line">Includes the meterInfo record containing the latest meter reading and other meter relevant data</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>send_error</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">An error has happend. Send this error to inform the EV.</div>
+<div class="line"><strong>error</strong>:<em>string</em> (<a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-evseerror"><span class="std std-ref">iso15118_charger-EvseError</span></a>)</div>
+<div class="line-block">
+<div class="line">The EVSE error enum</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-evseerror"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>reset_error</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Reset all errors</div>
 </div>
 </div>
 </section>

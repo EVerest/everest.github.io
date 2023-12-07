@@ -44,7 +44,7 @@
             
   <section id="ocpp">
 <span id="everest-types-ocpp"></span><h1><span class="section-number">11.3.10. </span>ocpp<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
-<p>OCPP types</p>
+<p>OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201,  as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.</p>
 <div class="line-block" id="ocpp-datatransferstatus">
 <div class="line"><strong>DataTransferStatus</strong>:<em>string</em></div>
 <div class="line-block">
@@ -172,6 +172,292 @@
 <div class="line"><strong>info</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Additional information about the occurred security event</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-evse">
+<div class="line"><strong>EVSE</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type of an EVSE. If only the id is present, this type identifies an EVSE. If also a connector_id is given, this type identifies a Connector of the EVSE</div>
+<div class="line">required: id</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Id of the EVSE</div>
+</div>
+<div class="line"><strong>connector_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">An id to designate a specific connector (on an EVSE) by connector index number</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-variable">
+<div class="line"><strong>Variable</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type for a variable with a name and an optional instance For OCPP1.6: A Variable should only contain a name. The name identifies</div>
+<div class="line-block">
+<div class="line">the configuration key.</div>
+</div>
+</div>
+<div class="line">For OCPP2.0.1: All properties of the Variable can be used</div>
+<div class="line-block">
+<div class="line">required: name</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>name</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Name of a variable</div>
+</div>
+<div class="line"><strong>instance</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Name of instance in case the variable exists as multiple instances</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-component">
+<div class="line"><strong>Component</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type for a component with name, optional instance and optional evse For OCPP1.6: A definition of a Component doesn’t exist in OCPP1.6; In the context of OCPP1.6</div>
+<div class="line-block">
+<div class="line">this type may not be relevant or used.</div>
+</div>
+</div>
+<div class="line">For OCPP2.0.1: All properties of the Component can be used</div>
+<div class="line-block">
+<div class="line">required: name</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>name</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Name of a component</div>
+</div>
+<div class="line"><strong>instance</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Name of instance in case the component exists as multiple instances</div>
+</div>
+<div class="line"><strong>evse</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-evse"><span class="std std-ref">ocpp-EVSE</span></a>)</div>
+<div class="line-block">
+<div class="line">Specifies the EVSE when component is located at EVSE level, also specifies  the connector when component is located at Connector level</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-evse"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-componentvariable">
+<div class="line"><strong>ComponentVariable</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type for a combination of component and variable. Note that for OCPP1.6 only the Variable.name (configuration key) is sufficient to identify a  configuration key. For OCPP2.0.1 all properties of the type(s) can be used.</div>
+<div class="line">required: component, variable</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>component</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-component"><span class="std std-ref">ocpp-Component</span></a>)</div>
+<div class="line-block">
+<div class="line">Component</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-component"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>variable</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-variable"><span class="std std-ref">ocpp-Variable</span></a>)</div>
+<div class="line-block">
+<div class="line">Variable</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-variable"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-attributeenum">
+<div class="line"><strong>AttributeEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Attribute enum Actual: The actual value of a variable Target: The target value of a variable MinSet: The minimal allowed value of a variable MaxSet: The maximum allowed value of a variable</div>
+<div class="line">enum: Actual, Target, MinSet, MaxSet</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-getvariablestatusenumtype">
+<div class="line"><strong>GetVariableStatusEnumType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the status of the GetVariableRequest as part of the GetVariableResult operation Accepted: Variable successfully retrieved Rejected: Request is rejected UnknownComponent: Component is not known UnknownVariable: Variable is not known NotSupportedAttributeType: The AttributeType is not supported</div>
+<div class="line">enum: Accepted, Rejected, UnknownComponent, UnknownVariable, NotSupportedAttributeType</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-setvariablestatusenumtype">
+<div class="line"><strong>SetVariableStatusEnumType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the status of the SetVariableRequest operation as part of the SetVariableResult Accepted: Variable successfully set Rejected: Request is rejected UnknownComponent: Component is not known UnknownVariable: Variable is not known NotSupportedAttributeType: The AttributeType is not supported RebootRequired: A reboot is required</div>
+<div class="line">enum: Accepted, Rejected, UnknownComponent, UnknownVariable, NotSupportedAttributeType, RebootRequired</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-eventtriggerenum">
+<div class="line"><strong>EventTriggerEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the trigger reason of a generic event as part of the type EventData Alerting: Monitored variable has passed an Lower or Upper Threshold Delta: Delta Monitored Variable value has changed by more than specified amount Periodic: Periodic Monitored Variable has been sampled for reporting at the specified interval</div>
+<div class="line">enum: Alerting, Delta, Periodic</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-eventnotificationtype">
+<div class="line"><strong>EventNotificationType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the event notification type as part of the type EventData HardWiredNotification: The software implemented by the manufacturer triggered a hardwired notification HardWiredMonitor: Triggered by a monitor, which is hardwired by the manufacturer PreconfiguredMonitor: Triggered by a monitor, which is preconfigured by the manufacturer. CustomMonitor: Triggered by a monitor which is set by a message by the Charging Station Operator.</div>
+<div class="line">enum: HardWiredNotification, HardWiredMonitor, PreconfiguredMonitor, CustomMonitor</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-getvariablerequest">
+<div class="line"><strong>GetVariableRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type to request a variable value (OCPP2.0.1) or configuration value (OCPP1.6)</div>
+<div class="line">required: component_variable</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>component_variable</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">ocpp-ComponentVariable</span></a>)</div>
+<div class="line-block">
+<div class="line">Identifier for which the value should be requested</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>attribute_type</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">ocpp-AttributeEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">AttributeEnum for which the value should be requested. When absent, actual is assumed</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-getvariableresult">
+<div class="line"><strong>GetVariableResult</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Result of a GetVariableRequest</div>
+<div class="line">required: status, component_variable</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-getvariablestatusenumtype"><span class="std std-ref">ocpp-GetVariableStatusEnumType</span></a>)</div>
+<div class="line-block">
+<div class="line">Status of the GetVariableResult</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-getvariablestatusenumtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>attribute_type</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">ocpp-AttributeEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">AttributeEnum for which the value was requested. When absent, actual is assumed</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Value of the requested variable and AttributeEnum. This field can only be empty when the given status is NOT accepted</div>
+</div>
+<div class="line"><strong>component_variable</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">ocpp-ComponentVariable</span></a>)</div>
+<div class="line-block">
+<div class="line">Identifier for which the value was requested</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-setvariablerequest">
+<div class="line"><strong>SetVariableRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type to request to set a variable or configuration key</div>
+<div class="line">required: component_variable, value</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>component_variable</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">ocpp-ComponentVariable</span></a>)</div>
+<div class="line-block">
+<div class="line">Identifier for which the value should be set</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Value of the variable that should be set</div>
+</div>
+<div class="line"><strong>attribute_type</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">ocpp-AttributeEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">AttributeEnum for which the value should be set. When absent, actual is assumed</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-setvariableresult">
+<div class="line"><strong>SetVariableResult</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Result of a SetVariableRequest</div>
+<div class="line">required: status, component_variable</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-setvariablestatusenumtype"><span class="std std-ref">ocpp-SetVariableStatusEnumType</span></a>)</div>
+<div class="line-block">
+<div class="line">Status of the SetVariableResult</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-setvariablestatusenumtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>component_variable</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">ocpp-ComponentVariable</span></a>)</div>
+<div class="line-block">
+<div class="line">Identifier for which the set of the value should be requested</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>attribute_type</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">ocpp-AttributeEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">AttributeEnum for which the set of the value is requested. When absent, actual is assumed</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-attributeenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-eventdata">
+<div class="line"><strong>EventData</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type to report an event notification for a component-variable</div>
+<div class="line">required: component_variable, event_id, timestamp, trigger, actual_value, event_notification_type</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>component_variable</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">ocpp-ComponentVariable</span></a>)</div>
+<div class="line-block">
+<div class="line">Identifier for which the event occured</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-componentvariable"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>event_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Identifies the event</div>
+</div>
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Timestamp of the moment the report was generated</div>
+<div class="line">format:</div>
+</div>
+<div class="line"><strong>trigger</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-eventtriggerenum"><span class="std std-ref">ocpp-EventTriggerEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the monitor that triggered this event</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-eventtriggerenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>actual_value</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Actual value of the variable</div>
+</div>
+<div class="line"><strong>event_notification_type</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-eventnotificationtype"><span class="std std-ref">ocpp-EventNotificationType</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the event notification</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-eventnotificationtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>cause</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Refers to the Id of an event that is considered to be the cause for this event</div>
+</div>
+<div class="line"><strong>tech_code</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Technical (error) code as reported by component</div>
+</div>
+<div class="line"><strong>tech_info</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Technical detail information as reported by component</div>
+</div>
+<div class="line"><strong>cleared</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Cleared is set to true to report the clearing of a monitored situation</div>
+</div>
+<div class="line"><strong>transaction_id</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">If an event notification is linked to a specific transaction, this field can be used to specify its transactionId</div>
+</div>
+<div class="line"><strong>variable_monitoring_id</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Identifies the VariableMonitoring which triggered the event</div>
 </div>
 </div>
 </div>

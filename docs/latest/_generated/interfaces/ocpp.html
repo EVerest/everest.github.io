@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.2.30. slac &#8212; EVerest  documentation</title>
+    <title>11.2.22. ocpp &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="11.2.31. solar_forecast" href="solar_forecast.html" />
-    <link rel="prev" title="11.2.29. serial_communication_hub" href="serial_communication_hub.html" /> 
+    <link rel="next" title="11.2.23. ocpp_1_6_charge_point" href="ocpp_1_6_charge_point.html" />
+    <link rel="prev" title="11.2.21. kvs" href="kvs.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="solar_forecast.html" title="11.2.31. solar_forecast"
+          <a href="ocpp_1_6_charge_point.html" title="11.2.23. ocpp_1_6_charge_point"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="serial_communication_hub.html" title="11.2.29. serial_communication_hub"
+          <a href="kvs.html" title="11.2.21. kvs"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.30. </span>slac</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.22. </span>ocpp</a></li> 
       </ul>
     </div>  
 
@@ -42,83 +42,126 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="slac">
-<span id="everest-interfaces-slac"></span><h1><span class="section-number">11.2.30. </span>slac<a class="headerlink" href="#slac" title="Permalink to this heading">¶</a></h1>
+  <section id="ocpp">
+<span id="everest-interfaces-ocpp"></span><h1><span class="section-number">11.2.22. </span>ocpp<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">ISO15118-3 SLAC interface for EVSE side</div>
+<div class="line">This interface allows to control an OCPP service and set and get data from the OCPP service. It is designed to be used for both OCPP1.6 and OCPP2.0.1 module implementations. Therefore, the vars, commands and types  are based more on the definitions of OCPP2.0.1, as this offers more flexibility and it is easier to transfer to the capabilities of OCPP1.6 than vice versa.</div>
 </div>
 <section id="variables">
-<h2><span class="section-number">11.2.30.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.22.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>state</strong>:<em>string</em></div>
+<div class="line"><strong>charging_schedules</strong>:<em>object</em></div>
 <div class="line-block">
-<div class="line">Provides the state enum.</div>
-<div class="line">enum: UNMATCHED, MATCHING, MATCHED</div>
+<div class="line">Object that contains OCPP charging schedules of all connectors. The object contains one composite charging schedule for each connector id starting from connector 0. Connector 0 contains a schedule for the whole charging station.</div>
 </div>
-<div class="line"><strong>dlink_ready</strong>:<em>boolean</em></div>
+<div class="line"><strong>is_connected</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Inform higher layers about a change in data link status. Emits true if link was set up and false when the link is shut down.</div>
+<div class="line">Indicates if chargepoint is connected to CSMS</div>
 </div>
-<div class="line"><strong>request_error_routine</strong>:<em>null</em></div>
+<div class="line"><strong>security_event</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">ocpp-SecurityEvent</span></a>)</div>
 <div class="line-block">
-<div class="line">Inform the higher layer to execute the error routine for a SLAC connection retry</div>
+<div class="line">Published when an internal security event occurred</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ev_mac_address</strong>:<em>string</em></div>
+<div class="line"><strong>event_data</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-eventdata"><span class="std std-ref">ocpp-EventData</span></a>)</div>
 <div class="line-block">
-<div class="line">Inform higher layers about the MAC address of the vehicle (upper case)</div>
-<div class="line">pattern:</div>
+<div class="line">Published for a component variable combination when a variable with a monitor has been changed For OCPP1.6: The object may only contain the required properties of the EventData type because in OCPP1.6</div>
+<div class="line-block">
+<div class="line">there is not more information available or required.</div>
+</div>
+</div>
+<div class="line">For OCPP2.0.1: The object may contain all available properties</div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-eventdata"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </section>
 <section id="commands">
-<h2><span class="section-number">11.2.30.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.22.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>reset</strong>:<em>void</em></div>
+<div class="line"><strong>stop</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Reset SLAC</div>
-<div class="line"><strong>enable</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">true: start SLAC after reset, false: stop SLAC</div>
-</div>
-</div>
-<div class="line"><strong>enter_bcd</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">Signal pilot state change to B/C/D from A/E/F.</div>
+<div class="line">Disconnects the websocket connection and stops the OCPP communication. No OCPP messages will be stored and sent after a restart.</div>
 <div class="line"><strong>Result</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">True on success, returns False if transition was unexpected and cannot be handled by SLAC state machine.</div>
+<div class="line">Returns true if the service could be stopped successfully, else false</div>
 </div>
 </div>
-<div class="line"><strong>leave_bcd</strong>:<em>boolean</em></div>
+<div class="line"><strong>restart</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Signal pilot state change to A/E/F from B/C/D.</div>
+<div class="line">Connects the websocket and enables OCPP communication after a previous stop call.</div>
 <div class="line"><strong>Result</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">True on success, returns False if transition was unexpected and cannot be handled by SLAC state machine.</div>
+<div class="line">Returns true if the service could be restarted successfully, else false</div>
 </div>
 </div>
-<div class="line"><strong>dlink_terminate</strong>:<em>boolean</em></div>
+<div class="line"><strong>security_event</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Terminate the data link and become UNMATCHED.</div>
-<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line">Triggers a SecurityEventNotification.req at the CSMS. This event is queued with a guaranteed delivery to the CSMS.</div>
+<div class="line"><strong>type</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">True on success.</div>
+<div class="line">type of the security event</div>
+</div>
+<div class="line"><strong>info</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Additional information about the occurred security event</div>
 </div>
 </div>
-<div class="line"><strong>dlink_error</strong>:<em>boolean</em></div>
+<div class="line"><strong>get_variables</strong>:<em>array</em></div>
 <div class="line-block">
-<div class="line">Terminate the data link and restart the matching process.</div>
-<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line">Command to get a variable from OCPP. With OCPP1.6: Retrieves a configuration key. With OCPP2.0.1: Retrieves a variable with value from the device model storage</div>
+<div class="line"><strong>requests</strong>:<em>array</em></div>
 <div class="line-block">
-<div class="line">True on success.</div>
+<div class="line">List of GetVariableRequest</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
-<div class="line"><strong>dlink_pause</strong>:<em>boolean</em></div>
+<div class="line"><strong>Result</strong>:<em>array</em></div>
 <div class="line-block">
-<div class="line">Request power saving mode, while staying MATCHED.</div>
-<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line">List of GetVariableResult containing the result for every requested value. Preserves the order of the input requests.</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">True on success.</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>set_variables</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Command to set a variable at OCPP.  With OCPP1.6: This command can be used to set custom configuration keys (others will be rejected) With OCPP2.0.1: This command can be used to set variables in the device model storage</div>
+<div class="line"><strong>requests</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">List of SetVariableRequests</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">List of SetVariableResult containing the result for every requested set operation</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
+</div>
+</div>
+<div class="line"><strong>monitor_variables</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS.  Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage</div>
+<div class="line"><strong>component_variables</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">List of ComponentVariable(s) to monitor</div>
+<div class="line">items:</div>
+<div class="line-block">
+<div class="line">type:</div>
+<div class="line">$ref:</div>
+</div>
 </div>
 </div>
 </div>
@@ -154,18 +197,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="serial_communication_hub.html"
-                          title="previous chapter"><span class="section-number">11.2.29. </span>serial_communication_hub</a></p>
+    <p class="topless"><a href="kvs.html"
+                          title="previous chapter"><span class="section-number">11.2.21. </span>kvs</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="solar_forecast.html"
-                          title="next chapter"><span class="section-number">11.2.31. </span>solar_forecast</a></p>
+    <p class="topless"><a href="ocpp_1_6_charge_point.html"
+                          title="next chapter"><span class="section-number">11.2.23. </span>ocpp_1_6_charge_point</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/interfaces/slac.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/ocpp.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -196,15 +239,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="solar_forecast.html" title="11.2.31. solar_forecast"
+          <a href="ocpp_1_6_charge_point.html" title="11.2.23. ocpp_1_6_charge_point"
              >next</a> |</li>
         <li class="right" >
-          <a href="serial_communication_hub.html" title="11.2.29. serial_communication_hub"
+          <a href="kvs.html" title="11.2.21. kvs"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.30. </span>slac</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.22. </span>ocpp</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -41,6 +41,8 @@ Variables
 | **enforced_limits**:*object* (:ref:`energy-EnforcedLimits <energy-EnforcedLimits>`)
 |  Enforced limits for this node (coming from the EnergyManager)
 |  **There is an extended definition for this object** :ref:`here <energy-EnforcedLimits>`.
+| **waiting_for_external_ready**:*boolean*
+|  Signals that the EVSE Manager is in principle ready to start charging, but delays sending its ready signal waiting for the external_ready_to_start_charging command.
 | **ready**:*boolean*
 |  Signals that the EVSE Manager is ready to start charging
 | **selected_protocol**:*string*
@@ -124,3 +126,7 @@ Commands
 |  **certificate_response**:*object* (:ref:`iso15118_charger-Response_Exi_Stream_Status <iso15118_charger-Response_Exi_Stream_Status>`)
 |   The response raw exi stream and the status from the CSMS system
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-Response_Exi_Stream_Status>`.
+| **external_ready_to_start_charging**:*boolean*
+|  There are situations where another module needs to do some initialization after evse manager is in principle ready to start charging. This command can be used (optimally in combination with a configuration option) to delay charging ready until the external module is done with its initialization
+|  **Result**:*boolean*
+|   Returns true if the signal was used by the evse manager implementation

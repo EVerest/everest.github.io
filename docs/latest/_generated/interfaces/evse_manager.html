@@ -99,6 +99,10 @@
 <div class="line">Enforced limits for this node (coming from the EnergyManager)</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/energy.html#energy-enforcedlimits"><span class="std std-ref">here</span></a>.</div>
 </div>
+<div class="line"><strong>waiting_for_external_ready</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Signals that the EVSE Manager is in principle ready to start charging, but delays sending its ready signal waiting for the external_ready_to_start_charging command.</div>
+</div>
 <div class="line"><strong>ready</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">Signals that the EVSE Manager is ready to start charging</div>
@@ -253,6 +257,14 @@
 <div class="line-block">
 <div class="line">The response raw exi stream and the status from the CSMS system</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118_charger.html#iso15118-charger-response-exi-stream-status"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>external_ready_to_start_charging</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">There are situations where another module needs to do some initialization after evse manager is in principle ready to start charging. This command can be used (optimally in combination with a configuration option) to delay charging ready until the external module is done with its initialization</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if the signal was used by the evse manager implementation</div>
 </div>
 </div>
 </div>

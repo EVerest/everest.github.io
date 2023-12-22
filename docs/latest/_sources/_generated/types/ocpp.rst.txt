@@ -272,3 +272,52 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    If an event notification is linked to a specific transaction, this field can be used to specify its transactionId
 |   **variable_monitoring_id**:*integer*
 |    Identifies the VariableMonitoring which triggered the event
+
+.. _ocpp-OperationalStatusEnumType:
+
+| **OperationalStatusEnumType**:*string*
+|  Operational status of Charging Station /EVSE / Connector
+|  enum: Inoperative, Operative
+
+.. _ocpp-ChangeAvailabilityRequest:
+
+| **ChangeAvailabilityRequest**:*object*
+|  Request type to change the availability of the Charging Station/ an EVSE / a Connector.
+|  required: operational_status
+|  properties:
+|   **operational_status**:*string* (:ref:`ocpp-OperationalStatusEnumType <ocpp-OperationalStatusEnumType>`)
+|    Type of availability change that the Charging Station should perform.
+|    **There is an extended definition for this object** :ref:`here <ocpp-OperationalStatusEnumType>`.
+|   **evse**:*object* (:ref:`ocpp-EVSE <ocpp-EVSE>`)
+|    Specify EVSE/Connector whose status is changed. When omitted, the message refers to the Charging Station as a whole.
+|    **There is an extended definition for this object** :ref:`here <ocpp-EVSE>`.
+
+.. _ocpp-ChangeAvailabilityStatusEnumType:
+
+| **ChangeAvailabilityStatusEnumType**:*string*
+|  Status returned in response to ChangeAvailabilityRequest.
+|  enum: Accepted, Rejected, Scheduled
+
+.. _ocpp-StatusInfoType:
+
+| **StatusInfoType**:*object*
+|  Element providing more information about the status.
+|  required: reason_code
+|  properties:
+|   **reason_code**:*string*
+|    A predefined code for the reason why the status is returned in this response.  The string is case-insensitive.
+|   **additional_info**:*string*
+|    Additional text to provide detailed information
+
+.. _ocpp-ChangeAvailabilityResponse:
+
+| **ChangeAvailabilityResponse**:*object*
+|  Response type to request to change the availability of the Charging Station/ an EVSE / a Connector.
+|  required: status
+|  properties:
+|   **status**:*string* (:ref:`ocpp-ChangeAvailabilityStatusEnumType <ocpp-ChangeAvailabilityStatusEnumType>`)
+|    Indicates whether the Charging Station is able to perform the availability change.
+|    **There is an extended definition for this object** :ref:`here <ocpp-ChangeAvailabilityStatusEnumType>`.
+|   **status_info**:*object* (:ref:`ocpp-StatusInfoType <ocpp-StatusInfoType>`)
+|    Detailed status information.
+|    **There is an extended definition for this object** :ref:`here <ocpp-StatusInfoType>`.

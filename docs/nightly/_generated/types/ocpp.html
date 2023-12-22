@@ -462,6 +462,78 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="ocpp-operationalstatusenumtype">
+<div class="line"><strong>OperationalStatusEnumType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Operational status of Charging Station /EVSE / Connector</div>
+<div class="line">enum: Inoperative, Operative</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-changeavailabilityrequest">
+<div class="line"><strong>ChangeAvailabilityRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Request type to change the availability of the Charging Station/ an EVSE / a Connector.</div>
+<div class="line">required: operational_status</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>operational_status</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-operationalstatusenumtype"><span class="std std-ref">ocpp-OperationalStatusEnumType</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of availability change that the Charging Station should perform.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-operationalstatusenumtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>evse</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-evse"><span class="std std-ref">ocpp-EVSE</span></a>)</div>
+<div class="line-block">
+<div class="line">Specify EVSE/Connector whose status is changed. When omitted, the message refers to the Charging Station as a whole.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-evse"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-changeavailabilitystatusenumtype">
+<div class="line"><strong>ChangeAvailabilityStatusEnumType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Status returned in response to ChangeAvailabilityRequest.</div>
+<div class="line">enum: Accepted, Rejected, Scheduled</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-statusinfotype">
+<div class="line"><strong>StatusInfoType</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Element providing more information about the status.</div>
+<div class="line">required: reason_code</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reason_code</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">A predefined code for the reason why the status is returned in this response.  The string is case-insensitive.</div>
+</div>
+<div class="line"><strong>additional_info</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Additional text to provide detailed information</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-changeavailabilityresponse">
+<div class="line"><strong>ChangeAvailabilityResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Response type to request to change the availability of the Charging Station/ an EVSE / a Connector.</div>
+<div class="line">required: status</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>string</em> (<a class="reference internal" href="#ocpp-changeavailabilitystatusenumtype"><span class="std std-ref">ocpp-ChangeAvailabilityStatusEnumType</span></a>)</div>
+<div class="line-block">
+<div class="line">Indicates whether the Charging Station is able to perform the availability change.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-changeavailabilitystatusenumtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>status_info</strong>:<em>object</em> (<a class="reference internal" href="#ocpp-statusinfotype"><span class="std std-ref">ocpp-StatusInfoType</span></a>)</div>
+<div class="line-block">
+<div class="line">Detailed status information.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-statusinfotype"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 

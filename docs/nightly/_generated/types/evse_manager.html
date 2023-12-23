@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.3.5. evse_manager &#8212; EVerest  documentation</title>
+    <title>11.3.6. evse_manager &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="11.3.6. evse_security" href="evse_security.html" />
-    <link rel="prev" title="11.3.4. energy_price_information" href="energy_price_information.html" /> 
+    <link rel="next" title="11.3.7. evse_security" href="evse_security.html" />
+    <link rel="prev" title="11.3.5. evse_board_support" href="evse_board_support.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="evse_security.html" title="11.3.6. evse_security"
+          <a href="evse_security.html" title="11.3.7. evse_security"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="energy_price_information.html" title="11.3.4. energy_price_information"
+          <a href="evse_board_support.html" title="11.3.5. evse_board_support"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">11.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.3.5. </span>evse_manager</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.3.6. </span>evse_manager</a></li> 
       </ul>
     </div>  
 
@@ -43,7 +43,7 @@
           <div class="body" role="main">
             
   <section id="evse-manager">
-<span id="everest-types-evse-manager"></span><h1><span class="section-number">11.3.5. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h1>
+<span id="everest-types-evse-manager"></span><h1><span class="section-number">11.3.6. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h1>
 <p>EVSE manager types</p>
 <div class="line-block" id="evse-manager-stoptransactionrequest">
 <div class="line"><strong>StopTransactionRequest</strong>:<em>object</em></div>
@@ -173,6 +173,21 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="evse-manager-sessionfinished">
+<div class="line"><strong>SessionFinished</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Data for the SessionFinished event</div>
+<div class="line">required: timestamp</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Session start time in RFC3339 format</div>
+<div class="line">format:</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="evse-manager-transactionstarted">
 <div class="line"><strong>TransactionStarted</strong>:<em>object</em></div>
 <div class="line-block">
@@ -242,29 +257,8 @@
 <div class="line-block" id="evse-manager-errorenum">
 <div class="line"><strong>ErrorEnum</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Details on error type</div>
-<div class="line-block">
-<div class="line">Car: Signals a car error</div>
-<div class="line">CarDiodeFault: Signals a car diode fault</div>
-<div class="line">Relais: Signals a relais error</div>
-<div class="line">RCD: Signals an RCD error (AC)</div>
-<div class="line">RCDDC: Signal an RCD error (DC)</div>
-<div class="line">VentilationNotAvailable: Signals that ventilation is not available</div>
-<div class="line">OverCurrent: Signals an overcurrent error</div>
-<div class="line">OverVoltage: Signals on overvoltage error</div>
-<div class="line">UnderVoltage: Signals on overvoltage error</div>
-<div class="line">Internal: Signals an internal error</div>
-<div class="line">SLAC: Signals a SLAC communication error</div>
-<div class="line">HLC: Signals a HLC error</div>
-<div class="line">MotorLock: Signals an error with the motor lock of the connector</div>
-<div class="line">OverTemperature: Signals an over temperature error</div>
-<div class="line">BrownOut: Brown out detected in electronics</div>
-<div class="line">CablePP: PP resistor value in cable is out of range</div>
-<div class="line">EnergyManagement: An error from the energy management was reported</div>
-<div class="line">NeutralPEN: Nutral/PEN fault</div>
-<div class="line">CpDriver: The CP output driver has a fault</div>
-</div>
-<div class="line">enum: Car, CarDiodeFault, Relais, RCD, RCDDC, VentilationNotAvailable, OverCurrent, OverVoltage, UnderVoltage, Internal, SLAC, HLC, Other, MotorLock, OverTemperature, BrownOut, CablePP, EnergyManagement, NeutralPEN, CpDriver</div>
+<div class="line">Note this is only kept for compatibility with the legacy error handling and will be removed soon.</div>
+<div class="line">enum: Car, CarDiodeFault, RCD, RCDDC, VentilationNotAvailable, Internal, SLAC, HLC, Other, BrownOut, EnergyManagement</div>
 </div>
 </div>
 <div class="line-block" id="evse-manager-error">
@@ -310,6 +304,11 @@
 <div class="line-block">
 <div class="line">data for SessionStarted event</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionstarted"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>session_finished</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-sessionfinished"><span class="std std-ref">evse_manager-SessionFinished</span></a>)</div>
+<div class="line-block">
+<div class="line">data for the SessionFinished event</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionfinished"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>transaction_started</strong>:<em>object</em> (<a class="reference internal" href="#evse-manager-transactionstarted"><span class="std std-ref">evse_manager-TransactionStarted</span></a>)</div>
 <div class="line-block">
@@ -520,13 +519,13 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="energy_price_information.html"
-                          title="previous chapter"><span class="section-number">11.3.4. </span>energy_price_information</a></p>
+    <p class="topless"><a href="evse_board_support.html"
+                          title="previous chapter"><span class="section-number">11.3.5. </span>evse_board_support</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="evse_security.html"
-                          title="next chapter"><span class="section-number">11.3.6. </span>evse_security</a></p>
+                          title="next chapter"><span class="section-number">11.3.7. </span>evse_security</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -562,15 +561,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="evse_security.html" title="11.3.6. evse_security"
+          <a href="evse_security.html" title="11.3.7. evse_security"
              >next</a> |</li>
         <li class="right" >
-          <a href="energy_price_information.html" title="11.3.4. energy_price_information"
+          <a href="evse_board_support.html" title="11.3.5. evse_board_support"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">11.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.3.5. </span>evse_manager</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.3.6. </span>evse_manager</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

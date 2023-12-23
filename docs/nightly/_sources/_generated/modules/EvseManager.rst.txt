@@ -50,9 +50,6 @@ Module Configuration
 | **country_code**:*string*
 | *default: DE*
 |  Country Code
-| **rcd_enabled**:*boolean*
-| *default: True*
-|  Enable or disable RCD
 | **max_current_import_A**:*number*
 | *default: 32*
 |  User configurable current limit for this EVSE in Ampere
@@ -96,10 +93,6 @@ Module Configuration
 | **hack_present_current_offset**:*integer*
 | *default: 0*
 |  Adds an offset [A] to the present current reported to the car on HLC. Set to 0 unless you really know what you are doing.
-| **connector_type**:*string*
-| *default: IEC62196Type2Cable*
-|  Type of charging connector available at this EVSE
-|  enum: IEC62196Type2Cable, IEC62196Type2Socket
 | **hack_pause_imd_during_precharge**:*boolean*
 | *default: False*
 |  Disable IMD at the end of CableCheck and re-enable when current is flowing in CurrentDemand. Some DCDC power supplies do not start current flow when insulation measurement is active. Set to true to enable dirty workaround for some IMD hardware.
@@ -151,7 +144,9 @@ Provides
 ************
 Requirements
 ************
-| **bsp**::ref:`board_support_AC <everest_interfaces_board_support_AC>`
+| **bsp**::ref:`evse_board_support <everest_interfaces_evse_board_support>`
+| **ac_rcd**::ref:`ac_rcd <everest_interfaces_ac_rcd>`
+| **connector_lock**::ref:`connector_lock <everest_interfaces_connector_lock>`
 | **powermeter_grid_side**::ref:`powermeter <everest_interfaces_powermeter>`
 | **powermeter_car_side**::ref:`powermeter <everest_interfaces_powermeter>`
 | **slac**::ref:`slac <everest_interfaces_slac>`

@@ -1,18 +1,18 @@
 
-.. _everest_types_board_support:
+.. _everest_types_evse_board_support:
 
 
-#############
-board_support
-#############
+##################
+evse_board_support
+##################
 
 Board support types
 
-.. _board_support-HardwareCapabilities:
+.. _evse_board_support-HardwareCapabilities:
 
 | **HardwareCapabilities**:*object*
 |  Hardware capability/limits
-|  required: max_current_A_import, min_current_A_import, max_phase_count_import, min_phase_count_import, max_current_A_export, min_current_A_export, max_phase_count_export, min_phase_count_export, supports_changing_phases_during_charging
+|  required: max_current_A_import, min_current_A_import, max_phase_count_import, min_phase_count_import, max_current_A_export, min_current_A_export, max_phase_count_export, min_phase_count_export, supports_changing_phases_during_charging, connector_type
 |  properties:
 |   **max_current_A_import**:*number*
 |    Maximum current (ampere) the hardware can handle (import from grid)
@@ -32,28 +32,39 @@ Board support types
 |    Minimum nr of phases the hardware can use (export to grid)
 |   **supports_changing_phases_during_charging**:*boolean*
 |    Indicates whether changing number of phases is supported during charging (true) or not (false)
+|   **max_plug_temperature_C**:*number*
+|    
+|   **connector_type**:*string*
+|    Type of charging connector available at this EVSE
+|    enum: IEC62196Type2Cable, IEC62196Type2Socket
 
-.. _board_support-Event:
-
-| **Event**:*string*
-|  Event from ControlPilot signal/Relais/RCD
-|  enum: CarPluggedIn, CarRequestedPower, PowerOn, PowerOff, CarRequestedStopPower, CarUnplugged, ErrorE, ErrorDF, ErrorRelais, ErrorRCD, ErrorRCD_DC, ErrorVentilationNotAvailable, ErrorOverCurrent, ErrorOverVoltage, ErrorUnderVoltage, ErrorMotorLock, ErrorOverTemperature, ErrorBrownOut, ErrorCablePP, ErrorEnergyManagement, ErrorNeutralPEN, ErrorCpDriver, EFtoBCD, BCDtoEF, PermanentFault, EvseReplugStarted, EvseReplugFinished
-
-.. _board_support-Telemetry:
+.. _evse_board_support-Telemetry:
 
 | **Telemetry**:*object*
 |  Other telemetry
-|  required: temperature, fan_rpm, supply_voltage_12V, supply_voltage_minus_12V, rcd_current, relais_on
+|  required: evse_temperature_C, fan_rpm, supply_voltage_12V, supply_voltage_minus_12V, relais_on
 |  properties:
-|   **temperature**:*number*
+|   **evse_temperature_C**:*number*
 |    Current temperature of the EVSE in degree celsius
+|   **plug_temperature_C**:*number*
+|    Current temperature of the plug in degree celsius
 |   **fan_rpm**:*number*
 |    RPM of the fan. 0 if off or no fan available.
 |   **supply_voltage_12V**:*number*
 |    Internal 12V supply voltage
 |   **supply_voltage_minus_12V**:*number*
 |    Internal -12V supply voltage
-|   **rcd_current**:*number*
-|    Residual current in mA
 |   **relais_on**:*boolean*
 |    true if power to the car is currently on, false if off
+
+.. _evse_board_support-PowerOnOff:
+
+| **PowerOnOff**:*object*
+|  Flag and context for switching power on/off. In some architectures e.g. DC power train needs to know whether it should switch on with limited current or full current on the output contactors.
+|  required: allow_power_on, reason
+|  properties:
+|   **allow_power_on**:*boolean*
+|    Allow switching on (true) or force switching off (false)
+|   **reason**:*string*
+|    Reason for switching on/off
+|    enum: DCCableCheck, DCPreCharge, FullPowerCharging, PowerOff

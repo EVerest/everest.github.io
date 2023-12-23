@@ -108,6 +108,16 @@ EVSE manager types
 |   **logging_path**:*string*
 |    File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with "incomplete-" when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.
 
+.. _evse_manager-SessionFinished:
+
+| **SessionFinished**:*object*
+|  Data for the SessionFinished event
+|  required: timestamp
+|  properties:
+|   **timestamp**:*string*
+|    Session start time in RFC3339 format
+|    format:
+
 .. _evse_manager-TransactionStarted:
 
 | **TransactionStarted**:*object*
@@ -151,27 +161,8 @@ EVSE manager types
 .. _evse_manager-ErrorEnum:
 
 | **ErrorEnum**:*string*
-|  Details on error type
-|   Car: Signals a car error
-|   CarDiodeFault: Signals a car diode fault
-|   Relais: Signals a relais error
-|   RCD: Signals an RCD error (AC)
-|   RCDDC: Signal an RCD error (DC)
-|   VentilationNotAvailable: Signals that ventilation is not available
-|   OverCurrent: Signals an overcurrent error
-|   OverVoltage: Signals on overvoltage error
-|   UnderVoltage: Signals on overvoltage error
-|   Internal: Signals an internal error
-|   SLAC: Signals a SLAC communication error
-|   HLC: Signals a HLC error
-|   MotorLock: Signals an error with the motor lock of the connector
-|   OverTemperature: Signals an over temperature error
-|   BrownOut: Brown out detected in electronics
-|   CablePP: PP resistor value in cable is out of range
-|   EnergyManagement: An error from the energy management was reported
-|   NeutralPEN: Nutral/PEN fault
-|   CpDriver: The CP output driver has a fault
-|  enum: Car, CarDiodeFault, Relais, RCD, RCDDC, VentilationNotAvailable, OverCurrent, OverVoltage, UnderVoltage, Internal, SLAC, HLC, Other, MotorLock, OverTemperature, BrownOut, CablePP, EnergyManagement, NeutralPEN, CpDriver
+|  Note this is only kept for compatibility with the legacy error handling and will be removed soon.
+|  enum: Car, CarDiodeFault, RCD, RCDDC, VentilationNotAvailable, Internal, SLAC, HLC, Other, BrownOut, EnergyManagement
 
 .. _evse_manager-Error:
 
@@ -201,6 +192,9 @@ EVSE manager types
 |   **session_started**:*object* (:ref:`evse_manager-SessionStarted <evse_manager-SessionStarted>`)
 |    data for SessionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionStarted>`.
+|   **session_finished**:*object* (:ref:`evse_manager-SessionFinished <evse_manager-SessionFinished>`)
+|    data for the SessionFinished event
+|    **There is an extended definition for this object** :ref:`here <evse_manager-SessionFinished>`.
 |   **transaction_started**:*object* (:ref:`evse_manager-TransactionStarted <evse_manager-TransactionStarted>`)
 |    data for TransactionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionStarted>`.

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.2.38. yeti_extras &#8212; EVerest  documentation</title>
+    <title>11.2.3. ac_rcd &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="11.2.39. yeti_simulation_control" href="yeti_simulation_control.html" />
-    <link rel="prev" title="11.2.37. tibber_price_forecast" href="tibber_price_forecast.html" /> 
+    <link rel="next" title="11.2.4. auth" href="auth.html" />
+    <link rel="prev" title="11.2.2. ISO15118_ev" href="ISO15118_ev.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="yeti_simulation_control.html" title="11.2.39. yeti_simulation_control"
+          <a href="auth.html" title="11.2.4. auth"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="tibber_price_forecast.html" title="11.2.37. tibber_price_forecast"
+          <a href="ISO15118_ev.html" title="11.2.2. ISO15118_ev"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.38. </span>yeti_extras</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.3. </span>ac_rcd</a></li> 
       </ul>
     </div>  
 
@@ -42,49 +42,33 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="yeti-extras">
-<span id="everest-interfaces-yeti-extras"></span><h1><span class="section-number">11.2.38. </span>yeti_extras<a class="headerlink" href="#yeti-extras" title="Permalink to this heading">¶</a></h1>
+  <section id="ac-rcd">
+<span id="everest-interfaces-ac-rcd"></span><h1><span class="section-number">11.2.3. </span>ac_rcd<a class="headerlink" href="#ac-rcd" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This interface defines Yeti extra funtionality not found in the generic interfaces</div>
+<div class="line">This interface provides an AC Residual Current Monitor (RCD). Actual emergency switch off is done in HW directly, but this interface allows some control and telemetry.</div>
 </div>
 <section id="variables">
-<h2><span class="section-number">11.2.38.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.3.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>time_stamp</strong>:<em>integer</em></div>
+<div class="line"><strong>rcd_current_mA</strong>:<em>number</em></div>
 <div class="line-block">
-<div class="line">Provides the current time stamp</div>
-</div>
-<div class="line"><strong>hw_type</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Provides the hw_type</div>
-</div>
-<div class="line"><strong>hw_revision</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Provides the hw_revision</div>
-</div>
-<div class="line"><strong>protocol_version_major</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Provides the protocol_version_major</div>
-</div>
-<div class="line"><strong>protocol_version_minor</strong>:<em>integer</em></div>
-<div class="line-block">
-<div class="line">Provides the protocol_version_minor</div>
-</div>
-<div class="line"><strong>sw_version_string</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Provides the sw_version_string</div>
+<div class="line">Residual current in mA. Note that this does not trigger anything, it is merely for reporting.</div>
 </div>
 </div>
 </section>
 <section id="commands">
-<h2><span class="section-number">11.2.38.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.3.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>firmware_update</strong>:<em>void</em></div>
+<div class="line"><strong>self_test</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">This command reboots Yeti in firmware upgrade mode</div>
-<div class="line"><strong>firmware_binary</strong>:<em>string</em></div>
+<div class="line">Executes a self test of the RCD. If it fails, an error of type Selftest should be raised.</div>
+</div>
+<div class="line"><strong>reset</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Path to firmware binary file that should be sent to Yeti Controller</div>
+<div class="line">Resets the RCD after a trigger. May not be supported by actual hardware.</div>
+<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: Reset successfull, False: Reset failed.</div>
 </div>
 </div>
 </div>
@@ -120,18 +104,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="tibber_price_forecast.html"
-                          title="previous chapter"><span class="section-number">11.2.37. </span>tibber_price_forecast</a></p>
+    <p class="topless"><a href="ISO15118_ev.html"
+                          title="previous chapter"><span class="section-number">11.2.2. </span>ISO15118_ev</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="yeti_simulation_control.html"
-                          title="next chapter"><span class="section-number">11.2.39. </span>yeti_simulation_control</a></p>
+    <p class="topless"><a href="auth.html"
+                          title="next chapter"><span class="section-number">11.2.4. </span>auth</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/interfaces/yeti_extras.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/ac_rcd.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -162,15 +146,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="yeti_simulation_control.html" title="11.2.39. yeti_simulation_control"
+          <a href="auth.html" title="11.2.4. auth"
              >next</a> |</li>
         <li class="right" >
-          <a href="tibber_price_forecast.html" title="11.2.37. tibber_price_forecast"
+          <a href="ISO15118_ev.html" title="11.2.2. ISO15118_ev"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.38. </span>yeti_extras</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.3. </span>ac_rcd</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -147,7 +147,7 @@
 <div class="line">ReplugFinished: Signaled when the virtual replug process has finished</div>
 <div class="line">PluginTimeout: Signaled when an EV has been Plugged in but no authorization is present within specified ConnectionTimeout</div>
 </div>
-<div class="line">enum: Enabled, Disabled, SessionStarted, AuthRequired, TransactionStarted, PrepareCharging, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, WaitingForEnergy, ChargingResumed, StoppingCharging, ChargingFinished, TransactionFinished, SessionFinished, Error, AllErrorsCleared, PermanentFault, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished, PluginTimeout</div>
+<div class="line">enum: Enabled, Disabled, SessionStarted, AuthRequired, TransactionStarted, PrepareCharging, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, WaitingForEnergy, ChargingResumed, StoppingCharging, ChargingFinished, TransactionFinished, SessionFinished, Error, ErrorCleared, AllErrorsCleared, PermanentFault, PermanentFaultCleared, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished, PluginTimeout</div>
 </div>
 </div>
 <div class="line-block" id="evse-manager-sessionstarted">
@@ -267,13 +267,22 @@
 <div class="line"><strong>Error</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Error object that contains information about the error and optional vendor error information</div>
-<div class="line">required: error_code</div>
+<div class="line">required: error_code, error_description, error_severity</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>error_code</strong>:<em>string</em> (<a class="reference internal" href="#evse-manager-errorenum"><span class="std std-ref">evse_manager-ErrorEnum</span></a>)</div>
 <div class="line-block">
 <div class="line">The error enum</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-errorenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>error_description</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Description of the error (human readable)</div>
+</div>
+<div class="line"><strong>error_severity</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Severity of the error</div>
+<div class="line">enum: High, Medium, Low</div>
 </div>
 <div class="line"><strong>vendor_error</strong>:<em>string</em></div>
 <div class="line-block">

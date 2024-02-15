@@ -1,0 +1,76 @@
+
+.. _everest_modules_SerialCommHub:
+
+#############
+SerialCommHub
+#############
+| Hub to communicate with attached serial devices
+
+
+
+
+********
+Provides
+********
+| **main**::ref:`serial_communication_hub <everest_interfaces_serial_communication_hub>`
+|  Implementation of serial communication hub
+|  config:
+|   serial_port:
+|    description:
+|    type:
+|    default:
+|   baudrate:
+|    description:
+|    type:
+|   parity:
+|    description:
+|    type:
+|   ignore_echo:
+|    description:
+|    type:
+|   rxtx_gpio_chip:
+|    description:
+|    type:
+|    default:
+|   rxtx_gpio_line:
+|    description:
+|    type:
+|   rxtx_gpio_tx_high:
+|    description:
+|    type:
+|  config:
+|   **serial_port**:*string*
+|   *default: /dev/ttyUSB0*
+|    Serial port the hardware is connected to
+|   **baudrate**:*integer*
+|   *default: 9600*
+|    Baudrate
+|   **parity**:*integer*
+|   *default: 0*
+|    Parity bit: 0: None, 1: Odd, 2: Even
+|   **ignore_echo**:*boolean*
+|   *default: False*
+|    On some hardware every message that is sent is read back, this setting filters the sent message in the reply.
+|   **rxtx_gpio_chip**:*string*
+|   *default: *
+|    GPIO chip to use to switch between RX/TX. An empty string disables GPIO usage.
+|   **rxtx_gpio_line**:*integer*
+|   *default: 0*
+|    GPIO line to use to switch between RX/TX
+|   **rxtx_gpio_tx_high**:*boolean*
+|   *default: False*
+|    GPIO direction, false means low for TX, true means high for TX
+
+
+********
+Metadata
+********
+Authors
+=======
+| Lars Dieckmann
+| Cornelius Claussen
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

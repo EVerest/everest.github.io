@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>11.2.17. evse_board_support &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="11.2.18. evse_manager" href="evse_manager.html" />
+    <link rel="prev" title="11.2.16. ev_slac" href="ev_slac.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="evse_manager.html" title="11.2.18. evse_manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ev_slac.html" title="11.2.16. ev_slac"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.17. </span>evse_board_support</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="evse-board-support">
+<span id="everest-interfaces-evse-board-support"></span><h1><span class="section-number">11.2.17. </span>evse_board_support<a class="headerlink" href="#evse-board-support" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This interface defines the board support driver for AC or DC minimal power path: ControlPilot, output contactors.  Other components of the power path such as IMD(DC)/RCD(AC)/Connector Lock etc have their own interfaces.</div>
+</div>
+<section id="variables">
+<h2><span class="section-number">11.2.17.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>event</strong>:<em>object</em> (<a class="reference internal" href="../types/board_support_common.html#board-support-common-bspevent"><span class="std std-ref">board_support_common-BspEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">Event from ControlPilot signal/output relais</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support_common.html#board-support-common-bspevent"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ac_nr_of_phases_available</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Instantaneous phase count available to car</div>
+</div>
+<div class="line"><strong>telemetry</strong>:<em>object</em> (<a class="reference internal" href="../types/evse_board_support.html#evse-board-support-telemetry"><span class="std std-ref">evse_board_support-Telemetry</span></a>)</div>
+<div class="line-block">
+<div class="line">Other telemetry</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_board_support.html#evse-board-support-telemetry"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>capabilities</strong>:<em>object</em> (<a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">evse_board_support-HardwareCapabilities</span></a>)</div>
+<div class="line-block">
+<div class="line">Hardware capabilities/limits. Initially EvseManager will call get_hw_capabilities once to fetch the limits and caches the limits internally. The BSP module does not have to publish this variable at all, then the initially fetched capabilities will be used. The BSP may publish this variable to update limits in case they change during runtime, e.g. if the maximum current changes because the hardware gets too hot.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ac_pp_ampacity</strong>:<em>object</em> (<a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">board_support_common-ProximityPilot</span></a>)</div>
+<div class="line-block">
+<div class="line">Current carrying capacity of the connected cable in ampere for AC charging with a socket. Publish whenever it changes. This has no meaning for DC or AC charging with a fixed attached cable, it does not  need to be implemented and the returned value is not used in those cases.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</section>
+<section id="commands">
+<h2><span class="section-number">11.2.17.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>setup</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Setup config options</div>
+<div class="line"><strong>three_phases</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">true: Three phases enabled, false: only single phase</div>
+</div>
+<div class="line"><strong>has_ventilation</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">true: Allow mode D charging, false: do not allow mode D charging</div>
+</div>
+<div class="line"><strong>country_code</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">A two-letter country code in ISO 3166-1 alpha-2 format</div>
+</div>
+</div>
+<div class="line"><strong>get_hw_capabilities</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Get Hardware capability/limits. For AC these are the limits of the power path (e.g. relais etc).  For DC, these are the limits for the AC input of the ACDC converter stack, i.e. the complete AC input. Note that DC output limits are reported by the DC power supply itself.</div>
+<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">evse_board_support-HardwareCapabilities</span></a>)</div>
+<div class="line-block">
+<div class="line">Hardware capability/limits</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>enable</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Enables or disables the charging port. Typically disabled results in control pilot state F. It must not accept cars for new charging sessions if disabled.</div>
+<div class="line"><strong>value</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: enabled, false: disabled.</div>
+</div>
+</div>
+<div class="line"><strong>pwm_on</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Turns PWM on with duty cycle (in percent)</div>
+<div class="line"><strong>value</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">PWM duty cycle (&gt;0, &lt;100)</div>
+</div>
+</div>
+<div class="line"><strong>pwm_off</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Turns PWM off (constant high voltage)</div>
+</div>
+<div class="line"><strong>pwm_F</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Turns PWM off with Error F (constant negative voltage)</div>
+</div>
+<div class="line"><strong>allow_power_on</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Sets allow_power_on flag. If false, Relais must never be switched on.</div>
+<div class="line"><strong>value</strong>:<em>object</em> (<a class="reference internal" href="../types/evse_board_support.html#evse-board-support-poweronoff"><span class="std std-ref">evse_board_support-PowerOnOff</span></a>)</div>
+<div class="line-block">
+<div class="line">Flag and context</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_board_support.html#evse-board-support-poweronoff"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>ac_switch_three_phases_while_charging</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Optional, in case of doubt do not implement. Report in hardware_capabilites if this command is supported. This command switches between one and three phase operation during an active charging session. Some cars can be permanently destroyed by that, so the bsp needs to implement a special sequence for the switching. The exact sequence can be defined by the BSP, but one example would be a C2-&gt;C1-&gt;B1-&gt;F-&gt;B1-&gt;B2-&gt;C2 or similar. Use with caution.</div>
+<div class="line"><strong>value</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">True: switch to 3ph, False: switch to 1ph</div>
+</div>
+</div>
+<div class="line"><strong>evse_replug</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Optional, in case of doubt do not implement. Special command initiate a virtual replug sequence without restarting session. Emits a EvseReplugStarted event if supported and started. BSP will take care to not emit other events such as CarPluggedIn/Out during that time. Once finished it will emit a EvseReplugFinished. This is mainly for testing purposes, don’t implement for production use.</div>
+<div class="line"><strong>value</strong>:<em>integer</em></div>
+<div class="line-block">
+<div class="line">Time in ms for the duration of the replug sequence</div>
+</div>
+</div>
+<div class="line"><strong>ac_read_pp_ampacity</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Read the current carrying capacity of the connected cable in ampere for AC charging with a socket. This function will be used by EvseManager to get the PP value at  a distinct time. You should also publish the var pp_ampacity whenever the PP ampacity reading changes to signal changes e.g. during the charging time. This has no meaning for DC or AC charging with a fixed attached cable, it does not  need to be implemented and the returned value is not used in those cases.</div>
+<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">board_support_common-ProximityPilot</span></a>)</div>
+<div class="line-block">
+<div class="line">Returns the current carrying capacity of the connected cable</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>ac_set_overcurrent_limit_A</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Many chargers implement a fast over current shutdown directly in the hardware that triggers if the EV draws more current than the PWM allows. If the hardware does not have this functionality, just ignore this command. Do not use it to set the PWM duty cycle. Otherwise this command reports a value that should be used for the overcurrent detection.  A margin needs to be added to avoid false triggers. Do not use the PWM duty cycle to infer the current limit in the BSP, as this will not work with HLC.</div>
+<div class="line"><strong>value</strong>:<em>number</em></div>
+<div class="line-block">
+<div class="line">Ampere current limit value</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">8. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">10. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">11. EVerest Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">11.1. EVerest Modules</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">11.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">11.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ev_slac.html"
+                          title="previous chapter"><span class="section-number">11.2.16. </span>ev_slac</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="evse_manager.html"
+                          title="next chapter"><span class="section-number">11.2.18. </span>evse_manager</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/interfaces/evse_board_support.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="evse_manager.html" title="11.2.18. evse_manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ev_slac.html" title="11.2.16. ev_slac"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.17. </span>evse_board_support</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    </div>
+  </body>
+</html>

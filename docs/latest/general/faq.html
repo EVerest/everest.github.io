@@ -189,48 +189,6 @@ a look at <a class="reference external" href="https://github.com/thoughtworks/ma
 officially tested by us.</p>
 </section>
 </section>
-<section id="testing">
-<h2><span class="section-number">8.3. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h2>
-<section id="unit-tests">
-<span id="faq-testing"></span><h3><span class="section-number">8.3.1. </span>Unit tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading">¶</a></h3>
-<p><strong>How can I run the unit tests?</strong></p>
-<p>To run the unit tests, you need to build with the cmake flag <cite>-DBUILD_TESTING=ON</cite>
-and then run <cite>make test</cite> in the build directory.</p>
-<p><strong>How do I name test targets in CMake?</strong></p>
-<p>Test targets should be prefixed by the project name, to avoid conflicts when Building
-libraries as dependency for other projects.
-The best practice is to use the following naming scheme:</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">_tests</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Furthermore, the unit test should be include by the following condition:</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">((</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">OR</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">_BUILD_TESTING</span><span class="p">)</span><span class="w"> </span><span class="s">AND</span><span class="w"> </span><span class="s">BUILD_TESTING</span><span class="p">)</span>
-<span class="w">  </span><span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">_tests</span><span class="p">)</span>
-<span class="nb">endif</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>This ensures that the test is only build when the project is build as a standalone project or
-when the project is build as a dependency and the BUILD_TESTING flag is set and the ${PROJECT_NAME}_BUILD_TESTING flag is set.</p>
-</section>
-<section id="integration-tests">
-<h3><span class="section-number">8.3.2. </span>Integration tests<a class="headerlink" href="#integration-tests" title="Permalink to this heading">¶</a></h3>
-<p><strong>How can I run the integration tests?</strong></p>
-<p>To run the integration tests, you need to build and install everest-core:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make
-make<span class="w"> </span>install
-</pre></div>
-</div>
-<p>Then you need to install the testing tool:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install_everest_testing
-</pre></div>
-</div>
-<p>Now you can run the integration tests in the source directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">SOURCE_DIR</span><span class="si">}</span>/tests
-pytest<span class="w"> </span>--everest-prefix<span class="w"> </span><span class="si">${</span><span class="nv">INSTALL_PREFIX</span><span class="si">}</span><span class="w"> </span>core_tests/*.py<span class="w"> </span>framework_tests/*.py
-</pre></div>
-</div>
-</section>
-</section>
 </section>
 
 
@@ -252,7 +210,6 @@ pytest<span class="w"> </span>--everest-prefix<span class="w"> </span><span clas
 <li class="toctree-l1 current"><a class="current reference internal" href="#">8. Frequently Asked Questions And Best Practices</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#everest-modules">8.1. EVerest modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#errors-warnings-and-troubleshooting">8.2. Errors, warnings and Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#testing">8.3. Testing</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>

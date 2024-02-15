@@ -42,49 +42,112 @@
             
   <section id="everest-framework">
 <h1><span class="section-number">1. </span>EVerest framework<a class="headerlink" href="#everest-framework" title="Permalink to this heading">¶</a></h1>
-<p>You can think of EVerest as an operating system for EV chargers with implementations of communication protocols, software modules for representations of hardware devices (chargers, cars, …) and tools for simulating the charging process.</p>
+<p>You can think of EVerest as an operating system for EV chargers with
+implementations of communication protocols, software modules for
+representations of hardware devices (chargers, cars, …) and tools
+for simulating the charging process.</p>
 <p>It’s a full stack environment for EV charging.</p>
 <section id="a-visual-introduction">
 <h2><span class="section-number">1.1. </span>A Visual Introduction<a class="headerlink" href="#a-visual-introduction" title="Permalink to this heading">¶</a></h2>
-<p>A first very high level overview of the framework can be seen here:</p>
-<img alt="../_images/quick-start-high-level-1.png" src="../_images/quick-start-high-level-1.png" />
-<p>The EVerest framework helps with building your dedicated development scenario with all needed modules for your specific developer’s use case. The modules are connected by using the principle of loose coupling.</p>
-<p>Modules in EVerest can be everything like hardware drivers, protocols, authentication logic and more. Build up your development scenario as needed and enhance it by adding your own additional modules.</p>
-<p>Another way to look at EVerest is its layer architecture:</p>
-<img alt="../_images/quick-start-high-level-2.png" src="../_images/quick-start-high-level-2.png" />
-<p>Depending on your project use case, you can define the suitable module stack and configure module connections and module parameters.</p>
-<p>What modules EVerest already delivers as ready-to-use implementations and which features they currently ship will be explained in detail in the modules documentation.</p>
-</section>
-<section id="tools-and-helpers">
-<h2><span class="section-number">1.2. </span>Tools And Helpers<a class="headerlink" href="#tools-and-helpers" title="Permalink to this heading">¶</a></h2>
-<p>Additionally, you have some tools and helpers that work with the framework which makes your EVerest developer’s life easier:</p>
-<img alt="../_images/quick-start-high-level-3.png" src="../_images/quick-start-high-level-3.png" />
-<p>To understand the benefit delivered by those tools, let’s have a sneak preview:</p>
+<p>The EVerest framework helps with building your dedicated development scenario
+with all needed modules for your specific developer’s use case.
+The modules are connected by using the principle of loose coupling.</p>
+<p>Modules in EVerest can be everything like hardware drivers, protocols,
+authentication logic and more.
+Build up your development scenario as needed and enhance it by adding your own
+additional modules.</p>
+<p>Having this in mind, you can take a look at the following high level overview
+of the framework:</p>
+<a class="reference internal image-reference" href="../_images/0-0-everest-top-level-diagram.png"><img alt="../_images/0-0-everest-top-level-diagram.png" src="../_images/0-0-everest-top-level-diagram.png" style="width: 760px;" /></a>
+<p>The upper part (light grey background) of this picture is part of EVerest. The
+lower part of the picture shows two technologies that are used by EVerest but
+are not part of the EVerest repositories.</p>
+<p>The EVerest framework launches all modules that are configured for your
+workspace.
+You will see later how configuration of modules and dependencies is done.</p>
+<p>The modules communicate via an MQTT broker.
+MQTT is currently the default messaging technology coming with EVerest.
+You could change that to other solutions (with some smaller development
+efforts).
+Same with NodeRED.</p>
+<p>At the right side of the picture, you see the main tools in EVerest, which
+will be explained later in this documentation in more detail.
+Up to now, some sneak preview:</p>
 <ul class="simple">
-<li><p><strong>Admin Panel</strong>: Tool to show all modules connections and dependencies including the parameters set for the modules.</p></li>
-<li><p><strong>EVerest Dependency Manager</strong> (edm): Tool that helps you getting all needed repositories from Git for your specific setup.</p></li>
-<li><p><strong>ev-cli</strong>: Generates module and interface scaffolds based on templates. This way you can start implementing new modules very fast.</p></li>
-<li><p><strong>MQTT Explorer</strong>: Great for debugging the messages sent between your modules during development phase.</p></li>
-<li><p><strong>NodeRed</strong> for simulating your EVerest setup</p></li>
-<li><p><strong>SteVe</strong>: Just in case you want to test your EVerest instance with some OCPP backend functionality: SteVe is an external tool that lets you do exactly that.</p></li>
+<li><p><strong>Admin Panel</strong>: Tool to show all modules connections and dependencies
+including the parameters set for the modules.</p></li>
+<li><p><strong>EVerest Dependency Manager</strong> (edm): Tool that helps you getting all
+needed repositories from Git for your specific setup.</p></li>
+<li><p><strong>ev-cli</strong>: Generates module and interface scaffolds based on templates.
+This way you can start implementing new modules very fast.</p></li>
 </ul>
-<p>How to setup and use those tools will be shown later.</p>
+</section>
+<section id="examples-of-everest-modules">
+<h2><span class="section-number">1.2. </span>Examples of EVerest Modules<a class="headerlink" href="#examples-of-everest-modules" title="Permalink to this heading">¶</a></h2>
+<p>This picture shows some of the main modules in EVerest:</p>
+<a class="reference internal image-reference" href="../_images/0-3-everest-top-level-diagram-module-categories.png"><img alt="../_images/0-3-everest-top-level-diagram-module-categories.png" src="../_images/0-3-everest-top-level-diagram-module-categories.png" style="width: 450px;" /></a>
+<p>The central module in EV charging scenarios will be the EvseManager.
+It consists of some central controlling logic for charging configurations.</p>
+<p>All other modules shown can be organized in workspaces depending on your
+individual setup.
+Later in this documentation, you will learn how to create configurations
+to set the dependencies and config values of those modules to suit your
+needs.</p>
+</section>
+<section id="high-level-module-concept">
+<h2><span class="section-number">1.3. </span>High Level Module Concept<a class="headerlink" href="#high-level-module-concept" title="Permalink to this heading">¶</a></h2>
+<p>To get an idea, what an EVerest module consists of, see the following
+illustration:</p>
+<a class="reference internal image-reference" href="../_images/0-1-everest-top-level-diagram-module-details.png"><img alt="../_images/0-1-everest-top-level-diagram-module-details.png" src="../_images/0-1-everest-top-level-diagram-module-details.png" style="width: 520px;" /></a>
+<p>The top box within the dashed line shows the definition of a module in EVerest.
+The heart of it is the manifest file.
+The manifest holds the definition of configuration keys.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The manifest file is not the place to put the values of the config options.
+The manifest just defines what can be configured later, e.g. the “max
+voltage” of a device.
+The values of those config parameters are put in the configuration files
+that build up your workspace, which will be explained later.</p>
+</div>
+<p>The manifest also declares which interfaces are provided or required by a
+module.
+“Provided” means that a module has implemented an interface.
+“Required” means that a module needs a connection to another module which has
+implemented the dedicated interface.</p>
+<p>For a more detailed explanation of that concept and what “type” definitions
+mean in EVerest, see the
+<a class="reference internal" href="04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">EVerest Module Concept page</span></a></p>
+<dl class="simple">
+<dt>Alternatively, you can also see the concept in action in a</dt><dd><p><a class="reference internal" href="../tutorials/new_modules/index.html#tutorial-create-modules-main"><span class="std std-ref">tutorial that shows how to create modules</span></a>.</p>
+</dd>
+</dl>
+<p>Having defined EVerest modules, they need to have a way to communicate.
+This illustration shows what is happening there:</p>
+<a class="reference internal image-reference" href="../_images/0-2-everest-top-level-diagram-module-communication.png"><img alt="../_images/0-2-everest-top-level-diagram-module-communication.png" src="../_images/0-2-everest-top-level-diagram-module-communication.png" style="width: 450px;" /></a>
+<p>Module A and Module B are communicating via an MQTT broker.</p>
+<p>Modules can publish variables (VARs) which other modules can subscribe to.</p>
+<p>Modules can also call commands (CMDs) of other modules.
+This is also triggered via MQTT messages.</p>
+</section>
+<section id="module-communication">
+<h2><span class="section-number">1.4. </span>Module Communication<a class="headerlink" href="#module-communication" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="system-requirements-and-prerequisites">
-<h2><span class="section-number">1.3. </span>System Requirements and Prerequisites<a class="headerlink" href="#system-requirements-and-prerequisites" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">1.5. </span>System Requirements and Prerequisites<a class="headerlink" href="#system-requirements-and-prerequisites" title="Permalink to this heading">¶</a></h2>
 <p>What is needed to run EVerest?</p>
 <section id="hardware">
-<h3><span class="section-number">1.3.1. </span>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">1.5.1. </span>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">¶</a></h3>
 <p>It is recommended to have at least 4GB of RAM available to build EVerest. More CPU cores will optionally boost the build process, while requiring more RAM accordingly.</p>
 <p>We have setup EVerest successfully on Raspberry Pi 4.</p>
 </section>
 <section id="operating-system">
-<h3><span class="section-number">1.3.2. </span>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">1.5.2. </span>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this heading">¶</a></h3>
 <p>EVerest has been tested with Ubuntu, OpenSUSE and Fedora 36. In general, it can
 be expected to run on most Linux-based systems.</p>
 </section>
 <section id="libraries-and-tools">
-<h3><span class="section-number">1.3.3. </span>Libraries And Tools<a class="headerlink" href="#libraries-and-tools" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">1.5.3. </span>Libraries And Tools<a class="headerlink" href="#libraries-and-tools" title="Permalink to this heading">¶</a></h3>
 <p>To create your development environment with all needed tools, libraries and
 compilers, the section
 <a class="reference internal" href="02_detail_pre_setup.html#preparedevenv-main"><span class="std std-ref">Prepare Your Environment</span></a> will walk you through the
@@ -104,8 +167,10 @@ setup phase.</p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. EVerest framework</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#a-visual-introduction">1.1. A Visual Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tools-and-helpers">1.2. Tools And Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#system-requirements-and-prerequisites">1.3. System Requirements and Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples-of-everest-modules">1.2. Examples of EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#high-level-module-concept">1.3. High Level Module Concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-communication">1.4. Module Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#system-requirements-and-prerequisites">1.5. System Requirements and Prerequisites</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>

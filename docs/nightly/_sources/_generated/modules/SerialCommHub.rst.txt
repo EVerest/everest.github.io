@@ -38,6 +38,15 @@ Provides
 |   rxtx_gpio_tx_high:
 |    description:
 |    type:
+|   max_packet_size:
+|    description:
+|    type:
+|   initial_timeout_ms:
+|    description:
+|    type:
+|   within_message_timeout_ms:
+|    description:
+|    type:
 |  config:
 |   **serial_port**:*string*
 |   *default: /dev/ttyUSB0*
@@ -60,6 +69,15 @@ Provides
 |   **rxtx_gpio_tx_high**:*boolean*
 |   *default: False*
 |    GPIO direction, false means low for TX, true means high for TX
+|   **max_packet_size**:*integer*
+|   *default: 256*
+|    Maximum size of a packet to read/write in bytes. Payload exceeding the size will be chunked. The APU size according to [wikipedia](https://en.wikipedia.org/wiki/Modbus) is 256 bytes, which is used as default here.
+|   **initial_timeout_ms**:*integer*
+|   *default: 500*
+|    Timeout in ms for the first packet.
+|   **within_message_timeout_ms**:*integer*
+|   *default: 100*
+|    Timeout in ms for subsequent packets.
 
 
 ********

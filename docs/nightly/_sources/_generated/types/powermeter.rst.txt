@@ -54,14 +54,15 @@ Powermeter types
 .. _powermeter-TransactionStopResponse:
 
 | **TransactionStopResponse**:*object*
-|  Report returned when a OCMF transaction is requested to stop. If successful, includes the signed OCMF string. In case of an error, an additional error message can be provided.
+|  Report returned when a signed transaction is requested to stop. If successful, includes the signed meter value object. In case of an error, an additional error message can be provided.
 |  required: status
 |  properties:
 |   **status**:** (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
 |    Response status that indicates whether the transaction stop request could successfully be performed.
 |    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
-|   **ocmf**:*string*
-|    The signed OCMF report of the stopped transaction. Must be provided if status is OK.
+|   **signed_meter_value**:*object* (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    The signed meter value report of the stopped transaction. Must be provided if status is OK.
+|    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.
 |   **error**:*string*
 |    If status is not OK, a verbose error message.
 
@@ -99,3 +100,27 @@ Powermeter types
 |   **frequency_Hz**:*object* (:ref:`units-Frequency <units-Frequency>`)
 |    Grid frequency in Hertz
 |    **There is an extended definition for this object** :ref:`here <units-Frequency>`.
+|   **energy_Wh_import_signed**:*object* (:ref:`units_signed-Energy <units_signed-Energy>`)
+|    Imported energy in Wh (from grid)
+|    **There is an extended definition for this object** :ref:`here <units_signed-Energy>`.
+|   **energy_Wh_export_signed**:*object* (:ref:`units_signed-Energy <units_signed-Energy>`)
+|    Exported energy in Wh (to grid)
+|    **There is an extended definition for this object** :ref:`here <units_signed-Energy>`.
+|   **power_W_signed**:*object* (:ref:`units_signed-Power <units_signed-Power>`)
+|    Instantaneous power in Watt. Negative values are exported, positive values imported Energy.
+|    **There is an extended definition for this object** :ref:`here <units_signed-Power>`.
+|   **voltage_V_signed**:*object* (:ref:`units_signed-Voltage <units_signed-Voltage>`)
+|    Voltage in Volts
+|    **There is an extended definition for this object** :ref:`here <units_signed-Voltage>`.
+|   **VAR_signed**:*object* (:ref:`units_signed-ReactivePower <units_signed-ReactivePower>`)
+|    Reactive power VAR
+|    **There is an extended definition for this object** :ref:`here <units_signed-ReactivePower>`.
+|   **current_A_signed**:*object* (:ref:`units_signed-Current <units_signed-Current>`)
+|    Current in ampere
+|    **There is an extended definition for this object** :ref:`here <units_signed-Current>`.
+|   **frequency_Hz_signed**:*object* (:ref:`units_signed-Frequency <units_signed-Frequency>`)
+|    Grid frequency in Hertz
+|    **There is an extended definition for this object** :ref:`here <units_signed-Frequency>`.
+|   **signed_meter_value**:*object* (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    Signed collection of instantaneous meter values if supported by the meter. This is intended for meters that only support signing a collection of meter values.
+|    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.

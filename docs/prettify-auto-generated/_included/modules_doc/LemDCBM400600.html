@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5.2.5. LEM DCBM 400/600 &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.2.6. YetiDriver" href="YetiDriver.html" />
+    <link rel="prev" title="5.2.4. GenericPowermeter" href="GenericPowermeter.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="YetiDriver.html" title="5.2.6. YetiDriver"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="GenericPowermeter.html" title="5.2.4. GenericPowermeter"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.5. </span>LEM DCBM 400/600</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="everest-modules-handwritten-lemdcbm400600"></span><section id="lem-dcbm-400-600">
+<h1><span class="section-number">5.2.5. </span>LEM DCBM 400/600<a class="headerlink" href="#lem-dcbm-400-600" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference internal" href="../../_generated/modules/LemDCBM400600.html#everest-modules-lemdcbm400600"><span class="std std-ref">Link</span></a> to the module’s reference.
+Module implementing the LEM DCBM 400/600 power meter driver adapter via HTTP/HTTPS.</p>
+<section id="description">
+<h2><span class="section-number">5.2.5.1. </span>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>The module consists of a single <code class="docutils literal notranslate"><span class="pre">main</span></code> implementation that serves the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> interface. Requests/commands
+to the meter are translated and forwarded to the device via HTTP/HTTPS.</p>
+<section id="initialization">
+<h3><span class="section-number">5.2.5.1.1. </span>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">¶</a></h3>
+<p>On module initialization, the driver fetches the device’s metric id from the  <code class="docutils literal notranslate"><span class="pre">/v1/status</span></code> api. Consequently, this also ensures
+connectivity to the device.
+The initialization will fail (with a thrown exception) in case this cannot be established (possibly after a limited amount of retries).</p>
+<p>Furthermore, at initialization the initial time sync setup is scheduled after a 2 minute waiting time (which is then executed
+during the module’s “ready” thread loop), cf. also the notes on time synchronization below.</p>
+</section>
+<section id="variable-powermeter">
+<h3><span class="section-number">5.2.5.1.2. </span>Variable Powermeter<a class="headerlink" href="#variable-powermeter" title="Permalink to this heading">¶</a></h3>
+<p>Publication of the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> var is done with approx. frequency 1/second. This fetches the current <code class="docutils literal notranslate"><span class="pre">livemeasure</span></code>
+values from the device’s <code class="docutils literal notranslate"><span class="pre">/v1/livemeasure</span></code> endpoint and injects the meter id as determined at initialization.</p>
+</section>
+<section id="command-start-transaction">
+<h3><span class="section-number">5.2.5.1.3. </span>Command start_transaction<a class="headerlink" href="#command-start-transaction" title="Permalink to this heading">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">start_transaction</span></code> command is directly forwarded via a <code class="docutils literal notranslate"><span class="pre">POST</span></code>  to the <code class="docutils literal notranslate"><span class="pre">/v1/legal</span></code> endpoint with a copy of the transaction request
+as payload (up to renaming of attributes). It returns <code class="docutils literal notranslate"><span class="pre">true</span></code>, if the device (possibly after a limited amount of retries) returns a success
+response with a valid payload that indicates a <code class="docutils literal notranslate"><span class="pre">running</span></code> transaction status, otherwised it returns <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</section>
+<section id="command-stop-transaction">
+<h3><span class="section-number">5.2.5.1.4. </span>Command stop_transaction<a class="headerlink" href="#command-stop-transaction" title="Permalink to this heading">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> command  results into two requets to the devie.</p>
+<p>First, a <code class="docutils literal notranslate"><span class="pre">PUT</span></code> to the <code class="docutils literal notranslate"><span class="pre">/v1/legal</span></code> endpoint stops the transaction.</p>
+<p>Then, a call to the <code class="docutils literal notranslate"><span class="pre">/v1/ocmf/</span></code> endpoint fetches the OCMF report for the provided transaction id. Note that this always
+fetches the report of the <cite>last</cite> transaction with this id (in case if multiple transactions with the same id had been
+running).</p>
+<p>If both requests are successful (possibly after a limited amount of retries), the returned OCMF string is forward 1:1.</p>
+<p>In case of an error, an empty string is returned.</p>
+</section>
+</section>
+<section id="module-configuration">
+<h2><span class="section-number">5.2.5.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<p>The module has the following configuration parameters:</p>
+<section id="ip-address">
+<h3><span class="section-number">5.2.5.2.1. </span>ip_address<a class="headerlink" href="#ip-address" title="Permalink to this heading">¶</a></h3>
+<p>IP address (or DNS/Host name) of the device.</p>
+</section>
+<section id="port-optional">
+<h3><span class="section-number">5.2.5.2.2. </span>port (optional)<a class="headerlink" href="#port-optional" title="Permalink to this heading">¶</a></h3>
+<p>Port used to reach the device. Defaults to <code class="docutils literal notranslate"><span class="pre">80</span></code>. Note that the default value of <code class="docutils literal notranslate"><span class="pre">80</span></code> is used independent on whether
+TLS is enabled or not (which is in coherence with the device`s behavior).</p>
+</section>
+<section id="meter-tls-certificate-optional">
+<h3><span class="section-number">5.2.5.2.3. </span>meter_tls_certificate (optional)<a class="headerlink" href="#meter-tls-certificate-optional" title="Permalink to this heading">¶</a></h3>
+<p>The meter’s TLS X.509 certificate in PEM format. If provided, TLS will be used for communication with the device. See
+<a class="reference internal" href="#tls-notes"><span class="std std-ref">notes on TLS</span></a> below.</p>
+</section>
+<section id="ntp-settings-optional">
+<h3><span class="section-number">5.2.5.2.4. </span>NTP Settings (optional)<a class="headerlink" href="#ntp-settings-optional" title="Permalink to this heading">¶</a></h3>
+<p>If NTP servers are supposed to be used for time sync by the device,
+those can provided via
+- <code class="docutils literal notranslate"><span class="pre">ntp_server_1_ip_addr</span></code>, <code class="docutils literal notranslate"><span class="pre">ntp_server_1_port</span></code> for the first NTP server, and
+- <code class="docutils literal notranslate"><span class="pre">ntp_server_2_ip_addr</span></code>, <code class="docutils literal notranslate"><span class="pre">ntp_server_2_port</span></code> for the first NTP server.</p>
+<p>If the first server is provided, NTP will be activated on module initialization. Otherwise, a
+regular time sync with the system time will be executed.</p>
+<p>Note that the wording “ip_address” follows the operational manual (cf. 4.2.3. of the <cite>Communication protocols manual</cite>, see references below).
+However, according to this manual DNS names are allowed, too.</p>
+</section>
+<section id="resilience-settings-optional">
+<h3><span class="section-number">5.2.5.2.5. </span>Resilience Settings (optional)<a class="headerlink" href="#resilience-settings-optional" title="Permalink to this heading">¶</a></h3>
+<p>The following optional settings may be set to adapt the resilience behavior behavior of the module:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">resilience_initial_connection_retries</span></code> and <code class="docutils literal notranslate"><span class="pre">resilience_initial_connection_retry_delay</span></code> define the number of attempted</p></li>
+</ul>
+<p>retries and delay inbetween in  milliseconds in case of an error (failed connection or unexpected response from the device) during the module
+initialization. This potentially delays module initialization, but may prevent a module failure at startup (e.g., if the device
+is not ready yet).
+- <code class="docutils literal notranslate"><span class="pre">resilience_transaction_request_retries</span></code> and <code class="docutils literal notranslate"><span class="pre">resilience_transaction_request_retry_delay</span></code> similarly
+define the according values but for connection attempts during a transaction start or stop command handling.
+In order to prevent a greater command return delay (and since the device is assumed to be set up and running when
+transactions are started), default values are considerably lower than the ones for initialization.</p>
+</section>
+</section>
+<section id="notes">
+<h2><span class="section-number">5.2.5.3. </span>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
+<section id="time-sync">
+<h3><span class="section-number">5.2.5.3.1. </span>Time Sync<a class="headerlink" href="#time-sync" title="Permalink to this heading">¶</a></h3>
+<p>The powermeter device needs to be regularly time synced in order to function properly
+(cf.
+The module is capable of performing regular syncs with the system time, or – alternatively –
+allows to setup NTP servers (cf. the configuration parameters above).</p>
+<p>If no NTP server is provided, a sync right before each transaction start is ensured in order to
+allow for the maximum possible transaction duration of 48 hours. Cf. the <cite>Operation Manual</cite> section 7.8.1 for
+more details.</p>
+<p>Also note the device’s manual suggests a start-up time of 2 minutes before settings (such as
+time sync) should be persisted (cf. the <cite>Communication protocols manual</cite> section 4).
+This is payed regard to in the module.</p>
+</section>
+<section id="error-handling-resilience">
+<h3><span class="section-number">5.2.5.3.2. </span>Error Handling / Resilience<a class="headerlink" href="#error-handling-resilience" title="Permalink to this heading">¶</a></h3>
+<p>In general responses are checked for a valid response code and body. In case of validation errors or an http error,
+requests are retried to provide some resilience.</p>
+<p>For the initialization requests, 25 retry attempts are made with a 10 second delay.
+For start/stop transaction requests, 3 retry attempts with a 200ms delay are made.</p>
+</section>
+<section id="tls-notes-limitations">
+<span id="tls-notes"></span><h3><span class="section-number">5.2.5.3.3. </span>TLS Notes &amp; Limitations<a class="headerlink" href="#tls-notes-limitations" title="Permalink to this heading">¶</a></h3>
+<p>The device brings its own self-signed certificate. Since there is no manufacturer root CA, this certificate must be provided
+in order to establish a reasonable TLS connection. Note that the provided certificate uses a private key of 1024bit length, which
+in general is considered vulnerable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s1">&#39;http://&lt;DEVICE ADDRESS&gt;:&lt;DEVICE PORT&gt;/v1/certificate&#39;</span>
+</pre></div>
+</div>
+<p>TLS can be enabled via:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">&#39;https://&lt;DEVICE ADDRESS&gt;:&lt;DEVICE PORT&gt;/v1/settings&#39;</span><span class="w"> </span><span class="se">\</span>
+--header<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;http&quot;: {</span>
+<span class="s1">        &quot;tls_on&quot;: true</span>
+<span class="s1">    }</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="references-links">
+<h2><span class="section-number">5.2.5.4. </span>References / Links<a class="headerlink" href="#references-links" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.lem.com/en/dcbm-400-600">Official product page https://www.lem.com/en/dcbm-400-600</a></p></li>
+<li><p><a class="reference external" href="https://www.lem.com/en/file/10314/download">Operation Manual</a></p></li>
+<li><p><a class="reference external" href="https://www.lem.com/en/file/11215/download">Communication protocols manual</a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../general/05_existing_modules.html#module-functionality-in-detail">5.2. Module functionality in detail</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">8. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">10. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">11. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="GenericPowermeter.html"
+                          title="previous chapter"><span class="section-number">5.2.4. </span>GenericPowermeter</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="YetiDriver.html"
+                          title="next chapter"><span class="section-number">5.2.6. </span>YetiDriver</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_included/modules_doc/LemDCBM400600.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="YetiDriver.html" title="5.2.6. YetiDriver"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="GenericPowermeter.html" title="5.2.4. GenericPowermeter"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.5. </span>LEM DCBM 400/600</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    </div>
+  </body>
+</html>

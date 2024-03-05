@@ -58,12 +58,12 @@
 <div class="line-block">
 <div class="line">Indicates if chargepoint is connected to CSMS</div>
 </div>
-<div class="line"><strong>configuration_key</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-keyvalue"><span class="std std-ref">ocpp-KeyValue</span></a>)</div>
+<div class="line"><strong>configuration_key</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-keyvalue"><span class="std std-ref">ocpp-KeyValue</span></a>)</div>
 <div class="line-block">
 <div class="line">Published when a configuration key has been changed by the CSMS and a monitor has been registered using the command monitor_configuration_keys</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-keyvalue"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>security_event</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">ocpp-SecurityEvent</span></a>)</div>
+<div class="line"><strong>security_event</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">ocpp-SecurityEvent</span></a>)</div>
 <div class="line-block">
 <div class="line">Published when an internal security event occured</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">here</span></a>.</div>
@@ -92,16 +92,16 @@
 <div class="line"><strong>get_configuration_key</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Gets the response to the requested configuration key containing a list of the values of the requested keys  and a list of the keys that are unknown</div>
-<div class="line"><strong>keys</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><strong>keys</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">List of keys for which the values are requested. If empty, all keys and values are returned</div>
-<div class="line"><strong>array_item</strong>:<em>string</em></div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">A key</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
 </div>
 </div>
-<div class="line"><strong>Result</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-getconfigurationresponse"><span class="std std-ref">ocpp-GetConfigurationResponse</span></a>)</div>
+<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-getconfigurationresponse"><span class="std std-ref">ocpp-GetConfigurationResponse</span></a>)</div>
 <div class="line-block">
 <div class="line">Response to the requested operation</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-getconfigurationresponse"><span class="std std-ref">here</span></a>.</div>
@@ -110,15 +110,15 @@
 <div class="line"><strong>set_custom_configuration_key</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Command to set a custom configuration key. Its not possible to set standardized configuration keys externally</div>
-<div class="line"><strong>key</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>key</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Key that should be set</div>
 </div>
-<div class="line"><strong>value</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>value</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Value that should be set for the given key</div>
 </div>
-<div class="line"><strong>Result</strong>:<em>string</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-configurationstatus"><span class="std std-ref">ocpp-ConfigurationStatus</span></a>)</div>
+<div class="line"><strong>Result</strong>:<em>string</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-configurationstatus"><span class="std std-ref">ocpp-ConfigurationStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">Indicates the result of the requested operation</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-configurationstatus"><span class="std std-ref">here</span></a>.</div>
@@ -127,24 +127,24 @@
 <div class="line"><strong>monitor_configuration_keys</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Monitors the given configuration key. In case this configuration keys is changed by the CSMS the configuration key the changed configuration key will be published. Consecutive calls of this operation will not override but extend the existing monitors</div>
-<div class="line"><strong>keys</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><strong>keys</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Keys that should be monitored</div>
-<div class="line"><strong>array_item</strong>:<em>string</em></div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">Key that should be montired</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
 </div>
 </div>
 </div>
 <div class="line"><strong>security_event</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Triggers a SecurityEventNotification.req at the CSMS. This event is queued with a guaranteed delivery to the CSMS.</div>
-<div class="line"><strong>type</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>type</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">type of the security event</div>
 </div>
-<div class="line"><strong>info</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>info</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Additional information about the occurred security event</div>
 </div>

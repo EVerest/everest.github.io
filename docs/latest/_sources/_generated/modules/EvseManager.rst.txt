@@ -12,126 +12,122 @@ For a detailed handwritten documentation see :ref:`here <everest_modules_handwri
 ********************
 Module Configuration
 ********************
-| **connector_id**:*integer* <required>
+| **connector_id**:*integer*
 |  Connector id of this evse manager
-| **evse_id**:*string* <optional>
+| **evse_id**:*string*
 | *default: DE*PNX*E1234567*1*
 |  EVSE ID
-| **evse_id_din**:*string* <optional>
+| **evse_id_din**:*string*
 | *default: 49A80737A45678*
 |  EVSE ID DIN after DIN SPEC 91286
-| **payment_enable_eim**:*boolean* <optional>
+| **payment_enable_eim**:*boolean*
 | *default: True*
 |  Set to true to enable EIM (e.g. RFID card or mobile app) authorization
-| **payment_enable_contract**:*boolean* <optional>
+| **payment_enable_contract**:*boolean*
 | *default: True*
 |  Set to true to enable contract (aka plug and charge) authorization
-| **ac_nominal_voltage**:*number* <optional>
+| **ac_nominal_voltage**:*number*
 | *default: 230*
 |  Nominal AC voltage between phase and neutral in Volt
-| **ev_receipt_required**:*boolean* <optional>
+| **ev_receipt_required**:*boolean*
 | *default: False*
 |  Unsupported: request receipt from EV with HLC
-| **session_logging**:*boolean* <optional>
+| **session_logging**:*boolean*
 | *default: False*
 |  Enable/Disable session log file output
-| **session_logging_path**:*string* <optional>
+| **session_logging_path**:*string*
 | *default: /tmp*
 |  Output directory for session log files
-| **session_logging_xml**:*boolean* <optional>
+| **session_logging_xml**:*boolean*
 | *default: True*
 |  Log full XML messages for HLC
-| **three_phases**:*boolean* <optional>
+| **three_phases**:*boolean*
 | *default: True*
 |  Limit to three phases (true) or one phase (false)
-| **has_ventilation**:*boolean* <optional>
+| **has_ventilation**:*boolean*
 | *default: True*
 |  Allow ventilated charging or not
-| **country_code**:*string* <optional>
+| **country_code**:*string*
 | *default: DE*
 |  Country Code
-| **max_current_import_A**:*number* <optional>
+| **max_current_import_A**:*number*
 | *default: 32*
 |  User configurable current limit for this EVSE in Ampere
-| **max_current_export_A**:*number* <optional>
+| **max_current_export_A**:*number*
 | *default: 32*
 |  User configurable current limit for this EVSE in Ampere
-| **charge_mode**:*string* <optional>
+| **charge_mode**:*string*
 | *default: AC*
 |  Select charging mode
-|  enum:
-|    - AC
-|    - DC
-| **ac_hlc_enabled**:*boolean* <optional>
+|  enum: AC, DC
+| **ac_hlc_enabled**:*boolean*
 | *default: False*
 |  Enable or disable HLC (aka ISO15118) for AC mode
-| **ac_hlc_use_5percent**:*boolean* <optional>
+| **ac_hlc_use_5percent**:*boolean*
 | *default: False*
 |  Use 5 percent PWM signalling to try to enforce HLC on AC. Note that if EIM arrives before SLAC matching, we will fall back to nominal PWM charging. So most cars will never use HLC in this mode, especially on a free service where EIM is always available, but that is what ISO15118-2/-3 requires to be compliant - it wants to use HLC only for PnC and not for EIM.
-| **ac_enforce_hlc**:*boolean* <optional>
+| **ac_enforce_hlc**:*boolean*
 | *default: False*
 |  Combine with 5percent option to really enforce HLC even with EIM. It is not ISO15118-2/-3 compliant as it waits for matching even if EIM is available before SLAC reaches matched state. On cars that do not support ISO15118 on AC this will take a very long time to timeout and fall back to basic nominal PWM charging, but it will eventually.
-| **ac_with_soc**:*boolean* <optional>
+| **ac_with_soc**:*boolean*
 | *default: False*
 |  Special mode that switches between AC and DC charging to get SoC percentage with AC charging
-| **dc_isolation_voltage_V**:*integer* <optional>
+| **dc_isolation_voltage_V**:*integer*
 | *default: 500*
 |  DC voltage used to test isolation in CableCheck. Set to 500V.
-| **dbg_hlc_auth_after_tstep**:*boolean* <optional>
+| **dbg_hlc_auth_after_tstep**:*boolean*
 | *default: False*
 |  Special mode: send HLC auth ok only after t_step_XX is finished (true) or directly when available (false)
-| **hack_sleep_in_cable_check**:*integer* <optional>
+| **hack_sleep_in_cable_check**:*integer*
 | *default: 0*
 |  Hack: Sleep for n seconds at the end of cable check.
-| **hack_sleep_in_cable_check_volkswagen**:*integer* <optional>
+| **hack_sleep_in_cable_check_volkswagen**:*integer*
 | *default: 0*
 |  Hack: Additional sleep for Volkswagen cars for n seconds at the end of cable check
-| **switch_to_minimum_voltage_after_cable_check**:*boolean* <optional>
+| **switch_to_minimum_voltage_after_cable_check**:*boolean*
 | *default: False*
 |  When cable check is completed, switch to minimal voltage of DC output. Normally disabled.
-| **hack_skoda_enyaq**:*boolean* <optional>
+| **hack_skoda_enyaq**:*boolean*
 | *default: False*
 |  Skoda Enyaq requests DC charging voltages below its battery level or even below 0 initially. Set to true to enable dirty workaround.
-| **hack_present_current_offset**:*integer* <optional>
+| **hack_present_current_offset**:*integer*
 | *default: 0*
 |  Adds an offset [A] to the present current reported to the car on HLC. Set to 0 unless you really know what you are doing.
-| **hack_pause_imd_during_precharge**:*boolean* <optional>
+| **hack_pause_imd_during_precharge**:*boolean*
 | *default: False*
 |  Disable IMD at the end of CableCheck and re-enable when current is flowing in CurrentDemand. Some DCDC power supplies do not start current flow when insulation measurement is active. Set to true to enable dirty workaround for some IMD hardware.
-| **hack_allow_bpt_with_iso2**:*boolean* <optional>
+| **hack_allow_bpt_with_iso2**:*boolean*
 | *default: False*
 |  Hack. Allow bidirectional power transfer with DIN spec and ISO-2. Currents communicated on HLC will always be positive but power supply may actually discharge the car.
-| **autocharge_use_slac_instead_of_hlc**:*boolean* <optional>
+| **autocharge_use_slac_instead_of_hlc**:*boolean*
 | *default: False*
 |  Use slac ev mac address for autocharge instead of EVCCID from HLC
-| **logfile_suffix**:*string* <optional>
+| **logfile_suffix**:*string*
 | *default: session_uuid*
 |  Use the string given for the log folder name. Special string session_uuid will be replaced with session uuid.
-| **soft_over_current_tolerance_percent**:*number* <optional>
+| **soft_over_current_tolerance_percent**:*number*
 | *default: 10.0*
 |  Allow for N percent over current in soft over current checking during AC charging.
-| **soft_over_current_measurement_noise_A**:*number* <optional>
+| **soft_over_current_measurement_noise_A**:*number*
 | *default: 0.5*
 |  Set current measurement noise. Added to limit as an offset to avoid false triggers.
-| **hack_fix_hlc_integer_current_requests**:*boolean* <optional>
+| **hack_fix_hlc_integer_current_requests**:*boolean*
 | *default: False*
 |  Some cars request only integer ampere values during DC charging. For low power DC charging that  means that they charge a few hundred watts slower then needed. If enabled, this will charge at full power if the difference between EV requested current (integer) and HLC current limit is less then 1.0
-| **disable_authentication**:*boolean* <optional>
+| **disable_authentication**:*boolean*
 | *default: False*
 |  Do not wait for authorization from Auth module, offer a free service. Start charging immediately after plug in. Do not use with Auth manager or OCPP, this option is only to allow charging with a standalone EvseManager that is not connected to an Auth manager. Use DummyTokenProvider/Validator when testing with Auth module and/or OCPP.
-| **sae_j2847_2_bpt_enabled**:*boolean* <optional>
+| **sae_j2847_2_bpt_enabled**:*boolean*
 | *default: False*
 |  Enable SAE J2847 2 V2G or V2H mode
-| **sae_j2847_2_bpt_mode**:*string* <optional>
+| **sae_j2847_2_bpt_mode**:*string*
 | *default: V2G*
 |  SAE J2847 2 BPT mode
-|  enum:
-|    - V2H
-|    - V2G
-| **request_zero_power_in_idle**:*boolean* <optional>
+|  enum: V2H, V2G
+| **request_zero_power_in_idle**:*boolean*
 | *default: False*
 |  "true: In Idle mode (no car connected), request 0A from energy management. In installations with many charging stations this should be set" "to allow the power to be distributed to the chargers that are connected to a car." "false: Request the normal current even if no car is connected. This speeds up the start of charging on AC BASIC charging as" "EvseManager does not need to wait for energy from the energy manager after plug in."
-| **external_ready_to_start_charging**:*boolean* <optional>
+| **external_ready_to_start_charging**:*boolean*
 | *default: False*
 |  Enable the external ready to start charging signal that delays charging ready until it has been received
 
@@ -148,15 +144,15 @@ Provides
 ************
 Requirements
 ************
-| **bsp**::ref:`evse_board_support <everest_interfaces_evse_board_support>` 1
-| **ac_rcd**::ref:`ac_rcd <everest_interfaces_ac_rcd>` 1
-| **connector_lock**::ref:`connector_lock <everest_interfaces_connector_lock>` 1
-| **powermeter_grid_side**::ref:`powermeter <everest_interfaces_powermeter>` 1
-| **powermeter_car_side**::ref:`powermeter <everest_interfaces_powermeter>` 1
-| **slac**::ref:`slac <everest_interfaces_slac>` 1
-| **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>` 1
-| **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>` 1
-| **powersupply_DC**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>` 1
+| **bsp**::ref:`evse_board_support <everest_interfaces_evse_board_support>`
+| **ac_rcd**::ref:`ac_rcd <everest_interfaces_ac_rcd>`
+| **connector_lock**::ref:`connector_lock <everest_interfaces_connector_lock>`
+| **powermeter_grid_side**::ref:`powermeter <everest_interfaces_powermeter>`
+| **powermeter_car_side**::ref:`powermeter <everest_interfaces_powermeter>`
+| **slac**::ref:`slac <everest_interfaces_slac>`
+| **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>`
+| **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>`
+| **powersupply_DC**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>`
 
 ********
 Metadata

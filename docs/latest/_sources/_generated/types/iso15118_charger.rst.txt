@@ -10,338 +10,268 @@ ISO15118 charger types
 
 .. _iso15118_charger-PaymentOption:
 
-| **PaymentOption**:*string* 
+| **PaymentOption**:*string*
 |  Payment options for the SECC and EVCC
-|  enum:
-|    - Contract
-|    - ExternalPayment
+|  enum: Contract, ExternalPayment
 
 .. _iso15118_charger-EnergyTransferMode:
 
-| **EnergyTransferMode**:*string* 
+| **EnergyTransferMode**:*string*
 |  Possible energy transfer modes
-|  enum:
-|    - AC_single_phase_core
-|    - AC_three_phase_core
-|    - DC_core
-|    - DC_extended
-|    - DC_combo_core
-|    - DC_unique
+|  enum: AC_single_phase_core, AC_three_phase_core, DC_core, DC_extended, DC_combo_core, DC_unique
 
 .. _iso15118_charger-IsolationStatus:
 
-| **IsolationStatus**:*string* 
+| **IsolationStatus**:*string*
 |  The different charger isolation status
-|  enum:
-|    - Invalid
-|    - Valid
-|    - Warning
-|    - Fault
-|    - No_IMD
+|  enum: Invalid, Valid, Warning, Fault, No_IMD
 
 .. _iso15118_charger-DC_EVErrorCode:
 
-| **DC_EVErrorCode**:*string* 
+| **DC_EVErrorCode**:*string*
 |  Indicates the DC EV internal status
-|  enum:
-|    - NO_ERROR
-|    - FAILED_RESSTemperatureInhibit
-|    - FAILED_EVShiftPosition
-|    - FAILED_ChargerConnectorLockFault
-|    - FAILED_EVRESSMalfunction
-|    - FAILED_ChargingCurrentdifferentia
-|    - FAILED_ChargingVoltageOutOfRange
-|    - Reserved_A
-|    - Reserved_B
-|    - Reserved_C
-|    - FAILED_ChargingSystemIncompatibility
-|    - NoData
+|  enum: NO_ERROR, FAILED_RESSTemperatureInhibit, FAILED_EVShiftPosition, FAILED_ChargerConnectorLockFault, FAILED_EVRESSMalfunction, FAILED_ChargingCurrentdifferentia, FAILED_ChargingVoltageOutOfRange, Reserved_A, Reserved_B, Reserved_C, FAILED_ChargingSystemIncompatibility, NoData
 
 .. _iso15118_charger-EvseError:
 
-| **EvseError**:*string* 
+| **EvseError**:*string*
 |  Details on error type
 |   Error_Contactor: The contactor is opened or closed at the wrong moment.
 |   Error_RCD: The RCD has detected an error.
 |   Error_UtilityInterruptEvent: Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load
 |   Error_Malfunction: A non-recoverable charger fault has occurred (Isolation Failure, ...). It is permanently faulted.
 |   Error_EmergencyShutdown: Charging System Incompatibility, Emergency Shutdown or E-Stop button pressed at charging station
-|  enum:
-|    - Error_Contactor
-|    - Error_RCD
-|    - Error_UtilityInterruptEvent
-|    - Error_Malfunction
-|    - Error_EmergencyShutdown
+|  enum: Error_Contactor, Error_RCD, Error_UtilityInterruptEvent, Error_Malfunction, Error_EmergencyShutdown
 
 .. _iso15118_charger-V2G_Message_ID:
 
-| **V2G_Message_ID**:*string* 
+| **V2G_Message_ID**:*string*
 |  This element contains the id of the v2g message body
-|  enum:
-|    - SupportedAppProtocolReq
-|    - SupportedAppProtocolRes
-|    - SessionSetupReq
-|    - SessionSetupRes
-|    - ServiceDiscoveryReq
-|    - ServiceDiscoveryRes
-|    - ServiceDetailReq
-|    - ServiceDetailRes
-|    - PaymentServiceSelectionReq
-|    - PaymentServiceSelectionRes
-|    - ServicePaymentSelectionReq
-|    - ServicePaymentSelectionRes
-|    - PaymentDetailsReq
-|    - PaymentDetailsRes
-|    - AuthorizationReq
-|    - AuthorizationRes
-|    - ContractAuthenticationReq
-|    - ContractAuthenticationRes
-|    - ChargeParameterDiscoveryReq
-|    - ChargeParameterDiscoveryRes
-|    - ChargingStatusReq
-|    - ChargingStatusRes
-|    - MeteringReceiptReq
-|    - MeteringReceiptRes
-|    - PowerDeliveryReq
-|    - PowerDeliveryRes
-|    - CableCheckReq
-|    - CableCheckRes
-|    - PreChargeReq
-|    - PreChargeRes
-|    - CurrentDemandReq
-|    - CurrentDemandRes
-|    - WeldingDetectionReq
-|    - WeldingDetectionRes
-|    - SessionStopReq
-|    - SessionStopRes
-|    - CertificateInstallationReq
-|    - CertificateInstallationRes
-|    - CertificateUpdateReq
-|    - CertificateUpdateRes
-|    - UnknownMessage
+|  enum: SupportedAppProtocolReq, SupportedAppProtocolRes, SessionSetupReq, SessionSetupRes, ServiceDiscoveryReq, ServiceDiscoveryRes, ServiceDetailReq, ServiceDetailRes, PaymentServiceSelectionReq, PaymentServiceSelectionRes, ServicePaymentSelectionReq, ServicePaymentSelectionRes, PaymentDetailsReq, PaymentDetailsRes, AuthorizationReq, AuthorizationRes, ContractAuthenticationReq, ContractAuthenticationRes, ChargeParameterDiscoveryReq, ChargeParameterDiscoveryRes, ChargingStatusReq, ChargingStatusRes, MeteringReceiptReq, MeteringReceiptRes, PowerDeliveryReq, PowerDeliveryRes, CableCheckReq, CableCheckRes, PreChargeReq, PreChargeRes, CurrentDemandReq, CurrentDemandRes, WeldingDetectionReq, WeldingDetectionRes, SessionStopReq, SessionStopRes, CertificateInstallationReq, CertificateInstallationRes, CertificateUpdateReq, CertificateUpdateRes, UnknownMessage
 
 .. _iso15118_charger-SAE_J2847_Bidi_Mode:
 
-| **SAE_J2847_Bidi_Mode**:*string* 
+| **SAE_J2847_Bidi_Mode**:*string*
 |  Bidi mode for sae j2847_2
-|  enum:
-|    - None
-|    - V2G
-|    - V2H
+|  enum: None, V2G, V2H
 
 .. _iso15118_charger-EVSEID:
 
-| **EVSEID**:*object* 
+| **EVSEID**:*object*
 |  An ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to
+|  required: EVSE_ID
 |  properties:
-|   **EVSE_ID**:*string* <required>
+|   **EVSE_ID**:*string*
 |    EVSE ID
-|   **EVSEID_DIN**:*string* <optional>
+|   **EVSEID_DIN**:*string*
 |    EVSE ID (DIN70121) according to DIN SPEC 91286
 
 .. _iso15118_charger-DC_EVSEPresentVoltage_Current:
 
-| **DC_EVSEPresentVoltage_Current**:*object* 
+| **DC_EVSEPresentVoltage_Current**:*object*
 |  Set the present voltage and current for the EVSE
+|  required: EVSEPresentVoltage
 |  properties:
-|   **EVSEPresentVoltage**:*number* <required>
+|   **EVSEPresentVoltage**:*number*
 |    Output voltage of the EVSE as defined in IEC CDV 61851-23 in V
-|   **EVSEPresentCurrent**:*number* <optional>
+|   **EVSEPresentCurrent**:*number*
 |    Present output current of the EVSE in A
 
 .. _iso15118_charger-DC_EVSEMaximumLimits:
 
-| **DC_EVSEMaximumLimits**:*object* 
+| **DC_EVSEMaximumLimits**:*object*
 |  Maximum Values (current, power and voltage) the EVSE can deliver
+|  required: EVSEMaximumCurrentLimit, EVSEMaximumPowerLimit, EVSEMaximumVoltageLimit
 |  properties:
-|   **EVSEMaximumCurrentLimit**:*number* <required>
+|   **EVSEMaximumCurrentLimit**:*number*
 |    Maximum current the EVSE can deliver in A
-|   **EVSEMaximumPowerLimit**:*number* <required>
+|   **EVSEMaximumPowerLimit**:*number*
 |    Maximum power the EVSE can deliver in W
-|   **EVSEMaximumVoltageLimit**:*number* <required>
+|   **EVSEMaximumVoltageLimit**:*number*
 |    Maximum voltage the EVSE can deliver in V
 
 .. _iso15118_charger-DC_EVSEMinimumLimits:
 
-| **DC_EVSEMinimumLimits**:*object* 
+| **DC_EVSEMinimumLimits**:*object*
 |  Minimum Values (current and voltage) the EVSE can deliver
+|  required: EVSEMinimumCurrentLimit, EVSEMinimumVoltageLimit
 |  properties:
-|   **EVSEMinimumCurrentLimit**:*number* <required>
+|   **EVSEMinimumCurrentLimit**:*number*
 |    Minimum current the EVSE can deliver with the expected accuracy in A
-|   **EVSEMinimumVoltageLimit**:*number* <required>
+|   **EVSEMinimumVoltageLimit**:*number*
 |    Minimum voltage the EVSE can deliver with the expected accuracy in V
 
 .. _iso15118_charger-SetupPhysicalValues:
 
-| **SetupPhysicalValues**:*object* 
+| **SetupPhysicalValues**:*object*
 |  Initial physical values for setup a AC or DC charging session
 |  properties:
-|   **ac_max_current**:*number* <required>
+|   **ac_max_current**:*number*
 |    Set the maximum allowed line current restriction per phase in A.
-|   **ac_nominal_voltage**:*number* <required>
+|   **ac_nominal_voltage**:*number*
 |    Set line voltage supported by the EVSE. This is the voltage measured between one phase and neutral in V.
-|   **dc_current_regulation_tolerance**:*number* <required>
+|   **dc_current_regulation_tolerance**:*number*
 |    Set the absolute magnitude of the regulation tolerance of the EVSE in A.
-|   **dc_peak_current_ripple**:*number* <required>
+|   **dc_peak_current_ripple**:*number*
 |    Set the peak-to-peak magnitude of the current ripple of the EVSE in A.
-|   **dc_energy_to_be_delivered**:*number* <required>
+|   **dc_energy_to_be_delivered**:*number*
 |    Set the amount of energy to be deliveredby the EVSE in Wh (optional)
-|   **dc_minimum_limits**:*object* <required> (:ref:`iso15118_charger-DC_EVSEMinimumLimits <iso15118_charger-DC_EVSEMinimumLimits>`)
+|   **dc_minimum_limits**:*object* (:ref:`iso15118_charger-DC_EVSEMinimumLimits <iso15118_charger-DC_EVSEMinimumLimits>`)
 |    Set the minimum limits for the EVSE
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMinimumLimits>`.
-|   **dc_maximum_limits**:*object* <required> (:ref:`iso15118_charger-DC_EVSEMaximumLimits <iso15118_charger-DC_EVSEMaximumLimits>`)
+|   **dc_maximum_limits**:*object* (:ref:`iso15118_charger-DC_EVSEMaximumLimits <iso15118_charger-DC_EVSEMaximumLimits>`)
 |    Set the maximum limits for the EVSE
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMaximumLimits>`.
 
 .. _iso15118_charger-DC_EVStatusType:
 
-| **DC_EVStatusType**:*object* 
+| **DC_EVStatusType**:*object*
 |  Current status of the EV
+|  required: DC_EVReady, DC_EVErrorCode, DC_EVRESSSOC
 |  properties:
-|   **DC_EVReady**:*boolean* <required>
+|   **DC_EVReady**:*boolean*
 |    If set to TRUE, the EV is ready to charge
-|   **DC_EVErrorCode**:*string* <required> (:ref:`iso15118_charger-DC_EVErrorCode <iso15118_charger-DC_EVErrorCode>`)
+|   **DC_EVErrorCode**:*string* (:ref:`iso15118_charger-DC_EVErrorCode <iso15118_charger-DC_EVErrorCode>`)
 |    Indicates the EV internal status
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVErrorCode>`.
-|   **DC_EVRESSSOC**:*number* <required>
+|   **DC_EVRESSSOC**:*number*
 |    State of charge of the EVs battery (RESS)
-|   **DC_EVCabinConditioning**:*boolean* <optional>
+|   **DC_EVCabinConditioning**:*boolean*
 |    'DIN70121 only: The EV is using energy from the DC supply toheat or cool the passenger compartment.'
-|   **DC_EVRESSConiditioning**:*boolean* <optional>
+|   **DC_EVRESSConiditioning**:*boolean*
 |    'DIN70121 only: The vehicle is using energy from the DC charger to condition the RESS to a target temperature.'
 
 .. _iso15118_charger-DC_EVTargetValues:
 
-| **DC_EVTargetValues**:*object* 
+| **DC_EVTargetValues**:*object*
 |  Target voltage and current requested by the EV
+|  required: DC_EVTargetVoltage, DC_EVTargetCurrent
 |  properties:
-|   **DC_EVTargetVoltage**:*number* <required>
+|   **DC_EVTargetVoltage**:*number*
 |    Target Voltage requested by EV in V
-|   **DC_EVTargetCurrent**:*number* <required>
+|   **DC_EVTargetCurrent**:*number*
 |    Current demanded by EV in A
 
 .. _iso15118_charger-DC_EVMaximumLimits:
 
-| **DC_EVMaximumLimits**:*object* 
+| **DC_EVMaximumLimits**:*object*
 |  Maximum Values (current, power and voltage) supported and allowed by the EV
 |  properties:
-|   **DC_EVMaximumCurrentLimit**:*number* <required>
+|   **DC_EVMaximumCurrentLimit**:*number*
 |    Maximum current supported and allowed by the EV in A
-|   **DC_EVMaximumPowerLimit**:*number* <required>
+|   **DC_EVMaximumPowerLimit**:*number*
 |    Maximum power supported and allowed by the EV in W (optional)
-|   **DC_EVMaximumVoltageLimit**:*number* <required>
+|   **DC_EVMaximumVoltageLimit**:*number*
 |    Maximum voltage supported and allowed by the EV in V
 
 .. _iso15118_charger-DC_EVRemainingTime:
 
-| **DC_EVRemainingTime**:*object* 
+| **DC_EVRemainingTime**:*object*
 |  Estimated or calculated time until bulk and full charge is complete
 |  properties:
-|   **EV_RemainingTimeToFullSoC**:*string* <required>
+|   **EV_RemainingTimeToFullSoC**:*string*
 |    [RFC3339 UTC] Estimated or calculated time until full charge (100% SOC) is complete
-|    format:date-time
-|   **EV_RemainingTimeToBulkSoC**:*string* <required>
+|    format:
+|   **EV_RemainingTimeToBulkSoC**:*string*
 |    [RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete
-|    format:date-time
+|    format:
 
 .. _iso15118_charger-AppProtocol:
 
-| **AppProtocol**:*object* 
+| **AppProtocol**:*object*
 |  This message element is used by the EVCC for transmitting the list of supported protocols
+|  required: ProtocolNamespace, VersionNumberMajor, VersionNumberMinor, SchemaID, Priority
 |  properties:
-|   **ProtocolNamespace**:*string* <required>
+|   **ProtocolNamespace**:*string*
 |    This message element is used by the EVCC to uniquely identify the Namespace URI of a specific protocol supported by the EVCC
-|   **VersionNumberMajor**:*integer* <required>
+|   **VersionNumberMajor**:*integer*
 |    This message element is used by the EVCC to indicate the major version number of the protocol
-|   **VersionNumberMinor**:*integer* <required>
+|   **VersionNumberMinor**:*integer*
 |    This message element is used by the EVCC to indicate the minor version number of the protocol
-|   **SchemaID**:*integer* <required>
+|   **SchemaID**:*integer*
 |    This message element is used by the EVCC to indicate the SchemaID assigned by the EVCC to the protocol
-|   **Priority**:*integer* <required>
+|   **Priority**:*integer*
 |    This message element is used by the EVCC for indicating the protocol priority of a specific protocol allowing the SECC to select a protocol based on priorities
 
 .. _iso15118_charger-AppProtocols:
 
-| **AppProtocols**:*object* 
+| **AppProtocols**:*object*
 |  This message element is used by the EVCC for transmitting the list of supported protocols
+|  required: Protocols
 |  properties:
-|   **Protocols**:*array* <required>
+|   **Protocols**:*array*
 |    
-|    **array_item**:*object*  (:ref:`iso15118_charger-AppProtocol <iso15118_charger-AppProtocol>`)
-|     
-|     **There is an extended definition for this object** :ref:`here <iso15118_charger-AppProtocol>`.
-| 
+|    items:
+|     type:
+|     $ref:
 
 .. _iso15118_charger-V2G_Messages:
 
-| **V2G_Messages**:*object* 
+| **V2G_Messages**:*object*
 |  This element contains all V2G elements
+|  required: V2G_Message_ID
 |  properties:
-|   **V2G_Message_ID**:*string* <required> (:ref:`iso15118_charger-V2G_Message_ID <iso15118_charger-V2G_Message_ID>`)
+|   **V2G_Message_ID**:*string* (:ref:`iso15118_charger-V2G_Message_ID <iso15118_charger-V2G_Message_ID>`)
 |    This element contains the id of the v2g message body
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-V2G_Message_ID>`.
-|   **V2G_Message_XML**:*string* <optional>
+|   **V2G_Message_XML**:*string*
 |    Contains the decoded EXI stream as V2G message XML file
-|   **V2G_Message_JSON**:*string* <optional>
+|   **V2G_Message_JSON**:*string*
 |    Contains the decoded EXI stream as V2G message JSON file
-|   **V2G_Message_EXI_Hex**:*string* <optional>
+|   **V2G_Message_EXI_Hex**:*string*
 |    Contains the EXI stream as hex string
-|   **V2G_Message_EXI_Base64**:*string* <optional>
+|   **V2G_Message_EXI_Base64**:*string*
 |    Contains the EXI stream as base64 string
 
 .. _iso15118_charger-Response_Exi_Stream_Status:
 
-| **Response_Exi_Stream_Status**:*object* 
+| **Response_Exi_Stream_Status**:*object*
 |  The response raw exi stream and the status from the CSMS system
+|  required: status, certificateAction
 |  properties:
-|   **status**:*string* <required>
+|   **status**:*string*
 |    Indicates whether the message was processed properly Accepted - The message was processed properly, exiResponse included Failed - Processing of the message was not successful, no exiResponse included
-|    enum:
-|      - Accepted
-|      - Failed
-|   **exiResponse**:*string* <optional>
+|    enum: Accepted, Failed
+|   **exiResponse**:*string*
 |    Raw CertificateInstallationRes or CertificateUpdateRes message as exi stream (Base64 encoded)
-|   **certificateAction**:*string* <required> (:ref:`iso15118_charger-CertificateActionEnum <iso15118_charger-CertificateActionEnum>`)
+|   **certificateAction**:*string* (:ref:`iso15118_charger-CertificateActionEnum <iso15118_charger-CertificateActionEnum>`)
 |    Type of the certificate request
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-CertificateActionEnum>`.
 
 .. _iso15118_charger-Request_Exi_Stream_Schema:
 
-| **Request_Exi_Stream_Schema**:*object* 
+| **Request_Exi_Stream_Schema**:*object*
 |  The request raw exi stream and the schema version for the CSMS system
+|  required: exiRequest, iso15118SchemaVersion, certificateAction
 |  properties:
-|   **exiRequest**:*string* <required>
+|   **exiRequest**:*string*
 |    Raw CertificateInstallationReq or CertificateUpdateReq message as exi stream (Base64 encoded)
-|   **iso15118SchemaVersion**:*string* <required>
+|   **iso15118SchemaVersion**:*string*
 |    Schema Version used for CertificateReq message between EV and Charger
-|   **certificateAction**:*string* <required> (:ref:`iso15118_charger-CertificateActionEnum <iso15118_charger-CertificateActionEnum>`)
+|   **certificateAction**:*string* (:ref:`iso15118_charger-CertificateActionEnum <iso15118_charger-CertificateActionEnum>`)
 |    Type of the certificate request
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-CertificateActionEnum>`.
 
 .. _iso15118_charger-CertificateHashDataInfo:
 
-| **CertificateHashDataInfo**:*object* 
+| **CertificateHashDataInfo**:*object*
 |  Contains the certificate information
+|  required: hashAlgorithm, issuerNameHash, issuerKeyHash, serialNumber, responderURL
 |  properties:
-|   **hashAlgorithm**:*string* <required>
+|   **hashAlgorithm**:*string*
 |    Used algorithms for the hashes provided
-|    enum:
-|      - SHA256
-|      - SHA384
-|      - SHA512
-|   **issuerNameHash**:*string* <required>
+|    enum: SHA256, SHA384, SHA512
+|   **issuerNameHash**:*string*
 |    Hashed value of the Issuer Distinguished Name
-|   **issuerKeyHash**:*string* <required>
+|   **issuerKeyHash**:*string*
 |    Hashed value of the issuers public key
-|   **serialNumber**:*string* <required>
+|   **serialNumber**:*string*
 |    The serial number of the certificate
-|   **responderURL**:*string* <required>
+|   **responderURL**:*string*
 |    This contains the responder URL
 
 .. _iso15118_charger-CertificateActionEnum:
 
-| **CertificateActionEnum**:*string* 
+| **CertificateActionEnum**:*string*
 |  Specifies the type of a certificate request
-|  enum:
-|    - Install
-|    - Update
+|  enum: Install, Update

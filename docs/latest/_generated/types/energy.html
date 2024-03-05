@@ -49,12 +49,7 @@
 <div class="line"><strong>NodeType</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Enum Type for different Nodes on the energy tree</div>
-<div class="line">enum:</div>
-<div class="line-block">
-<div class="line">- Undefined</div>
-<div class="line">- Evse</div>
-<div class="line">- Generic</div>
-</div>
+<div class="line">enum: Undefined, Evse, Generic</div>
 </div>
 </div>
 <div class="line-block" id="energy-limitsreq">
@@ -63,27 +58,27 @@
 <div class="line">Energy flow limiting object request (Evses to EnergyManager)</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>total_power_W</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>total_power_W</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Total power limit in Watt. Can be used for DC or as additional limit for AC.</div>
 </div>
-<div class="line"><strong>ac_max_current_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_current_A</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Max current limit (per phase) in Ampere. AC only.</div>
 </div>
-<div class="line"><strong>ac_min_current_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_min_current_A</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Min AC current limit per phase in Ampere. Values below that value indicate the  device will not work properly, i.e. it will not charge below 6 amps. AC only.</div>
 </div>
-<div class="line"><strong>ac_max_phase_count</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_phase_count</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Limit to number of phases. Omit if number of phases are not limited.</div>
 </div>
-<div class="line"><strong>ac_min_phase_count</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_min_phase_count</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Minimal number of phases. Omit if number of phases are not limited.</div>
 </div>
-<div class="line"><strong>ac_supports_changing_phases_during_charging</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_supports_changing_phases_during_charging</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">Indicate whether phase switching is allowed during charging or not</div>
 </div>
@@ -96,15 +91,15 @@
 <div class="line">Energy flow limiting object Result (Energy manager to Evses)</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>total_power_W</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>total_power_W</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Total power limit in Watt. Can be used for DC or as additional limit for AC. Negative numbers mean export to grid direction.</div>
 </div>
-<div class="line"><strong>ac_max_current_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_current_A</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Max current limit (per phase) in Ampere. AC only. Negative numbers mean export to grid direction.</div>
 </div>
-<div class="line"><strong>ac_max_phase_count</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_phase_count</strong>:<em>integer</em></div>
 <div class="line-block">
 <div class="line">Limit to number of phases. Omit if number of phases are not limited.</div>
 </div>
@@ -117,27 +112,27 @@
 <div class="line">User defined optimizer targets for this evse</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>energy_amount_needed</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>energy_amount_needed</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Amount of kwh the car needs to fulfill its charging target</div>
 </div>
-<div class="line"><strong>charge_to_max_percent</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>charge_to_max_percent</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Charge car battery to max NN percent</div>
 </div>
-<div class="line"><strong>car_battery_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>car_battery_soc</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Car battery State Of Charge in percent</div>
 </div>
-<div class="line"><strong>leave_time</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>leave_time</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">RFC3339 UTC format time when the car needs to drive away with charging targets fullfilled. Will charge cheapest within this timeframe.</div>
 </div>
-<div class="line"><strong>price_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>price_limit</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Always charge if price below this limit. This includes solar charging and price for solar energy if price levels set correctly.</div>
 </div>
-<div class="line"><strong>full_autonomy</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line"><strong>full_autonomy</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">Only charge from locally generated energy. Do not draw power from grid for charging.</div>
 </div>
@@ -148,28 +143,29 @@
 <div class="line"><strong>ScheduleReqEntry</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">One entry for the time series (request)</div>
+<div class="line">required: timestamp, limits_to_root, limits_to_leaves</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Absolute timestamp for this sample in RFC3339 UTC format</div>
-<div class="line">format:date-time</div>
+<div class="line">format:</div>
 </div>
-<div class="line"><strong>limits_to_root</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-limitsreq"><span class="std std-ref">energy-LimitsReq</span></a>)</div>
+<div class="line"><strong>limits_to_root</strong>:<em>object</em> (<a class="reference internal" href="#energy-limitsreq"><span class="std std-ref">energy-LimitsReq</span></a>)</div>
 <div class="line-block">
 <div class="line">Limit for this timestamp, for the root facing side</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-limitsreq"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>limits_to_leaves</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-limitsreq"><span class="std std-ref">energy-LimitsReq</span></a>)</div>
+<div class="line"><strong>limits_to_leaves</strong>:<em>object</em> (<a class="reference internal" href="#energy-limitsreq"><span class="std std-ref">energy-LimitsReq</span></a>)</div>
 <div class="line-block">
 <div class="line">Limit for this timestamp, for the leaves facing side</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-limitsreq"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>conversion_efficiency</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><strong>conversion_efficiency</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Conversion efficiency from root to leaves side (e.g. AC/DC efficiency). Defaults to one if not specified.</div>
 </div>
-<div class="line"><strong>price_per_kwh</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="energy_price_information.html#energy-price-information-priceperkwh"><span class="std std-ref">energy_price_information-PricePerkWh</span></a>)</div>
+<div class="line"><strong>price_per_kwh</strong>:<em>object</em> (<a class="reference internal" href="energy_price_information.html#energy-price-information-priceperkwh"><span class="std std-ref">energy_price_information-PricePerkWh</span></a>)</div>
 <div class="line-block">
 <div class="line">Price information for this timepoint</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="energy_price_information.html#energy-price-information-priceperkwh"><span class="std std-ref">here</span></a>.</div>
@@ -181,19 +177,20 @@
 <div class="line"><strong>ScheduleResEntry</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">One entry for the time series (result)</div>
+<div class="line">required: timestamp, limits_to_root</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>timestamp</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Absolute timestamp for this sample in RFC3339 UTC format</div>
-<div class="line">format:date-time</div>
+<div class="line">format:</div>
 </div>
-<div class="line"><strong>limits_to_root</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-limitsres"><span class="std std-ref">energy-LimitsRes</span></a>)</div>
+<div class="line"><strong>limits_to_root</strong>:<em>object</em> (<a class="reference internal" href="#energy-limitsres"><span class="std std-ref">energy-LimitsRes</span></a>)</div>
 <div class="line-block">
 <div class="line">Limit for this timestamp, for the root facing side</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-limitsres"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>price_per_kwh</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="energy_price_information.html#energy-price-information-priceperkwh"><span class="std std-ref">energy_price_information-PricePerkWh</span></a>)</div>
+<div class="line"><strong>price_per_kwh</strong>:<em>object</em> (<a class="reference internal" href="energy_price_information.html#energy-price-information-priceperkwh"><span class="std std-ref">energy_price_information-PricePerkWh</span></a>)</div>
 <div class="line-block">
 <div class="line">Price information for this timepoint</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="energy_price_information.html#energy-price-information-priceperkwh"><span class="std std-ref">here</span></a>.</div>
@@ -205,60 +202,61 @@
 <div class="line"><strong>EnergyFlowRequest</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Request energy flow parameters to supply/limit energy import (direction from grid to car) and/or consume/limit energy export (car to grid) at a specific point in the tree</div>
+<div class="line">required: uuid, children, node_type</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>children</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><strong>children</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Array of child node energy flow requests (in the direction to consumer/car</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-energyflowrequest"><span class="std std-ref">energy-EnergyFlowRequest</span></a>)</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">One entry per child node</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-energyflowrequest"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
-<div class="line"><strong>uuid</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>uuid</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">UUID for this node. This UUID will be used again when enforce_limits() command propagates through the tree.</div>
 </div>
-<div class="line"><strong>node_type</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#energy-nodetype"><span class="std std-ref">energy-NodeType</span></a>)</div>
+<div class="line"><strong>node_type</strong>:<em>string</em> (<a class="reference internal" href="#energy-nodetype"><span class="std std-ref">energy-NodeType</span></a>)</div>
 <div class="line-block">
 <div class="line">Node Type Enum</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-nodetype"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>optimizer_target</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#energy-optimizertarget"><span class="std std-ref">energy-OptimizerTarget</span></a>)</div>
+<div class="line"><strong>optimizer_target</strong>:<em>object</em> (<a class="reference internal" href="#energy-optimizertarget"><span class="std std-ref">energy-OptimizerTarget</span></a>)</div>
 <div class="line-block">
 <div class="line">User defined optimizer targets for this evse</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-optimizertarget"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>energy_usage_root</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line"><strong>energy_usage_root</strong>:<em>object</em> (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
 <div class="line">Energy usage measurement of this node at root side</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>energy_usage_leaves</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line"><strong>energy_usage_leaves</strong>:<em>object</em> (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
 <div class="line">Energy usage measurement of this node at leaves side</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>schedule_import</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line"><strong>schedule_import</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">energy-ScheduleReqEntry</span></a>)</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">One entry for the time series. Values are always positive.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
-<div class="line"><strong>schedule_export</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line"><strong>schedule_export</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">energy-ScheduleReqEntry</span></a>)</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">One entry for the time series. Values are always positive.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
 </div>
@@ -268,30 +266,31 @@
 <div class="line"><strong>EnforcedLimits</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Enforce Limits data type</div>
+<div class="line">required: uuid, valid_until</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>uuid</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>uuid</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">UUID of node that this limit applies to</div>
 </div>
-<div class="line"><strong>valid_until</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>valid_until</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Limits are valid until this timepoint in RFC3339 UTC. If no new update is received, power consumption must be stopped afer that timepoint.</div>
-<div class="line">format:date-time</div>
+<div class="line">format:</div>
 </div>
-<div class="line"><strong>limits_root_side</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#energy-limitsres"><span class="std std-ref">energy-LimitsRes</span></a>)</div>
+<div class="line"><strong>limits_root_side</strong>:<em>object</em> (<a class="reference internal" href="#energy-limitsres"><span class="std std-ref">energy-LimitsRes</span></a>)</div>
 <div class="line-block">
 <div class="line">Enforced limits that must be respected at the root side.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-limitsres"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>schedule</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line"><strong>schedule</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Informative only. Do not use for actual limiting. Energy import/export limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-scheduleresentry"><span class="std std-ref">energy-ScheduleResEntry</span></a>)</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">One entry for the time series. Values are positive for import from grid and negative for export to grid.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-scheduleresentry"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
 </div>
@@ -303,24 +302,24 @@
 <div class="line">External Limits data type</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>schedule_import</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><strong>schedule_import</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.  The last entry is valid for any time after the schedule ends.</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">energy-ScheduleReqEntry</span></a>)</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">One entry for the time series</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
-<div class="line"><strong>schedule_export</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><strong>schedule_export</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time. The last entry is valid for any time after the schedule ends.</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">energy-ScheduleReqEntry</span></a>)</div>
+<div class="line">items:</div>
 <div class="line-block">
-<div class="line">One entry for the time series</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
+<div class="line">description:</div>
+<div class="line">type:</div>
+<div class="line">$ref:</div>
 </div>
 </div>
 </div>

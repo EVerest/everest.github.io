@@ -10,19 +10,20 @@ EVSE manager types
 
 .. _evse_manager-StopTransactionRequest:
 
-| **StopTransactionRequest**:*object* 
+| **StopTransactionRequest**:*object*
 |  Request for a stop transaction containing the reason and an optional id tag
+|  required: reason
 |  properties:
-|   **reason**:*string* <required> (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
+|   **reason**:*string* (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
 |    Reason for stopping the transaction
 |    **There is an extended definition for this object** :ref:`here <evse_manager-StopTransactionReason>`.
-|   **id_tag**:*object* <optional> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+|   **id_tag**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    Id tag that was used to stop the transaction. Only present if transaction was stopped locally.
 |    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
 
 .. _evse_manager-StopTransactionReason:
 
-| **StopTransactionReason**:*string* 
+| **StopTransactionReason**:*string*
 |  Reason for stopping transaction
 |   EmergencyStop: Emergency stop button was used
 |   EVDisconnected: Disconnecting of cable, vehicle moved away from inductive charge unit
@@ -45,56 +46,29 @@ EVSE manager types
 |   StoppedByEV: The transaction was stopped by the EV
 |   TimeLimitReached: EV charging session reached a locally enforced time limit
 |   Timeout: EV not connected within timeout
-|  enum:
-|    - EmergencyStop
-|    - EVDisconnected
-|    - HardReset
-|    - Local
-|    - Other
-|    - PowerLoss
-|    - Reboot
-|    - Remote
-|    - SoftReset
-|    - UnlockCommand
-|    - DeAuthorized
-|    - EnergyLimitReached
-|    - GroundFault
-|    - LocalOutOfCredit
-|    - MasterPass
-|    - OvercurrentFault
-|    - PowerQuality
-|    - SOCLimitReached
-|    - StoppedByEV
-|    - TimeLimitReached
-|    - Timeout
+|  enum: EmergencyStop, EVDisconnected, HardReset, Local, Other, PowerLoss, Reboot, Remote, SoftReset, UnlockCommand, DeAuthorized, EnergyLimitReached, GroundFault, LocalOutOfCredit, MasterPass, OvercurrentFault, PowerQuality, SOCLimitReached, StoppedByEV, TimeLimitReached, Timeout
 
 .. _evse_manager-StartSessionReason:
 
-| **StartSessionReason**:*string* 
+| **StartSessionReason**:*string*
 |  Reason for session start
 |   EVConnected: Session was started because an EV was plugged in
 |   Authorized: Session was started because a valid authorization was presented and the EVSE is authorized to start a transaction immediately when an EV is plugged in
-|  enum:
-|    - EVConnected
-|    - Authorized
+|  enum: EVConnected, Authorized
 
 .. _evse_manager-SwitchThreePhasesWhileChargingResult:
 
-| **SwitchThreePhasesWhileChargingResult**:*string* 
+| **SwitchThreePhasesWhileChargingResult**:*string*
 |  Returns success or error code
 |   Success: Switching phases was successful
 |   Error_NotSupported: Switching phases is not supported
 |   Error_NotCharging: EVSE is not charging
 |   Error_Hardware: There was a hardware error on switching phases
-|  enum:
-|    - Success
-|    - Error_NotSupported
-|    - Error_NotCharging
-|    - Error_Hardware
+|  enum: Success, Error_NotSupported, Error_NotCharging, Error_Hardware
 
 .. _evse_manager-SessionEventEnum:
 
-| **SessionEventEnum**:*string* 
+| **SessionEventEnum**:*string*
 |  Session Event enum
 |   Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)
 |   Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)
@@ -118,291 +92,220 @@ EVSE manager types
 |   ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
 |   ReplugFinished: Signaled when the virtual replug process has finished
 |   PluginTimeout: Signaled when an EV has been Plugged in but no authorization is present within specified ConnectionTimeout
-|  enum:
-|    - Enabled
-|    - Disabled
-|    - SessionStarted
-|    - AuthRequired
-|    - TransactionStarted
-|    - PrepareCharging
-|    - ChargingStarted
-|    - ChargingPausedEV
-|    - ChargingPausedEVSE
-|    - WaitingForEnergy
-|    - ChargingResumed
-|    - StoppingCharging
-|    - ChargingFinished
-|    - TransactionFinished
-|    - SessionFinished
-|    - Error
-|    - ErrorCleared
-|    - AllErrorsCleared
-|    - PermanentFault
-|    - PermanentFaultCleared
-|    - ReservationStart
-|    - ReservationEnd
-|    - ReplugStarted
-|    - ReplugFinished
-|    - PluginTimeout
+|  enum: Enabled, Disabled, SessionStarted, AuthRequired, TransactionStarted, PrepareCharging, ChargingStarted, ChargingPausedEV, ChargingPausedEVSE, WaitingForEnergy, ChargingResumed, StoppingCharging, ChargingFinished, TransactionFinished, SessionFinished, Error, ErrorCleared, AllErrorsCleared, PermanentFault, PermanentFaultCleared, ReservationStart, ReservationEnd, ReplugStarted, ReplugFinished, PluginTimeout
 
 .. _evse_manager-SessionStarted:
 
-| **SessionStarted**:*object* 
+| **SessionStarted**:*object*
 |  Data for the SessionStarted event
+|  required: timestamp, reason
 |  properties:
-|   **timestamp**:*string* <required>
+|   **timestamp**:*string*
 |    Session start time in RFC3339 format
-|    format:date-time
-|   **reason**:*string* <required> (:ref:`evse_manager-StartSessionReason <evse_manager-StartSessionReason>`)
+|    format:
+|   **reason**:*string* (:ref:`evse_manager-StartSessionReason <evse_manager-StartSessionReason>`)
 |    Reason for session start
 |    **There is an extended definition for this object** :ref:`here <evse_manager-StartSessionReason>`.
-|   **logging_path**:*string* <optional>
+|   **logging_path**:*string*
 |    File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with "incomplete-" when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.
 
 .. _evse_manager-SessionFinished:
 
-| **SessionFinished**:*object* 
+| **SessionFinished**:*object*
 |  Data for the SessionFinished event
+|  required: timestamp
 |  properties:
-|   **timestamp**:*string* <required>
+|   **timestamp**:*string*
 |    Session start time in RFC3339 format
-|    format:date-time
+|    format:
 
 .. _evse_manager-TransactionStarted:
 
-| **TransactionStarted**:*object* 
+| **TransactionStarted**:*object*
 |  Data for the TransactionStarted event
+|  required: timestamp, meter_value, id_tag
 |  properties:
-|   **timestamp**:*string* <required>
+|   **timestamp**:*string*
 |    Transaction start time in RFC3339 format
-|    format:date-time
-|   **id_tag**:*object* <required> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+|    format:
+|   **id_tag**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    The id tag assigned to this transaction
 |    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
-|   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|   **meter_value**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
 |    Transaction start exported meter value
 |    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
-|   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|   **signed_meter_value**:*object* (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
 |    The signed meter value report of the started transaction
 |    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.
-|   **reservation_id**:*integer* <optional>
+|   **reservation_id**:*integer*
 |    Id of the reservation
 
 .. _evse_manager-TransactionFinished:
 
-| **TransactionFinished**:*object* 
+| **TransactionFinished**:*object*
 |  Data for TransactionFinished event
+|  required: timestamp, meter_value
 |  properties:
-|   **timestamp**:*string* <required>
+|   **timestamp**:*string*
 |    Transaction end time in RFC3339 format
-|    format:date-time
-|   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    format:
+|   **meter_value**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
 |    Transaction finished meter value
 |    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
-|   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|   **signed_meter_value**:*object* (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
 |    The signed meter value report of the stopped transaction
 |    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.
-|   **reason**:*string* <optional> (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
+|   **reason**:*string* (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
 |    Reason for stopping transaction
 |    **There is an extended definition for this object** :ref:`here <evse_manager-StopTransactionReason>`.
-|   **id_tag**:*object* <optional> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+|   **id_tag**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    Id tag that was used to stop the transaction. Only present if transaction was stopped locally.
 |    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
 
 .. _evse_manager-ErrorEnum:
 
-| **ErrorEnum**:*string* 
+| **ErrorEnum**:*string*
 |  Note this is only kept for compatibility with the legacy error handling and will be removed soon.
-|  enum:
-|    - RCD_Selftest
-|    - RCD_DC
-|    - RCD_AC
-|    - VendorError
-|    - VendorWarning
-|    - ConnectorLockCapNotCharged
-|    - ConnectorLockUnexpectedOpen
-|    - ConnectorLockUnexpectedClose
-|    - ConnectorLockFailedLock
-|    - ConnectorLockFailedUnlock
-|    - MREC1ConnectorLockFailure
-|    - MREC2GroundFailure
-|    - MREC3HighTemperature
-|    - MREC4OverCurrentFailure
-|    - MREC5OverVoltage
-|    - MREC6UnderVoltage
-|    - MREC8EmergencyStop
-|    - MREC10InvalidVehicleMode
-|    - MREC14PilotFault
-|    - MREC15PowerLoss
-|    - MREC17EVSEContactorFault
-|    - MREC18CableOverTempDerate
-|    - MREC19CableOverTempStop
-|    - MREC20PartialInsertion
-|    - MREC23ProximityFault
-|    - MREC24ConnectorVoltageHigh
-|    - MREC25BrokenLatch
-|    - MREC26CutCable
-|    - DiodeFault
-|    - VentilationNotAvailable
-|    - BrownOut
-|    - EnergyManagement
-|    - PermanentFault
-|    - PowermeterTransactionStartFailed
+|  enum: RCD_Selftest, RCD_DC, RCD_AC, VendorError, VendorWarning, ConnectorLockCapNotCharged, ConnectorLockUnexpectedOpen, ConnectorLockUnexpectedClose, ConnectorLockFailedLock, ConnectorLockFailedUnlock, MREC1ConnectorLockFailure, MREC2GroundFailure, MREC3HighTemperature, MREC4OverCurrentFailure, MREC5OverVoltage, MREC6UnderVoltage, MREC8EmergencyStop, MREC10InvalidVehicleMode, MREC14PilotFault, MREC15PowerLoss, MREC17EVSEContactorFault, MREC18CableOverTempDerate, MREC19CableOverTempStop, MREC20PartialInsertion, MREC23ProximityFault, MREC24ConnectorVoltageHigh, MREC25BrokenLatch, MREC26CutCable, DiodeFault, VentilationNotAvailable, BrownOut, EnergyManagement, PermanentFault, PowermeterTransactionStartFailed
 
 .. _evse_manager-Error:
 
-| **Error**:*object* 
+| **Error**:*object*
 |  Error object that contains information about the error and optional vendor error information
+|  required: error_code, error_description, error_severity
 |  properties:
-|   **error_code**:*string* <required> (:ref:`evse_manager-ErrorEnum <evse_manager-ErrorEnum>`)
+|   **error_code**:*string* (:ref:`evse_manager-ErrorEnum <evse_manager-ErrorEnum>`)
 |    The error enum
 |    **There is an extended definition for this object** :ref:`here <evse_manager-ErrorEnum>`.
-|   **error_description**:*string* <required>
+|   **error_description**:*string*
 |    Description of the error (human readable)
-|   **error_severity**:*string* <required>
+|   **error_severity**:*string*
 |    Severity of the error
-|    enum:
-|      - High
-|      - Medium
-|      - Low
-|   **vendor_error**:*string* <optional>
+|    enum: High, Medium, Low
+|   **vendor_error**:*string*
 |    The error code of the vendor
 
 .. _evse_manager-SessionEvent:
 
-| **SessionEvent**:*object* 
+| **SessionEvent**:*object*
 |  Emits all events related to sessions
+|  required: uuid, event
 |  properties:
-|   **uuid**:*string* <required>
+|   **uuid**:*string*
 |    An EVSE generated UUID for this session, can be used e.g. for database storage.
-|   **connector_id**:*integer* <optional>
+|   **connector_id**:*integer*
 |    Id of the connector of this EVSE.  If the connector_id is not specified, its assumed to be 1
-|   **event**:*string* <required> (:ref:`evse_manager-SessionEventEnum <evse_manager-SessionEventEnum>`)
+|   **event**:*string* (:ref:`evse_manager-SessionEventEnum <evse_manager-SessionEventEnum>`)
 |    Event enum. For some events an additional object is set, see below.
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionEventEnum>`.
-|   **session_started**:*object* <optional> (:ref:`evse_manager-SessionStarted <evse_manager-SessionStarted>`)
+|   **session_started**:*object* (:ref:`evse_manager-SessionStarted <evse_manager-SessionStarted>`)
 |    data for SessionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionStarted>`.
-|   **session_finished**:*object* <optional> (:ref:`evse_manager-SessionFinished <evse_manager-SessionFinished>`)
+|   **session_finished**:*object* (:ref:`evse_manager-SessionFinished <evse_manager-SessionFinished>`)
 |    data for the SessionFinished event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionFinished>`.
-|   **transaction_started**:*object* <optional> (:ref:`evse_manager-TransactionStarted <evse_manager-TransactionStarted>`)
+|   **transaction_started**:*object* (:ref:`evse_manager-TransactionStarted <evse_manager-TransactionStarted>`)
 |    data for TransactionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionStarted>`.
-|   **transaction_finished**:*object* <optional> (:ref:`evse_manager-TransactionFinished <evse_manager-TransactionFinished>`)
+|   **transaction_finished**:*object* (:ref:`evse_manager-TransactionFinished <evse_manager-TransactionFinished>`)
 |    data for TransactionFinished event that happens when car is plugged out
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionFinished>`.
-|   **error**:*object* <optional> (:ref:`evse_manager-Error <evse_manager-Error>`)
+|   **error**:*object* (:ref:`evse_manager-Error <evse_manager-Error>`)
 |    Details on error type
 |    **There is an extended definition for this object** :ref:`here <evse_manager-Error>`.
 
 .. _evse_manager-Limits:
 
-| **Limits**:*object* 
+| **Limits**:*object*
 |  Limits of this EVSE
+|  required: max_current, nr_of_phases_available
 |  properties:
-|   **uuid**:*string* <optional>
+|   **uuid**:*string*
 |    This module's UUID for global identification
-|   **max_current**:*number* <required>
+|   **max_current**:*number*
 |    Instantaneous maximum current available to car
-|   **nr_of_phases_available**:*integer* <required>
+|   **nr_of_phases_available**:*integer*
 |    Instantaneous phase count available to car
 
 .. _evse_manager-EVInfo:
 
-| **EVInfo**:*object* 
+| **EVInfo**:*object*
 |  Information about the connected EV if available
 |  properties:
-|   **soc**:*number* <required>
+|   **soc**:*number*
 |    State of charge of the vehicle's battery in percent
-|   **present_voltage**:*number* <required>
+|   **present_voltage**:*number*
 |    Current voltage of the vehicles battery [V]
-|   **present_current**:*number* <required>
+|   **present_current**:*number*
 |    Current current of the vehicles battery [A]
-|   **target_voltage**:*number* <required>
+|   **target_voltage**:*number*
 |    Target voltage that the vehicle requested [V]
-|   **target_current**:*number* <required>
+|   **target_current**:*number*
 |    Target current that the vehicle requested [A]
-|   **maximum_current_limit**:*number* <required>
+|   **maximum_current_limit**:*number*
 |    Maximum current that the vehicle supports [A]
-|   **minimum_current_limit**:*number* <required>
+|   **minimum_current_limit**:*number*
 |    Charging below this limit is not energy efficient [A]
-|   **maximum_voltage_limit**:*number* <required>
+|   **maximum_voltage_limit**:*number*
 |    Maximum voltage that the vehicle supports [V]
-|   **maximum_power_limit**:*number* <required>
+|   **maximum_power_limit**:*number*
 |    Maximum power that the vehicle supports [W]
-|   **estimated_time_full**:*string* <required>
+|   **estimated_time_full**:*string*
 |    Estimated time when the vehicle is fully charged
-|    format:date-time
-|   **departure_time**:*string* <required>
+|    format:
+|   **departure_time**:*string*
 |    Time when the vehicle intends to depart (If set by the user)
-|    format:date-time
-|   **estimated_time_bulk**:*string* <required>
+|    format:
+|   **estimated_time_bulk**:*string*
 |    Estimated time when the vehicle finished bulk charging (e.g. 80%)
-|    format:date-time
-|   **evcc_id**:*string* <required>
+|    format:
+|   **evcc_id**:*string*
 |    EVCC ID (typically MAC address)
-|    pattern:^[A-Fa-f0-9]{2}(:[A-Fa-f0-9]{2}){5}$
-|   **remaining_energy_needed**:*number* <required>
+|    pattern:
+|   **remaining_energy_needed**:*number*
 |    Remaining energy needed to fulfill charging goal [Wh]
-|   **battery_capacity**:*number* <required>
+|   **battery_capacity**:*number*
 |    Vehicle's battery capacity [Wh]
-|   **battery_full_soc**:*number* <required>
+|   **battery_full_soc**:*number*
 |    SoC which the vehicle considers fully charged [%]
-|   **battery_bulk_soc**:*number* <required>
+|   **battery_bulk_soc**:*number*
 |    SoC which the vehicle considers bulk charging reached [%]
 
 .. _evse_manager-CarManufacturer:
 
-| **CarManufacturer**:*string* 
+| **CarManufacturer**:*string*
 |  Enum type for car manufacturers derived from MAC address. May be different from actual brand, so e.g. Skoda falls under Volkswagen_Group.
-|  enum:
-|    - VolkswagenGroup
-|    - Tesla
-|    - Unknown
+|  enum: VolkswagenGroup, Tesla, Unknown
 
 .. _evse_manager-Connector:
 
-| **Connector**:*object* 
+| **Connector**:*object*
 |  Type for a connector which is an independently operated and managed electrical outlet of an EVSE. It corresponds to a single physical connector
+|  required: id
 |  properties:
-|   **id**:*integer* <required>
+|   **id**:*integer*
 |    Id of the connector. Connectors should be numbered starting with 1 counting upwards
-|   **type**:*string* <optional> (:ref:`evse_manager-ConnectorTypeEnum <evse_manager-ConnectorTypeEnum>`)
+|   **type**:*string* (:ref:`evse_manager-ConnectorTypeEnum <evse_manager-ConnectorTypeEnum>`)
 |    Type of the connector
 |    **There is an extended definition for this object** :ref:`here <evse_manager-ConnectorTypeEnum>`.
 
 .. _evse_manager-ConnectorTypeEnum:
 
-| **ConnectorTypeEnum**:*string* 
+| **ConnectorTypeEnum**:*string*
 |  Type of a physical connector cCCS1: Combined Charging System 1 a.k.a. Combo 1 cCCS2: Combined Charging System 2 a.k.a. Combo 2 cG105: JARI G105-1993 a.k.a. CHAdeMO cTesla: Tesla Connector cType1: IEC62196-2 Type 1 connector a.k.a. J1772 cType2: IEC62196-2 Type 2 connector a.k.a. Mennekes connector s309_1P_16A: 16A 1 phase IEC60309 socket s309_1P_32A: 32A 1 phase IEC60309 socket s309_3P_16A: 16A 3 phase IEC60309 socket s309_3P_32A: 32A 3 phase IEC60309 socket sBS1361: UK domestic socket a.k.a. 13Amp sCEE-7_7: CEE 7/7 16A socket a.k.a Schuko sType2: IEC62196-2 Type 2 socket a.k.a. Mennekes connector sType3: IEC62196-2 Type 2 socket a.k.a. Scame Unknown: Unknown
-|  enum:
-|    - cCCS1
-|    - cCCS2
-|    - cG105
-|    - cTesla
-|    - cType1
-|    - cType2
-|    - s309_1P_16A
-|    - s309_1P_32A
-|    - s309_3P_16A
-|    - s309_3P_32A
-|    - sBS1361
-|    - sCEE_7_7
-|    - sType2
-|    - sType3
-|    - Unknown
+|  enum: cCCS1, cCCS2, cG105, cTesla, cType1, cType2, s309_1P_16A, s309_1P_32A, s309_3P_16A, s309_3P_32A, sBS1361, sCEE_7_7, sType2, sType3, Unknown
 
 .. _evse_manager-Evse:
 
-| **Evse**:*object* 
+| **Evse**:*object*
 |  Type that defines properties of an EVSE including its connectors
+|  required: id, connectors
 |  properties:
-|   **id**:*integer* <required>
+|   **id**:*integer*
 |    ID of the EVSE
-|   **connectors**:*array* <required>
+|   **connectors**:*array*
 |    List of connectors of this EVSE
-|    **array_item**:*object*  (:ref:`evse_manager-Connector <evse_manager-Connector>`)
-|     A single connector
-|     **There is an extended definition for this object** :ref:`here <evse_manager-Connector>`.
-| 
+|    items:
+|     description:
+|     type:
+|     $ref:

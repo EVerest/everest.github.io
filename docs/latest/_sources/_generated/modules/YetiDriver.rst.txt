@@ -12,20 +12,23 @@ For a detailed handwritten documentation see :ref:`here <everest_modules_handwri
 ********************
 Module Configuration
 ********************
-| **serial_port**:*string*
-| *default: /dev/ttyUSB0*
+| **serial_port**:*string* <optional>
+| *default: "/dev/ttyUSB0"*
 |  Serial port the Yeti hardware is connected to
-| **baud_rate**:*integer*
+| **baud_rate**:*integer* <optional>
 | *default: 115200*
 |  Serial baud rate to use when communicating with Yeti hardware
-| **control_mode**:*string*
-| *default: low*
+| **control_mode**:*string* <optional>
+| *default: "low"*
 |  none, high or low
-|  enum: none, high, low
-| **reset_gpio**:*integer*
+|  enum:
+|    - none
+|    - high
+|    - low
+| **reset_gpio**:*integer* <optional>
 | *default: -1*
 |  Reset GPIO number to use to HW reset Yeti. If set <0 it is disabled.
-| **caps_min_current_A**:*integer*
+| **caps_min_current_A**:*integer* <optional>
 | *default: -1*
 |  Minimal current on AC side. For AC this is typically 6, but for HLC this can be less. -1 means use limit reported by HW.
 

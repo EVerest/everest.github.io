@@ -49,51 +49,54 @@
 <div class="line"><strong>HardwareCapabilities</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Hardware capability/limits</div>
-<div class="line">required: max_current_A_import, min_current_A_import, max_phase_count_import, min_phase_count_import, max_current_A_export, min_current_A_export, max_phase_count_export, min_phase_count_export, supports_changing_phases_during_charging, connector_type</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>max_current_A_import</strong>:<em>number</em></div>
+<div class="line"><strong>max_current_A_import</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Maximum current (ampere) the hardware can handle (import from grid)</div>
 </div>
-<div class="line"><strong>min_current_A_import</strong>:<em>number</em></div>
+<div class="line"><strong>min_current_A_import</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum current (ampere) the hardware can use to charge. Values below may be set but may result in pause instead.  (import from grid)</div>
 </div>
-<div class="line"><strong>max_phase_count_import</strong>:<em>integer</em></div>
+<div class="line"><strong>max_phase_count_import</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Max nr of phases the hardware can use  (import from grid)</div>
 </div>
-<div class="line"><strong>min_phase_count_import</strong>:<em>integer</em></div>
+<div class="line"><strong>min_phase_count_import</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum nr of phases the hardware can use  (import from grid)</div>
 </div>
-<div class="line"><strong>max_current_A_export</strong>:<em>number</em></div>
+<div class="line"><strong>max_current_A_export</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Maximum current (ampere) the hardware can handle (export to grid)</div>
 </div>
-<div class="line"><strong>min_current_A_export</strong>:<em>number</em></div>
+<div class="line"><strong>min_current_A_export</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum current (ampere) the hardware can use to charge. Values below may be set but may result in pause instead. (export to grid)</div>
 </div>
-<div class="line"><strong>max_phase_count_export</strong>:<em>integer</em></div>
+<div class="line"><strong>max_phase_count_export</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Max nr of phases the hardware can use (export to grid)</div>
 </div>
-<div class="line"><strong>min_phase_count_export</strong>:<em>integer</em></div>
+<div class="line"><strong>min_phase_count_export</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum nr of phases the hardware can use (export to grid)</div>
 </div>
-<div class="line"><strong>supports_changing_phases_during_charging</strong>:<em>boolean</em></div>
+<div class="line"><strong>supports_changing_phases_during_charging</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Indicates whether changing number of phases is supported during charging (true) or not (false)</div>
 </div>
-<div class="line"><strong>max_plug_temperature_C</strong>:<em>number</em></div>
+<div class="line"><strong>max_plug_temperature_C</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line"><br /></div>
-<div class="line"><strong>connector_type</strong>:<em>string</em></div>
+<div class="line"><strong>connector_type</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Type of charging connector available at this EVSE</div>
-<div class="line">enum: IEC62196Type2Cable, IEC62196Type2Socket</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- IEC62196Type2Cable</div>
+<div class="line">- IEC62196Type2Socket</div>
+</div>
 </div>
 </div>
 </div>
@@ -102,30 +105,29 @@
 <div class="line"><strong>Telemetry</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Other telemetry</div>
-<div class="line">required: evse_temperature_C, fan_rpm, supply_voltage_12V, supply_voltage_minus_12V, relais_on</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>evse_temperature_C</strong>:<em>number</em></div>
+<div class="line"><strong>evse_temperature_C</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Current temperature of the EVSE in degree celsius</div>
 </div>
-<div class="line"><strong>plug_temperature_C</strong>:<em>number</em></div>
+<div class="line"><strong>plug_temperature_C</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Current temperature of the plug in degree celsius</div>
 </div>
-<div class="line"><strong>fan_rpm</strong>:<em>number</em></div>
+<div class="line"><strong>fan_rpm</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">RPM of the fan. 0 if off or no fan available.</div>
 </div>
-<div class="line"><strong>supply_voltage_12V</strong>:<em>number</em></div>
+<div class="line"><strong>supply_voltage_12V</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Internal 12V supply voltage</div>
 </div>
-<div class="line"><strong>supply_voltage_minus_12V</strong>:<em>number</em></div>
+<div class="line"><strong>supply_voltage_minus_12V</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Internal -12V supply voltage</div>
 </div>
-<div class="line"><strong>relais_on</strong>:<em>boolean</em></div>
+<div class="line"><strong>relais_on</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">true if power to the car is currently on, false if off</div>
 </div>
@@ -136,17 +138,22 @@
 <div class="line"><strong>PowerOnOff</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Flag and context for switching power on/off. In some architectures e.g. DC power train needs to know whether it should switch on with limited current or full current on the output contactors.</div>
-<div class="line">required: allow_power_on, reason</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>allow_power_on</strong>:<em>boolean</em></div>
+<div class="line"><strong>allow_power_on</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Allow switching on (true) or force switching off (false)</div>
 </div>
-<div class="line"><strong>reason</strong>:<em>string</em></div>
+<div class="line"><strong>reason</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Reason for switching on/off</div>
-<div class="line">enum: DCCableCheck, DCPreCharge, FullPowerCharging, PowerOff</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- DCCableCheck</div>
+<div class="line">- DCPreCharge</div>
+<div class="line">- FullPowerCharging</div>
+<div class="line">- PowerOff</div>
+</div>
 </div>
 </div>
 </div>

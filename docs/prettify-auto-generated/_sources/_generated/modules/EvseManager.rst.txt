@@ -15,10 +15,10 @@ Module Configuration
 | **connector_id**:*integer* <required>
 |  Connector id of this evse manager
 | **evse_id**:*string* <optional>
-| *default: DE*PNX*E1234567*1*
+| *default: "DE*PNX*E1234567*1"*
 |  EVSE ID
 | **evse_id_din**:*string* <optional>
-| *default: 49A80737A45678*
+| *default: "49A80737A45678"*
 |  EVSE ID DIN after DIN SPEC 91286
 | **payment_enable_eim**:*boolean* <optional>
 | *default: True*
@@ -36,7 +36,7 @@ Module Configuration
 | *default: False*
 |  Enable/Disable session log file output
 | **session_logging_path**:*string* <optional>
-| *default: /tmp*
+| *default: "/tmp"*
 |  Output directory for session log files
 | **session_logging_xml**:*boolean* <optional>
 | *default: True*
@@ -48,7 +48,7 @@ Module Configuration
 | *default: True*
 |  Allow ventilated charging or not
 | **country_code**:*string* <optional>
-| *default: DE*
+| *default: "DE"*
 |  Country Code
 | **max_current_import_A**:*number* <optional>
 | *default: 32*
@@ -57,7 +57,7 @@ Module Configuration
 | *default: 32*
 |  User configurable current limit for this EVSE in Ampere
 | **charge_mode**:*string* <optional>
-| *default: AC*
+| *default: "AC"*
 |  Select charging mode
 |  enum:
 |    - AC
@@ -105,7 +105,7 @@ Module Configuration
 | *default: False*
 |  Use slac ev mac address for autocharge instead of EVCCID from HLC
 | **logfile_suffix**:*string* <optional>
-| *default: session_uuid*
+| *default: "session_uuid"*
 |  Use the string given for the log folder name. Special string session_uuid will be replaced with session uuid.
 | **soft_over_current_tolerance_percent**:*number* <optional>
 | *default: 10.0*
@@ -123,7 +123,7 @@ Module Configuration
 | *default: False*
 |  Enable SAE J2847 2 V2G or V2H mode
 | **sae_j2847_2_bpt_mode**:*string* <optional>
-| *default: V2G*
+| *default: "V2G"*
 |  SAE J2847 2 BPT mode
 |  enum:
 |    - V2H
@@ -149,14 +149,14 @@ Provides
 Requirements
 ************
 | **bsp**::ref:`evse_board_support <everest_interfaces_evse_board_support>` 1
-| **ac_rcd**::ref:`ac_rcd <everest_interfaces_ac_rcd>` 1
-| **connector_lock**::ref:`connector_lock <everest_interfaces_connector_lock>` 1
-| **powermeter_grid_side**::ref:`powermeter <everest_interfaces_powermeter>` 1
-| **powermeter_car_side**::ref:`powermeter <everest_interfaces_powermeter>` 1
-| **slac**::ref:`slac <everest_interfaces_slac>` 1
-| **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>` 1
-| **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>` 1
-| **powersupply_DC**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>` 1
+| **ac_rcd**::ref:`ac_rcd <everest_interfaces_ac_rcd>` 0..1
+| **connector_lock**::ref:`connector_lock <everest_interfaces_connector_lock>` 0..1
+| **powermeter_grid_side**::ref:`powermeter <everest_interfaces_powermeter>` 0..1
+| **powermeter_car_side**::ref:`powermeter <everest_interfaces_powermeter>` 0..1
+| **slac**::ref:`slac <everest_interfaces_slac>` 0..1
+| **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>` 0..1
+| **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>` 0..1
+| **powersupply_DC**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>` 0..1
 
 ********
 Metadata

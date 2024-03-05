@@ -49,21 +49,26 @@
 <div class="line"><strong>Mode</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Operation mode of power supply. Power supply delivers power in Export mode and draws power in Import mode.</div>
-<div class="line">enum: Off, Export, Import, Fault</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Off</div>
+<div class="line">- Export</div>
+<div class="line">- Import</div>
+<div class="line">- Fault</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="power-supply-dc-voltagecurrent">
 <div class="line"><strong>VoltageCurrent</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Voltage (V) and Current (A) at the input/output of the power supply</div>
-<div class="line">required: voltage_V, current_A</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>voltage_V</strong>:<em>number</em></div>
+<div class="line"><strong>voltage_V</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Voltage in V</div>
 </div>
-<div class="line"><strong>current_A</strong>:<em>number</em></div>
+<div class="line"><strong>current_A</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Current in A</div>
 </div>
@@ -74,66 +79,65 @@
 <div class="line"><strong>Capabilities</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Capabilities for this power supply.</div>
-<div class="line">required: bidirectional, max_export_voltage_V, min_export_voltage_V, max_export_current_A, min_export_current_A, max_export_power_W, current_regulation_tolerance_A, peak_current_ripple_A</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>bidirectional</strong>:<em>boolean</em></div>
+<div class="line"><strong>bidirectional</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">‘true: support bidirectional energy flow, false: support only Export mode (output)’</div>
 </div>
-<div class="line"><strong>current_regulation_tolerance_A</strong>:<em>number</em></div>
+<div class="line"><strong>current_regulation_tolerance_A</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Absolute magnitude of the regulation tolerance in Ampere</div>
 </div>
-<div class="line"><strong>peak_current_ripple_A</strong>:<em>number</em></div>
+<div class="line"><strong>peak_current_ripple_A</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Peak-to-peak magnitude of the current ripple in Ampere</div>
 </div>
-<div class="line"><strong>max_export_voltage_V</strong>:<em>number</em></div>
+<div class="line"><strong>max_export_voltage_V</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Maximum voltage that the power supply can output in Volt</div>
 </div>
-<div class="line"><strong>min_export_voltage_V</strong>:<em>number</em></div>
+<div class="line"><strong>min_export_voltage_V</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum voltage that the power supply can output in Volt</div>
 </div>
-<div class="line"><strong>max_export_current_A</strong>:<em>number</em></div>
+<div class="line"><strong>max_export_current_A</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Maximum current that the power supply can output in Ampere</div>
 </div>
-<div class="line"><strong>min_export_current_A</strong>:<em>number</em></div>
+<div class="line"><strong>min_export_current_A</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum current limit that the power supply can set in Ampere</div>
 </div>
-<div class="line"><strong>max_import_voltage_V</strong>:<em>number</em></div>
+<div class="line"><strong>max_import_voltage_V</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Maximum voltage that the power supply supports to import energy in Volt</div>
 </div>
-<div class="line"><strong>min_import_voltage_V</strong>:<em>number</em></div>
+<div class="line"><strong>min_import_voltage_V</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Minimum voltage that the power supply requires to import energy in Volt</div>
 </div>
-<div class="line"><strong>max_import_current_A</strong>:<em>number</em></div>
+<div class="line"><strong>max_import_current_A</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Maximum current that the power supply can output in Ampere</div>
 </div>
-<div class="line"><strong>min_import_current_A</strong>:<em>number</em></div>
+<div class="line"><strong>min_import_current_A</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Minimum current limit that the power supply can set in Ampere</div>
 </div>
-<div class="line"><strong>max_export_power_W</strong>:<em>number</em></div>
+<div class="line"><strong>max_export_power_W</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Maximum export power that the power supply can output in Watt</div>
 </div>
-<div class="line"><strong>max_import_power_W</strong>:<em>number</em></div>
+<div class="line"><strong>max_import_power_W</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Maximum import power that the power supply can sink in Watt</div>
 </div>
-<div class="line"><strong>conversion_efficiency_import</strong>:<em>number</em></div>
+<div class="line"><strong>conversion_efficiency_import</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Typical import efficiency used for energy management</div>
 </div>
-<div class="line"><strong>conversion_efficiency_export</strong>:<em>number</em></div>
+<div class="line"><strong>conversion_efficiency_export</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Typical export efficiency used for energy management</div>
 </div>
@@ -144,7 +148,26 @@
 <div class="line"><strong>FaultCode</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Fault codes</div>
-<div class="line">enum: CommunicationFailure, ConfigurationError, HardwareFault, OverTemperature, UnderTemperature, UnderVoltageAC, OverVoltageAC, UnderVoltageDC, OverVoltageDC, UnderVoltageBattery, OverVoltageBattery, OverCurrentAC, OverCurrentBattery, OverCurrentDC, WrongCabling, Other, NoError</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- CommunicationFailure</div>
+<div class="line">- ConfigurationError</div>
+<div class="line">- HardwareFault</div>
+<div class="line">- OverTemperature</div>
+<div class="line">- UnderTemperature</div>
+<div class="line">- UnderVoltageAC</div>
+<div class="line">- OverVoltageAC</div>
+<div class="line">- UnderVoltageDC</div>
+<div class="line">- OverVoltageDC</div>
+<div class="line">- UnderVoltageBattery</div>
+<div class="line">- OverVoltageBattery</div>
+<div class="line">- OverCurrentAC</div>
+<div class="line">- OverCurrentBattery</div>
+<div class="line">- OverCurrentDC</div>
+<div class="line">- WrongCabling</div>
+<div class="line">- Other</div>
+<div class="line">- NoError</div>
+</div>
 </div>
 </div>
 </section>

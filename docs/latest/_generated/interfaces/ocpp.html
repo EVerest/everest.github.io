@@ -58,12 +58,12 @@
 <div class="line-block">
 <div class="line">Indicates if chargepoint is connected to CSMS</div>
 </div>
-<div class="line"><strong>security_event</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">ocpp-SecurityEvent</span></a>)</div>
+<div class="line"><strong>security_event</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">ocpp-SecurityEvent</span></a>)</div>
 <div class="line-block">
 <div class="line">Published when an internal security event occurred</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>event_data</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-eventdata"><span class="std std-ref">ocpp-EventData</span></a>)</div>
+<div class="line"><strong>event_data</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-eventdata"><span class="std std-ref">ocpp-EventData</span></a>)</div>
 <div class="line-block">
 <div class="line">Published for a component variable combination when a variable with a monitor has been changed For OCPP1.6: The object may only contain the required properties of the EventData type because in OCPP1.6</div>
 <div class="line-block">
@@ -98,11 +98,11 @@
 <div class="line"><strong>security_event</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Triggers a SecurityEventNotification.req at the CSMS. This event is queued with a guaranteed delivery to the CSMS.</div>
-<div class="line"><strong>type</strong>:<em>string</em></div>
+<div class="line"><strong>type</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">type of the security event</div>
 </div>
-<div class="line"><strong>info</strong>:<em>string</em></div>
+<div class="line"><strong>info</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Additional information about the occurred security event</div>
 </div>
@@ -110,56 +110,60 @@
 <div class="line"><strong>get_variables</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Command to get a variable from OCPP. With OCPP1.6: Retrieves a configuration key. With OCPP2.0.1: Retrieves a variable with value from the device model storage</div>
-<div class="line"><strong>requests</strong>:<em>array</em></div>
+<div class="line"><strong>requests</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of GetVariableRequest</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-getvariablerequest"><span class="std std-ref">ocpp-GetVariableRequest</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-getvariablerequest"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
 <div class="line"><strong>Result</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">List of GetVariableResult containing the result for every requested value. Preserves the order of the input requests.</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-getvariableresult"><span class="std std-ref">ocpp-GetVariableResult</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-getvariableresult"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
 </div>
 <div class="line"><strong>set_variables</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">Command to set a variable at OCPP.  With OCPP1.6: This command can be used to set custom configuration keys (others will be rejected) With OCPP2.0.1: This command can be used to set variables in the device model storage</div>
-<div class="line"><strong>requests</strong>:<em>array</em></div>
+<div class="line"><strong>requests</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of SetVariableRequests</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-setvariablerequest"><span class="std std-ref">ocpp-SetVariableRequest</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-setvariablerequest"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
 <div class="line"><strong>Result</strong>:<em>array</em></div>
 <div class="line-block">
 <div class="line">List of SetVariableResult containing the result for every requested set operation</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-setvariableresult"><span class="std std-ref">ocpp-SetVariableResult</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-setvariableresult"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
 </div>
 <div class="line"><strong>change_availability</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Allows to send a ChangeAvailabilityRequest internally (as can be done by the CSMS).</div>
-<div class="line"><strong>request</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityrequest"><span class="std std-ref">ocpp-ChangeAvailabilityRequest</span></a>)</div>
+<div class="line"><strong>request</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityrequest"><span class="std std-ref">ocpp-ChangeAvailabilityRequest</span></a>)</div>
 <div class="line-block">
 <div class="line">The ChangeAvailabilityRequest as specified in OCPP2.0.1. For OCPP 1.6:</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityrequest"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>Result</strong>:<em>object</em> (<a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityresponse"><span class="std std-ref">ocpp-ChangeAvailabilityResponse</span></a>)</div>
+<div class="line"><strong>Result</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityresponse"><span class="std std-ref">ocpp-ChangeAvailabilityResponse</span></a>)</div>
 <div class="line-block">
 <div class="line">Response to ChangeAvailabilityRequest as specified in OCPP 2.0.1</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityresponse"><span class="std std-ref">here</span></a>.</div>
@@ -168,13 +172,14 @@
 <div class="line"><strong>monitor_variables</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS.  Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage</div>
-<div class="line"><strong>component_variables</strong>:<em>array</em></div>
+<div class="line"><strong>component_variables</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of ComponentVariable(s) to monitor</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-componentvariable"><span class="std std-ref">ocpp-ComponentVariable</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-componentvariable"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
 </div>

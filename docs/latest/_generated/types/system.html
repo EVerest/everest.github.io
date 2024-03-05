@@ -49,40 +49,39 @@
 <div class="line"><strong>FirmwareUpdateRequest</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Type defining a Firmware update request</div>
-<div class="line">required: location, request_id</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>retries</strong>:<em>integer</em></div>
+<div class="line"><strong>retries</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">This specifies how many times the system must try to download the firmware before giving up.</div>
 </div>
-<div class="line"><strong>retry_interval_s</strong>:<em>integer</em></div>
+<div class="line"><strong>retry_interval_s</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">The interval in seconds after which a retry may be attempted</div>
 </div>
-<div class="line"><strong>request_id</strong>:<em>integer</em></div>
+<div class="line"><strong>request_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">The Id of this request</div>
 </div>
-<div class="line"><strong>location</strong>:<em>string</em></div>
+<div class="line"><strong>location</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">URI defining the origin of the firmware</div>
 </div>
-<div class="line"><strong>retrieve_timestamp</strong>:<em>string</em></div>
+<div class="line"><strong>retrieve_timestamp</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Time when the firmware update shall be retrieved in RFC3339 format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>install_timestamp</strong>:<em>string</em></div>
+<div class="line"><strong>install_timestamp</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Time when the firmware update shall be installed in RFC3339 format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>signing_certificate</strong>:<em>string</em></div>
+<div class="line"><strong>signing_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Certificate with which the firmware was signed. PEM encoded X.509 certificate</div>
 </div>
-<div class="line"><strong>signature</strong>:<em>string</em></div>
+<div class="line"><strong>signature</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Base64 encoded firmware signature</div>
 </div>
@@ -100,43 +99,49 @@
 <div class="line">InvalidCertificate: The certificate is invalid</div>
 <div class="line">RevokedCertificate: Failure end state. The Firmware Signing certificate has been revoked</div>
 </div>
-<div class="line">enum: Accepted, Rejected, AcceptedCancelled, InvalidCertificate, RevokedCertificate</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- Rejected</div>
+<div class="line">- AcceptedCancelled</div>
+<div class="line">- InvalidCertificate</div>
+<div class="line">- RevokedCertificate</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="system-uploadlogsrequest">
 <div class="line"><strong>UploadLogsRequest</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Type defining an upload logs request.</div>
-<div class="line">required: location</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>retries</strong>:<em>integer</em></div>
+<div class="line"><strong>retries</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">This specifies how many the system must try to upload the logs before giving up.</div>
 </div>
-<div class="line"><strong>retry_interval_s</strong>:<em>integer</em></div>
+<div class="line"><strong>retry_interval_s</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">The interval in seconds after which an upload retry may be attempted</div>
 </div>
-<div class="line"><strong>oldest_timestamp</strong>:<em>string</em></div>
+<div class="line"><strong>oldest_timestamp</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Oldest timestamp that should be incluced in the log in RFC3339 format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>latest_timestamp</strong>:<em>string</em></div>
+<div class="line"><strong>latest_timestamp</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Latest timestamp that should be incluced in the log in RFC3339 format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>location</strong>:<em>string</em></div>
+<div class="line"><strong>location</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">The URL of the location at the remote system where the log should be stored.</div>
 </div>
-<div class="line"><strong>type</strong>:<em>string</em></div>
+<div class="line"><strong>type</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">The type of the log (e.g. in OCPP there is the SecurityLog and the DiagnosticsLog</div>
 </div>
-<div class="line"><strong>request_id</strong>:<em>integer</em></div>
+<div class="line"><strong>request_id</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">The id of the request</div>
 </div>
@@ -152,21 +157,25 @@
 <div class="line">Rejected: Request to upload logs has been rejected</div>
 <div class="line">AcceptedCanceled: Accepted this log upload, but in doing this has cancelled an ongoing log file upload</div>
 </div>
-<div class="line">enum: Accepted, Rejected, AcceptedCancelled</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- Rejected</div>
+<div class="line">- AcceptedCancelled</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="system-uploadlogsresponse">
 <div class="line"><strong>UploadLogsResponse</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Response to a upload logs request</div>
-<div class="line">required: upload_logs_status</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>file_name</strong>:<em>string</em></div>
+<div class="line"><strong>file_name</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">This contains the name of the log file that will be uploaded.</div>
 </div>
-<div class="line"><strong>upload_logs_status</strong>:<em>string</em> (<a class="reference internal" href="#system-uploadlogsstatus"><span class="std std-ref">system-UploadLogsStatus</span></a>)</div>
+<div class="line"><strong>upload_logs_status</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#system-uploadlogsstatus"><span class="std std-ref">system-UploadLogsStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">The log status enum</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#system-uploadlogsstatus"><span class="std std-ref">here</span></a>.</div>
@@ -187,22 +196,30 @@
 <div class="line">UploadFailure: Failed to upload the requested file</div>
 <div class="line">Uploading: File is being uploaded</div>
 </div>
-<div class="line">enum: BadMessage, Idle, NotSupportedOperation, PermissionDenied, Uploaded, UploadFailure, Uploading</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- BadMessage</div>
+<div class="line">- Idle</div>
+<div class="line">- NotSupportedOperation</div>
+<div class="line">- PermissionDenied</div>
+<div class="line">- Uploaded</div>
+<div class="line">- UploadFailure</div>
+<div class="line">- Uploading</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="system-logstatus">
 <div class="line"><strong>LogStatus</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Type defining the status of a log upload</div>
-<div class="line">required: log_status, request_id</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>log_status</strong>:<em>string</em> (<a class="reference internal" href="#system-logstatusenum"><span class="std std-ref">system-LogStatusEnum</span></a>)</div>
+<div class="line"><strong>log_status</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#system-logstatusenum"><span class="std std-ref">system-LogStatusEnum</span></a>)</div>
 <div class="line-block">
 <div class="line">State describing the current status of log upload of the system</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#system-logstatusenum"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>request_id</strong>:<em>integer</em></div>
+<div class="line"><strong>request_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Id of the request</div>
 </div>
@@ -229,22 +246,37 @@
 <div class="line">InvalidSignature: Failure end state. The firmware signature is not valid</div>
 <div class="line">SignatureVerified: Intermediate state. Provide signature successfully verified</div>
 </div>
-<div class="line">enum: Downloaded, DownloadFailed, Downloading, DownloadScheduled, DownloadPaused, Idle, InstallationFailed, Installing, Installed, InstallRebooting, InstallScheduled, InstallVerificationFailed, InvalidSignature, SignatureVerified</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Downloaded</div>
+<div class="line">- DownloadFailed</div>
+<div class="line">- Downloading</div>
+<div class="line">- DownloadScheduled</div>
+<div class="line">- DownloadPaused</div>
+<div class="line">- Idle</div>
+<div class="line">- InstallationFailed</div>
+<div class="line">- Installing</div>
+<div class="line">- Installed</div>
+<div class="line">- InstallRebooting</div>
+<div class="line">- InstallScheduled</div>
+<div class="line">- InstallVerificationFailed</div>
+<div class="line">- InvalidSignature</div>
+<div class="line">- SignatureVerified</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="system-firmwareupdatestatus">
 <div class="line"><strong>FirmwareUpdateStatus</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Type defining the status of a firmware update</div>
-<div class="line">required: firmware_update_status, request_id</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>firmware_update_status</strong>:<em>string</em> (<a class="reference internal" href="#system-firmwareupdatestatusenum"><span class="std std-ref">system-FirmwareUpdateStatusEnum</span></a>)</div>
+<div class="line"><strong>firmware_update_status</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#system-firmwareupdatestatusenum"><span class="std std-ref">system-FirmwareUpdateStatusEnum</span></a>)</div>
 <div class="line-block">
 <div class="line">State describing the current status of firmware update of the system</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#system-firmwareupdatestatusenum"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>request_id</strong>:<em>integer</em></div>
+<div class="line"><strong>request_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Id of the request</div>
 </div>
@@ -255,14 +287,30 @@
 <div class="line"><strong>ResetType</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Enum defining the type of a reset</div>
-<div class="line">enum: Soft, Hard, NotSpecified</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Soft</div>
+<div class="line">- Hard</div>
+<div class="line">- NotSpecified</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="system-bootreason">
 <div class="line"><strong>BootReason</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Enum defining the boot reason</div>
-<div class="line">enum: ApplicationReset, FirmwareUpdate, LocalReset, PowerUp, RemoteReset, ScheduledReset, Triggered, Unknown, Watchdog</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ApplicationReset</div>
+<div class="line">- FirmwareUpdate</div>
+<div class="line">- LocalReset</div>
+<div class="line">- PowerUp</div>
+<div class="line">- RemoteReset</div>
+<div class="line">- ScheduledReset</div>
+<div class="line">- Triggered</div>
+<div class="line">- Unknown</div>
+<div class="line">- Watchdog</div>
+</div>
 </div>
 </div>
 </section>

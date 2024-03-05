@@ -56,30 +56,36 @@
 <div class="line">Rejected: Reservation has not been made. Charge Point is not configured to accept reservations</div>
 <div class="line">Unavailable: Reservation has not been made, because connectors or specified connector are in an unavailable state</div>
 </div>
-<div class="line">enum: Accepted, Faulted, Occupied, Rejected, Unavailable</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- Faulted</div>
+<div class="line">- Occupied</div>
+<div class="line">- Rejected</div>
+<div class="line">- Unavailable</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="reservation-reservation">
 <div class="line"><strong>Reservation</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Details on Reservation</div>
-<div class="line">required: reservation_id, id_token, expiry_time</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>reservation_id</strong>:<em>integer</em></div>
+<div class="line"><strong>reservation_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Id of the reservation</div>
 </div>
-<div class="line"><strong>id_token</strong>:<em>string</em></div>
+<div class="line"><strong>id_token</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">id token of the reservation</div>
 </div>
-<div class="line"><strong>expiry_time</strong>:<em>string</em></div>
+<div class="line"><strong>expiry_time</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Absolute UTC time point when reservation expires in RFC3339 format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>parent_id_token</strong>:<em>string</em></div>
+<div class="line"><strong>parent_id_token</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">parent_id</div>
 </div>
@@ -95,22 +101,26 @@
 <div class="line">Cancelled: When the reservation was cancelled manually</div>
 <div class="line">UsedToStartCharging: When the reservation ended because the reserved token was used for a session</div>
 </div>
-<div class="line">enum: Expired, Cancelled, UsedToStartCharging</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Expired</div>
+<div class="line">- Cancelled</div>
+<div class="line">- UsedToStartCharging</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="reservation-reservationend">
 <div class="line"><strong>ReservationEnd</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Details on Reservation End</div>
-<div class="line">required: reason, reservation_id</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>reason</strong>:<em>string</em> (<a class="reference internal" href="#reservation-reservationendreason"><span class="std std-ref">reservation-ReservationEndReason</span></a>)</div>
+<div class="line"><strong>reason</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#reservation-reservationendreason"><span class="std std-ref">reservation-ReservationEndReason</span></a>)</div>
 <div class="line-block">
 <div class="line">Reason why reservation ends</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#reservation-reservationendreason"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>reservation_id</strong>:<em>integer</em></div>
+<div class="line"><strong>reservation_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">reservation_id</div>
 </div>

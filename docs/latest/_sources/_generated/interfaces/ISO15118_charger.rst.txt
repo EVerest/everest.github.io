@@ -12,105 +12,100 @@ ISO15118_charger
 *********
 Variables
 *********
-| **Require_Auth_EIM**:*null*
+| **Require_Auth_EIM**:*null* 
 |  An EIM authorization is requiered
-| **Require_Auth_PnC**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+| **Require_Auth_PnC**:*object*  (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |  The EVCC provides the payment details for a PnC authorization by sending the signature certificate chain and eMAID.
 |  **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
-| **AC_Close_Contactor**:*null*
+| **AC_Close_Contactor**:*null* 
 |  The contactor should be closed
-| **AC_Open_Contactor**:*null*
+| **AC_Open_Contactor**:*null* 
 |  The contactor should be opened
-| **Start_CableCheck**:*null*
+| **Start_CableCheck**:*null* 
 |  The charger should now start a cable check
-| **DC_Open_Contactor**:*null*
+| **DC_Open_Contactor**:*null* 
 |  The contactor should be opened
-| **V2G_Setup_Finished**:*null*
+| **V2G_Setup_Finished**:*null* 
 |  V2G_Setup_Finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop
-| **currentDemand_Started**:*null*
+| **currentDemand_Started**:*null* 
 |  The charging process has started and the EV wants to be charged
-| **currentDemand_Finished**:*null*
+| **currentDemand_Finished**:*null* 
 |  The charging process was finished
-| **sae_bidi_mode_active**:*null*
+| **sae_bidi_mode_active**:*null* 
 |  The SAE J2847 bidi mode is active
-| **EVCCIDD**:*string*
+| **EVCCIDD**:*string* 
 |  Specifies the EVs identification in a readable format. It contains the MAC address of the EVCC in uppercase
-|  pattern:
-| **SelectedPaymentOption**:*string* (:ref:`iso15118_charger-PaymentOption <iso15118_charger-PaymentOption>`)
+|  pattern:^[A-F0-9]{2}(:[A-F0-9]{2}){5}$
+| **SelectedPaymentOption**:*string*  (:ref:`iso15118_charger-PaymentOption <iso15118_charger-PaymentOption>`)
 |  This element is used for indicating the payment type
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-PaymentOption>`.
-| **RequestedEnergyTransferMode**:*string* (:ref:`iso15118_charger-EnergyTransferMode <iso15118_charger-EnergyTransferMode>`)
+| **RequestedEnergyTransferMode**:*string*  (:ref:`iso15118_charger-EnergyTransferMode <iso15118_charger-EnergyTransferMode>`)
 |  Selected energy transfer mode for charging that is requested by the EVCC.
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-EnergyTransferMode>`.
-| **DepartureTime**:*string*
+| **DepartureTime**:*string* 
 |  Optional: [RFC3339 UTC] This element is used to indicate when the vehicle intends to finish the charging process
-|  format:
-| **AC_EAmount**:*number*
+|  format:date-time
+| **AC_EAmount**:*number* 
 |  [Wh] Amount of energy reflecting the EV's estimate how much energy is needed to fulfill the user configured charging goal for the current charging session
-| **AC_EVMaxVoltage**:*number*
+| **AC_EVMaxVoltage**:*number* 
 |  [V] The RMS of the maximal nominal voltage the vehicle can accept, measured between one phase and neutral
-| **AC_EVMaxCurrent**:*number*
+| **AC_EVMaxCurrent**:*number* 
 |  [A] Maximum current supported by the EV per phase
-| **AC_EVMinCurrent**:*number*
+| **AC_EVMinCurrent**:*number* 
 |  [A] EVMinCurrent is used to indicate to the SECC that charging below this minimum is not energy/cost efficient for the EV
-| **DC_EVEnergyCapacity**:*number*
+| **DC_EVEnergyCapacity**:*number* 
 |  Optional: [Wh] Energy capacity of the EV
-| **DC_EVEnergyRequest**:*number*
+| **DC_EVEnergyRequest**:*number* 
 |  Optional: [Wh] Amount of energy the EV requests from the EVSE
-| **DC_FullSOC**:*number*
+| **DC_FullSOC**:*number* 
 |  Optional: [%] SOC at which the EV considers the battery to be fully charged
-| **DC_BulkSOC**:*number*
+| **DC_BulkSOC**:*number* 
 |  Optional: [%] SOC at which the EV considers a fast charge process to end
-| **DC_EVStatus**:*object* (:ref:`iso15118_charger-DC_EVStatusType <iso15118_charger-DC_EVStatusType>`)
+| **DC_EVStatus**:*object*  (:ref:`iso15118_charger-DC_EVStatusType <iso15118_charger-DC_EVStatusType>`)
 |  Current status of the EV
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVStatusType>`.
-| **DC_BulkChargingComplete**:*boolean*
+| **DC_BulkChargingComplete**:*boolean* 
 |  Optional: If set to TRUE, the EV indicates that bulk charge (approx. 80% SOC) is complete
-| **DC_ChargingComplete**:*boolean*
+| **DC_ChargingComplete**:*boolean* 
 |  Optional: If set to TRUE, the EV indicates that full charge (100% SOC) is complete
-| **DC_EVTargetVoltageCurrent**:*object* (:ref:`iso15118_charger-DC_EVTargetValues <iso15118_charger-DC_EVTargetValues>`)
+| **DC_EVTargetVoltageCurrent**:*object*  (:ref:`iso15118_charger-DC_EVTargetValues <iso15118_charger-DC_EVTargetValues>`)
 |  Target voltage and current requested by the EV
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVTargetValues>`.
-| **DC_EVMaximumLimits**:*object* (:ref:`iso15118_charger-DC_EVMaximumLimits <iso15118_charger-DC_EVMaximumLimits>`)
+| **DC_EVMaximumLimits**:*object*  (:ref:`iso15118_charger-DC_EVMaximumLimits <iso15118_charger-DC_EVMaximumLimits>`)
 |  Maximum Values (current, power and voltage) supported and allowed by the EV
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVMaximumLimits>`.
-| **DC_EVRemainingTime**:*object* (:ref:`iso15118_charger-DC_EVRemainingTime <iso15118_charger-DC_EVRemainingTime>`)
+| **DC_EVRemainingTime**:*object*  (:ref:`iso15118_charger-DC_EVRemainingTime <iso15118_charger-DC_EVRemainingTime>`)
 |  Estimated or calculated time until bulk and full charge is complete
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVRemainingTime>`.
-| **Certificate_Request**:*object* (:ref:`iso15118_charger-Request_Exi_Stream_Schema <iso15118_charger-Request_Exi_Stream_Schema>`)
+| **Certificate_Request**:*object*  (:ref:`iso15118_charger-Request_Exi_Stream_Schema <iso15118_charger-Request_Exi_Stream_Schema>`)
 |  The vehicle requests the SECC to deliver the certificate that belong  to the currently valid contract of the vehicle. Response will be reported async via  set_Get_Certificate_Response
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-Request_Exi_Stream_Schema>`.
-| **dlink_terminate**:*null*
+| **dlink_terminate**:*null* 
 |  Terminate the data link and become UNMATCHED.
-| **dlink_error**:*null*
+| **dlink_error**:*null* 
 |  Terminate the data link and restart the matching process.
-| **dlink_pause**:*null*
+| **dlink_pause**:*null* 
 |  Request power saving mode, while staying MATCHED.
-| **EV_AppProtocol**:*array*
+| **EV_AppProtocol**:*array* 
 |  Debug_Lite - This request message provides a list of charging protocols supported by the EVCC
-|  items:
-|   description:
-|   type:
+|  **array_item**:*object* 
+|   This message element is used by the EVCC for transmitting the list of supported protocols
 |   properties:
-|    ProtocolNamespace:
-|     description:
-|     type:
-|    VersionNumberMajor:
-|     description:
-|     type:
-|    VersionNumberMinor:
-|     description:
-|     type:
-|    SchemaID:
-|     description:
-|     type:
-|    Priority:
-|     description:
-|     type:
-| **V2G_Messages**:*object* (:ref:`iso15118_charger-V2G_Messages <iso15118_charger-V2G_Messages>`)
+|    **ProtocolNamespace**:*string* <required>
+|     This message element is used by the EVCC to uniquely identify the Namespace URI of a specific protocol supported by the EVCC
+|    **VersionNumberMajor**:*integer* <required>
+|     This message element is used by the EVCC to indicate the major version number of the protocol
+|    **VersionNumberMinor**:*integer* <required>
+|     This message element is used by the EVCC to indicate the minor version number of the protocol
+|    **SchemaID**:*integer* <required>
+|     This message element is used by the EVCC to indicate the SchemaID assigned by the EVCC to the protocol
+|    **Priority**:*integer* <required>
+|     This message element is used by the EVCC for indicating the protocol priority of a specific protocol allowing the SECC to select a protocol based on priorities
+| 
+| **V2G_Messages**:*object*  (:ref:`iso15118_charger-V2G_Messages <iso15118_charger-V2G_Messages>`)
 |  Debug - This element contains all V2G elements and should be used for debug purposes only
 |  **There is an extended definition for this object** :ref:`here <iso15118_charger-V2G_Messages>`.
-| **Selected_Protocol**:*string*
+| **Selected_Protocol**:*string* 
 |  Debug - Contains the selected protocol
 
 ********
@@ -118,98 +113,98 @@ Commands
 ********
 | **setup**:*void*
 |  At startup all necessary info should be sent to the module once.
-|  **evse_id**:*object* (:ref:`iso15118_charger-EVSEID <iso15118_charger-EVSEID>`)
+|  **evse_id**:*object* <required> (:ref:`iso15118_charger-EVSEID <iso15118_charger-EVSEID>`)
 |   Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to 
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-EVSEID>`.
-|  **supported_energy_transfer_modes**:*array*
+|  **supported_energy_transfer_modes**:*array* <required>
 |   Available energy transfer modes supported by the EVSE
-|   items:
-|    description:
-|    type:
-|    $ref:
-|  **sae_j2847_mode**:*string* (:ref:`iso15118_charger-SAE_J2847_Bidi_Mode <iso15118_charger-SAE_J2847_Bidi_Mode>`)
+|   **array_item**:*string*  (:ref:`iso15118_charger-EnergyTransferMode <iso15118_charger-EnergyTransferMode>`)
+|    The different energy modes supported by the SECC
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-EnergyTransferMode>`.
+| 
+|  **sae_j2847_mode**:*string* <required> (:ref:`iso15118_charger-SAE_J2847_Bidi_Mode <iso15118_charger-SAE_J2847_Bidi_Mode>`)
 |   Charger is supporting SAE J2847 V2G/V2H version
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-SAE_J2847_Bidi_Mode>`.
-|  **debug_mode**:*boolean*
+|  **debug_mode**:*boolean* <required>
 |   Enable/Disable debug mode
-|  **physical_values**:*object* (:ref:`iso15118_charger-SetupPhysicalValues <iso15118_charger-SetupPhysicalValues>`)
+|  **physical_values**:*object* <required> (:ref:`iso15118_charger-SetupPhysicalValues <iso15118_charger-SetupPhysicalValues>`)
 |   Set up initial physical values for a AC or DC charging session
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-SetupPhysicalValues>`.
 | **session_setup**:*void*
 |  At each session start this info should be sent to the module.
-|  **payment_options**:*array*
+|  **payment_options**:*array* <required>
 |   Providing a list of payment options to the EVCC
-|   items:
-|    description:
-|    type:
-|    $ref:
-|  **supported_certificate_service**:*boolean*
+|   **array_item**:*string*  (:ref:`iso15118_charger-PaymentOption <iso15118_charger-PaymentOption>`)
+|    These are the payment options a SECC offers to the EVCC
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-PaymentOption>`.
+| 
+|  **supported_certificate_service**:*boolean* <required>
 |   The charger supports the certificate installation/update service and has a connection to an SA for this purpose
 | **certificate_response**:*void*
 |  This message is an async response to a previously published Certificate_Request. The new/updated Contract Certificate (including the certificate chain) and the corresponding encrypted private key are sent via the SECC to the EVCC.
-|  **exi_stream_status**:*object* (:ref:`iso15118_charger-Response_Exi_Stream_Status <iso15118_charger-Response_Exi_Stream_Status>`)
+|  **exi_stream_status**:*object* <required> (:ref:`iso15118_charger-Response_Exi_Stream_Status <iso15118_charger-Response_Exi_Stream_Status>`)
 |   The response raw EXI stream and the status from the CSMS
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-Response_Exi_Stream_Status>`.
 | **authorization_response**:*void*
 |  This message is an async response to a previously published Require_Auth_EIM or Require_Auth_PnC. The SECC informs the EVCC whether the authorization is accecpted or not.
-|  **authorization_status**:*string* (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
+|  **authorization_status**:*string* <required> (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
 |   Authorization status of the ID Token
 |   **There is an extended definition for this object** :ref:`here <authorization-AuthorizationStatus>`.
-|  **certificate_status**:*string* (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
+|  **certificate_status**:*string* <required> (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
 |   Certificate status information
 |   **There is an extended definition for this object** :ref:`here <authorization-CertificateStatus>`.
 | **ac_contactor_closed**:*void*
 |  This message is an async response to a previously published AC_Close_Contactor or AC_Open_Contactor.
-|  **status**:*boolean*
+|  **status**:*boolean* <required>
 |   Set to true when contactor is closed, false when contactor is open
 | **dlink_ready**:*void*
 |  Signals dlink_ready from SLAC layer according to ISO15118-3
-|  **value**:*boolean*
+|  **value**:*boolean* <required>
 |   Set to true when link becomes ready, false when the link is terminated
 | **cable_check_finished**:*void*
 |  Cable check is finished, voltage is under 20V and insulation resistor on the cable is alright
-|  **status**:*boolean*
+|  **status**:*boolean* <required>
 |   Set to true when cable check is okay
 | **receipt_is_required**:*void*
 |  This element is used by the SECC to indicate that the EVCC is required to send a MeteringReceiptReq message for the purpose of signing the meter info record.
-|  **receipt_required**:*boolean*
+|  **receipt_required**:*boolean* <required>
 |   Set to true when receipt is required, set to false when not
 | **stop_charging**:*void*
 |  Stops the charging process
-|  **stop**:*boolean*
+|  **stop**:*boolean* <required>
 |   Set to true when to stop, set to false when to continue
 | **update_ac_max_current**:*void*
 |  Update the maximum allowed line current restriction per phase
-|  **max_current**:*number*
+|  **max_current**:*number* <required>
 |   Max current in A
 | **update_dc_maximum_limits**:*void*
 |  Update the maximum limits
-|  **maximum_limits**:*object* (:ref:`iso15118_charger-DC_EVSEMaximumLimits <iso15118_charger-DC_EVSEMaximumLimits>`)
+|  **maximum_limits**:*object* <required> (:ref:`iso15118_charger-DC_EVSEMaximumLimits <iso15118_charger-DC_EVSEMaximumLimits>`)
 |   Maximum values (current, power and voltage) the EVSE can deliver
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMaximumLimits>`.
 | **update_dc_minimum_limits**:*void*
 |  Update the minimum limits
-|  **minimum_limits**:*object* (:ref:`iso15118_charger-DC_EVSEMinimumLimits <iso15118_charger-DC_EVSEMinimumLimits>`)
+|  **minimum_limits**:*object* <required> (:ref:`iso15118_charger-DC_EVSEMinimumLimits <iso15118_charger-DC_EVSEMinimumLimits>`)
 |   Minimum values (current and voltage) the EVSE can deliver
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEMinimumLimits>`.
 | **update_isolation_status**:*void*
 |  Update the isolation condition
-|  **isolation_status**:*string* (:ref:`iso15118_charger-IsolationStatus <iso15118_charger-IsolationStatus>`)
+|  **isolation_status**:*string* <required> (:ref:`iso15118_charger-IsolationStatus <iso15118_charger-IsolationStatus>`)
 |   Result of the isolation monitoring
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-IsolationStatus>`.
 | **update_dc_present_values**:*void*
 |  Update the present values from the DC powersupply
-|  **present_voltage_current**:*object* (:ref:`iso15118_charger-DC_EVSEPresentVoltage_Current <iso15118_charger-DC_EVSEPresentVoltage_Current>`)
+|  **present_voltage_current**:*object* <required> (:ref:`iso15118_charger-DC_EVSEPresentVoltage_Current <iso15118_charger-DC_EVSEPresentVoltage_Current>`)
 |   Present voltage and current
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-DC_EVSEPresentVoltage_Current>`.
 | **update_meter_info**:*void*
 |  Update meter info
-|  **powermeter**:*object* (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|  **powermeter**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
 |   Includes the meterInfo record containing the latest meter reading and other meter relevant data
 |   **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 | **send_error**:*void*
 |  An error has happend. Send this error to inform the EV.
-|  **error**:*string* (:ref:`iso15118_charger-EvseError <iso15118_charger-EvseError>`)
+|  **error**:*string* <required> (:ref:`iso15118_charger-EvseError <iso15118_charger-EvseError>`)
 |   The EVSE error enum
 |   **There is an extended definition for this object** :ref:`here <iso15118_charger-EvseError>`.
 | **reset_error**:*void*

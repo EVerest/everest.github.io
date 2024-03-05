@@ -56,12 +56,12 @@
 <div class="line">Connector id of this evse manager</div>
 </div>
 <div class="line"><strong>evse_id</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: DE*PNX*E1234567*1</em></div>
+<div class="line"><em>default: “DE*PNX*E1234567*1”</em></div>
 <div class="line-block">
 <div class="line">EVSE ID</div>
 </div>
 <div class="line"><strong>evse_id_din</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 49A80737A45678</em></div>
+<div class="line"><em>default: “49A80737A45678”</em></div>
 <div class="line-block">
 <div class="line">EVSE ID DIN after DIN SPEC 91286</div>
 </div>
@@ -91,7 +91,7 @@
 <div class="line">Enable/Disable session log file output</div>
 </div>
 <div class="line"><strong>session_logging_path</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: /tmp</em></div>
+<div class="line"><em>default: “/tmp”</em></div>
 <div class="line-block">
 <div class="line">Output directory for session log files</div>
 </div>
@@ -111,7 +111,7 @@
 <div class="line">Allow ventilated charging or not</div>
 </div>
 <div class="line"><strong>country_code</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: DE</em></div>
+<div class="line"><em>default: “DE”</em></div>
 <div class="line-block">
 <div class="line">Country Code</div>
 </div>
@@ -126,7 +126,7 @@
 <div class="line">User configurable current limit for this EVSE in Ampere</div>
 </div>
 <div class="line"><strong>charge_mode</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: AC</em></div>
+<div class="line"><em>default: “AC”</em></div>
 <div class="line-block">
 <div class="line">Select charging mode</div>
 <div class="line">enum:</div>
@@ -206,7 +206,7 @@
 <div class="line">Use slac ev mac address for autocharge instead of EVCCID from HLC</div>
 </div>
 <div class="line"><strong>logfile_suffix</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: session_uuid</em></div>
+<div class="line"><em>default: “session_uuid”</em></div>
 <div class="line-block">
 <div class="line">Use the string given for the log folder name. Special string session_uuid will be replaced with session uuid.</div>
 </div>
@@ -236,7 +236,7 @@
 <div class="line">Enable SAE J2847 2 V2G or V2H mode</div>
 </div>
 <div class="line"><strong>sae_j2847_2_bpt_mode</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: V2G</em></div>
+<div class="line"><em>default: “V2G”</em></div>
 <div class="line-block">
 <div class="line">SAE J2847 2 BPT mode</div>
 <div class="line">enum:</div>
@@ -278,14 +278,14 @@
 <h2><span class="section-number">11.1.11.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>bsp</strong>:<a class="reference internal" href="../interfaces/evse_board_support.html#everest-interfaces-evse-board-support"><span class="std std-ref">evse_board_support</span></a> 1</div>
-<div class="line"><strong>ac_rcd</strong>:<a class="reference internal" href="../interfaces/ac_rcd.html#everest-interfaces-ac-rcd"><span class="std std-ref">ac_rcd</span></a> 1</div>
-<div class="line"><strong>connector_lock</strong>:<a class="reference internal" href="../interfaces/connector_lock.html#everest-interfaces-connector-lock"><span class="std std-ref">connector_lock</span></a> 1</div>
-<div class="line"><strong>powermeter_grid_side</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a> 1</div>
-<div class="line"><strong>powermeter_car_side</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a> 1</div>
-<div class="line"><strong>slac</strong>:<a class="reference internal" href="../interfaces/slac.html#everest-interfaces-slac"><span class="std std-ref">slac</span></a> 1</div>
-<div class="line"><strong>hlc</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a> 1</div>
-<div class="line"><strong>imd</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a> 1</div>
-<div class="line"><strong>powersupply_DC</strong>:<a class="reference internal" href="../interfaces/power_supply_DC.html#everest-interfaces-power-supply-dc"><span class="std std-ref">power_supply_DC</span></a> 1</div>
+<div class="line"><strong>ac_rcd</strong>:<a class="reference internal" href="../interfaces/ac_rcd.html#everest-interfaces-ac-rcd"><span class="std std-ref">ac_rcd</span></a> 0..1</div>
+<div class="line"><strong>connector_lock</strong>:<a class="reference internal" href="../interfaces/connector_lock.html#everest-interfaces-connector-lock"><span class="std std-ref">connector_lock</span></a> 0..1</div>
+<div class="line"><strong>powermeter_grid_side</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a> 0..1</div>
+<div class="line"><strong>powermeter_car_side</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a> 0..1</div>
+<div class="line"><strong>slac</strong>:<a class="reference internal" href="../interfaces/slac.html#everest-interfaces-slac"><span class="std std-ref">slac</span></a> 0..1</div>
+<div class="line"><strong>hlc</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a> 0..1</div>
+<div class="line"><strong>imd</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a> 0..1</div>
+<div class="line"><strong>powersupply_DC</strong>:<a class="reference internal" href="../interfaces/power_supply_DC.html#everest-interfaces-power-supply-dc"><span class="std std-ref">power_supply_DC</span></a> 0..1</div>
 </div>
 </section>
 <section id="metadata">

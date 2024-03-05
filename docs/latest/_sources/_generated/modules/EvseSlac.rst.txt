@@ -17,61 +17,61 @@ Provides
 |  SLAC interface implementation.
 |  config:
 |   device:
-|    description:
-|    type:
-|    default:
+|    description:Ethernet device used for PLC.
+|    type:string
+|    default:eth1
 |   evse_id:
-|    description:
-|    type:
-|    default:
+|    description:EVSE id - 17 octets.
+|    type:string
+|    default:PIONIX_SAYS_HELLO
 |   nid:
-|    description:
-|    type:
-|    default:
+|    description:NID (Network Identification Key) - 7 octets.
+|    type:string
+|    default:pionix!
 |   number_of_sounds:
-|    description:
-|    type:
+|    description:SLAC number of sounds.
+|    type:integer
 |   ac_mode_five_percent:
-|    description:
-|    type:
+|    description:Use 5% mode in AC (true). Set to false for DC. The only difference is the handling of retries.
+|    type:boolean
 |   set_key_timeout_ms:
-|    description:
-|    type:
+|    description:Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.
+|    type:integer
 |   sounding_attenuation_adjustment:
-|    description:
-|    type:
+|    description:Offset in dB that should be added to the calculated sounding attenuation
+|    type:integer
 |   publish_mac_on_match_cnf:
-|    description:
-|    type:
+|    description:Publish the EV MAC address on the token_provider interface when matching is confirmed (CM_SLAC_MATCH.CNF). This can be used for autocharge as an alternative to the EVCCID derived from HLC and published by EvseManager.  This can be used for AC autocharge on cars that do not support actual HLC on AC.
+|    type:boolean
 |   publish_mac_on_first_parm_req:
-|    description:
-|    type:
+|    description:Publish the EV MAC address when the first CM_SLAC_PARM.REQ. This should not be used as it is quite error prone: The MAC address might be from another car via cross talk. It is better to wait for the matching to be done.
+|    type:boolean
 |  config:
-|   **device**:*string*
-|   *default: eth1*
+|   **device**:*string* <optional>
+|   *default: "eth1"*
 |    Ethernet device used for PLC.
-|   **evse_id**:*string*
-|   *default: PIONIX_SAYS_HELLO*
+|   **evse_id**:*string* <optional>
+|   *default: "PIONIX_SAYS_HELLO"*
 |    EVSE id - 17 octets.
-|   **nid**:*string*
-|   *default: pionix!*
+|   **nid**:*string* <optional>
+|   *default: "pionix!"*
 |    NID (Network Identification Key) - 7 octets.
-|   **number_of_sounds**:*integer*
+|   **number_of_sounds**:*integer* <optional>
 |   *default: 10*
 |    SLAC number of sounds.
-|   **ac_mode_five_percent**:*boolean*
+|   **ac_mode_five_percent**:*boolean* <optional>
 |   *default: False*
 |    Use 5% mode in AC (true). Set to false for DC. The only difference is the handling of retries.
-|   **set_key_timeout_ms**:*integer*
+|   **set_key_timeout_ms**:*integer* <optional>
 |   *default: 500*
 |    Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.
-|   **sounding_attenuation_adjustment**:*integer*
+|   **sounding_attenuation_adjustment**:*integer* <optional>
 |   *default: 0*
 |    Offset in dB that should be added to the calculated sounding attenuation
-|   **publish_mac_on_match_cnf**:*boolean*
+|   **publish_mac_on_match_cnf**:*boolean* <optional>
 |   *default: True*
 |    Publish the EV MAC address on the token_provider interface when matching is confirmed (CM_SLAC_MATCH.CNF). This can be used for autocharge as an alternative to the EVCCID derived from HLC and published by EvseManager.  This can be used for AC autocharge on cars that do not support actual HLC on AC.
-|   **publish_mac_on_first_parm_req**:*boolean*
+|   **publish_mac_on_first_parm_req**:*boolean* <optional>
 |   *default: False*
 |    Publish the EV MAC address when the first CM_SLAC_PARM.REQ. This should not be used as it is quite error prone: The MAC address might be from another car via cross talk. It is better to wait for the matching to be done.
 
@@ -90,4 +90,4 @@ License
 
 Misc
 ====
-|  base_license:
+|  base_license:https://directory.fsf.org/wiki/License:BSD-3-Clause-Clear

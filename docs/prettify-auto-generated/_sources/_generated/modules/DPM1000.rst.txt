@@ -12,7 +12,7 @@ DPM1000
 Module Configuration
 ********************
 | **device**:*string* <optional>
-| *default: can0*
+| *default: "can0"*
 |  Interface name for can device
 | **device_address**:*integer* <optional>
 | *default: 0*
@@ -27,14 +27,14 @@ Module Configuration
 | *default: 1000*
 |  Maximum Voltage Limit in Volt. Will be limited by series parallel setting as well.
 | **series_parallel_mode**:*string* <optional>
-| *default: Series*
+| *default: "Series"*
 |  Select series (300-1000V), parallel (50-500) or automatic switching mode (50-1000). This switches the internal configuration of one module and should not be confused with parallel operation of multiple modules.
 |  enum:
 |    - Series
 |    - Parallel
 |    - Automatic
 | **discharge_gpio_chip**:*string* <optional>
-| *default: *
+| *default: ""*
 |  GPIO chip to use to switch external discharge load on and off. An empty string disables discharging. Note that the hardware load must be designed to allow permanent discharge from the highest voltage (e.g. 1000V)
 | **discharge_gpio_line**:*integer* <optional>
 | *default: 0*

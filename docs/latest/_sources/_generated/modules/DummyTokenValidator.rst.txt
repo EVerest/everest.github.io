@@ -17,26 +17,34 @@ Provides
 |  Main implementation of dummy token validator always returning the same configured token validation result for every token
 |  config:
 |   validation_result:
-|    description:
-|    type:
-|    enum: Accepted, Blocked, Expired, Invalid
-|    default:
+|    description:Dummy validation result to return
+|    type:string
+|    enum:
+|      - Accepted
+|      - Blocked
+|      - Expired
+|      - Invalid
+|    default:Accepted
 |   validation_reason:
-|    description:
-|    type:
-|    default:
+|    description:Dummy validation reason to return
+|    type:string
+|    default:Token valid
 |   sleep:
-|    description:
-|    type:
+|    description:Time to wait before returning the dumy validation result (in s)
+|    type:number
 |  config:
-|   **validation_result**:*string*
-|   *default: Accepted*
+|   **validation_result**:*string* <optional>
+|   *default: "Accepted"*
 |    Dummy validation result to return
-|    enum: Accepted, Blocked, Expired, Invalid
-|   **validation_reason**:*string*
-|   *default: Token valid*
+|    enum:
+|      - Accepted
+|      - Blocked
+|      - Expired
+|      - Invalid
+|   **validation_reason**:*string* <optional>
+|   *default: "Token valid"*
 |    Dummy validation reason to return
-|   **sleep**:*number*
+|   **sleep**:*number* <optional>
 |   *default: 0.5*
 |    Time to wait before returning the dumy validation result (in s)
 

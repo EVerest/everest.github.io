@@ -10,117 +10,116 @@ Powermeter types
 
 .. _powermeter-TransactionReq:
 
-| **TransactionReq**:*object*
+| **TransactionReq**:*object* 
 |  Required input parameter for starting an OCMF transaction. These values will be included in the signed OCMF packet.
-|  required: evse_id, transaction_id, client_id, tariff_id, cable_id, user_data
 |  properties:
-|   **evse_id**:*string*
+|   **evse_id**:*string* <required>
 |    Id of this EVSE
-|   **transaction_id**:*string*
+|   **transaction_id**:*string* <required>
 |    OCPP transaction UUID
-|   **client_id**:*string*
+|   **client_id**:*string* <required>
 |    User identification means, e.g. RFID card ID
-|   **tariff_id**:*integer*
+|   **tariff_id**:*integer* <required>
 |    Tariff ID
-|   **cable_id**:*integer*
+|   **cable_id**:*integer* <required>
 |    Cable ID
-|   **user_data**:*string*
+|   **user_data**:*string* <required>
 |    User data
 
 .. _powermeter-TransactionRequestStatus:
 
-| **TransactionRequestStatus**:*string*
+| **TransactionRequestStatus**:*string* 
 |  Status of a transaction start or stop request.
-|  enum: OK, NOT_SUPPORTED, UNEXPECTED_ERROR
+|  enum:
+|    - OK
+|    - NOT_SUPPORTED
+|    - UNEXPECTED_ERROR
 
 .. _powermeter-TransactionStartResponse:
 
-| **TransactionStartResponse**:*object*
+| **TransactionStartResponse**:*object* 
 |  Return value when a transaction is started.
-|  required: status
 |  properties:
-|   **status**:** (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
+|   **status**:*string/object* <required> (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
 |    Response status that indicates whether the transaction start request could successfully be performed.
 |    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
-|   **error**:*string*
+|   **error**:*string* <optional>
 |    If status is not OK, a verbose error message.
-|   **transaction_min_stop_time**:*string*
+|   **transaction_min_stop_time**:*string* <optional>
 |    Earliest point in time the started transaction can be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.
-|    format:
-|   **transaction_max_stop_time**:*string*
+|    format:date-time
+|   **transaction_max_stop_time**:*string* <optional>
 |    Deadline for the transaction to be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.
-|    format:
+|    format:date-time
 
 .. _powermeter-TransactionStopResponse:
 
-| **TransactionStopResponse**:*object*
+| **TransactionStopResponse**:*object* 
 |  Report returned when a signed transaction is requested to stop. If successful, includes the signed meter value object. In case of an error, an additional error message can be provided.
-|  required: status
 |  properties:
-|   **status**:** (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
+|   **status**:*string/object* <required> (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
 |    Response status that indicates whether the transaction stop request could successfully be performed.
 |    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
-|   **signed_meter_value**:*object* (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
 |    The signed meter value report of the stopped transaction. Must be provided if status is OK.
 |    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.
-|   **error**:*string*
+|   **error**:*string* <optional>
 |    If status is not OK, a verbose error message.
 
 .. _powermeter-Powermeter:
 
-| **Powermeter**:*object*
+| **Powermeter**:*object* 
 |  Measured dataset (AC or DC)
-|  required: timestamp, energy_Wh_import
 |  properties:
-|   **timestamp**:*string*
+|   **timestamp**:*string* <required>
 |    Timestamp of measurement
-|    format:
-|   **meter_id**:*string*
+|    format:date-time
+|   **meter_id**:*string* <optional>
 |    A (user defined) meter if (e.g. id printed on the case)
-|   **phase_seq_error**:*boolean*
+|   **phase_seq_error**:*boolean* <optional>
 |    AC only: true for 3 phase rotation error (ccw)
-|   **energy_Wh_import**:*object* (:ref:`units-Energy <units-Energy>`)
+|   **energy_Wh_import**:*object* <required> (:ref:`units-Energy <units-Energy>`)
 |    Imported energy in Wh (from grid)
 |    **There is an extended definition for this object** :ref:`here <units-Energy>`.
-|   **energy_Wh_export**:*object* (:ref:`units-Energy <units-Energy>`)
+|   **energy_Wh_export**:*object* <optional> (:ref:`units-Energy <units-Energy>`)
 |    Exported energy in Wh (to grid)
 |    **There is an extended definition for this object** :ref:`here <units-Energy>`.
-|   **power_W**:*object* (:ref:`units-Power <units-Power>`)
+|   **power_W**:*object* <optional> (:ref:`units-Power <units-Power>`)
 |    Instantaneous power in Watt. Negative values are exported, positive values imported Energy.
 |    **There is an extended definition for this object** :ref:`here <units-Power>`.
-|   **voltage_V**:*object* (:ref:`units-Voltage <units-Voltage>`)
+|   **voltage_V**:*object* <optional> (:ref:`units-Voltage <units-Voltage>`)
 |    Voltage in Volts
 |    **There is an extended definition for this object** :ref:`here <units-Voltage>`.
-|   **VAR**:*object* (:ref:`units-ReactivePower <units-ReactivePower>`)
+|   **VAR**:*object* <optional> (:ref:`units-ReactivePower <units-ReactivePower>`)
 |    Reactive power VAR
 |    **There is an extended definition for this object** :ref:`here <units-ReactivePower>`.
-|   **current_A**:*object* (:ref:`units-Current <units-Current>`)
+|   **current_A**:*object* <optional> (:ref:`units-Current <units-Current>`)
 |    Current in ampere
 |    **There is an extended definition for this object** :ref:`here <units-Current>`.
-|   **frequency_Hz**:*object* (:ref:`units-Frequency <units-Frequency>`)
+|   **frequency_Hz**:*object* <optional> (:ref:`units-Frequency <units-Frequency>`)
 |    Grid frequency in Hertz
 |    **There is an extended definition for this object** :ref:`here <units-Frequency>`.
-|   **energy_Wh_import_signed**:*object* (:ref:`units_signed-Energy <units_signed-Energy>`)
+|   **energy_Wh_import_signed**:*object* <optional> (:ref:`units_signed-Energy <units_signed-Energy>`)
 |    Imported energy in Wh (from grid)
 |    **There is an extended definition for this object** :ref:`here <units_signed-Energy>`.
-|   **energy_Wh_export_signed**:*object* (:ref:`units_signed-Energy <units_signed-Energy>`)
+|   **energy_Wh_export_signed**:*object* <optional> (:ref:`units_signed-Energy <units_signed-Energy>`)
 |    Exported energy in Wh (to grid)
 |    **There is an extended definition for this object** :ref:`here <units_signed-Energy>`.
-|   **power_W_signed**:*object* (:ref:`units_signed-Power <units_signed-Power>`)
+|   **power_W_signed**:*object* <optional> (:ref:`units_signed-Power <units_signed-Power>`)
 |    Instantaneous power in Watt. Negative values are exported, positive values imported Energy.
 |    **There is an extended definition for this object** :ref:`here <units_signed-Power>`.
-|   **voltage_V_signed**:*object* (:ref:`units_signed-Voltage <units_signed-Voltage>`)
+|   **voltage_V_signed**:*object* <optional> (:ref:`units_signed-Voltage <units_signed-Voltage>`)
 |    Voltage in Volts
 |    **There is an extended definition for this object** :ref:`here <units_signed-Voltage>`.
-|   **VAR_signed**:*object* (:ref:`units_signed-ReactivePower <units_signed-ReactivePower>`)
+|   **VAR_signed**:*object* <optional> (:ref:`units_signed-ReactivePower <units_signed-ReactivePower>`)
 |    Reactive power VAR
 |    **There is an extended definition for this object** :ref:`here <units_signed-ReactivePower>`.
-|   **current_A_signed**:*object* (:ref:`units_signed-Current <units_signed-Current>`)
+|   **current_A_signed**:*object* <optional> (:ref:`units_signed-Current <units_signed-Current>`)
 |    Current in ampere
 |    **There is an extended definition for this object** :ref:`here <units_signed-Current>`.
-|   **frequency_Hz_signed**:*object* (:ref:`units_signed-Frequency <units_signed-Frequency>`)
+|   **frequency_Hz_signed**:*object* <optional> (:ref:`units_signed-Frequency <units_signed-Frequency>`)
 |    Grid frequency in Hertz
 |    **There is an extended definition for this object** :ref:`here <units_signed-Frequency>`.
-|   **signed_meter_value**:*object* (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
 |    Signed collection of instantaneous meter values if supported by the meter. This is intended for meters that only support signing a collection of meter values.
 |    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.

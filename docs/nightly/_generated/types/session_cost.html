@@ -51,25 +51,30 @@
 <div class="line">A chunk of the session cost. The total cost of the session is the sum of all chunks.</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>timestamp_from</strong>:<em>string</em></div>
+<div class="line"><strong>timestamp_from</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Absolute timestamp for the start of this chunk in RFC3339 UTC format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>timestamp_to</strong>:<em>string</em></div>
+<div class="line"><strong>timestamp_to</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Absolute timestamp for the end of this chunk in RFC3339 UTC format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>cost</strong>:<em>object</em> (<a class="reference internal" href="money.html#money-moneyamount"><span class="std std-ref">money-MoneyAmount</span></a>)</div>
+<div class="line"><strong>cost</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="money.html#money-moneyamount"><span class="std std-ref">money-MoneyAmount</span></a>)</div>
 <div class="line-block">
 <div class="line">Cost of the energy (or other things like time, base price, …)  consumed during this chunk in the currency specified in the session price</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="money.html#money-moneyamount"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>category</strong>:<em>string</em></div>
+<div class="line"><strong>category</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Cost category. Typically this is energy or time.</div>
-<div class="line">enum: Energy, Time, Other</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Energy</div>
+<div class="line">- Time</div>
+<div class="line">- Other</div>
+</div>
 </div>
 </div>
 </div>
@@ -78,38 +83,41 @@
 <div class="line"><strong>SessionStatus</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Session status enum. Session can be running or finished. Costs of the running session are not final and can change.</div>
-<div class="line">enum: Running, Finished</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Running</div>
+<div class="line">- Finished</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="session-cost-sessioncost">
 <div class="line"><strong>SessionCost</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Session cost object containing the total cost of the session and a list of chunks</div>
-<div class="line">required: id_tag, currency, status</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>id_tag</strong>:<em>object</em> (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
+<div class="line"><strong>id_tag</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
 <div class="line-block">
 <div class="line">The id tag assigned to this transaction</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>currency</strong>:<em>object</em> (<a class="reference internal" href="money.html#money-currency"><span class="std std-ref">money-Currency</span></a>)</div>
+<div class="line"><strong>currency</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="money.html#money-currency"><span class="std std-ref">money-Currency</span></a>)</div>
 <div class="line-block">
 <div class="line">Currency of the session cost. It applies to all chunks.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="money.html#money-currency"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>cost_chunks</strong>:<em>array</em></div>
+<div class="line"><strong>cost_chunks</strong>:<em>array</em> &lt;optional&gt;</div>
 <div class="line"><em>default: []</em></div>
 <div class="line-block">
 <div class="line">List of cost chunks. The total cost of the session is the sum of all chunks.</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#session-cost-sessioncostchunk"><span class="std std-ref">session_cost-SessionCostChunk</span></a>)</div>
 <div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line">One chunk of the session cost</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-sessioncostchunk"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
-<div class="line"><strong>status</strong>:<em>object</em> (<a class="reference internal" href="#session-cost-sessionstatus"><span class="std std-ref">session_cost-SessionStatus</span></a>)</div>
+<div class="line"><strong>status</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#session-cost-sessionstatus"><span class="std std-ref">session_cost-SessionStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">Session status. Session can be running or finished. Costs of the running session are not final and can change. Only after the session is finished, the session cost can be committed to bank and/or backend.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-sessionstatus"><span class="std std-ref">here</span></a>.</div>

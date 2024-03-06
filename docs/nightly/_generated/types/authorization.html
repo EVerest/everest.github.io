@@ -49,72 +49,96 @@
 <div class="line"><strong>AuthorizationStatus</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Authorization Status enum</div>
-<div class="line">enum: Accepted, Blocked, ConcurrentTx, Expired, Invalid, NoCredit, NotAllowedTypeEVSE, NotAtThisLocation, NotAtThisTime, Unknown</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- Blocked</div>
+<div class="line">- ConcurrentTx</div>
+<div class="line">- Expired</div>
+<div class="line">- Invalid</div>
+<div class="line">- NoCredit</div>
+<div class="line">- NotAllowedTypeEVSE</div>
+<div class="line">- NotAtThisLocation</div>
+<div class="line">- NotAtThisTime</div>
+<div class="line">- Unknown</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="authorization-certificatestatus">
 <div class="line"><strong>CertificateStatus</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Certificate status information</div>
-<div class="line">enum: Accepted, SignatureError, CertificateExpired, CertificateRevoked, NoCertificateAvailable, CertChainError, ContractCancelled</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- SignatureError</div>
+<div class="line">- CertificateExpired</div>
+<div class="line">- CertificateRevoked</div>
+<div class="line">- NoCertificateAvailable</div>
+<div class="line">- CertChainError</div>
+<div class="line">- ContractCancelled</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="authorization-tokenvalidationstatus">
 <div class="line"><strong>TokenValidationStatus</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Ongoing token validation status</div>
-<div class="line">enum: Processing, Accepted, Rejected</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Processing</div>
+<div class="line">- Accepted</div>
+<div class="line">- Rejected</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="authorization-providedidtoken">
 <div class="line"><strong>ProvidedIdToken</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Type for Token provided by auth token providers</div>
-<div class="line">required: id_token, authorization_type</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>request_id</strong>:<em>integer</em></div>
+<div class="line"><strong>request_id</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1</div>
 </div>
-<div class="line"><strong>id_token</strong>:<em>string</em></div>
+<div class="line"><strong>id_token</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Arbitrary token string: this has to be printable case insensitive ascii: !!!FIXME!!! write a regex to allow only printable ascii</div>
 </div>
-<div class="line"><strong>authorization_type</strong>:<em>string</em> (<a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">authorization-AuthorizationType</span></a>)</div>
+<div class="line"><strong>authorization_type</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">authorization-AuthorizationType</span></a>)</div>
 <div class="line-block">
 <div class="line">Authorization type of the token</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>id_token_type</strong>:<em>string</em> (<a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">authorization-IdTokenType</span></a>)</div>
+<div class="line"><strong>id_token_type</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">authorization-IdTokenType</span></a>)</div>
 <div class="line-block">
 <div class="line">IdTokenType of the token</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>connectors</strong>:<em>array</em></div>
+<div class="line"><strong>connectors</strong>:<em>array</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">A list of connector ids to which the authorization can be assigned</div>
-<div class="line">items:</div>
-<div class="line-block">
-<div class="line">type:</div>
+<div class="line"><strong>array_item</strong>:<em>integer</em></div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
 </div>
-</div>
-<div class="line"><strong>prevalidated</strong>:<em>boolean</em></div>
+<div class="line"><strong>prevalidated</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Indicates that the id token is already validated by the provider</div>
 </div>
-<div class="line"><strong>certificate</strong>:<em>string</em></div>
+<div class="line"><strong>certificate</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">The X.509 certificated presented by EV and encoded in PEM format</div>
 </div>
-<div class="line"><strong>iso15118CertificateHashData</strong>:<em>array</em></div>
+<div class="line"><strong>iso15118CertificateHashData</strong>:<em>array</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Contains the information needed to verify the EV Contract Certificate via OCSP</div>
-<div class="line">items:</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="iso15118_charger.html#iso15118-charger-certificatehashdatainfo"><span class="std std-ref">iso15118_charger-CertificateHashDataInfo</span></a>)</div>
 <div class="line-block">
-<div class="line">description:</div>
-<div class="line">type:</div>
-<div class="line">$ref:</div>
+<div class="line">An array of contract certificate infos</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="iso15118_charger.html#iso15118-charger-certificatehashdatainfo"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
 </div>
@@ -124,15 +148,14 @@
 <div class="line"><strong>TokenValidationStatusMessage</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">The token validation status</div>
-<div class="line">required: token, status</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>token</strong>:<em>object</em> (<a class="reference internal" href="#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
+<div class="line"><strong>token</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
 <div class="line-block">
 <div class="line">The id tag assigned to this transaction</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>status</strong>:<em>string</em> (<a class="reference internal" href="#authorization-tokenvalidationstatus"><span class="std std-ref">authorization-TokenValidationStatus</span></a>)</div>
+<div class="line"><strong>status</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#authorization-tokenvalidationstatus"><span class="std std-ref">authorization-TokenValidationStatus</span></a>)</div>
 <div class="line"><br /></div>
 <div class="line-block">
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-tokenvalidationstatus"><span class="std std-ref">here</span></a>.</div>
@@ -144,37 +167,35 @@
 <div class="line"><strong>ValidationResult</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Result object containing authorization status enum value and an optional parentIdTag</div>
-<div class="line">required: authorization_status</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>authorization_status</strong>:<em>string</em> (<a class="reference internal" href="#authorization-authorizationstatus"><span class="std std-ref">authorization-AuthorizationStatus</span></a>)</div>
+<div class="line"><strong>authorization_status</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#authorization-authorizationstatus"><span class="std std-ref">authorization-AuthorizationStatus</span></a>)</div>
 <div class="line"><br /></div>
 <div class="line-block">
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-authorizationstatus"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>certificate_status</strong>:<em>string</em> (<a class="reference internal" href="#authorization-certificatestatus"><span class="std std-ref">authorization-CertificateStatus</span></a>)</div>
+<div class="line"><strong>certificate_status</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#authorization-certificatestatus"><span class="std std-ref">authorization-CertificateStatus</span></a>)</div>
 <div class="line"><br /></div>
 <div class="line-block">
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-certificatestatus"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>reason</strong>:<em>string</em></div>
+<div class="line"><strong>reason</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><br /></div>
-<div class="line"><strong>expiry_time</strong>:<em>string</em></div>
+<div class="line"><strong>expiry_time</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Absolute UTC time point when reservation expires in RFC3339 format</div>
-<div class="line">format:</div>
+<div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>parent_id_token</strong>:<em>string</em></div>
+<div class="line"><strong>parent_id_token</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Parent Id Tag of the validated token</div>
 </div>
-<div class="line"><strong>evse_ids</strong>:<em>array</em></div>
+<div class="line"><strong>evse_ids</strong>:<em>array</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Only used when the id token is valid for one or more specific evses,  not for the whole charging station. Indicates for which evse ids the provided token is valid</div>
-<div class="line">items:</div>
-<div class="line-block">
-<div class="line">type:</div>
-</div>
+<div class="line"><strong>array_item</strong>:<em>integer</em></div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
 </div>
 </div>
 </div>
@@ -191,21 +212,43 @@
 <div class="line">PlugEvents: This algorithms derives the selected connector based on the order of plug in events of EVs</div>
 <div class="line">FindFirst: This algorithm chooses the first referenced EVSE that is available</div>
 </div>
-<div class="line">enum: UserInput, PlugEvents, FindFirst</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- UserInput</div>
+<div class="line">- PlugEvents</div>
+<div class="line">- FindFirst</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="authorization-authorizationtype">
 <div class="line"><strong>AuthorizationType</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">Type of authorization of the provided token</div>
-<div class="line">enum: OCPP, RFID, Autocharge, PlugAndCharge, BankCard</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- OCPP</div>
+<div class="line">- RFID</div>
+<div class="line">- Autocharge</div>
+<div class="line">- PlugAndCharge</div>
+<div class="line">- BankCard</div>
+</div>
 </div>
 </div>
 <div class="line-block" id="authorization-idtokentype">
 <div class="line"><strong>IdTokenType</strong>:<em>string</em></div>
 <div class="line-block">
 <div class="line">IdTokenType of the provided token</div>
-<div class="line">enum: Central, eMAID, MacAddress, ISO14443, ISO15693, KeyCode, Local, NoAuthorization</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Central</div>
+<div class="line">- eMAID</div>
+<div class="line">- MacAddress</div>
+<div class="line">- ISO14443</div>
+<div class="line">- ISO15693</div>
+<div class="line">- KeyCode</div>
+<div class="line">- Local</div>
+<div class="line">- NoAuthorization</div>
+</div>
 </div>
 </div>
 </section>

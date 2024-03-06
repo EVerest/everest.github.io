@@ -10,108 +10,143 @@ Auth token validator types
 
 .. _authorization-AuthorizationStatus:
 
-| **AuthorizationStatus**:*string*
+| **AuthorizationStatus**:*string* 
 |  Authorization Status enum
-|  enum: Accepted, Blocked, ConcurrentTx, Expired, Invalid, NoCredit, NotAllowedTypeEVSE, NotAtThisLocation, NotAtThisTime, Unknown
+|  enum:
+|    - Accepted
+|    - Blocked
+|    - ConcurrentTx
+|    - Expired
+|    - Invalid
+|    - NoCredit
+|    - NotAllowedTypeEVSE
+|    - NotAtThisLocation
+|    - NotAtThisTime
+|    - Unknown
 
 .. _authorization-CertificateStatus:
 
-| **CertificateStatus**:*string*
+| **CertificateStatus**:*string* 
 |  Certificate status information
-|  enum: Accepted, SignatureError, CertificateExpired, CertificateRevoked, NoCertificateAvailable, CertChainError, ContractCancelled
+|  enum:
+|    - Accepted
+|    - SignatureError
+|    - CertificateExpired
+|    - CertificateRevoked
+|    - NoCertificateAvailable
+|    - CertChainError
+|    - ContractCancelled
 
 .. _authorization-TokenValidationStatus:
 
-| **TokenValidationStatus**:*string*
+| **TokenValidationStatus**:*string* 
 |  Ongoing token validation status
-|  enum: Processing, Accepted, Rejected
+|  enum:
+|    - Processing
+|    - Accepted
+|    - Rejected
 
 .. _authorization-ProvidedIdToken:
 
-| **ProvidedIdToken**:*object*
+| **ProvidedIdToken**:*object* 
 |  Type for Token provided by auth token providers
-|  required: id_token, authorization_type
 |  properties:
-|   **request_id**:*integer*
+|   **request_id**:*integer* <optional>
 |    Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1
-|   **id_token**:*string*
+|   **id_token**:*string* <required>
 |    Arbitrary token string: this has to be printable case insensitive ascii: !!!FIXME!!! write a regex to allow only printable ascii
-|   **authorization_type**:*string* (:ref:`authorization-AuthorizationType <authorization-AuthorizationType>`)
+|   **authorization_type**:*string* <required> (:ref:`authorization-AuthorizationType <authorization-AuthorizationType>`)
 |    Authorization type of the token
 |    **There is an extended definition for this object** :ref:`here <authorization-AuthorizationType>`.
-|   **id_token_type**:*string* (:ref:`authorization-IdTokenType <authorization-IdTokenType>`)
+|   **id_token_type**:*string* <optional> (:ref:`authorization-IdTokenType <authorization-IdTokenType>`)
 |    IdTokenType of the token
 |    **There is an extended definition for this object** :ref:`here <authorization-IdTokenType>`.
-|   **connectors**:*array*
+|   **connectors**:*array* <optional>
 |    A list of connector ids to which the authorization can be assigned
-|    items:
-|     type:
-|   **prevalidated**:*boolean*
+|    **array_item**:*integer* 
+|     
+| 
+|   **prevalidated**:*boolean* <optional>
 |    Indicates that the id token is already validated by the provider
-|   **certificate**:*string*
+|   **certificate**:*string* <optional>
 |    The X.509 certificated presented by EV and encoded in PEM format
-|   **iso15118CertificateHashData**:*array*
+|   **iso15118CertificateHashData**:*array* <optional>
 |    Contains the information needed to verify the EV Contract Certificate via OCSP
-|    items:
-|     description:
-|     type:
-|     $ref:
+|    **array_item**:*object*  (:ref:`iso15118_charger-CertificateHashDataInfo <iso15118_charger-CertificateHashDataInfo>`)
+|     An array of contract certificate infos
+|     **There is an extended definition for this object** :ref:`here <iso15118_charger-CertificateHashDataInfo>`.
+| 
 
 .. _authorization-TokenValidationStatusMessage:
 
-| **TokenValidationStatusMessage**:*object*
+| **TokenValidationStatusMessage**:*object* 
 |  The token validation status
-|  required: token, status
 |  properties:
-|   **token**:*object* (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+|   **token**:*object* <required> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    The id tag assigned to this transaction
 |    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
-|   **status**:*string* (:ref:`authorization-TokenValidationStatus <authorization-TokenValidationStatus>`)
+|   **status**:*string* <required> (:ref:`authorization-TokenValidationStatus <authorization-TokenValidationStatus>`)
 |    
 |    **There is an extended definition for this object** :ref:`here <authorization-TokenValidationStatus>`.
 
 .. _authorization-ValidationResult:
 
-| **ValidationResult**:*object*
+| **ValidationResult**:*object* 
 |  Result object containing authorization status enum value and an optional parentIdTag
-|  required: authorization_status
 |  properties:
-|   **authorization_status**:*string* (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
+|   **authorization_status**:*string* <required> (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
 |    
 |    **There is an extended definition for this object** :ref:`here <authorization-AuthorizationStatus>`.
-|   **certificate_status**:*string* (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
+|   **certificate_status**:*string* <optional> (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
 |    
 |    **There is an extended definition for this object** :ref:`here <authorization-CertificateStatus>`.
-|   **reason**:*string*
+|   **reason**:*string* <optional>
 |    
-|   **expiry_time**:*string*
+|   **expiry_time**:*string* <optional>
 |    Absolute UTC time point when reservation expires in RFC3339 format
-|    format:
-|   **parent_id_token**:*string*
+|    format:date-time
+|   **parent_id_token**:*string* <optional>
 |    Parent Id Tag of the validated token
-|   **evse_ids**:*array*
+|   **evse_ids**:*array* <optional>
 |    Only used when the id token is valid for one or more specific evses,  not for the whole charging station. Indicates for which evse ids the provided token is valid
-|    items:
-|     type:
+|    **array_item**:*integer* 
+|     
+| 
 
 .. _authorization-SelectionAlgorithm:
 
-| **SelectionAlgorithm**:*string*
+| **SelectionAlgorithm**:*string* 
 |  The selection algorithm defines the logic to select one connector for an incoming token.
 | SelectionAlgorithm enum:
 |   UserInput: This algorithm waits for a user to input for which connector the authorization is provided
 |   PlugEvents: This algorithms derives the selected connector based on the order of plug in events of EVs
 |   FindFirst: This algorithm chooses the first referenced EVSE that is available
-|  enum: UserInput, PlugEvents, FindFirst
+|  enum:
+|    - UserInput
+|    - PlugEvents
+|    - FindFirst
 
 .. _authorization-AuthorizationType:
 
-| **AuthorizationType**:*string*
+| **AuthorizationType**:*string* 
 |  Type of authorization of the provided token
-|  enum: OCPP, RFID, Autocharge, PlugAndCharge, BankCard
+|  enum:
+|    - OCPP
+|    - RFID
+|    - Autocharge
+|    - PlugAndCharge
+|    - BankCard
 
 .. _authorization-IdTokenType:
 
-| **IdTokenType**:*string*
+| **IdTokenType**:*string* 
 |  IdTokenType of the provided token
-|  enum: Central, eMAID, MacAddress, ISO14443, ISO15693, KeyCode, Local, NoAuthorization
+|  enum:
+|    - Central
+|    - eMAID
+|    - MacAddress
+|    - ISO14443
+|    - ISO15693
+|    - KeyCode
+|    - Local
+|    - NoAuthorization

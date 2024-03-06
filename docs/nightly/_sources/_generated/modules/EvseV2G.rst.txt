@@ -11,38 +11,41 @@ EvseV2G
 ********************
 Module Configuration
 ********************
-| **device**:*string*
-| *default: eth0*
+| **device**:*string* <optional>
+| *default: "eth0"*
 |  Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work
-| **supported_DIN70121**:*boolean*
+| **supported_DIN70121**:*boolean* <optional>
 | *default: False*
 |  The EVSE supports the DIN SPEC
-| **supported_ISO15118_2**:*boolean*
+| **supported_ISO15118_2**:*boolean* <optional>
 | *default: True*
 |  The EVSE supports ISO15118-2
-| **tls_security**:*string*
-| *default: prohibit*
+| **tls_security**:*string* <optional>
+| *default: "prohibit"*
 |  Controls how to handle encrypted communication
-|  enum: prohibit, allow, force
-| **terminate_connection_on_failed_response**:*boolean*
+|  enum:
+|    - prohibit
+|    - allow
+|    - force
+| **terminate_connection_on_failed_response**:*boolean* <optional>
 | *default: False*
 |  Controls how to handle a failed response code of the EVSE. If true the V2G connection is terminated immediately on a failed response code, otherwise the EV is responsible for closing of the V2G communication session with SessionStop.
-| **tls_key_logging**:*boolean*
+| **tls_key_logging**:*boolean* <optional>
 | *default: False*
 |  Enable/Disable the export of TLS session keys (pre-master-secret) during a TLS handshake. This log file can be used to decrypt TLS sessions. Note that this option is for testing and simulation purpose only
-| **tls_key_logging_path**:*string*
-| *default: /tmp*
+| **tls_key_logging_path**:*string* <optional>
+| *default: "/tmp"*
 |  Output directory for the TLS key log file
-| **tls_timeout**:*integer*
+| **tls_timeout**:*integer* <optional>
 | *default: 15000*
 |  Set the TLS timeout in ms when establishing a tls connection 
-| **verify_contract_cert_chain**:*boolean*
+| **verify_contract_cert_chain**:*boolean* <optional>
 | *default: False*
 |  Specifies if the EVSE should verify the contract certificate chain locally.
-| **auth_timeout_pnc**:*integer*
+| **auth_timeout_pnc**:*integer* <optional>
 | *default: 55*
 |  Defines how many seconds the EVSE should wait for authorization in PnC case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for PnC authorization.
-| **auth_timeout_eim**:*integer*
+| **auth_timeout_eim**:*integer* <optional>
 | *default: 300*
 |  Defines how many seconds the EVSE should wait for authorization in EIM case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for EIM authorization.
 
@@ -55,7 +58,7 @@ Provides
 ************
 Requirements
 ************
-| **security**::ref:`evse_security <everest_interfaces_evse_security>`
+| **security**::ref:`evse_security <everest_interfaces_evse_security>` 1
 
 ********
 Metadata

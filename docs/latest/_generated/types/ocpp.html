@@ -44,7 +44,49 @@
             
   <section id="ocpp">
 <span id="everest-types-ocpp"></span><h1><span class="section-number">11.3.13. </span>ocpp<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
-<p>OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201,  as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.</p>
+<p>OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201, as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.</p>
+<div class="line-block" id="ocpp-ocpptransactionevent">
+<div class="line"><strong>OcppTransactionEvent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Element providing information on OCPP transactions.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>transaction_event</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#ocpp-transactionevent"><span class="std std-ref">ocpp-TransactionEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">The transaction related event.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-transactionevent"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>evse_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The OCPP 2.0.1 EVSE ID associated with the transaction.</div>
+</div>
+<div class="line"><strong>connector</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The connector associated with the transaction.</div>
+</div>
+<div class="line"><strong>session_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The EVSE manager assigned session ID.</div>
+</div>
+<div class="line"><strong>transaction_id</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The CSMS assigned transaction ID. A string is used to support OCPP 2.0.1. For OCPP 1.6 the integer is converted to a string</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-transactionevent">
+<div class="line"><strong>TransactionEvent</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The transaction event enumeration</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Started</div>
+<div class="line">- Updated</div>
+<div class="line">- Ended</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="ocpp-datatransferstatus">
 <div class="line"><strong>DataTransferStatus</strong>:<em>string</em></div>
 <div class="line-block">
@@ -267,7 +309,7 @@
 </div>
 <div class="line"><strong>evse</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#ocpp-evse"><span class="std std-ref">ocpp-EVSE</span></a>)</div>
 <div class="line-block">
-<div class="line">Specifies the EVSE when component is located at EVSE level, also specifies  the connector when component is located at Connector level</div>
+<div class="line">Specifies the EVSE when component is located at EVSE level, also specifies the connector when component is located at Connector level</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-evse"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
@@ -276,7 +318,7 @@
 <div class="line-block" id="ocpp-componentvariable">
 <div class="line"><strong>ComponentVariable</strong>:<em>object</em></div>
 <div class="line-block">
-<div class="line">Type for a combination of component and variable. Note that for OCPP1.6 only the Variable.name (configuration key) is sufficient to identify a  configuration key. For OCPP2.0.1 all properties of the type(s) can be used.</div>
+<div class="line">Type for a combination of component and variable. Note that for OCPP1.6 only the Variable.name (configuration key) is sufficient to identify a configuration key. For OCPP2.0.1 all properties of the type(s) can be used.</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>component</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#ocpp-component"><span class="std std-ref">ocpp-Component</span></a>)</div>
@@ -564,7 +606,7 @@
 <div class="line-block">
 <div class="line"><strong>reason_code</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">A predefined code for the reason why the status is returned in this response.  The string is case-insensitive.</div>
+<div class="line">A predefined code for the reason why the status is returned in this response. The string is case-insensitive.</div>
 </div>
 <div class="line"><strong>additional_info</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">

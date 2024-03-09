@@ -45,11 +45,16 @@
   <section id="ocpp">
 <span id="everest-interfaces-ocpp"></span><h1><span class="section-number">11.2.25. </span>ocpp<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This interface allows to control an OCPP service and set and get data from the OCPP service. It is designed to be used for both OCPP1.6 and OCPP2.0.1 module implementations. Therefore, the vars, commands and types  are based more on the definitions of OCPP2.0.1, as this offers more flexibility and it is easier to transfer to the capabilities of OCPP1.6 than vice versa.</div>
+<div class="line">This interface allows to control an OCPP service and set and get data from the OCPP service. It is designed to be used for both OCPP1.6 and OCPP2.0.1 module implementations. Therefore, the vars, commands and types are based more on the definitions of OCPP2.0.1, as this offers more flexibility and it is easier to transfer to the capabilities of OCPP1.6 than vice versa.</div>
 </div>
 <section id="variables">
 <h2><span class="section-number">11.2.25.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
+<div class="line"><strong>ocpp_transaction_event</strong>:<em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-ocpptransactionevent"><span class="std std-ref">ocpp-OcppTransactionEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">Emits events related to OCPP transactions</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ocpp.html#ocpp-ocpptransactionevent"><span class="std std-ref">here</span></a>.</div>
+</div>
 <div class="line"><strong>charging_schedules</strong>:<em>object</em></div>
 <div class="line-block">
 <div class="line">Object that contains OCPP charging schedules of all connectors. The object contains one composite charging schedule for each connector id starting from connector 0. Connector 0 contains a schedule for the whole charging station.</div>
@@ -133,7 +138,7 @@
 </div>
 <div class="line"><strong>set_variables</strong>:<em>array</em></div>
 <div class="line-block">
-<div class="line">Command to set a variable at OCPP.  With OCPP1.6: This command can be used to set custom configuration keys (others will be rejected) With OCPP2.0.1: This command can be used to set variables in the device model storage</div>
+<div class="line">Command to set a variable at OCPP. With OCPP1.6: This command can be used to set custom configuration keys (others will be rejected) With OCPP2.0.1: This command can be used to set variables in the device model storage</div>
 <div class="line"><strong>requests</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of SetVariableRequests</div>
@@ -171,7 +176,7 @@
 </div>
 <div class="line"><strong>monitor_variables</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS.  Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage</div>
+<div class="line">Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS. Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage</div>
 <div class="line"><strong>component_variables</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of ComponentVariable(s) to monitor</div>

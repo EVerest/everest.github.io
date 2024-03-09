@@ -6,12 +6,15 @@
 ocpp
 ####
 
-| This interface allows to control an OCPP service and set and get data from the OCPP service. It is designed to be used for both OCPP1.6 and OCPP2.0.1 module implementations. Therefore, the vars, commands and types  are based more on the definitions of OCPP2.0.1, as this offers more flexibility and it is easier to transfer to the capabilities of OCPP1.6 than vice versa.
+| This interface allows to control an OCPP service and set and get data from the OCPP service. It is designed to be used for both OCPP1.6 and OCPP2.0.1 module implementations. Therefore, the vars, commands and types are based more on the definitions of OCPP2.0.1, as this offers more flexibility and it is easier to transfer to the capabilities of OCPP1.6 than vice versa.
 
 
 *********
 Variables
 *********
+| **ocpp_transaction_event**:*object*  (:ref:`ocpp-OcppTransactionEvent <ocpp-OcppTransactionEvent>`)
+|  Emits events related to OCPP transactions
+|  **There is an extended definition for this object** :ref:`here <ocpp-OcppTransactionEvent>`.
 | **charging_schedules**:*object* 
 |  Object that contains OCPP charging schedules of all connectors. The object contains one composite charging schedule for each connector id starting from connector 0. Connector 0 contains a schedule for the whole charging station.
 | **is_connected**:*boolean* 
@@ -57,7 +60,7 @@ Commands
 |    **There is an extended definition for this object** :ref:`here <ocpp-GetVariableResult>`.
 | 
 | **set_variables**:*array*
-|  Command to set a variable at OCPP.  With OCPP1.6: This command can be used to set custom configuration keys (others will be rejected) With OCPP2.0.1: This command can be used to set variables in the device model storage
+|  Command to set a variable at OCPP. With OCPP1.6: This command can be used to set custom configuration keys (others will be rejected) With OCPP2.0.1: This command can be used to set variables in the device model storage
 |  **requests**:*array* <required>
 |   List of SetVariableRequests
 |   **array_item**:*object*  (:ref:`ocpp-SetVariableRequest <ocpp-SetVariableRequest>`)
@@ -79,7 +82,7 @@ Commands
 |   Response to ChangeAvailabilityRequest as specified in OCPP 2.0.1
 |   **There is an extended definition for this object** :ref:`here <ocpp-ChangeAvailabilityResponse>`.
 | **monitor_variables**:*void*
-|  Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS.  Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage
+|  Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS. Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage
 |  **component_variables**:*array* <required>
 |   List of ComponentVariable(s) to monitor
 |   **array_item**:*object*  (:ref:`ocpp-ComponentVariable <ocpp-ComponentVariable>`)

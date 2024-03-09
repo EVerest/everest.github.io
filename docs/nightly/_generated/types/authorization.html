@@ -92,29 +92,48 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="authorization-idtoken">
+<div class="line"><strong>IdToken</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type for an id token</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>value</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Arbitrary value of the IdToken: This has to be printable case insensitive ascii</div>
+</div>
+<div class="line"><strong>type</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">authorization-IdTokenType</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="authorization-providedidtoken">
 <div class="line"><strong>ProvidedIdToken</strong>:<em>object</em></div>
 <div class="line-block">
-<div class="line">Type for Token provided by auth token providers</div>
+<div class="line">Type for IdToken provided by auth token providers. Contains additional information about the IdToken like the source and purpose</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>request_id</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1</div>
 </div>
-<div class="line"><strong>id_token</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>id_token</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">authorization-IdToken</span></a>)</div>
 <div class="line-block">
-<div class="line">Arbitrary token string: this has to be printable case insensitive ascii: !!!FIXME!!! write a regex to allow only printable ascii</div>
+<div class="line">IdToken of the provided token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>parent_id_token</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">authorization-IdToken</span></a>)</div>
+<div class="line-block">
+<div class="line">Parent IdToken of the provided token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>authorization_type</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">authorization-AuthorizationType</span></a>)</div>
 <div class="line-block">
-<div class="line">Authorization type of the token</div>
+<div class="line">Authorization type of the token.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-authorizationtype"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>id_token_type</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">authorization-IdTokenType</span></a>)</div>
-<div class="line-block">
-<div class="line">IdTokenType of the token</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtokentype"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>connectors</strong>:<em>array</em> &lt;optional&gt;</div>
 <div class="line-block">
@@ -186,9 +205,10 @@
 <div class="line">Absolute UTC time point when reservation expires in RFC3339 format</div>
 <div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>parent_id_token</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>parent_id_token</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">authorization-IdToken</span></a>)</div>
 <div class="line-block">
 <div class="line">Parent Id Tag of the validated token</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>evse_ids</strong>:<em>array</em> &lt;optional&gt;</div>
 <div class="line-block">
@@ -223,7 +243,7 @@
 <div class="line-block" id="authorization-authorizationtype">
 <div class="line"><strong>AuthorizationType</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Type of authorization of the provided token</div>
+<div class="line">Type of authorization of the provided token. The value  of AuthorizationType can influence the authorization process</div>
 <div class="line">enum:</div>
 <div class="line-block">
 <div class="line">- OCPP</div>
@@ -237,7 +257,7 @@
 <div class="line-block" id="authorization-idtokentype">
 <div class="line"><strong>IdTokenType</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">IdTokenType of the provided token</div>
+<div class="line">IdTokenType of the provided token. Required by OCPP2.0.1 to distinguish between different types of tokens.</div>
 <div class="line">enum:</div>
 <div class="line-block">
 <div class="line">- Central</div>

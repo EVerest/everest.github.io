@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11.2.43. yeti_simulation_control &#8212; EVerest  documentation</title>
+    <title>11.2.42. uk_random_delay &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="11.3. EVerest Types" href="../../appendix/01_everest_reference/types.html" />
-    <link rel="prev" title="11.2.42. uk_random_delay" href="uk_random_delay.html" /> 
+    <link rel="next" title="11.2.43. yeti_simulation_control" href="yeti_simulation_control.html" />
+    <link rel="prev" title="11.2.41. tibber_price_forecast" href="tibber_price_forecast.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../appendix/01_everest_reference/types.html" title="11.3. EVerest Types"
+          <a href="yeti_simulation_control.html" title="11.2.43. yeti_simulation_control"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="uk_random_delay.html" title="11.2.42. uk_random_delay"
+          <a href="tibber_price_forecast.html" title="11.2.41. tibber_price_forecast"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.43. </span>yeti_simulation_control</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.42. </span>uk_random_delay</a></li> 
       </ul>
     </div>  
 
@@ -42,42 +42,42 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="yeti-simulation-control">
-<span id="everest-interfaces-yeti-simulation-control"></span><h1><span class="section-number">11.2.43. </span>yeti_simulation_control<a class="headerlink" href="#yeti-simulation-control" title="Permalink to this heading">¶</a></h1>
+  <section id="uk-random-delay">
+<span id="everest-interfaces-uk-random-delay"></span><h1><span class="section-number">11.2.42. </span>uk_random_delay<a class="headerlink" href="#uk-random-delay" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This defines a HIL simulation interface</div>
+<div class="line">This interface provides functions for a random delay feature as required by the UK smart charging regulations The logic whether to use a random delay or not is not included in EvseManager, a different module can use this interface to enable/disable the feature during runtime and cancel a running random delay. This always applies to all connectors of this EVSE. By default, on start up, random delays are disabled.</div>
 </div>
 <section id="variables">
-<h2><span class="section-number">11.2.43.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.42.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>enabled</strong>:<em>boolean</em></div>
+<div class="line"><strong>countdown</strong>:<em>object</em>  (<a class="reference internal" href="../types/uk_random_delay.html#uk-random-delay-countdown"><span class="std std-ref">uk_random_delay-CountDown</span></a>)</div>
 <div class="line-block">
-<div class="line">Indicates whether simulation interface is currently active or not</div>
-</div>
-<div class="line"><strong>simulation_feedback</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Feedback from simulation (everything that a car can measure on the CP signal plus the indication whether relais are on or off)</div>
+<div class="line">Countdown of the currently running random delay</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/uk_random_delay.html#uk-random-delay-countdown"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </section>
 <section id="commands">
-<h2><span class="section-number">11.2.43.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.42.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>enable</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Enable/disable the simulation</div>
-<div class="line"><strong>value</strong>:<em>boolean</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">true to enable, false to disable</div>
+<div class="line">Call to enable the random delay feature</div>
 </div>
+<div class="line"><strong>disable</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Call to disable the random delay feature</div>
 </div>
-<div class="line"><strong>setSimulationData</strong>:<em>void</em></div>
+<div class="line"><strong>cancel</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Sends a new simulation data object</div>
-<div class="line"><strong>value</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/yeti.html#yeti-simulationdata"><span class="std std-ref">yeti-SimulationData</span></a>)</div>
+<div class="line">Cancels a running random delay. The effect is the same as if the time expired just now.</div>
+</div>
+<div class="line"><strong>set_duration_s</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">simulation data</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/yeti.html#yeti-simulationdata"><span class="std std-ref">here</span></a>.</div>
+<div class="line">Set the maximum duration of the random delay. Default is 600 seconds.</div>
+<div class="line"><strong>value</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum duration in seconds</div>
 </div>
 </div>
 </div>
@@ -113,18 +113,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="uk_random_delay.html"
-                          title="previous chapter"><span class="section-number">11.2.42. </span>uk_random_delay</a></p>
+    <p class="topless"><a href="tibber_price_forecast.html"
+                          title="previous chapter"><span class="section-number">11.2.41. </span>tibber_price_forecast</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="../../appendix/01_everest_reference/types.html"
-                          title="next chapter"><span class="section-number">11.3. </span>EVerest Types</a></p>
+    <p class="topless"><a href="yeti_simulation_control.html"
+                          title="next chapter"><span class="section-number">11.2.43. </span>yeti_simulation_control</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/interfaces/yeti_simulation_control.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/uk_random_delay.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -155,15 +155,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../appendix/01_everest_reference/types.html" title="11.3. EVerest Types"
+          <a href="yeti_simulation_control.html" title="11.2.43. yeti_simulation_control"
              >next</a> |</li>
         <li class="right" >
-          <a href="uk_random_delay.html" title="11.2.42. uk_random_delay"
+          <a href="tibber_price_forecast.html" title="11.2.41. tibber_price_forecast"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">11. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">11.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.43. </span>yeti_simulation_control</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">11.2.42. </span>uk_random_delay</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -134,6 +134,15 @@ Module Configuration
 | **external_ready_to_start_charging**:*boolean* <optional>
 | *default: False*
 |  Enable the external ready to start charging signal that delays charging ready until it has been received
+| **uk_smartcharging_random_delay_enable**:*boolean* <optional>
+| *default: False*
+|  "true: enable random_delays on start up, false: disable random delays on startup." "They can also be enabled/disabled during runtime on the random_delay implementation."
+| **uk_smartcharging_random_delay_max_duration**:*integer* <optional>
+| *default: 600*
+|  "Start up value for the maximum duration of a random delay." "Can be modified during runtime on the random_delay implementation."
+| **uk_smartcharging_random_delay_at_any_change**:*boolean* <optional>
+| *default: True*
+|  "True: use random delays on any current change during charging. False: Only use if current is reduced to zero or increased from zero."
 
 ********
 Provides
@@ -144,6 +153,8 @@ Provides
 |  This is the tree leaf interface to build the energy supply tree
 | **token_provider**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`
 |  Provides authtokens for autocharge or plug and charge
+| **random_delay**::ref:`uk_random_delay <everest_interfaces_uk_random_delay>`
+|  Provides control over UK smart charging regulation random delay feature
 
 ************
 Requirements

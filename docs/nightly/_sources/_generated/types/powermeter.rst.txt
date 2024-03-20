@@ -40,11 +40,14 @@ Powermeter types
 | **TransactionStartResponse**:*object* 
 |  Return value when a transaction is started.
 |  properties:
-|   **status**:*string/object* <required> (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
+|   **status**:*object* <required> (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
 |    Response status that indicates whether the transaction start request could successfully be performed.
 |    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
 |   **error**:*string* <optional>
 |    If status is not OK, a verbose error message.
+|   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    The signed meter value report of the started transaction. Must be provided if status is OK.
+|    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.
 |   **transaction_min_stop_time**:*string* <optional>
 |    Earliest point in time the started transaction can be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.
 |    format:date-time
@@ -57,7 +60,7 @@ Powermeter types
 | **TransactionStopResponse**:*object* 
 |  Report returned when a signed transaction is requested to stop. If successful, includes the signed meter value object. In case of an error, an additional error message can be provided.
 |  properties:
-|   **status**:*string/object* <required> (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
+|   **status**:*object* <required> (:ref:`powermeter-TransactionRequestStatus <powermeter-TransactionRequestStatus>`)
 |    Response status that indicates whether the transaction stop request could successfully be performed.
 |    **There is an extended definition for this object** :ref:`here <powermeter-TransactionRequestStatus>`.
 |   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)

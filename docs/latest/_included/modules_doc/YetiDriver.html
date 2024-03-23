@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5.2.6. YetiDriver &#8212; EVerest  documentation</title>
+    <title>5.2.7. YetiDriver &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="6. EVerest development tools" href="../../dev_tools/index.html" />
-    <link rel="prev" title="5.2.5. LEM DCBM 400/600" href="LemDCBM400600.html" /> 
+    <link rel="prev" title="5.2.6. LEM DCBM 400/600" href="LemDCBM400600.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,11 +28,11 @@
           <a href="../../dev_tools/index.html" title="6. EVerest development tools"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="LemDCBM400600.html" title="5.2.5. LEM DCBM 400/600"
+          <a href="LemDCBM400600.html" title="5.2.6. LEM DCBM 400/600"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.6. </span>YetiDriver</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.7. </span>YetiDriver</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,12 @@
           <div class="body" role="main">
             
   <section id="yetidriver">
-<span id="everest-modules-handwritten-yetidriver"></span><h1><span class="section-number">5.2.6. </span>YetiDriver<a class="headerlink" href="#yetidriver" title="Permalink to this heading">¶</a></h1>
+<span id="everest-modules-handwritten-yetidriver"></span><h1><span class="section-number">5.2.7. </span>YetiDriver<a class="headerlink" href="#yetidriver" title="Permalink to this heading">¶</a></h1>
 <p>See also module’s <a class="reference internal" href="../../_generated/modules/YetiDriver.html#everest-modules-yetidriver"><span class="std std-ref">auto-generated reference</span></a>.
 The module <code class="docutils literal notranslate"><span class="pre">YetiDriver</span></code> is a board support driver for Pionix Yeti Power
 Board.</p>
 <section id="communication-between-the-yeti-microcontroller-and-this-driver-module">
-<h2><span class="section-number">5.2.6.1. </span>Communication between the Yeti microcontroller and this driver module<a class="headerlink" href="#communication-between-the-yeti-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.2.7.1. </span>Communication between the Yeti microcontroller and this driver module<a class="headerlink" href="#communication-between-the-yeti-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
 <p>The hardware connection between Yeti and Yak (the board running EVerest and
 this module) is 3.3V TTL UART plus 2 GPIOs (one to reset the microcontroller
 from Linux and one to wakeup Linux from the microcontroller, which is
@@ -55,7 +55,7 @@ currrently unused).</p>
 <p>The default configuration is 115200 bps 8N1.</p>
 </section>
 <section id="protocol">
-<h2><span class="section-number">5.2.6.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.2.7.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
 <p>EVerest can send commands to Yeti and Yeti publishes data and events back
 to EVerest. The packets are defined with protobuf to serialize the C structs
 into a binary representation that is transferred over the serial wire in a
@@ -65,7 +65,7 @@ stream:</p>
 before it is transmitted on the UART:</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing">https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing</a></p>
 <section id="cobs">
-<h3><span class="section-number">5.2.6.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.2.7.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
 <p>COBS is implemented in <code class="docutils literal notranslate"><span class="pre">yeti_comms/evSerial.cpp</span></code>. Whenever a new packet
 was extracted from the stream <code class="docutils literal notranslate"><span class="pre">handlePacket()</span></code> is called to decode protobuf
 and generate the corresponding signals.
@@ -74,7 +74,7 @@ packets.</p>
 <p>For TX <code class="docutils literal notranslate"><span class="pre">linkWrite</span></code> encodes the packet with COBS and outputs it to the UART.</p>
 </section>
 <section id="protobuf">
-<h3><span class="section-number">5.2.6.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.2.7.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
 <p>The actual packet definitions are located under <code class="docutils literal notranslate"><span class="pre">yeti_comms/protobuf</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hi2lo.proto</span></code> contains all messages that can be sent from EVerest to Yeti
 while <code class="docutils literal notranslate"><span class="pre">lo2hi.proto</span></code> defines all messages that Yeti sends to EVerest.</p>
@@ -86,7 +86,7 @@ frequently.</p>
 definition is used on both sides when making changes.</p>
 </section>
 <section id="everest-to-yeti">
-<h3><span class="section-number">5.2.6.2.3. </span>EVerest to Yeti<a class="headerlink" href="#everest-to-yeti" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.2.7.2.3. </span>EVerest to Yeti<a class="headerlink" href="#everest-to-yeti" title="Permalink to this heading">¶</a></h3>
 <p>The most important commands that EVerest sends to Yeti are the following:</p>
 <p><code class="docutils literal notranslate"><span class="pre">SetControlMode(mode)</span></code>: Yeti firmware can operate in different modes:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Mode</span> <span class="pre">NONE</span> <span class="pre">=</span> <span class="pre">0</span></code>: In this mode Yeti does not allow control over UART. It will
@@ -104,7 +104,7 @@ safety remains within the microcontroller and not within EVerest.
 It generates more human readable events from state A-F transitions.</p>
 <p>PWM is directly controlled from EVerest in this mode.</p>
 <section id="low-control-mode">
-<h4><span class="section-number">5.2.6.2.3.1. </span>Low control mode:<a class="headerlink" href="#low-control-mode" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">5.2.7.2.3.1. </span>Low control mode:<a class="headerlink" href="#low-control-mode" title="Permalink to this heading">¶</a></h4>
 <p>The following commands describe the Low level control mode only:</p>
 <p><code class="docutils literal notranslate"><span class="pre">AllowPowerOn(bool)</span></code>: Inform yeti that it is allowed to switch on the power
 relais/contactors to the car on (true) or must switch off now (false). The
@@ -117,7 +117,7 @@ car is in CP state B etc). On power off Yeti must switch off immediately.</p>
 </dl>
 </section>
 <section id="other-commands-for-all-modes">
-<h4><span class="section-number">5.2.6.2.3.2. </span>Other commands for all modes:<a class="headerlink" href="#other-commands-for-all-modes" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">5.2.7.2.3.2. </span>Other commands for all modes:<a class="headerlink" href="#other-commands-for-all-modes" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">FirmwareUpdate(bool)</span></code>: Send true to reboot Yeti into ROM boot loader.
 After that stm32flash tool can be used to flash any firmware binary to it.
 Note that this is a dev kit and for a real product this needs to be implemented
@@ -145,7 +145,7 @@ phase to three phase while charging is running (E.g. Zoe 1)</p>
 </section>
 </section>
 <section id="yeti-to-everest">
-<h3><span class="section-number">5.2.6.2.4. </span>Yeti to EVerest<a class="headerlink" href="#yeti-to-everest" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.2.7.2.4. </span>Yeti to EVerest<a class="headerlink" href="#yeti-to-everest" title="Permalink to this heading">¶</a></h3>
 <p>The following messages are relevant for LOW control mode:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Event</span></code>: This is the most important message from Yeti. It will send an event
 on CP transitions:</p>
@@ -205,7 +205,7 @@ on CP transitions:</p>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="LemDCBM400600.html"
-                          title="previous chapter"><span class="section-number">5.2.5. </span>LEM DCBM 400/600</a></p>
+                          title="previous chapter"><span class="section-number">5.2.6. </span>LEM DCBM 400/600</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -249,11 +249,11 @@ on CP transitions:</p>
           <a href="../../dev_tools/index.html" title="6. EVerest development tools"
              >next</a> |</li>
         <li class="right" >
-          <a href="LemDCBM400600.html" title="5.2.5. LEM DCBM 400/600"
+          <a href="LemDCBM400600.html" title="5.2.6. LEM DCBM 400/600"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.6. </span>YetiDriver</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.7. </span>YetiDriver</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

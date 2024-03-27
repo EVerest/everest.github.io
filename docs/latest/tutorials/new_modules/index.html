@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>7.4. How To: Develop New Modules &#8212; EVerest  documentation</title>
+    <title>7.5. How To: Develop New Modules &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="7.5. Tutorial: Simulate EVerest in Software" href="../run_sil/index.html" />
-    <link rel="prev" title="7.3. How To: OCPP1.6 in EVerest" href="../how_to_ocpp/index.html" /> 
+    <link rel="next" title="7.6. Tutorial: Simulate EVerest in Software" href="../run_sil/index.html" />
+    <link rel="prev" title="7.4. How To: Plug&amp;Charge with EVerest Software in the loop" href="../how_to_plug_and_charge/index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,14 +25,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../run_sil/index.html" title="7.5. Tutorial: Simulate EVerest in Software"
+          <a href="../run_sil/index.html" title="7.6. Tutorial: Simulate EVerest in Software"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../how_to_ocpp/index.html" title="7.3. How To: OCPP1.6 in EVerest"
+          <a href="../how_to_plug_and_charge/index.html" title="7.4. How To: Plug&amp;Charge with EVerest Software in the loop"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U"><span class="section-number">7. </span>Tutorials</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.4. </span>How To: Develop New Modules</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.5. </span>How To: Develop New Modules</a></li> 
       </ul>
     </div>  
 
@@ -42,7 +42,7 @@
           <div class="body" role="main">
             
   <section id="how-to-develop-new-modules">
-<span id="tutorial-create-modules-main"></span><h1><span class="section-number">7.4. </span>How To: Develop New Modules<a class="headerlink" href="#how-to-develop-new-modules" title="Permalink to this heading">¶</a></h1>
+<span id="tutorial-create-modules-main"></span><h1><span class="section-number">7.5. </span>How To: Develop New Modules<a class="headerlink" href="#how-to-develop-new-modules" title="Permalink to this heading">¶</a></h1>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>The module concept will be improved in the next couple of months with
@@ -56,7 +56,7 @@ framework. This tutorial builds on knowledge that is explained in the
 <a class="reference internal" href="../../general/03_quick_start_guide.html#quickstartguide-main"><span class="std std-ref">Quick Start Guide</span></a>, which is a good starting
 point for understanding the central concepts of modules.</p>
 <section id="goal-of-this-tutorial">
-<h2><span class="section-number">7.4.1. </span>Goal Of This Tutorial<a class="headerlink" href="#goal-of-this-tutorial" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.1. </span>Goal Of This Tutorial<a class="headerlink" href="#goal-of-this-tutorial" title="Permalink to this heading">¶</a></h2>
 <p>In this tutorial, we will keep everything as simple as possible. You will
 learn the following:</p>
 <ol class="arabic simple">
@@ -69,7 +69,7 @@ value.</p></li>
 </ol>
 </section>
 <section id="install-prerequisites">
-<h2><span class="section-number">7.4.2. </span>Install Prerequisites<a class="headerlink" href="#install-prerequisites" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.2. </span>Install Prerequisites<a class="headerlink" href="#install-prerequisites" title="Permalink to this heading">¶</a></h2>
 <p>Please follow the <a class="reference internal" href="../../general/03_quick_start_guide.html#quickstartguide-main"><span class="std std-ref">Quick Start Guide</span></a> to install
 all prerequisites into your environment.</p>
 <p>After that, you should in particular have:</p>
@@ -81,7 +81,7 @@ guide; per default expected on localhost on port 1883)</p></li>
 </ul>
 </section>
 <section id="workspace-setup">
-<h2><span class="section-number">7.4.3. </span>Workspace Setup<a class="headerlink" href="#workspace-setup" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.3. </span>Workspace Setup<a class="headerlink" href="#workspace-setup" title="Permalink to this heading">¶</a></h2>
 <p>This section describes how to setup an EVerest workspace (or at least the
 necessary parts of it) to develop EVerest modules.</p>
 <p>First, create a directory for your workspace. In the following, we will assume
@@ -92,7 +92,7 @@ mkdir -p $EVEREST_WORKSPACE
 </div>
 <p>Now you have two options:</p>
 <section id="alternative-1-setup-workspace-via-everest-dependency-manager">
-<h3><span class="section-number">7.4.3.1. </span>Alternative 1: Setup Workspace via EVerest Dependency Manager<a class="headerlink" href="#alternative-1-setup-workspace-via-everest-dependency-manager" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.3.1. </span>Alternative 1: Setup Workspace via EVerest Dependency Manager<a class="headerlink" href="#alternative-1-setup-workspace-via-everest-dependency-manager" title="Permalink to this heading">¶</a></h3>
 <p>Use the EVerest dependency manager to setup your workspace. This has the
 benefit of allowing your to select a specific snapshot (see the corresponding
 <a class="reference internal" href="../../dev_tools/edm.html#edm-main"><span class="std std-ref">docs</span></a> for details), as well as it is a single command:</p>
@@ -101,7 +101,7 @@ benefit of allowing your to select a specific snapshot (see the corresponding
 </div>
 </section>
 <section id="alternative-2-clone-required-repositories">
-<h3><span class="section-number">7.4.3.2. </span>Alternative 2: Clone required repositories<a class="headerlink" href="#alternative-2-clone-required-repositories" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.3.2. </span>Alternative 2: Clone required repositories<a class="headerlink" href="#alternative-2-clone-required-repositories" title="Permalink to this heading">¶</a></h3>
 <p>If you want to restrict yourself only to the required dependencies, you may also just clone those:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https:///github.com/EVerest/everest-cmake ${EVEREST_WORKSPACE}/everest-cmake
 git clone https:///github.com/EVerest/everest-framework ${EVEREST_WORKSPACE}/everest-framework
@@ -110,7 +110,7 @@ git clone https:///github.com/EVerest/everest-framework ${EVEREST_WORKSPACE}/eve
 </section>
 </section>
 <section id="create-module-skeleton">
-<h2><span class="section-number">7.4.4. </span>Create Module Skeleton<a class="headerlink" href="#create-module-skeleton" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.4. </span>Create Module Skeleton<a class="headerlink" href="#create-module-skeleton" title="Permalink to this heading">¶</a></h2>
 <p>The following describes how to define the fundamental skeleton of a module.
 This includes configuration files and the auto-generation of source files.</p>
 <p>First, create an empty folder that is to contain your module. In the
@@ -130,7 +130,7 @@ You might also want to check that you do not take the Git history of the
 <cite>everest-template</cite> repository with you.</p>
 </div>
 <section id="interface-configuration">
-<h3><span class="section-number">7.4.4.1. </span>Interface Configuration<a class="headerlink" href="#interface-configuration" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.4.1. </span>Interface Configuration<a class="headerlink" href="#interface-configuration" title="Permalink to this heading">¶</a></h3>
 <p>First, we define an interface that the module provides.
 In this very first minimal version, the interface shall provide a single
 command <cite>command_tutorial</cite> that can be called by another module and will
@@ -180,7 +180,7 @@ we will focus on C++.</p>
 </div>
 </section>
 <section id="module-configuration">
-<h3><span class="section-number">7.4.4.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.4.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h3>
 <p>Next, we will define our module’s manifest.</p>
 <p>For this, we create a module directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir -p $EVEREST_TUTORIAL_DIR/modules/TutorialModule
@@ -262,11 +262,11 @@ respective header and source files are generated.</p>
 </section>
 </section>
 <section id="build-configuration-build">
-<h2><span class="section-number">7.4.5. </span>Build Configuration &amp; Build<a class="headerlink" href="#build-configuration-build" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.5. </span>Build Configuration &amp; Build<a class="headerlink" href="#build-configuration-build" title="Permalink to this heading">¶</a></h2>
 <p>This section describes the additional steps needed to build your project and
 install it.</p>
 <section id="adding-cmakelists-txt-in-the-root-directory">
-<h3><span class="section-number">7.4.5.1. </span>Adding CMakeLists.txt in the root directory<a class="headerlink" href="#adding-cmakelists-txt-in-the-root-directory" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.5.1. </span>Adding CMakeLists.txt in the root directory<a class="headerlink" href="#adding-cmakelists-txt-in-the-root-directory" title="Permalink to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/CMakeLists.txt</span></code> file in the root of your project
 repository will need to import some build commands from the framework, as well
 as link to its dependencies. A fairly simple file that includes
@@ -322,7 +322,7 @@ as link to its dependencies. A fairly simple file that includes
 </div>
 </section>
 <section id="adding-modules-cmakelists-txt">
-<h3><span class="section-number">7.4.5.2. </span>Adding <code class="docutils literal notranslate"><span class="pre">modules/CMakeLists.txt</span></code><a class="headerlink" href="#adding-modules-cmakelists-txt" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.5.2. </span>Adding <code class="docutils literal notranslate"><span class="pre">modules/CMakeLists.txt</span></code><a class="headerlink" href="#adding-modules-cmakelists-txt" title="Permalink to this heading">¶</a></h3>
 <p>Next, <code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/modules/CMakeLists.txt</span></code> essentially tells CMake
 where to look for modules, in order to add them to the build.</p>
 <p>It contains a single line per module. To proceed, create the file and then add the following line, as per our example:</p>
@@ -334,7 +334,7 @@ In that case you would add a respective <cite>ev_add_module(&lt;MODULE_NAME&gt;)
 for each of those.</p>
 </section>
 <section id="adding-dependencies-yaml">
-<h3><span class="section-number">7.4.5.3. </span>Adding <code class="docutils literal notranslate"><span class="pre">dependencies.yaml</span></code><a class="headerlink" href="#adding-dependencies-yaml" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.5.3. </span>Adding <code class="docutils literal notranslate"><span class="pre">dependencies.yaml</span></code><a class="headerlink" href="#adding-dependencies-yaml" title="Permalink to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">find-package()</span></code> CMake directive found in the previous sections is
 handled by EDM.</p>
 <p>In order for this to work, you need to add a dependency file for EDM, called
@@ -349,7 +349,7 @@ only <code class="docutils literal notranslate"><span class="pre">everest-core</
 <p>With the above setup taken care of, you are now ready to build the project.</p>
 </section>
 <section id="building">
-<h3><span class="section-number">7.4.5.4. </span>Building<a class="headerlink" href="#building" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.5.4. </span>Building<a class="headerlink" href="#building" title="Permalink to this heading">¶</a></h3>
 <p>When you auto-generated the code for the interfaces and modules, a <code class="docutils literal notranslate"><span class="pre">build/</span></code>
 directory should have appeared.</p>
 <p>You can also build the project there - go to it, and configure the build:</p>
@@ -382,9 +382,9 @@ run.</p>
 </section>
 </section>
 <section id="run-configuration-run">
-<h2><span class="section-number">7.4.6. </span>Run Configuration &amp; Run<a class="headerlink" href="#run-configuration-run" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.6. </span>Run Configuration &amp; Run<a class="headerlink" href="#run-configuration-run" title="Permalink to this heading">¶</a></h2>
 <section id="everest-configuration">
-<h3><span class="section-number">7.4.6.1. </span>EVerest configuration<a class="headerlink" href="#everest-configuration" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.6.1. </span>EVerest configuration<a class="headerlink" href="#everest-configuration" title="Permalink to this heading">¶</a></h3>
 <p>The final step to run EVerest and testing the new module is to define an
 EVerest run configuration. For this, create a file
 <code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/config/config-modules-tutorial.yaml</span></code> with the following
@@ -398,7 +398,7 @@ content:</p>
 with a single module, namely the newly created one.</p>
 </section>
 <section id="adding-and-activating-config-cmakelists-txt">
-<h3><span class="section-number">7.4.6.2. </span>Adding and activating <code class="docutils literal notranslate"><span class="pre">config/CMakeLists.txt</span></code><a class="headerlink" href="#adding-and-activating-config-cmakelists-txt" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.6.2. </span>Adding and activating <code class="docutils literal notranslate"><span class="pre">config/CMakeLists.txt</span></code><a class="headerlink" href="#adding-and-activating-config-cmakelists-txt" title="Permalink to this heading">¶</a></h3>
 <p>The EVerest cmake utils provide a function to auto-generate run scripts for
 your configurations.</p>
 <p>In order to achieve this, create the file <code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/config/CMakeLists.txt</span></code> with content:</p>
@@ -425,7 +425,7 @@ make install
 </div>
 </section>
 <section id="running-everest">
-<h3><span class="section-number">7.4.6.3. </span>Running EVerest<a class="headerlink" href="#running-everest" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.6.3. </span>Running EVerest<a class="headerlink" href="#running-everest" title="Permalink to this heading">¶</a></h3>
 <p>The step before should have created a file
 <code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/build/run-scripts/run-modules-tutorial.sh</span></code>.</p>
 <p>Up to path substitution this will have the following content:</p>
@@ -457,11 +457,11 @@ an output similar to:</p>
 </section>
 </section>
 <section id="observing-the-system">
-<h2><span class="section-number">7.4.7. </span>Observing the System<a class="headerlink" href="#observing-the-system" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.7. </span>Observing the System<a class="headerlink" href="#observing-the-system" title="Permalink to this heading">¶</a></h2>
 <p>In this final section we describe how to observe the behavior of your module
 and debug it.</p>
 <section id="exploring-with-mqtt-explorer">
-<h3><span class="section-number">7.4.7.1. </span>Exploring with MQTT Explorer<a class="headerlink" href="#exploring-with-mqtt-explorer" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.7.1. </span>Exploring with MQTT Explorer<a class="headerlink" href="#exploring-with-mqtt-explorer" title="Permalink to this heading">¶</a></h3>
 <p>The open-source tool <a class="reference external" href="https://github.com/thomasnordquist/MQTT-Explorer">MQTT Explorer</a>  can be utilized to
 observe the module communication in EVerest.</p>
 <p>With your MQTT broker running on localhost:1883, you should be able to connect
@@ -492,7 +492,7 @@ on the left to refresh this view.</p>
 <img alt="../../_images/mqtt_explorer_example.png" src="../../_images/mqtt_explorer_example.png" />
 </section>
 <section id="debugging">
-<h3><span class="section-number">7.4.7.2. </span>Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">7.5.7.2. </span>Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading">¶</a></h3>
 <p>At the latest  when you start developing an actual module, it might come handy
 to be able to debug your code. Thus, the following shall provide some
 rudimentary steps to do so.</p>
@@ -546,7 +546,7 @@ debugging experience.</p>
 </section>
 </section>
 <section id="exemplary-module-customizations">
-<h2><span class="section-number">7.4.8. </span>Exemplary Module Customizations<a class="headerlink" href="#exemplary-module-customizations" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">7.5.8. </span>Exemplary Module Customizations<a class="headerlink" href="#exemplary-module-customizations" title="Permalink to this heading">¶</a></h2>
 <p>Having prepared a buildable and runnable module, we can now extend the logic
 of our implementation:
 * Add a variable to your interface, and publish it;
@@ -578,11 +578,12 @@ a suggestion for this.</p>
 <li class="toctree-l2"><a class="reference internal" href="../how_to_act/index.html">7.1. How To: Act</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how_to_git/index.html">7.2. How To: Git</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how_to_ocpp/index.html">7.3. How To: OCPP1.6 in EVerest</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">7.4. How To: Develop New Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../run_sil/index.html">7.5. Tutorial: Simulate EVerest in Software</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../docker_setup.html">7.6. Docker setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sphinx_general.html">7.7. General Sphinx Information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sphinx_style_guide.html">7.8. Sphinx style guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_plug_and_charge/index.html">7.4. How To: Plug&amp;Charge with EVerest Software in the loop</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.5. How To: Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_sil/index.html">7.6. Tutorial: Simulate EVerest in Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docker_setup.html">7.7. Docker setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sphinx_general.html">7.8. General Sphinx Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sphinx_style_guide.html">7.9. Sphinx style guide</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">8. Frequently Asked Questions And Best Practices</a></li>
@@ -593,13 +594,13 @@ a suggestion for this.</p>
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="../how_to_ocpp/index.html"
-                          title="previous chapter"><span class="section-number">7.3. </span>How To: OCPP1.6 in EVerest</a></p>
+    <p class="topless"><a href="../how_to_plug_and_charge/index.html"
+                          title="previous chapter"><span class="section-number">7.4. </span>How To: Plug&amp;Charge with EVerest Software in the loop</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="../run_sil/index.html"
-                          title="next chapter"><span class="section-number">7.5. </span>Tutorial: Simulate EVerest in Software</a></p>
+                          title="next chapter"><span class="section-number">7.6. </span>Tutorial: Simulate EVerest in Software</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -635,14 +636,14 @@ a suggestion for this.</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../run_sil/index.html" title="7.5. Tutorial: Simulate EVerest in Software"
+          <a href="../run_sil/index.html" title="7.6. Tutorial: Simulate EVerest in Software"
              >next</a> |</li>
         <li class="right" >
-          <a href="../how_to_ocpp/index.html" title="7.3. How To: OCPP1.6 in EVerest"
+          <a href="../how_to_plug_and_charge/index.html" title="7.4. How To: Plug&amp;Charge with EVerest Software in the loop"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" ><span class="section-number">7. </span>Tutorials</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.4. </span>How To: Develop New Modules</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">7.5. </span>How To: Develop New Modules</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

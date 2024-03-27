@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Configure Plug&amp;Charge &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=0a676766" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Configure Plug&amp;Charge</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="configure-plug-charge">
+<span id="configure-plug-and-charge-main"></span><h1>Configure Plug&amp;Charge<a class="headerlink" href="#configure-plug-charge" title="Permalink to this heading">¶</a></h1>
+<p>This is a guide for how to configure EVerest to enable its Plug&amp;Charge functionalities.
+For a tutorial on how to do Plug&amp;Charge in the EVerest SIL, please refer to <a class="reference internal" href="../tutorials/how_to_plug_and_charge/index.html#how-to-pnc"><span class="std std-ref">How To: Plug&amp;Charge with EVerest Software in the loop</span></a>.</p>
+<section id="plug-charge-authorization">
+<h2>Plug&amp;Charge Authorization<a class="headerlink" href="#plug-charge-authorization" title="Permalink to this heading">¶</a></h2>
+<p>There are a lot of resources available on Plug&amp;Charge and ISO15118 PKI involved in this process,
+so this guide is not going to repeat how Plug&amp;Charge actually works.</p>
+<p>It rather explains what EVerest provides with respect to Plug&amp;Charge and how EVerest needs to
+be configured in order to suit your Plug&amp;Charge use case.</p>
+</section>
+<section id="the-authorization-process-in-everest">
+<h2>The Authorization process in EVerest<a class="headerlink" href="#the-authorization-process-in-everest" title="Permalink to this heading">¶</a></h2>
+<p>In essence, the Plug&amp;Charge Authorization runs like any other authorization in EVerest,
+like local RFID authorization or remote authorization.  Have a look at how the authorization
+process in EVerest in designed within the <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/modules/Auth/README.md">Documentation of the Auth module</a>.</p>
+</section>
+<section id="involved-everest-modules">
+<h2>Involved EVerest modules<a class="headerlink" href="#involved-everest-modules" title="Permalink to this heading">¶</a></h2>
+<p>The E2E Plug&amp;Charge process involves communication from the EV to systems in the cloud. The
+main protocols involved are ISO15118 and OCPP. In EVerest, several modules and interfaces
+are involved in the Plug&amp;Charge process. Here is an overview of how everything comes together
+in EVerest:</p>
+<img alt="../_images/plug_and_charge_modules.png" class="align-center" src="../_images/plug_and_charge_modules.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This visualization only presents the interfaces and connections between them that are
+relevant for Plug&amp;Charge.</p>
+</div>
+<p>Let’s have a look step by step:</p>
+<section id="step-0">
+<h3>Step 0<a class="headerlink" href="#step-0" title="Permalink to this heading">¶</a></h3>
+<p>Before a Plug&amp;Charge session can start, the following certificates and keys should be installed on
+the charger:</p>
+<ul class="simple">
+<li><p>V2G Root certificate</p></li>
+<li><p>SECC Leaf certificate</p></li>
+<li><p>SECC Leaf private key</p></li>
+<li><p>MO Root certificate (optional)</p></li>
+</ul>
+<p>These certificates and keys can be installed during provisioning of the charger, or they can be
+installed using OCPP1.6 or OCPP2.0.1. The paths to store these files can be configured in the
+EvseSecurity module. Please see <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/modules/EvseSecurity/doc.rst">Documentation of the EvseSecurity</a>
+for further information on how to do the configuration for this module.</p>
+<p>In the visualization step 0. shows the process represents the previously described process of
+provisioning the charger with the correct certificates. Step 0. before there is a physical
+connection to the EV. The OCPP/OCPP201 and EvseV2G module require a module that implements
+the evse_security.yaml (link) interface, in order to execute the following commands:</p>
+<ul class="simple">
+<li><p>install_ca_certificate (Used by OCPP to install root certificates. This process is initiated by the OCPP CSMS)</p></li>
+<li><p>update_leaf_certificate (Used to install or update SECC leaf certificates)</p></li>
+<li><p>generate_certificate_signing_request (Used to generate a CSR that is used in the SignCertificate.req of OCPP)</p></li>
+<li><p>verify_certificate (Used by EvseV2G to verify the contract certificate and by OCPP to verify new leaf certificates)</p></li>
+<li><p>get_mo_ocsp_request_data (Used by EvseV2G and OCPP to get the OCSP request data of the contract certificate (chain))</p></li>
+</ul>
+<p>There are more commands provided by the evse_security.yaml (link) interface, which are not included in the Plug&amp;Charge
+process.</p>
+</section>
+<section id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this heading">¶</a></h3>
+<p>This step is triggered by a physical connection between the EV and the charger. A TLS connection is required
+between the EV and the charger to allow Plug&amp;Charge, so the EvseV2G module retrieves the SECC leaf certificate
+chain and private key from via the evse_security.yaml interface and sets up a TLS server, to which the EV
+can connect as a TLS client.</p>
+</section>
+<section id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this heading">¶</a></h3>
+<p>When charger and EV have agreed on Contract being the selected payment option, we have something going on
+that we can call a Plug&amp;Charge process. The EV sends its contract certificate chain and requests authorization
+from the charger. The EvseV2G module generates a ProvidedIdToken (link), which is the EVerest type that
+contains data the authorization request, including the contract certificate and OCSP request data.</p>
+<p>The ProvidedIdToken is transmitted via the evse_manager.yaml interface to the EvseManager module.</p>
+</section>
+<section id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this heading">¶</a></h3>
+<p>The EvseManager module implements the token_provider.yaml interface and can therefore publish the
+ProvidedIdToken (link) containing the contract certificate and OCSP data within EVerest to the central
+authorization module in EVerest: Auth.</p>
+</section>
+<section id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this heading">¶</a></h3>
+<p>The Auth module sends commands containing the ProvidedIdToken to its registered token_validator(s) (link),
+which are OCPP/OCPP201 in the case of Plug&amp;Charge. The OCPP module(s) validate the token based on the requirements
+specified in the OCPP protocol (either validating locally or by the CSMS).</p>
+</section>
+<section id="step-5">
+<h3>Step 5<a class="headerlink" href="#step-5" title="Permalink to this heading">¶</a></h3>
+<p>In case the validation was successful, the Auth module notifies the EvseManager using the authorize command,
+that authorization is present and the charging session can be started.</p>
+</section>
+<section id="step-6">
+<h3>Step 6<a class="headerlink" href="#step-6" title="Permalink to this heading">¶</a></h3>
+<p>The EvseManager forwards the authorization response to the EvseV2G module, which can then send the
+awaited ISO15118 response to the EV.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have taken some shortcuts and ignored some further communication going on during the full process,
+but these steps cover what’s important for Plug&amp;Charge in EVerest.</p>
+</div>
+</section>
+</section>
+<section id="everest-configuration">
+<h2>EVerest configuration<a class="headerlink" href="#everest-configuration" title="Permalink to this heading">¶</a></h2>
+<p>Now that we know everything comes together for Plug&amp;Charge in EVerest, we can have a look at how this is
+actually configured.</p>
+<p>The following two configuration files are relevant and require a correct setup and activation for Plug&amp;Charge:</p>
+<ul class="simple">
+<li><p>EVerest configuration file (yaml)</p></li>
+<li><p>OCPP configuration file (.json)</p></li>
+</ul>
+<p>Let’s start with the EVerest configuration file. If you haven’t read “Explaining the YAML files”, now its the
+right time to do it before you go on!</p>
+<p>It’s a good idea to start with a base of a configuration file and talk about the changes required to enable
+Plug&amp;Charge. The base config we use is the “config-sil-ocpp201.yaml”, which already contains the configuration
+for OCPP2.0.1.</p>
+<p>We need to take a closer look at the configuration of the EvseManager, EvseV2G, Auth and EvseSecurity.</p>
+<section id="evsemanager">
+<h3>EvseManager<a class="headerlink" href="#evsemanager" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>In case of AC, make sure that <cite>ac_hlc_enabled</cite> is set to <cite>true</cite> in order to allow ISO15118 communication</p></li>
+<li><p>Make sure <cite>payment_enable_contract</cite> is set to <cite>true</cite></p></li>
+</ul>
+</section>
+<section id="evsev2g">
+<h3>EvseV2G<a class="headerlink" href="#evsev2g" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Make sure <cite>tls_security</cite> is set to <cite>allow</cite> or <cite>force</cite>.</p></li>
+<li><p>If <cite>verify_contract_cert_chain</cite> is <cite>true</cite> the EvseV2G module attempts to verify the contract certificate chain</p></li>
+</ul>
+<p>locally. It is recommended to set this to <cite>false</cite>, because this validation is also executed and handled in OCPP.</p>
+</section>
+<section id="auth">
+<h3>Auth<a class="headerlink" href="#auth" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Make sure the EvseManager module is listed as a connection of <cite>token_provider</cite>. This is important, because only</p></li>
+</ul>
+<p>in this case the ProvidedIdToken including the contract certificate is actually received by the Auth module.
+* Make sure the OCPP module is configured as the single <cite>token_validator</cite>.</p>
+</section>
+<section id="evsesecurity">
+<h3>EvseSecurity<a class="headerlink" href="#evsesecurity" title="Permalink to this heading">¶</a></h3>
+<p>Please refer to <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/modules/EvseSecurity/doc.rst">Documentation of the EvseSecurity module</a>
+for information on the ISO15118 configuration.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01_framework.html">1. EVerest framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">6. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">7. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">8. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">10. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">11. EVerest Reference</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/general/07_configure_plug_and_charge.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Configure Plug&amp;Charge</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    </div>
+  </body>
+</html>

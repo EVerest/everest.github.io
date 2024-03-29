@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bank Card Payment &#8212; EVerest  documentation</title>
+    <title>6. Bank Card Payment &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
@@ -14,7 +14,9 @@
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Configure Plug&amp;Charge" href="07_configure_plug_and_charge.html" />
+    <link rel="prev" title="5.2.7. YetiDriver" href="../_included/modules_doc/YetiDriver.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -22,8 +24,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="07_configure_plug_and_charge.html" title="7. Configure Plug&amp;Charge"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../_included/modules_doc/YetiDriver.html" title="5.2.7. YetiDriver"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Bank Card Payment</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6. </span>Bank Card Payment</a></li> 
       </ul>
     </div>  
 
@@ -33,14 +41,14 @@
           <div class="body" role="main">
             
   <section id="bank-card-payment">
-<span id="bank-transaction-main"></span><h1>Bank Card Payment<a class="headerlink" href="#bank-card-payment" title="Permalink to this heading">¶</a></h1>
+<span id="bank-transaction-main"></span><h1><span class="section-number">6. </span>Bank Card Payment<a class="headerlink" href="#bank-card-payment" title="Permalink to this heading">¶</a></h1>
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">6.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">¶</a></h2>
 <p>Provide types and interfaces for payment terminals</p>
 <section id="supported-use-cases">
-<h3>Supported use cases<a class="headerlink" href="#supported-use-cases" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">6.1.1. </span>Supported use cases<a class="headerlink" href="#supported-use-cases" title="Permalink to this heading">¶</a></h3>
 <section id="normal-flow">
-<h4>Normal flow<a class="headerlink" href="#normal-flow" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">6.1.1.1. </span>Normal flow<a class="headerlink" href="#normal-flow" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Payment made with credit card.</p></li>
 <li><p>Normal (few hours) charging session happens.</p></li>
@@ -50,7 +58,7 @@ transaction and sends it to the backend</p></li>
 </ul>
 </section>
 <section id="interrupted-charging">
-<h4>Interrupted charging<a class="headerlink" href="#interrupted-charging" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">6.1.1.2. </span>Interrupted charging<a class="headerlink" href="#interrupted-charging" title="Permalink to this heading">¶</a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is not yet represented in the interfaces.</p>
@@ -63,7 +71,7 @@ to the backend as well?)</p></li>
 </ul>
 </section>
 <section id="too-expensive-session">
-<h4>Too expensive session<a class="headerlink" href="#too-expensive-session" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">6.1.1.3. </span>Too expensive session<a class="headerlink" href="#too-expensive-session" title="Permalink to this heading">¶</a></h4>
 <p>Depending on the bank/terminal, there could be a limit on maximum transaction
 amount. (E.g. if the flow is: reserve some amount, once transaction finished,
 do a partial return).</p>
@@ -79,16 +87,16 @@ it tells the EvseManager to stop the session. The session is finished and
 committed as usual after that.</p>
 </section>
 <section id="too-long-session">
-<h4>Too long session<a class="headerlink" href="#too-long-session" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">6.1.1.4. </span>Too long session<a class="headerlink" href="#too-long-session" title="Permalink to this heading">¶</a></h4>
 <p>Depending on the bank, the reservation shouldn’t be held for more than a few
 days. And similar to the previous case, the session should be interrupted if
 transaction time is at the maximum limit.</p>
 </section>
 </section>
 <section id="solution">
-<h3>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">6.1.2. </span>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">¶</a></h3>
 <section id="introduce-new-interfaces">
-<h4>Introduce new interfaces<a class="headerlink" href="#introduce-new-interfaces" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">6.1.2.1. </span>Introduce new interfaces<a class="headerlink" href="#introduce-new-interfaces" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">session_cost_calculator</span></code>: This interface publishes a variable with the
 session cost for the corresponding EVSE manager. The module that implements
@@ -104,7 +112,7 @@ by the payment terminal module. It provides accounting information.</p></li>
 </ul>
 </section>
 <section id="how-does-it-work">
-<h4>How does it work<a class="headerlink" href="#how-does-it-work" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">6.1.2.2. </span>How does it work<a class="headerlink" href="#how-does-it-work" title="Permalink to this heading">¶</a></h4>
 <p>Modules are connected as shown in the diagram below.</p>
 <img alt="../_images/06_01_bank_card_modules_connections.jpg" src="../_images/06_01_bank_card_modules_connections.jpg" />
 <p>Typical communication will look like:</p>
@@ -140,20 +148,35 @@ validators can be used for that.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../index.html">Table of Contents</a></h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="01_framework.html">1. EVerest framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_existing_modules.html">5. EVerest Module Configurations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">6. EVerest development tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">7. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">8. Frequently Asked Questions And Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">9. Pionix BelayBox</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">10. Snapshot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">11. EVerest Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Bank Card Payment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#objectives">6.1. Objectives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
 </ul>
 
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../_included/modules_doc/YetiDriver.html"
+                          title="previous chapter"><span class="section-number">5.2.7. </span>YetiDriver</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="07_configure_plug_and_charge.html"
+                          title="next chapter"><span class="section-number">7. </span>Configure Plug&amp;Charge</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -187,8 +210,14 @@ validators can be used for that.</p>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="07_configure_plug_and_charge.html" title="7. Configure Plug&amp;Charge"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../_included/modules_doc/YetiDriver.html" title="5.2.7. YetiDriver"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Bank Card Payment</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">6. </span>Bank Card Payment</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

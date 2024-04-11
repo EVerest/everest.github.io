@@ -8,6 +8,56 @@ ocpp
 
 OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201, as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.
 
+.. _ocpp-ChargingSchedulePeriod:
+
+| **ChargingSchedulePeriod**:*object* 
+|  Element providing information on a charging schedule period.
+|  properties:
+|   **start_period**:*integer* <required>
+|    
+|   **limit**:*number* <required>
+|    
+|   **number_phases**:*integer* <optional>
+|    
+|   **stack_level**:*integer* <required>
+|    
+
+.. _ocpp-ChargingSchedule:
+
+| **ChargingSchedule**:*object* 
+|  Element providing information on an OCPP charging schedule.
+|  properties:
+|   **evse**:*integer* <optional>
+|    The OCPP 2.0.1 EVSE ID (not used in OCPP 1.6).
+|   **connector**:*integer* <required>
+|    
+|   **charging_rate_unit**:*string* <required>
+|    
+|   **charging_schedule_period**:*array* <required>
+|    
+|    **array_item**:*object*  (:ref:`ocpp-ChargingSchedulePeriod <ocpp-ChargingSchedulePeriod>`)
+|     schedule periods
+|     **There is an extended definition for this object** :ref:`here <ocpp-ChargingSchedulePeriod>`.
+| 
+|   **duration**:*integer* <optional>
+|    
+|   **start_schedule**:*string* <optional>
+|    
+|   **min_charging_rate**:*number* <optional>
+|    
+
+.. _ocpp-ChargingSchedules:
+
+| **ChargingSchedules**:*object* 
+|  schedules for connectors
+|  properties:
+|   **schedules**:*array* <required>
+|    array of schedules
+|    **array_item**:*object*  (:ref:`ocpp-ChargingSchedule <ocpp-ChargingSchedule>`)
+|     schedule for a connector
+|     **There is an extended definition for this object** :ref:`here <ocpp-ChargingSchedule>`.
+| 
+
 .. _ocpp-OcppTransactionEvent:
 
 | **OcppTransactionEvent**:*object* 

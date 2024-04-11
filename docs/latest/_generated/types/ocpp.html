@@ -45,6 +45,75 @@
   <section id="ocpp">
 <span id="everest-types-ocpp"></span><h1><span class="section-number">13.3.14. </span>ocpp<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
 <p>OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201, as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.</p>
+<div class="line-block" id="ocpp-chargingscheduleperiod">
+<div class="line"><strong>ChargingSchedulePeriod</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Element providing information on a charging schedule period.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>start_period</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>number_phases</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>stack_level</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-chargingschedule">
+<div class="line"><strong>ChargingSchedule</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Element providing information on an OCPP charging schedule.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The OCPP 2.0.1 EVSE ID (not used in OCPP 1.6).</div>
+</div>
+<div class="line"><strong>connector</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>charging_rate_unit</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>charging_schedule_period</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#ocpp-chargingscheduleperiod"><span class="std std-ref">ocpp-ChargingSchedulePeriod</span></a>)</div>
+<div class="line-block">
+<div class="line">schedule periods</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-chargingscheduleperiod"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>duration</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>start_schedule</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>min_charging_rate</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-chargingschedules">
+<div class="line"><strong>ChargingSchedules</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">schedules for connectors</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>schedules</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">array of schedules</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#ocpp-chargingschedule"><span class="std std-ref">ocpp-ChargingSchedule</span></a>)</div>
+<div class="line-block">
+<div class="line">schedule for a connector</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-chargingschedule"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="ocpp-ocpptransactionevent">
 <div class="line"><strong>OcppTransactionEvent</strong>:<em>object</em></div>
 <div class="line-block">

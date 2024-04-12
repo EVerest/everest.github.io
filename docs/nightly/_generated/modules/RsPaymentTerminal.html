@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13.1.33. System &#8212; EVerest  documentation</title>
+    <title>13.1.29. RsPaymentTerminal &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.34. YetiDriver" href="YetiDriver.html" />
-    <link rel="prev" title="13.1.32. Store" href="Store.html" /> 
+    <link rel="next" title="13.1.30. SerialCommHub" href="SerialCommHub.html" />
+    <link rel="prev" title="13.1.28. RsIskraMeter" href="RsIskraMeter.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="YetiDriver.html" title="13.1.34. YetiDriver"
+          <a href="SerialCommHub.html" title="13.1.30. SerialCommHub"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Store.html" title="13.1.32. Store"
+          <a href="RsIskraMeter.html" title="13.1.28. RsIskraMeter"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>System</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.29. </span>RsPaymentTerminal</a></li> 
       </ul>
     </div>  
 
@@ -42,45 +42,87 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="system">
-<span id="everest-modules-system"></span><h1><span class="section-number">13.1.33. </span>System<a class="headerlink" href="#system" title="Permalink to this heading">¶</a></h1>
+  <section id="rspaymentterminal">
+<span id="everest-modules-rspaymentterminal"></span><h1><span class="section-number">13.1.29. </span>RsPaymentTerminal<a class="headerlink" href="#rspaymentterminal" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This module implements system wide operations</div>
+<div class="line">Payment terminal module for Feig devices.</div>
 </div>
 <section id="module-configuration">
-<h2><span class="section-number">13.1.33.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.29.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>DefaultRetries</strong>:<em>number</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 1</em></div>
+<div class="line"><strong>ip</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Specifies how many times Charge Point tries to upload or download files on previous failure.</div>
+<div class="line">IP Address of Feig terminal, like “192.168.0.1”</div>
 </div>
-<div class="line"><strong>DefaultRetryInterval</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><strong>feig_serial</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Serial of Feig terminal. Typically a seven characters long string like “ABCD123”.</div>
+</div>
+<div class="line"><strong>terminal_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Payment terminal ID.</div>
+</div>
+<div class="line"><strong>currency</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 978</em></div>
+<div class="line-block">
+<div class="line">Currency in ISO 4217 format.</div>
+</div>
+<div class="line"><strong>pre_authorization_amount</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2500</em></div>
+<div class="line-block">
+<div class="line">Pre authentication amount in Cents.</div>
+</div>
+<div class="line"><strong>read_card_timeout</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">The time (is seconds) to wait for a card to be read.</div>
+</div>
+<div class="line"><strong>read_card_debounce</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">The debounce time (in seconds) after a successful card reading. The parameter prevents re-reading the same card.</div>
+</div>
+<div class="line"><strong>transactions_max_num</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 1</em></div>
 <div class="line-block">
-<div class="line">Specifies in seconds after which time a retry of an upload or download on previous failure may be attempted.</div>
+<div class="line">The maximum number of concurrent transactions. The Feig terminal will reject a transaction if it would exceed the maximum number of concurrent transactions - in this case you need to finish a transaction to allow a new one.</div>
+</div>
+<div class="line"><strong>password</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Password for the Feig terminal.</div>
 </div>
 </div>
 </section>
 <section id="provides">
-<h2><span class="section-number">13.1.33.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.29.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/system.html#everest-interfaces-system"><span class="std std-ref">system</span></a></div>
+<div class="line"><strong>token_provider</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
 <div class="line-block">
-<div class="line">Implements the system interface</div>
+<div class="line">Provides an authentication token from the Feig terminal.</div>
 </div>
+<div class="line"><strong>bank_transaction_summary</strong>:<a class="reference internal" href="../interfaces/bank_transaction_summary_provider.html#everest-interfaces-bank-transaction-summary-provider"><span class="std std-ref">bank_transaction_summary_provider</span></a></div>
+<div class="line-block">
+<div class="line">Provides details of an already processed payment</div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">13.1.29.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>session</strong>:<a class="reference internal" href="../interfaces/session_cost.html#everest-interfaces-session-cost"><span class="std std-ref">session_cost</span></a> 1</div>
+<div class="line"><strong>bank_session_token</strong>:<a class="reference internal" href="../interfaces/bank_session_token_provider.html#everest-interfaces-bank-session-token-provider"><span class="std std-ref">bank_session_token_provider</span></a> 1</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.33.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.29.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.33.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.29.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Piet Gömpel</div>
+<div class="line"><a class="reference external" href="mailto:embedded-team&#37;&#52;&#48;qwello&#46;eu">embedded-team<span>&#64;</span>qwello<span>&#46;</span>eu</a></div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.33.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.29.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -119,18 +161,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="Store.html"
-                          title="previous chapter"><span class="section-number">13.1.32. </span>Store</a></p>
+    <p class="topless"><a href="RsIskraMeter.html"
+                          title="previous chapter"><span class="section-number">13.1.28. </span>RsIskraMeter</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="YetiDriver.html"
-                          title="next chapter"><span class="section-number">13.1.34. </span>YetiDriver</a></p>
+    <p class="topless"><a href="SerialCommHub.html"
+                          title="next chapter"><span class="section-number">13.1.30. </span>SerialCommHub</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/System.rst.txt"
+      <li><a href="../../_sources/_generated/modules/RsPaymentTerminal.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -161,15 +203,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="YetiDriver.html" title="13.1.34. YetiDriver"
+          <a href="SerialCommHub.html" title="13.1.30. SerialCommHub"
              >next</a> |</li>
         <li class="right" >
-          <a href="Store.html" title="13.1.32. Store"
+          <a href="RsIskraMeter.html" title="13.1.28. RsIskraMeter"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>System</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.29. </span>RsPaymentTerminal</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

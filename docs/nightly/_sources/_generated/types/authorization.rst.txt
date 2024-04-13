@@ -46,6 +46,16 @@ Auth token validator types
 |    - Accepted
 |    - Rejected
 
+.. _authorization-CustomIdToken:
+
+| **CustomIdToken**:*object* 
+|  Type for a custom id token with a free-form type
+|  properties:
+|   **value**:*string* <required>
+|    Arbitrary value of the IdToken
+|   **type**:*string* <required>
+|    Custom type of the token
+
 .. _authorization-IdToken:
 
 | **IdToken**:*object* 
@@ -56,6 +66,12 @@ Auth token validator types
 |   **type**:*string* <required> (:ref:`authorization-IdTokenType <authorization-IdTokenType>`)
 |    Type of the token
 |    **There is an extended definition for this object** :ref:`here <authorization-IdTokenType>`.
+|   **additional_info**:*array* <optional>
+|    A list of additional custom id tokens than can be used for providing additional information for validation
+|    **array_item**:*object*  (:ref:`authorization-CustomIdToken <authorization-CustomIdToken>`)
+|     
+|     **There is an extended definition for this object** :ref:`here <authorization-CustomIdToken>`.
+| 
 
 .. _authorization-ProvidedIdToken:
 

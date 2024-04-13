@@ -156,6 +156,8 @@
 <div class="line-block">
 <div class="line">Session Event enum</div>
 <div class="line-block">
+<div class="line">Authorized: Signaled when the EVSE is authorized for charging</div>
+<div class="line">Deauthorized: Signaled when the EVSE is not authorized for charging (anymore)</div>
 <div class="line">Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)</div>
 <div class="line">Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)</div>
 <div class="line">SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)</div>
@@ -181,6 +183,8 @@
 </div>
 <div class="line">enum:</div>
 <div class="line-block">
+<div class="line">- Authorized</div>
+<div class="line">- Deauthorized</div>
 <div class="line">- Enabled</div>
 <div class="line">- Disabled</div>
 <div class="line">- SessionStarted</div>
@@ -215,33 +219,33 @@
 <div class="line">Data for the SessionStarted event</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Session start time in RFC3339 format</div>
-<div class="line">format:date-time</div>
-</div>
 <div class="line"><strong>reason</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#evse-manager-startsessionreason"><span class="std std-ref">evse_manager-StartSessionReason</span></a>)</div>
 <div class="line-block">
 <div class="line">Reason for session start</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-startsessionreason"><span class="std std-ref">here</span></a>.</div>
 </div>
+<div class="line"><strong>id_tag</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
+<div class="line-block">
+<div class="line">The id tag assigned to this session</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>meter_value</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line-block">
+<div class="line">Exported meter value</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>signed_meter_value</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="units_signed.html#units-signed-signedmetervalue"><span class="std std-ref">units_signed-SignedMeterValue</span></a>)</div>
+<div class="line-block">
+<div class="line">The signed meter value report of the started session</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units_signed.html#units-signed-signedmetervalue"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>reservation_id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Id of the reservation</div>
+</div>
 <div class="line"><strong>logging_path</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with “incomplete-” when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.</div>
-</div>
-</div>
-</div>
-</div>
-<div class="line-block" id="evse-manager-sessionfinished">
-<div class="line"><strong>SessionFinished</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Data for the SessionFinished event</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Session start time in RFC3339 format</div>
-<div class="line">format:date-time</div>
 </div>
 </div>
 </div>
@@ -252,11 +256,6 @@
 <div class="line">Data for the TransactionStarted event</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Transaction start time in RFC3339 format</div>
-<div class="line">format:date-time</div>
-</div>
 <div class="line"><strong>id_tag</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
 <div class="line-block">
 <div class="line">The id tag assigned to this transaction</div>
@@ -264,7 +263,7 @@
 </div>
 <div class="line"><strong>meter_value</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
-<div class="line">Transaction start exported meter value</div>
+<div class="line">Exported meter value</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>signed_meter_value</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="units_signed.html#units-signed-signedmetervalue"><span class="std std-ref">units_signed-SignedMeterValue</span></a>)</div>
@@ -285,11 +284,6 @@
 <div class="line">Data for TransactionFinished event</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Transaction end time in RFC3339 format</div>
-<div class="line">format:date-time</div>
-</div>
 <div class="line"><strong>meter_value</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
 <div class="line-block">
 <div class="line">Transaction finished meter value</div>
@@ -314,6 +308,34 @@
 <div class="line-block">
 <div class="line">Id tag that was used to stop the transaction. Only present if transaction was stopped locally.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-chargingstatechangedevent">
+<div class="line"><strong>ChargingStateChangedEvent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Context for ChargingStateChanged event</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>meter_value</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line-block">
+<div class="line">Exported meter value</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-authorizationevent">
+<div class="line"><strong>AuthorizationEvent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Context for authorization event (Authorized or Deauthorized)</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>meter_value</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">powermeter-Powermeter</span></a>)</div>
+<div class="line-block">
+<div class="line">Exported meter value</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -403,6 +425,11 @@
 <div class="line-block">
 <div class="line">An EVSE generated UUID for this session, can be used e.g. for database storage.</div>
 </div>
+<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Session start time in RFC3339 format</div>
+<div class="line">format:date-time</div>
+</div>
 <div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Id of the connector of this EVSE.  If the connector_id is not specified, its assumed to be 1</div>
@@ -417,11 +444,6 @@
 <div class="line">data for SessionStarted event</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionstarted"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>session_finished</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-sessionfinished"><span class="std std-ref">evse_manager-SessionFinished</span></a>)</div>
-<div class="line-block">
-<div class="line">data for the SessionFinished event</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-sessionfinished"><span class="std std-ref">here</span></a>.</div>
-</div>
 <div class="line"><strong>transaction_started</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-transactionstarted"><span class="std std-ref">evse_manager-TransactionStarted</span></a>)</div>
 <div class="line-block">
 <div class="line">data for TransactionStarted event</div>
@@ -431,6 +453,16 @@
 <div class="line-block">
 <div class="line">data for TransactionFinished event that happens when car is plugged out</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-transactionfinished"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>charging_state_changed_event</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-chargingstatechangedevent"><span class="std std-ref">evse_manager-ChargingStateChangedEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums:  ChargingStarted, ChargingResumed, ChargingPausedEV, Charging</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-chargingstatechangedevent"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>authorization_event</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-authorizationevent"><span class="std std-ref">evse_manager-AuthorizationEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">Data for Authorization event. Shall be set for the following SessionEventEnums:  Authorized, Deauthorized</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-authorizationevent"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>error</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-error"><span class="std std-ref">evse_manager-Error</span></a>)</div>
 <div class="line-block">

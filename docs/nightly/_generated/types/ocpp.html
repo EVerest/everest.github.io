@@ -45,6 +45,23 @@
   <section id="ocpp">
 <span id="everest-types-ocpp"></span><h1><span class="section-number">13.3.14. </span>ocpp<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
 <p>OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201, as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.</p>
+<div class="line-block" id="ocpp-customdata">
+<div class="line"><strong>CustomData</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Custom data extension</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>vendor_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Vendor Id to identify the customization, this is also included in the data field and only reproduced for convenience</div>
+</div>
+<div class="line"><strong>data</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Custom json data object encoded as string</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="ocpp-chargingscheduleperiod">
 <div class="line"><strong>ChargingSchedulePeriod</strong>:<em>object</em></div>
 <div class="line-block">
@@ -156,6 +173,64 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="ocpp-messagecontent">
+<div class="line"><strong>MessageContent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Contains message details</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>format</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#ocpp-messageformat"><span class="std std-ref">ocpp-MessageFormat</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-messageformat"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>language</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>content</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-messageformat">
+<div class="line"><strong>MessageFormat</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Format of the message to be displayed</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ASCII</div>
+<div class="line">- HTML</div>
+<div class="line">- URI</div>
+<div class="line">- UTF8</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-ocpptransactioneventresponse">
+<div class="line"><strong>OcppTransactionEventResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Information that can be returned with a OCPP TransactionEventResponse</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>original_transaction_event</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#ocpp-ocpptransactionevent"><span class="std std-ref">ocpp-OcppTransactionEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">The original transaction event that promted this response</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-ocpptransactionevent"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>total_cost</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Running or total cost</div>
+</div>
+<div class="line"><strong>charging_priority</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Priority from -9 to 9 for smart charging, higher values mean higher priority</div>
+</div>
+<div class="line"><strong>personal_message</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#ocpp-messagecontent"><span class="std std-ref">ocpp-MessageContent</span></a>)</div>
+<div class="line-block">
+<div class="line">Personal message</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-messagecontent"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="ocpp-datatransferstatus">
 <div class="line"><strong>DataTransferStatus</strong>:<em>string</em></div>
 <div class="line-block">
@@ -187,6 +262,11 @@
 <div class="line-block">
 <div class="line">Data provided by this data transfer</div>
 </div>
+<div class="line"><strong>custom_data</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#ocpp-customdata"><span class="std std-ref">ocpp-CustomData</span></a>)</div>
+<div class="line-block">
+<div class="line">Custom data extension</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-customdata"><span class="std std-ref">here</span></a>.</div>
+</div>
 </div>
 </div>
 </div>
@@ -204,6 +284,11 @@
 <div class="line"><strong>data</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Data provided by this data transfer</div>
+</div>
+<div class="line"><strong>custom_data</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#ocpp-customdata"><span class="std std-ref">ocpp-CustomData</span></a>)</div>
+<div class="line-block">
+<div class="line">Custom data extension</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-customdata"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

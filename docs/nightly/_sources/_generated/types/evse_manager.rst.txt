@@ -96,6 +96,8 @@ EVSE manager types
 
 | **SessionEventEnum**:*string* 
 |  Session Event enum
+|   Authorized: Signaled when the EVSE is authorized for charging
+|   Deauthorized: Signaled when the EVSE is not authorized for charging (anymore)
 |   Enabled: Signaled when the EVSE is enabled (e.g. after an enable command)
 |   Disabled: Signaled when the EVSE is disabled (e.g. after a disable command)
 |   SessionStarted: Signaled when a session has been started. A session has been started either when an EV is plugged in or the user has been authorized to start a transaction (e.g. after an authorize command)
@@ -119,6 +121,8 @@ EVSE manager types
 |   ReplugFinished: Signaled when the virtual replug process has finished
 |   PluginTimeout: Signaled when an EV has been Plugged in but no authorization is present within specified ConnectionTimeout
 |  enum:
+|    - Authorized
+|    - Deauthorized
 |    - Enabled
 |    - Disabled
 |    - SessionStarted
@@ -150,37 +154,33 @@ EVSE manager types
 | **SessionStarted**:*object* 
 |  Data for the SessionStarted event
 |  properties:
-|   **timestamp**:*string* <required>
-|    Session start time in RFC3339 format
-|    format:date-time
 |   **reason**:*string* <required> (:ref:`evse_manager-StartSessionReason <evse_manager-StartSessionReason>`)
 |    Reason for session start
 |    **There is an extended definition for this object** :ref:`here <evse_manager-StartSessionReason>`.
+|   **id_tag**:*object* <optional> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
+|    The id tag assigned to this session
+|    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
+|   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Exported meter value
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
+|   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    The signed meter value report of the started session
+|    **There is an extended definition for this object** :ref:`here <units_signed-SignedMeterValue>`.
+|   **reservation_id**:*integer* <optional>
+|    Id of the reservation
 |   **logging_path**:*string* <optional>
 |    File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with "incomplete-" when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.
-
-.. _evse_manager-SessionFinished:
-
-| **SessionFinished**:*object* 
-|  Data for the SessionFinished event
-|  properties:
-|   **timestamp**:*string* <required>
-|    Session start time in RFC3339 format
-|    format:date-time
 
 .. _evse_manager-TransactionStarted:
 
 | **TransactionStarted**:*object* 
 |  Data for the TransactionStarted event
 |  properties:
-|   **timestamp**:*string* <required>
-|    Transaction start time in RFC3339 format
-|    format:date-time
 |   **id_tag**:*object* <required> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    The id tag assigned to this transaction
 |    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
 |   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
-|    Transaction start exported meter value
+|    Exported meter value
 |    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 |   **signed_meter_value**:*object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
 |    The signed meter value report of the started transaction
@@ -193,9 +193,6 @@ EVSE manager types
 | **TransactionFinished**:*object* 
 |  Data for TransactionFinished event
 |  properties:
-|   **timestamp**:*string* <required>
-|    Transaction end time in RFC3339 format
-|    format:date-time
 |   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
 |    Transaction finished meter value
 |    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
@@ -211,6 +208,24 @@ EVSE manager types
 |   **id_tag**:*object* <optional> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
 |    Id tag that was used to stop the transaction. Only present if transaction was stopped locally.
 |    **There is an extended definition for this object** :ref:`here <authorization-ProvidedIdToken>`.
+
+.. _evse_manager-ChargingStateChangedEvent:
+
+| **ChargingStateChangedEvent**:*object* 
+|  Context for ChargingStateChanged event
+|  properties:
+|   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Exported meter value
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
+
+.. _evse_manager-AuthorizationEvent:
+
+| **AuthorizationEvent**:*object* 
+|  Context for authorization event (Authorized or Deauthorized)
+|  properties:
+|   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Exported meter value
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 
 .. _evse_manager-ErrorEnum:
 
@@ -278,6 +293,9 @@ EVSE manager types
 |  properties:
 |   **uuid**:*string* <required>
 |    An EVSE generated UUID for this session, can be used e.g. for database storage.
+|   **timestamp**:*string* <required>
+|    Session start time in RFC3339 format
+|    format:date-time
 |   **connector_id**:*integer* <optional>
 |    Id of the connector of this EVSE.  If the connector_id is not specified, its assumed to be 1
 |   **event**:*string* <required> (:ref:`evse_manager-SessionEventEnum <evse_manager-SessionEventEnum>`)
@@ -286,15 +304,18 @@ EVSE manager types
 |   **session_started**:*object* <optional> (:ref:`evse_manager-SessionStarted <evse_manager-SessionStarted>`)
 |    data for SessionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionStarted>`.
-|   **session_finished**:*object* <optional> (:ref:`evse_manager-SessionFinished <evse_manager-SessionFinished>`)
-|    data for the SessionFinished event
-|    **There is an extended definition for this object** :ref:`here <evse_manager-SessionFinished>`.
 |   **transaction_started**:*object* <optional> (:ref:`evse_manager-TransactionStarted <evse_manager-TransactionStarted>`)
 |    data for TransactionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionStarted>`.
 |   **transaction_finished**:*object* <optional> (:ref:`evse_manager-TransactionFinished <evse_manager-TransactionFinished>`)
 |    data for TransactionFinished event that happens when car is plugged out
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionFinished>`.
+|   **charging_state_changed_event**:*object* <optional> (:ref:`evse_manager-ChargingStateChangedEvent <evse_manager-ChargingStateChangedEvent>`)
+|    Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums:  ChargingStarted, ChargingResumed, ChargingPausedEV, Charging
+|    **There is an extended definition for this object** :ref:`here <evse_manager-ChargingStateChangedEvent>`.
+|   **authorization_event**:*object* <optional> (:ref:`evse_manager-AuthorizationEvent <evse_manager-AuthorizationEvent>`)
+|    Data for Authorization event. Shall be set for the following SessionEventEnums:  Authorized, Deauthorized
+|    **There is an extended definition for this object** :ref:`here <evse_manager-AuthorizationEvent>`.
 |   **error**:*object* <optional> (:ref:`evse_manager-Error <evse_manager-Error>`)
 |    Details on error type
 |    **There is an extended definition for this object** :ref:`here <evse_manager-Error>`.

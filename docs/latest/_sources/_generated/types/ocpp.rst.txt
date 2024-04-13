@@ -8,6 +8,16 @@ ocpp
 
 OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definitions of OCPP201, as these offer more flexibility and are easier to transfer to OCPP1.6 than vice versa.
 
+.. _ocpp-CustomData:
+
+| **CustomData**:*object* 
+|  Custom data extension
+|  properties:
+|   **vendor_id**:*string* <required>
+|    Vendor Id to identify the customization, this is also included in the data field and only reproduced for convenience
+|   **data**:*string* <required>
+|    Custom json data object encoded as string
+
 .. _ocpp-ChargingSchedulePeriod:
 
 | **ChargingSchedulePeriod**:*object* 
@@ -84,6 +94,45 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    - Updated
 |    - Ended
 
+.. _ocpp-MessageContent:
+
+| **MessageContent**:*object* 
+|  Contains message details
+|  properties:
+|   **format**:*string* <required> (:ref:`ocpp-MessageFormat <ocpp-MessageFormat>`)
+|    
+|    **There is an extended definition for this object** :ref:`here <ocpp-MessageFormat>`.
+|   **language**:*string* <optional>
+|    
+|   **content**:*string* <required>
+|    
+
+.. _ocpp-MessageFormat:
+
+| **MessageFormat**:*string* 
+|  Format of the message to be displayed
+|  enum:
+|    - ASCII
+|    - HTML
+|    - URI
+|    - UTF8
+
+.. _ocpp-OcppTransactionEventResponse:
+
+| **OcppTransactionEventResponse**:*object* 
+|  Information that can be returned with a OCPP TransactionEventResponse
+|  properties:
+|   **original_transaction_event**:*object* <required> (:ref:`ocpp-OcppTransactionEvent <ocpp-OcppTransactionEvent>`)
+|    The original transaction event that promted this response
+|    **There is an extended definition for this object** :ref:`here <ocpp-OcppTransactionEvent>`.
+|   **total_cost**:*number* <optional>
+|    Running or total cost
+|   **charging_priority**:*integer* <optional>
+|    Priority from -9 to 9 for smart charging, higher values mean higher priority
+|   **personal_message**:*object* <optional> (:ref:`ocpp-MessageContent <ocpp-MessageContent>`)
+|    Personal message
+|    **There is an extended definition for this object** :ref:`here <ocpp-MessageContent>`.
+
 .. _ocpp-DataTransferStatus:
 
 | **DataTransferStatus**:*string* 
@@ -105,6 +154,9 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    Identifies the message
 |   **data**:*string* <optional>
 |    Data provided by this data transfer
+|   **custom_data**:*object* <optional> (:ref:`ocpp-CustomData <ocpp-CustomData>`)
+|    Custom data extension
+|    **There is an extended definition for this object** :ref:`here <ocpp-CustomData>`.
 
 .. _ocpp-DataTransferResponse:
 
@@ -116,6 +168,9 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    **There is an extended definition for this object** :ref:`here <ocpp-DataTransferStatus>`.
 |   **data**:*string* <optional>
 |    Data provided by this data transfer
+|   **custom_data**:*object* <optional> (:ref:`ocpp-CustomData <ocpp-CustomData>`)
+|    Custom data extension
+|    **There is an extended definition for this object** :ref:`here <ocpp-CustomData>`.
 
 .. _ocpp-KeyValue:
 

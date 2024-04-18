@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13.3.25. yeti &#8212; EVerest  documentation</title>
+    <title>13.2.17. ev_board_support &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,7 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="13.3.24. units_signed" href="units_signed.html" /> 
+    <link rel="next" title="13.2.18. ev_slac" href="ev_slac.html" />
+    <link rel="prev" title="13.2.16. error_history" href="error_history.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -24,12 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="units_signed.html" title="13.3.24. units_signed"
+          <a href="ev_slac.html" title="13.2.18. ev_slac"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="error_history.html" title="13.2.16. error_history"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.25. </span>yeti</a></li> 
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.17. </span>ev_board_support</a></li> 
       </ul>
     </div>  
 
@@ -38,53 +42,88 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="yeti">
-<span id="everest-types-yeti"></span><h1><span class="section-number">13.3.25. </span>yeti<a class="headerlink" href="#yeti" title="Permalink to this heading">¶</a></h1>
-<p>Yeti types</p>
-<div class="line-block" id="yeti-simulationdata">
-<div class="line"><strong>SimulationData</strong>:<em>object</em></div>
+  <section id="ev-board-support">
+<span id="everest-interfaces-ev-board-support"></span><h1><span class="section-number">13.2.17. </span>ev_board_support<a class="headerlink" href="#ev-board-support" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">simulation data</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>cp_voltage</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">CP Voltage level [V]</div>
+<div class="line">This defines the board support package for the EV side</div>
 </div>
-<div class="line"><strong>pp_resistor</strong>:<em>number</em> &lt;required&gt;</div>
+<section id="variables">
+<h2><span class="section-number">13.2.17.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line">PP resistor value [Ohm]</div>
+<div class="line"><strong>bsp_event</strong>:<em>object</em>  (<a class="reference internal" href="../types/board_support_common.html#board-support-common-bspevent"><span class="std std-ref">board_support_common-BspEvent</span></a>)</div>
+<div class="line-block">
+<div class="line">Events from CP/Relais</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support_common.html#board-support-common-bspevent"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>rcd_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>bsp_measurement</strong>:<em>object</em>  (<a class="reference internal" href="../types/board_support_common.html#board-support-common-bspmeasurement"><span class="std std-ref">board_support_common-BspMeasurement</span></a>)</div>
+<div class="line-block">
+<div class="line">BSP Measurements</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support_common.html#board-support-common-bspmeasurement"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</section>
+<section id="commands">
+<h2><span class="section-number">13.2.17.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>enable</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Enable/disable the simulation</div>
+<div class="line"><strong>value</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">true to enable, false to disable</div>
+</div>
+</div>
+<div class="line"><strong>set_cp_state</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Sets the CP State that should be set by the EV board support driver (controlled by S2)</div>
+<div class="line"><strong>cp_state</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/ev_board_support.html#ev-board-support-evcpstate"><span class="std std-ref">ev_board_support-EvCpState</span></a>)</div>
+<div class="line-block">
+<div class="line">The CP State</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/ev_board_support.html#ev-board-support-evcpstate"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>allow_power_on</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Sets allow_power_on flag. If false, contactor must never be switched on. Onyly for dc charging</div>
+<div class="line"><strong>value</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">True: allow power on, false: do not allow power on.</div>
+</div>
+</div>
+<div class="line"><strong>diode_fail</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Setting a diode failure</div>
+<div class="line"><strong>value</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">True: diode failure</div>
+</div>
+</div>
+<div class="line"><strong>set_ac_max_current</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Setting the max current requested from the ev</div>
+<div class="line"><strong>current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Max current requested from the ev</div>
+</div>
+</div>
+<div class="line"><strong>set_three_phases</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Setting three or one phase support</div>
+<div class="line"><strong>three_phases</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">True: Three phase support, False: One phase support</div>
+</div>
+</div>
+<div class="line"><strong>set_rcd_error</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Setting a rcd error. Only for simulation purpose.</div>
+<div class="line"><strong>rcd_current_mA</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">RCD current in mA</div>
 </div>
-<div class="line"><strong>diode_fail</strong>:<em>boolean</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Set to true to simulate a diode failure</div>
-</div>
-<div class="line"><strong>error_e</strong>:<em>boolean</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Set to true to simulate Error E (CP-PE short)</div>
-</div>
-<div class="line"><strong>currents</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-current"><span class="std std-ref">units-Current</span></a>)</div>
-<div class="line-block">
-<div class="line">Current in Ampere</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-current"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>voltages</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-voltage"><span class="std std-ref">units-Voltage</span></a>)</div>
-<div class="line-block">
-<div class="line">Voltage in Volt</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-voltage"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>frequencies</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-frequency"><span class="std std-ref">units-Frequency</span></a>)</div>
-<div class="line-block">
-<div class="line">Frequency in Hertz</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-frequency"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
-</div>
-</div>
+</section>
 </section>
 
 
@@ -110,21 +149,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
 </ul>
 </li>
 </ul>
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="units_signed.html"
-                          title="previous chapter"><span class="section-number">13.3.24. </span>units_signed</a></p>
+    <p class="topless"><a href="error_history.html"
+                          title="previous chapter"><span class="section-number">13.2.16. </span>error_history</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ev_slac.html"
+                          title="next chapter"><span class="section-number">13.2.18. </span>ev_slac</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/types/yeti.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/ev_board_support.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -155,12 +199,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="units_signed.html" title="13.3.24. units_signed"
+          <a href="ev_slac.html" title="13.2.18. ev_slac"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="error_history.html" title="13.2.16. error_history"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.25. </span>yeti</a></li> 
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.17. </span>ev_board_support</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

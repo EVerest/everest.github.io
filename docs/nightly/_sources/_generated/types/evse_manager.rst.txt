@@ -171,6 +171,15 @@ EVSE manager types
 |   **logging_path**:*string* <optional>
 |    File system path where additional log files are stored, such as event logs, raw ethernet dumps, ocpp session logs etc. Filenames should start with "incomplete-" when they are not finished yet, this allows other process to wait for the completion after the SessionFinished event.
 
+.. _evse_manager-SessionFinished:
+
+| **SessionFinished**:*object* 
+|  Data for the SessionFinished event
+|  properties:
+|   **meter_value**:*object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
+|    Exported meter value
+|    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
+
 .. _evse_manager-TransactionStarted:
 
 | **TransactionStarted**:*object* 
@@ -304,6 +313,9 @@ EVSE manager types
 |   **session_started**:*object* <optional> (:ref:`evse_manager-SessionStarted <evse_manager-SessionStarted>`)
 |    data for SessionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionStarted>`.
+|   **session_finished**:*object* <optional> (:ref:`evse_manager-SessionFinished <evse_manager-SessionFinished>`)
+|    data for the SessionFinished event
+|    **There is an extended definition for this object** :ref:`here <evse_manager-SessionFinished>`.
 |   **transaction_started**:*object* <optional> (:ref:`evse_manager-TransactionStarted <evse_manager-TransactionStarted>`)
 |    data for TransactionStarted event
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionStarted>`.

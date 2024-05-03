@@ -59,21 +59,38 @@
 <div class="line-block">
 <div class="line">OCPP transaction UUID</div>
 </div>
-<div class="line"><strong>client_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>identification_status</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#powermeter-ocmfuseridentificationstatus"><span class="std std-ref">powermeter-OCMFUserIdentificationStatus</span></a>)</div>
 <div class="line-block">
-<div class="line">User identification means, e.g. RFID card ID</div>
+<div class="line">OCMF Identification Status (IS): General status for user assignment</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#powermeter-ocmfuseridentificationstatus"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>tariff_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>identification_level</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#powermeter-ocmfidentificationlevel"><span class="std std-ref">powermeter-OCMFIdentificationLevel</span></a>)</div>
 <div class="line-block">
-<div class="line">Tariff ID</div>
+<div class="line">OCMF Identification Level (IL): Encoded overall status of the user assignment</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#powermeter-ocmfidentificationlevel"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>cable_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>identification_flags</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Cable ID</div>
+<div class="line">OCMF Identification Flags (IF): Detailed statements about the user assignment, represented by one or more identifiers</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="#powermeter-ocmfidentificationflags"><span class="std std-ref">powermeter-OCMFIdentificationFlags</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#powermeter-ocmfidentificationflags"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
-<div class="line"><strong>user_data</strong>:<em>string</em> &lt;required&gt;</div>
+</div>
+<div class="line"><strong>identification_type</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#powermeter-ocmfidentificationtype"><span class="std std-ref">powermeter-OCMFIdentificationType</span></a>)</div>
 <div class="line-block">
-<div class="line">User data</div>
+<div class="line">OCMF Identification Type (IT): Type of identification data</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#powermeter-ocmfidentificationtype"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>identification_data</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">OCMF Identification Data (ID): The actual identification data e.g. a hex-coded UID according to ISO 14443.</div>
+</div>
+<div class="line"><strong>tariff_text</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">A textual description used to identify a unique tariff.  This field is intended for the tariff designation in “Direct Payment” use case.</div>
 </div>
 </div>
 </div>
@@ -143,6 +160,89 @@
 <div class="line-block">
 <div class="line">If status is not OK, a verbose error message.</div>
 </div>
+</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-ocmfidentificationlevel">
+<div class="line"><strong>OCMFIdentificationLevel</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">NONE: There is no user assignment. The other data for user assignment have no significance. HEARSAY: The assignment is unsecured; e.g. by reading an RFID UID. TRUSTED: The mapping can be trusted to some extent, but there is no absolute reliability. Example: Authorization by backend. VERIFIED: The assignment has been verified by the signature component and special measures. CERTIFIED: The assignment was verified by the signature component using a cryptographic signature that certifies the assignment. SECURE: The mapping was established by a secure feature (e.g. secure RFID card, ISO 15118 with plug and charge, etc.). MISMATCH: Error; UIDs do not match. INVALID: Error; certificate not correct (check negative). OUTDATED: Error; referenced trust certificate expired. UNKNOWN: Certificate could not be successfully verified (no matching trust certificate found).</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NONE</div>
+<div class="line">- HEARSAY</div>
+<div class="line">- TRUSTED</div>
+<div class="line">- VERIFIED</div>
+<div class="line">- CERTIFIED</div>
+<div class="line">- SECURE</div>
+<div class="line">- MISMATCH</div>
+<div class="line">- INVALID</div>
+<div class="line">- OUTDATED</div>
+<div class="line">- UNKNOWN</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-ocmfidentificationflags">
+<div class="line"><strong>OCMFIdentificationFlags</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">RFID_NONE: No assignment via RFID RFID_PLAIN: Assignment via external RFID card reader RFID_RELATED: Assignment via protected RFID card reader RFID_PSK: A previously known shared key (pre-shared key) was used, e.g. with a secured RFID card. OCPP_NONE: No user assignment by OCPP OCPP_RS: Assignment by OCPP RemoteStart method OCPP_AUTH: Assignment by OCPP Authorize method OCPP_RS_TLS: Assignment by OCPP RemoteStart method, obtained via a secured TLS connection. OCPP_AUTH_TLS: Assignment by OCPP Authorize method, obtained via a secured TLS connection. OCPP_CACHE: Assignment by authorization cache of OCPP OCPP_WHITELIST: Assignment by whitelist from OCPP OCPP_CERTIFIED: A certificate of the backend was used which certifies the user mapping. ISO15118_NONE: no user assignment by ISO 15118 ISO15118_PNC: Plug &amp; Charge was used PLMN_NONE: no user assignment PLMN_RING: call PLMN_SMS: short message</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- RFID_NONE</div>
+<div class="line">- RFID_PLAIN</div>
+<div class="line">- RFID_RELATED</div>
+<div class="line">- RFID_PSK</div>
+<div class="line">- OCPP_NONE</div>
+<div class="line">- OCPP_RS</div>
+<div class="line">- OCPP_AUTH</div>
+<div class="line">- OCPP_RS_TLS</div>
+<div class="line">- OCPP_AUTH_TLS</div>
+<div class="line">- OCPP_CACHE</div>
+<div class="line">- OCPP_WHITELIST</div>
+<div class="line">- OCPP_CERTIFIED</div>
+<div class="line">- ISO15118_NONE</div>
+<div class="line">- ISO15118_PNC</div>
+<div class="line">- PLMN_NONE</div>
+<div class="line">- PLMN_RING</div>
+<div class="line">- PLMN_SMS</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-ocmfidentificationtype">
+<div class="line"><strong>OCMFIdentificationType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">NONE: No assignment available DENIED: Assignment currently not available (due to two-factor authorization) UNDEFINED: Type not specified ISO14443: UID of an RFID card according to ISO 14443. Represented as 4 or 7 bytes in hexadecimal notation. ISO15693: UID of an RFID card according to ISO 15693. Represented as 8 bytes in hexadecimal notation. EMAID: Electro-Mobility-Account-ID according to ISO/IEC 15118 (string with length 14 or 15) EVCCID: ID of an electric vehicle according to ISO/IEC 15118 (maximum length 6 characters) EVCOID: EV Contract ID according to DIN 91286. ISO7812: Identification card format according to ISO/IEC 7812 (credit and bank cards, etc.) CARD_TXN_NR: Card transaction number (CardTxNbr) for a payment with credit or bank card used in a terminal at the charging point. CENTRAL: Centrally generated ID. No exact format defined, can be e.g. a UUID. (OCPP 2.0) CENTRAL_1: Centrally generated ID, e.g. by start via SMS. No exact format defined. (until OCPP 1.6) CENTRAL_2: Centrally generated ID, e.g. by operator start. No exact format defined. (until OCPP 1.6) LOCAL: Locally generated ID. No exact format defined, might be e.g. a UUID. (OCPP 2.0) LOCAL_1: Locally generated ID, e.g. ID generated internally by the charge point. No exact format defined. (until OCPP 1.6) LOCAL_2: Locally generated ID, for other cases. No exact format defined. (until OCPP 1.6) PHONE_NUMBER: International phone number with leading “+”. KEY_CODE: User-related private key code. No exact format defined.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NONE</div>
+<div class="line">- DENIED</div>
+<div class="line">- UNDEFINED</div>
+<div class="line">- ISO14443</div>
+<div class="line">- ISO15693</div>
+<div class="line">- EMAID</div>
+<div class="line">- EVCCID</div>
+<div class="line">- EVCOID</div>
+<div class="line">- ISO7812</div>
+<div class="line">- CARD_TXN_NR</div>
+<div class="line">- CENTRAL</div>
+<div class="line">- CENTRAL_1</div>
+<div class="line">- CENTRAL_2</div>
+<div class="line">- LOCAL</div>
+<div class="line">- LOCAL_1</div>
+<div class="line">- LOCAL_2</div>
+<div class="line">- PHONE_NUMBER</div>
+<div class="line">- KEY_CODE</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="powermeter-ocmfuseridentificationstatus">
+<div class="line"><strong>OCMFUserIdentificationStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">General status for user assignment ASSIGNED: user successfully assigned NOT_ASSIGNED: user not assigned</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ASSIGNED</div>
+<div class="line">- NOT_ASSIGNED</div>
 </div>
 </div>
 </div>

@@ -490,3 +490,29 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |   **status_info**:*object* <optional> (:ref:`ocpp-StatusInfoType <ocpp-StatusInfoType>`)
 |    Detailed status information.
 |    **There is an extended definition for this object** :ref:`here <ocpp-StatusInfoType>`.
+
+.. _ocpp-RegistrationStatus:
+
+| **RegistrationStatus**:*string* 
+|  Indicates whether the Charging Station has been registered within the OCPP CSMS
+|  enum:
+|    - Accepted
+|    - Pending
+|    - Rejected
+
+.. _ocpp-BootNotificationResponse:
+
+| **BootNotificationResponse**:*object* 
+|  OCPP BootNotificationResponse
+|  properties:
+|   **status**:*string* <required> (:ref:`ocpp-RegistrationStatus <ocpp-RegistrationStatus>`)
+|    Indicates whether the Charging Station has been registered within the OCPP CSMS
+|    **There is an extended definition for this object** :ref:`here <ocpp-RegistrationStatus>`.
+|   **current_time**:*string* <required>
+|    Contains the CSMS current time in RFC3339 format
+|    format:date-time
+|   **interval**:*integer* <required>
+|    When Status is Accepted, this contains the heartbeat interval in seconds. If the CSMS returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request.
+|   **status_info**:*object* <optional> (:ref:`ocpp-StatusInfoType <ocpp-StatusInfoType>`)
+|    Detailed status information.
+|    **There is an extended definition for this object** :ref:`here <ocpp-StatusInfoType>`.

@@ -101,10 +101,20 @@ Types for evse security
 |    - Accepted
 |    - NotFound
 
-.. _evse_security-GetKeyPairStatus:
+.. _evse_security-GetCertificateSignRequestStatus:
 
-| **GetKeyPairStatus**:*string* 
-|  Status indicates the result of the attempt to retrieve a a keypair
+| **GetCertificateSignRequestStatus**:*string* 
+|  Status indicates the result to generate a certificate signing request
+|  enum:
+|    - Accepted
+|    - InvalidRequestedType
+|    - KeyGenError
+|    - GenerationError
+
+.. _evse_security-GetCertificateInfoStatus:
+
+| **GetCertificateInfoStatus**:*string* 
+|  Status indicates the result of the attempt to retrieve a certificate
 |  enum:
 |    - Accepted
 |    - Rejected
@@ -183,28 +193,58 @@ Types for evse security
 |     **There is an extended definition for this object** :ref:`here <evse_security-OCSPRequestData>`.
 | 
 
-.. _evse_security-KeyPair:
+.. _evse_security-CertificateOCSP:
 
-| **KeyPair**:*object* 
+| **CertificateOCSP**:*object* 
+|  OCSP data related to requested the certificates
+|  properties:
+|   **hash**:*object* <required> (:ref:`evse_security-CertificateHashData <evse_security-CertificateHashData>`)
+|    Hash of certificate linked to the provided data
+|    **There is an extended definition for this object** :ref:`here <evse_security-CertificateHashData>`.
+|   **ocsp_path**:*string* <optional>
+|    OCSP path of the file containing the data
+
+.. _evse_security-GetCertificateSignRequestResult:
+
+| **GetCertificateSignRequestResult**:*object* 
+|  Response related to a CSR generation
+|  properties:
+|   **status**:*string* <required> (:ref:`evse_security-GetCertificateSignRequestStatus <evse_security-GetCertificateSignRequestStatus>`)
+|    Status of the request
+|    **There is an extended definition for this object** :ref:`here <evse_security-GetCertificateSignRequestStatus>`.
+|   **csr**:*string* <optional>
+|    PEM encoded certificate signing request
+
+.. _evse_security-CertificateInfo:
+
+| **CertificateInfo**:*object* 
 |  Type that specifies the paths of a certificate and the respective private key
 |  properties:
 |   **key**:*string* <required>
 |    The path of the PEM or DER encoded private key
-|   **certificate**:*string* <required>
+|   **certificate**:*string* <optional>
 |    The path of the PEM or DER encoded certificate chain
-|   **certificate_single**:*string* <required>
+|   **certificate_single**:*string* <optional>
 |    The path of the PEM or DER encoded single certificate
+|   **certificate_count**:*integer* <required>
+|    The count of certificates in the chain
 |   **password**:*string* <optional>
 |    Specifies the password for the private key if encrypted
+|   **ocsp**:*array* <optional>
+|    Certificate related OCSP data, if requested
+|    **array_item**:*object*  (:ref:`evse_security-CertificateOCSP <evse_security-CertificateOCSP>`)
+|     
+|     **There is an extended definition for this object** :ref:`here <evse_security-CertificateOCSP>`.
+| 
 
-.. _evse_security-GetKeyPairResult:
+.. _evse_security-GetCertificateInfoResult:
 
-| **GetKeyPairResult**:*object* 
-|  Response to the command get_key_pair
+| **GetCertificateInfoResult**:*object* 
+|  Response to the command get_leaf_certificate_info
 |  properties:
-|   **status**:*string* <required> (:ref:`evse_security-GetKeyPairStatus <evse_security-GetKeyPairStatus>`)
+|   **status**:*string* <required> (:ref:`evse_security-GetCertificateInfoStatus <evse_security-GetCertificateInfoStatus>`)
 |    The status of the requested command
-|    **There is an extended definition for this object** :ref:`here <evse_security-GetKeyPairStatus>`.
-|   **key_pair**:*object* <optional> (:ref:`evse_security-KeyPair <evse_security-KeyPair>`)
-|    The requested key pair
-|    **There is an extended definition for this object** :ref:`here <evse_security-KeyPair>`.
+|    **There is an extended definition for this object** :ref:`here <evse_security-GetCertificateInfoStatus>`.
+|   **info**:*object* <optional> (:ref:`evse_security-CertificateInfo <evse_security-CertificateInfo>`)
+|    The requested info
+|    **There is an extended definition for this object** :ref:`here <evse_security-CertificateInfo>`.

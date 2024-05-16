@@ -167,8 +167,46 @@ the build:</p>
 </li>
 </ol>
 </section>
+<section id="troubleshooting">
+<h2><span class="section-number">9.3.4. </span>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p>napi error when building EVerest in a VSCode DevContainer</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">13</span><span class="o">%</span><span class="p">]</span> <span class="n">Building</span> <span class="n">CXX</span> <span class="nb">object</span> <span class="n">_deps</span><span class="o">/</span><span class="n">everest</span><span class="o">-</span><span class="n">framework</span><span class="o">-</span><span class="n">build</span><span class="o">/</span><span class="n">everestjs</span><span class="o">/</span><span class="n">CMakeFiles</span><span class="o">/</span><span class="n">everestjs</span><span class="o">.</span><span class="n">dir</span><span class="o">/</span><span class="n">everestjs</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">o</span>
+<span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">everest</span><span class="o">-</span><span class="n">cpp</span><span class="o">/</span><span class="n">everest</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">everestjs</span><span class="o">/</span><span class="n">everestjs</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span> <span class="n">fatal</span> <span class="n">error</span><span class="p">:</span> <span class="n">napi</span><span class="o">.</span><span class="n">h</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
+    <span class="mi">9</span> <span class="o">|</span> <span class="c1">#include &lt;napi.h&gt;</span>
+
+<span class="n">Error</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">find</span> <span class="n">module</span> <span class="s1">&#39;/home/docker/.vscode-server/data/User/workspaceStorage/5c87aec9a1f3f4ba6ae2c223ac523699/ms-vscode.js-debug/bootloader.js&#39;</span>
+<span class="n">Require</span> <span class="n">stack</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">internal</span><span class="o">/</span><span class="n">preload</span>
+    <span class="n">at</span> <span class="n">Function</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">_resolveFilename</span> <span class="p">(</span><span class="n">internal</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">cjs</span><span class="o">/</span><span class="n">loader</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">815</span><span class="p">:</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">Function</span><span class="o">.</span><span class="n">Module</span><span class="o">.</span><span class="n">_load</span> <span class="p">(</span><span class="n">internal</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">cjs</span><span class="o">/</span><span class="n">loader</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">667</span><span class="p">:</span><span class="mi">27</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">Module</span><span class="o">.</span><span class="n">require</span> <span class="p">(</span><span class="n">internal</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">cjs</span><span class="o">/</span><span class="n">loader</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">887</span><span class="p">:</span><span class="mi">19</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">Module</span><span class="o">.</span><span class="n">_preloadModules</span> <span class="p">(</span><span class="n">internal</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">cjs</span><span class="o">/</span><span class="n">loader</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">1158</span><span class="p">:</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">loadPreloadModules</span> <span class="p">(</span><span class="n">internal</span><span class="o">/</span><span class="n">bootstrap</span><span class="o">/</span><span class="n">pre_execution</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">446</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">prepareMainThreadExecution</span> <span class="p">(</span><span class="n">internal</span><span class="o">/</span><span class="n">bootstrap</span><span class="o">/</span><span class="n">pre_execution</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">74</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">internal</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">run_main_module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">7</span><span class="p">:</span><span class="mi">1</span> <span class="p">{</span>
+<span class="n">code</span><span class="p">:</span> <span class="s1">&#39;MODULE_NOT_FOUND&#39;</span><span class="p">,</span>
+<span class="n">requireStack</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;internal/preload&#39;</span> <span class="p">]</span>
+<span class="p">}</span>
+<span class="n">FATALInstallation</span> <span class="n">of</span> <span class="n">node</span><span class="o">-</span><span class="n">addon</span><span class="o">-</span><span class="n">api</span> <span class="n">failed</span>
+</pre></div>
+</div>
+<p>This error seems to be related to <a href="#id1"><span class="problematic" id="id2">`</span></a>this issue</p>
+</div></blockquote>
+</li>
+</ol>
+<p>&lt;<a class="reference external" href="https://github.com/microsoft/vscode-js-debug/issues/374#issuecomment-622239998">https://github.com/microsoft/vscode-js-debug/issues/374#issuecomment-622239998</a> /&gt;`_, caused by the VSCode debugger extension.</p>
+<blockquote>
+<div><p>Solution:
+- Cmd + Shift + P
+- type Toggle Auto Attach then ENTER
+- Set to disabled.</p>
+<img alt="EVerest Admin Panel" src="../../_images/shot6_toggle_auto_attach.png" />
+</div></blockquote>
+</section>
 <section id="everest-sil-simulation">
-<h2><span class="section-number">9.3.4. </span>EVerest SIL Simulation<a class="headerlink" href="#everest-sil-simulation" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.5. </span>EVerest SIL Simulation<a class="headerlink" href="#everest-sil-simulation" title="Permalink to this heading">¶</a></h2>
 <blockquote>
 <div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dist</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">manager</span> <span class="o">--</span><span class="n">config</span> <span class="o">../</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">-</span><span class="n">sil</span><span class="o">-</span><span class="n">dc</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
@@ -178,7 +216,7 @@ the build:</p>
 <img alt="EVerest Admin Panel" src="../../_images/shot5_admin_panel.png" />
 </div></blockquote>
 <section id="stopping-things">
-<h3><span class="section-number">9.3.4.1. </span>Stopping things<a class="headerlink" href="#stopping-things" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.3.5.1. </span>Stopping things<a class="headerlink" href="#stopping-things" title="Permalink to this heading">¶</a></h3>
 <blockquote>
 <div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Code</span> <span class="o">&gt;</span> <span class="n">File</span> <span class="o">&gt;</span> <span class="n">Close</span> <span class="n">Remote</span> <span class="n">Connection</span>
 </pre></div>
@@ -186,7 +224,7 @@ the build:</p>
 </div></blockquote>
 </section>
 <section id="resources">
-<h3><span class="section-number">9.3.4.2. </span>Resources<a class="headerlink" href="#resources" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.3.5.2. </span>Resources<a class="headerlink" href="#resources" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://nodered.org/">Node-RED</a></p></li>
 </ul>

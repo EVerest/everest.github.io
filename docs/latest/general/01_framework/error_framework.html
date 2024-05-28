@@ -662,22 +662,17 @@ log file.</p>
 <p>This section describes the handling of specific error types.
 Currently it is still under construction, so please check regularly for
 updates.</p>
-<ol class="arabic simple">
-<li><p>The <em>VendorError</em> is a generic error type which is used with vendor specific</p></li>
-</ol>
-<blockquote>
-<div><p>sub_types, which can be for example vendor specific error codes. The
-<em>VendorError</em> is raised as a higher excalation level than the
-<em>VendorWarning</em>.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>The <em>VendorWarning</em> is a generic error type which is used with vendor</p></li>
-</ol>
-<blockquote>
-<div><p>specific sub_types, which can be for example vendor specific error codes.
-The <em>VendorWarning</em> is raised as a lower excalation level than the
-<em>VendorError</em>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p>The <em>evse_board_support/VendorError</em> is a generic error type which is used</p></li>
+</ul>
+<p>with vendor specific sub_types, which can be for example vendor specific
+error codes. The <em>evse_board_support/VendorError</em> is raised to prevent charging
+in <cite>EVSEManager</cite> module. The <cite>EVSEManager</cite> needs to require the
+<cite>evse_board_support</cite> module.
+* The <em>evse_board_support/VendorWarning</em> is a generic error type which is used
+with vendor specific sub_types, which can be for example vendor specific
+error codes. The <em>evse_board_support/VendorWarning</em> is raised to report an
+error that does not prevent charging in <cite>EVSEManager</cite> module.</p>
 </section>
 </section>
 <section id="architecture">

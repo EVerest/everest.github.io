@@ -125,28 +125,21 @@
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-evse"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
-<div class="line"><strong>enable</strong>:<em>boolean</em></div>
+<div class="line"><strong>enable_disable</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Enables the evse. EVSE is available for charging after this operation</div>
+<div class="line">Enables or disables the evse. Turns off PWM with error F. Charging is only possible if an EVSE is enabled.</div>
 <div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Specifies the ID of the connector to enable. If 0, the whole EVSE should be enabled</div>
 </div>
-<div class="line"><strong>Result</strong>:<em>boolean</em></div>
+<div class="line"><strong>cmd_source</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/evse_manager.html#evse-manager-enabledisablesource"><span class="std std-ref">evse_manager-EnableDisableSource</span></a>)</div>
 <div class="line-block">
-<div class="line">Returns true if evse was enabled (or was enabled before), returns false if enable failed e.g. due to permanent fault.</div>
-</div>
-</div>
-<div class="line"><strong>disable</strong>:<em>boolean</em></div>
-<div class="line-block">
-<div class="line">Disables the evse. EVSE is not available for charging after this operation</div>
-<div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Specifies the ID of the connector. If 0, the whole EVSE should be disabled</div>
+<div class="line">Source of the enable command</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-enabledisablesource"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>Result</strong>:<em>boolean</em></div>
 <div class="line-block">
-<div class="line">Returns true if evse was disabled (or was disabled before), returns false if it could not be disabled (i.e. due to communication error with hardware)</div>
+<div class="line">Returns true if evse is enabled after the command, false if it is disabled. This may not be the same value as the request, since there may be a higher priority request from another source that is actually deciding whether it is enabled or disabled.</div>
 </div>
 </div>
 <div class="line"><strong>authorize_response</strong>:<em>void</em></div>

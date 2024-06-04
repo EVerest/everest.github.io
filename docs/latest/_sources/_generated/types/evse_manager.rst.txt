@@ -295,6 +295,31 @@ EVSE manager types
 |   **vendor_error**:*string* <optional>
 |    The error code of the vendor
 
+.. _evse_manager-EnableDisableSource:
+
+| **EnableDisableSource**:*object* 
+|  Source of a Enable or Disable command/event
+|  properties:
+|   **enable_source**:*string* <required>
+|    Specifies the source
+|    enum:
+|      - Unspecified
+|      - LocalAPI
+|      - LocalKeyLock
+|      - ServiceTechnician
+|      - RemoteKeyLock
+|      - MobileApp
+|      - FirmwareUpdate
+|      - CSMS
+|   **enable_state**:*string* <required>
+|    Specifies the state for this entry
+|    enum:
+|      - Unassigned
+|      - Disable
+|      - Enable
+|   **enable_priority**:*integer* <required>
+|    Priority of this entry. The highest priority is 0.
+
 .. _evse_manager-SessionEvent:
 
 | **SessionEvent**:*object* 
@@ -306,7 +331,7 @@ EVSE manager types
 |    Session start time in RFC3339 format
 |    format:date-time
 |   **connector_id**:*integer* <optional>
-|    Id of the connector of this EVSE.  If the connector_id is not specified, its assumed to be 1
+|    Id of the connector of this EVSE. If the connector_id is not specified, its assumed to be 1
 |   **event**:*string* <required> (:ref:`evse_manager-SessionEventEnum <evse_manager-SessionEventEnum>`)
 |    Event enum. For some events an additional object is set, see below.
 |    **There is an extended definition for this object** :ref:`here <evse_manager-SessionEventEnum>`.
@@ -323,14 +348,17 @@ EVSE manager types
 |    data for TransactionFinished event that happens when car is plugged out
 |    **There is an extended definition for this object** :ref:`here <evse_manager-TransactionFinished>`.
 |   **charging_state_changed_event**:*object* <optional> (:ref:`evse_manager-ChargingStateChangedEvent <evse_manager-ChargingStateChangedEvent>`)
-|    Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums:  ChargingStarted, ChargingResumed, ChargingPausedEV, Charging
+|    Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums: ChargingStarted, ChargingResumed, ChargingPausedEV, Charging
 |    **There is an extended definition for this object** :ref:`here <evse_manager-ChargingStateChangedEvent>`.
 |   **authorization_event**:*object* <optional> (:ref:`evse_manager-AuthorizationEvent <evse_manager-AuthorizationEvent>`)
-|    Data for Authorization event. Shall be set for the following SessionEventEnums:  Authorized, Deauthorized
+|    Data for Authorization event. Shall be set for the following SessionEventEnums: Authorized, Deauthorized
 |    **There is an extended definition for this object** :ref:`here <evse_manager-AuthorizationEvent>`.
 |   **error**:*object* <optional> (:ref:`evse_manager-Error <evse_manager-Error>`)
 |    Details on error type
 |    **There is an extended definition for this object** :ref:`here <evse_manager-Error>`.
+|   **source**:*object* <optional> (:ref:`evse_manager-EnableDisableSource <evse_manager-EnableDisableSource>`)
+|    Additional data for Enabled/Disabled events. Specifies the source of the command that changed the state.
+|    **There is an extended definition for this object** :ref:`here <evse_manager-EnableDisableSource>`.
 
 .. _evse_manager-Limits:
 

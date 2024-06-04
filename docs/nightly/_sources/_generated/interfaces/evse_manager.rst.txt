@@ -56,18 +56,15 @@ Commands
 |  **Result**:*object*  (:ref:`evse_manager-Evse <evse_manager-Evse>`)
 |   Object that contains information of the EVSE including its connectors
 |   **There is an extended definition for this object** :ref:`here <evse_manager-Evse>`.
-| **enable**:*boolean*
-|  Enables the evse. EVSE is available for charging after this operation
+| **enable_disable**:*boolean*
+|  Enables or disables the evse. Turns off PWM with error F. Charging is only possible if an EVSE is enabled.
 |  **connector_id**:*integer* <required>
 |   Specifies the ID of the connector to enable. If 0, the whole EVSE should be enabled
+|  **cmd_source**:*object* <required> (:ref:`evse_manager-EnableDisableSource <evse_manager-EnableDisableSource>`)
+|   Source of the enable command
+|   **There is an extended definition for this object** :ref:`here <evse_manager-EnableDisableSource>`.
 |  **Result**:*boolean* 
-|   Returns true if evse was enabled (or was enabled before), returns false if enable failed e.g. due to permanent fault.
-| **disable**:*boolean*
-|  Disables the evse. EVSE is not available for charging after this operation
-|  **connector_id**:*integer* <required>
-|   Specifies the ID of the connector. If 0, the whole EVSE should be disabled
-|  **Result**:*boolean* 
-|   Returns true if evse was disabled (or was disabled before), returns false if it could not be disabled (i.e. due to communication error with hardware)
+|   Returns true if evse is enabled after the command, false if it is disabled. This may not be the same value as the request, since there may be a higher priority request from another source that is actually deciding whether it is enabled or disabled.
 | **authorize_response**:*void*
 |  Reports the result of an authorization request to the EvseManager.  Contains the provided_token for which authorization was requested and the validation_result
 |  **provided_token**:*object* <required> (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)

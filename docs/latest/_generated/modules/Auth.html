@@ -47,14 +47,14 @@
 <div class="line-block">
 <div class="line">This module implements the authentication handling for the EVerest. It is responsible for providing authorization to the connected evse managers. In addition to that, it handles the reservation management.</div>
 </div>
-<p>For a detailed handwritten documentation see <span class="xref std std-ref">here</span></p>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/Auth.rst/index.html#everest-modules-handwritten-auth"><span class="std std-ref">here</span></a></p>
 <section id="module-configuration">
 <h2><span class="section-number">13.1.2.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>selection_algorithm</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “FindFirst”</em></div>
 <div class="line-block">
-<div class="line">The algorithm that is used to map an incoming token to a connector</div>
+<div class="line">The selection algorithm contains the logic to select one connector for an incoming token. In case the charging station has only one connector, the selection of a connector is pretty straight-forward because there is only one that is  available. The selection algorithm becomes relevant in case the Auth  module manages authorization requests  for multiple connectors. The following values can be set: PlugEvents: Selection of connector is based on EV Plug In events FindFirst: Simply selects the first available connector that has no active transaction UserInput: Placeholder, not yet implemented</div>
 </div>
 <div class="line"><strong>connection_timeout</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">

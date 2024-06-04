@@ -429,6 +429,44 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="evse-manager-enabledisablesource">
+<div class="line"><strong>EnableDisableSource</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Source of a Enable or Disable command/event</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>enable_source</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Specifies the source</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Unspecified</div>
+<div class="line">- LocalAPI</div>
+<div class="line">- LocalKeyLock</div>
+<div class="line">- ServiceTechnician</div>
+<div class="line">- RemoteKeyLock</div>
+<div class="line">- MobileApp</div>
+<div class="line">- FirmwareUpdate</div>
+<div class="line">- CSMS</div>
+</div>
+</div>
+<div class="line"><strong>enable_state</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Specifies the state for this entry</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Unassigned</div>
+<div class="line">- Disable</div>
+<div class="line">- Enable</div>
+</div>
+</div>
+<div class="line"><strong>enable_priority</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Priority of this entry. The highest priority is 0.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="evse-manager-sessionevent">
 <div class="line"><strong>SessionEvent</strong>:<em>object</em></div>
 <div class="line-block">
@@ -446,7 +484,7 @@
 </div>
 <div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line-block">
-<div class="line">Id of the connector of this EVSE.  If the connector_id is not specified, its assumed to be 1</div>
+<div class="line">Id of the connector of this EVSE. If the connector_id is not specified, its assumed to be 1</div>
 </div>
 <div class="line"><strong>event</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#evse-manager-sessioneventenum"><span class="std std-ref">evse_manager-SessionEventEnum</span></a>)</div>
 <div class="line-block">
@@ -475,18 +513,23 @@
 </div>
 <div class="line"><strong>charging_state_changed_event</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-chargingstatechangedevent"><span class="std std-ref">evse_manager-ChargingStateChangedEvent</span></a>)</div>
 <div class="line-block">
-<div class="line">Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums:  ChargingStarted, ChargingResumed, ChargingPausedEV, Charging</div>
+<div class="line">Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums: ChargingStarted, ChargingResumed, ChargingPausedEV, Charging</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-chargingstatechangedevent"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>authorization_event</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-authorizationevent"><span class="std std-ref">evse_manager-AuthorizationEvent</span></a>)</div>
 <div class="line-block">
-<div class="line">Data for Authorization event. Shall be set for the following SessionEventEnums:  Authorized, Deauthorized</div>
+<div class="line">Data for Authorization event. Shall be set for the following SessionEventEnums: Authorized, Deauthorized</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-authorizationevent"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>error</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-error"><span class="std std-ref">evse_manager-Error</span></a>)</div>
 <div class="line-block">
 <div class="line">Details on error type</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-error"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>source</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-enabledisablesource"><span class="std std-ref">evse_manager-EnableDisableSource</span></a>)</div>
+<div class="line-block">
+<div class="line">Additional data for Enabled/Disabled events. Specifies the source of the command that changed the state.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#evse-manager-enabledisablesource"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

@@ -106,17 +106,23 @@ directory. In the above example, it is located at
 <a class="reference internal" href="../dev_tools/edm.html#edm-main"><span class="std std-ref">edm page in this documentation</span></a>.</p>
 </section>
 <section id="everest-command-line-interface-ev-cli">
-<h4><span class="section-number">3.2.1.2. </span>EVerest Command Line Interface: <cite>ev-cli</cite><a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
-<p>In its current version, <cite>ev-cli</cite> supports you by generating module templates.
+<h4><span class="section-number">3.2.1.2. </span>EVerest Command Line Interface: <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code><a class="headerlink" href="#everest-command-line-interface-ev-cli" title="Permalink to this heading">¶</a></h4>
+<p>In its current version, <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> supports you by generating module templates.
 It is also necessary to build EVerest.</p>
-<p>To install <cite>ev-cli</cite>, run:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The latter one is already satisfied by an automatic installation in a python venv during
+the build process. To use this installation also for generating module files you can
+source it as explained <a class="reference internal" href="../dev_tools/ev_cli.html#evcli-install"><span class="std std-ref">here</span></a>.</p>
+</div>
+<p>To install it manually run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-utils/ev-dev-tools
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
-<p>That is all to install <cite>ev-cli</cite>. You can find the binary file in your
+<p>That is all to install <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code>. You can find the binary file in your
 HOME directory in <cite>.local/bin/</cite>.</p>
-<p>In a later step, we will use ev-cli to create module stubs.</p>
+<p>In a later step, we will use <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> to create module stubs.</p>
 </section>
 <section id="packages-for-iso-15118-communication">
 <h4><span class="section-number">3.2.1.3. </span>Packages for ISO 15118 communication<a class="headerlink" href="#packages-for-iso-15118-communication" title="Permalink to this heading">¶</a></h4>
@@ -169,6 +175,12 @@ current workspace.</p>
 in an old version, go to your everest workspace directory and call <em>edm
 –git-pull</em>. This will update the EVerest repositories. After that, repeat
 building ev-cli and you should be good to go again.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>This error shouldn’t occur if <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> is installed automatically during the build process.
+It is highly recommended to always use the automatic installed <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> version, since this
+is specified by the <cite>dependencies.yaml</cite> and verified by ci workflow.</p>
+</div>
 </section>
 </section>
 <section id="simulating-everest">

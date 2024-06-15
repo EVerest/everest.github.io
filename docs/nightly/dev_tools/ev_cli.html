@@ -45,18 +45,42 @@
 <span id="evcli-main"></span><h1><span class="section-number">8.2. </span>ev-cli<a class="headerlink" href="#ev-cli" title="Permalink to this heading">¶</a></h1>
 <p>This python project currently consists of the following packages</p>
 <ul class="simple">
-<li><p><cite>ev_cli</cite>: EVerest module auto generation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ev_cli</span></code>: EVerest module auto generation</p></li>
 </ul>
+<section id="purpose">
+<h2><span class="section-number">8.2.1. </span>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ev_cli</span></code> has mainly two purposes. One is to generate C++ header files for defined interfaces, the other one
+is to create/update auto generated files for modules (C++ only).
+The first one is done in the build process of <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>. For this
+you don’t need to install <code class="docutils literal notranslate"><span class="pre">ev-dev-tools</span></code> by yourself, it happens automatically during the build process.</p>
+<p>For the second purpose you need to install <code class="docutils literal notranslate"><span class="pre">ev-dev-tools</span></code> to use it during development.</p>
+</section>
 <section id="install">
-<h2><span class="section-number">8.2.1. </span>Install<a class="headerlink" href="#install" title="Permalink to this heading">¶</a></h2>
-<p>To install <cite>ev_cli</cite>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">everest</span><span class="o">-</span><span class="n">utils</span><span class="o">/</span><span class="n">ev</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span>
-<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+<span id="evcli-install"></span><h2><span class="section-number">8.2.2. </span>Install<a class="headerlink" href="#install" title="Permalink to this heading">¶</a></h2>
+<p>There are two possibilites to use/install <code class="docutils literal notranslate"><span class="pre">ev-dev-tools</span></code>.
+You can use the automatically installed version from python venv in build directory or
+you can install the python package manually.</p>
+<section id="use-automatically-installed-ev-dev-tools-from-python-venv">
+<h3><span class="section-number">8.2.2.1. </span>Use automatically installed <cite>ev-dev-tools</cite> from python venv<a class="headerlink" href="#use-automatically-installed-ev-dev-tools-from-python-venv" title="Permalink to this heading">¶</a></h3>
+<p>Build <code class="docutils literal notranslate"><span class="pre">everest-core</span></code> as explained in the <a class="reference internal" href="../general/03_quick_start_guide.html#quickstartguide-download-install"><span class="std std-ref">Quick Start Guide</span></a>.
+This will create a python venv in your build directory.
+You can activate it with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>build/
+<span class="nb">source</span><span class="w"> </span>./venv/bin/activate
 </pre></div>
 </div>
+</section>
+<section id="install-ev-dev-tools-manually">
+<h3><span class="section-number">8.2.2.2. </span>Install <cite>ev-dev-tools</cite> manually<a class="headerlink" href="#install-ev-dev-tools-manually" title="Permalink to this heading">¶</a></h3>
+<p>To install <code class="docutils literal notranslate"><span class="pre">ev_cli</span></code> manually from github repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/everest/everest-utils.git@main#subdirectory<span class="o">=</span>ev-dev-tools
+</pre></div>
+</div>
+</section>
+</section>
 <section id="ev-cli-command-line-interface">
-<h3><span class="section-number">8.2.1.1. </span>ev-cli command line interface<a class="headerlink" href="#ev-cli-command-line-interface" title="Permalink to this heading">¶</a></h3>
-<p>The <cite>ev_cli</cite> package comes with a command line tool, named <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code>.
+<h2><span class="section-number">8.2.3. </span>ev-cli command line interface<a class="headerlink" href="#ev-cli-command-line-interface" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ev_cli</span></code> package comes with a command line tool, named <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code>.
 It has the following subcommands</p>
 <ul class="simple">
 <li><p>module:
@@ -84,10 +108,8 @@ definitions (default: <code class="docutils literal notranslate"><span class="pr
 if C++ output should be formatted, set this to the path of the
 .clang-format file</p></li>
 </ul>
-</section>
-</section>
 <section id="generating-c-header-files-for-defined-interfaces">
-<h2><span class="section-number">8.2.2. </span>Generating C++ header files for defined interfaces<a class="headerlink" href="#generating-c-header-files-for-defined-interfaces" title="Permalink to this heading">¶</a></h2>
+<h3><span class="section-number">8.2.3.1. </span>Generating C++ header files for defined interfaces<a class="headerlink" href="#generating-c-header-files-for-defined-interfaces" title="Permalink to this heading">¶</a></h3>
 <p>Assuming that the interface definitions in json format are located at
 <code class="docutils literal notranslate"><span class="pre">./interfaces/*.json</span></code>, simply:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev</span><span class="o">-</span><span class="n">cli</span> <span class="n">interfaces</span> <span class="n">generate</span><span class="o">-</span><span class="n">headers</span>
@@ -104,7 +126,7 @@ view, and the latter the <cite>users</cite> view of the interface, when used in 
 module.</p>
 </section>
 <section id="creating-and-updating-auto-generated-files-for-modules-c-only">
-<h2><span class="section-number">8.2.3. </span>Creating and updating auto generated files for modules (C++ only)<a class="headerlink" href="#creating-and-updating-auto-generated-files-for-modules-c-only" title="Permalink to this heading">¶</a></h2>
+<h3><span class="section-number">8.2.3.2. </span>Creating and updating auto generated files for modules (C++ only)<a class="headerlink" href="#creating-and-updating-auto-generated-files-for-modules-c-only" title="Permalink to this heading">¶</a></h3>
 <p>Assuming the modules are located at <code class="docutils literal notranslate"><span class="pre">./modules</span></code> and the initial
 skeleton for a module named <cite>Example</cite> with its manifest in
 <code class="docutils literal notranslate"><span class="pre">./modules/Example/manifest.json</span></code> should be created, call:</p>
@@ -213,8 +235,9 @@ changed the corresponding interface a lot.  To get a list of possible files, you
 </ol>
 </section>
 <section id="auto-generating-nodejs-modules">
-<h2><span class="section-number">8.2.4. </span>Auto generating NodeJS modules<a class="headerlink" href="#auto-generating-nodejs-modules" title="Permalink to this heading">¶</a></h2>
+<h3><span class="section-number">8.2.3.3. </span>Auto generating NodeJS modules<a class="headerlink" href="#auto-generating-nodejs-modules" title="Permalink to this heading">¶</a></h3>
 <p><strong>tbd</strong></p>
+</section>
 </section>
 </section>
 

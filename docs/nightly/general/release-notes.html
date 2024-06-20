@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EVerest Release Notes &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=0a676766" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EVerest Release Notes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="everest-release-notes">
+<span id="release-notes-main"></span><h1>EVerest Release Notes<a class="headerlink" href="#everest-release-notes" title="Permalink to this heading">¶</a></h1>
+<p>See also our detailed release information based on all PRs and source code
+commits on GitHub:
+<a class="reference external" href="https://github.com/EVerest/everest-core/releases">EVerest releases</a></p>
+<p>EVerest releases are scheduled monthly. A release for a dedicated month can be
+expected in the beginning of the following month. Each third release (March,
+June, September and December) will be a stable releases including a two week
+feature freeze phase before the release date.</p>
+<p>Here are the some high-level changes for the releases starting from release
+2024.3.0:</p>
+<section id="id1">
+<h2>2024.4.0<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="added-charging-schedules-definition">
+<h3>Added charging schedules definition<a class="headerlink" href="#added-charging-schedules-definition" title="Permalink to this heading">¶</a></h3>
+<p>Introducing a new OCPP type in EVerest to process charging schedules.</p>
+<p>In short, a charging schedule defines a dedicated connector which a schedule
+shall be related to, a charging rate unit and a charging schedule period.</p>
+<p>For details, see
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/582">the corresponding PR</a>.</p>
+<p>Note that this is an API-breaking change.</p>
+</section>
+<section id="rust-now-feature-complete">
+<h3>Rust now feature-complete<a class="headerlink" href="#rust-now-feature-complete" title="Permalink to this heading">¶</a></h3>
+<p>The feature-completeness of Rust in EVerest is meant in relation to the C++
+implementation. Some recent features prepared the way for that status:</p>
+<p>Having multislot support and a proper integration of Rust testing now in
+EVerest, the integration of Rust can be seen as thorough as C++.</p>
+</section>
+<section id="payment-terminal-integration">
+<h3>Payment terminal integration<a class="headerlink" href="#payment-terminal-integration" title="Permalink to this heading">¶</a></h3>
+<p>Regarding payment integration, there is now added support for ZVT protocol
+based devices. In EVerest, you can have “Eichrecht”-compliant payment on
+charging points on board.</p>
+<p>See a great overview of bank card payments here:
+<a class="reference external" href="https://everest.github.io/nightly/general/06_handling_bank_cards.html">Integration of bank card payment in EVerest</a>
+.</p>
+</section>
+<section id="admin-panel-improvements">
+<h3>Admin Panel improvements<a class="headerlink" href="#admin-panel-improvements" title="Permalink to this heading">¶</a></h3>
+<p>The EVerest Admin Panel has been part of EVerest for quite some time now. It
+was time to improve the handling and stability of that.</p>
+<p>Please be aware that it is still a beta-stage frontend tool which can be used
+for managing EVerest instances, do some nice fast experiments with module
+configurations and comes also as a hosted version now without the need of
+setting up the whole environment on your end for a first step.</p>
+<p>For more information and use-cases, see
+<a class="reference external" href="https://github.com/EVerest/everest-admin-panel">the EVerest Admin Panel repository</a>
+.</p>
+</section>
+<section id="support-starting-transaction-in-evsemanager">
+<h3>Support starting transaction in EvseManager<a class="headerlink" href="#support-starting-transaction-in-evsemanager" title="Permalink to this heading">¶</a></h3>
+<p>Powermeters should trigger a transaction to start prior to a charging session.
+To optimize the communication between powermeters and EVerest’s EvseManager
+implementation,
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/573">this change has been introduced</a>
+.</p>
+</section>
+<section id="ocpp-2-0-1-various-custom-data-extensions">
+<h3>OCPP 2.0.1: Various custom data extensions<a class="headerlink" href="#ocpp-2-0-1-various-custom-data-extensions" title="Permalink to this heading">¶</a></h3>
+<p>Some custom data extensions have been introduced. To get an overview, see the
+adjusted files in
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/605">this pull request</a>
+.</p>
+</section>
+<section id="bazel-support-for-building-essential-modules">
+<h3>Bazel support for building essential modules<a class="headerlink" href="#bazel-support-for-building-essential-modules" title="Permalink to this heading">¶</a></h3>
+<p>Bazel support in EVerest. See the corresponding
+<a class="reference external" href="https://github.com/EVerest/EVerest/pull/162">Bazel in EVerest documentation</a>
+.</p>
+</section>
+<section id="jsevmanager-as-replacement-for-jscarsimulator">
+<h3>JsEvManager as replacement for JsCarSimulator<a class="headerlink" href="#jsevmanager-as-replacement-for-jscarsimulator" title="Permalink to this heading">¶</a></h3>
+<p>The new module that replaces the JsCarSimulator is still a JavaScript based EV
+simulator, but can be run on “real” hardware. This JsEvManager is the
+counterpart of the EvseManager to be able to simulate charging sessions.</p>
+<p>A C++ implementation will be coming soon.</p>
+</section>
+</section>
+<section id="latest-stable">
+<h2>2024.3.0 - LATEST STABLE<a class="headerlink" href="#latest-stable" title="Permalink to this heading">¶</a></h2>
+<section id="plug-charge">
+<h3>Plug &amp; Charge<a class="headerlink" href="#plug-charge" title="Permalink to this heading">¶</a></h3>
+<p>The full process around a Plug&amp;Charge session has been implemented, which
+involves the communication to an electric vehicle and to systems in the cloud.</p>
+<p>This means that the implementation has been done in ISO 15118 and OCPP code
+parts of EVerest. For an overview and configuration instructions, see
+<a class="reference external" href="https://everest.github.io/nightly/general/07_configure_plug_and_charge.html">Plug and Charge Configuration in EVerest</a>
+.</p>
+</section>
+<section id="fix-for-yetidriver">
+<h3>Fix for YetiDriver<a class="headerlink" href="#fix-for-yetidriver" title="Permalink to this heading">¶</a></h3>
+<p>The YetiDriver has been fully ported to the new BSP interface. For additional
+information and changes, see
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/595">the corresponding PR</a>.</p>
+</section>
+<section id="extended-ocpp-interface-for-transaction-state-and-id">
+<h3>Extended OCPP interface for transaction state and ID<a class="headerlink" href="#extended-ocpp-interface-for-transaction-state-and-id" title="Permalink to this heading">¶</a></h3>
+<p>The OCPP-related information of TransactionEvents are published as part of the
+<a class="reference external" href="https://everest.github.io/nightly/_generated/interfaces/ocpp.html">OCPP interface</a>.
+Also the transaction ID received from a CSMS is now published.</p>
+<p>See the
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/569">pull request about the added topics</a>
+for more information.</p>
+</section>
+<section id="removed-deprecated-modules-and-dependencies">
+<h3>Removed deprecated modules and dependencies<a class="headerlink" href="#removed-deprecated-modules-and-dependencies" title="Permalink to this heading">¶</a></h3>
+<p>EVerest had a folder with deprecated modules in it. To keep EVerest clean and
+prevent it from having not needed dependencies, those modules have been removed
+now.</p>
+<p>See
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/604/files">the corresponding PR</a>
+for an overview which those were exactly.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/general/release-notes.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EVerest Release Notes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    </div>
+  </body>
+</html>

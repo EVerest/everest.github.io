@@ -13,13 +13,16 @@ Module Configuration
 ********************
 | **serial_port**:*string* <optional>
 | *default: "/dev/ttyUSB0"*
-|  Serial port the Yeti hardware is connected to
+|  Serial port the uMWC hardware is connected to
 | **baud_rate**:*integer* <optional>
 | *default: 115200*
-|  Serial baud rate to use when communicating with Yeti hardware
+|  Serial baud rate to use when communicating with uMWC hardware
+| **reset_gpio_chip**:*string* <optional>
+| *default: "gpiochip0"*
+|  Reset GPIO chip to use to HW reset uMWC. If set to empty string, it is disabled.
 | **reset_gpio**:*integer* <optional>
-| *default: -1*
-|  Reset GPIO number to use to HW reset uMWC. If set <0 it is disabled.
+| *default: 27*
+|  GPIO line to use to reset uMWC
 | **dc_max_voltage**:*integer* <optional>
 | *default: 1000*
 |  Maximum voltage to support
@@ -30,7 +33,7 @@ Provides
 | **dc_supply**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>`
 |  Interface for the DC/DC output supply
 | **powermeter**::ref:`powermeter <everest_interfaces_powermeter>`
-|  provides the Yeti Internal Power Meter
+|  Interface for the powermeter
 | **board_support**::ref:`evse_board_support <everest_interfaces_evse_board_support>`
 |  provides the board support Interface to low level control control pilot, relais, rcd, motor lock
 

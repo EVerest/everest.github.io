@@ -50,10 +50,14 @@
 <section id="variables">
 <h2><span class="section-number">13.2.27.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>IsolationMeasurement</strong>:<em>object</em>  (<a class="reference internal" href="../types/isolation_monitor.html#isolation-monitor-isolationmeasurement"><span class="std std-ref">isolation_monitor-IsolationMeasurement</span></a>)</div>
+<div class="line"><strong>isolation_measurement</strong>:<em>object</em>  (<a class="reference internal" href="../types/isolation_monitor.html#isolation-monitor-isolationmeasurement"><span class="std std-ref">isolation_monitor-IsolationMeasurement</span></a>)</div>
 <div class="line-block">
 <div class="line">Isolation monitoring measurement results</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/isolation_monitor.html#isolation-monitor-isolationmeasurement"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>self_test_result</strong>:<em>boolean</em></div>
+<div class="line-block">
+<div class="line">Indicates the self test is done and publishes the result. Set “true” for success, “false” for failure.</div>
 </div>
 </div>
 </section>
@@ -67,6 +71,14 @@
 <div class="line"><strong>stop</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Stop recurring measurements. The device should stop to monitor the isolation resistance and stop publishing the data.</div>
+</div>
+<div class="line"><strong>start_self_test</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Start self test. This will be done during the CableCheck phase, so a DC voltage will be present according to IEC 61851-23 (2023). The command should return immediately. The “self_test_result” variable must be published once the self testing is done. Note that on many hardware devices this can take a long time (e.g. 20 seconds).</div>
+<div class="line"><strong>test_voltage_V</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Specifies the test voltage [V] that is applied on the DC pins during self test. This can be used to verify the internal voltage measurement of the IMD.</div>
+</div>
 </div>
 </div>
 </section>

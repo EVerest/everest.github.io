@@ -156,9 +156,9 @@
 <div class="line">Special mode that switches between AC and DC charging to get SoC percentage with AC charging</div>
 </div>
 <div class="line"><strong>dc_isolation_voltage_V</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 500</em></div>
+<div class="line"><em>default: 0</em></div>
 <div class="line-block">
-<div class="line">DC voltage used to test isolation in CableCheck. Set to 500V.</div>
+<div class="line">Override DC voltage used to test isolation in CableCheck. Default is 0, which means the voltage will be determined according to IEC 61851-23 (2023) CC.4.1.2</div>
 </div>
 <div class="line"><strong>dbg_hlc_auth_after_tstep</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
@@ -175,10 +175,15 @@
 <div class="line-block">
 <div class="line">Hack: Additional sleep for Volkswagen cars for n seconds at the end of cable check</div>
 </div>
-<div class="line"><strong>switch_to_minimum_voltage_after_cable_check</strong>:<em>boolean</em> &lt;optional&gt;</div>
-<div class="line"><em>default: False</em></div>
+<div class="line"><strong>cable_check_wait_number_of_imd_measurements</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
 <div class="line-block">
-<div class="line">When cable check is completed, switch to minimal voltage of DC output. Normally disabled.</div>
+<div class="line">Amount of isolation measurement samples to collect before the value can be trusted. This does not average, it will evaluate the last measurement. Some IMDs (e.g. from Bender) need to measure for 10s to really get a trustable result. In this case, at 1 Hz sample rate, specify 10 samples here.</div>
+</div>
+<div class="line"><strong>cable_check_enable_imd_self_test</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Enable self testing of IMD in cable check. This is required for IEC 61851-23 (2023) compliance.</div>
 </div>
 <div class="line"><strong>hack_skoda_enyaq</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>

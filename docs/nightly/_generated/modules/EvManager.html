@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13.1.33. Setup &#8212; EVerest  documentation</title>
+    <title>13.1.11. EvManager &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -15,8 +15,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.34. Store" href="Store.html" />
-    <link rel="prev" title="13.1.32. SerialCommHub" href="SerialCommHub.html" /> 
+    <link rel="next" title="13.1.12. EvSlac" href="EvSlac.html" />
+    <link rel="prev" title="13.1.10. ErrorHistory" href="ErrorHistory.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -25,15 +25,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Store.html" title="13.1.34. Store"
+          <a href="EvSlac.html" title="13.1.12. EvSlac"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="SerialCommHub.html" title="13.1.32. SerialCommHub"
+          <a href="ErrorHistory.html" title="13.1.10. ErrorHistory"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>Setup</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.11. </span>EvManager</a></li> 
       </ul>
     </div>  
 
@@ -42,81 +42,136 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="setup">
-<span id="everest-modules-setup"></span><h1><span class="section-number">13.1.33. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h1>
+  <section id="evmanager">
+<span id="everest-modules-evmanager"></span><h1><span class="section-number">13.1.11. </span>EvManager<a class="headerlink" href="#evmanager" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">The EVerest Setup module for setting up a LAN or WIFI network connection. This module needs privileged access and should not run during normal operations</div>
+<div class="line">This module implements a Car simulator that can execute charging sessions using the car_simulator interface.</div>
 </div>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/EvManager.html#everest-modules-handwritten-evmanager"><span class="std std-ref">here</span></a></p>
 <section id="module-configuration">
-<h2><span class="section-number">13.1.33.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.11.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>setup_wifi</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Connector id of the evse manager to which this simulator is connected to</div>
+</div>
+<div class="line"><strong>auto_enable</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Allow wifi setup</div>
+<div class="line">Enable this simulation directly at start. Set to true for pure SIL configs, set to false for HIL.</div>
 </div>
-<div class="line"><strong>localization</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><strong>auto_exec</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Enable localization support</div>
+<div class="line">Enable automatic execution of simulation commands at startup from auto_exec_commands config option.</div>
 </div>
-<div class="line"><strong>setup_simulation</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><strong>auto_exec_infinite</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Allow simulation setup</div>
+<div class="line">If enabled the simulation commands executes infinitely.</div>
 </div>
-<div class="line"><strong>online_check_host</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “lfenergy.org”</em></div>
+<div class="line"><strong>auto_exec_commands</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
 <div class="line-block">
-<div class="line">Hostname or IP to use to check for internet connectivity</div>
+<div class="line">Simulation commands, e.g. sleep 1;iec_wait_pwr_ready;sleep 1;draw_power_regulated 16,3;sleep 30;unplug</div>
 </div>
-<div class="line"><strong>initialized_by_default</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><strong>dc_max_current_limit</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 300</em></div>
+<div class="line-block">
+<div class="line">Maximum current allowed by the EV</div>
+</div>
+<div class="line"><strong>dc_max_power_limit</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 150000</em></div>
+<div class="line-block">
+<div class="line">Maximum power allowed by the EV</div>
+</div>
+<div class="line"><strong>dc_max_voltage_limit</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 900</em></div>
+<div class="line-block">
+<div class="line">Maximum voltage allowed by the EV</div>
+</div>
+<div class="line"><strong>dc_energy_capacity</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 60000</em></div>
+<div class="line-block">
+<div class="line">Energy capacity of the EV</div>
+</div>
+<div class="line"><strong>dc_target_current</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5</em></div>
+<div class="line-block">
+<div class="line">Target current requested by the EV</div>
+</div>
+<div class="line"><strong>dc_target_voltage</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 200</em></div>
+<div class="line-block">
+<div class="line">Target voltage requested by the EV</div>
+</div>
+<div class="line"><strong>support_sae_j2847</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Supporting SAE J2847 ISO 2 bidi version</div>
+</div>
+<div class="line"><strong>dc_discharge_max_current_limit</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 300</em></div>
+<div class="line-block">
+<div class="line">Maximum discharge current allowed by the EV</div>
+</div>
+<div class="line"><strong>dc_discharge_max_power_limit</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 150000</em></div>
+<div class="line-block">
+<div class="line">Maximum discharge power allowed by the EV</div>
+</div>
+<div class="line"><strong>dc_discharge_target_current</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5</em></div>
+<div class="line-block">
+<div class="line">Discharge target current requested by the EV</div>
+</div>
+<div class="line"><strong>dc_discharge_v2g_minimal_soc</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 20</em></div>
+<div class="line-block">
+<div class="line">Discharge minimal soc at which the evse should shutdown</div>
+</div>
+<div class="line"><strong>max_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 16</em></div>
+<div class="line-block">
+<div class="line">Ac max current in Ampere</div>
+</div>
+<div class="line"><strong>three_phases</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: True</em></div>
 <div class="line-block">
-<div class="line">Always report as if the charger was initialized</div>
-</div>
-<div class="line"><strong>release_metadata_file</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “release.json”</em></div>
-<div class="line-block">
-<div class="line">Location of the release metadata file relative to the EVerest prefix</div>
-</div>
-<div class="line"><strong>ap_interface</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “wlan0”</em></div>
-<div class="line-block">
-<div class="line">Wifi interface for AP mode</div>
-</div>
-<div class="line"><strong>ap_ipv4</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “192.168.1.1/24”</em></div>
-<div class="line-block">
-<div class="line">IPv4 address of the AP</div>
+<div class="line">Support three phase</div>
 </div>
 </div>
 </section>
 <section id="provides">
-<h2><span class="section-number">13.1.33.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.11.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/car_simulator.html#everest-interfaces-car-simulator"><span class="std std-ref">car_simulator</span></a></div>
 <div class="line-block">
-<div class="line">EVerest Setup</div>
+<div class="line">This implements the car simulator</div>
 </div>
 </div>
 </section>
 <section id="requirements">
-<h2><span class="section-number">13.1.33.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.11.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>store</strong>:<a class="reference internal" href="../interfaces/kvs.html#everest-interfaces-kvs"><span class="std std-ref">kvs</span></a> 1</div>
+<div class="line"><strong>ev_board_support</strong>:<a class="reference internal" href="../interfaces/ev_board_support.html#everest-interfaces-ev-board-support"><span class="std std-ref">ev_board_support</span></a> 1</div>
+<div class="line"><strong>ev</strong>:<a class="reference internal" href="../interfaces/ISO15118_ev.html#everest-interfaces-iso15118-ev"><span class="std std-ref">ISO15118_ev</span></a> 0..1</div>
+<div class="line"><strong>slac</strong>:<a class="reference internal" href="../interfaces/ev_slac.html#everest-interfaces-ev-slac"><span class="std std-ref">ev_slac</span></a> 0..1</div>
+<div class="line"><strong>powermeter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a> 0..1</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.33.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.11.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.33.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.11.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Kai-Uwe Hermann</div>
+<div class="line">Cornelius Claussen</div>
+<div class="line">Sebastian Lukas</div>
+<div class="line">Tobias Marzell</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.33.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.11.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -155,18 +210,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="SerialCommHub.html"
-                          title="previous chapter"><span class="section-number">13.1.32. </span>SerialCommHub</a></p>
+    <p class="topless"><a href="ErrorHistory.html"
+                          title="previous chapter"><span class="section-number">13.1.10. </span>ErrorHistory</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="Store.html"
-                          title="next chapter"><span class="section-number">13.1.34. </span>Store</a></p>
+    <p class="topless"><a href="EvSlac.html"
+                          title="next chapter"><span class="section-number">13.1.12. </span>EvSlac</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/Setup.rst.txt"
+      <li><a href="../../_sources/_generated/modules/EvManager.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -197,15 +252,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Store.html" title="13.1.34. Store"
+          <a href="EvSlac.html" title="13.1.12. EvSlac"
              >next</a> |</li>
         <li class="right" >
-          <a href="SerialCommHub.html" title="13.1.32. SerialCommHub"
+          <a href="ErrorHistory.html" title="13.1.10. ErrorHistory"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>Setup</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.11. </span>EvManager</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

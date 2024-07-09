@@ -32,6 +32,12 @@ Module Configuration
 | **ntp_server_2_port**:*integer* <optional>
 | *default: 123*
 |  The port (1-65535) fof the second NTP server.
+| **meter_timezone**:*string* <optional>
+| *default: "+00:00"*
+|  The timezone offset (ignored if NTP servers are set) - it can go from -11 to +14 for hours and 00, 15, 30, 45 for minutes
+| **meter_dst**:*string* <optional>
+| *default: "{"activated": false, "offset": 60, "start": {"order": "last", "day": "sunday", "month": "march", "hour": "T01:00Z"}, "end": {"order": "last", "day": "sunday", "month": "october", "hour": "T01:00Z" }}"*
+|  The Daylight Saving Time (DST) settings (ignored if NTP is set)
 | **resilience_initial_connection_retries**:*integer* <optional>
 | *default: 25*
 |  For the controller resilience, the number of retries to connect to the powermeter at module initialization.
@@ -50,6 +56,15 @@ Module Configuration
 | **tariff_id**:*integer* <optional>
 | *default: 0*
 |  Used for a unique transaction tariff designation
+| **SC**:*integer* <optional>
+| *default: 0*
+|  SC (OCMF/transaction fields)
+| **UV**:*string* <optional>
+| *default: ""*
+|  User SW Version (OCMF/transaction fields)
+| **UD**:*string* <optional>
+| *default: ""*
+|  UD (OCMF/transaction fields)
 
 ********
 Provides

@@ -39,12 +39,79 @@ commits on GitHub:
 <a class="reference external" href="https://github.com/EVerest/everest-core/releases">EVerest releases</a></p>
 <p>EVerest releases are scheduled monthly. A release for a dedicated month can be
 expected in the beginning of the following month. Each third release (March,
-June, September and December) will be a stable releases including a two week
+June, September and December) will be a stable release including a two week
 feature freeze phase before the release date.</p>
-<p>Here are the some high-level changes for the releases starting from release
-2024.3.0:</p>
+<p>Here are the some high-level changes for the last releases (starting from the
+most recent one backwards):</p>
+<section id="latest-stable">
+<h2>2024.6.0 - LATEST STABLE<a class="headerlink" href="#latest-stable" title="Permalink to this heading">¶</a></h2>
+<section id="security-fix-prevent-integer-overflow-in-evsev2g">
+<h3>Security Fix: Prevent integer overflow in EvseV2G<a class="headerlink" href="#security-fix-prevent-integer-overflow-in-evsev2g" title="Permalink to this heading">¶</a></h3>
+<p>Reading the <strong>v2gtp</strong> message could potentially lead to an integer overflow.
+This fix has been backported to the previous stable version of EVerest
+(2024.3.1).</p>
+<p>See the corresponding security advisory with CVE ID
+<a class="reference external" href="https://github.com/EVerest/everest-core/security/advisories/GHSA-8g9q-7qr9-vc96">CVE-2024-37310</a>
+.</p>
+</section>
+<section id="new-exi-implementation-and-license-improvement">
+<h3>New EXI implementation and license improvement<a class="headerlink" href="#new-exi-implementation-and-license-improvement" title="Permalink to this heading">¶</a></h3>
+<p>The EvseV2G module is now using libcbv2g as EXI implementation instead of
+OpenV2G’s implementation. This means, that the EVerest project has been freed
+from commercial-unfriendly licenses as the LGPLv3 is not part of EVerest
+anymore with this change.</p>
+<p>The libcbv2g has been released in the 0.2.0 version with improved cmake
+integration, refactoring of unit tests and a simple CI in it.</p>
+</section>
+<section id="version-information-displayed">
+<h3>Version information displayed<a class="headerlink" href="#version-information-displayed" title="Permalink to this heading">¶</a></h3>
+<p>EVerest manager displays version information at startup including also the
+version of everest-core.</p>
+<p>A flag can be set at startup that allows also displaying the version numbers
+of other modules used in your EVerest build.</p>
+</section>
+<section id="further-mentions-of-changes">
+<h3>Further mentions of changes<a class="headerlink" href="#further-mentions-of-changes" title="Permalink to this heading">¶</a></h3>
+<p>Further improvements regarding Bazel builds have been done (reading of
+dependencies.yaml on the fly).</p>
+<p>Ubuntu 20.04 is not supported anymore.</p>
+<p>CableCheck as been adapted to IEC-23 (2023).</p>
+</section>
+</section>
 <section id="id1">
-<h2>2024.4.0<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<h2>2024.5.0<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="cloud-refactored-database-exception-handling">
+<h3>Cloud: Refactored database exception handling<a class="headerlink" href="#cloud-refactored-database-exception-handling" title="Permalink to this heading">¶</a></h3>
+<p>Implemented an alternative way to exception handling to prevent from crashes
+in some cases, so that the system can continue working.</p>
+</section>
+<section id="ocpp-1-6-chargex-mrec">
+<h3>OCPP 1.6: ChargeX - MREC<a class="headerlink" href="#ocpp-1-6-chargex-mrec" title="Permalink to this heading">¶</a></h3>
+<p>The Minimum Required Error Codes (MREC) have been refactored. Further
+development will follow in next releases.</p>
+</section>
+<section id="new-bsp-driver-phytec-phyverso">
+<h3>New BSP driver: Phytec phyVERSO<a class="headerlink" href="#new-bsp-driver-phytec-phyverso" title="Permalink to this heading">¶</a></h3>
+<p>Newly integrated driver in EVerest as open-source:
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/648">Phytec phyVERSO as part of open-source EVerest</a>
+.</p>
+</section>
+<section id="bazel-improvement-regarding-git-tags">
+<h3>Bazel improvement regarding git tags<a class="headerlink" href="#bazel-improvement-regarding-git-tags" title="Permalink to this heading">¶</a></h3>
+<p>When parsing the dependencies file, it is checked whether there are tags or
+commit hashes.</p>
+<p>For implementation details, see:
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/654">Bazel: choose tags or commit</a></p>
+</section>
+<section id="minor-evsemanager-changes">
+<h3>Minor EvseManager changes<a class="headerlink" href="#minor-evsemanager-changes" title="Permalink to this heading">¶</a></h3>
+<p>More logging and some bug-fixing in EvseManager has been done.</p>
+<p>In EvseV2G, DIN 70121 is enabled by default. Given reason: Strive for a max of
+compatibility.</p>
+</section>
+</section>
+<section id="id2">
+<h2>2024.4.0<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <section id="added-charging-schedules-definition">
 <h3>Added charging schedules definition<a class="headerlink" href="#added-charging-schedules-definition" title="Permalink to this heading">¶</a></h3>
 <p>Introducing a new OCPP type in EVerest to process charging schedules.</p>
@@ -111,8 +178,18 @@ counterpart of the EvseManager to be able to simulate charging sessions.</p>
 <p>A C++ implementation will be coming soon.</p>
 </section>
 </section>
-<section id="latest-stable">
-<h2>2024.3.0 - LATEST STABLE<a class="headerlink" href="#latest-stable" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2>2024.3.1<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h3>Security Fix: Prevent integer overflow in EvseV2G<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>Reading the <strong>v2gtp</strong> message could potentially lead to an integer overflow.</p>
+<p>See the corresponding security advisory with CVE ID
+<a class="reference external" href="https://github.com/EVerest/everest-core/security/advisories/GHSA-8g9q-7qr9-vc96">CVE-2024-37310</a>
+.</p>
+</section>
+</section>
+<section id="id6">
+<h2>2024.3.0<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <section id="plug-charge">
 <h3>Plug &amp; Charge<a class="headerlink" href="#plug-charge" title="Permalink to this heading">¶</a></h3>
 <p>The full process around a Plug&amp;Charge session has been implemented, which

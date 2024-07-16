@@ -1,0 +1,31 @@
+
+.. _everest_interfaces_reservation:
+
+
+###########
+reservation
+###########
+
+| Interface for reservations
+
+
+
+********
+Commands
+********
+| **reserve_now**:*string*
+|  Reserves this evse.
+|  **connector_id**:*integer* <required>
+|   The id of the connector to be reserved. A value of 0 means that the reservation is not for a specific connector
+|  **reservation**:*object* <required> (:ref:`reservation-Reservation <reservation-Reservation>`)
+|   The information about the Reservation to be placed
+|   **There is an extended definition for this object** :ref:`here <reservation-Reservation>`.
+|  **Result**:*string*  (:ref:`reservation-ReservationResult <reservation-ReservationResult>`)
+|   Returns Accepted if reservation was succesfull or specifies error code.
+|   **There is an extended definition for this object** :ref:`here <reservation-ReservationResult>`.
+| **cancel_reservation**:*boolean*
+|  Cancels the reservation with the given reservation_id
+|  **reservation_id**:*integer* <required>
+|   Id of the reservation
+|  **Result**:*boolean* 
+|   Returns true if reservation was cancelled. Returns false if there was no reservation to cancel.

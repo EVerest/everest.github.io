@@ -1,0 +1,28 @@
+
+.. _everest_types_bank_transaction:
+
+
+################
+bank_transaction
+################
+
+Types needed for bookkeeping bank transactions
+
+.. _bank_transaction-BankSessionToken:
+
+| **BankSessionToken**:*object* 
+|  In some setups the unique token needs to be provided in the bank statement.
+|  properties:
+|   **token**:*string* <required>
+|    Arbitrary token string. Typically short string that is printable case insensitive ascii.
+
+.. _bank_transaction-BankTransactionSummary:
+
+| **BankTransactionSummary**:*object* 
+|  Summary of a bank transaction. Depends on bank and the backend. Therefore it's mostly opaque data at the moment.
+|  properties:
+|   **session_token**:*object* <required> (:ref:`bank_transaction-BankSessionToken <bank_transaction-BankSessionToken>`)
+|    Token to identify the session. This token can be used to download the invoices.
+|    **There is an extended definition for this object** :ref:`here <bank_transaction-BankSessionToken>`.
+|   **transaction_data**:*string* <required>
+|    Arbitrary data that is needed to identify the transaction. This is mostly opaque data at the moment.

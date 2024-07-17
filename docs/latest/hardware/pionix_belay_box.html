@@ -1,21 +1,17 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>11. Pionix BelayBox &#8212; EVerest  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=0a676766" />
     <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -46,6 +42,17 @@
             
   <section id="pionix-belaybox">
 <h1><span class="section-number">11. </span>Pionix BelayBox<a class="headerlink" href="#pionix-belaybox" title="Permalink to this heading">¶</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This page about the BelayBox is outdated as we are currently moving things
+from the Debian-based to a newer Yocto-based image. The documentation will
+be updated soon. Until that, we have created temporary
+<a class="reference internal" href="#belaybox-new-yocto-based"><span class="std std-ref">quick-and-dirty instructions at the end of this docs</span></a>
+.</p>
+<p>So, if you are seeing references to Raspbian, you might rather have a look
+to the temporary quick-and-dirty section how things work with the current
+development status.</p>
+</div>
 <section id="introduction">
 <h2><span class="section-number">11.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>The BelayBox is a reference platform specifically designed for development and
@@ -250,8 +257,13 @@ power through the 12V DC barrel connector shown in the upper right corner of
 the Yeti board in the image above. Make sure the WiFi antenna does not touch
 any other open PCB parts to prevent damage to the boards.</p>
 </section>
-<section id="raspbian">
-<h3><span class="section-number">11.2.6. </span>Raspbian<a class="headerlink" href="#raspbian" title="Permalink to this heading">¶</a></h3>
+<section id="raspbian-soon-to-be-outdated">
+<h3><span class="section-number">11.2.6. </span>Raspbian (soon to be outdated)<a class="headerlink" href="#raspbian-soon-to-be-outdated" title="Permalink to this heading">¶</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>See troubleshooting section for a temporary quick-and-dirty for the new
+Yocto-based approach.</p>
+</div>
 <p>BelayBox uses Raspian (a debian flavour for the Raspberry Pi) as a main
 operating system for development purposes.
 For deployment on real products you should consider using Yocto or similar
@@ -539,6 +551,116 @@ by looking at the Yeti LED. It should flash in a fast frequency. If it is on
 or off without flashing, the firmware could not be started or is not
 installed.</p>
 </section>
+<section id="temporary-quick-and-dirty-docs-new-yocto-based-build">
+<span id="belaybox-new-yocto-based"></span><h3><span class="section-number">11.5.2. </span>Temporary quick-and-dirty docs: New Yocto-based build<a class="headerlink" href="#temporary-quick-and-dirty-docs-new-yocto-based-build" title="Permalink to this heading">¶</a></h3>
+<section id="install-latest-yocto-version">
+<h4><span class="section-number">11.5.2.1. </span>Install latest Yocto version<a class="headerlink" href="#install-latest-yocto-version" title="Permalink to this heading">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>From June 2024 on, we will start changing the Debian-based to a Yocto-based
+image. As we will need some time to update our documentation accordingly,
+see a quick overview of how you can setup your hardware in the meantime.</p>
+</div>
+<p>For a new board (or previous Debian-based board), download the complete SD
+image:</p>
+<p><a class="reference external" href="http://build.pionix.de:8888/release/yocto/belaybox-image-raspberrypi4-20240613154507.rootfs.wic.bz2">http://build.pionix.de:8888/release/yocto/belaybox-image-raspberrypi4-20240613154507.rootfs.wic.bz2</a></p>
+<p>Use balena etcher as described in the manual above, but use the downloaded
+image instead.</p>
+<p>The Yeti MCU also needs the corresponding firmware for the new Yocto image.
+The firmware is included in the new image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have purchased the YETI board after June 2024 the new firmware 2.1 is
+already on the YETI board.</p>
+</div>
+<p>Run these two commands once booted into the new image (the first one is very
+important - do not update while EVerest/BaseCamp is running!):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>basecamp
+yeti_fwupdate<span class="w"> </span>/dev/serial0<span class="w"> </span>/usr/share/everest/modules/YetiDriver/firmware/yetiR1_2.1_firmware.bin
+</pre></div>
+</div>
+<p>After that, reset both Yeti and Yak!</p>
+<p>The new ssh login credentials for the Yocto image are:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>user:<span class="w"> </span>root
+pw:<span class="w"> </span>basecamp
+</pre></div>
+</div>
+<p>If you have the new Yocto installed already, you can update to this version
+using this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rauc<span class="w"> </span>install<span class="w"> </span>http://build.pionix.de:8888/release/yocto/belaybox-bundle-raspberrypi4-20240627101617.raucb
+</pre></div>
+</div>
+<p>After installation is complete, run this to boot into the newly installed
+update:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tryboot
+</pre></div>
+</div>
+</section>
+<section id="use-new-toolchain-for-cross-compiling">
+<h4><span class="section-number">11.5.2.2. </span>Use new toolchain for cross-compiling<a class="headerlink" href="#use-new-toolchain-for-cross-compiling" title="Permalink to this heading">¶</a></h4>
+<p>If you want to cross compile your EVerest version, this is the toolchain to
+use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://build.pionix.de:8888/release/yocto/poky-glibc-x86_64-belaybox-image-cortexa7t2hf-neon-vfpv4-raspberrypi4-toolchain-4.0.16.sh
+</pre></div>
+</div>
+<p>First of all you need to install it. It is a shell script, so just do a
+“chmod +x name_of_toolchain.sh” and then run it with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./name_of_toolchain.sh
+</pre></div>
+</div>
+<p>You will be asked where to install it. You can e.g. install it in your home
+directory - somewhere like /etc/myuser/toolchain-belaybox</p>
+<p>Then you need to source the environment variables (it tells you how to do it
+at the end of the installation).</p>
+<p>Once they are sourced, this terminal will cross compile.</p>
+<p>In everest-core, create a folder called “build-cross”. Change into it.</p>
+<p>There, run cmake as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>..<span class="w"> </span>-GNinja<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/var/everest<span class="w"> </span>-DEVEREST_ENABLE_PY_SUPPORT<span class="o">=</span>OFF<span class="w"> </span>-DEVEREST_ENABLE_JS_SUPPORT<span class="o">=</span>OFF<span class="w"> </span>-Deverest-core_USE_PYTHON_VENV<span class="o">=</span>OFF
+</pre></div>
+</div>
+<p>In this case, the PY/JS support flags are set to OFF. You may need to set them
+to ON if you are using simulation. The last option
+-Deverest-core_USE_PYTHON_VENV is only a temporarily needed directive that
+will probably be obsolete in future release candidates.
+The -GNinja can also be left out, then it will use make.</p>
+<p>After that you can build with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j10
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ninja
+</pre></div>
+</div>
+<p>depending on what you configured.</p>
+<p>Once the build is complete, you can rsync directly to belaybox like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">DESTDIR</span><span class="o">=</span>dist<span class="w"> </span>ninja<span class="w"> </span>install/strip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rsync<span class="w"> </span>-av<span class="w"> </span>dist/var/everest<span class="w"> </span>root@the.ip.add.ress:/var
+</pre></div>
+</div>
+<p>Replace the IP address placeholder with the correct one.</p>
+<p>Then log into the BelayBox and stop the systemd service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>basecamp
+</pre></div>
+</div>
+<p>Then you can run your self-compiled version like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/var/everest/bin/manager<span class="w"> </span>--conf<span class="w"> </span>/path/to/my/configfile
+</pre></div>
+</div>
+</section>
+<section id="further-potential-necessary-steps">
+<h4><span class="section-number">11.5.2.3. </span>Further potential necessary steps<a class="headerlink" href="#further-potential-necessary-steps" title="Permalink to this heading">¶</a></h4>
+<p>The new ssh login credentials for the Yocto image are:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>user:<span class="w"> </span>root
+pw:<span class="w"> </span>basecamp
+</pre></div>
+</div>
+<p>The default config yaml file being used by the basecamp.service is the symlink
+in /etc/everest/basecamp.yaml. It points to the config to be used. This can be
+changed to a config to your liking.</p>
+<p>Should you see any “Unknown config entry” errors when starting the manager
+process, delete the corresponding config entries from the yaml file you are
+using for startup.</p>
+</section>
+</section>
 </section>
 </section>
 
@@ -627,8 +749,8 @@ installed.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Pionix GmbH.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
     </div>
   </body>
 </html>

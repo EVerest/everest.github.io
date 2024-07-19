@@ -20,10 +20,7 @@ Module Configuration
 |  Serial baud rate to use when communicating with the hardware
 | **reset_gpio**:*integer* <optional>
 | *default: -1*
-|  Reset GPIO number to use to HW reset Yeti. If set <0 it is disabled.
-| **mcu_config_file**:*string* <optional>
-| *default: "example_config_pionix.json"*
-|  config file that should be sent to the MCU
+|  If set <0 it is disabled. If > 0, configured reset_gpio_bank and reset_gpio_pin configuration is used for hard reset of MCU
 | **conn1_max_current_A_import**:*integer* <optional>
 | *default: 16*
 |  Maximum import current in amps
@@ -84,6 +81,18 @@ Module Configuration
 | **conn2_dc**:*boolean* <optional>
 | *default: False*
 |  Set to true if it is for DC, false if it is AC
+| **reset_gpio_bank**:*integer* <optional>
+| *default: 1*
+|  GPIO peripheral bank the nRST pin of the MCU is mapped to
+| **reset_gpio_pin**:*integer* <optional>
+| *default: 23*
+|  GPIO peripheral pin the nRST pin of the MCU is mapped to
+| **conn1_motor_lock_type**:*integer* <optional>
+| *default: 2*
+|  Connector 1 motor lock type; 1 == Hella Style time-based lock, 2 == Valeo potentiometer feedback based
+| **conn2_motor_lock_type**:*integer* <optional>
+| *default: 2*
+|  Connector 2 motor lock type; 1 == Hella Style time-based lock, 2 == Valeo potentiometer feedback based
 
 ********
 Provides

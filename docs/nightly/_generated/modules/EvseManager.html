@@ -100,20 +100,10 @@
 <div class="line-block">
 <div class="line">Log full XML messages for HLC</div>
 </div>
-<div class="line"><strong>three_phases</strong>:<em>boolean</em> &lt;optional&gt;</div>
-<div class="line"><em>default: True</em></div>
-<div class="line-block">
-<div class="line">Limit to three phases (true) or one phase (false)</div>
-</div>
 <div class="line"><strong>has_ventilation</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: True</em></div>
 <div class="line-block">
 <div class="line">Allow ventilated charging or not</div>
-</div>
-<div class="line"><strong>country_code</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “DE”</em></div>
-<div class="line-block">
-<div class="line">Country Code</div>
 </div>
 <div class="line"><strong>max_current_import_A</strong>:<em>number</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 32</em></div>
@@ -289,6 +279,21 @@
 <div class="line"><em>default: 5000</em></div>
 <div class="line-block">
 <div class="line">This timeout in ms defines for how long the EvseManager waits for an initial meter value from a powermeter before it becomes ready to start charging. If configured to 0, the EvseManager will not wait for an initial meter value before it becomes ready to start charging.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_delay_s</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 10</em></div>
+<div class="line-block">
+<div class="line">Wait for n seconds when switching between 3ph/1ph mode.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_cp_state</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “X1”</em></div>
+<div class="line-block">
+<div class="line">CP state to use for switching.  WARNING: Some EVs may be permanently destroyed when switching from 1ph to 3ph.  It is the responsibiltiy of the evse_board_support implementation to ensure the EV is capable of performing the switch. If it is not, the capabilities must set the supports_changing_phases_during_charging to false. Phase switching is only possible in basic charging mode.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- X1</div>
+<div class="line">- F</div>
+</div>
 </div>
 </div>
 </section>

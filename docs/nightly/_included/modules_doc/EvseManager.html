@@ -168,8 +168,12 @@ between the energy tree and EvseManager.</p>
 requested energy schedule into the energy tree that is merged from hardware
 capabilities (as reported by board_support module), EvseManager module
 configuration settings
-(max_current, three_phases) and external limts (via <code class="docutils literal notranslate"><span class="pre">set_local_max_current</span></code>
+(max_current, three_phases) and external limts (via <code class="docutils literal notranslate"><span class="pre">set_external_limits</span></code>
 command) e.g. set by OCPP module.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">set_external_limits</span></code> should not be used by multiple modules,
+as the last one always wins. If you have multiple sources of exernal limits
+that you want to combine, add extra EnergyNode modules in the chain and
+feed in limits via those.</p>
 <p>The combined schedule sent to the energy tree is the minimum of all energy
 limits.</p>
 <p>After traversing the energy tree the EnergyManager will use this information
@@ -182,14 +186,42 @@ were sent to the energy tree.</p>
 <p>The EvseManager will never assign energy to itself, it always requests energy
 from the energy manager and only charges
 if the energy manager responds with an assignment.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">set_local_max_current</span></code> command will be extended to schedules (and not
-just one instantaneous limit) soon to fully
-support schedules from OCPP smart charging profile.</p>
 <p>Limits in the energy object can be specified in ampere (per phase) and/or watt.
 Currently watt limits are unsupported, but it should behave according to that
 logic:</p>
-<p>If both are specified also both limits will be applied, whichever is lower. With DC charging, ampere limits apply
+<p>If both are specified also both limits will be applied, whichever is lower.
+With DC charging, ampere limits apply
 to the AC side and watt limits apply to both AC and DC side.</p>
+</section>
+<section id="energy-management-1ph-3ph-switching">
+<h2><span class="section-number">5.2.2.5. </span>Energy Management: 1ph/3ph switching<a class="headerlink" href="#energy-management-1ph-3ph-switching" title="Permalink to this heading">¶</a></h2>
+<p>EVerest has support for switching between 1ph and 3ph configurations during AC
+charging (e.g. for solar charging when sometimes charging with less then 4.2kW (6A*230V*3ph)
+if desired).</p>
+<p>Be warned: Some vehicles (such as first generation of Renault Zoe) may be permanently
+damaged when switching from 1ph to 3ph during charging. Use at your own risk!</p>
+<p>To use this feature several things need to be enabled:</p>
+<ul class="simple">
+<li><p>In EvseManager, adjust two config options to your needs: <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_delay_s</span></code>, <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_cp_state</span></code></p></li>
+<li><p>In the BSP driver, set <code class="docutils literal notranslate"><span class="pre">supports_changing_phases_during_charging</span></code> to true in the reported capabilities.
+If your bsp hardware detects e.g. the Zoe, you can set that flag to false and publish updated capabilities any time.</p></li>
+<li><p>BSP driver capabilities: Also make sure that minimum phases are set to one and maximum phases to 3</p></li>
+<li><p>BSP driver: make sure the <code class="docutils literal notranslate"><span class="pre">ac_switch_three_phases_while_charging</span></code> command correctly</p></li>
+<li><p>EnergyManager: Adjust <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_while_charging_mode</span></code> config option to your needs</p></li>
+</ul>
+<p>If all of this is properly set up, the EnergyManager will drive the 1ph/3ph switching. In order to do so,
+it needs an (external) limit to be set. There are two options: The external limit can be in Watt (not in Ampere),
+even though we are AC charging. This is the preferred option as it gives the freedom to the EnergyManager to
+decide when to switch. The limit can come from OCPP schedule or e.g. via an additional EnergyNode.</p>
+<p>The second option is to set a limit in Ampere and set a limitation on the number of phases (e.g. min_phase=1, max_phase=1).
+This will enforce switching and can be used to decide the switching time externally. EnergyManager does not have the
+freedom to make the choice in this case.</p>
+<p>In general, it works best in a configuration with 32A per phase and a limit in Watt.
+In this scenario there is an actual hysteresis as the two intervals overlap:
+1ph charging can be done from 1.3kW to 7.4kW and 3ph charging works from 4.2kW to 22kW(or 11kW)</p>
+<p>If the single phase and three phase intervals do not overlap, there is no hysteresis.
+Note that many cars support 32A on 1ph even if they are limited to 16A on 3ph. Some however are limited to 16A
+in 1ph mode and will hence charge slower then expected in 1ph mode.</p>
 </section>
 </section>
 

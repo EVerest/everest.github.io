@@ -41,15 +41,9 @@ Module Configuration
 | **session_logging_xml**:*boolean* <optional>
 | *default: True*
 |  Log full XML messages for HLC
-| **three_phases**:*boolean* <optional>
-| *default: True*
-|  Limit to three phases (true) or one phase (false)
 | **has_ventilation**:*boolean* <optional>
 | *default: True*
 |  Allow ventilated charging or not
-| **country_code**:*string* <optional>
-| *default: "DE"*
-|  Country Code
 | **max_current_import_A**:*number* <optional>
 | *default: 32*
 |  User configurable current limit for this EVSE in Ampere
@@ -155,6 +149,15 @@ Module Configuration
 | **initial_meter_value_timeout_ms**:*integer* <optional>
 | *default: 5000*
 |  This timeout in ms defines for how long the EvseManager waits for an initial meter value from a powermeter before it becomes ready to start charging. If configured to 0, the EvseManager will not wait for an initial meter value before it becomes ready to start charging.
+| **switch_3ph1ph_delay_s**:*integer* <optional>
+| *default: 10*
+|  Wait for n seconds when switching between 3ph/1ph mode.
+| **switch_3ph1ph_cp_state**:*string* <optional>
+| *default: "X1"*
+|  CP state to use for switching.  WARNING: Some EVs may be permanently destroyed when switching from 1ph to 3ph.  It is the responsibiltiy of the evse_board_support implementation to ensure the EV is capable of performing the switch. If it is not, the capabilities must set the supports_changing_phases_during_charging to false. Phase switching is only possible in basic charging mode.
+|  enum:
+|    - X1
+|    - F
 
 ********
 Provides

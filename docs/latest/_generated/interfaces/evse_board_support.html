@@ -66,7 +66,7 @@
 </div>
 <div class="line"><strong>capabilities</strong>:<em>object</em>  (<a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">evse_board_support-HardwareCapabilities</span></a>)</div>
 <div class="line-block">
-<div class="line">Hardware capabilities/limits. Initially EvseManager will call get_hw_capabilities once to fetch the limits and caches the limits internally. The BSP module does not have to publish this variable at all, then the initially fetched capabilities will be used. The BSP may publish this variable to update limits in case they change during runtime, e.g. if the maximum current changes because the hardware gets too hot.</div>
+<div class="line">Hardware capabilities/limits. The BSP must publish this variable at least once during start up. For AC, the capabilities are the limits of the AC hardware power path. For DC, this are the limits for the AC input for the AC/DC converter. The BSP may publish this variable to update limits in case they change during runtime, e.g. if the maximum current changes because the hardware gets too hot.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>ac_pp_ampacity</strong>:<em>object</em>  (<a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">board_support_common-ProximityPilot</span></a>)</div>
@@ -84,31 +84,6 @@
 <section id="commands">
 <h2><span class="section-number">13.2.19.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>setup</strong>:<em>void</em></div>
-<div class="line-block">
-<div class="line">Setup config options</div>
-<div class="line"><strong>three_phases</strong>:<em>boolean</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">true: Three phases enabled, false: only single phase</div>
-</div>
-<div class="line"><strong>has_ventilation</strong>:<em>boolean</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">true: Allow mode D charging, false: do not allow mode D charging</div>
-</div>
-<div class="line"><strong>country_code</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">A two-letter country code in ISO 3166-1 alpha-2 format</div>
-</div>
-</div>
-<div class="line"><strong>get_hw_capabilities</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Get Hardware capability/limits. For AC these are the limits of the power path (e.g. relais etc).  For DC, these are the limits for the AC input of the ACDC converter stack, i.e. the complete AC input. Note that DC output limits are reported by the DC power supply itself.</div>
-<div class="line"><strong>Result</strong>:<em>object</em>  (<a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">evse_board_support-HardwareCapabilities</span></a>)</div>
-<div class="line-block">
-<div class="line">Hardware capability/limits</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_board_support.html#evse-board-support-hardwarecapabilities"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
 <div class="line"><strong>enable</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Enables or disables the charging port. Typically disabled results in control pilot state F. It must not accept cars for new charging sessions if disabled.</div>

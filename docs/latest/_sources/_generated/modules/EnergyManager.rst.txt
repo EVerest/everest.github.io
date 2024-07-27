@@ -32,6 +32,16 @@ Module Configuration
 | **debug**:*boolean* <optional>
 | *default: False*
 |  Show debug output on command line.
+| **switch_3ph1ph_while_charging_mode**:*string* <optional>
+| *default: "Never"*
+|  If supported by BSP in capabilities to switch between three phases and one phase and config option three_phases is set to true, this controls the algorithm:
+|   - Never: Do not use 1ph/3ph switching even if supported by the BSP
+|   - Oneway: Only switch from 3ph to 1ph if power is not enough, but never switch back to 3ph for a session.
+|   - Both: Switch in both directions, i.e. from 3ph to 1ph and back to 3ph if available power changes
+|  enum:
+|    - Never
+|    - Oneway
+|    - Both
 
 ********
 Provides

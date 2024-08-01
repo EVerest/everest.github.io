@@ -112,14 +112,12 @@ EVSE manager types
 |   ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity
 |   TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
 |   SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)
-|   Error: Signaled when an error occured. An error doesnt prevent further charging operations.
-|   AllErrorsCleared: Signalled when all errors are cleared
-|   PermanentFault: Signaled when there is a permanent fault at the EVSE. A permanent fault prevents further charging operations
 |   ReservationStart: Signaled when a reservation starts
 |   ReservationEnd: Signaled when a reservation ends
 |   ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
 |   ReplugFinished: Signaled when the virtual replug process has finished
 |   PluginTimeout: Signaled when an EV has been Plugged in but no authorization is present within specified ConnectionTimeout
+|   SessionResumed: Signaled when a session is resumed at startup (e.g. because of previous powerloss)
 |  enum:
 |    - Authorized
 |    - Deauthorized
@@ -138,17 +136,13 @@ EVSE manager types
 |    - ChargingFinished
 |    - TransactionFinished
 |    - SessionFinished
-|    - Error
-|    - ErrorCleared
-|    - AllErrorsCleared
-|    - PermanentFault
-|    - PermanentFaultCleared
 |    - ReservationStart
 |    - ReservationEnd
 |    - ReplugStarted
 |    - ReplugFinished
 |    - PluginTimeout
 |    - SwitchingPhases
+|    - SessionResumed
 
 .. _evse_manager-SessionStarted:
 
@@ -237,66 +231,6 @@ EVSE manager types
 |    Exported meter value
 |    **There is an extended definition for this object** :ref:`here <powermeter-Powermeter>`.
 
-.. _evse_manager-ErrorEnum:
-
-| **ErrorEnum**:*string* 
-|  Note this is only kept for compatibility with the legacy error handling and will be removed soon.
-|  enum:
-|    - RCD_Selftest
-|    - RCD_DC
-|    - RCD_AC
-|    - VendorError
-|    - VendorWarning
-|    - ConnectorLockCapNotCharged
-|    - ConnectorLockUnexpectedOpen
-|    - ConnectorLockUnexpectedClose
-|    - ConnectorLockFailedLock
-|    - ConnectorLockFailedUnlock
-|    - MREC1ConnectorLockFailure
-|    - MREC2GroundFailure
-|    - MREC3HighTemperature
-|    - MREC4OverCurrentFailure
-|    - MREC5OverVoltage
-|    - MREC6UnderVoltage
-|    - MREC8EmergencyStop
-|    - MREC10InvalidVehicleMode
-|    - MREC14PilotFault
-|    - MREC15PowerLoss
-|    - MREC17EVSEContactorFault
-|    - MREC18CableOverTempDerate
-|    - MREC19CableOverTempStop
-|    - MREC20PartialInsertion
-|    - MREC23ProximityFault
-|    - MREC24ConnectorVoltageHigh
-|    - MREC25BrokenLatch
-|    - MREC26CutCable
-|    - DiodeFault
-|    - VentilationNotAvailable
-|    - BrownOut
-|    - EnergyManagement
-|    - PermanentFault
-|    - PowermeterTransactionStartFailed
-|    - IMDFault
-
-.. _evse_manager-Error:
-
-| **Error**:*object* 
-|  Error object that contains information about the error and optional vendor error information
-|  properties:
-|   **error_code**:*string* <required> (:ref:`evse_manager-ErrorEnum <evse_manager-ErrorEnum>`)
-|    The error enum
-|    **There is an extended definition for this object** :ref:`here <evse_manager-ErrorEnum>`.
-|   **error_description**:*string* <required>
-|    Description of the error (human readable)
-|   **error_severity**:*string* <required>
-|    Severity of the error
-|    enum:
-|      - High
-|      - Medium
-|      - Low
-|   **vendor_error**:*string* <optional>
-|    The error code of the vendor
-
 .. _evse_manager-EnableDisableSource:
 
 | **EnableDisableSource**:*object* 
@@ -355,9 +289,6 @@ EVSE manager types
 |   **authorization_event**:*object* <optional> (:ref:`evse_manager-AuthorizationEvent <evse_manager-AuthorizationEvent>`)
 |    Data for Authorization event. Shall be set for the following SessionEventEnums: Authorized, Deauthorized
 |    **There is an extended definition for this object** :ref:`here <evse_manager-AuthorizationEvent>`.
-|   **error**:*object* <optional> (:ref:`evse_manager-Error <evse_manager-Error>`)
-|    Details on error type
-|    **There is an extended definition for this object** :ref:`here <evse_manager-Error>`.
 |   **source**:*object* <optional> (:ref:`evse_manager-EnableDisableSource <evse_manager-EnableDisableSource>`)
 |    Additional data for Enabled/Disabled events. Specifies the source of the command that changed the state.
 |    **There is an extended definition for this object** :ref:`here <evse_manager-EnableDisableSource>`.

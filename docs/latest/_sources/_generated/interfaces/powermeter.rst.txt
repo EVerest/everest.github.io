@@ -30,7 +30,7 @@ Commands
 |   True on success, False if transaction could not be started in the power meter
 |   **There is an extended definition for this object** :ref:`here <powermeter-TransactionStartResponse>`.
 | **stop_transaction**:*object*
-|  Stop the transaction on the power meter and return the signed metering information
+|  Stop the transaction on the power meter and return the signed metering information. If the transaction id is an empty string, all ongoing transaction should be cancelled. This is used on start up to clear dangling transactions that might still be ongoing in the power meter but are not known to the EvseManager.
 |  **transaction_id**:*string* <required>
 |   Transaction id
 |  **Result**:*object*  (:ref:`powermeter-TransactionStopResponse <powermeter-TransactionStopResponse>`)

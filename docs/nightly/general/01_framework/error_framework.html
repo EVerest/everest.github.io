@@ -647,7 +647,7 @@ available in Javascript.</p>
 <h3><span class="section-number">1.6.1.3.1. </span>Creating Error objects<a class="headerlink" href="#creating-error-objects" title="Permalink to this heading">¶</a></h3>
 <p>Error objects may always be created using the <cite>ErrorFactory</cite> of the
 implementation.</p>
-<p>Error objects can be edited after creatiion, before raising them.</p>
+<p>Error objects can be edited after creation, before raising them.</p>
 <p>The following attributes may not be changed after creation:
 - <cite>timestamp</cite>
 - <cite>origin.module_id</cite>
@@ -661,22 +661,15 @@ actions, but no “handling” actions. This means that the module does not chan
 its behavior based on the error, but only reports the error for example to a
 log file.</p>
 </section>
-<section id="treating-of-specific-error-types">
-<h3><span class="section-number">1.6.1.3.3. </span>Treating of specific Error Types<a class="headerlink" href="#treating-of-specific-error-types" title="Permalink to this heading">¶</a></h3>
-<p>This section describes the handling of specific error types.
-Currently it is still under construction, so please check regularly for
-updates.</p>
-<ul class="simple">
-<li><p>The <em>evse_board_support/VendorError</em> is a generic error type which is used
-with vendor specific sub_types, which can be for example vendor specific
-error codes. The <em>evse_board_support/VendorError</em> is raised to prevent charging
-in <cite>EVSEManager</cite> module. The <cite>EVSEManager</cite> needs to require the
-<cite>evse_board_support</cite> module.</p></li>
-<li><p>The <em>evse_board_support/VendorWarning</em> is a generic error type which is used
-with vendor specific sub_types, which can be for example vendor specific
-error codes. The <em>evse_board_support/VendorWarning</em> is raised to report an
-error that does not prevent charging in <cite>EVSEManager</cite> module.</p></li>
-</ul>
+<section id="side-effects-of-raising-errors">
+<h3><span class="section-number">1.6.1.3.3. </span>Side effects of raising errors<a class="headerlink" href="#side-effects-of-raising-errors" title="Permalink to this heading">¶</a></h3>
+<p>The error framework allow module implementations to get notified about an error
+from one of their requirements by subscribing to the error. This can be used for
+reporting purposes (e.g. via OCPP) or it can be used to adjust the control flow
+of the module based on the raised error.</p>
+<p>It is important to note that raising errors can therefore lead to side effects
+within other modules. The side effects shall be documented as part of the module
+documentation (see e.g. EvseManager or OCPP).</p>
 </section>
 </section>
 <section id="architecture">

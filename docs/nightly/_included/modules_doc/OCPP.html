@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.2.8. Global Errors &#8212; EVerest  documentation</title>
+    <title>5.2.8. Global Errors and Error Reporting &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -36,7 +36,7 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.8. </span>Global Errors</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.8. </span>Global Errors and Error Reporting</a></li> 
       </ul>
     </div>  
 
@@ -45,10 +45,31 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="global-errors">
-<h1><span class="section-number">5.2.8. </span>Global Errors<a class="headerlink" href="#global-errors" title="Permalink to this heading">¶</a></h1>
-<p>The <cite>enable_global_errors</cite> flag for this module is true. This module is therefore able to retrieve and process all reported errors
+  <section id="global-errors-and-error-reporting">
+<h1><span class="section-number">5.2.8. </span>Global Errors and Error Reporting<a class="headerlink" href="#global-errors-and-error-reporting" title="Permalink to this heading">¶</a></h1>
+<p>The <cite>enable_global_errors</cite> flag for this module is enabled. This module is therefore able to retrieve and process all reported errors
 from other modules loaded in the same EVerest configuration.</p>
+<p>In OCPP1.6 errors and can be reported using the <cite>StatusNotification.req</cite> message. If this module gets notified about a raised error,
+it initiates a <cite>StatusNotification.req</cite> that contains information about the error that has been raised.</p>
+<p>The field <cite>status</cite> of the <cite>StatusNotification.req</cite> will be set to faulted only in case the error is of the special type <cite>evse_manager/Inoperative</cite>.
+The field <cite>connectorId</cite> is set based on the mapping (for evse id and connector id) of the origin of the Error.
+If no mapping is provided, the error will be reported on connectorId 0. Note that the mapping can be configured per module
+inside the EVerest config file.
+The field <cite>errorCode</cite> is set based in the <cite>type</cite> property of the error.</p>
+<p>The fields <cite>info</cite>, <cite>vendorId</cite> and <cite>vendorErrorCode</cite> are set based on the error type and the provided error properties. Please see the definiton
+of <cite>get_error_info</cite> to see how the <cite>StatusNotification.req</cite> is constructed based on the given error.</p>
+<p>The <cite>StatusNotification.req</cite> message has some limitations with respect to reporting errors:
+* Single errors can not simply be cleared. If multiple errors are raised it is not possible to clear individual errors
+* Some fields of the message have relatively small character limits (e.g. <cite>info</cite> with 50 characters, <cite>vendorErrorCode</cite> with 50 characters)</p>
+<p>This module attempts to follow the Minimum Required Error Codes (MRECS): <a class="reference external" href="https://inl.gov/chargex/mrec/">https://inl.gov/chargex/mrec/</a> . This proposes a unified methodology
+to define and classify a minimum required set of error codes and how to report them via OCPP1.6.</p>
+<p>This module currently deviates from the MREC specification in the following points:
+* Simultaneous errors: MREC requires to report simultaneous errors by reporting them in a single <cite>StatusNotification.req</cite> by separating the
+information of the fields <cite>vendorId`and `info</cite> by a semicolon. This module sends one <cite>StatusNotifcation.req</cite> per individual errors because
+of the limited maximum characters of the <cite>info</cite> field.
+* MREC requires to always use the value <cite>Faulted</cite> for the <cite>status</cite> field when reporting an error. The OCPP1.6 specification defines the
+<cite>Faulted</cite> value as follows: “When a Charge Point or connector has reported an error and is not available for energy delivery . (Inoperative).”.
+This module therefore only reports <cite>Faulted</cite> when the Charge Point is not available for energy delivery.</p>
 </section>
 <section id="interaction-with-evse-manager">
 <h1><span class="section-number">5.2.9. </span>Interaction with EVSE Manager<a class="headerlink" href="#interaction-with-evse-manager" title="Permalink to this heading">¶</a></h1>
@@ -136,7 +157,7 @@ from other modules loaded in the same EVerest configuration.</p>
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.8. </span>Global Errors</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.2.8. </span>Global Errors and Error Reporting</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

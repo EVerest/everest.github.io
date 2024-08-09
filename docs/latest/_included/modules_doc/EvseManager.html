@@ -227,6 +227,69 @@ In this scenario there is an actual hysteresis as the two intervals overlap:
 Note that many cars support 32A on 1ph even if they are limited to 16A on 3ph. Some however are limited to 16A
 in 1ph mode and will hence charge slower then expected in 1ph mode.</p>
 </section>
+<section id="error-handling">
+<h2><span class="section-number">5.2.2.6. </span>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h2>
+<p>The control flow of this module can be influenced by the error implementation of its requirements. This section documents
+the side effects that can be caused by errors raised by a requirement.</p>
+<p>This module subscribes to all errors of the following requirements:
+* evse_board_support
+* connector_lock
+* ac_rcd
+* isolation_monitor</p>
+<p>A raised error can cause the EvseManager to become Inoperative. This means that charging is not possible until the error is cleared.
+If no charging session is currently running, it will prevent sessions from being started. If a charging session is currently running and an error is raised
+this will interrupt the charging session.</p>
+<p>The following sections provide an overview of errors that cause the EvseManager to become Inoperative until the error is cleared.</p>
+<section id="evse-board-support">
+<h3><span class="section-number">5.2.2.6.1. </span>evse_board_support<a class="headerlink" href="#evse-board-support" title="Permalink to this heading">¶</a></h3>
+<p>evse_board_support/DiodeFault
+evse_board_support/VentilationNotAvailable
+evse_board_support/BrownOut
+evse_board_support/EnergyManagement
+evse_board_support/PermanentFault
+evse_board_support/MREC2GroundFailure
+evse_board_support/MREC4OverCurrentFailure
+evse_board_support/MREC5OverVoltage
+evse_board_support/MREC6UnderVoltage
+evse_board_support/MREC8EmergencyStop
+evse_board_support/MREC10InvalidVehicleMode
+evse_board_support/MREC14PilotFault
+evse_board_support/MREC15PowerLoss
+evse_board_support/MREC17EVSEContactorFault
+evse_board_support/MREC19CableOverTempStop
+evse_board_support/MREC20PartialInsertion
+evse_board_support/MREC23ProximityFault
+evse_board_support/MREC24ConnectorVoltageHigh
+evse_board_support/MREC25BrokenLatch
+evse_board_support/MREC26CutCable
+evse_board_support/VendorError
+evse_board_support/CommunicationFault</p>
+</section>
+<section id="connector-lock">
+<h3><span class="section-number">5.2.2.6.2. </span>connector_lock<a class="headerlink" href="#connector-lock" title="Permalink to this heading">¶</a></h3>
+<p>connector_lock/ConnectorLockCapNotCharged
+connector_lock/ConnectorLockUnexpectedClose
+connector_lock/ConnectorLockUnexpectedOpen
+connector_lock/ConnectorLockFailedLock
+connector_lock/ConnectorLockFailedUnlock
+connector_lock/MREC1ConnectorLockFailure
+connector_lock/VendorError</p>
+</section>
+<section id="ac-rcd">
+<h3><span class="section-number">5.2.2.6.3. </span>ac_rcd<a class="headerlink" href="#ac-rcd" title="Permalink to this heading">¶</a></h3>
+<p>ac_rcd/MREC2GroundFailure
+ac_rcd/VendorError
+ac_rcd/Selftest
+ac_rcd/AC
+ac_rcd/DC</p>
+</section>
+<section id="isolation-monitor">
+<h3><span class="section-number">5.2.2.6.4. </span>isolation_monitor<a class="headerlink" href="#isolation-monitor" title="Permalink to this heading">¶</a></h3>
+<p>isolation_monitor/DeviceFault
+isolation_monitor/CommunicationFault
+isolation_monitor/VendorError</p>
+</section>
+</section>
 </section>
 
 

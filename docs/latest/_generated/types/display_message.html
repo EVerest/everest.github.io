@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13.3.4. display_message &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13.3.5. energy" href="energy.html" />
+    <link rel="prev" title="13.3.3. board_support_common" href="board_support_common.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="energy.html" title="13.3.5. energy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="board_support_common.html" title="13.3.3. board_support_common"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.4. </span>display_message</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="display-message">
+<span id="everest-types-display-message"></span><h1><span class="section-number">13.3.4. </span>display_message<a class="headerlink" href="#display-message" title="Permalink to this heading">¶</a></h1>
+<p>Message to show on a display</p>
+<div class="line-block" id="display-message-messagepriorityenum">
+<div class="line"><strong>MessagePriorityEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Priority of the message. AlwaysFront is the highest priority: The Charging Station SHALL show this message at the configured moment, regardless of other installed messages. Hence, it shall not cycle it with other messages and the Charging Station’s own message shall not override this message. When a newer message with this MessagePriority is received, this message is replaced. InFront: The Charging Station SHALL show this message at the configured moment, regardless of the normal cycle of messages. If there are multiple InFront message that must be shown at the same time, they must be cycled. NormalCycle: Show this message in the cycle of messages.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- AlwaysFront</div>
+<div class="line">- InFront</div>
+<div class="line">- NormalCycle</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-messagestateenum">
+<div class="line"><strong>MessageStateEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">During what state the message should be shown</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Charging</div>
+<div class="line">- Faulted</div>
+<div class="line">- Idle</div>
+<div class="line">- Unavailable</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-displaymessagestatusenum">
+<div class="line"><strong>DisplayMessageStatusEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Response on a display message request</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- NotSupportedMessageFormat</div>
+<div class="line">- Rejected</div>
+<div class="line">- NotSupportedPriority</div>
+<div class="line">- NotSupportedState</div>
+<div class="line">- UnknownTransaction</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-clearmessageresponseenum">
+<div class="line"><strong>ClearMessageResponseEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Response on a clear display message request</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- Unknown</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-messagecontent">
+<div class="line"><strong>MessageContent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Contains message details</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>format</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#display-message-messageformat"><span class="std std-ref">display_message-MessageFormat</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messageformat"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>language</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>content</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-messageformat">
+<div class="line"><strong>MessageFormat</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Format of the message to be displayed</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ASCII</div>
+<div class="line">- HTML</div>
+<div class="line">- URI</div>
+<div class="line">- UTF8</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-displaymessage">
+<div class="line"><strong>DisplayMessage</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Message to show on a display</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The message id</div>
+</div>
+<div class="line"><strong>priority</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#display-message-messagepriorityenum"><span class="std std-ref">display_message-MessagePriorityEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Priority of the message. For OCPP 2.0.1, this is a required property. But as we also use this interface outside of ocpp, for other messages it is not required and if priority is not given, we assume it is the lowest priority, ‘NormalCycle’. When priority is ‘AlwaysFront’ and there already is a message with priority ‘AlwaysFront’, the last received message shall replace the already existing message.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messagepriorityenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>state</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#display-message-messagestateenum"><span class="std std-ref">display_message-MessageStateEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">During what state should this message be shown. When omitted, this message should be shown in any state of the Charging Station</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messagestateenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>timestamp_from</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">From what date-time should this message be shown. If omitted: directly.</div>
+<div class="line">format:date-time</div>
+</div>
+<div class="line"><strong>timestamp_to</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Until what date-time should this message be shown, after this date/time this message SHALL be removed. If omitted, message can be shown ‘forever’ (until it is specifically removed).</div>
+<div class="line">format:date-time</div>
+</div>
+<div class="line"><strong>session_id</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">During which session shall this message be shown. Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.</div>
+</div>
+<div class="line"><strong>message</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#display-message-messagecontent"><span class="std std-ref">display_message-MessageContent</span></a>)</div>
+<div class="line-block">
+<div class="line">The message to show</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messagecontent"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>qr_code</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">QR Code to scan for more information.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-setdisplaymessageresponse">
+<div class="line"><strong>SetDisplayMessageResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Response to the set display message request.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#display-message-displaymessagestatusenum"><span class="std std-ref">display_message-DisplayMessageStatusEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Whether the charging station is able to display the message</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-displaymessagestatusenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>status_info</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Detailed status information</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-getdisplaymessagerequest">
+<div class="line"><strong>GetDisplayMessageRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Request display messages. The properties are filtered. If the properties are omitted, there will be no filter applied (if all properties are omitted, all stored display messages will be returned).</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>id</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">If provided the Charging Station shall return Display Messages of the given ids.</div>
+<div class="line"><strong>array_item</strong>:<em>integer</em></div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>priority</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#display-message-messagepriorityenum"><span class="std std-ref">display_message-MessagePriorityEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">If provided the Charging Station shall return Display Messages with the given priority only.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messagepriorityenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>state</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#display-message-messagestateenum"><span class="std std-ref">display_message-MessageStateEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">If provided the Charging Station shall return Display Messages with the given state only.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messagestateenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-getdisplaymessageresponse">
+<div class="line"><strong>GetDisplayMessageResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Reponse on the ‘get display message’ request. Will return the requested display messages.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status_info</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Detailed status information</div>
+</div>
+<div class="line"><strong>messages</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Requested messages, if any</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#display-message-displaymessage"><span class="std std-ref">display_message-DisplayMessage</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-displaymessage"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-cleardisplaymessagerequest">
+<div class="line"><strong>ClearDisplayMessageRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Request to remove a specific display message.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Id of display message that should be removed from the charging station</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="display-message-cleardisplaymessageresponse">
+<div class="line"><strong>ClearDisplayMessageResponse</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Response on the clear display message request.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#display-message-clearmessageresponseenum"><span class="std std-ref">display_message-ClearMessageResponseEnum</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-clearmessageresponseenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>status_info</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="board_support_common.html"
+                          title="previous chapter"><span class="section-number">13.3.3. </span>board_support_common</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="energy.html"
+                          title="next chapter"><span class="section-number">13.3.5. </span>energy</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/types/display_message.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="energy.html" title="13.3.5. energy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="board_support_common.html" title="13.3.3. board_support_common"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.4. </span>display_message</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

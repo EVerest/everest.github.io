@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.3.22. session_cost &#8212; EVerest  documentation</title>
+    <title>13.3.23. session_cost &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.3.23. sunspec_ac_meter" href="sunspec_ac_meter.html" />
-    <link rel="prev" title="13.3.21. serial_comm_hub_requests" href="serial_comm_hub_requests.html" /> 
+    <link rel="next" title="13.3.24. sunspec_ac_meter" href="sunspec_ac_meter.html" />
+    <link rel="prev" title="13.3.22. serial_comm_hub_requests" href="serial_comm_hub_requests.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="sunspec_ac_meter.html" title="13.3.23. sunspec_ac_meter"
+          <a href="sunspec_ac_meter.html" title="13.3.24. sunspec_ac_meter"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="serial_comm_hub_requests.html" title="13.3.21. serial_comm_hub_requests"
+          <a href="serial_comm_hub_requests.html" title="13.3.22. serial_comm_hub_requests"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.22. </span>session_cost</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.23. </span>session_cost</a></li> 
       </ul>
     </div>  
 
@@ -47,8 +47,86 @@
           <div class="body" role="main">
             
   <section id="session-cost">
-<span id="everest-types-session-cost"></span><h1><span class="section-number">13.3.22. </span>session_cost<a class="headerlink" href="#session-cost" title="Permalink to this heading">¶</a></h1>
+<span id="everest-types-session-cost"></span><h1><span class="section-number">13.3.23. </span>session_cost<a class="headerlink" href="#session-cost" title="Permalink to this heading">¶</a></h1>
 <p>Types to provide the session price</p>
+<div class="line-block" id="session-cost-idleprice">
+<div class="line"><strong>IdlePrice</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Price components when idle</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>grace_minutes</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Grace period in minutes before idle time is charged. Grace minutes start counting from the timestamp of the message in which state changed from “Charging” to “Idle”.</div>
+</div>
+<div class="line"><strong>hour_price</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="money.html#money-price"><span class="std std-ref">money-Price</span></a>)</div>
+<div class="line-block">
+<div class="line">Price per hour while idle</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="money.html#money-price"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="session-cost-costcategory">
+<div class="line"><strong>CostCategory</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Cost category</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Energy</div>
+<div class="line">- Time</div>
+<div class="line">- FlatFee</div>
+<div class="line">- Other</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="session-cost-chargingpricecomponent">
+<div class="line"><strong>ChargingPriceComponent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Charging price for a category</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>category</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#session-cost-costcategory"><span class="std std-ref">session_cost-CostCategory</span></a>)</div>
+<div class="line-block">
+<div class="line">Component type for this charging price</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-costcategory"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>price</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="money.html#money-price"><span class="std std-ref">money-Price</span></a>)</div>
+<div class="line-block">
+<div class="line">Price for this component</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="money.html#money-price"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="session-cost-nextperiodprice">
+<div class="line"><strong>NextPeriodPrice</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Pricing for the next period</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp_from</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Time when these prices become active.</div>
+</div>
+<div class="line"><strong>charging_price</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Price components while charging</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#session-cost-chargingpricecomponent"><span class="std std-ref">session_cost-ChargingPriceComponent</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-chargingpricecomponent"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>idle_price</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#session-cost-idleprice"><span class="std std-ref">session_cost-IdlePrice</span></a>)</div>
+<div class="line-block">
+<div class="line">Price components while idle. Optional if no idle fee charged.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-idleprice"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="session-cost-sessioncostchunk">
 <div class="line"><strong>SessionCostChunk</strong>:<em>object</em></div>
 <div class="line-block">
@@ -65,20 +143,23 @@
 <div class="line">Absolute timestamp for the end of this chunk in RFC3339 UTC format</div>
 <div class="line">format:date-time</div>
 </div>
+<div class="line"><strong>metervalue_from</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Metervalue (energie Wh import) for the start of this chunk</div>
+</div>
+<div class="line"><strong>metervalue_to</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Metervalue (energie Wh import) for the end of this chunk</div>
+</div>
 <div class="line"><strong>cost</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="money.html#money-moneyamount"><span class="std std-ref">money-MoneyAmount</span></a>)</div>
 <div class="line-block">
 <div class="line">Cost of the energy (or other things like time, base price, …)  consumed during this chunk in the currency specified in the session price</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="money.html#money-moneyamount"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>category</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>category</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#session-cost-costcategory"><span class="std std-ref">session_cost-CostCategory</span></a>)</div>
 <div class="line-block">
-<div class="line">Cost category. Typically this is energy or time.</div>
-<div class="line">enum:</div>
-<div class="line-block">
-<div class="line">- Energy</div>
-<div class="line">- Time</div>
-<div class="line">- Other</div>
-</div>
+<div class="line">Cost category. Typically this is energy, time or a flat fee.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-costcategory"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -90,6 +171,7 @@
 <div class="line">enum:</div>
 <div class="line-block">
 <div class="line">- Running</div>
+<div class="line">- Idle</div>
 <div class="line">- Finished</div>
 </div>
 </div>
@@ -100,10 +182,14 @@
 <div class="line">Session cost object containing the total cost of the session and a list of chunks</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>id_tag</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
+<div class="line"><strong>id_tag</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
 <div class="line-block">
 <div class="line">The id tag assigned to this transaction</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="authorization.html#authorization-providedidtoken"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>session_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The session id</div>
 </div>
 <div class="line"><strong>currency</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="money.html#money-currency"><span class="std std-ref">money-Currency</span></a>)</div>
 <div class="line-block">
@@ -120,10 +206,44 @@
 <div class="line"><br /></div>
 </div>
 </div>
+<div class="line"><strong>idle_price</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#session-cost-idleprice"><span class="std std-ref">session_cost-IdlePrice</span></a>)</div>
+<div class="line-block">
+<div class="line">Prices for when the EV is idle.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-idleprice"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>charging_price</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Charging prices.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#session-cost-chargingpricecomponent"><span class="std std-ref">session_cost-ChargingPriceComponent</span></a>)</div>
+<div class="line-block">
+<div class="line">Charging price per type</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-chargingpricecomponent"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>next_period</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#session-cost-nextperiodprice"><span class="std std-ref">session_cost-NextPeriodPrice</span></a>)</div>
+<div class="line-block">
+<div class="line">Charging prices for the next period, starting from the given date/time</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-nextperiodprice"><span class="std std-ref">here</span></a>.</div>
+</div>
 <div class="line"><strong>status</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#session-cost-sessionstatus"><span class="std std-ref">session_cost-SessionStatus</span></a>)</div>
 <div class="line-block">
 <div class="line">Session status. Session can be running or finished. Costs of the running session are not final and can change. Only after the session is finished, the session cost can be committed to bank and/or backend.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#session-cost-sessionstatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>message</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Message to show to the user containing information about the price</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="display_message.html#display-message-messagecontent"><span class="std std-ref">display_message-MessageContent</span></a>)</div>
+<div class="line-block">
+<div class="line">Message with pricing information in a specific language</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="display_message.html#display-message-messagecontent"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>qr_code</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">QR Code with more information. For example when the charging is finished, to download the invoice from</div>
 </div>
 </div>
 </div>
@@ -162,12 +282,12 @@
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="serial_comm_hub_requests.html"
-                          title="previous chapter"><span class="section-number">13.3.21. </span>serial_comm_hub_requests</a></p>
+                          title="previous chapter"><span class="section-number">13.3.22. </span>serial_comm_hub_requests</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="sunspec_ac_meter.html"
-                          title="next chapter"><span class="section-number">13.3.23. </span>sunspec_ac_meter</a></p>
+                          title="next chapter"><span class="section-number">13.3.24. </span>sunspec_ac_meter</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -203,15 +323,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="sunspec_ac_meter.html" title="13.3.23. sunspec_ac_meter"
+          <a href="sunspec_ac_meter.html" title="13.3.24. sunspec_ac_meter"
              >next</a> |</li>
         <li class="right" >
-          <a href="serial_comm_hub_requests.html" title="13.3.21. serial_comm_hub_requests"
+          <a href="serial_comm_hub_requests.html" title="13.3.22. serial_comm_hub_requests"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.22. </span>session_cost</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.23. </span>session_cost</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

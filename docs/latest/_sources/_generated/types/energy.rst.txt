@@ -17,6 +17,21 @@ Energy import/export capability/limit types
 |    - Evse
 |    - Generic
 
+.. _energy-EvseState:
+
+| **EvseState**:*string* 
+|  Enum for simplified EVSE state
+|  enum:
+|    - Unplugged
+|    - WaitForAuth
+|    - WaitForEnergy
+|    - PrepareCharging
+|    - PausedEV
+|    - PausedEVSE
+|    - Charging
+|    - Finished
+|    - Disabled
+
 .. _energy-LimitsReq:
 
 | **LimitsReq**:*object* 
@@ -120,6 +135,9 @@ Energy import/export capability/limit types
 |    **There is an extended definition for this object** :ref:`here <energy-NodeType>`.
 |   **priority_request**:*boolean* <optional>
 |    If set to true, this is a high priority request that needs to be handled now.  Otherwise energymanager may merge multiple requests and address them later.
+|   **evse_state**:*object* <optional> (:ref:`energy-EvseState <energy-EvseState>`)
+|    State of the EVSE
+|    **There is an extended definition for this object** :ref:`here <energy-EvseState>`.
 |   **optimizer_target**:*object* <optional> (:ref:`energy-OptimizerTarget <energy-OptimizerTarget>`)
 |    User defined optimizer targets for this evse
 |    **There is an extended definition for this object** :ref:`here <energy-OptimizerTarget>`.

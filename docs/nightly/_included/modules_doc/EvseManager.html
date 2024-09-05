@@ -210,8 +210,10 @@ damaged when switching from 1ph to 3ph during charging. Use at your own risk!</p
 <li><p>In the BSP driver, set <code class="docutils literal notranslate"><span class="pre">supports_changing_phases_during_charging</span></code> to true in the reported capabilities.
 If your bsp hardware detects e.g. the Zoe, you can set that flag to false and publish updated capabilities any time.</p></li>
 <li><p>BSP driver capabilities: Also make sure that minimum phases are set to one and maximum phases to 3</p></li>
-<li><p>BSP driver: make sure the <code class="docutils literal notranslate"><span class="pre">ac_switch_three_phases_while_charging</span></code> command correctly</p></li>
-<li><p>EnergyManager: Adjust <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_while_charging_mode</span></code> config option to your needs</p></li>
+<li><p>BSP driver: make sure the <code class="docutils literal notranslate"><span class="pre">ac_switch_three_phases_while_charging</span></code> command is correctly implemented</p></li>
+<li><p>EnergyManager: Adjust <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_while_charging_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_max_nr_of_switches_per_session</span></code>,
+<code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_switch_limit_stickyness</span></code>, <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_power_hysteresis_W</span></code>, <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_time_hysteresis_s</span></code>
+config options to your needs</p></li>
 </ul>
 <p>If all of this is properly set up, the EnergyManager will drive the 1ph/3ph switching. In order to do so,
 it needs an (external) limit to be set. There are two options: The external limit can be in Watt (not in Ampere),
@@ -220,12 +222,9 @@ decide when to switch. The limit can come from OCPP schedule or e.g. via an addi
 <p>The second option is to set a limit in Ampere and set a limitation on the number of phases (e.g. min_phase=1, max_phase=1).
 This will enforce switching and can be used to decide the switching time externally. EnergyManager does not have the
 freedom to make the choice in this case.</p>
-<p>In general, it works best in a configuration with 32A per phase and a limit in Watt.
-In this scenario there is an actual hysteresis as the two intervals overlap:
-1ph charging can be done from 1.3kW to 7.4kW and 3ph charging works from 4.2kW to 22kW(or 11kW)</p>
-<p>If the single phase and three phase intervals do not overlap, there is no hysteresis.
-Note that many cars support 32A on 1ph even if they are limited to 16A on 3ph. Some however are limited to 16A
-in 1ph mode and will hence charge slower then expected in 1ph mode.</p>
+<p>Take care especially with the power(watt) and time based hysteresis settings. They should be adjusted to the
+actual use case to avoid relays wearing due too a lot of switching cycles. Consider also to limit the maximum
+number of switching cycles per charging session.</p>
 </section>
 <section id="error-handling">
 <h2><span class="section-number">5.2.2.6. </span>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h2>

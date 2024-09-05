@@ -105,6 +105,37 @@
 <div class="line">- Both</div>
 </div>
 </div>
+<div class="line"><strong>switch_3ph1ph_max_nr_of_switches_per_session</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Limit the maximum number of switches between 1ph and 3ph per charging session. Set to 0 for no limit.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_switch_limit_stickyness</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “DontChange”</em></div>
+<div class="line-block">
+<div class="line">If the maximum number of switches between 1ph and 3ph is reached, select what should happen:</div>
+<div class="line-block">
+<div class="line">- SinglePhase: Switch to 1ph mode</div>
+<div class="line">- ThreePhase: Switch to 3ph mode</div>
+<div class="line">- DontChange: Stay in the mode it is currently in</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- SinglePhase</div>
+<div class="line">- ThreePhase</div>
+<div class="line">- DontChange</div>
+</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_power_hysteresis_W</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 200</em></div>
+<div class="line-block">
+<div class="line">Power based hysteresis in Watt. If set to 200W for example, the hysteresis for PWM based charging will be 4.2kW to 4.4kW. Actual values will depend on configured nominal AC voltage, and they may be different for PWM vs ISO based charging in the future.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_time_hysteresis_s</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 600</em></div>
+<div class="line-block">
+<div class="line">Time based hysteresis. It will only switch to 3 phases if the condition to select 3 phases is stable for the configured number of seconds. It will always switch to 1ph mode without waiting for this delay. Set to 0 to disable time based hysteresis.</div>
+</div>
 </div>
 </section>
 <section id="provides">

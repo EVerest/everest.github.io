@@ -90,6 +90,25 @@
 <div class="line-block">
 <div class="line">Time (seconds) to delay resuming the message queue after reconnecting</div>
 </div>
+<div class="line"><strong>CompositeScheduleIntervalS</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 30</em></div>
+<div class="line-block">
+<div class="line">Interval in seconds in which composite schedules are received from libocpp are be published over MQTT and signalled to connected modules. If the value is set to 0, composite schedules are only published when changed by CSMS</div>
+</div>
+<div class="line"><strong>RequestCompositeScheduleDurationS</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 600</em></div>
+<div class="line-block">
+<div class="line">Time (seconds) for which composite schedules are requested.  Schedules are requested from now until now + RequestCompositeScheduleDurationS</div>
+</div>
+<div class="line"><strong>RequestCompositeScheduleUnit</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “A”</em></div>
+<div class="line-block">
+<div class="line">Unit in which composite schedules are requested and shared within EVerest. It is recommended to use Amps for AC and Watts for DC charging stations. Allowed values:</div>
+<div class="line-block">
+<div class="line">- ‘A’ for Amps</div>
+<div class="line">. ‘W’ for Watts</div>
+</div>
+</div>
 </div>
 </section>
 <section id="provides">
@@ -125,6 +144,7 @@
 <div class="line"><strong>security</strong>:<a class="reference internal" href="../interfaces/evse_security.html#everest-interfaces-evse-security"><span class="std std-ref">evse_security</span></a> 1</div>
 <div class="line"><strong>data_transfer</strong>:<a class="reference internal" href="../interfaces/ocpp_data_transfer.html#everest-interfaces-ocpp-data-transfer"><span class="std std-ref">ocpp_data_transfer</span></a> 0..1</div>
 <div class="line"><strong>auth</strong>:<a class="reference internal" href="../interfaces/auth.html#everest-interfaces-auth"><span class="std std-ref">auth</span></a> 1</div>
+<div class="line"><strong>connector_zero_sink</strong>:<a class="reference internal" href="../interfaces/external_energy_limits.html#everest-interfaces-external-energy-limits"><span class="std std-ref">external_energy_limits</span></a> 0..1</div>
 </div>
 </section>
 <section id="metadata">

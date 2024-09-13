@@ -178,30 +178,24 @@ have a look at
 <a class="reference external" href="https://github.com/PionixPublic/yeti-yak-sdk">Yeti-Yak-SDK repository</a>.</p>
 </div>
 <p>Now to the steps to flash the board:</p>
-<ol class="arabic simple">
-<li><p>Download the latest stable image and the matching .bmap file:</p></li>
-</ol>
-<blockquote>
-<div><ol class="loweralpha simple">
+<p><strong>STEP 1: Downloading</strong></p>
+<p>Download the latest stable image and the matching .bmap file:</p>
+<ul class="simple">
 <li><p><a class="reference external" href="https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bz2">https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bz2</a></p></li>
 <li><p><a class="reference external" href="https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bmap">https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bmap</a></p></li>
-</ol>
-</div></blockquote>
-<p>(2) Power up the BelayBox or - if the Yak is used alone - apply 12 V to the
-“12 IN” pins.</p>
+</ul>
+<p><strong>STEP 2: Powering up</strong></p>
+<p>Power up the BelayBox or - if the Yak is used alone - apply 12 V to
+the “12 IN” pins.</p>
 <p>The red power LED on the Yak should light up constantly now.</p>
-<ol class="arabic simple" start="3">
-<li><p>Connect the Yak board via Micro-USB to the host system.</p></li>
-</ol>
-<p>(4) Enable the CM4 storage mode so that the eMMC becomes available to the host
-system:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>rpiboot
-</pre></div>
-</div>
+<p><strong>STEP 3: Connect Yak to host system</strong></p>
+<p>Connect the Yak board via Micro-USB to the host system.</p>
+<p><strong>STEP 4: Enabling CM4 storage mode</strong></p>
+<p>Enable the CM4 storage mode so that the eMMC becomes available to
+the host system:</p>
 <p>The green LED on the Yak board should light up constantly now.</p>
-<ol class="arabic simple" start="5">
-<li><p>To find the eMMC device, do:</p></li>
-</ol>
+<p><strong>STEP 5: Finding the eMMC device</strong></p>
+<p>To find the eMMC device, do:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsblk
 </pre></div>
 </div>
@@ -212,7 +206,8 @@ where X can be any letter.</p>
 <p>Make sure to select the correct device as data loss can occure if the wrong
 device is selected!</p>
 </div>
-<p>(6) Make sure the .wic.bz2 file and the .bmap file are in the same directory
+<p><strong>STEP 6: Flash the eMMC</strong></p>
+<p>Make sure the .wic.bz2 file and the .bmap file are in the same directory
 and flash the eMMC. In the command below, replace &lt;image file&gt;.bz2 with your
 downloaded image file and replace “X” according to your eMMC device.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>bmaptool<span class="w"> </span>copy<span class="w"> </span>&lt;image<span class="w"> </span>file&gt;.bz2<span class="w"> </span>/dev/sdX
@@ -225,7 +220,8 @@ downloaded image file and replace “X” according to your eMMC device.</p>
 activates the external antenna support. Running a flashed Yak without the
 WiFi antenna mounted can result in damage of the WiFi chip.</p>
 </div>
-<p>(7) Disconnect the eMMC device, power off and unplug the “boot” jumper from the
+<p><strong>STEP 7: Finishing</strong></p>
+<p>Disconnect the eMMC device, power off and unplug the “boot” jumper from the
 Yak board.</p>
 <img alt="../_images/yak-assembly-9.jpg" src="../_images/yak-assembly-9.jpg" />
 <p>With the raspberry CM4, it can be that the overlay filesystem sometimes does

@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Documenting EVerest &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Documenting EVerest</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="documenting-everest">
+<span id="id1"></span><h1>Documenting EVerest<a class="headerlink" href="#documenting-everest" title="Permalink to this heading">¶</a></h1>
+<p>If you want to start documenting quickly without the need of reading through
+all the theory about current documentation structure and best practices, have
+a look at our <a class="reference internal" href="how_to_doc_change.html#howto-document"><span class="std std-ref">How to write EVerest documentation</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For doing quick changes in existing documentation pages, the “How to” might
+be a good choice. You also can use the “How to” for creating completely new
+pages. But doing this, prepare for getting more change requests during the
+review process done by other community members. To avoid this, read through
+this page in front of you to get more theory.</p>
+</div>
+<section id="current-structure-of-documentation">
+<h2>Current structure of documentation<a class="headerlink" href="#current-structure-of-documentation" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Our documentation is currently undergoing some changes - mostly regarding
+the structure of where pages are stored and the categorization of content.
+This section here describes the former structure, which is still present.</p>
+</div>
+<p>EVerest documentation uses Sphinx as documentation generator. As input format,
+reStructuredText is used. See here for more information about Sphinx:
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/">https://www.sphinx-doc.org/en/master/</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not required to get a deep understanding of Sphinx to create
+documentation for EVerest. You can check existing pages of the EVerest
+documentation and you will see how easy it is to start documenting.</p>
+</div>
+<p>The EVerest documentation consists of three parts - see the subsections for
+further details:</p>
+<ol class="arabic simple">
+<li><p>The main EVerest documentation</p></li>
+<li><p>Reference documentation</p></li>
+<li><p>Documentation stored near the corresponding source code</p></li>
+</ol>
+<section id="main-everest-documentation">
+<h3>Main EVerest documentation<a class="headerlink" href="#main-everest-documentation" title="Permalink to this heading">¶</a></h3>
+<p>If you are reading this, you are in the middle of the
+<a class="reference external" href="https://everest.github.io/nightly/index.html">main EVerest documentation</a>.
+This is a coherent documentation that helps you with getting a fast overview
+of the EVerest framework, the EVerest tools and also contains some tutorials.</p>
+<p>The sources of this part of documentation is located in the
+<code class="docutils literal notranslate"><span class="pre">docs</span></code> directory of the
+<a class="reference external" href="https://github.com/EVerest/EVerest">EVerest/EVerest repository</a> on GitHub.</p>
+<p>The contents are in the format of reStructuredText/Sphinx.</p>
+</section>
+<section id="reference-documentation">
+<h3>Reference documentation<a class="headerlink" href="#reference-documentation" title="Permalink to this heading">¶</a></h3>
+<section id="generated-reference-docs">
+<h4>Generated reference docs<a class="headerlink" href="#generated-reference-docs" title="Permalink to this heading">¶</a></h4>
+<p>EVerest interfaces, modules and types contain documentation right inside of
+json/yaml files. Those files also contain configuration settings.
+Those files are located in the interfaces, modules, types directories - the
+same directory which also contains the source code - see the
+<a class="reference external" href="https://github.com/EVerest/everest-core">EVerest/everest-core repository</a>
+to find them.</p>
+<p>This part of documentation is generated by GitHub actions when running the
+<code class="docutils literal notranslate"><span class="pre">deploy-sphinx-doc.yml</span></code> workflow (see <code class="docutils literal notranslate"><span class="pre">EVerest/EVerest/.github/</span></code>).</p>
+<p>The generated pages can be found in
+<span class="xref std std-ref">the reference section of the main documentation</span>.</p>
+<p>Optionally, each module can contain additional handwritten documentation.
+See next subsection for more information on this.</p>
+</section>
+<section id="additional-handwritten-content">
+<h4>Additional handwritten content<a class="headerlink" href="#additional-handwritten-content" title="Permalink to this heading">¶</a></h4>
+<p>Each module directory can contain additional handwritten documentation.</p>
+<p>This works as follows: If you create a <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory right inside of a
+modules source code directory, you can put markdown files with additional
+documentation in it.
+The contents will automatically be hyperlinked from the page containing the
+automatically generated reference docs (explained in the subsection before).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you only have a small piece of additional documentation that you want to
+add to the generated docs, you can also create a <code class="docutils literal notranslate"><span class="pre">doc.rst</span></code> file directly
+in the directory of the module. This has the same effect.</p>
+</div>
+<p>As an example, see the generated
+<a class="reference external" href="https://everest.github.io/nightly/_generated/modules/EvseManager.html">EvseManager reference page</a>
+. In the second paragraph, you see a link to the detailed handwritten
+documentation.</p>
+</section>
+</section>
+<section id="documentation-near-corresponding-source-code">
+<h3>Documentation near corresponding source code<a class="headerlink" href="#documentation-near-corresponding-source-code" title="Permalink to this heading">¶</a></h3>
+<p>The documentation parts explained up to now are all part of the main EVerest
+documentation. Some documentation snippets can also be found directly in the
+GitHub repositories stored near the corresponding source code.</p>
+<p>Those docs snippest are not being pushed to the EVerest main documentation.</p>
+<p>Two examples:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/EVerest/everest-admin-panel">https://github.com/EVerest/everest-admin-panel</a></p></li>
+<li><p><a class="reference external" href="https://github.com/EVerest/everest-dev-environment/tree/main/dependency_manager">https://github.com/EVerest/everest-dev-environment/tree/main/dependency_manager</a></p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>We are currently changing the structure of documentation. The new concept
+is to have all documentation snippets in one big documentation.
+Currently, it is not recommended to document features of EVerest directly in
+the repository. At least add a reference from the main documentation to the
+de-central repository doc page(s).</p>
+</div>
+</section>
+</section>
+<section id="planned-restructuring-of-docs">
+<h2>Planned restructuring of docs<a class="headerlink" href="#planned-restructuring-of-docs" title="Permalink to this heading">¶</a></h2>
+<p>We will start to migrate the documentation to a new page structure end of 2024.</p>
+<p>More information about the new structure will follow soon.</p>
+<p>You will not have to change anything for this migration as we will try to stay
+backwards-compatible or - where not possible - adjust existing docs to new
+structure.</p>
+</section>
+<section id="process-of-everest-documentation">
+<h2>Process of EVerest documentation<a class="headerlink" href="#process-of-everest-documentation" title="Permalink to this heading">¶</a></h2>
+<section id="preparing-a-new-documentation-page">
+<h3>Preparing a new documentation page<a class="headerlink" href="#preparing-a-new-documentation-page" title="Permalink to this heading">¶</a></h3>
+<p>Let’s suppose, you are aware of a brand-new EVerest feature that is still not
+documented. Or you found some aspect of EVerest that still lacks a
+corresponding documentation page.</p>
+<p>This is what to do:</p>
+<ol class="arabic simple">
+<li><p>Check the existing documentation for similar sections.</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Search <a class="reference external" href="https://everest.github.io/nightly/index.html">https://everest.github.io/nightly/index.html</a></p></li>
+<li><p>Is it a module that you want to add documentation to? Then have a look</p></li>
+</ol>
+<blockquote>
+<div><p>at the <code class="docutils literal notranslate"><span class="pre">everest-core</span></code> repository in the <code class="docutils literal notranslate"><span class="pre">modules</span></code> directory and check
+if any documentation pages already do exist there.</p>
+</div></blockquote>
+<ol class="loweralpha simple" start="3">
+<li><p>Use GitHub search with <code class="docutils literal notranslate"><span class="pre">org:EVerest</span></code> and your keywords to check if you</p></li>
+</ol>
+<blockquote>
+<div><p>can find existing documentation snippets near the source code of the
+feature.</p>
+</div></blockquote>
+<p>If you can find something that is related to the topic on your mind, please
+decide, whether a new documentation section should be added or the existing
+page should be updated.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Create a GitHub issue</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>In the repository <a class="reference external" href="https://github.com/EVerest/EVerest">https://github.com/EVerest/EVerest</a>, click on <code class="docutils literal notranslate"><span class="pre">Issues</span></code></p></li>
+</ol>
+<blockquote>
+<div><p>and then <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">issue</span></code>.</p>
+</div></blockquote>
+<ol class="loweralpha simple" start="2">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">a</span> <span class="pre">blank</span> <span class="pre">issue</span></code> (or another type if you think that is more</p></li>
+</ol>
+<blockquote>
+<div><p>suitable) and fill out the page with information about
+the required documentation.</p>
+</div></blockquote>
+<ol class="loweralpha simple" start="3">
+<li><p>Also add a reference to any related documentation pages and describe how</p></li>
+</ol>
+<blockquote>
+<div><p>the new documentation parts shall relate to that (new section, change of
+docs, new page with reference to existing ones etc.).</p>
+</div></blockquote>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Optionally: Inform others about the issue</p></li>
+</ol>
+<blockquote>
+<div><p>Especially if you do not want to create documentation on your own (due to
+lack of time or knowledge), you can inform others about this new
+documentation requirement (the issue). This is optional as the maintainers
+of the EVerest documentation will get informed about the newly created issue.
+But by taking the topic into an appropriate working group or into the EVerest
+Zulip channels, you could find the right people who have time and knowledge
+to create such a new section in the documentation.</p>
+</div></blockquote>
+</section>
+<section id="creating-a-new-documentation-page">
+<h3>Creating a new documentation page<a class="headerlink" href="#creating-a-new-documentation-page" title="Permalink to this heading">¶</a></h3>
+<section id="creating-a-git-branch">
+<h4>Creating a Git branch<a class="headerlink" href="#creating-a-git-branch" title="Permalink to this heading">¶</a></h4>
+<p>As with source code feature development, documentation is also organized with
+Git branches. The scheme to name a branch should be adhered to</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>doc/name-of-topic
+</pre></div>
+</div>
+<p>Optionally, to better find your own branches in a list, you could also add
+your name initials.</p>
+<p>In case your name is Abraham Braveman and you are creating a documentation
+about Plug’n’Charge, you could name your branch</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>doc/ab-plug-n-charge
+</pre></div>
+</div>
+<p>or also</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>doc/abraham-plug-n-charge
+</pre></div>
+</div>
+</section>
+<section id="choosing-a-place-to-store-the-docs">
+<h4>Choosing a place to store the docs<a class="headerlink" href="#choosing-a-place-to-store-the-docs" title="Permalink to this heading">¶</a></h4>
+<p>If you want to create a new documentation page, you should first check if
+pages with similar topics are already existing. It is a good idea to place
+your new page in the same location.</p>
+<p>In general, you can decide where to put your documentation pages:</p>
+<ul class="simple">
+<li><p>The repository for the main documentation:
+<a class="reference external" href="https://github.com/EVerest/EVerest">https://github.com/EVerest/EVerest</a> in directory <code class="docutils literal notranslate"><span class="pre">docs</span></code></p></li>
+<li><p>Directly inside of a <code class="docutils literal notranslate"><span class="pre">docs.rst</span></code> file or the <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory in your
+modules directory structure. This will generate documentation pages in the
+<code class="docutils literal notranslate"><span class="pre">references</span></code> section of the main documentation.</p></li>
+<li><p>Near the source code which implements the feature that is to be documented.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don’t be afraid to put your documentation at a “wrong” location. It is more
+important that documentation does exist. The maintainers of the EVerest
+documentation will be able to move your docs to a better suitable place later.</p>
+</div>
+</section>
+<section id="writing">
+<h4>Writing<a class="headerlink" href="#writing" title="Permalink to this heading">¶</a></h4>
+<p>Best practice is to look at existing documentation sources to get an idea about
+how headlines or bullet points are to be handled.</p>
+<p>You can create a <code class="docutils literal notranslate"><span class="pre">Draft</span> <span class="pre">pull</span> <span class="pre">request</span></code> on GitHub at an early stage of your
+work to let others already get an idea how the new documentation part will look
+like and give them the opportunity to comment on your work already.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Consider referencing to existing docs with the same topic and vice versa.</p>
+</div>
+</section>
+<section id="creating-a-pr-and-merge">
+<h4>Creating a PR and merge<a class="headerlink" href="#creating-a-pr-and-merge" title="Permalink to this heading">¶</a></h4>
+<p>If you have finished your documentation work, you can create a pull request
+for your branch. Don’t forget to reference the originating issue (if existing).
+The maintainers of the corresponding repository will get informed and will try
+to invest time to review your work.</p>
+<p>After merging the PR, don’t forget to also close the issue and eventually
+inform the community about your newly created documentation work.</p>
+</section>
+</section>
+</section>
+<section id="building-the-documentation">
+<h2>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this heading">¶</a></h2>
+<p>The documentation is built by the <code class="docutils literal notranslate"><span class="pre">deploy-sphinx-doc.yml</span></code> workflow located in
+<code class="docutils literal notranslate"><span class="pre">EVerest/EVerest</span></code>. It is triggered by a push to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch of
+<code class="docutils literal notranslate"><span class="pre">EVerest/EVerest</span></code>. The workflow generates the documentation and pushes it to
+GitHub Pages.</p>
+<p>After that, the documentation is available at <a class="reference external" href="https://everest.github.io">https://everest.github.io</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Documentation about building the documentation locally will follow.</p>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tutorials/how_to_docs/documenting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Documenting EVerest</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

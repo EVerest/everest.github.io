@@ -47,6 +47,70 @@ June, September and December) will be a stable release including a two week
 feature freeze phase before the release date.</p>
 <p>Here are the some high-level changes for the last releases (starting from the
 most recent one backwards):</p>
+<section id="id1">
+<h2>2024.7.1<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Bugfix regarding initialization of signed meter and TransactionFinished
+event. See <a class="reference external" href="https://github.com/EVerest/everest-core/pull/820">PR 820</a>.</p></li>
+<li><p>Bugfix regarding charging phase changing in powersupply_set_DC method.
+See <a class="reference external" href="https://github.com/EVerest/everest-core/pull/821">PR 821</a>.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>2024.7.0<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="ocpp">
+<h3>OCPP<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The device model initialization is now implemented in C++ instead of Python.
+This means, that it is possible to add more EVSEs and Connectors now.
+Also, the device model is initialized at runtime now and it is using the
+database migration support. This solves
+<a class="reference external" href="https://github.com/EVerest/libocpp/issues/656">issue 656</a>.
+Details can be found in
+<a class="reference external" href="https://github.com/EVerest/libocpp/pull/681">PR 681</a>.</p></li>
+<li><p>The websocket connection state gets published. (OCPP 2.0.1)</p></li>
+<li><p>Security events have been implemented over the generic OCPP interface.
+(OCPP 2.0.1)</p></li>
+</ul>
+</section>
+<section id="openssl-server">
+<h3>OpenSSL server<a class="headerlink" href="#openssl-server" title="Permalink to this heading">¶</a></h3>
+<p>To support TLS certificate status requests, an OpenSSL server has been added.
+For more info, see
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/677">PR 677</a>.</p>
+</section>
+<section id="hardware-support">
+<h3>Hardware support<a class="headerlink" href="#hardware-support" title="Permalink to this heading">¶</a></h3>
+<p>Improvements for the phyVERSO MCU:</p>
+<ul class="simple">
+<li><p>Keep alive message are sent from EVerest to the hardware,</p></li>
+<li><p>configuration handling has been harmonized with standard config handling in
+EVerest</p></li>
+<li><p>different motor lock styles for different charging ports are possible now
+and</p></li>
+<li><p>implementation of error handling has been added.</p></li>
+</ul>
+<p>For more information, see
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/771">PR 771</a>.</p>
+<p>Additionally, some changes regarding the evse_board_support like removing a
+command for getting hardware capabilities (which should be done via async
+publishing instead). More information:
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/769">PR 769</a></p>
+</section>
+<section id="further-changes">
+<h3>Further changes<a class="headerlink" href="#further-changes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>A new C++ based EvManager has been added (was Javascript up to now).
+This is the C++ based car simulator in EVerest. For details, see
+<a class="reference external" href="https://github.com/EVerest/everest-core/pull/643">PR 643</a>.</p></li>
+<li><p>Bugfix: Stop &amp; unplug did not work after ISO pause &amp; resume in SIL.</p></li>
+<li><p>OpenSSL support has been added to the libiso15118 library.</p></li>
+<li><p>ev-cli needs not be installed manually anymore as this is done during the
+cmake process now.</p></li>
+<li><p>The output of compile warnings has been enabled by default.</p></li>
+</ul>
+</section>
+</section>
 <section id="latest-stable">
 <h2>2024.6.0 - LATEST STABLE<a class="headerlink" href="#latest-stable" title="Permalink to this heading">¶</a></h2>
 <section id="security-fix-prevent-integer-overflow-in-evsev2g">
@@ -82,8 +146,8 @@ dependencies.yaml on the fly).</p>
 <p>CableCheck as been adapted to IEC-23 (2023).</p>
 </section>
 </section>
-<section id="id1">
-<h2>2024.5.0<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2>2024.5.0<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <section id="cloud-refactored-database-exception-handling">
 <h3>Cloud: Refactored database exception handling<a class="headerlink" href="#cloud-refactored-database-exception-handling" title="Permalink to this heading">¶</a></h3>
 <p>Implemented an alternative way to exception handling to prevent from crashes
@@ -114,8 +178,8 @@ commit hashes.</p>
 compatibility.</p>
 </section>
 </section>
-<section id="id2">
-<h2>2024.4.0<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h2>2024.4.0<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <section id="added-charging-schedules-definition">
 <h3>Added charging schedules definition<a class="headerlink" href="#added-charging-schedules-definition" title="Permalink to this heading">¶</a></h3>
 <p>Introducing a new OCPP type in EVerest to process charging schedules.</p>
@@ -182,18 +246,18 @@ counterpart of the EvseManager to be able to simulate charging sessions.</p>
 <p>A C++ implementation will be coming soon.</p>
 </section>
 </section>
-<section id="id3">
-<h2>2024.3.1<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
-<section id="id4">
-<h3>Security Fix: Prevent integer overflow in EvseV2G<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<section id="id5">
+<h2>2024.3.1<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h3>Security Fix: Prevent integer overflow in EvseV2G<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>Reading the <strong>v2gtp</strong> message could potentially lead to an integer overflow.</p>
 <p>See the corresponding security advisory with CVE ID
 <a class="reference external" href="https://github.com/EVerest/everest-core/security/advisories/GHSA-8g9q-7qr9-vc96">CVE-2024-37310</a>
 .</p>
 </section>
 </section>
-<section id="id6">
-<h2>2024.3.0<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<section id="id8">
+<h2>2024.3.0<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <section id="plug-charge">
 <h3>Plug &amp; Charge<a class="headerlink" href="#plug-charge" title="Permalink to this heading">¶</a></h3>
 <p>The full process around a Plug&amp;Charge session has been implemented, which

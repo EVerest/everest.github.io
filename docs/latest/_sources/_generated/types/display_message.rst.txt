@@ -89,8 +89,14 @@ Message to show on a display
 |   **timestamp_to**:*string* <optional>
 |    Until what date-time should this message be shown, after this date/time this message SHALL be removed. If omitted, message can be shown 'forever' (until it is specifically removed).
 |    format:date-time
-|   **session_id**:*string* <optional>
-|    During which session shall this message be shown. Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.
+|   **identifier_id**:*string* <optional>
+|    To which user / during which session shall this message be shown. User can be identified by id token (when the session did not start yet), session id or transaction id. identifier_type will hold the type of identifier_id (default session id). Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.
+|   **identifier_type**:*string* <optional>
+|    The type of 'identifier_id'. If omitted, type will be session id.
+|    enum:
+|      - IdToken
+|      - SessionId
+|      - TransactionId
 |   **message**:*object* <required> (:ref:`display_message-MessageContent <display_message-MessageContent>`)
 |    The message to show
 |    **There is an extended definition for this object** :ref:`here <display_message-MessageContent>`.

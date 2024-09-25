@@ -161,9 +161,19 @@
 <div class="line">Until what date-time should this message be shown, after this date/time this message SHALL be removed. If omitted, message can be shown ‘forever’ (until it is specifically removed).</div>
 <div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>session_id</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>identifier_id</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
-<div class="line">During which session shall this message be shown. Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.</div>
+<div class="line">To which user / during which session shall this message be shown. User can be identified by id token (when the session did not start yet), session id or transaction id. identifier_type will hold the type of identifier_id (default session id). Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.</div>
+</div>
+<div class="line"><strong>identifier_type</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The type of ‘identifier_id’. If omitted, type will be session id.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- IdToken</div>
+<div class="line">- SessionId</div>
+<div class="line">- TransactionId</div>
+</div>
 </div>
 <div class="line"><strong>message</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#display-message-messagecontent"><span class="std std-ref">display_message-MessageContent</span></a>)</div>
 <div class="line-block">

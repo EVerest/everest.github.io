@@ -47,11 +47,10 @@ Commands
 |  **Result**:*boolean* 
 |   Returns true if the service could be restarted successfully, else false
 | **security_event**:*void*
-|  Triggers a SecurityEventNotification.req at the CSMS. This event is queued with a guaranteed delivery to the CSMS.
-|  **type**:*string* <required>
-|   type of the security event
-|  **info**:*string* <required>
-|   Additional information about the occurred security event
+|  Triggers a SecurityEventNotification.req at the CSMS if it is deemed critical, either by setting the flag in this event or if absent automatically by libocpp
+|  **event**:*object* <required> (:ref:`ocpp-SecurityEvent <ocpp-SecurityEvent>`)
+|   A security event
+|   **There is an extended definition for this object** :ref:`here <ocpp-SecurityEvent>`.
 | **get_variables**:*array*
 |  Command to get a variable from OCPP. With OCPP1.6: Retrieves a configuration key. With OCPP2.0.1: Retrieves a variable with value from the device model storage
 |  **requests**:*array* <required>

@@ -1,0 +1,58 @@
+
+.. _everest_modules_Evse15118D20:
+
+############
+Evse15118D20
+############
+| This module is a draft implementation of iso15118-20 for the EVSE side
+
+
+
+********************
+Module Configuration
+********************
+| **device**:*string* <optional>
+| *default: "eth0"*
+|  Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work
+| **certificate_path**:*string* <optional>
+| *default: ""*
+|  Path to certificate directories
+| **logging_path**:*string* <optional>
+| *default: "."*
+|  Path to logging directory (will be created if non existent)
+| **tls_negotiation_strategy**:*string* <optional>
+| *default: "ACCEPT_CLIENT_OFFER"*
+|  Select strategy on how to negotiate connection encryption
+|  enum:
+|    - ACCEPT_CLIENT_OFFER
+|    - ENFORCE_TLS
+|    - ENFORCE_NO_TLS
+| **private_key_password**:*string* <optional>
+| *default: "123456"*
+|  Password for private key files (USE ONLY FOR TESTING)
+| **enable_ssl_logging**:*boolean* <optional>
+| *default: False*
+|  Verbosely log the ssl/tls connection
+| **enable_tls_key_logging**:*boolean* <optional>
+| *default: False*
+|  Enable/Disable the export of TLS session keys (pre-master-secret) during a TLS handshake. Note that this option is for testing and simulation purpose only
+
+********
+Provides
+********
+| **charger**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>`
+|  This interface provides limited access to iso15118-20
+
+
+********
+Metadata
+********
+Authors
+=======
+| aw@pionix.de
+| Sebastian Lukas
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.33. SerialCommHub &#8212; EVerest  documentation</title>
+    <title>13.1.13. Evse15118D20 &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.34. Setup" href="Setup.html" />
-    <link rel="prev" title="13.1.32. RsPaymentTerminal" href="RsPaymentTerminal.html" /> 
+    <link rel="next" title="13.1.14. EvseManager" href="EvseManager.html" />
+    <link rel="prev" title="13.1.12. EvSlac" href="EvSlac.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Setup.html" title="13.1.34. Setup"
+          <a href="EvseManager.html" title="13.1.14. EvseManager"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="RsPaymentTerminal.html" title="13.1.32. RsPaymentTerminal"
+          <a href="EvSlac.html" title="13.1.12. EvSlac"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>SerialCommHub</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.13. </span>Evse15118D20</a></li> 
       </ul>
     </div>  
 
@@ -46,159 +46,77 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="serialcommhub">
-<span id="everest-modules-serialcommhub"></span><h1><span class="section-number">13.1.33. </span>SerialCommHub<a class="headerlink" href="#serialcommhub" title="Permalink to this heading">¶</a></h1>
+  <section id="evse15118d20">
+<span id="everest-modules-evse15118d20"></span><h1><span class="section-number">13.1.13. </span>Evse15118D20<a class="headerlink" href="#evse15118d20" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">Hub to communicate with attached serial devices</div>
+<div class="line">This module is a draft implementation of iso15118-20 for the EVSE side</div>
 </div>
-<section id="provides">
-<h2><span class="section-number">13.1.33.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.13.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/serial_communication_hub.html#everest-interfaces-serial-communication-hub"><span class="std std-ref">serial_communication_hub</span></a></div>
+<div class="line"><strong>device</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “eth0”</em></div>
 <div class="line-block">
-<div class="line">Implementation of serial communication hub</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line">serial_port:</div>
-<div class="line-block">
-<div class="line">description:Serial port the hardware is connected to</div>
-<div class="line">type:string</div>
-<div class="line">default:/dev/ttyUSB0</div>
+<div class="line">Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work</div>
 </div>
-<div class="line">baudrate:</div>
-<div class="line-block">
-<div class="line">description:Baudrate</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">parity:</div>
-<div class="line-block">
-<div class="line">description:Parity bit: 0: None, 1: Odd, 2: Even</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">rtscts:</div>
-<div class="line-block">
-<div class="line">description:Use RTS/CTS hardware flow control</div>
-<div class="line">type:boolean</div>
-</div>
-<div class="line">ignore_echo:</div>
-<div class="line-block">
-<div class="line">description:On some hardware every message that is sent is read back, this setting filters the sent message in the reply.</div>
-<div class="line">type:boolean</div>
-</div>
-<div class="line">rxtx_gpio_chip:</div>
-<div class="line-block">
-<div class="line">description:GPIO chip to use to switch between RX/TX. An empty string disables GPIO usage.</div>
-<div class="line">type:string</div>
-<div class="line">default:</div>
-</div>
-<div class="line">rxtx_gpio_line:</div>
-<div class="line-block">
-<div class="line">description:GPIO line to use to switch between RX/TX</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">rxtx_gpio_tx_high:</div>
-<div class="line-block">
-<div class="line">description:GPIO direction, false means low for TX, true means high for TX</div>
-<div class="line">type:boolean</div>
-</div>
-<div class="line">max_packet_size:</div>
-<div class="line-block">
-<div class="line">description:Maximum size of a packet to read/write in bytes. Payload exceeding the size will be chunked. The APU size according to [wikipedia](https://en.wikipedia.org/wiki/Modbus) is 256 bytes, which is used as default here.</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">initial_timeout_ms:</div>
-<div class="line-block">
-<div class="line">description:Timeout in ms for the first packet.</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">within_message_timeout_ms:</div>
-<div class="line-block">
-<div class="line">description:Timeout in ms for subsequent packets.</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">retries:</div>
-<div class="line-block">
-<div class="line">description:Count of retries in case of error in Modbus query.</div>
-<div class="line">type:integer</div>
-</div>
-</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line"><strong>serial_port</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “/dev/ttyUSB0”</em></div>
-<div class="line-block">
-<div class="line">Serial port the hardware is connected to</div>
-</div>
-<div class="line"><strong>baudrate</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 9600</em></div>
-<div class="line-block">
-<div class="line">Baudrate</div>
-</div>
-<div class="line"><strong>parity</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 0</em></div>
-<div class="line-block">
-<div class="line">Parity bit: 0: None, 1: Odd, 2: Even</div>
-</div>
-<div class="line"><strong>rtscts</strong>:<em>boolean</em> &lt;optional&gt;</div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">Use RTS/CTS hardware flow control</div>
-</div>
-<div class="line"><strong>ignore_echo</strong>:<em>boolean</em> &lt;optional&gt;</div>
-<div class="line"><em>default: False</em></div>
-<div class="line-block">
-<div class="line">On some hardware every message that is sent is read back, this setting filters the sent message in the reply.</div>
-</div>
-<div class="line"><strong>rxtx_gpio_chip</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>certificate_path</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “”</em></div>
 <div class="line-block">
-<div class="line">GPIO chip to use to switch between RX/TX. An empty string disables GPIO usage.</div>
+<div class="line">Path to certificate directories</div>
 </div>
-<div class="line"><strong>rxtx_gpio_line</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 0</em></div>
+<div class="line"><strong>logging_path</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “.”</em></div>
 <div class="line-block">
-<div class="line">GPIO line to use to switch between RX/TX</div>
+<div class="line">Path to logging directory (will be created if non existent)</div>
 </div>
-<div class="line"><strong>rxtx_gpio_tx_high</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><strong>tls_negotiation_strategy</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “ACCEPT_CLIENT_OFFER”</em></div>
+<div class="line-block">
+<div class="line">Select strategy on how to negotiate connection encryption</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ACCEPT_CLIENT_OFFER</div>
+<div class="line">- ENFORCE_TLS</div>
+<div class="line">- ENFORCE_NO_TLS</div>
+</div>
+</div>
+<div class="line"><strong>private_key_password</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “123456”</em></div>
+<div class="line-block">
+<div class="line">Password for private key files (USE ONLY FOR TESTING)</div>
+</div>
+<div class="line"><strong>enable_ssl_logging</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">GPIO direction, false means low for TX, true means high for TX</div>
+<div class="line">Verbosely log the ssl/tls connection</div>
 </div>
-<div class="line"><strong>max_packet_size</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 256</em></div>
+<div class="line"><strong>enable_tls_key_logging</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Maximum size of a packet to read/write in bytes. Payload exceeding the size will be chunked. The APU size according to [wikipedia](<a class="reference external" href="https://en.wikipedia.org/wiki/Modbus">https://en.wikipedia.org/wiki/Modbus</a>) is 256 bytes, which is used as default here.</div>
+<div class="line">Enable/Disable the export of TLS session keys (pre-master-secret) during a TLS handshake. Note that this option is for testing and simulation purpose only</div>
 </div>
-<div class="line"><strong>initial_timeout_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 500</em></div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">13.1.13.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line">Timeout in ms for the first packet.</div>
-</div>
-<div class="line"><strong>within_message_timeout_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 100</em></div>
+<div class="line"><strong>charger</strong>:<a class="reference internal" href="../interfaces/ISO15118_charger.html#everest-interfaces-iso15118-charger"><span class="std std-ref">ISO15118_charger</span></a></div>
 <div class="line-block">
-<div class="line">Timeout in ms for subsequent packets.</div>
-</div>
-<div class="line"><strong>retries</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 2</em></div>
-<div class="line-block">
-<div class="line">Count of retries in case of error in Modbus query.</div>
-</div>
-</div>
+<div class="line">This interface provides limited access to iso15118-20</div>
 </div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.33.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.13.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.33.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.13.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Lars Dieckmann</div>
-<div class="line">Cornelius Claussen</div>
+<div class="line"><a class="reference external" href="mailto:aw&#37;&#52;&#48;pionix&#46;de">aw<span>&#64;</span>pionix<span>&#46;</span>de</a></div>
+<div class="line">Sebastian Lukas</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.33.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.13.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -237,18 +155,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="RsPaymentTerminal.html"
-                          title="previous chapter"><span class="section-number">13.1.32. </span>RsPaymentTerminal</a></p>
+    <p class="topless"><a href="EvSlac.html"
+                          title="previous chapter"><span class="section-number">13.1.12. </span>EvSlac</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="Setup.html"
-                          title="next chapter"><span class="section-number">13.1.34. </span>Setup</a></p>
+    <p class="topless"><a href="EvseManager.html"
+                          title="next chapter"><span class="section-number">13.1.14. </span>EvseManager</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/SerialCommHub.rst.txt"
+      <li><a href="../../_sources/_generated/modules/Evse15118D20.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -279,15 +197,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Setup.html" title="13.1.34. Setup"
+          <a href="EvseManager.html" title="13.1.14. EvseManager"
              >next</a> |</li>
         <li class="right" >
-          <a href="RsPaymentTerminal.html" title="13.1.32. RsPaymentTerminal"
+          <a href="EvSlac.html" title="13.1.12. EvSlac"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>SerialCommHub</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.13. </span>Evse15118D20</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

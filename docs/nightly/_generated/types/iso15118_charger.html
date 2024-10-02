@@ -177,6 +177,26 @@
 <div class="line">- CertificateInstallationRes</div>
 <div class="line">- CertificateUpdateReq</div>
 <div class="line">- CertificateUpdateRes</div>
+<div class="line">- AuthorizationSetupReq</div>
+<div class="line">- AuthorizationSetupRes</div>
+<div class="line">- ScheduleExchangeReq</div>
+<div class="line">- ScheduleExchangeRes</div>
+<div class="line">- ServiceSelectionReq</div>
+<div class="line">- ServiceSelectionRes</div>
+<div class="line">- AcChargeLoopReq</div>
+<div class="line">- AcChargeLoopRes</div>
+<div class="line">- AcChargeParameterDiscoveryReq</div>
+<div class="line">- AcChargeParameterDiscoveryRes</div>
+<div class="line">- DcCableCheckReq</div>
+<div class="line">- DcCableCheckRes</div>
+<div class="line">- DcChargeLoopReq</div>
+<div class="line">- DcChargeLoopRes</div>
+<div class="line">- DcChargeParameterDiscoveryReq</div>
+<div class="line">- DcChargeParameterDiscoveryRes</div>
+<div class="line">- DcPreChargeReq</div>
+<div class="line">- DcPreChargeRes</div>
+<div class="line">- DcWeldingDetectionReq</div>
+<div class="line">- DcWeldingDetectionRes</div>
 <div class="line">- UnknownMessage</div>
 </div>
 </div>
@@ -256,13 +276,21 @@
 <div class="line-block">
 <div class="line">Maximum voltage the EVSE can deliver in V</div>
 </div>
+<div class="line"><strong>evse_maximum_discharge_current_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge current the EVSE can deliver in A</div>
+</div>
+<div class="line"><strong>evse_maximum_discharge_power_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge power the EVSE can deliver in W</div>
+</div>
 </div>
 </div>
 </div>
 <div class="line-block" id="iso15118-charger-dcevseminimumlimits">
 <div class="line"><strong>DcEvseMinimumLimits</strong>:<em>object</em></div>
 <div class="line-block">
-<div class="line">Minimum Values (current and voltage) the EVSE can deliver</div>
+<div class="line">Minimum Values the EVSE can deliver</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>evse_minimum_current_limit</strong>:<em>number</em> &lt;required&gt;</div>
@@ -272,6 +300,18 @@
 <div class="line"><strong>evse_minimum_voltage_limit</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Minimum voltage the EVSE can deliver with the expected accuracy in V</div>
+</div>
+<div class="line"><strong>evse_minimum_power_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum power the EVSE can deliver with the expected accuracy in W</div>
+</div>
+<div class="line"><strong>evse_minimum_discharge_current_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge current the EVSE can deliver in A</div>
+</div>
+<div class="line"><strong>evse_minimum_discharge_power_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge power the EVSE can deliver in W</div>
 </div>
 </div>
 </div>
@@ -442,24 +482,24 @@
 <div class="line">This element contains all V2G elements</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>v2g_message_id</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-charger-v2gmessageid"><span class="std std-ref">iso15118_charger-V2gMessageId</span></a>)</div>
+<div class="line"><strong>id</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-charger-v2gmessageid"><span class="std std-ref">iso15118_charger-V2gMessageId</span></a>)</div>
 <div class="line-block">
 <div class="line">This element contains the id of the v2g message body</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-v2gmessageid"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>v2g_message_xml</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>xml</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Contains the decoded EXI stream as V2G message XML file</div>
 </div>
-<div class="line"><strong>v2g_message_json</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>v2g_json</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Contains the decoded EXI stream as V2G message JSON file</div>
 </div>
-<div class="line"><strong>v2g_message_exi_hex</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>exi</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Contains the EXI stream as hex string</div>
 </div>
-<div class="line"><strong>v2g_message_exi_base64</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>exi_base64</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Contains the EXI stream as base64 string</div>
 </div>
@@ -546,6 +586,69 @@
 <div class="line"><strong>responderURL</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">This contains the responder URL</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-supportedenergymode">
+<div class="line"><strong>SupportedEnergyMode</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Supported energy mode and if the mode supports bidirectional</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>energy_transfer_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-charger-energytransfermode"><span class="std std-ref">iso15118_charger-EnergyTransferMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The energy mode supported by the SECC</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-charger-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>bidirectional</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Set true if the powersupply (AC or DC) supports bidi mode</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-charger-displayparameters">
+<div class="line"><strong>DisplayParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Parameters that may be displayed on the EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>present_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Current SoC of the EV battery</div>
+</div>
+<div class="line"><strong>minimum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum SoC EV needs after charging</div>
+</div>
+<div class="line"><strong>target_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target SoC EV needs after charging</div>
+</div>
+<div class="line"><strong>maximum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The SoC at which the EV will prohibit</div>
+</div>
+<div class="line"><strong>remaining_time_to_minimum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Remaining time it takes to reach minimum SoC</div>
+</div>
+<div class="line"><strong>remaining_time_to_target_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Remaining time it takes to reach target SoC</div>
+</div>
+<div class="line"><strong>remaining_time_to_maximum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Remaining time it takes to reach maximum SoC</div>
+</div>
+<div class="line"><strong>battery_energy_capacity</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Energy capacity in Wh of the EV battery</div>
+</div>
+<div class="line"><strong>inlet_hot</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Inlet temperature is too high</div>
 </div>
 </div>
 </div>

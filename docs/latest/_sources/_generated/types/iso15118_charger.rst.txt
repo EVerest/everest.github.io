@@ -118,6 +118,26 @@ ISO15118 charger types
 |    - CertificateInstallationRes
 |    - CertificateUpdateReq
 |    - CertificateUpdateRes
+|    - AuthorizationSetupReq
+|    - AuthorizationSetupRes
+|    - ScheduleExchangeReq
+|    - ScheduleExchangeRes
+|    - ServiceSelectionReq
+|    - ServiceSelectionRes
+|    - AcChargeLoopReq
+|    - AcChargeLoopRes
+|    - AcChargeParameterDiscoveryReq
+|    - AcChargeParameterDiscoveryRes
+|    - DcCableCheckReq
+|    - DcCableCheckRes
+|    - DcChargeLoopReq
+|    - DcChargeLoopRes
+|    - DcChargeParameterDiscoveryReq
+|    - DcChargeParameterDiscoveryRes
+|    - DcPreChargeReq
+|    - DcPreChargeRes
+|    - DcWeldingDetectionReq
+|    - DcWeldingDetectionRes
 |    - UnknownMessage
 
 .. _iso15118_charger-SaeJ2847BidiMode:
@@ -168,16 +188,26 @@ ISO15118 charger types
 |    Maximum power the EVSE can deliver in W
 |   **evse_maximum_voltage_limit**:*number* <required>
 |    Maximum voltage the EVSE can deliver in V
+|   **evse_maximum_discharge_current_limit**:*number* <optional>
+|    Maximum discharge current the EVSE can deliver in A
+|   **evse_maximum_discharge_power_limit**:*number* <optional>
+|    Maximum discharge power the EVSE can deliver in W
 
 .. _iso15118_charger-DcEvseMinimumLimits:
 
 | **DcEvseMinimumLimits**:*object* 
-|  Minimum Values (current and voltage) the EVSE can deliver
+|  Minimum Values the EVSE can deliver
 |  properties:
 |   **evse_minimum_current_limit**:*number* <required>
 |    Minimum current the EVSE can deliver with the expected accuracy in A
 |   **evse_minimum_voltage_limit**:*number* <required>
 |    Minimum voltage the EVSE can deliver with the expected accuracy in V
+|   **evse_minimum_power_limit**:*number* <required>
+|    Minimum power the EVSE can deliver with the expected accuracy in W
+|   **evse_minimum_discharge_current_limit**:*number* <optional>
+|    Minimum discharge current the EVSE can deliver in A
+|   **evse_minimum_discharge_power_limit**:*number* <optional>
+|    Minimum discharge power the EVSE can deliver in W
 
 .. _iso15118_charger-SetupPhysicalValues:
 
@@ -277,16 +307,16 @@ ISO15118 charger types
 | **V2gMessages**:*object* 
 |  This element contains all V2G elements
 |  properties:
-|   **v2g_message_id**:*string* <required> (:ref:`iso15118_charger-V2gMessageId <iso15118_charger-V2gMessageId>`)
+|   **id**:*string* <required> (:ref:`iso15118_charger-V2gMessageId <iso15118_charger-V2gMessageId>`)
 |    This element contains the id of the v2g message body
 |    **There is an extended definition for this object** :ref:`here <iso15118_charger-V2gMessageId>`.
-|   **v2g_message_xml**:*string* <optional>
+|   **xml**:*string* <optional>
 |    Contains the decoded EXI stream as V2G message XML file
-|   **v2g_message_json**:*string* <optional>
+|   **v2g_json**:*string* <optional>
 |    Contains the decoded EXI stream as V2G message JSON file
-|   **v2g_message_exi_hex**:*string* <optional>
+|   **exi**:*string* <optional>
 |    Contains the EXI stream as hex string
-|   **v2g_message_exi_base64**:*string* <optional>
+|   **exi_base64**:*string* <optional>
 |    Contains the EXI stream as base64 string
 
 .. _iso15118_charger-ResponseExiStreamStatus:
@@ -337,3 +367,38 @@ ISO15118 charger types
 |    The serial number of the certificate
 |   **responderURL**:*string* <required>
 |    This contains the responder URL
+
+.. _iso15118_charger-SupportedEnergyMode:
+
+| **SupportedEnergyMode**:*object* 
+|  Supported energy mode and if the mode supports bidirectional
+|  properties:
+|   **energy_transfer_mode**:*string* <required> (:ref:`iso15118_charger-EnergyTransferMode <iso15118_charger-EnergyTransferMode>`)
+|    The energy mode supported by the SECC
+|    **There is an extended definition for this object** :ref:`here <iso15118_charger-EnergyTransferMode>`.
+|   **bidirectional**:*boolean* <required>
+|    Set true if the powersupply (AC or DC) supports bidi mode
+
+.. _iso15118_charger-DisplayParameters:
+
+| **DisplayParameters**:*object* 
+|  Parameters that may be displayed on the EVSE
+|  properties:
+|   **present_soc**:*number* <required>
+|    Current SoC of the EV battery
+|   **minimum_soc**:*number* <required>
+|    Minimum SoC EV needs after charging
+|   **target_soc**:*number* <required>
+|    Target SoC EV needs after charging
+|   **maximum_soc**:*number* <required>
+|    The SoC at which the EV will prohibit
+|   **remaining_time_to_minimum_soc**:*number* <required>
+|    Remaining time it takes to reach minimum SoC
+|   **remaining_time_to_target_soc**:*number* <required>
+|    Remaining time it takes to reach target SoC
+|   **remaining_time_to_maximum_soc**:*number* <required>
+|    Remaining time it takes to reach maximum SoC
+|   **battery_energy_capacity**:*number* <required>
+|    Energy capacity in Wh of the EV battery
+|   **inlet_hot**:*boolean* <required>
+|    Inlet temperature is too high

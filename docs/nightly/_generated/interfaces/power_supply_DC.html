@@ -64,7 +64,21 @@
 <div class="line">Once the PSU is back on-line (e.g. after a CommunicationFault), set the last mode and voltage/current value received and only after that clear the error.</div>
 <div class="line"><br /></div>
 </div>
-<div class="line">3) var voltage_current shall be published on regular intervals. The interval depends on the hardware, but it shall be at least once per second. If possible,</div>
+<div class="line">3) setMode to Off requires special attention. To avoid switching the output relays of the charger off under full load, make sure to return</div>
+<div class="line-block">
+<div class="line-block">
+<div class="line">from the setMode function(Off) only when the current is below a safe threshold for switching off the relays (exact value is hardware dependent).</div>
+<div class="line">If communication is lost with the power supply, make sure to still return, the call must not block for a longer period of time.</div>
+<div class="line">EVerest will ensure the order of the calls is correct during shutdown, but will not wait for the power supply to actually turn off:</div>
+<div class="line-block">
+<div class="line">1. call setMode(Off) on power_supply_DC</div>
+<div class="line">2. call allow_power_on(false) on evse_board_support</div>
+</div>
+</div>
+<div class="line">If the setMode(Off) returns immediately, it may happen that the bsp implementation opens the relays before the power supply is shutdown.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line">4) var voltage_current shall be published on regular intervals. The interval depends on the hardware, but it shall be at least once per second. If possible,</div>
 <div class="line-block">
 <div class="line">update at e.g. 4 Hertz is recommended.</div>
 </div>

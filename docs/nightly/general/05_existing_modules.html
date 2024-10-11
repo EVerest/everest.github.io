@@ -19,7 +19,7 @@
     <script src="../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.2.1. EvManager" href="../_included/modules_doc/EvManager.html" />
+    <link rel="next" title="5.3.1. EvManager" href="../_included/modules_doc/EvManager.html" />
     <link rel="prev" title="4. EVerest Modules in Detail" href="04_detail_module_concept.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -29,7 +29,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../_included/modules_doc/EvManager.html" title="5.2.1. EvManager"
+          <a href="../_included/modules_doc/EvManager.html" title="5.3.1. EvManager"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="04_detail_module_concept.html" title="4. EVerest Modules in Detail"
@@ -296,23 +296,58 @@ solution for remote communication between multiple EVerest instances.</p>
 <p>A more detailed use case will follow.</p>
 </section>
 </section>
+<section id="tier-module-mappings">
+<h2><span class="section-number">5.2. </span>3-tier module mappings<a class="headerlink" href="#tier-module-mappings" title="Permalink to this heading">¶</a></h2>
+<p>EVerest modules and even individual interface implementations can have mappings
+assigned to them. These mappings are inspired by the OCPP 3-tier model and are
+available for error handling since <a class="reference external" href="https://github.com/EVerest/everest-framework/releases/tag/v0.16.0">everest-framework v0.16.0</a>,
+which is included in everest-core since <a class="reference external" href="https://github.com/EVerest/everest-core/releases/tag/2024.7.0">release 2024.7.0.</a>.</p>
+<p>These mappings are exposed for usage in module code since <a class="reference external" href="https://github.com/EVerest/everest-framework/releases/tag/v0.18.0">everest-framework v0.18.0</a>,
+which is included in everest-core since <a class="reference external" href="https://github.com/EVerest/everest-core/releases/tag/2024.10.0">release 2024.10.0.</a>.</p>
+<p>Following an example how a mappping for the EvseManager could look like:</p>
+<p>This would result in a mapping of the whole module,
+including its implementations for e.g. evse and token_provider to “evse = 1”
+and “connector = 1”.</p>
+<p>By default, a module is mapped to the whole charging station.
+So to ensure that only the parts of the module that should belong
+to a specific evse/connector are actually mapped to it,
+you could replace this simple mapping with a more detailed one
+as shown in the following example:</p>
+<p>Here, the module stays mapped to the whole charging station
+and therefore an implementation as well. For the “evse” implementation,
+this mapping is now overwritten to indicate that it belongs to
+a specific “evse = 1” and “connector = 1”.</p>
+<p>Modules can access the mapping information in the following ways depending
+on which specific information is required.</p>
+<p>If the mapping of a requirement is of interest it can be accessed via a
+get_mapping() function:</p>
+<p>This returns an optional Mapping struct.</p>
+<p>If the mapping of an interface implementation is of interest it can
+also be accessed via a get_mapping() function:</p>
+<p>This returns an optional Mapping struct.</p>
+<p>If the mapping of the current module is of interest it can be accessed via the
+module info:</p>
+<p>This returns an optional Mapping struct.</p>
+<p>Mapping information is also available in error reporting via
+“error.origin.mapping”:</p>
+</section>
 <section id="module-functionality-in-detail">
-<h2><span class="section-number">5.2. </span>Module functionality in detail<a class="headerlink" href="#module-functionality-in-detail" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3. </span>Module functionality in detail<a class="headerlink" href="#module-functionality-in-detail" title="Permalink to this heading">¶</a></h2>
 <p><cite>TODO: This section is yet to be created. Existing module documentation listed
 here are eventually to be updated.</cite></p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvManager.html">5.2.1. EvManager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseManager.html">5.2.2. EvseManager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseSecurity.html">5.2.3. EvseSecurity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseSlac.html">5.2.4. EvseSlac</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseSlac.html#todo">5.2.5. Todo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/GenericPowermeter.html">5.2.6. GenericPowermeter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/LemDCBM400600.html">5.2.7. LEM DCBM 400/600</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/OCPP.html">5.2.8. Global Errors and Error Reporting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/OCPP.html#interaction-with-evse-manager">5.2.9. Interaction with EVSE Manager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/OCPP201.html">5.2.10. Global Errors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/YetiDriver.html">5.2.11. YetiDriver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvManager.html">5.3.1. EvManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseManager.html">5.3.2. EvseManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseSecurity.html">5.3.3. EvseSecurity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseSlac.html">5.3.4. EvseSlac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/EvseSlac.html#todo">5.3.5. Todo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/GenericPowermeter.html">5.3.6. GenericPowermeter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/LemDCBM400600.html">5.3.7. LEM DCBM 400/600</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/OCPP.html">5.3.8. Global Errors and Error Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/OCPP.html#interaction-with-evse-manager">5.3.9. Interaction with EVSE Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/OCPP201.html">5.3.10. Global Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_included/modules_doc/YetiDriver.html">5.3.11. YetiDriver</a></li>
 </ul>
 </div>
 <p>Addtionally, you can have a look at the documentation regarding interfaces
@@ -336,7 +371,8 @@ for a bank transaction process here:
 <li class="toctree-l1"><a class="reference internal" href="04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. EVerest Module Configurations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-functionality-in-detail">5.2. Module functionality in detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tier-module-mappings">5.2. 3-tier module mappings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-functionality-in-detail">5.3. Module functionality in detail</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="06_handling_bank_cards.html">6. Bank Card Payment</a></li>
@@ -357,7 +393,7 @@ for a bank transaction process here:
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="../_included/modules_doc/EvManager.html"
-                          title="next chapter"><span class="section-number">5.2.1. </span>EvManager</a></p>
+                          title="next chapter"><span class="section-number">5.3.1. </span>EvManager</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -393,7 +429,7 @@ for a bank transaction process here:
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../_included/modules_doc/EvManager.html" title="5.2.1. EvManager"
+          <a href="../_included/modules_doc/EvManager.html" title="5.3.1. EvManager"
              >next</a> |</li>
         <li class="right" >
           <a href="04_detail_module_concept.html" title="4. EVerest Modules in Detail"

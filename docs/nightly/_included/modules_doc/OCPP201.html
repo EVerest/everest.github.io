@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.3.10. Global Errors &#8212; EVerest  documentation</title>
+    <title>5.3.10. Error Handling &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -36,7 +36,7 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.10. </span>Global Errors</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.10. </span>Error Handling</a></li> 
       </ul>
     </div>  
 
@@ -45,10 +45,38 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="global-errors">
-<h1><span class="section-number">5.3.10. </span>Global Errors<a class="headerlink" href="#global-errors" title="Permalink to this heading">¶</a></h1>
-<p>The <cite>enable_global_errors</cite> flag for this module is enabled. This module is therefore able to retrieve and process all reported errors
-from other modules loaded in the same EVerest configuration.</p>
+  <section id="error-handling">
+<h1><span class="section-number">5.3.10. </span>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h1>
+<p>The <cite>enable_global_errors</cite> flag for this module is true. This module is
+therefore able to retrieve and process all reported errors from other
+modules that are loaded in the same EVerest configuration.</p>
+<p>The error reporting via OCPP2.0.1 follows the Minimum Required Error Codes (MRECS): <a class="reference external" href="https://inl.gov/chargex/mrec/">https://inl.gov/chargex/mrec/</a> . This proposes a unified methodology
+to define and classify a minimum required set of error codes and how to report them via OCPP2.0.1.</p>
+<section id="statusnotification">
+<h2><span class="section-number">5.3.10.1. </span>StatusNotification<a class="headerlink" href="#statusnotification" title="Permalink to this heading">¶</a></h2>
+<p>In contrast to OCPP1.6, error information is not transmitted as part of the StatusNotification.req.
+A <cite>StatusNotification.req</cite> with status <cite>Faulted</cite> will be set to faulted only in case the error received is of the special type <cite>evse_manager/Inoperative</cite>.
+This indicates that the EVSE is inoperative (not ready for energy transfer).</p>
+<p>In OCPP2.0.1 errors can be reported using the <cite>NotifyEventRequest.req</cite> . This message is used to report all other errros received.</p>
+</section>
+<section id="current-limitation">
+<h2><span class="section-number">5.3.10.2. </span>Current Limitation<a class="headerlink" href="#current-limitation" title="Permalink to this heading">¶</a></h2>
+<p>In OCPP2.0.1 errors can be reported using the <cite>NotifyEventRequest</cite>
+message. The <cite>eventData</cite> property carries the relevant information.</p>
+<p>This format of reporting errors deviates from the mechanism used within
+EVerest. This data structure forces to map an error to a
+component-variable combination. This requires a mapping
+mechanism between EVerest errors and component-variable
+combination.</p>
+<p>Currently this module maps the Error to one of these three Components:</p>
+<ul class="simple">
+<li><p>ChargingStation (if error.origin.mapping.evse is not set or 0)</p></li>
+<li><p>EVSE (error.origin.mapping.evse is set and error.origin.mapping.connector is not set)</p></li>
+<li><p>Connector (error.origin.mapping.evse is set and error.origin.mapping.connector is set)</p></li>
+</ul>
+<p>The Variable used as part of the NotifyEventRequest is constantly defined to <cite>Problem</cite> for now.</p>
+<p>The goal is to have a more advanced mapping of reported errors to the respective component-variable combinations in the future.</p>
+</section>
 </section>
 
 
@@ -131,7 +159,7 @@ from other modules loaded in the same EVerest configuration.</p>
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.10. </span>Global Errors</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.10. </span>Error Handling</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

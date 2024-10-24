@@ -222,6 +222,8 @@ Types for evse security
 |  properties:
 |   **key**:*string* <required>
 |    The path of the PEM or DER encoded private key
+|   **certificate_root**:*string* <optional>
+|    The PEM of the root certificate that issued this leaf
 |   **certificate**:*string* <optional>
 |    The path of the PEM or DER encoded certificate chain
 |   **certificate_single**:*string* <optional>
@@ -248,3 +250,18 @@ Types for evse security
 |   **info**:*object* <optional> (:ref:`evse_security-CertificateInfo <evse_security-CertificateInfo>`)
 |    The requested info
 |    **There is an extended definition for this object** :ref:`here <evse_security-CertificateInfo>`.
+
+.. _evse_security-GetCertificateFullInfoResult:
+
+| **GetCertificateFullInfoResult**:*object* 
+|  Response to the command get_all_valid_certificates_info
+|  properties:
+|   **status**:*string* <required> (:ref:`evse_security-GetCertificateInfoStatus <evse_security-GetCertificateInfoStatus>`)
+|    The status of the requested command
+|    **There is an extended definition for this object** :ref:`here <evse_security-GetCertificateInfoStatus>`.
+|   **info**:*array* <required>
+|    The requested info
+|    **array_item**:*object*  (:ref:`evse_security-CertificateInfo <evse_security-CertificateInfo>`)
+|     
+|     **There is an extended definition for this object** :ref:`here <evse_security-CertificateInfo>`.
+| 

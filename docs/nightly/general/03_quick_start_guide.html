@@ -196,7 +196,7 @@ is specified by the <cite>dependencies.yaml</cite> and verified by ci workflow.<
 the necessary steps to start the simulation and get the user interface running.</p>
 <p>Further tools are not required to run EVerest (e.g. SteVe for OCPP). Further
 information about EVerest Docker containers can be found on the
-<a class="reference external" href="../tutorials/docker_setup.html">EVerest Docker Setup page</a>.</p>
+<a class="reference internal" href="../tutorials/docker_setup.html#docker-setup"><span class="std std-ref">EVerest Docker Setup page</span></a>.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>To get all this working, make sure you have docker and docker-compose installed during the previous install phase. (If not, see install instructions for <a class="reference external" href="https://docs.docker.com/engine/install/#server">docker</a> and <a class="reference external" href="https://docs.docker.com/compose/install/#install-compose)">docker-compose</a>!)</p>
@@ -208,12 +208,26 @@ following command (IPv6 is enabled for containers which might need it):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>bridge<span class="w"> </span>--ipv6<span class="w">  </span>--subnet<span class="w"> </span>fd00::/80<span class="w"> </span>infranet_network<span class="w"> </span>--attachable
 </pre></div>
 </div>
-<p>Now, change into your workspace directory and enter the directory with the
-prepared docker containers. Start the the mosquitto broker which will be
-used by EVerest for the communication between the EVerest modules:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-utils/docker
-sudo<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>mqtt-server
+<p>Now, start the mosquitto broker, which is deployed as built docker image.
+It is used for the communication between the EVerest modules:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>mqtt-server<span class="w"> </span>--network<span class="w"> </span>infranet_network<span class="w"> </span>-p<span class="w"> </span><span class="m">1883</span>:1883<span class="w"> </span>-p<span class="w"> </span><span class="m">9001</span>:9001<span class="w"> </span>ghcr.io/everest/everest-dev-environment/mosquitto:docker-images-v0.1.0
 </pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-d</span></code> starts the container in detached mode.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--name</span> <span class="pre">mqtt-server</span></code> gives the container a name.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--network</span> <span class="pre">infranet_network</span></code> connects the container to the network we created.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--expose</span> <span class="pre">1883</span> <span class="pre">--expose</span> <span class="pre">9001</span></code> makes the ports 1883 and 9001 available to the
+other containers in the network.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ghcr.io/everest/everest-dev-environment/mosquitto:docker-images-v0.1.0</span></code> is the complete image name</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The docker container can be controlled with docker compose as well:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-dev-environment.git
+<span class="nb">cd</span><span class="w"> </span>everest-dev-environment/docker
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>mosquitto
+</pre></div>
+</div>
 </div>
 <p>That makes us ready for entering the simulation phase described in the next
 chapter.</p>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>9.1. Experimental Bazel Support in Everest &#8212; EVerest  documentation</title>
+    <title>9.2. How to Devcontainer &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="9.2. How to Devcontainer" href="../how_to_devcontainer/index.html" />
-    <link rel="prev" title="9. Tutorials" href="../index.html" /> 
+    <link rel="next" title="9.3. Documenting EVerest" href="../how_to_docs/index.html" />
+    <link rel="prev" title="9.1. Experimental Bazel Support in Everest" href="../how_to_bazel/index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../how_to_devcontainer/index.html" title="9.2. How to Devcontainer"
+          <a href="../how_to_docs/index.html" title="9.3. Documenting EVerest"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="9. Tutorials"
+          <a href="../how_to_bazel/index.html" title="9.1. Experimental Bazel Support in Everest"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U"><span class="section-number">9. </span>Tutorials</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.1. </span>Experimental Bazel Support in Everest</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.2. </span>How to Devcontainer</a></li> 
       </ul>
     </div>  
 
@@ -45,86 +45,65 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="experimental-bazel-support-in-everest">
-<h1><span class="section-number">9.1. </span>Experimental Bazel Support in Everest<a class="headerlink" href="#experimental-bazel-support-in-everest" title="Permalink to this heading">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This feature is currently experimental and subject to change.</p>
+  <section id="how-to-devcontainer">
+<span id="id1"></span><h1><span class="section-number">9.2. </span>How to Devcontainer<a class="headerlink" href="#how-to-devcontainer" title="Permalink to this heading">¶</a></h1>
+<p>The devcontainer setup is a convenient way to develop the EVerest project. It uses
+Docker to create a development environment that is consistent across different
+machines. This section describes how to set up the devcontainer for the EVerest
+project and how to use it.</p>
+<section id="prerequisites">
+<h2><span class="section-number">9.2.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h2>
+<p>You need to install <a class="reference external" href="https://docs.docker.com/engine/install/#server">docker</a>, <a class="reference external" href="https://docs.docker.com/compose/install/#install-compose)">docker-compose</a> and <a class="reference external" href="https://code.visualstudio.com/docs/setup/linux">visual
+studio code</a>.</p>
+</section>
+<section id="create-devcontainer-based-everest-workspace">
+<h2><span class="section-number">9.2.2. </span>Create devcontainer based EVerest workspace<a class="headerlink" href="#create-devcontainer-based-everest-workspace" title="Permalink to this heading">¶</a></h2>
+<section id="enter-the-workspace-directory">
+<h3><span class="section-number">9.2.2.1. </span>1. Enter the workspace directory<a class="headerlink" href="#enter-the-workspace-directory" title="Permalink to this heading">¶</a></h3>
+<p>Create a new directory and navigate into it.
+This directory will be your new workspace.
+(You could also use an existing one.)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>my_workspace
+<span class="nb">cd</span><span class="w"> </span>my_workspace
+</pre></div>
 </div>
-<section id="introduction">
-<h2><span class="section-number">9.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
-<p>EVerest now offers experimental support for <cite>Bazel &lt;https://bazel.build/&gt;</cite>.
-With Bazel, you can efficiently build, test and deploy software projects of any
-size.</p>
-<p>For EVerest developers, Bazel offers a couple advantages:</p>
-<ul class="simple">
-<li><p>While developing features, that span multiple modules, Bazel can swiftly
-rebuild only the necessary parts of the project.</p></li>
-<li><p>If you have already setup Bazel in your project, EVerest framework can be
-integrated with it.</p></li>
-</ul>
-<p>This tutorial will guide you through the process of setting up and using
-Bazel in your Everest projects.</p>
+</section>
+<section id="run-the-setup-script">
+<h3><span class="section-number">9.2.2.2. </span>2. Run the setup script<a class="headerlink" href="#run-the-setup-script" title="Permalink to this heading">¶</a></h3>
+<p>Run the following command to setup the devcontainer.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">BRANCH</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>--variable<span class="w"> </span>%BRANCH<span class="o">=</span>main<span class="w"> </span>--expand-url<span class="w"> </span>https://raw.githubusercontent.com/EVerest/everest-dev-environment/<span class="o">{{</span>BRANCH<span class="o">}}</span>/devcontainer/setup-devcontainer.sh<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>The script will ask you for the following information:</p>
+<ol class="arabic simple">
+<li><p>Workspace directory: Default is the current directory. You can keep the default by pressing enter.</p></li>
+<li><p>everest-dev-environment version: Default is ‘main’. You can keep the default by pressing enter.</p></li>
+</ol>
+</section>
+<section id="open-the-workspace-in-visual-studio-code">
+<h3><span class="section-number">9.2.2.3. </span>3. Open the workspace in Visual Studio Code<a class="headerlink" href="#open-the-workspace-in-visual-studio-code" title="Permalink to this heading">¶</a></h3>
+<p>After the script has finished, open the workspace in Visual Studio Code.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>code<span class="w"> </span>.
+</pre></div>
+</div>
+<p>VS Code will ask you to reopen the workspace in a container. Click on the button “Reopen in Container).</p>
 </section>
 <section id="getting-started">
-<h2><span class="section-number">9.1.2. </span>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
-<p>To install Bazel, it’s recommended to use bazelisk, which is a tool that
-downloads and runs the correct version of Bazel for your project.
-You can install bazelisk by following the
-<cite>instructions on the official GitHub repository &lt;https://github.com/bazelbuild/bazelisk?tab=readme-ov-file#installation&gt;</cite>.</p>
+<h3><span class="section-number">9.2.2.4. </span>4. Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h3>
+<p>As your set up dev environment suggests when you open a terminal, you can setup your EVerest workspace by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>everest<span class="w"> </span>clone<span class="w"> </span>everest-core
+</pre></div>
+</div>
+</section>
+</section>
+<section id="the-everest-s-development-tool">
+<h2><span class="section-number">9.2.3. </span>The Everest’s Development Tool<a class="headerlink" href="#the-everest-s-development-tool" title="Permalink to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Bazelisk provides a <cite>bazel</cite> command, and the rest of this tutorial will
-refer to it as <cite>bazel</cite>.</p>
+<p>A more detailed documentation of the tool is coming soon.</p>
 </div>
-<p>C/C++ Compilers:
-At the moment, Bazel will use the default C/C++ compilers on your system.
-If it is not the desired compiler to build EVerest, you can set the environment
-variables <cite>CC</cite> and <cite>CXX</cite> to the desired compiler.</p>
-<p>All other dependencies are fetched by Bazel as needed.</p>
-</section>
-<section id="using-bazel-commands">
-<h2><span class="section-number">9.1.3. </span>Using Bazel Commands<a class="headerlink" href="#using-bazel-commands" title="Permalink to this heading">¶</a></h2>
-<p>Once Bazel is configured, you can use various Bazel commands to build, test
-and run.</p>
-<p>Most useful commands are:</p>
-<ul class="simple">
-<li><p><cite>bazel build //…</cite> - Build all targets in the project.</p></li>
-<li><p><cite>bazel test //…</cite> - Run all tests in the project.</p></li>
-</ul>
-</section>
-<section id="dependency-management">
-<h2><span class="section-number">9.1.4. </span>Dependency Management<a class="headerlink" href="#dependency-management" title="Permalink to this heading">¶</a></h2>
-<p>There are a few different ways of managing dependencies in EVerest.</p>
-<ul class="simple">
-<li><p>Dependencies that CMake takes from the system (e.g. boost).
-These dependencies are configured in the <cite>third_party/bazel/repos.bzl</cite> file.</p></li>
-<li><p>Dependencies that are described in the <cite>./dependencies.yaml</cite> file. These
-dependencies are pulled automatically by Bazel with help of <cite>edm</cite> tool.</p></li>
-<li><p>Rust dependencies are managed by cargo, and are described in the <cite>Cargo.toml</cite>
-file. Cargo dependencies are automatically picked up by Bazel.</p></li>
-</ul>
-</section>
-<section id="defining-c-everest-modules">
-<h2><span class="section-number">9.1.5. </span>Defining C++ EVerest Modules<a class="headerlink" href="#defining-c-everest-modules" title="Permalink to this heading">¶</a></h2>
-<p>Let’s assume, you have a module named <cite>Example</cite> with a single interface
-implementation named <cite>example</cite>. This module depends on the <cite>sigslot</cite> library.
-For a more realistic scenario, the module has two extra files <cite>utils.cpp</cite> and
-<cite>utils.hpp</cite>.</p>
-<p>The <cite>manifest.yaml</cite> file for the module looks like this:</p>
-<p>To build this module with Bazel, you need to create a <cite>BUILD.bazel</cite> file in the
-module directory, next to the <cite>manifest.yaml</cite> file.</p>
-<p>In the <cite>BUILD.bazel</cite>, use predefined macros to define the module:</p>
-</section>
-<section id="defining-rust-everest-modules">
-<h2><span class="section-number">9.1.6. </span>Defining Rust EVerest Modules<a class="headerlink" href="#defining-rust-everest-modules" title="Permalink to this heading">¶</a></h2>
-<p>To define a Rust module in EVerest, you need to create a BUILD.bazel file in
-the module directory.
-Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the moment.</p>
-</section>
-<section id="using-everest-in-external-bazel-projects">
-<h2><span class="section-number">9.1.7. </span>Using EVerest in external Bazel projects<a class="headerlink" href="#using-everest-in-external-bazel-projects" title="Permalink to this heading">¶</a></h2>
-<p>TBD</p>
+<p>The Everest’s development tool is a command-line tool that helps you to manage your EVerest workspace.
+You can use it to clone repositories and start/stop services.</p>
 </section>
 </section>
 
@@ -146,8 +125,8 @@ Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the mome
 <li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">9. Tutorials</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">9.1. Experimental Bazel Support in Everest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../how_to_devcontainer/index.html">9.2. How to Devcontainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_bazel/index.html">9.1. Experimental Bazel Support in Everest</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.2. How to Devcontainer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how_to_docs/index.html">9.3. Documenting EVerest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how_to_git/index.html">9.4. How To: Git</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how_to_mac/index.html">9.5. How To: Develop on a Mac</a></li>
@@ -166,18 +145,18 @@ Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the mome
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="../index.html"
-                          title="previous chapter"><span class="section-number">9. </span>Tutorials</a></p>
+    <p class="topless"><a href="../how_to_bazel/index.html"
+                          title="previous chapter"><span class="section-number">9.1. </span>Experimental Bazel Support in Everest</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="../how_to_devcontainer/index.html"
-                          title="next chapter"><span class="section-number">9.2. </span>How to Devcontainer</a></p>
+    <p class="topless"><a href="../how_to_docs/index.html"
+                          title="next chapter"><span class="section-number">9.3. </span>Documenting EVerest</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/tutorials/how_to_bazel/index.rst.txt"
+      <li><a href="../../_sources/tutorials/how_to_devcontainer/index.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -208,14 +187,14 @@ Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the mome
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../how_to_devcontainer/index.html" title="9.2. How to Devcontainer"
+          <a href="../how_to_docs/index.html" title="9.3. Documenting EVerest"
              >next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="9. Tutorials"
+          <a href="../how_to_bazel/index.html" title="9.1. Experimental Bazel Support in Everest"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" ><span class="section-number">9. </span>Tutorials</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.1. </span>Experimental Bazel Support in Everest</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.2. </span>How to Devcontainer</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

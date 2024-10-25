@@ -14,16 +14,16 @@ Module Configuration
 ********************
 | **ChargePointConfigPath**:*string* <optional>
 | *default: "ocpp-config.json"*
-|  Path to the configuration file
+|  Path to the ocpp configuration file. Libocpp defines a JSON schema for this file. Please refer to the documentation of libocpp for more information about the configuration options.  
 | **UserConfigPath**:*string* <optional>
 | *default: "user_config.json"*
-|  Path to the file of the OCPP user config
+|  Path to the file of the OCPP user config. The user config is used as an overlay for the original config defined by the ChargePointConfigPath. Any changes to configuration keys turned out internally or by the CSMS will be  written to the user config file.
 | **DatabasePath**:*string* <optional>
 | *default: "/tmp/ocpp_1_6_charge_point"*
-|  Path to the persistent SQLite database folder
+|  Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.
 | **EnableExternalWebsocketControl**:*boolean* <optional>
 | *default: False*
-|  If true websocket can be disconnected and connected externally
+|  If true websocket can be disconnected and connected externally. This parameter is for debug and testing purposes.
 | **PublishChargingScheduleIntervalS**:*integer* <optional>
 | *default: 30*
 |  Interval in seconds in which charging schedules received from OCPP are be published over MQTT and signalled to connected modules. If the value is set to 0, charging schedules are only published when changed by CSMS
@@ -32,10 +32,10 @@ Module Configuration
 |  Duration in seconds that defines the duration of the requested charging schedules starting from now
 | **MessageLogPath**:*string* <optional>
 | *default: "/tmp/everest_ocpp_logs"*
-|  Path to folder where logs of all OCPP messages get written to
+|  Path to directory where logs of all OCPP messages are written to
 | **MessageQueueResumeDelay**:*integer* <optional>
 | *default: 0*
-|  Time (seconds) to delay resuming the message queue after reconnecting
+|  Time (seconds) to delay resuming the message queue after reconnecting. This parameter was introduced because some OCTT test cases require that the first message after a reconnect is sent by the CSMS.
 | **RequestCompositeScheduleUnit**:*string* <optional>
 | *default: "A"*
 |  Unit in which composite schedules are requested and shared within EVerest. It is recommended to use Amps for AC and Watts for DC charging stations. Allowed values:

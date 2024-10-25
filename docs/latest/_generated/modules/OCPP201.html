@@ -58,12 +58,12 @@
 <div class="line"><strong>MessageLogPath</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “/tmp/everest_ocpp_logs”</em></div>
 <div class="line-block">
-<div class="line">Path to folder where logs of all OCPP messages get written to</div>
+<div class="line">Path to directory where logs of all OCPP messages are written to</div>
 </div>
 <div class="line"><strong>CoreDatabasePath</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “/tmp/ocpp201”</em></div>
 <div class="line-block">
-<div class="line">Path to the persistent SQLite database folder</div>
+<div class="line">Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.</div>
 </div>
 <div class="line"><strong>DeviceModelDatabasePath</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “device_model_storage.db”</em></div>
@@ -78,17 +78,17 @@
 <div class="line"><strong>DeviceModelConfigPath</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “component_config”</em></div>
 <div class="line-block">
-<div class="line">Path to the device model component config directory</div>
+<div class="line">Path to the device model component config directory. Libocpp defines a certain schema for these files. Please refer to the documentation of libocpp for more information about the configuration options.</div>
 </div>
 <div class="line"><strong>EnableExternalWebsocketControl</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">If true websocket can be disconnected and connected externally</div>
+<div class="line">If true websocket can be disconnected and connected externally. This parameter is for debug and testing purposes.</div>
 </div>
 <div class="line"><strong>MessageQueueResumeDelay</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 0</em></div>
 <div class="line-block">
-<div class="line">Time (seconds) to delay resuming the message queue after reconnecting</div>
+<div class="line">Time (seconds) to delay resuming the message queue after reconnecting. This parameter was introduced because some OCTT test cases require that the first message after a reconnect is sent by the CSMS.</div>
 </div>
 <div class="line"><strong>CompositeScheduleIntervalS</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 30</em></div>
@@ -114,10 +114,6 @@
 <section id="provides">
 <h2><span class="section-number">13.1.24.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
-<div class="line-block">
-<div class="line">This is a OCPP 2.0.1 charge point</div>
-</div>
 <div class="line"><strong>auth_validator</strong>:<a class="reference internal" href="../interfaces/auth_token_validator.html#everest-interfaces-auth-token-validator"><span class="std std-ref">auth_token_validator</span></a></div>
 <div class="line-block">
 <div class="line">Validates the provided token using CSMS, AuthorizationList or AuthorizationCache</div>

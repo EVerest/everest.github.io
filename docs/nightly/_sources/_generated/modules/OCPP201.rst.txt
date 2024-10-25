@@ -14,10 +14,10 @@ Module Configuration
 ********************
 | **MessageLogPath**:*string* <optional>
 | *default: "/tmp/everest_ocpp_logs"*
-|  Path to folder where logs of all OCPP messages get written to
+|  Path to directory where logs of all OCPP messages are written to
 | **CoreDatabasePath**:*string* <optional>
 | *default: "/tmp/ocpp201"*
-|  Path to the persistent SQLite database folder
+|  Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.
 | **DeviceModelDatabasePath**:*string* <optional>
 | *default: "device_model_storage.db"*
 |  Path to the SQLite database for the device model
@@ -26,13 +26,13 @@ Module Configuration
 |  Path to the migration files for the device model
 | **DeviceModelConfigPath**:*string* <optional>
 | *default: "component_config"*
-|  Path to the device model component config directory
+|  Path to the device model component config directory. Libocpp defines a certain schema for these files. Please refer to the documentation of libocpp for more information about the configuration options.
 | **EnableExternalWebsocketControl**:*boolean* <optional>
 | *default: False*
-|  If true websocket can be disconnected and connected externally
+|  If true websocket can be disconnected and connected externally. This parameter is for debug and testing purposes.
 | **MessageQueueResumeDelay**:*integer* <optional>
 | *default: 0*
-|  Time (seconds) to delay resuming the message queue after reconnecting
+|  Time (seconds) to delay resuming the message queue after reconnecting. This parameter was introduced because some OCTT test cases require that the first message after a reconnect is sent by the CSMS.
 | **CompositeScheduleIntervalS**:*integer* <optional>
 | *default: 30*
 |  Interval in seconds in which composite schedules are received from libocpp are be published over MQTT and signalled to connected modules. If the value is set to 0, composite schedules are only published when changed by CSMS
@@ -48,8 +48,6 @@ Module Configuration
 ********
 Provides
 ********
-| **main**::ref:`empty <everest_interfaces_empty>`
-|  This is a OCPP 2.0.1 charge point
 | **auth_validator**::ref:`auth_token_validator <everest_interfaces_auth_token_validator>`
 |  Validates the provided token using CSMS, AuthorizationList or AuthorizationCache
 | **auth_provider**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`

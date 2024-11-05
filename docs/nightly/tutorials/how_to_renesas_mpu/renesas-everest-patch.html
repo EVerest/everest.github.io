@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Patch for Renesas MPU (RZ/G2L family) &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Patch for Renesas MPU (RZ/G2L family)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="patch-for-renesas-mpu-rz-g2l-family">
+<span id="how-to-renesas-mpu-patch"></span><h1>Patch for Renesas MPU (RZ/G2L family)<a class="headerlink" href="#patch-for-renesas-mpu-rz-g2l-family" title="Permalink to this heading">¶</a></h1>
+<p>Save this content here as a file with the extension <code class="docutils literal notranslate"><span class="pre">.patch</span></code>. Then apply it to the
+<code class="docutils literal notranslate"><span class="pre">kas/yocto/kirkstone.yml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">rz-community-bsp</span></code> repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>From<span class="w"> </span>0af5946f55b746a6e436c45249f559866fcaa848<span class="w"> </span>Mon<span class="w"> </span>Sep<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:00:00<span class="w"> </span><span class="m">2001</span>
+From:<span class="w"> </span>sach1n1<span class="w"> </span>&lt;sachin.s.dominic@gmail.com&gt;
+Date:<span class="w"> </span>Wed,<span class="w"> </span><span class="m">28</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">2024</span><span class="w"> </span><span class="m">12</span>:44:51<span class="w"> </span>+0200
+Subject:<span class="w"> </span><span class="o">[</span>PATCH<span class="o">]</span><span class="w"> </span>Signed-off-by:<span class="w"> </span>&lt;sachin.dominic.zn@renesas.com&gt;
+
+Changes<span class="w"> </span><span class="k">for</span><span class="w"> </span>everest.
+---
+<span class="w"> </span>kas/yocto/kirkstone.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">24</span><span class="w"> </span>++++++++++++++++++++++++
+<span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">24</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>
+
+diff<span class="w"> </span>--git<span class="w"> </span>a/kas/yocto/kirkstone.yml<span class="w"> </span>b/kas/yocto/kirkstone.yml
+index<span class="w"> </span>b2a1470..c80dd34<span class="w"> </span><span class="m">100644</span>
+---<span class="w"> </span>a/kas/yocto/kirkstone.yml
++++<span class="w"> </span>b/kas/yocto/kirkstone.yml
+@@<span class="w"> </span>-24,3<span class="w"> </span>+24,27<span class="w"> </span>@@<span class="w"> </span>repos:
+<span class="w">     </span>layers:
+<span class="w">       </span>meta-arm-toolchain:
+<span class="w">       </span>meta-arm:
++<span class="w">  </span>meta-openembedded:
++<span class="w">    </span>url:<span class="w"> </span>https://github.com/openembedded/meta-openembedded
++<span class="w">    </span>commit:<span class="w"> </span>52ecd66835dcfd8b4e55c9cb6325908ccea6a4e7
++<span class="w">    </span>layers:
++<span class="w">      </span>meta-oe:
++<span class="w">      </span>meta-networking:
++<span class="w">      </span>meta-python:
++<span class="w">      </span>meta-multimedia:
++<span class="w">      </span>meta-filesystems:
++<span class="w">      </span>meta-perl:
++<span class="w">  </span>meta-everest:
++<span class="w">    </span>url:<span class="w"> </span>https://github.com/EVerest/meta-everest.git
++<span class="w">    </span>commit:<span class="w"> </span>f9273939088db91a5699c07e512ddd7981e5637a
++
++
++local_conf_header:
++<span class="w">  </span>systemd:<span class="w"> </span><span class="p">|</span>
++<span class="w">    </span>DISTRO_FEATURES:append<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot; systemd&quot;</span>
++<span class="w">    </span>VIRTUAL-RUNTIME_init_manager<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;systemd&quot;</span>
++<span class="w">    </span>VIRTUAL-RUNTIME_initscripts<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;systemd-compat-units&quot;</span>
++
++<span class="w">  </span>everest-core:<span class="w"> </span><span class="p">|</span>
++<span class="w">    </span>IMAGE_INSTALL:append<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot; systemd systemd-analyze everest-core mosquitto&quot;</span>
++<span class="w">    </span>IMAGE_INSTALL:remove<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;busybox-syslog&quot;</span>
+--
+<span class="m">2</span>.25.1
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tutorials/how_to_renesas_mpu/renesas-everest-patch.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Patch for Renesas MPU (RZ/G2L family)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

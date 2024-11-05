@@ -52,53 +52,58 @@
 <p>Here is how to set it up and run an EVerest simulation:</p>
 <ol class="arabic simple">
 <li><p>Clone the rz-community-bsp repo: <a class="reference external" href="https://github.com/renesas-rz/rz-community-bsp.git">https://github.com/renesas-rz/rz-community-bsp.git</a></p></li>
-<li><p>Apply the following patch, which will add necessary changes to build everest-core:</p></li>
+<li><p>Apply the patch, which you can find on the following page. The changes are</p></li>
 </ol>
 <blockquote>
-<div><p><a class="reference external" href="./0001-Signed-off-by-sachin.dominic.zn-renesas.com.patch">Patch file</a></p>
+<div><p>necessary to build everest-core:
+<a class="reference internal" href="renesas-everest-patch.html#how-to-renesas-mpu-patch"><span class="std std-ref">Patch file</span></a></p>
 </div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="3">
 <li><p>Start kas-container menu to configure the environment:</p></li>
 </ol>
 <blockquote>
-<div><ol class="arabic simple">
+<div><ol class="loweralpha simple">
 <li><p>Run ./kas-container menu</p></li>
 <li><p>Select device as RZ/G2L.</p></li>
 <li><p>Save &amp; Exit</p></li>
 </ol>
 </div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="4">
 <li><p>Start kas-shell with ./kas-container shell:</p></li>
 </ol>
 <blockquote>
-<div><ol class="arabic simple">
+<div><ol class="loweralpha simple">
 <li><p>Run <em>sudo apt-get update</em></p></li>
 <li><p>Run <em>sudo apt-get install -y python3.11 python3.11-dev</em></p></li>
 </ol>
 </div></blockquote>
-<ol class="arabic simple">
-<li><p>Edit the file <em>/work/poky/meta/recipes-devtools/elfutils/elfutils_0.186.bb*</em></p></li>
+<ol class="arabic simple" start="5">
+<li><p>Edit the file <em>/work/poky/meta/recipes-devtools/elfutils/elfutils_0.186.bb</em></p></li>
 </ol>
 <blockquote>
-<div><p>to add the following line:
-<em>CFLAGS:append = “ -Wno-error=deprecated-declarations”</em></p>
+<div><p>to add the following line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>CFLAGS:append<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot; -Wno-error=deprecated-declarations&quot;</span>
+</pre></div>
+</div>
 </div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="6">
 <li><p>Finally, start the build: <em>bitbake renesas-image-minimal</em></p></li>
 </ol>
 <blockquote>
 <div><p>Once the build is complete, exit the shell.</p>
 </div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="7">
 <li><p>Flash the hardware with the information in the RZ/G2L startup guide, which</p></li>
 </ol>
 <blockquote>
 <div><p>can be found here:
-<a href="#id1"><span class="problematic" id="id2">`https://www.renesas.com/us/en/document/qsg/rzg2l-evaluation-board-kit-quick-start-guide`_</span></a></p>
-<p>The generated image/binaries will be present in the directory:
-<em>built/tmp/deploy/images/smarc-rzg2l</em></p>
+<a class="reference external" href="https://www.renesas.com/us/en/document/qsg/rzg2l-evaluation-board-kit-quick-start-guide">Evaluation Board Kit Quick Start Guide</a></p>
+<p>The generated image/binaries will be present in the directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>built/tmp/deploy/images/smarc-rzg2l
+</pre></div>
+</div>
 </div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="7">
 <li><p>Start EVerest with the following command:</p></li>
 </ol>
 <blockquote>

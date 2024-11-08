@@ -294,8 +294,28 @@ because of the limited maximum characters of the <strong>info</strong> field.</p
 (Inoperative).” This module, therefore, only reports <strong>Faulted</strong> when the Charge Point is not available for energy delivery.</p></li>
 </ul>
 </section>
+<section id="energy-management-and-smart-charging-integration">
+<h2><span class="section-number">5.3.8.4. </span>Energy Management and Smart Charging Integration<a class="headerlink" href="#energy-management-and-smart-charging-integration" title="Permalink to this heading">¶</a></h2>
+<p>OCPP1.6 defines the SmartCharging feature profile to allow the CSMS to control or influence the power consumption of the charging station.
+This module integrates the composite schedule(s) within EVerest’s energy management. For further information about smart charging and the
+composite schedule calculation please refer to the OCPP1.6 specification.</p>
+<p>The integration of the composite schedules is implemented through the optional requirement(s) <cite>evse_energy_sink</cite> (interface: <cite>external_energy_limits</cite>)
+of this module. Depending on the number of EVSEs configured, each composite limit is communicated via a seperate sink, including the composite schedule
+for EVSE with id 0 (representing the whole charging station). The easiest way to explain this is with an example. If your charging station
+has two EVSEs you need to connect three modules that implement the <cite>external_energy_limits</cite> interface: One representing evse id 0 and
+two representing your actual EVSEs.</p>
+<p>📌 <strong>Note:</strong> You have to configure an evse mapping for each module connected via the evse_energy_sink connection. This allows the module to identify
+which requirement to use when communicating the limits for the EVSEs. For more information about the module mapping please see
+<a class="reference external" href="https://everest.github.io/nightly/general/05_existing_modules.html#tier-module-mappings">3-tier module mappings</a>.</p>
+<p>This module defines a callback that gets executed every time charging profiles are changed, added or removed by the CSMS. The callback retrieves
+the composite schedules for all EVSEs (including evse id 0) and calls the <cite>set_external_limits</cite> command of the respective requirement that implements
+the <cite>external_energy_limits</cite> interface. In addition, the config parameter <cite>PublishChargingScheduleIntervalS</cite> defines a periodic interval to retrieve
+the composite schedule also in case no charging profiles have been changed. The configuration parameter <cite>PublishChargingScheduleDurationS</cite> defines
+the duration in seconds of the requested composite schedules starting now. The value configured for <cite>PublishChargingScheduleDurationS</cite> shall be greater
+than the value configured for <cite>PublishChargingScheduleIntervalS</cite> because otherwise time periods could be missed by the application.</p>
+</section>
 <section id="certificate-management">
-<h2><span class="section-number">5.3.8.4. </span>Certificate Management<a class="headerlink" href="#certificate-management" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.8.5. </span>Certificate Management<a class="headerlink" href="#certificate-management" title="Permalink to this heading">¶</a></h2>
 <p>Two leaf certificates are managed by the OCPP communication enabled by this module:</p>
 <ul class="simple">
 <li><p>CSMS Leaf certificate (used for mTLS for SecurityProfile3)</p></li>

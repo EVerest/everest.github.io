@@ -135,6 +135,23 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="ocpp-evse">
+<div class="line"><strong>EVSE</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Type of an EVSE. If only the id is present, this type identifies an EVSE. If also a connector_id is given, this type identifies a Connector of the EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Id of the EVSE</div>
+</div>
+<div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">An id to designate a specific connector (on an EVSE) by connector index number</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="ocpp-ocpptransactionevent">
 <div class="line"><strong>OcppTransactionEvent</strong>:<em>object</em></div>
 <div class="line-block">
@@ -146,13 +163,10 @@
 <div class="line">The transaction related event.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-transactionevent"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>evse_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>evse</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#ocpp-evse"><span class="std std-ref">ocpp-EVSE</span></a>)</div>
 <div class="line-block">
-<div class="line">The OCPP 2.0.1 EVSE ID associated with the transaction.</div>
-</div>
-<div class="line"><strong>connector</strong>:<em>integer</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">The connector associated with the transaction.</div>
+<div class="line">The OCPP 2.0.1 EVSE associated with the transaction.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-evse"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>session_id</strong>:<em>string</em> &lt;required&gt;</div>
 <div class="line-block">
@@ -380,23 +394,6 @@
 <div class="line-block">
 <div class="line">Timestamp of the moment the security event was generated, if absent the current datetime is assumed</div>
 <div class="line">format:date-time</div>
-</div>
-</div>
-</div>
-</div>
-<div class="line-block" id="ocpp-evse">
-<div class="line"><strong>EVSE</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Type of an EVSE. If only the id is present, this type identifies an EVSE. If also a connector_id is given, this type identifies a Connector of the EVSE</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>id</strong>:<em>integer</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Id of the EVSE</div>
-</div>
-<div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line-block">
-<div class="line">An id to designate a specific connector (on an EVSE) by connector index number</div>
 </div>
 </div>
 </div>

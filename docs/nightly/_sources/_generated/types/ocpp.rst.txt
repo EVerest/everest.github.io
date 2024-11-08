@@ -68,6 +68,16 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |     **There is an extended definition for this object** :ref:`here <ocpp-ChargingSchedule>`.
 | 
 
+.. _ocpp-EVSE:
+
+| **EVSE**:*object* 
+|  Type of an EVSE. If only the id is present, this type identifies an EVSE. If also a connector_id is given, this type identifies a Connector of the EVSE
+|  properties:
+|   **id**:*integer* <required>
+|    Id of the EVSE
+|   **connector_id**:*integer* <optional>
+|    An id to designate a specific connector (on an EVSE) by connector index number
+
 .. _ocpp-OcppTransactionEvent:
 
 | **OcppTransactionEvent**:*object* 
@@ -76,10 +86,9 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |   **transaction_event**:*string* <required> (:ref:`ocpp-TransactionEvent <ocpp-TransactionEvent>`)
 |    The transaction related event.
 |    **There is an extended definition for this object** :ref:`here <ocpp-TransactionEvent>`.
-|   **evse_id**:*integer* <required>
-|    The OCPP 2.0.1 EVSE ID associated with the transaction.
-|   **connector**:*integer* <required>
-|    The connector associated with the transaction.
+|   **evse**:*object* <optional> (:ref:`ocpp-EVSE <ocpp-EVSE>`)
+|    The OCPP 2.0.1 EVSE associated with the transaction.
+|    **There is an extended definition for this object** :ref:`here <ocpp-EVSE>`.
 |   **session_id**:*string* <required>
 |    The EVSE manager assigned session ID.
 |   **transaction_id**:*string* <optional>
@@ -229,16 +238,6 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |   **timestamp**:*string* <optional>
 |    Timestamp of the moment the security event was generated, if absent the current datetime is assumed
 |    format:date-time
-
-.. _ocpp-EVSE:
-
-| **EVSE**:*object* 
-|  Type of an EVSE. If only the id is present, this type identifies an EVSE. If also a connector_id is given, this type identifies a Connector of the EVSE
-|  properties:
-|   **id**:*integer* <required>
-|    Id of the EVSE
-|   **connector_id**:*integer* <optional>
-|    An id to designate a specific connector (on an EVSE) by connector index number
 
 .. _ocpp-Variable:
 

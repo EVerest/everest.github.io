@@ -274,13 +274,46 @@ it initiates a <strong>StatusNotification.req</strong> that contains information
 <p>The field <strong>status</strong> of the <strong>StatusNotification.req</strong> will be set to faulted only in case the error is of the special type
 <strong>evse_manager/Inoperative</strong>. The field <strong>connectorId</strong> is set based on the mapping (for EVSE id and connector id) of the origin of the error.
 If no mapping is provided, the error will be reported on connectorId 0. Note that the mapping can be configured per module inside the
-EVerest config file. The field <strong>errorCode</strong> is set based on the <strong>type</strong> property of the error.</p>
-<p>The fields <strong>info</strong>, <strong>vendorId</strong>, and <strong>vendorErrorCode</strong> are set based on the error type and the provided error properties. Please see the
-definition of <cite>get_error_info</cite> to see how the <strong>StatusNotification.req</strong> is constructed based on the given error.</p>
-<p>The <strong>StatusNotification.req</strong> message has some limitations with respect to reporting errors:</p>
+EVerest config file.</p>
+<p>For all other errors, raised in EVerest, the following mapping to an
+OCPP <strong>StatusNotification.req</strong> will be used:</p>
 <ul class="simple">
-<li><p>Single errors cannot simply be cleared. If multiple errors are raised, it is not possible to clear individual errors.</p></li>
-<li><p>Some fields of the message have relatively small character limits (e.g., <strong>info</strong> with 50 characters, <strong>vendorErrorCode</strong> with 50 characters).</p></li>
+<li><p><strong>StatusNotification.req</strong> property <code class="docutils literal notranslate"><span class="pre">errorCode</span></code> will always be
+<code class="docutils literal notranslate"><span class="pre">OtherError</span></code></p></li>
+<li><p><strong>StatusNotification.req</strong> property <code class="docutils literal notranslate"><span class="pre">status</span></code> will reflect the present status of the
+charge point</p></li>
+<li><p><strong>StatusNotification.req</strong> property <code class="docutils literal notranslate"><span class="pre">info</span></code> -&gt; origin of EVerest error</p></li>
+<li><p><strong>StatusNotification.req</strong> property <code class="docutils literal notranslate"><span class="pre">vendorErrorCode</span></code> -&gt; EVerest error type and
+subtype (the error type is simplified, meaning, that its leading part,
+the interface name, is stripped)</p></li>
+<li><p><strong>StatusNotification.req</strong> property <code class="docutils literal notranslate"><span class="pre">vendorId</span></code> -&gt; EVerest error message</p></li>
+</ul>
+<p>The reason for using the <strong>StatusNotification.req</strong> property property
+<code class="docutils literal notranslate"><span class="pre">vendorId</span></code> for the error message is that it can carry the largest
+string (255 characters), whereas the other fields (<code class="docutils literal notranslate"><span class="pre">info</span></code> and
+<code class="docutils literal notranslate"><span class="pre">vendorErrorCode</span></code>) only allow up to 50 characters.</p>
+<p>If for example the module with id <cite>yeti_driver</cite> within its
+implementation with id <cite>board_support</cite> creates the following error:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">error_factory</span><span class="o">-&gt;</span><span class="n">create_error</span><span class="p">(</span><span class="s">&quot;evse_board_support/EnergyManagement&quot;</span><span class="p">,</span>
+<span class="w">                            </span><span class="s">&quot;OutOfEnergy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;someone cut the wires&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the corresponding fields in the <strong>StatusNotification.req</strong> message will
+look like this:</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yeti_driver-&gt;board_support&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vendorErrorCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EnergyManagement/OutOfEnergy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vendorId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;someone cut the wires&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <strong>StatusNotification.req</strong> message has some limitations with respect
+to reporting errors:</p>
+<ul class="simple">
+<li><p>Single errors cannot simply be cleared. If multiple errors are raised,
+it is not possible to clear individual errors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vendorId</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code> and <code class="docutils literal notranslate"><span class="pre">vendorErrorCode</span></code> are limited in length
+(see above).</p></li>
 </ul>
 <p>This module attempts to follow the Minimum Required Error Codes (MRECS): <a class="reference external" href="https://inl.gov/chargex/mrec/">https://inl.gov/chargex/mrec/</a>. This proposes a unified
 methodology to define and classify a minimum required set of error codes and how to report them via OCPP1.6.</p>

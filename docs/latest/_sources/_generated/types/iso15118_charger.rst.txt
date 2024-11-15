@@ -398,7 +398,43 @@ ISO15118 charger types
 |    Remaining time it takes to reach target SoC
 |   **remaining_time_to_maximum_soc**:*number* <required>
 |    Remaining time it takes to reach maximum SoC
+|   **charging_complete**:*boolean* <required>
+|    Indication if the charging is complete
 |   **battery_energy_capacity**:*number* <required>
 |    Energy capacity in Wh of the EV battery
 |   **inlet_hot**:*boolean* <required>
 |    Inlet temperature is too high
+
+.. _iso15118_charger-DcChargeDynamicModeValues:
+
+| **DcChargeDynamicModeValues**:*object* 
+|  Parameters for dynamic control mode
+|  properties:
+|   **departure_time**:*number* <optional>
+|    The time when the EV wants to finish charging
+|   **target_energy_request**:*number* <required>
+|    Energy request to fulfil the target SoC
+|   **max_energy_request**:*number* <required>
+|    Maximum acceptable energy level of the EV
+|   **min_energy_request**:*number* <required>
+|    Energy request to fulfil the minimum SoC
+|   **max_charge_power**:*number* <required>
+|    Maximum charge power allowed by the EV
+|   **min_charge_power**:*number* <required>
+|    Minimum charge power allowed by the EV
+|   **max_charge_current**:*number* <required>
+|    Maximum charge current allowed by the EV
+|   **max_voltage**:*number* <required>
+|    Maximum voltage allowed by the EV
+|   **min_voltage**:*number* <required>
+|    Minimum voltage allowd by the EV
+|   **max_discharge_power**:*number* <optional>
+|    Maximum discharge current allowed by the EV
+|   **min_discharge_power**:*number* <optional>
+|    Minimum discharge current allowed by the EV
+|   **max_discharge_current**:*number* <optional>
+|    Maximum discharge current allowed by the EV
+|   **max_v2x_energy_request**:*number* <optional>
+|    Energy which may be charged until the PresentSOC has left the range dedicated for cycling activity.
+|   **min_v2x_energy_request**:*number* <optional>
+|    Energy which needs to be charged until the PresentSOC has left the range dedicated for cycling activity.

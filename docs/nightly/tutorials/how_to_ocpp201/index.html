@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>9.7. How To: OCPP 2.0.1 in EVerest &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9.8. How To: Plug&amp;Charge with EVerest Software in the loop" href="../how_to_plug_and_charge/index.html" />
+    <link rel="prev" title="9.6. How To: OCPP1.6 in EVerest" href="../how_to_ocpp/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../how_to_plug_and_charge/index.html" title="9.8. How To: Plug&amp;Charge with EVerest Software in the loop"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../how_to_ocpp/index.html" title="9.6. How To: OCPP1.6 in EVerest"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U"><span class="section-number">9. </span>Tutorials</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.7. </span>How To: OCPP 2.0.1 in EVerest</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="how-to-ocpp-2-0-1-in-everest">
+<h1><span class="section-number">9.7. </span>How To: OCPP 2.0.1 in EVerest<a class="headerlink" href="#how-to-ocpp-2-0-1-in-everest" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>EVerest has an implementation of OCPP 1.6 and 2.0.1. This tutorial is about
+the 2.0.1 implementation. To get documentation about all implemented versions,
+see <a class="reference external" href="https://github.com/EVerest/libocpp">the GitHub repository of libocpp</a>.</p>
+</div>
+<p>The OCPP 2.0.1 implementation in EVerest is currently under development.
+You can check <a class="reference external" href="https://github.com/EVerest/libocpp/blob/main/doc/ocpp_201_status.md">this document</a>
+for the current status.</p>
+<p>This is a tutorial about how to set up and configure OCPP 2.0.1 in EVerest.</p>
+<p>This tutorial includes:</p>
+<ul class="simple">
+<li><p>How to run EVerest SIL with a <a class="reference external" href="https://github.com/EVerest/ocpp-csms">simple CSMS</a></p></li>
+<li><p>How to configure the OCPP 2.0.1 device model</p></li>
+<li><p>How to connect to different CSMS</p></li>
+<li><p>How to load the OCPP 2.0.1 module as part of the EVerest configuration</p></li>
+</ul>
+<section id="prerequisites">
+<span id="id1"></span><h2><span class="section-number">9.7.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h2>
+<p>If you’re new to EVerest, start with our
+<a class="reference internal" href="../../general/03_quick_start_guide.html#quickstartguide-main"><span class="std std-ref">Quick Start Guide</span></a>
+to get a simulation in EVerest running for the first time.
+If you have done that successfully, you can move on with this tutorial.</p>
+</section>
+<section id="run-everest-sil-with-ocpp-2-0-1-and-a-simple-csms">
+<span id="run-with-steve"></span><h2><span class="section-number">9.7.2. </span>Run EVerest SIL with OCPP 2.0.1 and a simple CSMS<a class="headerlink" href="#run-everest-sil-with-ocpp-2-0-1-and-a-simple-csms" title="Permalink to this heading">¶</a></h2>
+<p>EVerest provides a <a class="reference external" href="https://github.com/EVerest/ocpp-csms">simple CSMS</a> that
+can be used for testing.
+It responds “friendly” to all OCPP messages initiated by the charging station.
+Follow the instruction of its README to start up the CSMS locally.</p>
+<p>EVerest’s <cite>everest-core</cite> repository provides a configuration that you can use
+to run EVerest with OCPP 2.0.1.
+By default, this configuration is connecting to <cite>localhost:9000</cite> which is also
+the default address and port of our simple CSMS.</p>
+<p>Simply run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">EVEREST_WORKSPACE</span><span class="p">:?</span><span class="si">}</span>/everest-core/build/run-scripts/run-sil-ocpp201-pnc.sh
+</pre></div>
+</div>
+<p>to start EVerest with OCPP 2.0.1 and Plug&amp;Charge enabled. You can start playing around with the EVerest
+simulation to start charging sessions.</p>
+<p>You can find the OCPP message log in different formats in the
+<cite>/tmp/everest_ocpp_logs</cite> directory.</p>
+</section>
+<section id="device-model-configuration">
+<span id="configure-ocpp"></span><h2><span class="section-number">9.7.3. </span>Device Model Configuration<a class="headerlink" href="#device-model-configuration" title="Permalink to this heading">¶</a></h2>
+<p>OCPP 2.0.1 defines a device model structure and a lot of standardized variables
+that are used within the functional requirements of the protocol.
+Please see “Part 1 - Architecture &amp; Topology” of the OCPP 2.0.1 specification
+for further information about the device model and how it is composed.
+You should be familiar with the terms OCPP 2.0.1 terms <strong>Component</strong>,
+<strong>Variable</strong>, <strong>VariabeCharacteristics</strong> and <strong>VariableAttributes</strong>,
+<strong>VariableMonitoring</strong> to be able to follow the further explanations.</p>
+<p>OCPP 2.0.1 does not differentiate between configuration and telemetry
+variables. This provides a lot of flexibility, but it also adds some overhead
+to the definition of configuration variables (e.g. for configuration variables
+only the <cite>actual</cite> attribute is actually relevant, but <cite>target</cite>, <cite>minSet</cite>,
+and <cite>maxSet</cite> attribute types are never used and not needed for simple
+configuration variables).</p>
+<section id="device-model-definition-and-configuration-structure">
+<h3><span class="section-number">9.7.3.1. </span>Device Model definition and configuration structure<a class="headerlink" href="#device-model-definition-and-configuration-structure" title="Permalink to this heading">¶</a></h3>
+<p>In libocpp, the device model is defined and configured using JSON files.
+These files serve two main purposes:</p>
+<ul class="simple">
+<li><p><strong>Definition</strong>: the device model (including its components and variables)</p></li>
+<li><p><strong>Configuration</strong>: the value of variable attributes</p></li>
+</ul>
+<p>There is one JSON file for each Component.
+Each Component contains the definition of its Variables.
+Each Variable contains the definition of its VariableCharacteristics,
+VariableAttributes and VariableMonitoring.
+The actual value of a Variable can be configured as part of the
+VariableAttribute(s).</p>
+<p>This is how a definition and configuration for the <cite>LocalAuthListCtrlr</cite>
+component could look like:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Schema for LocalAuthListCtrlr&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LocalAuthListCtrlr&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;LocalAuthListCtrlrAvailable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Available&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadOnly&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Local Authorization List is available.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;BytesPerMessageSendLocalList&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BytesPerMessage&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadOnly&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4096</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Maximum number of bytes in a SendLocalList message.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;LocalAuthListCtrlrEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Enabled&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadWrite&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;If this variable exists and reports a value of true, Local Authorization List is enabled.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;LocalAuthListCtrlrEntries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Entries&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadOnly&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amount of IdTokens currently in the Local Authorization List&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;ItemsPerMessageSendLocalList&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ItemsPerMessage&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadOnly&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Maximum number of records in SendLocalList&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;LocalAuthListCtrlrStorage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Storage&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadOnly&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Indicates the number of bytes currently used by the Local Authorization List. MaxLimit indicates the maximum number of bytes that can be used by the Local Authorization List.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;LocalAuthListCtrlrDisablePostAuthorize&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DisablePostAuthorize&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;characteristics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;supportsMonitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dataType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;mutability&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ReadWrite&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;When set to true this variable disables the behavior to request authorization for an idToken that is stored in the local authorization list with a status other than Accepted, as stated in C14.FR.03.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;BytesPerMessageSendLocalList&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;ItemsPerMessageSendLocalList&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;LocalAuthListCtrlrEntries&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can change the components according to your needs, but note that the
+definitions for the <cite>variable_name</cite> and <cite>characteristics</cite> are usually defined
+by the OCPP 2.0.1 specification.
+To configure a variable attribute value, specify the <cite>value</cite> for the attribute
+type that you would like to configure.
+In the example above, the actual value of the VariableAttribute of the Variable
+<cite>Enabled</cite> is set to <cite>true</cite>. Note that not all variables have specified variable
+attributes with a <cite>value</cite>, e.g. <cite>LocalAuthListCtrlrEntries</cite> does not specify a
+value. <cite>LocalAuthListCtrlrEntries</cite> is rather a telemetry than configuration,
+so libocpp will set the value for this at runtime and therefore it is not
+required to configure a value for it.
+It’s an example for a variable that is only defined, but not configured.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, the definition and configuration as well as the difference between
+configuration and telemetry is not easy to grasp and not perfectly
+represented in the component JSON files.
+Therefore the structure of these files will be changed mid term.</p>
+</div>
+</section>
+<section id="device-model-initialization">
+<h3><span class="section-number">9.7.3.2. </span>Device Model initialization<a class="headerlink" href="#device-model-initialization" title="Permalink to this heading">¶</a></h3>
+<p>The config files are parsed at startup and used to initialize an SQLite
+database. Please see
+<a class="reference external" href="https://github.com/EVerest/libocpp/blob/main/doc/ocpp_201_device_model_initialization.md">the documentation about the device model initialization</a>
+for detailed information about this process.</p>
+<p>You should specify the path to the directory of your device model definitions
+using the configuration parameter <cite>DeviceModelConfigPath</cite>
+of the OCPP201 module within everest-core.
+It shall point to the directory where the component files are located in these
+two subdirectories:</p>
+<ul class="simple">
+<li><p>standardized</p></li>
+<li><p>custom</p></li>
+</ul>
+<p>By default, the default value for <cite>DeviceModelConfigPath</cite> is pointing to the
+installation directory of the component files.
+You can modify the component according to your specific needs and the design of
+your charging station.</p>
+</section>
+<section id="libocpp-provides-a-device-model-configuration-as-a-starting-point">
+<h3><span class="section-number">9.7.3.3. </span>Libocpp provides a device model configuration as a starting point<a class="headerlink" href="#libocpp-provides-a-device-model-configuration-as-a-starting-point" title="Permalink to this heading">¶</a></h3>
+<p>You can define custom components and variables according to the requirements
+and setup of your charging station. There are a lot of
+standardized components and variables in OCPP 2.0.1 that are required and used
+in functional requirements of the specification. Please have
+a look at the OCPP 2.0.1 specification for more information about each of the
+standardized components and variables.
+For this reason, it is recommended to use the
+<a class="reference external" href="https://github.com/EVerest/libocpp/tree/main/config/v201/component_config">device device model definitions of libocpp</a>
+as a starting point. This is an examplary device model configuration for two
+EVSEs.</p>
+<p>The <a class="reference external" href="https://github.com/EVerest/libocpp/tree/main/config/v201/component_config">device model setup from libocpp</a>
+serves as a good example.
+The split between the two directories only has semantic reasons.
+The <strong>standardized</strong> directory usually does not need to be modified since it
+contains standardized components and variables that the specification refers
+to in its functional requirements.
+The <strong>custom</strong> directory is meant to be used for components that are custom
+for your specific charging station.
+Especially the number of EVSE and Connector components, as well as their
+variables and values, need to be in line with the physical setup of the
+charging station.</p>
+<p>The following sections explain important component and variables in order to
+connect to a different CSMS or to enable certain features.</p>
+</section>
+<section id="connect-to-a-different-csms">
+<span id="different-csms"></span><h3><span class="section-number">9.7.3.4. </span>Connect to a different CSMS<a class="headerlink" href="#connect-to-a-different-csms" title="Permalink to this heading">¶</a></h3>
+<p>In order to connect to a different CSMS, you have to modify the connection
+details within your device model configuration:</p>
+<ul class="simple">
+<li><p><cite>NetworkConnectionProfiles</cite> in the <cite>InternalCtrlr</cite>. Note that this is a JSON array, so you can define multiple connection profiles.
+- <cite>ocppCsmsUrl</cite>: Specifies the endpoint of the CSMS
+- <cite>securityProfile</cite>: Specifies the SecurityProfile which defines type of transport layer connection between ChargePoint and CSMS</p></li>
+<li><p><cite>Identity</cite> in the <cite>SecurityCtrlr</cite>: The identity of the charging station</p></li>
+<li><p><cite>BasicAuthPassword</cite> in the <cite>SecurityCtrlr</cite>: Specifies the password used for HTTP Basic Authentication (SecurityProfile 1 or 2)</p></li>
+</ul>
+<p>Modify these parameters according to the connection requirements of the CSMS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For TLS, it might be required to prepare the required certificates and private keys.
+Please see the documentation of the
+<a class="reference external" href="https://everest.github.io/nightly/_included/modules_doc/EvseSecurity.html#everest-modules-handwritten-evsesecurity">EvseSecurity module</a>
+for more information on how to set up the TLS connection for OCPP.</p>
+</div>
+</section>
+<section id="enable-plug-charge">
+<span id="enable-pnc"></span><h3><span class="section-number">9.7.3.5. </span>Enable Plug&amp;Charge<a class="headerlink" href="#enable-plug-charge" title="Permalink to this heading">¶</a></h3>
+<p>In order to enable Plug&amp;Charge, adjust your component files according to the
+<a class="reference external" href="https://everest.github.io/nightly/general/07_configure_plug_and_charge.html">Plug&amp;Charge documentation</a>.</p>
+</section>
+</section>
+<section id="configuring-the-ocpp201-module-within-everest">
+<span id="configure-ocpp-everest"></span><h2><span class="section-number">9.7.4. </span>Configuring the OCPP201 module within EVerest<a class="headerlink" href="#configuring-the-ocpp201-module-within-everest" title="Permalink to this heading">¶</a></h2>
+<p>To be able to follow the further explanations, you should be familiar with the configuration of EVerest modules.
+Take a look into <a class="reference internal" href="../../general/04_detail_module_concept.html#moduleconcept-main"><span class="std std-ref">EVerest Module Concept</span></a> for that.</p>
+<p>To configure the OCPP201 module of everest-core, find the available configuration parameters
+<a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/modules/OCPP201/manifest.yaml">in the manifest of the module</a>
+and read the
+<cite>module documentation &lt;https://everest.github.io/nightly/_generated/modules/OCPP201.html&gt;</cite>
+carefully in order to configure it according to your needs.</p>
+<p>In order to enable OCPP201 in EVerest, you need to load the module in the EVerest configuration file and set up the module connections. The interfaces
+provided and required by the OCPP module and its purposes are described in the <a class="reference external" href="https://everest.github.io/nightly/_generated/modules/OCPP201.html">module documentation</a>.</p>
+<p>The EVerest configuration file <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/config/config-sil-ocpp201.yaml">config-sil-ocpp201.yaml</a>
+which was used previously serves as a good example
+for how the connections of the module could be set up.</p>
+<p>Here is a quick list of things you should remember when adding OCPP201 to your EVerest configuration file:</p>
+<ol class="arabic simple">
+<li><p>Load the OCPP module by including it in the the configuration file.</p></li>
+<li><p>Make sure to add and connect the module requirements:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>evse_manager (interface: energy_manager, 1 to 128 connections): OCPP requires this connection in order to integrate with the charge control
+logic of EVerest. One connection represents one EVSE. In order to manage multiple EVSEs via one OCPP connection, multiple connections need
+to be configured in the EVerest config file.
+Module implementation typically used to fullfill this requirement: EvseManager, implementation_id: evse</p></li>
+<li><p>evse_energy_sink (interface: external_energy_limits, 0 to 128): OCPP optionally requires this connection to communicate smart charging limits
+received from the CSMS within EVerest. Typically EnergyNode modules are used to fullfill this requirement. Configure one EnergyNode module
+per EVSE and one extra for evse id zero. The EnergyNode for evse id zero represents the energy sink for the complete charging station.
+Module typically used to fullfill this requirement: EnergyNode, implementation_id: external_limits</p></li>
+<li><p>auth (interface: auth, 1): This connection is used to set the standardized  <strong>ConnectionTimeout</strong> configuration key if configured and/or changed by the CSMS.
+Module typically used to fullfill this requirement: Auth, implementation_id: main</p></li>
+<li><p>reservation (interface: reservation, 1): This connection is used to apply reservation requests from the CSMS.
+Module typically used to fullfill this requirement: Auth, implementation_id: reservation</p></li>
+<li><p>system (interface: system, 1): This connection is used to execute and control system-wide operations that can be triggered by the CSMS, like log uploads,
+firmware updates, and resets.
+The System module (implementation_id: main) can be used to fullfill this requirement. Note that this module is not meant to be used in production systems!
+Since the implementations of the system interface highly depend on the target platform usually a custom implementation for the target is implemented.</p></li>
+<li><p>security (interface: evse_security, 1): This connection is used to execute security-related operations and to manage certificates and
+private keys.
+Module typically used to fullfill this requirement: EvseSecurity, implementation_id: main</p></li>
+<li><p>data_transfer (interface: ocpp_data_transfer, 0 to 1): This connection is used to handle <strong>DataTransfer.req</strong> messages from the CSMS. A module implementing
+this interface can contain custom logic to handle the requests from the CSMS.
+A custom implementation for this interface is required to add custom handling.</p></li>
+<li><p>display_message (interface: display_message, 0 to 1): This connection is used to allow the CSMS to display pricing or other information on the display of the
+charging station. In order to fulfill the requirements of the California Pricing whitepaper, it is required to connect a module implementing this interface.
+EVerest currently does not provide a display module that implements this interface.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Make sure to configure the OCPP module as part of the token_provider (implementation_id: auth_provider) and token_validator (implementation_id: auth_validator)</p></li>
+</ol>
+<blockquote>
+<div><p>connections of the Auth module (if you use it). Please see the documentation of the auth module for more information.</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>In case you want to use the Plug&amp;Charge feature, you must also add the EvseManager (implementation_id: token_provider) module to the connections of the</p></li>
+</ol>
+<blockquote>
+<div><p>Auth module.</p>
+</div></blockquote>
+<p>You can also use the existing config examples as a guide.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">9. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../how_to_bazel/index.html">9.1. Experimental Bazel Support in Everest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_devcontainer/index.html">9.2. How to Devcontainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_docs/index.html">9.3. Documenting EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_git/index.html">9.4. How To: Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_mac/index.html">9.5. How To: Develop on a Mac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_ocpp/index.html">9.6. How To: OCPP1.6 in EVerest</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.7. How To: OCPP 2.0.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_plug_and_charge/index.html">9.8. How To: Plug&amp;Charge with EVerest Software in the loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_renesas_mpu/index.html">9.9. How to for Renesas MPU (RZ/G2L family)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_modules/index.html">9.10. How To: Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_sil/index.html">9.11. Tutorial: Simulate EVerest in Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docker_setup.html">9.12. Docker setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../how_to_ocpp/index.html"
+                          title="previous chapter"><span class="section-number">9.6. </span>How To: OCPP1.6 in EVerest</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../how_to_plug_and_charge/index.html"
+                          title="next chapter"><span class="section-number">9.8. </span>How To: Plug&amp;Charge with EVerest Software in the loop</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tutorials/how_to_ocpp201/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../how_to_plug_and_charge/index.html" title="9.8. How To: Plug&amp;Charge with EVerest Software in the loop"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../how_to_ocpp/index.html" title="9.6. How To: OCPP1.6 in EVerest"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" ><span class="section-number">9. </span>Tutorials</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.7. </span>How To: OCPP 2.0.1 in EVerest</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

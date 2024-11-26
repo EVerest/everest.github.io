@@ -160,11 +160,9 @@ following image:</p>
 <img alt="../_images/yak-assembly-4-w600.png" src="../_images/yak-assembly-4-w600.png" />
 <p>This is how it looks from the top side:</p>
 <img alt="../_images/yak-assembly-5-w600.png" src="../_images/yak-assembly-5-w600.png" />
-<p>Now place the small black jumper onto the “BOOT” pins as shown above. This
-is needed to be able to make the emmC flash accessible to the host system.</p>
 </section>
 <section id="flashing-the-yak-board">
-<h3><span class="section-number">11.2.2. </span>Flashing the Yak Board<a class="headerlink" href="#flashing-the-yak-board" title="Permalink to this heading">¶</a></h3>
+<span id="belaybox-flashing-yak-board"></span><h3><span class="section-number">11.2.2. </span>Flashing the Yak Board<a class="headerlink" href="#flashing-the-yak-board" title="Permalink to this heading">¶</a></h3>
 <p>In this section, we will walk you through the process of deploying the
 Yocto-based image including EVerest in form of BaseCamp.</p>
 <div class="admonition note">
@@ -184,12 +182,14 @@ have a look at
 <li><p><a class="reference external" href="https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bz2">https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bz2</a></p></li>
 <li><p><a class="reference external" href="https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bmap">https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-image-raspberrypi4-20240912100805.rootfs.wic.bmap</a></p></li>
 </ul>
-<p><strong>STEP 2: Powering up</strong></p>
+<p><strong>STEP 2: Set boot jumper and connect Micro-USB</strong></p>
+<p>Place the small black jumper onto the “BOOT” pins.
+This is needed to be able to make the emmC flash accessible to the host system.</p>
+<p>After that, connect the Yak board via Micro-USB to the host system.</p>
+<p><strong>STEP 3: Powering up</strong></p>
 <p>Power up the BelayBox or - if the Yak is used alone - apply 12 V to
 the “12 IN” pins.</p>
 <p>The red power LED on the Yak should light up constantly now.</p>
-<p><strong>STEP 3: Connect Yak to host system</strong></p>
-<p>Connect the Yak board via Micro-USB to the host system.</p>
 <p><strong>STEP 4: Enabling CM4 storage mode</strong></p>
 <p>Enable the CM4 storage mode so that the eMMC becomes available to
 the host system:</p>
@@ -516,6 +516,40 @@ config.yaml for the SerialCommunicationHub:</p>
 <span class="w">  </span>module:<span class="w"> </span>SerialCommHub
 </pre></div>
 </div>
+</section>
+<section id="setup-static-ip-address-for-the-yak-board">
+<h4><span class="section-number">11.3.6.2. </span>Setup static IP address for the Yak board<a class="headerlink" href="#setup-static-ip-address-for-the-yak-board" title="Permalink to this heading">¶</a></h4>
+<p>Should there be any problems with receiving an IP address via DHCP, you can
+setup a static IP address for the Yak board. That’s how you do it:</p>
+<p><strong>Mount eMMC</strong></p>
+<p>Mount the eMMC as in steps 2-5 known from the
+<a class="reference internal" href="#belaybox-flashing-yak-board"><span class="std std-ref">YAK flashing procedure</span></a>.</p>
+<p><strong>Create network config file</strong></p>
+<p>Create a file similar to the example file here:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Match<span class="o">]</span>
+<span class="nv">Name</span><span class="o">=</span>eth0
+
+<span class="o">[</span>Network<span class="o">]</span>
+<span class="nv">Address</span><span class="o">=</span><span class="m">192</span>.168.0.110/24
+<span class="nv">Gateway</span><span class="o">=</span><span class="m">192</span>.168.0.1
+<span class="nv">DNS</span><span class="o">=</span><span class="m">192</span>.168.0.1
+</pre></div>
+</div>
+<p>Copy this file to</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;your-mount-folder&gt;/root_A/usr/lib/systemd/network/79-eth0.network
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;your-mount-folder&gt;/root_B/usr/lib/systemd/network/79-eth0.network
+</pre></div>
+</div>
+<p><strong>Re-booting procedure</strong></p>
+<p>As a last step, power down the board, unplug the boot jumper and the
+Micro-USB cable and power up again.</p>
+<p><strong>Connect to the Yak board</strong></p>
+<p>After booting, you should be able to connect to the YAK board via the address
+specified in the network config file. In the example above, this would be the
+192.168.0.110.</p>
 </section>
 </section>
 </section>

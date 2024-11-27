@@ -57,7 +57,9 @@ allows the parallel processing of authorization requests.</p>
 <p>This module provides implementations for the <cite>reservation</cite> and the <cite>auth</cite> interfaces.</p>
 <p>It requires connections to module(s) implementing the <cite>token_provider</cite>, <cite>token_validator</cite> and <cite>evse_manager</cite> interfaces.</p>
 <p>The following diagram shows how it integrates with other EVerest modules.</p>
-<img alt="Integration" src="../../../_images/everest_integration.drawio.svg" /></section>
+<img alt="Integration" src="../../../_images/everest_integration.drawio.svg" /><p>The module connections of the evse_manager requirement must be connected in the correct order in the EVerest config
+file, i.e. the module representing the EVSE with evse id 1 must listed first, EVSE with evse id 2 second and so on.</p>
+</section>
 <section id="selection-algorithm">
 <h2>Selection Algorithm<a class="headerlink" href="#selection-algorithm" title="Permalink to this heading">¶</a></h2>
 <p>The selection algorithm contains the logic to select one connector for an incoming token. The algorithm can be

@@ -55,10 +55,16 @@
 <div class="line">Data of a ReservationResult</div>
 <div class="line-block">
 <div class="line">Accepted: Reservation has been made</div>
-<div class="line">Faulted: Reservation has not been made, because connectors or specified connector are in a faulted state</div>
-<div class="line">Occupied: Reservation has not been made. All connectors or the specified connector are occupied</div>
+<div class="line">Faulted: Reservation has not been made, because evses / connectors or specified evse / connector are in a</div>
+<div class="line-block">
+<div class="line">faulted state</div>
+</div>
+<div class="line">Occupied: Reservation has not been made. All evses or the specified evse / connector is occupied</div>
 <div class="line">Rejected: Reservation has not been made. Charge Point is not configured to accept reservations</div>
-<div class="line">Unavailable: Reservation has not been made, because connectors or specified connector are in an unavailable state</div>
+<div class="line">Unavailable: Reservation has not been made, because evses or specified evse / connector are in an unavailable</div>
+<div class="line-block">
+<div class="line">state</div>
+</div>
 </div>
 <div class="line">enum:</div>
 <div class="line-block">
@@ -76,6 +82,10 @@
 <div class="line">Details on Reservation</div>
 <div class="line">properties:</div>
 <div class="line-block">
+<div class="line"><strong>evse_id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The id of the evse to be reserved. When dismissed means that the reservation is not for a specific evse</div>
+</div>
 <div class="line"><strong>reservation_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Id of the reservation</div>
@@ -92,6 +102,11 @@
 <div class="line"><strong>parent_id_token</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">parent_id</div>
+</div>
+<div class="line"><strong>connector_type</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="evse_manager.html#evse-manager-connectortypeenum"><span class="std std-ref">evse_manager-ConnectorTypeEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">The connector type to make a reservation for</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="evse_manager.html#evse-manager-connectortypeenum"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -127,6 +142,68 @@
 <div class="line"><strong>reservation_id</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">reservation_id</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="reservation-reservationcheckstatus">
+<div class="line"><strong>ReservationCheckStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The reservation status of an evse id. NotReserved: There is no reservation for the given evse id. NotReservedForToken: There is a reservation for the given evse id, but not for this token. ReservedForOtherToken: Reserved for other token and reservation has no parent token or parent token does not match. ReservedForOtherTokenAndHasParentToken: There is a reservation for another id token, but the reservation also has</div>
+<div class="line-block">
+<div class="line">a group id token (which was not given when calling this function).</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NotReserved</div>
+<div class="line">- ReservedForToken</div>
+<div class="line">- ReservedForOtherToken</div>
+<div class="line">- ReservedForOtherTokenAndHasParentToken</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="reservation-reservationcheck">
+<div class="line"><strong>ReservationCheck</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Check for a reserved token</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse_id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The id of the evse to check. When it is dismissed, it means that the reservation is not for a specific evse.</div>
+</div>
+<div class="line"><strong>id_token</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The id token to check the reservation for.</div>
+</div>
+<div class="line"><strong>group_id_token</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The group / parent id token to check the reservation for. If id_token is set and group_id_token as well, and id_token is incorrect, the group_id_token will be checked. If that one is correct, there is a reservation made for this group id token.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="reservation-reservationupdatestatus">
+<div class="line"><strong>ReservationUpdateStatus</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Status of a reservation</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reservation_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The reservation id</div>
+</div>
+<div class="line"><strong>reservation_status</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The reservation status</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Expired</div>
+<div class="line">- Removed</div>
+<div class="line">- Placed</div>
+<div class="line">- Cancelled</div>
+<div class="line">- Used</div>
+</div>
 </div>
 </div>
 </div>

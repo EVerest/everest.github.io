@@ -51,24 +51,30 @@
 <div class="line-block">
 <div class="line">Interface for reservations</div>
 </div>
+<section id="variables">
+<h2><span class="section-number">13.2.38.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>reservation_update</strong>:<em>object</em>  (<a class="reference internal" href="../types/reservation.html#reservation-reservationupdatestatus"><span class="std std-ref">reservation-ReservationUpdateStatus</span></a>)</div>
+<div class="line-block">
+<div class="line">Update of the reservation.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/reservation.html#reservation-reservationupdatestatus"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</section>
 <section id="commands">
-<h2><span class="section-number">13.2.38.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.2.38.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>reserve_now</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Reserves this evse.</div>
-<div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line">Reserves an evse.</div>
+<div class="line"><strong>request</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/reservation.html#reservation-reservation"><span class="std std-ref">reservation-Reservation</span></a>)</div>
 <div class="line-block">
-<div class="line">The id of the connector to be reserved. A value of 0 means that the reservation is not for a specific connector</div>
-</div>
-<div class="line"><strong>reservation</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/reservation.html#reservation-reservation"><span class="std std-ref">reservation-Reservation</span></a>)</div>
-<div class="line-block">
-<div class="line">The information about the Reservation to be placed</div>
+<div class="line">Requests to make a reservation</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/reservation.html#reservation-reservation"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>Result</strong>:<em>string</em>  (<a class="reference internal" href="../types/reservation.html#reservation-reservationresult"><span class="std std-ref">reservation-ReservationResult</span></a>)</div>
 <div class="line-block">
-<div class="line">Returns Accepted if reservation was succesfull or specifies error code.</div>
+<div class="line">Returns Accepted if reservation was succesful or specifies error code.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/reservation.html#reservation-reservationresult"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
@@ -82,6 +88,20 @@
 <div class="line"><strong>Result</strong>:<em>boolean</em></div>
 <div class="line-block">
 <div class="line">Returns true if reservation was cancelled. Returns false if there was no reservation to cancel.</div>
+</div>
+</div>
+<div class="line"><strong>exists_reservation</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Checks if there is a reservation made for the given connector and token. Will also return true if there is a reservation with this token for evse id 0.</div>
+<div class="line"><strong>request</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/reservation.html#reservation-reservationcheck"><span class="std std-ref">reservation-ReservationCheck</span></a>)</div>
+<div class="line-block">
+<div class="line">The information to send for the check if there is a reservation on the given connector for the given token.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/reservation.html#reservation-reservationcheck"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>string</em>  (<a class="reference internal" href="../types/reservation.html#reservation-reservationcheckstatus"><span class="std std-ref">reservation-ReservationCheckStatus</span></a>)</div>
+<div class="line-block">
+<div class="line">Returns an enum which indicates the reservation status of the given id / id token / group id token combination.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/reservation.html#reservation-reservationcheckstatus"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['add_5fcharge_5fpoint_5fmax_5fprofile_0',['add_charge_point_max_profile',['../classocpp_1_1v16_1_1SmartChargingHandler.html#a95e1501a5e319dd0250b4ef27b9f482f',1,'ocpp::v16::SmartChargingHandler']]],
+  ['add_5fclock_5faligned_5fmeter_5fvalue_1',['add_clock_aligned_meter_value',['../classocpp_1_1v16_1_1Transaction.html#ad3d535d172ca6647ee1ca404a0149de0',1,'ocpp::v16::Transaction']]],
+  ['add_5fmeter_5fvalue_2',['add_meter_value',['../classocpp_1_1v16_1_1Transaction.html#a198fd1cfaf5eae11851500d72644b866',1,'ocpp::v16::Transaction::add_meter_value()'],['../classocpp_1_1v16_1_1TransactionHandler.html#a31b4433dfbb488f3df67abe7e26eb57d',1,'ocpp::v16::TransactionHandler::add_meter_value()']]],
+  ['add_5fprofile_3',['add_profile',['../classocpp_1_1v201_1_1SmartChargingHandler.html#a80933875e6e737c1573d414fb8457e8a',1,'ocpp::v201::SmartChargingHandler']]],
+  ['add_5fstop_5fenergy_5fwh_4',['add_stop_energy_wh',['../classocpp_1_1v16_1_1Transaction.html#ad62b313f0e8841652bc8e494fc30179e',1,'ocpp::v16::Transaction']]],
+  ['add_5fstopped_5ftransaction_5',['add_stopped_transaction',['../classocpp_1_1v16_1_1TransactionHandler.html#aec7293789ddcd85cd8c049d83757d39e',1,'ocpp::v16::TransactionHandler']]],
+  ['add_5fstopped_5ftransaction_5fid_6',['add_stopped_transaction_id',['../classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7',1,'ocpp::MessageQueue']]],
+  ['add_5ftransaction_7',['add_transaction',['../classocpp_1_1v16_1_1TransactionHandler.html#a1d2ecbacb88712c53c8c609aaeccb7a2',1,'ocpp::v16::TransactionHandler']]],
+  ['add_5ftx_5fdefault_5fprofile_8',['add_tx_default_profile',['../classocpp_1_1v16_1_1SmartChargingHandler.html#aa7ce42d63e9d67b1d6db940b2f802ec6',1,'ocpp::v16::SmartChargingHandler']]],
+  ['add_5ftx_5fprofile_9',['add_tx_profile',['../classocpp_1_1v16_1_1SmartChargingHandler.html#a4fba921ec2833759d9ee00dae2652781',1,'ocpp::v16::SmartChargingHandler']]],
+  ['advance_10',['advance',['../structocpp_1_1VectorOfUniquePtrIterator.html#abc325de4ac3310afb5c6b56804fc765c',1,'ocpp::VectorOfUniquePtrIterator::advance()'],['../structocpp_1_1ForwardIteratorBase.html#ac8ebc051a0a46c17648ab7d1037dc994',1,'ocpp::ForwardIteratorBase::advance()']]],
+  ['all_5fcallbacks_5fvalid_11',['all_callbacks_valid',['../group__ocpp201__callbacks.html#ga9bc8b13dd65a8406166bfe898ec8b7bb',1,'ocpp::v201::Callbacks']]],
+  ['apply_5fmigration_5ffiles_12',['apply_migration_files',['../classocpp_1_1common_1_1DatabaseSchemaUpdater.html#a410871cd401151fda28f4115dc4f7ae6',1,'ocpp::common::DatabaseSchemaUpdater']]],
+  ['authorization_5fcache_5fclear_13',['authorization_cache_clear',['../classocpp_1_1v201_1_1DatabaseHandler.html#ad9e0fcfc040b2663e578f3ce7b94996a',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5fdelete_5fentry_14',['authorization_cache_delete_entry',['../classocpp_1_1v201_1_1DatabaseHandler.html#a8344ace80d713e5a39d06f267e4239b4',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5fdelete_5fexpired_5fentries_15',['authorization_cache_delete_expired_entries',['../classocpp_1_1v201_1_1DatabaseHandler.html#a8b5f39c135319384cb0436a8a62903b2',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5fdelete_5fnr_5fof_5foldest_5fentries_16',['authorization_cache_delete_nr_of_oldest_entries',['../classocpp_1_1v201_1_1DatabaseHandler.html#ae6115cbd915d3618df90e85b37c108af',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5fget_5fbinary_5fsize_17',['authorization_cache_get_binary_size',['../classocpp_1_1v201_1_1DatabaseHandler.html#aad672f398616920fa2d4d7f8cff5903f',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5fget_5fentry_18',['authorization_cache_get_entry',['../classocpp_1_1v201_1_1DatabaseHandler.html#a0f97ca44d4d891c89cb4a6e04b20fb68',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5finsert_5fentry_19',['authorization_cache_insert_entry',['../classocpp_1_1v201_1_1DatabaseHandler.html#aa4bd5ec2a7726d6f4615a0ffce3c9d59',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorization_5fcache_5fupdate_5flast_5fused_20',['authorization_cache_update_last_used',['../classocpp_1_1v201_1_1DatabaseHandler.html#a5da10b21ea79d157aebd3a7fabc2178d',1,'ocpp::v201::DatabaseHandler']]],
+  ['authorize_5fid_5ftoken_21',['authorize_id_token',['../classocpp_1_1v16_1_1ChargePoint.html#a155061933ce1bae189631f8a27d14a64',1,'ocpp::v16::ChargePoint::authorize_id_token()'],['../classocpp_1_1v16_1_1ChargePointImpl.html#a6318b780c11ba8f84bb1517b867565b1',1,'ocpp::v16::ChargePointImpl::authorize_id_token()']]]
+];

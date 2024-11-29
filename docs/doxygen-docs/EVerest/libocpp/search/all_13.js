@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['unavailable_0',['unavailable',['../structocpp_1_1v201_1_1FullConnectorStatus.html#a9f1be881ae55edbfbadc273d3571ed8c',1,'ocpp::v201::FullConnectorStatus']]],
+  ['unexpectedmessagetypefromcsms_1',['UnexpectedMessageTypeFromCSMS',['../classocpp_1_1v201_1_1UnexpectedMessageTypeFromCSMS.html',1,'ocpp::v201']]],
+  ['uniqueid_2',['uniqueId',['../structocpp_1_1ControlMessage.html#a83b9551fd8a6d040048f347ed885190d',1,'ocpp::ControlMessage::uniqueId()'],['../structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649',1,'ocpp::EnhancedMessage::uniqueId()']]],
+  ['unitofmeasure_3',['UnitOfMeasure',['../structocpp_1_1v201_1_1UnitOfMeasure.html',1,'ocpp::v201']]],
+  ['unlockconnectorrequest_4',['UnlockConnectorRequest',['../structocpp_1_1v16_1_1UnlockConnectorRequest.html',1,'ocpp::v16::UnlockConnectorRequest'],['../structocpp_1_1v201_1_1UnlockConnectorRequest.html',1,'ocpp::v201::UnlockConnectorRequest']]],
+  ['unlockconnectorresponse_5',['UnlockConnectorResponse',['../structocpp_1_1v16_1_1UnlockConnectorResponse.html',1,'ocpp::v16::UnlockConnectorResponse'],['../structocpp_1_1v201_1_1UnlockConnectorResponse.html',1,'ocpp::v201::UnlockConnectorResponse']]],
+  ['unpublishfirmwarerequest_6',['UnpublishFirmwareRequest',['../structocpp_1_1v201_1_1UnpublishFirmwareRequest.html',1,'ocpp::v201']]],
+  ['unpublishfirmwareresponse_7',['UnpublishFirmwareResponse',['../structocpp_1_1v201_1_1UnpublishFirmwareResponse.html',1,'ocpp::v201']]],
+  ['update_5fcertificate_5flinks_8',['update_certificate_links',['../classocpp_1_1EvseSecurity.html#a79fbadc8dd4e2998ae73489a2950390f',1,'ocpp::EvseSecurity::update_certificate_links()'],['../classocpp_1_1EvseSecurityImpl.html#a351d73bcec56ec3eb2ca4751217ee2ad',1,'ocpp::EvseSecurityImpl::update_certificate_links()']]],
+  ['update_5fcharging_5fstate_9',['update_charging_state',['../structocpp_1_1v201_1_1EnhancedTransaction.html#aebf7f952eaf90da848e3e16a7efe495a',1,'ocpp::v201::EnhancedTransaction']]],
+  ['update_5fleaf_5fcertificate_10',['update_leaf_certificate',['../classocpp_1_1EvseSecurity.html#aeabce56416f6c782f33649d13f95e380',1,'ocpp::EvseSecurity::update_leaf_certificate()'],['../classocpp_1_1EvseSecurityImpl.html#a0923089117112d772908c4025ae099db',1,'ocpp::EvseSecurityImpl::update_leaf_certificate()']]],
+  ['update_5fmessage_5ftimeout_11',['update_message_timeout',['../classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728',1,'ocpp::MessageQueue']]],
+  ['update_5fmonitoring_5freference_12',['update_monitoring_reference',['../classocpp_1_1v201_1_1DeviceModelStorageInterface.html#a561a0cb1b597ee5d739cae19aa46a076',1,'ocpp::v201::DeviceModelStorageInterface::update_monitoring_reference()'],['../classocpp_1_1v201_1_1DeviceModelStorageSqlite.html#ad7296172bf5bd0a7827c9f686e49844e',1,'ocpp::v201::DeviceModelStorageSqlite::update_monitoring_reference()']]],
+  ['update_5focsp_5fcache_13',['update_ocsp_cache',['../classocpp_1_1EvseSecurity.html#ac7acb706fd76a5ef744fe39dc190a51b',1,'ocpp::EvseSecurity::update_ocsp_cache()'],['../classocpp_1_1EvseSecurityImpl.html#afca4181308e0a48d15c4625af5c48024',1,'ocpp::EvseSecurityImpl::update_ocsp_cache()']]],
+  ['update_5fstart_5ftransaction_5fmessage_5fid_14',['update_start_transaction_message_id',['../classocpp_1_1v16_1_1DatabaseHandler.html#af53ceeeb3cad0d2d146a1261c4cdfc48',1,'ocpp::v16::DatabaseHandler']]],
+  ['update_5ftransaction_15',['update_transaction',['../classocpp_1_1v16_1_1DatabaseHandler.html#acb03c7ef3aeb259231b6aa7a738b525b',1,'ocpp::v16::DatabaseHandler::update_transaction(const std::string &amp;session_id, int32_t meter_stop, const std::string &amp;time_end, std::optional&lt; CiString&lt; 20 &gt; &gt; id_tag_end, std::optional&lt; v16::Reason &gt; stop_reason, const std::string &amp;stop_transaction_message_id)'],['../classocpp_1_1v16_1_1DatabaseHandler.html#abf941687a6ae178464fdc45248bf3088',1,'ocpp::v16::DatabaseHandler::update_transaction(const std::string &amp;session_id, int32_t transaction_id, std::optional&lt; CiString&lt; 20 &gt; &gt; parent_id_tag=std::nullopt)']]],
+  ['update_5ftransaction_5fcsms_5fack_16',['update_transaction_csms_ack',['../classocpp_1_1v16_1_1DatabaseHandler.html#a9a6043382c6889ff4e4b0e14ee8e6a7e',1,'ocpp::v16::DatabaseHandler']]],
+  ['update_5ftransaction_5fmessage_5fattempts_17',['update_transaction_message_attempts',['../classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91',1,'ocpp::MessageQueue']]],
+  ['update_5ftransaction_5fmessage_5fretry_5finterval_18',['update_transaction_message_retry_interval',['../classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402',1,'ocpp::MessageQueue']]],
+  ['update_5ftransaction_5fmeter_5fvalue_19',['update_transaction_meter_value',['../classocpp_1_1v16_1_1DatabaseHandler.html#ae6611438f0b4a1b2487da6b0913f1978',1,'ocpp::v16::DatabaseHandler']]],
+  ['updatefirmwarerequest_20',['UpdateFirmwareRequest',['../structocpp_1_1v16_1_1UpdateFirmwareRequest.html',1,'ocpp::v16::UpdateFirmwareRequest'],['../structocpp_1_1v201_1_1UpdateFirmwareRequest.html',1,'ocpp::v201::UpdateFirmwareRequest']]],
+  ['updatefirmwareresponse_21',['UpdateFirmwareResponse',['../structocpp_1_1v16_1_1UpdateFirmwareResponse.html',1,'ocpp::v16::UpdateFirmwareResponse'],['../structocpp_1_1v201_1_1UpdateFirmwareResponse.html',1,'ocpp::v201::UpdateFirmwareResponse']]],
+  ['updatermonitormeta_22',['UpdaterMonitorMeta',['../structocpp_1_1v201_1_1UpdaterMonitorMeta.html',1,'ocpp::v201']]],
+  ['uri_23',['Uri',['../classocpp_1_1Uri.html',1,'ocpp']]]
+];

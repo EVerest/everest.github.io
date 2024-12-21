@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.37. Store &#8212; EVerest  documentation</title>
+    <title>5.3.10. PN7160TokenProvider &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.38. System" href="System.html" />
-    <link rel="prev" title="13.1.36. Setup" href="Setup.html" /> 
+    <link rel="next" title="5.3.11. YetiDriver" href="YetiDriver.html" />
+    <link rel="prev" title="5.3.9. OCPP2.0.1 Module" href="OCPP201.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="System.html" title="13.1.38. System"
+          <a href="YetiDriver.html" title="5.3.11. YetiDriver"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Setup.html" title="13.1.36. Setup"
+          <a href="OCPP201.html" title="5.3.9. OCPP2.0.1 Module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.37. </span>Store</a></li> 
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.10. </span>PN7160TokenProvider</a></li> 
       </ul>
     </div>  
 
@@ -46,35 +45,26 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="store">
-<span id="everest-modules-store"></span><h1><span class="section-number">13.1.37. </span>Store<a class="headerlink" href="#store" title="Permalink to this heading">¶</a></h1>
-<div class="line-block">
-<div class="line">Simple implementation of a memory-backed key-value store</div>
-</div>
-<section id="provides">
-<h2><span class="section-number">13.1.37.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/kvs.html#everest-interfaces-kvs"><span class="std std-ref">kvs</span></a></div>
-<div class="line-block">
-<div class="line">This implements a key-value store</div>
-</div>
-</div>
+  <section id="pn7160tokenprovider">
+<span id="everest-modules-handwritten-pn7160tokenprovider"></span><h1><span class="section-number">5.3.10. </span>PN7160TokenProvider<a class="headerlink" href="#pn7160tokenprovider" title="Permalink to this heading">¶</a></h1>
+<p>This module provides authentication tokens obtained from RFID cards via the NXP PN7160 NFC chip.</p>
+<p>It uses a modified <em>libnfc-nci</em> as external dependency to interface the chip via I²C or SPI, either from user space or via a kernel module.</p>
+<section id="hardware-interface-configuration">
+<h2><span class="section-number">5.3.10.1. </span>Hardware Interface Configuration<a class="headerlink" href="#hardware-interface-configuration" title="Permalink to this heading">¶</a></h2>
+<p>Configuration of the hardware interface is possible at runtime.
+The module installs two configuration files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">libnfc-nci_config/libnfc-nci.conf</span></code>: define NFC options</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libnfc-nci_config/libnfc-nxp.conf</span></code>: choose the hardware interface (kernel module vs. userspace; I²C vs. SPI, …)</p></li>
+</ul>
 </section>
-<section id="metadata">
-<h2><span class="section-number">13.1.37.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
-<section id="authors">
-<h3><span class="section-number">13.1.37.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line">Kai-Uwe Hermann</div>
-<div class="line">Thilo Molitor</div>
-</div>
-</section>
-<section id="license">
-<h3><span class="section-number">13.1.37.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
-</div>
-</section>
+<section id="module-configuration">
+<h2><span class="section-number">5.3.10.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<p>The EVerest module can be adjusted in its behaviour as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">token_debounce_interval_ms</span></code>: Publish tokens in minimum intervall of this timespan in order not to flood subscribers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disable_nfc_rfid</span></code>: Allows to load the module without actually initializing the hardware.</p></li>
+</ul>
 </section>
 </section>
 
@@ -91,7 +81,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#tier-module-mappings">5.2. 3-tier module mappings</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../general/05_existing_modules.html#module-functionality-in-detail">5.3. Module functionality in detail</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
@@ -99,28 +94,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
 </ul>
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="Setup.html"
-                          title="previous chapter"><span class="section-number">13.1.36. </span>Setup</a></p>
+    <p class="topless"><a href="OCPP201.html"
+                          title="previous chapter"><span class="section-number">5.3.9. </span>OCPP2.0.1 Module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="System.html"
-                          title="next chapter"><span class="section-number">13.1.38. </span>System</a></p>
+    <p class="topless"><a href="YetiDriver.html"
+                          title="next chapter"><span class="section-number">5.3.11. </span>YetiDriver</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/Store.rst.txt"
+      <li><a href="../../_sources/_included/modules_doc/PN7160TokenProvider.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -151,15 +141,14 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="System.html" title="13.1.38. System"
+          <a href="YetiDriver.html" title="5.3.11. YetiDriver"
              >next</a> |</li>
         <li class="right" >
-          <a href="Setup.html" title="13.1.36. Setup"
+          <a href="OCPP201.html" title="5.3.9. OCPP2.0.1 Module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.37. </span>Store</a></li> 
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.10. </span>PN7160TokenProvider</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

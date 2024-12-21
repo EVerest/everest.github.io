@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.33. RsIskraMeter &#8212; EVerest  documentation</title>
+    <title>13.1.28. PN7160TokenProvider &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.34. RsPaymentTerminal" href="RsPaymentTerminal.html" />
-    <link rel="prev" title="13.1.32. PyEvJosev" href="PyEvJosev.html" /> 
+    <link rel="next" title="13.1.29. PacketSniffer" href="PacketSniffer.html" />
+    <link rel="prev" title="13.1.27. PN532TokenProvider" href="PN532TokenProvider.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="RsPaymentTerminal.html" title="13.1.34. RsPaymentTerminal"
+          <a href="PacketSniffer.html" title="13.1.29. PacketSniffer"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="PyEvJosev.html" title="13.1.32. PyEvJosev"
+          <a href="PN532TokenProvider.html" title="13.1.27. PN532TokenProvider"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>RsIskraMeter</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.28. </span>PN7160TokenProvider</a></li> 
       </ul>
     </div>  
 
@@ -46,81 +46,71 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="rsiskrameter">
-<span id="everest-modules-rsiskrameter"></span><h1><span class="section-number">13.1.33. </span>RsIskraMeter<a class="headerlink" href="#rsiskrameter" title="Permalink to this heading">¶</a></h1>
+  <section id="pn7160tokenprovider">
+<span id="everest-modules-pn7160tokenprovider"></span><h1><span class="section-number">13.1.28. </span>PN7160TokenProvider<a class="headerlink" href="#pn7160tokenprovider" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">Iskra meter</div>
+<div class="line">PN7160 RFID/NFC token provider returning the token as soon as the tag can be read by the reader</div>
 </div>
-<section id="module-configuration">
-<h2><span class="section-number">13.1.33.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>powermeter_device_id</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 33</em></div>
-<div class="line-block">
-<div class="line">The address of the device on the modbus</div>
-</div>
-<div class="line"><strong>ocmf_format_version</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “1.0”</em></div>
-<div class="line-block">
-<div class="line">Version of the data format in the representation.</div>
-</div>
-<div class="line"><strong>ocmf_gateway_identification</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “”</em></div>
-<div class="line-block">
-<div class="line">Identifier of the manufacturer for the system which has generated the present data.</div>
-</div>
-<div class="line"><strong>ocmf_gateway_serial</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “”</em></div>
-<div class="line-block">
-<div class="line">Serial number of the above mentioned system.</div>
-</div>
-<div class="line"><strong>ocmf_gateway_version</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “”</em></div>
-<div class="line-block">
-<div class="line">Version designation of the manufacturer for the software.</div>
-</div>
-<div class="line"><strong>ocmf_charge_point_identification_type</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “EVSEID”</em></div>
-<div class="line-block">
-<div class="line">Type of the specification for the identification of the charge point.</div>
-</div>
-<div class="line"><strong>ocmf_charge_point_identification</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><em>default: “”</em></div>
-<div class="line-block">
-<div class="line">Identification information for the charge point.</div>
-</div>
-<div class="line"><strong>communication_errors_threshold</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 10</em></div>
-<div class="line-block">
-<div class="line">The maximum number of consecutive errors allowed before a persistent error is reported</div>
-</div>
-</div>
-</section>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/PN7160TokenProvider.html#everest-modules-handwritten-pn7160tokenprovider"><span class="std std-ref">here</span></a></p>
 <section id="provides">
-<h2><span class="section-number">13.1.33.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.28.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>meter</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
 <div class="line-block">
-<div class="line">Implementation of the driver functionality</div>
+<div class="line">Implementation of PN7160 RFID/NFC token provider</div>
+<div class="line">config:</div>
+<div class="line-block">
+<div class="line">token_debounce_interval_ms:</div>
+<div class="line-block">
+<div class="line">description:Minimal wait time in ms until next token will be published (debounce interval).</div>
+<div class="line">type:integer</div>
+</div>
+<div class="line">disable_nfc_rfid:</div>
+<div class="line-block">
+<div class="line">description:Disable NFC RFID reader</div>
+<div class="line">type:boolean</div>
+</div>
+<div class="line">debug:</div>
+<div class="line-block">
+<div class="line">description:Show debug output on command line.</div>
+<div class="line">type:boolean</div>
 </div>
 </div>
-</section>
-<section id="requirements">
-<h2><span class="section-number">13.1.33.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line">config:</div>
 <div class="line-block">
-<div class="line"><strong>modbus</strong>:<a class="reference internal" href="../interfaces/serial_communication_hub.html#everest-interfaces-serial-communication-hub"><span class="std std-ref">serial_communication_hub</span></a> 1</div>
+<div class="line"><strong>token_debounce_interval_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3000</em></div>
+<div class="line-block">
+<div class="line">Minimal wait time in ms until next token will be published (debounce interval).</div>
+</div>
+<div class="line"><strong>disable_nfc_rfid</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Disable NFC RFID reader</div>
+</div>
+<div class="line"><strong>debug</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Show debug output on command line.</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.33.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.28.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.33.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.28.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line"><a class="reference external" href="mailto:embedded&#37;&#52;&#48;qwello&#46;eu">embedded<span>&#64;</span>qwello<span>&#46;</span>eu</a></div>
+<div class="line">Cornelius Claussen</div>
+<div class="line">Kai-Uwe Hermann</div>
+<div class="line">Thilo Molitor</div>
+<div class="line">Anton Wöllert</div>
+<div class="line">Christoph Burandt</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.33.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.28.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -159,18 +149,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="PyEvJosev.html"
-                          title="previous chapter"><span class="section-number">13.1.32. </span>PyEvJosev</a></p>
+    <p class="topless"><a href="PN532TokenProvider.html"
+                          title="previous chapter"><span class="section-number">13.1.27. </span>PN532TokenProvider</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="RsPaymentTerminal.html"
-                          title="next chapter"><span class="section-number">13.1.34. </span>RsPaymentTerminal</a></p>
+    <p class="topless"><a href="PacketSniffer.html"
+                          title="next chapter"><span class="section-number">13.1.29. </span>PacketSniffer</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/RsIskraMeter.rst.txt"
+      <li><a href="../../_sources/_generated/modules/PN7160TokenProvider.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -201,15 +191,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="RsPaymentTerminal.html" title="13.1.34. RsPaymentTerminal"
+          <a href="PacketSniffer.html" title="13.1.29. PacketSniffer"
              >next</a> |</li>
         <li class="right" >
-          <a href="PyEvJosev.html" title="13.1.32. PyEvJosev"
+          <a href="PN532TokenProvider.html" title="13.1.27. PN532TokenProvider"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>RsIskraMeter</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.28. </span>PN7160TokenProvider</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

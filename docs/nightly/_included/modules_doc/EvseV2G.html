@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.3.11. PN7160TokenProvider &#8212; EVerest  documentation</title>
+    <title>5.3.6. EvseV2G &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5.3.12. YetiDriver" href="YetiDriver.html" />
-    <link rel="prev" title="5.3.10. OCPP2.0.1 Module" href="OCPP201.html" /> 
+    <link rel="next" title="5.3.7. GenericPowermeter" href="GenericPowermeter.html" />
+    <link rel="prev" title="5.3.4. EvseSlac" href="EvseSlac.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="YetiDriver.html" title="5.3.12. YetiDriver"
+          <a href="GenericPowermeter.html" title="5.3.7. GenericPowermeter"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="OCPP201.html" title="5.3.10. OCPP2.0.1 Module"
+          <a href="EvseSlac.html" title="5.3.4. EvseSlac"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.11. </span>PN7160TokenProvider</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.6. </span>EvseV2G</a></li> 
       </ul>
     </div>  
 
@@ -45,26 +45,113 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="pn7160tokenprovider">
-<span id="everest-modules-handwritten-pn7160tokenprovider"></span><h1><span class="section-number">5.3.11. </span>PN7160TokenProvider<a class="headerlink" href="#pn7160tokenprovider" title="Permalink to this heading">¶</a></h1>
-<p>This module provides authentication tokens obtained from RFID cards via the NXP PN7160 NFC chip.</p>
-<p>It uses a modified <em>libnfc-nci</em> as external dependency to interface the chip via I²C or SPI, either from user space or via a kernel module.</p>
-<section id="hardware-interface-configuration">
-<h2><span class="section-number">5.3.11.1. </span>Hardware Interface Configuration<a class="headerlink" href="#hardware-interface-configuration" title="Permalink to this heading">¶</a></h2>
-<p>Configuration of the hardware interface is possible at runtime.
-The module installs two configuration files:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">libnfc-nci_config/libnfc-nci.conf</span></code>: define NFC options</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libnfc-nci_config/libnfc-nxp.conf</span></code>: choose the hardware interface (kernel module vs. userspace; I²C vs. SPI, …)</p></li>
-</ul>
+  <section id="evsev2g">
+<span id="everest-modules-handwritten-evsev2g"></span><h1><span class="section-number">5.3.6. </span>EvseV2G<a class="headerlink" href="#evsev2g" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference internal" href="../../_generated/modules/EvseV2G.html#everest-modules-evsev2g"><span class="std std-ref">Link</span></a> to the module’s reference.
+This module includes a DIN70121 and ISO15118-2 implementation provided by chargebyte GmbH</p>
+<section id="feature-list">
+<h2><span class="section-number">5.3.6.1. </span>Feature List<a class="headerlink" href="#feature-list" title="Permalink to this heading">¶</a></h2>
+<p>This document contains feature lists for DIN70121 and ISO15118-2 features, which EvseV2G supports.
+These lists serve as a quick overview of which features are supported.</p>
+<section id="din70121">
+<h3><span class="section-number">5.3.6.1.1. </span>DIN70121<a class="headerlink" href="#din70121" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Supported</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DC</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>ExternalPayment</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="module-configuration">
-<h2><span class="section-number">5.3.11.2. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
-<p>The EVerest module can be adjusted in its behaviour as follows:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">token_debounce_interval_ms</span></code>: Publish tokens in minimum intervall of this timespan in order not to flood subscribers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">disable_nfc_rfid</span></code>: Allows to load the module without actually initializing the hardware.</p></li>
-</ul>
+<section id="iso15118-2">
+<h3><span class="section-number">5.3.6.1.2. </span>ISO15118-2<a class="headerlink" href="#iso15118-2" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Supported</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AC</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>DC</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>TCP &amp; TLS 1.2</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>ExternalPayment</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Plug&amp;Charge</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>CertificateInstallation</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>CertificateUpdate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pause/Resume</p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">heavy_check_mark<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Schedule Renegotation</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Smart Charging</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Internet Service</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 
@@ -99,18 +186,18 @@ The module installs two configuration files:</p>
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="OCPP201.html"
-                          title="previous chapter"><span class="section-number">5.3.10. </span>OCPP2.0.1 Module</a></p>
+    <p class="topless"><a href="EvseSlac.html"
+                          title="previous chapter"><span class="section-number">5.3.4. </span>EvseSlac</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="YetiDriver.html"
-                          title="next chapter"><span class="section-number">5.3.12. </span>YetiDriver</a></p>
+    <p class="topless"><a href="GenericPowermeter.html"
+                          title="next chapter"><span class="section-number">5.3.7. </span>GenericPowermeter</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_included/modules_doc/PN7160TokenProvider.rst.txt"
+      <li><a href="../../_sources/_included/modules_doc/EvseV2G.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -141,14 +228,14 @@ The module installs two configuration files:</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="YetiDriver.html" title="5.3.12. YetiDriver"
+          <a href="GenericPowermeter.html" title="5.3.7. GenericPowermeter"
              >next</a> |</li>
         <li class="right" >
-          <a href="OCPP201.html" title="5.3.10. OCPP2.0.1 Module"
+          <a href="EvseSlac.html" title="5.3.4. EvseSlac"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.11. </span>PN7160TokenProvider</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.6. </span>EvseV2G</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

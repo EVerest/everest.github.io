@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>9.10. How To: Test in EVerest &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9.11. How To: Develop New Modules" href="../new_modules/index.html" />
+    <link rel="prev" title="9.9. How to for Renesas MPU (RZ/G2L family)" href="../how_to_renesas_mpu/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../new_modules/index.html" title="9.11. How To: Develop New Modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../how_to_renesas_mpu/index.html" title="9.9. How to for Renesas MPU (RZ/G2L family)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U"><span class="section-number">9. </span>Tutorials</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.10. </span>How To: Test in EVerest</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="how-to-test-in-everest">
+<h1><span class="section-number">9.10. </span>How To: Test in EVerest<a class="headerlink" href="#how-to-test-in-everest" title="Permalink to this heading">¶</a></h1>
+<p>This is a tutorial on how to setup your test environment for EVerest.</p>
+<section id="requirements">
+<h2><span class="section-number">9.10.1. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<p>A successful build of <em>everest-core</em> is required. Refer to
+<a class="reference external" href="https://github.com/EVerest/everest-core/">everest-core</a> for this.</p>
+<p>Some test cases require the installation of <em>everestpy</em>.
+You can do this after a successful build of <em>everest-core</em>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>everest-core
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>everestpy_pip_install_dist
+</pre></div>
+</div>
+<p>Sometimes the <code class="docutils literal notranslate"><span class="pre">everstpy</span></code> module might require manual installation.
+That can be done by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>everest-framework/everestpy
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Install the python package containing the EVerest test utilities from
+<a class="reference external" href="https://github.com/EVerest/everest-utils/tree/main/everest-testing/">everest-testing</a>.</p>
+<p>Install the requirements of this repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Some test cases require the installation of <em>Josev</em>.
+This should be located in your EVerest workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;path-to-josev&gt;
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+<p>For most test cases you need a correct setup of certificates and configs within
+EVerest. You can use</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>test_sets/ocpp_tests/everest_aux
+./install_certs.sh<span class="w"> </span>&lt;path/to/everest-core&gt;
+./install_configs.sh<span class="w"> </span>&lt;path/to/everest-core&gt;
+</pre></div>
+</div>
+<p>to install the certificates within <em>everest-aux</em> into the correct location of
+<em>everest-core</em>.</p>
+<p>An MQTT server is needed for testing.
+Docker can be used for this.
+Refer to
+<a class="reference external" href="https://everest.github.io/nightly/tutorials/docker_setup.html">docker-setup</a>
+for this.</p>
+</section>
+<section id="test-sets">
+<h2><span class="section-number">9.10.2. </span>Test sets<a class="headerlink" href="#test-sets" title="Permalink to this heading">¶</a></h2>
+<p>Run any test set (e.g. ocpp_compliance_tests.py) with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>test_sets/ocpp_tests/ocpp16/ocpp_compliance_tests.py<span class="w"> </span>--everest-prefix<span class="w"> </span>&lt;path-to-everest-core&gt;/build/dist<span class="w"> </span>--libocpp<span class="w"> </span>&lt;path-to-libocpp&gt;
+</pre></div>
+</div>
+<p>or run a single test case with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>test_sets/ocpp_tests/ocpp16/ocpp_compliance_tests.py<span class="w"> </span>--everest-prefix<span class="w"> </span>&lt;path-to-everest-core&gt;/build/dist/<span class="w"> </span>--libocpp<span class="w"> </span>&lt;path-to-libocpp&gt;<span class="w"> </span>-k<span class="w"> </span><span class="s1">&#39;test_remote_start_first&#39;</span><span class="w"> </span>-s
+</pre></div>
+</div>
+<p>or run all tests in parallel with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run-testing.sh
+</pre></div>
+</div>
+<p>If running from the <code class="docutils literal notranslate"><span class="pre">everest-core/tests/ocpp_tests</span></code> directory, the path to
+<em>everest-core</em> or <em>libocpp</em> can be relative, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--everest-prefix<span class="w"> </span>../../../everest-core/build/dist<span class="w"> </span>--libocpp<span class="w"> </span>../../../libocpp/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here is a TODO: We have to update the documentation for known failing
+tests.</p>
+</div>
+</section>
+<section id="view-ocpp-test-logs">
+<h2><span class="section-number">9.10.3. </span>View OCPP test logs<a class="headerlink" href="#view-ocpp-test-logs" title="Permalink to this heading">¶</a></h2>
+<p>While running the tests, EVerest logs OCPP message to its log directory.
+These logs are stored in HTML files.</p>
+<p>When you open the following directory in your web browser you can view to logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/tmp/everest_ocpp_test_logs/
+</pre></div>
+</div>
+</section>
+<section id="vs-code-debugging">
+<h2><span class="section-number">9.10.4. </span>VS Code Debugging<a class="headerlink" href="#vs-code-debugging" title="Permalink to this heading">¶</a></h2>
+<p>Debugging can have various layers depending on the feature tested.
+This part will focus on debugging inside VS Code.</p>
+<section id="python-debugging">
+<h3><span class="section-number">9.10.4.1. </span>Python debugging<a class="headerlink" href="#python-debugging" title="Permalink to this heading">¶</a></h3>
+<p>Tests can be manually launched by adding the proper entries to the
+‘launch.json’ file.
+Example for debugging a test from <code class="docutils literal notranslate"><span class="pre">ocpp_compliance_tests.py</span></code>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python: OCPP Compliance Test&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;debugpy&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;test_sets/ocpp_tests/ocpp16/ocpp_compliance_tests.py&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;--libocpp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;../libocpp/&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;--everest-prefix&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;../everest-core/build/dist&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;-s&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-vv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-k&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;your_test_here&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/ocpp-testing/&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;console&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integratedTerminal&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;justMyCode&quot;</span><span class="p">:</span><span class="kc">false</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The paths can differ based on the workspace setup.</p>
+</section>
+<section id="c-debugging">
+<h3><span class="section-number">9.10.4.2. </span>C++ debugging<a class="headerlink" href="#c-debugging" title="Permalink to this heading">¶</a></h3>
+<p>When a certain test case executes, there is a chance that C++ code can be
+faulty, requiring a GDB attach in order to detect an issue.
+In that case, the following steps can be followed:</p>
+<ul class="simple">
+<li><p>setup for python debugging</p></li>
+<li><p>setup for c++ debugging with the following config entry:</p></li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;(gdb) Attach PID&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cppdbg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;attach&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;program&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/everest-core/build/dist/bin/manager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;MIMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gdb&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;setupCommands&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Enable pretty-printing for gdb&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-enable-pretty-printing&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;ignoreFailures&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Set Disassembly Flavor to Intel&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-gdb-set disassembly-flavor intel&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;ignoreFailures&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>build <em>everest-core</em> with debugging enabled: <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">..</span> <span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code></p></li>
+<li><p>run the desired test from python debugging (<code class="docutils literal notranslate"><span class="pre">`Python:</span> <span class="pre">OCPP</span> <span class="pre">Compliance</span> <span class="pre">Test`</span></code>) and place a breakpoint near the test’s entry point</p></li>
+<li><p>copy the PID from the variable ‘test_controller: TestController’ from the test’s function: <code class="docutils literal notranslate"><span class="pre">test_controller-&gt;_everest_core-&gt;process-&gt;pid</span></code></p></li>
+<li><p>run <code class="docutils literal notranslate"><span class="pre">`pstree</span> <span class="pre">-pT</span> <span class="pre">${pid}`</span></code> with the retrieved pid for example 102590:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pstree<span class="w"> </span>-pT<span class="w"> </span><span class="m">102590</span>
+manager<span class="o">(</span><span class="m">102590</span><span class="o">)</span>─┬─auth:Auth<span class="o">(</span><span class="m">102653</span><span class="o">)</span>
+<span class="w">                </span>├─car_simulator:J<span class="o">(</span><span class="m">102654</span><span class="o">)</span>
+<span class="w">                </span>├─connector_1:Evs<span class="o">(</span><span class="m">102655</span><span class="o">)</span>
+<span class="w">                </span>├─controller<span class="o">(</span><span class="m">102595</span><span class="o">)</span>
+<span class="w">                </span>├─energy_manager:<span class="o">(</span><span class="m">102656</span><span class="o">)</span>
+<span class="w">                </span>├─evse_security:E<span class="o">(</span><span class="m">102657</span><span class="o">)</span>
+<span class="w">                </span>├─grid_connection<span class="o">(</span><span class="m">102658</span><span class="o">)</span>
+<span class="w">                </span>├─ocpp:OCPP<span class="o">(</span><span class="m">102660</span><span class="o">)</span>
+<span class="w">                </span>├─python3<span class="o">(</span><span class="m">102659</span><span class="o">)</span>
+<span class="w">                </span>├─slac:JsSlacSimu<span class="o">(</span><span class="m">102661</span><span class="o">)</span>
+<span class="w">                </span>├─system:System<span class="o">(</span><span class="m">102662</span><span class="o">)</span>
+<span class="w">                </span>├─token_provider_<span class="o">(</span><span class="m">102663</span><span class="o">)</span>
+<span class="w">                </span>└─yeti_driver:JsY<span class="o">(</span><span class="m">102664</span><span class="o">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>while the test is in the breakpoint, run the <cite>(gdb) Attach PID</cite> configuration with the desired module to attach to</p></li>
+<li><p>in the VS code terminal prompt input ‘y’ and insert the root password</p></li>
+<li><p>unpause the python <cite>Python: OCPP Compliance Test</cite> debug session</p></li>
+</ul>
+</section>
+</section>
+<section id="external-integration">
+<h2><span class="section-number">9.10.5. </span>External integration<a class="headerlink" href="#external-integration" title="Permalink to this heading">¶</a></h2>
+<p>The main motive for external integration is the flexibility of running
+EVerest outside of the SIL environment.
+Therefore, the <em>ocpp-tests</em> can be run with any out-of-tree versions of
+EVerest.</p>
+<p>Currently, there are different versions of EVerest that should be able to run
+<em>ocpp-tests</em>:</p>
+<ul class="simple">
+<li><p>SIL</p></li>
+<li><p>BaseCamp</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">test_sets</span></code> folder can be embedded in any external repository that uses
+EVerest.
+The external EVerest does not have to include all the components required by
+the SIL version.</p>
+<p>Due to the limitations of <em>pytest</em>, the
+<a class="reference external" href="https://docs.pytest.org/en/latest/reference/fixtures.html#conftest-py-sharing-fixtures-across-multiple-files">conftest.py</a>
+file must not be included, in order to preserve the needs of the external project.</p>
+<p>In order to use the proper fixtures for the <code class="docutils literal notranslate"><span class="pre">[test_sets](test_sets)</span></code> inside an
+external repository, a custom <cite>conftest.py</cite> specific for that project has to
+provide all the necessary fixtures for running the tests.</p>
+<section id="example-fixture">
+<h3><span class="section-number">9.10.5.1. </span>Example fixture<a class="headerlink" href="#example-fixture" title="Permalink to this heading">¶</a></h3>
+<p>The <cite>test_F01_F02_F03`</cite> requires the following fixtures:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">test_F01_F02_F03</span><span class="p">(</span><span class="n">charge_point_v201</span><span class="p">:</span> <span class="n">ChargePoint201</span><span class="p">,</span> <span class="n">test_controller</span><span class="p">:</span> <span class="n">TestController</span><span class="p">,</span> <span class="n">test_utility</span><span class="p">:</span> <span class="n">TestUtility</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>The project-specific <cite>conftest.py</cite> must provide the proper fixtures that are
+custom for the project - in our case the <cite>test_controller</cite> fixture:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add necessary handling in here</span>
+<span class="k">class</span> <span class="nc">ExternalTestControllerAdapter</span><span class="p">(</span><span class="n">TestController</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">start_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">stop_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">plug_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector_id</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">plug_in_ac_iso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payment_type</span><span class="p">,</span> <span class="n">connector_id</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">plug_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector_id</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">swipe_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">test_controller</span><span class="p">(</span><span class="n">everest_core</span><span class="p">:</span> <span class="n">EverestCore</span><span class="p">):</span>
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">ExternalTestControllerAdapter</span><span class="p">(</span>
+        <span class="n">everest_core</span>
+    <span class="p">)</span>
+
+    <span class="n">controller</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="n">controller</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="example-marker-injection">
+<h3><span class="section-number">9.10.5.2. </span>Example marker injection<a class="headerlink" href="#example-marker-injection" title="Permalink to this heading">¶</a></h3>
+<p>Sometimes the tests do not have all the required
+<a class="reference external" href="https://docs.pytest.org/en/latest/example/markers.html#marking-test-functions-and-selecting-them-for-a-run">pytest markers</a>.
+The test <code class="docutils literal notranslate"><span class="pre">test_F01_F02_F03</span></code> might require additional markers in the context
+of an external repo.</p>
+<p>That can be achieved at runtime using
+<a class="reference external" href="https://docs.pytest.org/en/latest/how-to/writing_hook_functions.html">pytest hooks</a>.</p>
+<p>For example if the test might require the</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">use_temporary_persistent_store</span>
+<span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">ocpp_config</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path-to-config&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>markers that are not present in the test header.
+They can be injected by adding the following code to the <cite>conftest.py</cite> of the
+specific external project:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pytest_collection_modifyitems</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="n">marks</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">use_temporary_persistent_store</span><span class="p">,</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">ocpp_config</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path-to-config&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;ocpp_testing&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">marker</span> <span class="ow">in</span> <span class="n">marks</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>The result is that before running each selected test under <code class="docutils literal notranslate"><span class="pre">test_sets</span></code>, the
+markers will be applied, modifying the default behavior of the tests.</p>
+</section>
+</section>
+<section id="required-mocks">
+<h2><span class="section-number">9.10.6. </span>Required mocks<a class="headerlink" href="#required-mocks" title="Permalink to this heading">¶</a></h2>
+<p>In order to properly run the tests, certain mocks have to be implemented.
+Different versions of EVerest might require different mock implementations,
+that might include but not be limited to:</p>
+<ul class="simple">
+<li><p>charge_point_v16</p></li>
+<li><p>charge_point_v201</p></li>
+<li><p>test_controller</p></li>
+<li><p>ocpp_test_mocks</p></li>
+<li><p>test_utility</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">9. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../how_to_bazel/index.html">9.1. Experimental Bazel Support in Everest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_devcontainer/index.html">9.2. How to Devcontainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_docs/index.html">9.3. Documenting EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_git/index.html">9.4. How To: Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_mac/index.html">9.5. How To: Develop on a Mac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_ocpp/index.html">9.6. How To: OCPP1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_ocpp201/index.html">9.7. How To: OCPP 2.0.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_plug_and_charge/index.html">9.8. How To: Plug&amp;Charge with EVerest Software in the loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how_to_renesas_mpu/index.html">9.9. How to for Renesas MPU (RZ/G2L family)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.10. How To: Test in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_modules/index.html">9.11. How To: Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_sil/index.html">9.12. Tutorial: Simulate EVerest in Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docker_setup.html">9.13. Docker setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../how_to_renesas_mpu/index.html"
+                          title="previous chapter"><span class="section-number">9.9. </span>How to for Renesas MPU (RZ/G2L family)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../new_modules/index.html"
+                          title="next chapter"><span class="section-number">9.11. </span>How To: Develop New Modules</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tutorials/how_to_test/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../new_modules/index.html" title="9.11. How To: Develop New Modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../how_to_renesas_mpu/index.html" title="9.9. How to for Renesas MPU (RZ/G2L family)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" ><span class="section-number">9. </span>Tutorials</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">9.10. </span>How To: Test in EVerest</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

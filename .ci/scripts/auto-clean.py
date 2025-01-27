@@ -113,7 +113,7 @@ def main():
     parser.add_argument("--git-base-dir", type=pathlib.Path, help="Base directory for git commands")
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     clean_up_ci_artifacts(
         args.ci_artifacts_dir,

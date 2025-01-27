@@ -1,0 +1,39 @@
+name: Auto Clean CI Artifacts
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+env:
+  KEEP_DAYS: 7
+
+jobs:
+  auto-clean:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          path: source
+          fetch-depth: 0
+      - name: Run auto-clean.py
+        shell: bash
+        working-directory: source
+        run: |
+          python3 .ci/scripts/auto-clean.py \
+            --git-base-dir ./ \
+            --ci-artifacts-dir docs/ci-artifacts/ \
+            --days ${{ env.KEEP_DAYS }}
+      - name: Commit and push
+        shell: bash
+        working-directory: source
+        run: |
+          git config --global user.email "compiler@pionix.de"
+          git config --global user.name "Github Service Account"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add docs/ci-artifacts
+            git commit -s -m "Auto clean artifacts"
+            git push
+          fi

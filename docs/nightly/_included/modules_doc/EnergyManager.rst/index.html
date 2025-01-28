@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>EnergyManager &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/contentui.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EnergyManager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="energymanager">
+<span id="everest-modules-handwritten-energymanager"></span><h1>EnergyManager<a class="headerlink" href="#energymanager" title="Permalink to this heading">¶</a></h1>
+<p>This module implements logic to distribute power to energy nodes based on
+energy requests.
+One of its central ideas is to represent the energy system for which power is
+distributed as an energy tree containing energy nodes.
+This enables the representation of arbitrarily complex configurations of
+physical and logical components within the targeted energy system.</p>
+<p>The following sections present this concept in more detail.</p>
+<section id="energy-nodes">
+<h2>Energy nodes<a class="headerlink" href="#energy-nodes" title="Permalink to this heading">¶</a></h2>
+<p>An energy node can be either a logical or physical component within the energy
+system.</p>
+<p>Energy nodes can typically be classified into the following categories:</p>
+<ul class="simple">
+<li><p><strong>Physical Components</strong>: Circuit breakers, electrical fuses</p></li>
+<li><p><strong>Logical Components</strong>: Limits from OCPP, EEBus, or other external sources</p></li>
+<li><p><strong>Charging Stations</strong>: Unidirectional or bidirectional charging stations
+(or in general any sink or source of power)</p></li>
+</ul>
+<p>An EVerest module becomes an energy node by implementing the
+<a class="reference external" href="../interfaces/energy.yaml">energy</a> interface.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At the time of writing, two EVerest modules are considered energy nodes as
+per the above definition: <strong>EnergyNode</strong> and <strong>EvseManager</strong>.
+More may be added in the future.
+The <strong>EnergyNode</strong> module fulfills central aspects of the energy management
+concept.
+When the term <strong>EnergyNode</strong> is used, it refers to the actual module,
+whereas <strong>energy node</strong> refers to the general definition above.</p>
+</div>
+<p>The <strong>EnergyNode</strong> module both requires and provides the
+<a class="reference external" href="../interfaces/energy.yaml">energy</a> interface.
+This design enables the representation of arbitrary energy tree configurations
+within the EVerest configuration file as explained in detail in a later
+section.</p>
+</section>
+<section id="energy-trees">
+<h2>Energy trees<a class="headerlink" href="#energy-trees" title="Permalink to this heading">¶</a></h2>
+<p>Energy trees are used to model various energy system configurations.
+Below are examples demonstrating how energy systems can be represented in
+EVerest.</p>
+<p>The simplest energy tree consists of a single leaf node representing an EVSE
+with a physical hardware capability of 32 A on 3 phases.</p>
+<img alt="../../../_images/single_node.drawio.svg" class="align-center" id="single-node-label" src="../../../_images/single_node.drawio.svg" /><p>Typically, the electrical connection of charging stations is protected by a
+circuit breaker.
+Adding this to the representation results in:</p>
+<img alt="../../../_images/single_node_with_circuit_breaker.drawio.svg" class="align-center" id="single-node-with-circuit-breaker-label" src="../../../_images/single_node_with_circuit_breaker.drawio.svg" /><p>In this example, the circuit breaker limits the current to 16 A, even though
+the EVSE supports 32 A.
+The module managing power distribution must enforce this limitation.</p>
+<p>For a more complex setup, consider the following example:</p>
+<img alt="../../../_images/energy_tree.drawio.svg" class="align-center" id="energy-tree-label" src="../../../_images/energy_tree.drawio.svg" /><p>Here, a top-level circuit breaker limits the line to 63 A.
+Two additional circuit breakers protect the lines to two EVSEs, each fused at
+32 A.
+EVSE1 can consume 16 A on three phases, while EVSE2 can consume 32 A on three
+phases.
+This module accounts for all existing limitations when distributing power to
+energy nodes.</p>
+<p>All the scenarios above can be represented within EVerest.
+The power distribution to the EVSEs is managed by this module, considering the
+limitations of each individual node.
+How these setups above can be represented in EVerest is presented in section
+<span class="xref std std-ref">configuration-of-energy-trees-in-everest</span>.</p>
+</section>
+<section id="energy-requests-and-distribution">
+<h2>Energy requests and distribution<a class="headerlink" href="#energy-requests-and-distribution" title="Permalink to this heading">¶</a></h2>
+<p>The EnergyManager module requires exactly one module implementing the
+<a class="reference external" href="../interfaces/energy.yaml">energy</a> interface.
+This interface defines:</p>
+<ul class="simple">
+<li><p>A single variable <strong>energy_flow_request</strong> of type <strong>EnergyFlowRequest</strong></p></li>
+<li><p>A single command <strong>enforce_limits</strong></p></li>
+</ul>
+<p>The concept of the usage of this interface is further described in the
+following sections.</p>
+<section id="energy-flow-request-variable">
+<h3>Energy flow request variable<a class="headerlink" href="#energy-flow-request-variable" title="Permalink to this heading">¶</a></h3>
+<p>The <strong>EnergyFlowRequest</strong> type is recursive, containing a list of child
+<strong>EnergyFlowRequest</strong>.
+It defines the power and current requested by an energy node, along with its
+limitations (e.g., hardware or software constraints).
+In essence, a module specifies its requirements and limitations through this
+type, which are then communicated to its parent node.
+The parent node creates an aggregated <strong>EnergyFlowRequest</strong>, incorporating its
+own limitations and the requests from its children.</p>
+<p>Energy flow requests are constructed from the leaves to the root of the energy
+tree, resulting in a single <strong>EnergyFlowRequest</strong> that contains all child
+requests.
+This final request serves as input for this module, which calculates the limits
+to enforce down the tree.</p>
+<p>The following diagram illustrates how energy nodes communicate requests, with
+green arrows representing energy flow requests:</p>
+<img alt="../../../_images/energy_tree_request_and_distribution.drawio.svg" class="align-center" id="energy-tree-request-and-distribution-label" src="../../../_images/energy_tree_request_and_distribution.drawio.svg" /></section>
+<section id="enforcing-limits">
+<h3>Enforcing limits<a class="headerlink" href="#enforcing-limits" title="Permalink to this heading">¶</a></h3>
+<p>The <strong>enforce_limits</strong> command propagates limits down the tree.
+Each energy node calls this function on its child nodes to enforce calculated
+limits.</p>
+<p>Note that the EnergyManager itself does not represent an energy node.
+It communicates the resulting <strong>EnergyFlowRequest</strong> to a single connected
+energy node, which then propagates the limits further down the tree.</p>
+</section>
+</section>
+<section id="details-of-the-energyflowrequest-type">
+<h2>Details of the EnergyFlowRequest type<a class="headerlink" href="#details-of-the-energyflowrequest-type" title="Permalink to this heading">¶</a></h2>
+<p>Energy nodes may have varying types of limits.
+To understand this better, consider a zoomed-in view of an energy node:</p>
+<img alt="../../../_images/zoom_in_energy_node.drawio.svg" class="align-center" id="zoom-in-energy-node-label" src="../../../_images/zoom_in_energy_node.drawio.svg" /><p>In reality, an energy node may have different limits for charging (import) and
+discharging (export).
+The <strong>EnergyFlowRequest</strong> type accounts for this distinction:</p>
+<ul class="simple">
+<li><p><strong>Import</strong>: Energy flow direction from the grid to the consumer/EV (charging)</p></li>
+<li><p><strong>Export</strong>: Energy flow direction from the EV to the grid (discharging)</p></li>
+</ul>
+<p>Additionally, each direction may have separate limits for the root and leaf
+sides of the energy node.
+For example, a DC power supply may have AC limits on the root side (facing the
+grid) and DC limits on the leaf side (facing the EV).</p>
+<p>Limits may also change over time, which is why the <em>schedule_import</em> and
+<em>schedule_export</em> properties are lists containing multiple limit
+specifications.</p>
+<p>Below is an example JSON representation of an <strong>EnergyFlowRequest</strong> for a leaf node:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;evse_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Charging&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;node_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Evse&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;priority_request&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;schedule_export&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;limits_to_leaves&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;limits_to_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">16.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_max_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_min_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_min_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_number_of_active_phases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_supports_changing_phases_during_charging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-17T13:08:36.479Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;schedule_import&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;limits_to_leaves&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;limits_to_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_max_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_min_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_min_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_number_of_active_phases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ac_supports_changing_phases_during_charging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-17T13:08:36.479Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evse1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="external-limits">
+<h2>External limits<a class="headerlink" href="#external-limits" title="Permalink to this heading">¶</a></h2>
+<p>External limits can be added to the energy system using EVerest modules
+implementing the
+<a class="reference external" href="../interfaces/external_energy_limits.yaml">external_energy_limits</a>
+interface.
+At the time of writing, the <strong>EnergyNode</strong> module is the sole module that
+provides this functionality.</p>
+<p>The <cite>external_energy_limits</cite> interface defines the <strong>set_external_limits</strong>
+command, which modules like OCPP or API can use to specify external energy
+limits.
+These limits are then considered by the <strong>EnergyNode</strong> module when creating
+its energy flow request.</p>
+<p>To apply external limits, a module must require the <cite>external_energy_limits</cite>
+interface and invoke the <strong>set_external_limits</strong> command.
+The next section details how to configure these limits in EVerest.</p>
+</section>
+<section id="configuration-of-energy-trees-in-everest">
+<h2>Configuration of energy trees in EVerest<a class="headerlink" href="#configuration-of-energy-trees-in-everest" title="Permalink to this heading">¶</a></h2>
+<p>The following section describes how to configure the EVerest configuration file
+in order to represent the targeted energy tree.
+In order to do that we are using a complex energy tree example and implement
+this in the configuration step by step.</p>
+<p>This is the energy tree that we are going to represent in the EVerest
+configuration:</p>
+<img alt="../../../_images/energy_tree_complex.drawio.svg" class="align-center" id="energy-tree-complex-label" src="../../../_images/energy_tree_complex.drawio.svg" /><p>This energy tree represents a setup with two EVSEs.
+There are two external sources that are able to provide external energy limits:
+OCPP and the API module.</p>
+<p>OCPP is able to set external limits for each EVSE as well as for the whole
+charging station.
+This is indicated by the three arrows labeled with OCPP.
+The API module is only able to set the limits for the two EVSEs, but not for
+the whole charging station.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To improve readability, unrelated module configurations and connections are
+omitted in the examples below.</p>
+</div>
+<p>First, we add two EvseManager modules to the config file representing our
+energy leaf nodes.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">evse_manager_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">evse_manager_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+</pre></div>
+</div>
+<p>The two EVSEs can receive limits from OCPP.
+Therefore, we add two <strong>EnergyNode</strong> modules that represent the sinks for the
+external limits.
+The <strong>EnergyNode</strong> module requires a connection to a module implementing the
+<a class="reference external" href="../interfaces/energy.yaml">energy</a> interface.
+This is implemented by connecting the previously added EvseManager modules to it.</p>
+<p>Any external limit applied to the added EnergyNode modules will be applied to
+its energy child nodes (the EvseManager modules) now.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">evse_manager_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">evse_manager_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">ocpp_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_1</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_2</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+</pre></div>
+</div>
+<p>We continue with adding <strong>EnergyNode</strong> modules that represent the sinks for the
+limits received by the API module.
+Note that the <strong>EnergyNode</strong> module provides and requires the
+<a class="reference external" href="../interfaces/energy.yaml">energy</a> interface at the same time.
+This allows us to connect <strong>EnergyNode</strong> modules and therefore fullfill the
+requirement of others.</p>
+<p>Note that the modules <strong>ocpp_sink_1</strong> and <strong>ocpp_sink_2</strong> are connected to the
+<strong>api_sink_1</strong> and <strong>api_sink_2</strong>.
+This means that both limits can be considered by this module without
+overriding each other.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">evse_manager_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">evse_manager_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">ocpp_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_1</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_2</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+</pre></div>
+</div>
+<p>We are now only missing a represention for the complete charging station.
+Therefore, we add another <strong>EnergyNode</strong> module with a fuse limit of 63 A and
+we name it <strong>grid_connection_point</strong>.
+We connect <strong>api_sink_1</strong> and <strong>api_sink_2</strong> to it.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">evse_manager_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">evse_manager_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">ocpp_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_1</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_2</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">grid_connection_point</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">config_module</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">fuse_limit_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">            </span><span class="nt">phase_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+</pre></div>
+</div>
+<p>Now we have the complete energy tree represented, but we’re still missing to
+include the modules that set the external energy limits, so the OCPP and API
+module.
+Since these modules require (optionally multiple) connections to modules
+implementing the
+<a class="reference external" href="../interfaces/external_energy_limits.yaml">external_energy_limits</a>
+interface, we need to also add the connections to the <strong>EnergyNode</strong> modules we
+have added previously.
+Finally, we also add the <strong>EnergyManager</strong> module and connect the
+<strong>grid_connection_point</strong> to it.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">evse_manager_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">evse_manager_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">ocpp_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_1</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_2</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">grid_connection_point</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">config_module</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">fuse_limit_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">            </span><span class="nt">phase_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OCPP</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">evse_energy_sink</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_connection_point</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">    </span><span class="nt">api</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">evse_energy_sink</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">    </span><span class="nt">energy_manager</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyManager</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_trunk</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_connection_point</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+</pre></div>
+</div>
+<p>We have now added all the required modules and connections to represent the
+energy tree example of <span class="xref std std-ref">energy-tree-complex-label</span>.
+One important detail is still missing, which is the module mapping.
+For detailed information about the module mapping please see
+<a class="reference external" href="https://everest.github.io/nightly/general/05_existing_modules.html#tier-module-mappings">3-tier module mappings</a>.</p>
+<p>Since the connections of a module in the EVerest config does not automatically
+map to a specific EVSE (or the whole charging station, represented by EVSE#0),
+the <strong>EnergyNode</strong> modules must have a module mapping.
+This allows the modules that make use of the <strong>set_external_limits</strong> command to
+call it for the correct node.</p>
+<p>Modules like OCPP and API can only know at which requirement the command
+<strong>set_external_limit</strong> shall be called in case the energy node that is
+connected to it has a specified module mapping in the EVerest config.</p>
+<p>This is a full example including the module mappings:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">evse_manager_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">evse_manager_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">ocpp_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_1</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">evse_manager_2</span>
+<span class="w">              </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">api_sink_2</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">grid_connection_point</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyNode</span>
+<span class="w">        </span><span class="nt">mapping</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">module</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">evse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">config_module</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">fuse_limit_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">            </span><span class="nt">phase_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_consumer</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+<span class="w">    </span><span class="nt">ocpp</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OCPP</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">evse_energy_sink</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_connection_point</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocpp_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">    </span><span class="nt">api</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">evse_energy_sink</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_1</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_sink_2</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_limits</span>
+<span class="w">    </span><span class="nt">energy_manager</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnergyManager</span>
+<span class="w">        </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">energy_trunk</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_connection_point</span>
+<span class="w">                </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy_grid</span>
+</pre></div>
+</div>
+</section>
+<section id="energy-distribution">
+<h2>Energy distribution<a class="headerlink" href="#energy-distribution" title="Permalink to this heading">¶</a></h2>
+<p>The EnergyManager module implements an algorithm to distribute available power
+to energy leaf nodes:</p>
+<ul class="simple">
+<li><p>It calculates and enforces limits for each energy leaf node in the tree.</p></li>
+<li><p>It ensures that no node exceeds its specified limits for current, power, or
+phase count.</p></li>
+<li><p>It distributes power equally among child nodes, if their collective request
+exceeds the parent node’s limits.</p></li>
+<li><p>The algorithm prefers charging over discharging if the specified limits allow
+for both.</p></li>
+<li><p>It supports phase switching between single-phase and three-phase modes,
+optimizing power usage for low-demand scenarios if
+<strong>switch_3ph1ph_while_charging_mode</strong> is enabled.</p></li>
+</ul>
+</section>
+</section>
+<section id="phase-switching">
+<h1>Phase switching<a class="headerlink" href="#phase-switching" title="Permalink to this heading">¶</a></h1>
+<p>This module supports switching between single-phase (1ph) and three-phase (3ph)
+configurations during AC charging.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some vehicles (such as the first generation of Renault Zoe) may be
+permanently damaged when switching from 1ph to 3ph during charging.
+Use at your own risk!</p>
+</div>
+<p>To use this feature, several configurations must be enabled across different
+EVerest modules:</p>
+<ul class="simple">
+<li><p><strong>EvseManager</strong>: Adjust the following configuration options to your needs:
+- <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_delay_s</span></code>
+- <code class="docutils literal notranslate"><span class="pre">switch_3ph1ph_cp_state</span></code></p></li>
+<li><p><strong>Module implementing the `evse_board_support &lt;../interfaces/evse_board_support.yaml&gt;`_ interface:</strong>
+- Set <code class="docutils literal notranslate"><span class="pre">supports_changing_phases_during_charging</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> in the reported capabilities.
+- Define the minimum number of phases as 1 and the maximum as 3.
+- Ensure the <code class="docutils literal notranslate"><span class="pre">ac_switch_three_phases_while_charging</span></code> command is implemented.</p></li>
+<li><p><strong>EnergyManager</strong>: Adjust the following config options to your needs:
+- switch_3ph1ph_while_charging_mode
+- switch_3ph1ph_max_nr_of_switches_per_session
+- switch_3ph1ph_switch_limit_stickyness
+- switch_3ph1ph_power_hysteresis_W
+- switch_3ph1ph_time_hysteresis_s</p></li>
+</ul>
+<p>Refer to the manifest.yaml for documentation of these configuration options.</p>
+<p>If all of these are properly configured, the EnergyManager will handle the
+1ph/3ph switching.
+To enable this, an external limit must be set.
+There are two ways to configure the limit:</p>
+<ol class="arabic simple">
+<li><p><strong>Watt-based limit (preferred option):</strong> The limit is set in Watts (not</p></li>
+</ol>
+<blockquote>
+<div><p>Amperes), even though this involves AC charging.
+This provides the EnergyManager with the flexibility to decide when to
+switch.
+The limit can be defined by an OCPP schedule or through an additional
+EnergyNode.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Ampere-based limit:</strong> The limit is defined in Amperes, along with a</p></li>
+</ol>
+<blockquote>
+<div><p>restriction on the number of phases (e.g., <code class="docutils literal notranslate"><span class="pre">min_phase=1</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max_phase=1</span></code>).
+This enforces switching and allows external control over the switching time,
+but the EnergyManager loses its ability to choose when to switch.</p>
+</div></blockquote>
+<p>In general, this feature works best in a configuration with 32 A per phase and
+a Watt-based limit.
+In this setup, there is an overlap between the single phase and three phase
+domain:</p>
+<ul class="simple">
+<li><p>Single-phase charging: 1.3 kW to 7.4 kW</p></li>
+<li><p>Three-phase charging: 4.2 kW to 22 kW (or 11 kW)</p></li>
+</ul>
+<p>This avoids switching too often in the most elegant way.
+Other methods to reduce the number of switch cycles can be configured in the
+EnergyManager, see config options above.</p>
+<section id="current-limitations">
+<h2>Current limitations<a class="headerlink" href="#current-limitations" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The algorithm does not account for real-time power meter readings from
+individual nodes.</p></li>
+<li><p>It does not redistribute unused power when the actual consumption is below
+the assigned target value.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/_included/modules_doc/EnergyManager.rst/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">EnergyManager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

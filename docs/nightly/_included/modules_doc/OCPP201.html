@@ -132,9 +132,7 @@ changed, or cleared. When notified, this module requests the composite schedule 
 <strong>PublishChargingScheduleDurationS</strong> of this module. The configuration parameter <strong>PublishChargingScheduleIntervalS</strong> defines the interval to use to
 periodically retrieve and publish the composite schedules. The configuration parameter <strong>RequestCompositeScheduleUnit</strong> can be used to specify the unit in
 which composite schedules are requested and shared within EVerest.</p></li>
-<li><p><strong>set_get_certificate_response</strong> to report that the charging station received a <strong>Get15118EVCertificate.conf</strong> from the CSMS (EV Contract installation</p></li>
 </ul>
-<p>for Plug&amp;Charge)</p>
 <p>The interface is used to receive the following variables:</p>
 <ul class="simple">
 <li><p><strong>powermeter</strong> to push powermeter values of an EVSE. Libocpp initiates <strong>MeterValues.req</strong> and <strong>TransactionEvent.req</strong> for meter values internally and is
@@ -143,7 +141,6 @@ responsible for complying with the configured intervals and measurands for clock
 <li><p><strong>limits</strong> to obtain the current offered to the EV. If present, this is reported as part of a <strong>MeterValues.req</strong></p></li>
 <li><p><strong>session_event</strong> to trigger <strong>StatusNotification.req</strong> and <strong>TransactionEvent.req</strong> based on the reported event. This signal drives the state machine and
 the transaction handling of libocpp.</p></li>
-<li><p><strong>iso15118_certificate_request</strong> to trigger a <strong>DataTransfer.req(Get15118EVCertificateRequest)</strong> as part of the Plug&amp;Charge process</p></li>
 <li><p><strong>waiting_for_external_ready</strong> to obtain the information that a module implementing this interface is waiting for an external ready signal</p></li>
 <li><p><strong>ready</strong> to obtain a ready signal from a module implementing this interface</p></li>
 </ul>
@@ -247,6 +244,21 @@ module implementing this interface.</p>
 (including cost and tariff data) message to the charging station.</p></li>
 <li><p><strong>get_display_messages</strong> to forward a <strong>GetDisplayMessage.req</strong> from the CSMS</p></li>
 <li><p><strong>clear_display_message</strong> to forward a <strong>ClearDisplayMessage.req</strong> from the CSMS</p></li>
+</ul>
+</section>
+<section id="requires-extensions-15118">
+<h3><span class="section-number">5.3.10.2.13. </span>Requires: extensions_15118<a class="headerlink" href="#requires-extensions-15118" title="Permalink to this heading">¶</a></h3>
+<p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/iso15118_extensions.yaml">iso15118_extensions</a></p>
+<p>This module optionally requires (0-128) implementations of this interface in order to share data between ISO15118 and OCPP modules. One
+connection represents one ISO15118 module.</p>
+<p>This module makes use of the following commands of this interface:</p>
+<ul class="simple">
+<li><p><strong>set_get_certificate_response</strong> to report that the charging station received a <strong>DataTransfer.conf(Get15118EVCertificateResponse)</strong> from
+the CSMS (EV Contract installation for Plug&amp;Charge)</p></li>
+</ul>
+<p>The interface is used to receive the following variables:</p>
+<ul class="simple">
+<li><p><strong>iso15118_certificate_request</strong> to trigger a <strong>DataTransfer.req(Get15118EVCertificateRequest)</strong> as part of the Plug&amp;Charge process</p></li>
 </ul>
 </section>
 </section>

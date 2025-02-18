@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.3.14. iso15118_ev &#8212; EVerest  documentation</title>
+    <title>13.2.29. iso15118_extensions &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.3.15. isolation_monitor" href="isolation_monitor.html" />
-    <link rel="prev" title="13.3.13. iso15118_charger" href="iso15118_charger.html" /> 
+    <link rel="next" title="13.2.30. isolation_monitor" href="isolation_monitor.html" />
+    <link rel="prev" title="13.2.28. generic_error" href="generic_error.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="isolation_monitor.html" title="13.3.15. isolation_monitor"
+          <a href="isolation_monitor.html" title="13.2.30. isolation_monitor"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="iso15118_charger.html" title="13.3.13. iso15118_charger"
+          <a href="generic_error.html" title="13.2.28. generic_error"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.14. </span>iso15118_ev</a></li> 
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.29. </span>iso15118_extensions</a></li> 
       </ul>
     </div>  
 
@@ -46,82 +46,35 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="iso15118-ev">
-<span id="everest-types-iso15118-ev"></span><h1><span class="section-number">13.3.14. </span>iso15118_ev<a class="headerlink" href="#iso15118-ev" title="Permalink to this heading">¶</a></h1>
-<p>ISO15118 ev types</p>
-<div class="line-block" id="iso15118-ev-energytransfermode">
-<div class="line"><strong>EnergyTransferMode</strong>:<em>string</em></div>
+  <section id="iso15118-extensions">
+<span id="everest-interfaces-iso15118-extensions"></span><h1><span class="section-number">13.2.29. </span>iso15118_extensions<a class="headerlink" href="#iso15118-extensions" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">Possible energy transfer modes</div>
-<div class="line">enum:</div>
+<div class="line">This interface is used to share data between ISO15118 and OCPP modules to support the requirements of the OCPP protocol</div>
+</div>
+<section id="variables">
+<h2><span class="section-number">13.2.29.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line">- AC_single_phase_core</div>
-<div class="line">- AC_three_phase_core</div>
-<div class="line">- DC_core</div>
-<div class="line">- DC_extended</div>
-<div class="line">- DC_combo_core</div>
-<div class="line">- DC_unique</div>
-</div>
-</div>
-</div>
-<div class="line-block" id="iso15118-ev-dc-evparameters">
-<div class="line"><strong>DC_EVParameters</strong>:<em>object</em></div>
+<div class="line"><strong>iso15118_certificate_request</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-requestexistreamschema"><span class="std std-ref">iso15118-RequestExiStreamSchema</span></a>)</div>
 <div class="line-block">
-<div class="line">Target settings for dc charging</div>
-<div class="line">properties:</div>
+<div class="line">The vehicle requests the SECC to deliver the certificate that belong to the currently valid contract of the vehicle. Response will be reported async via set_get_certificate_response</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-requestexistreamschema"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</section>
+<section id="commands">
+<h2><span class="section-number">13.2.29.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>MaxCurrentLimit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>set_get_certificate_response</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">[A] Maximum current allowed by the EV</div>
-</div>
-<div class="line"><strong>MaxPowerLimit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line">CertificateInstallationRes/CertificateUpdateRes - Set the new/updated Contract Certificate (including the certificate chain) and the corresponding encrypted private key. Should be forwared to EVCC. This is an async response to a previously published iso15118_certificate_request</div>
+<div class="line"><strong>certificate_response</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-responseexistreamstatus"><span class="std std-ref">iso15118-ResponseExiStreamStatus</span></a>)</div>
 <div class="line-block">
-<div class="line">[W] Maximum power allowed by the EV</div>
-</div>
-<div class="line"><strong>MaxVoltageLimit</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[V] Maximum voltage allowed by the EV</div>
-</div>
-<div class="line"><strong>EnergyCapacity</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[Wh] Energy capacity of the EV</div>
-</div>
-<div class="line"><strong>TargetCurrent</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[A] Target current requested by the EV</div>
-</div>
-<div class="line"><strong>TargetVoltage</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[V] Target voltage requested by the EV</div>
+<div class="line">The response raw exi stream and the status from the CSMS system</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-responseexistreamstatus"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
-</div>
-<div class="line-block" id="iso15118-ev-dc-ev-bpt-parameters">
-<div class="line"><strong>DC_EV_BPT_Parameters</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">BPT settings for dc charging</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>DischargeMaxCurrentLimit</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[A] Maximum discharge current allowed by the EV</div>
-</div>
-<div class="line"><strong>DischargeMaxPowerLimit</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[W] Maximum discharge power allowed by the EV</div>
-</div>
-<div class="line"><strong>DischargeTargetCurrent</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[A] Discharge target current requested by the EV</div>
-</div>
-<div class="line"><strong>DischargeMinimalSoC</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">[%] Discharge minimal soc at which the evse should shutdown</div>
-</div>
-</div>
-</div>
-</div>
+</section>
 </section>
 
 
@@ -147,26 +100,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
 </ul>
 </li>
 </ul>
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="iso15118_charger.html"
-                          title="previous chapter"><span class="section-number">13.3.13. </span>iso15118_charger</a></p>
+    <p class="topless"><a href="generic_error.html"
+                          title="previous chapter"><span class="section-number">13.2.28. </span>generic_error</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="isolation_monitor.html"
-                          title="next chapter"><span class="section-number">13.3.15. </span>isolation_monitor</a></p>
+                          title="next chapter"><span class="section-number">13.2.30. </span>isolation_monitor</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/types/iso15118_ev.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/iso15118_extensions.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -197,15 +150,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="isolation_monitor.html" title="13.3.15. isolation_monitor"
+          <a href="isolation_monitor.html" title="13.2.30. isolation_monitor"
              >next</a> |</li>
         <li class="right" >
-          <a href="iso15118_charger.html" title="13.3.13. iso15118_charger"
+          <a href="generic_error.html" title="13.2.28. generic_error"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.14. </span>iso15118_ev</a></li> 
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.29. </span>iso15118_extensions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

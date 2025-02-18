@@ -1,0 +1,1509 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13.3.13. iso15118 &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13.3.14. isolation_monitor" href="isolation_monitor.html" />
+    <link rel="prev" title="13.3.12. generic_array" href="generic_array.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="13.3.14. isolation_monitor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="generic_array.html" title="13.3.12. generic_array"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.13. </span>iso15118</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="iso15118">
+<span id="everest-types-iso15118"></span><h1><span class="section-number">13.3.13. </span>iso15118<a class="headerlink" href="#iso15118" title="Permalink to this heading">¶</a></h1>
+<p>ISO15118 charger types</p>
+<div class="line-block" id="iso15118-paymentoption">
+<div class="line"><strong>PaymentOption</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Payment options for the SECC and EVCC</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Contract</div>
+<div class="line">- ExternalPayment</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-energytransfermode">
+<div class="line"><strong>EnergyTransferMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Possible energy transfer modes. The modes AC_single_phase_core to DC_unique apply to DIN70121 and ISO15118-2. The other modes DC to WPT apply to ISO15118-20.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- AC_single_phase_core</div>
+<div class="line">- AC_two_phase</div>
+<div class="line">- AC_three_phase_core</div>
+<div class="line">- DC_core</div>
+<div class="line">- DC_extended</div>
+<div class="line">- DC_combo_core</div>
+<div class="line">- DC_unique</div>
+<div class="line">- DC</div>
+<div class="line">- AC_BPT</div>
+<div class="line">- AC_BPT_DER</div>
+<div class="line">- AC_DER</div>
+<div class="line">- DC_BPT</div>
+<div class="line">- DC_ACDP</div>
+<div class="line">- DC_ACDP_BPT</div>
+<div class="line">- WPT</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-isolationstatus">
+<div class="line"><strong>IsolationStatus</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The different charger isolation status</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Invalid</div>
+<div class="line">- Valid</div>
+<div class="line">- Warning</div>
+<div class="line">- Fault</div>
+<div class="line">- No_IMD</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dceverrorcode">
+<div class="line"><strong>DcEvErrorCode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Indicates the DC EV internal status</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NO_ERROR</div>
+<div class="line">- FAILED_RESSTemperatureInhibit</div>
+<div class="line">- FAILED_EVShiftPosition</div>
+<div class="line">- FAILED_ChargerConnectorLockFault</div>
+<div class="line">- FAILED_EVRESSMalfunction</div>
+<div class="line">- FAILED_ChargingCurrentdifferential</div>
+<div class="line">- FAILED_ChargingVoltageOutOfRange</div>
+<div class="line">- Reserved_A</div>
+<div class="line">- Reserved_B</div>
+<div class="line">- Reserved_C</div>
+<div class="line">- FAILED_ChargingSystemIncompatibility</div>
+<div class="line">- NoData</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evseerror">
+<div class="line"><strong>EvseError</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Details on error type</div>
+<div class="line-block">
+<div class="line">Error_Contactor: The contactor is opened or closed at the wrong moment.</div>
+<div class="line">Error_RCD: The RCD has detected an error.</div>
+<div class="line">Error_UtilityInterruptEvent: Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load</div>
+<div class="line">Error_Malfunction: A non-recoverable charger fault has occurred (Isolation Failure, …). It is permanently faulted.</div>
+<div class="line">Error_EmergencyShutdown: Charging System Incompatibility, Emergency Shutdown or E-Stop button pressed at charging station</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Error_Contactor</div>
+<div class="line">- Error_RCD</div>
+<div class="line">- Error_UtilityInterruptEvent</div>
+<div class="line">- Error_Malfunction</div>
+<div class="line">- Error_EmergencyShutdown</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-v2gmessageid">
+<div class="line"><strong>V2gMessageId</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">This element contains the id of the v2g message body</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- SupportedAppProtocolReq</div>
+<div class="line">- SupportedAppProtocolRes</div>
+<div class="line">- SessionSetupReq</div>
+<div class="line">- SessionSetupRes</div>
+<div class="line">- ServiceDiscoveryReq</div>
+<div class="line">- ServiceDiscoveryRes</div>
+<div class="line">- ServiceDetailReq</div>
+<div class="line">- ServiceDetailRes</div>
+<div class="line">- PaymentServiceSelectionReq</div>
+<div class="line">- PaymentServiceSelectionRes</div>
+<div class="line">- ServicePaymentSelectionReq</div>
+<div class="line">- ServicePaymentSelectionRes</div>
+<div class="line">- PaymentDetailsReq</div>
+<div class="line">- PaymentDetailsRes</div>
+<div class="line">- AuthorizationReq</div>
+<div class="line">- AuthorizationRes</div>
+<div class="line">- ContractAuthenticationReq</div>
+<div class="line">- ContractAuthenticationRes</div>
+<div class="line">- ChargeParameterDiscoveryReq</div>
+<div class="line">- ChargeParameterDiscoveryRes</div>
+<div class="line">- ChargingStatusReq</div>
+<div class="line">- ChargingStatusRes</div>
+<div class="line">- MeteringReceiptReq</div>
+<div class="line">- MeteringReceiptRes</div>
+<div class="line">- PowerDeliveryReq</div>
+<div class="line">- PowerDeliveryRes</div>
+<div class="line">- CableCheckReq</div>
+<div class="line">- CableCheckRes</div>
+<div class="line">- PreChargeReq</div>
+<div class="line">- PreChargeRes</div>
+<div class="line">- CurrentDemandReq</div>
+<div class="line">- CurrentDemandRes</div>
+<div class="line">- WeldingDetectionReq</div>
+<div class="line">- WeldingDetectionRes</div>
+<div class="line">- SessionStopReq</div>
+<div class="line">- SessionStopRes</div>
+<div class="line">- CertificateInstallationReq</div>
+<div class="line">- CertificateInstallationRes</div>
+<div class="line">- CertificateUpdateReq</div>
+<div class="line">- CertificateUpdateRes</div>
+<div class="line">- AuthorizationSetupReq</div>
+<div class="line">- AuthorizationSetupRes</div>
+<div class="line">- ScheduleExchangeReq</div>
+<div class="line">- ScheduleExchangeRes</div>
+<div class="line">- ServiceSelectionReq</div>
+<div class="line">- ServiceSelectionRes</div>
+<div class="line">- AcChargeLoopReq</div>
+<div class="line">- AcChargeLoopRes</div>
+<div class="line">- AcChargeParameterDiscoveryReq</div>
+<div class="line">- AcChargeParameterDiscoveryRes</div>
+<div class="line">- DcCableCheckReq</div>
+<div class="line">- DcCableCheckRes</div>
+<div class="line">- DcChargeLoopReq</div>
+<div class="line">- DcChargeLoopRes</div>
+<div class="line">- DcChargeParameterDiscoveryReq</div>
+<div class="line">- DcChargeParameterDiscoveryRes</div>
+<div class="line">- DcPreChargeReq</div>
+<div class="line">- DcPreChargeRes</div>
+<div class="line">- DcWeldingDetectionReq</div>
+<div class="line">- DcWeldingDetectionRes</div>
+<div class="line">- UnknownMessage</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-saej2847bidimode">
+<div class="line"><strong>SaeJ2847BidiMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Bidi mode for sae j2847_2</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- None</div>
+<div class="line">- V2G</div>
+<div class="line">- V2H</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-certificateactionenum">
+<div class="line"><strong>CertificateActionEnum</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Specifies the type of a certificate request</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Install</div>
+<div class="line">- Update</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evseid">
+<div class="line"><strong>EVSEID</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">An ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">EVSE ID</div>
+</div>
+<div class="line"><strong>evse_id_din</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">EVSE ID (DIN70121) according to DIN SPEC 91286</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevsepresentvoltagecurrent">
+<div class="line"><strong>DcEvsePresentVoltageCurrent</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Set the present voltage and current for the EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse_present_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Output voltage of the EVSE as defined in IEC CDV 61851-23 in V</div>
+</div>
+<div class="line"><strong>evse_present_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Present output current of the EVSE in A</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevsemaximumlimits">
+<div class="line"><strong>DcEvseMaximumLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Maximum Values (current, power and voltage) the EVSE can deliver</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse_maximum_current_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum current the EVSE can deliver in A</div>
+</div>
+<div class="line"><strong>evse_maximum_power_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum power the EVSE can deliver in W</div>
+</div>
+<div class="line"><strong>evse_maximum_voltage_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum voltage the EVSE can deliver in V</div>
+</div>
+<div class="line"><strong>evse_maximum_discharge_current_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge current the EVSE can deliver in A</div>
+</div>
+<div class="line"><strong>evse_maximum_discharge_power_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge power the EVSE can deliver in W</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevseminimumlimits">
+<div class="line"><strong>DcEvseMinimumLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Minimum Values the EVSE can deliver</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse_minimum_current_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum current the EVSE can deliver with the expected accuracy in A</div>
+</div>
+<div class="line"><strong>evse_minimum_voltage_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum voltage the EVSE can deliver with the expected accuracy in V</div>
+</div>
+<div class="line"><strong>evse_minimum_power_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum power the EVSE can deliver with the expected accuracy in W</div>
+</div>
+<div class="line"><strong>evse_minimum_discharge_current_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge current the EVSE can deliver in A</div>
+</div>
+<div class="line"><strong>evse_minimum_discharge_power_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge power the EVSE can deliver in W</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-setupphysicalvalues">
+<div class="line"><strong>SetupPhysicalValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Initial physical values for setup a AC or DC charging session</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ac_nominal_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Set line voltage supported by the EVSE. This is the voltage measured between one phase and neutral in V.</div>
+</div>
+<div class="line"><strong>dc_current_regulation_tolerance</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Set the absolute magnitude of the regulation tolerance of the EVSE in A.</div>
+</div>
+<div class="line"><strong>dc_peak_current_ripple</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Set the peak-to-peak magnitude of the current ripple of the EVSE in A.</div>
+</div>
+<div class="line"><strong>dc_energy_to_be_delivered</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Set the amount of energy to be delivered by the EVSE in Wh (optional)</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevstatus">
+<div class="line"><strong>DcEvStatus</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Current status of the EV</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>dc_ev_ready</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">If set to TRUE, the EV is ready to charge</div>
+</div>
+<div class="line"><strong>dc_ev_error_code</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-dceverrorcode"><span class="std std-ref">iso15118-DcEvErrorCode</span></a>)</div>
+<div class="line-block">
+<div class="line">Indicates the EV internal status</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-dceverrorcode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>dc_ev_ress_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">State of charge of the EVs battery (RESS)</div>
+</div>
+<div class="line"><strong>dc_ev_cabin_conditioning</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">‘DIN70121 only: The EV is using energy from the DC supply to heat or cool the passenger compartment.’</div>
+</div>
+<div class="line"><strong>dc_ev_ress_conditioning</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">‘DIN70121 only: The vehicle is using energy from the DC charger to condition the RESS to a target temperature.’</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevtargetvalues">
+<div class="line"><strong>DcEvTargetValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Target voltage and current requested by the EV</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>dc_ev_target_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target Voltage requested by EV in V</div>
+</div>
+<div class="line"><strong>dc_ev_target_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Current demanded by EV in A</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevmaximumlimits">
+<div class="line"><strong>DcEvMaximumLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Maximum Values (current, power and voltage) supported and allowed by the EV</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>dc_ev_maximum_current_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum current supported and allowed by the EV in A</div>
+</div>
+<div class="line"><strong>dc_ev_maximum_power_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum power supported and allowed by the EV in W (optional)</div>
+</div>
+<div class="line"><strong>dc_ev_maximum_voltage_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum voltage supported and allowed by the EV in V</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevremainingtime">
+<div class="line"><strong>DcEvRemainingTime</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Estimated or calculated time until bulk and full charge is complete</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ev_remaining_time_to_full_soc</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[RFC3339 UTC] Estimated or calculated time until full charge (100% SOC) is complete</div>
+<div class="line">format:date-time</div>
+</div>
+<div class="line"><strong>ev_remaining_time_to_full_bulk_soc</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete</div>
+<div class="line">format:date-time</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-appprotocol">
+<div class="line"><strong>AppProtocol</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC for transmitting the list of supported protocols</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>protocol_namespace</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to uniquely identify the Namespace URI of a specific protocol supported by the EVCC</div>
+</div>
+<div class="line"><strong>version_number_major</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to indicate the major version number of the protocol</div>
+</div>
+<div class="line"><strong>version_number_minor</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to indicate the minor version number of the protocol</div>
+</div>
+<div class="line"><strong>schema_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC to indicate the SchemaID assigned by the EVCC to the protocol</div>
+</div>
+<div class="line"><strong>priority</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC for indicating the protocol priority of a specific protocol allowing the SECC to select a protocol based on priorities</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-appprotocols">
+<div class="line"><strong>AppProtocols</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">This message element is used by the EVCC for transmitting the list of supported protocols</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>Protocols</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#iso15118-appprotocol"><span class="std std-ref">iso15118-AppProtocol</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-appprotocol"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-v2gmessages">
+<div class="line"><strong>V2gMessages</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">This element contains all V2G elements</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>id</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-v2gmessageid"><span class="std std-ref">iso15118-V2gMessageId</span></a>)</div>
+<div class="line-block">
+<div class="line">This element contains the id of the v2g message body</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-v2gmessageid"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>xml</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Contains the decoded EXI stream as V2G message XML file</div>
+</div>
+<div class="line"><strong>v2g_json</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Contains the decoded EXI stream as V2G message JSON file</div>
+</div>
+<div class="line"><strong>exi</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Contains the EXI stream as hex string</div>
+</div>
+<div class="line"><strong>exi_base64</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Contains the EXI stream as base64 string</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-responseexistreamstatus">
+<div class="line"><strong>ResponseExiStreamStatus</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">The response raw exi stream and the status from the CSMS system</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>status</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Indicates whether the message was processed properly Accepted - The message was processed properly, exi_response included Failed - Processing of the message was not successful, no exi_response included</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- Failed</div>
+</div>
+</div>
+<div class="line"><strong>exi_response</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Raw CertificateInstallationRes or CertificateUpdateRes message as exi stream (Base64 encoded)</div>
+</div>
+<div class="line"><strong>certificate_action</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-certificateactionenum"><span class="std std-ref">iso15118-CertificateActionEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the certificate request</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-certificateactionenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-requestexistreamschema">
+<div class="line"><strong>RequestExiStreamSchema</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">The request raw exi stream and the schema version for the CSMS system</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>exi_request</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Raw CertificateInstallationReq or CertificateUpdateReq message as exi stream (Base64 encoded)</div>
+</div>
+<div class="line"><strong>iso15118_schema_version</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Schema Version used for CertificateReq message between EV and Charger</div>
+</div>
+<div class="line"><strong>certificate_action</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-certificateactionenum"><span class="std std-ref">iso15118-CertificateActionEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Type of the certificate request</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-certificateactionenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-certificatehashdatainfo">
+<div class="line"><strong>CertificateHashDataInfo</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Contains the certificate information</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>hashAlgorithm</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Used algorithms for the hashes provided</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- SHA256</div>
+<div class="line">- SHA384</div>
+<div class="line">- SHA512</div>
+</div>
+</div>
+<div class="line"><strong>issuerNameHash</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Hashed value of the Issuer Distinguished Name</div>
+</div>
+<div class="line"><strong>issuerKeyHash</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Hashed value of the issuers public key</div>
+</div>
+<div class="line"><strong>serialNumber</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The serial number of the certificate</div>
+</div>
+<div class="line"><strong>responderURL</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This contains the responder URL</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-supportedenergymode">
+<div class="line"><strong>SupportedEnergyMode</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Supported energy mode and if the mode supports bidirectional</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>energy_transfer_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The energy mode supported by the SECC</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>bidirectional</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Set true if the powersupply (AC or DC) supports bidi mode</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-displayparameters">
+<div class="line"><strong>DisplayParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Parameters that may be displayed on the EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>present_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Current SoC of the EV battery</div>
+</div>
+<div class="line"><strong>minimum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum SoC EV needs after charging</div>
+</div>
+<div class="line"><strong>target_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target SoC EV needs after charging</div>
+</div>
+<div class="line"><strong>maximum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The SoC at which the EV will prohibit</div>
+</div>
+<div class="line"><strong>remaining_time_to_minimum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Remaining time it takes to reach minimum SoC</div>
+</div>
+<div class="line"><strong>remaining_time_to_target_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Remaining time it takes to reach target SoC</div>
+</div>
+<div class="line"><strong>remaining_time_to_maximum_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Remaining time it takes to reach maximum SoC</div>
+</div>
+<div class="line"><strong>charging_complete</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Indication if the charging is complete</div>
+</div>
+<div class="line"><strong>battery_energy_capacity</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Energy capacity in Wh of the EV battery</div>
+</div>
+<div class="line"><strong>inlet_hot</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Inlet temperature is too high</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcchargedynamicmodevalues">
+<div class="line"><strong>DcChargeDynamicModeValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Parameters for dynamic control mode</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>departure_time</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The time when the EV wants to finish charging</div>
+</div>
+<div class="line"><strong>target_energy_request</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Energy request to fulfil the target SoC</div>
+</div>
+<div class="line"><strong>max_energy_request</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum acceptable energy level of the EV</div>
+</div>
+<div class="line"><strong>min_energy_request</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Energy request to fulfil the minimum SoC</div>
+</div>
+<div class="line"><strong>max_charge_power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum charge power allowed by the EV</div>
+</div>
+<div class="line"><strong>min_charge_power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum charge power allowed by the EV</div>
+</div>
+<div class="line"><strong>max_charge_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum charge current allowed by the EV</div>
+</div>
+<div class="line"><strong>max_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum voltage allowed by the EV</div>
+</div>
+<div class="line"><strong>min_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum voltage allowed by the EV</div>
+</div>
+<div class="line"><strong>max_discharge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge current allowed by the EV</div>
+</div>
+<div class="line"><strong>min_discharge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge current allowed by the EV</div>
+</div>
+<div class="line"><strong>max_discharge_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge current allowed by the EV</div>
+</div>
+<div class="line"><strong>max_v2x_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy which may be charged until the PresentSOC has left the range dedicated for cycling activity.</div>
+</div>
+<div class="line"><strong>min_v2x_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy which needs to be charged until the PresentSOC has left the range dedicated for cycling activity.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dercontrol">
+<div class="line"><strong>DERControl</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Name of control settings to clear. Not used when _controlId_ is provided.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- EnterService</div>
+<div class="line">- FreqDroop</div>
+<div class="line">- FreqWatt</div>
+<div class="line">- FixedPFAbsorb</div>
+<div class="line">- FixedPFInject</div>
+<div class="line">- FixedVar</div>
+<div class="line">- Gradients</div>
+<div class="line">- HFMustTrip</div>
+<div class="line">- HFMayTrip</div>
+<div class="line">- HVMustTrip</div>
+<div class="line">- HVMomCess</div>
+<div class="line">- HVMayTrip</div>
+<div class="line">- LimitMaxDischarge</div>
+<div class="line">- LFMustTrip</div>
+<div class="line">- LVMustTrip</div>
+<div class="line">- LVMomCess</div>
+<div class="line">- LVMayTrip</div>
+<div class="line">- PowerMonitoringMustTrip</div>
+<div class="line">- VoltVar</div>
+<div class="line">- VoltWatt</div>
+<div class="line">- WattPF</div>
+<div class="line">- WattVar</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-controlmode">
+<div class="line"><strong>ControlMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">(2.1) Indicates whether EV wants to operate in Dynamic or Scheduled mode. When absent, Scheduled mode is assumed for backwards compatibility. ISO 15118-20: ServiceSelectionReq(SelectedEnergyTransferService)</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ScheduledControl</div>
+<div class="line">- DynamicControl</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-islandingdetection">
+<div class="line"><strong>IslandingDetection</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">None</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NoAntiIslandingSupport</div>
+<div class="line">- RoCoF</div>
+<div class="line">- UVP_OVP</div>
+<div class="line">- UFP_OFP</div>
+<div class="line">- VoltageVectorShift</div>
+<div class="line">- ZeroCrossingDetection</div>
+<div class="line">- OtherPassive</div>
+<div class="line">- ImpedanceMeasurement</div>
+<div class="line">- ImpedanceAtFrequency</div>
+<div class="line">- SlipModeFrequencyShift</div>
+<div class="line">- SandiaFrequencyShift</div>
+<div class="line">- SandiaVoltageShift</div>
+<div class="line">- FrequencyJump</div>
+<div class="line">- RCLQFactor</div>
+<div class="line">- OtherActive</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-mobilityneedsmode">
+<div class="line"><strong>MobilityNeedsMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">(2.1) Value of EVCC indicates that EV determines min/target SOC and departure time. A value of EVCC_SECC indicates that charging station or CSMS may also update min/target SOC and departure time. ISO 15118-20: ServiceSelectionReq(SelectedEnergyTransferService)</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- EVCC</div>
+<div class="line">- EVCC_SECC</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-v2xchargingparameters">
+<div class="line"><strong>V2XChargingParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Charging parameters for ISO 15118-20, also supporting V2X charging/discharging. All values are greater or equal to zero, with the exception of EVMinEnergyRequest, EVMaxEnergyRequest, EVTargetEnergyRequest, EVMinV2XEnergyRequest and EVMaxV2XEnergyRequest.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>min_charge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum charge power in W, defined by max(EV, EVSE). This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMinimumChargePower</div>
+</div>
+<div class="line"><strong>min_charge_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum charge power on phase L2 in W, defined by max(EV, EVSE). Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMinimumChargePower_L2</div>
+</div>
+<div class="line"><strong>min_charge_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum charge power on phase L3 in W, defined by max(EV, EVSE). Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMinimumChargePower_L3</div>
+</div>
+<div class="line"><strong>max_charge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum charge (absorbed) power in W, defined by min(EV, EVSE) at unity power factor. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. It corresponds to the ChaWMax attribute in the IEC 61850. It is usually equivalent to the rated apparent power of the EV when discharging (ChaVAMax) in IEC 61850. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMaximumChargePower</div>
+</div>
+<div class="line"><strong>max_charge_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum charge power on phase L2 in W, defined by min(EV, EVSE) Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMaximumChargePower_L2</div>
+</div>
+<div class="line"><strong>max_charge_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum charge power on phase L3 in W, defined by min(EV, EVSE) Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMaximumChargePower_L3</div>
+</div>
+<div class="line"><strong>min_discharge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge (injected) power in W, defined by max(EV, EVSE) at unity power factor. Value &gt;= 0. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. It corresponds to the WMax attribute in the IEC 61850. It is usually equivalent to the rated apparent power of the EV when discharging (VAMax attribute in the IEC 61850). Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMinimumDischargePower</div>
+</div>
+<div class="line"><strong>min_discharge_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge power on phase L2 in W, defined by max(EV, EVSE).  Value &gt;= 0. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMinimumDischargePower_L2</div>
+</div>
+<div class="line"><strong>min_discharge_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge power on phase L3 in W, defined by max(EV, EVSE).  Value &gt;= 0. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMinimumDischargePower_L3</div>
+</div>
+<div class="line"><strong>max_discharge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge (injected) power in W, defined by min(EV, EVSE) at unity power factor.  Value &gt;= 0. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMaximumDischargePower</div>
+</div>
+<div class="line"><strong>max_discharge_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge power on phase L2 in W, defined by min(EV, EVSE).  Value &gt;= 0. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMaximumDischargePowe_L2</div>
+</div>
+<div class="line"><strong>max_discharge_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge power on phase L3 in W, defined by min(EV, EVSE).  Value &gt;= 0. Relates to: ISO 15118-20: BPT_AC/DC_CPDReqEnergyTransferModeType: EVMaximumDischargePower_L3</div>
+</div>
+<div class="line"><strong>min_charge_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum charge current in A, defined by max(EV, EVSE) Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: EVMinimumChargeCurrent</div>
+</div>
+<div class="line"><strong>max_charge_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum charge current in A, defined by min(EV, EVSE) Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: EVMaximumChargeCurrent</div>
+</div>
+<div class="line"><strong>min_discharge_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum discharge current in A, defined by max(EV, EVSE).  Value &gt;= 0. Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: EVMinimumDischargeCurrent</div>
+</div>
+<div class="line"><strong>max_discharge_current</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum discharge current in A, defined by min(EV, EVSE).  Value &gt;= 0. Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: EVMaximumDischargeCurrent</div>
+</div>
+<div class="line"><strong>min_voltage</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum voltage in V, defined by max(EV, EVSE) Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: EVMinimumVoltage</div>
+</div>
+<div class="line"><strong>max_voltage</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum voltage in V, defined by min(EV, EVSE) Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: EVMaximumVoltage</div>
+</div>
+<div class="line"><strong>ev_target_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy to requested state of charge in Wh Relates to: ISO 15118-20: Dynamic/Scheduled_SEReqControlModeType: EVTargetEnergyRequest</div>
+</div>
+<div class="line"><strong>ev_min_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy to minimum allowed state of charge in Wh Relates to: ISO 15118-20: Dynamic/Scheduled_SEReqControlModeType: EVMinimumEnergyRequest</div>
+</div>
+<div class="line"><strong>ev_max_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy to maximum state of charge in Wh Relates to: ISO 15118-20: Dynamic/Scheduled_SEReqControlModeType: EVMaximumEnergyRequest</div>
+</div>
+<div class="line"><strong>ev_min_v2xenergy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy (in Wh) to minimum state of charge for cycling (V2X) activity. Positive value means that current state of charge is below V2X range. Relates to: ISO 15118-20: Dynamic_SEReqControlModeType: EVMinimumV2XEnergyRequest</div>
+</div>
+<div class="line"><strong>ev_max_v2xenergy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy (in Wh) to maximum state of charge for cycling (V2X) activity. Negative value indicates that current state of charge is above V2X range. Relates to: ISO 15118-20: Dynamic_SEReqControlModeType: EVMaximumV2XEnergyRequest</div>
+</div>
+<div class="line"><strong>target_soc</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Target state of charge at departure as percentage. Relates to: ISO 15118-20: BPT_DC_CPDReqEnergyTransferModeType: TargetSOC</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evpricerule">
+<div class="line"><strong>EVPriceRule</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) An entry in price schedule over time for which EV is willing to discharge.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>energy_fee</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Cost per kWh.</div>
+</div>
+<div class="line"><strong>power_range_start</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The EnergyFee applies between this value and the value of the PowerRangeStart of the subsequent EVPriceRule. If the power is below this value, the EnergyFee of the previous EVPriceRule applies. Negative values are used for discharging.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evpowerscheduleentry">
+<div class="line"><strong>EVPowerScheduleEntry</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) An entry in schedule of the energy amount over time that EV is willing to discharge. A negative value indicates the willingness to discharge under specific conditions, a positive value indicates that the EV currently is not able to offer energy to discharge.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>duration</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The duration of this entry.</div>
+</div>
+<div class="line"><strong>power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Defines maximum amount of power for the duration of this EVPowerScheduleEntry to be discharged from the EV battery through EVSE power outlet. Negative values are used for discharging.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evpowerschedule">
+<div class="line"><strong>EVPowerSchedule</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) Schedule of EV energy offer.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ev_power_schedule_entries</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">(2.1) An entry in schedule of the energy amount over time that EV is willing to discharge. A negative value indicates the willingness to discharge under specific conditions, a positive value indicates that the EV currently is not able to offer energy to discharge.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#iso15118-evpowerscheduleentry"><span class="std std-ref">iso15118-EVPowerScheduleEntry</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-evpowerscheduleentry"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>time_anchor</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The time that defines the starting point for the EVEnergyOffer.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evabsolutepricescheduleentry">
+<div class="line"><strong>EVAbsolutePriceScheduleEntry</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) An entry in price schedule over time for which EV is willing to discharge.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>duration</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The amount of seconds of this entry.</div>
+</div>
+<div class="line"><strong>ev_price_rule</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">(2.1) An entry in price schedule over time for which EV is willing to discharge.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#iso15118-evpricerule"><span class="std std-ref">iso15118-EVPriceRule</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-evpricerule"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evabsolutepriceschedule">
+<div class="line"><strong>EVAbsolutePriceSchedule</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) Price schedule of EV energy offer.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>time_anchor</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Starting point in time of the EVEnergyOffer.</div>
+</div>
+<div class="line"><strong>currency</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Currency code according to ISO 4217.</div>
+</div>
+<div class="line"><strong>ev_absolute_price_schedule_entries</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">(2.1) An entry in price schedule over time for which EV is willing to discharge.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#iso15118-evabsolutepricescheduleentry"><span class="std std-ref">iso15118-EVAbsolutePriceScheduleEntry</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-evabsolutepricescheduleentry"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>price_algorithm</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">ISO 15118-20 URN of price algorithm: Power, PeakPower, StackedEnergy.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evenergyoffer">
+<div class="line"><strong>EVEnergyOffer</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) A schedule of the energy amount over time that EV is willing to discharge. A negative value indicates the willingness to discharge under specific conditions, a positive value indicates that the EV currently is not able to offer energy to discharge.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ev_absolute_price_schedule</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-evabsolutepriceschedule"><span class="std std-ref">iso15118-EVAbsolutePriceSchedule</span></a>)</div>
+<div class="line-block">
+<div class="line">(2.1) Price schedule of EV energy offer.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-evabsolutepriceschedule"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ev_power_schedule</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-evpowerschedule"><span class="std std-ref">iso15118-EVPowerSchedule</span></a>)</div>
+<div class="line-block">
+<div class="line">(2.1) Schedule of EV energy offer.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-evpowerschedule"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-derchargingparameters">
+<div class="line"><strong>DERChargingParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">(2.1) DERChargingParametersType is used in ChargingNeedsType during an ISO 15118-20 session for AC_BPT_DER to report the inverter settings related to DER control that were agreed between EVSE and EV. Fields starting with “ev” contain values from the EV. Other fields contain a value that is supported by both EV and EVSE. DERChargingParametersType type is only relevant in case of an ISO 15118-20 AC_BPT_DER/AC_DER charging session.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ev_supported_dercontrol</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">DER control functions supported by EV. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType:DERControlFunctions (bitmap)</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="#iso15118-dercontrol"><span class="std std-ref">iso15118-DERControl</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-dercontrol"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>ev_over_excited_max_discharge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected active power by EV, at specified over-excited power factor (overExcitedPowerFactor). It can also be defined as the rated maximum discharge power at the rated minimum injected reactive power value. This means that if the EV is providing reactive power support, and it is requested to discharge at max power (e.g. to satisfy an EMS request), the EV may override the request and discharge up to overExcitedMaximumDischargePower to meet the minimum reactive power requirements. Corresponds to the WOvPF attribute in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVOverExcitedMaximumDischargePower</div>
+</div>
+<div class="line"><strong>ev_over_excited_power_factor</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">EV power factor when injecting (over excited) the minimum reactive power. Corresponds to the OvPF attribute in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVOverExcitedPowerFactor</div>
+</div>
+<div class="line"><strong>ev_under_excited_max_discharge_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected active power by EV supported at specified under-excited power factor (EVUnderExcitedPowerFactor). It can also be defined as the rated maximum dischargePower at the rated minimum absorbed reactive power value. This means that if the EV is providing reactive power support, and it is requested to discharge at max power (e.g. to satisfy an EMS request), the EV may override the request and discharge up to underExcitedMaximumDischargePower to meet the minimum reactive power requirements. This corresponds to the WUnPF attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVUnderExcitedMaximumDischargePower</div>
+</div>
+<div class="line"><strong>ev_under_excited_power_factor</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">EV power factor when injecting (under excited) the minimum reactive power. Corresponds to the OvPF attribute in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVUnderExcitedPowerFactor</div>
+</div>
+<div class="line"><strong>max_apparent_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum total apparent power, defined by min(EV, EVSE) in va. Corresponds to the VAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumApparentPower</div>
+</div>
+<div class="line"><strong>max_charge_apparent_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum absorbed apparent power, defined by min(EV, EVSE) in va. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. Corresponds to the ChaVAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumChargeApparentPower</div>
+</div>
+<div class="line"><strong>max_charge_apparent_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum absorbed apparent power on phase L2, defined by min(EV, EVSE) in va. Corresponds to the ChaVAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumChargeApparentPower_L2</div>
+</div>
+<div class="line"><strong>max_charge_apparent_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum absorbed apparent power on phase L3, defined by min(EV, EVSE) in va. Corresponds to the ChaVAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumChargeApparentPower_L3</div>
+</div>
+<div class="line"><strong>max_discharge_apparent_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected apparent power, defined by min(EV, EVSE) in va. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. Corresponds to the DisVAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumDischargeApparentPower</div>
+</div>
+<div class="line"><strong>max_discharge_apparent_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected apparent power on phase L2, defined by min(EV, EVSE) in va. Corresponds to the DisVAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumDischargeApparentPower_L2</div>
+</div>
+<div class="line"><strong>max_discharge_apparent_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected apparent power on phase L3, defined by min(EV, EVSE) in va. Corresponds to the DisVAMaxRtg in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumDischargeApparentPower_L3</div>
+</div>
+<div class="line"><strong>max_charge_reactive_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum absorbed reactive power, defined by min(EV, EVSE), in vars. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. Corresponds to the AvarMax attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumChargeReactivePower</div>
+</div>
+<div class="line"><strong>max_charge_reactive_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum absorbed reactive power, defined by min(EV, EVSE), in vars on phase L2. Corresponds to the AvarMax attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumChargeReactivePower_L2</div>
+</div>
+<div class="line"><strong>max_charge_reactive_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum absorbed reactive power, defined by min(EV, EVSE), in vars on phase L3. Corresponds to the AvarMax attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumChargeReactivePower_L3</div>
+</div>
+<div class="line"><strong>min_charge_reactive_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated minimum absorbed reactive power, defined by max(EV, EVSE), in vars. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumChargeReactivePower</div>
+</div>
+<div class="line"><strong>min_charge_reactive_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated minimum absorbed reactive power, defined by max(EV, EVSE), in vars on phase L2. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumChargeReactivePower_L2</div>
+</div>
+<div class="line"><strong>min_charge_reactive_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated minimum absorbed reactive power, defined by max(EV, EVSE), in vars on phase L3. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumChargeReactivePower_L3</div>
+</div>
+<div class="line"><strong>max_discharge_reactive_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected reactive power, defined by min(EV, EVSE), in vars. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. Corresponds to the IvarMax attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumDischargeReactivePower</div>
+</div>
+<div class="line"><strong>max_discharge_reactive_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected reactive power, defined by min(EV, EVSE), in vars on phase L2. Corresponds to the IvarMax attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumDischargeReactivePower_L2</div>
+</div>
+<div class="line"><strong>max_discharge_reactive_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated maximum injected reactive power, defined by min(EV, EVSE), in vars on phase L3. Corresponds to the IvarMax attribute in the IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumDischargeReactivePower_L3</div>
+</div>
+<div class="line"><strong>min_discharge_reactive_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated minimum injected reactive power, defined by max(EV, EVSE), in vars. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumDischargeReactivePower</div>
+</div>
+<div class="line"><strong>min_discharge_reactive_power_l2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated minimum injected reactive power, defined by max(EV, EVSE), in var on phase L2. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumDischargeReactivePower_L2</div>
+</div>
+<div class="line"><strong>min_discharge_reactive_power_l3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Rated minimum injected reactive power, defined by max(EV, EVSE), in var on phase L3. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumDischargeReactivePower_L3</div>
+</div>
+<div class="line"><strong>nominal_voltage</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Line voltage supported by EVSE and EV. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVNominalVoltage</div>
+</div>
+<div class="line"><strong>nominal_voltage_offset</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The nominal AC voltage (rms) offset between the Charging Station’s electrical connection point and the utility’s point of common coupling. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVNominalVoltageOffset</div>
+</div>
+<div class="line"><strong>max_nominal_voltage</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum AC rms voltage, as defined by min(EV, EVSE)  to operate with. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumNominalVoltage</div>
+</div>
+<div class="line"><strong>min_nominal_voltage</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Minimum AC rms voltage, as defined by max(EV, EVSE)  to operate with. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMinimumNominalVoltage</div>
+</div>
+<div class="line"><strong>ev_inverter_manufacturer</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Manufacturer of the EV inverter. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVInverterManufacturer</div>
+</div>
+<div class="line"><strong>ev_inverter_model</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Model name of the EV inverter. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVInverterModel</div>
+</div>
+<div class="line"><strong>ev_inverter_serial_number</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Serial number of the EV inverter. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVInverterSerialNumber</div>
+</div>
+<div class="line"><strong>ev_inverter_sw_version</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Software version of EV inverter. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVInverterSwVersion</div>
+</div>
+<div class="line"><strong>ev_inverter_hw_version</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Hardware version of EV inverter. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVInverterHwVersion</div>
+</div>
+<div class="line"><strong>ev_islanding_detection_method</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Type of islanding detection method. Only mandatory when islanding detection is required at the site, as set in the ISO 15118 Service Details configuration. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVIslandingDetectionMethod</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="#iso15118-islandingdetection"><span class="std std-ref">iso15118-IslandingDetection</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-islandingdetection"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>ev_islanding_trip_time</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Time after which EV will trip if an island has been detected. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVIslandingTripTime</div>
+</div>
+<div class="line"><strong>ev_maximum_level1dcinjection</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum injected DC current allowed at level 1 charging. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumLevel1DCInjection</div>
+</div>
+<div class="line"><strong>ev_duration_level1dcinjection</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum allowed duration of DC injection at level 1 charging. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVDurationLevel1DCInjection</div>
+</div>
+<div class="line"><strong>ev_maximum_level2dcinjection</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum injected DC current allowed at level 2 charging. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVMaximumLevel2DCInjection</div>
+</div>
+<div class="line"><strong>ev_duration_level2dcinjection</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum allowed duration of DC injection at level 2 charging. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVDurationLevel2DCInjection</div>
+</div>
+<div class="line"><strong>ev_reactive_susceptance</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Measure of the susceptibility of the circuit to reactance, in Siemens (S). ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVReactiveSusceptance</div>
+</div>
+<div class="line"><strong>ev_session_total_discharge_energy_available</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Total energy value, in Wh, that EV is allowed to provide during the entire V2G session. The value is independent of the V2X Cycling area. Once this value reaches the value of 0, the EV may block any attempt to discharge in order to protect the battery health. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVSessionTotalDischargeEnergyAvailable</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcchargingparameters">
+<div class="line"><strong>DCChargingParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">EV DC charging parameters for ISO 15118-2</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ev_max_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum current (in A) supported by the electric vehicle. Includes cable capacity. Relates to: ISO 15118-2: DC_EVChargeParameterType:EVMaximumCurrentLimit</div>
+</div>
+<div class="line"><strong>ev_max_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum voltage supported by the electric vehicle. Relates to: ISO 15118-2: DC_EVChargeParameterType: EVMaximumVoltageLimit</div>
+</div>
+<div class="line"><strong>ev_max_power</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum power (in W) supported by the electric vehicle. Required for DC charging. Relates to: ISO 15118-2: DC_EVChargeParameterType: EVMaximumPowerLimit</div>
+</div>
+<div class="line"><strong>ev_energy_capacity</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Capacity of the electric vehicle battery (in Wh). Relates to: ISO 15118-2: DC_EVChargeParameterType: EVEnergyCapacity</div>
+</div>
+<div class="line"><strong>energy_amount</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Amount of energy requested (in Wh). This includes energy required for preconditioning. Relates to: ISO 15118-2: DC_EVChargeParameterType: EVEnergyRequest</div>
+</div>
+<div class="line"><strong>state_of_charge</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy available in the battery (in percent of the battery capacity) Relates to: ISO 15118-2: DC_EVChargeParameterType: DC_EVStatus: EVRESSSOC</div>
+</div>
+<div class="line"><strong>full_soc</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Percentage of SoC at which the EV considers the battery fully charged. (possible values: 0 - 100) Relates to: ISO 15118-2: DC_EVChargeParameterType: FullSOC</div>
+</div>
+<div class="line"><strong>bulk_soc</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Percentage of SoC at which the EV considers a fast charging process to end. (possible values: 0 - 100) Relates to: ISO 15118-2: DC_EVChargeParameterType: BulkSOC</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-acchargingparameters">
+<div class="line"><strong>ACChargingParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">EV AC charging parameters for ISO 15118-2</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>energy_amount</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Amount of energy requested (in Wh). This includes energy required for preconditioning. Relates to: ISO 15118-2: AC_EVChargeParameterType: EAmount ISO 15118-20: Dynamic/Scheduled_SEReqControlModeType: EVTargetEnergyRequest</div>
+</div>
+<div class="line"><strong>ev_min_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Minimum current (amps) supported by the electric vehicle (per phase). Relates to: ISO 15118-2: AC_EVChargeParameterType: EVMinCurrent</div>
+</div>
+<div class="line"><strong>ev_max_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum current (amps) supported by the electric vehicle (per phase). Includes cable capacity. Relates to: ISO 15118-2: AC_EVChargeParameterType: EVMaxCurrent</div>
+</div>
+<div class="line"><strong>ev_max_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum voltage supported by the electric vehicle. Relates to: ISO 15118-2: AC_EVChargeParameterType: EVMaxVoltage</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-chargingneeds">
+<div class="line"><strong>ChargingNeeds</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">None</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ac_charging_parameters</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-acchargingparameters"><span class="std std-ref">iso15118-ACChargingParameters</span></a>)</div>
+<div class="line-block">
+<div class="line">EV AC charging parameters for ISO 15118-2</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-acchargingparameters"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>der_charging_parameters</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-derchargingparameters"><span class="std std-ref">iso15118-DERChargingParameters</span></a>)</div>
+<div class="line-block">
+<div class="line">(2.1) DERChargingParametersType is used in ChargingNeedsType during an ISO 15118-20 session for AC_BPT_DER to report the inverter settings related to DER control that were agreed between EVSE and EV. Fields starting with “ev” contain values from the EV. Other fields contain a value that is supported by both EV and EVSE. DERChargingParametersType type is only relevant in case of an ISO 15118-20 AC_BPT_DER/AC_DER charging session.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-derchargingparameters"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ev_energy_offer</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-evenergyoffer"><span class="std std-ref">iso15118-EVEnergyOffer</span></a>)</div>
+<div class="line-block">
+<div class="line">(2.1) A schedule of the energy amount over time that EV is willing to discharge. A negative value indicates the willingness to discharge under specific conditions, a positive value indicates that the EV currently is not able to offer energy to discharge.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-evenergyoffer"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>requested_energy_transfer</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
+<div class="line-block">
+<div class="line">Mode of energy transfer requested by the EV.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>dc_charging_parameters</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-dcchargingparameters"><span class="std std-ref">iso15118-DCChargingParameters</span></a>)</div>
+<div class="line-block">
+<div class="line">EV DC charging parameters for ISO 15118-2</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-dcchargingparameters"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>v2x_charging_parameters</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-v2xchargingparameters"><span class="std std-ref">iso15118-V2XChargingParameters</span></a>)</div>
+<div class="line-block">
+<div class="line">Charging parameters for ISO 15118-20, also supporting V2X charging/discharging. All values are greater or equal to zero, with the exception of EVMinEnergyRequest, EVMaxEnergyRequest, EVTargetEnergyRequest, EVMinV2XEnergyRequest and EVMaxV2XEnergyRequest.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-v2xchargingparameters"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>available_energy_transfer</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">(2.1) Modes of energy transfer that are marked as available by EV.</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>control_mode</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-controlmode"><span class="std std-ref">iso15118-ControlMode</span></a>)</div>
+<div class="line-block">
+<div class="line">(2.1) Indicates whether EV wants to operate in Dynamic or Scheduled mode. When absent, Scheduled mode is assumed for backwards compatibility. ISO 15118-20: ServiceSelectionReq(SelectedEnergyTransferService)</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-controlmode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>mobility_needs_mode</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-mobilityneedsmode"><span class="std std-ref">iso15118-MobilityNeedsMode</span></a>)</div>
+<div class="line-block">
+<div class="line">(2.1) Value of EVCC indicates that EV determines min/target SOC and departure time. A value of EVCC_SECC indicates that charging station or CSMS may also update min/target SOC and departure time. ISO 15118-20: ServiceSelectionReq(SelectedEnergyTransferService)</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-mobilityneedsmode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>departure_time</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Estimated departure time of the EV. ISO 15118-2: AC/DC_EVChargeParameterType: DepartureTime ISO 15118-20: Dynamic/Scheduled_SEReqControlModeType: DepartureTime</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevparameters">
+<div class="line"><strong>DcEvParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Target settings for dc charging</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>max_current_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[A] Maximum current allowed by the EV</div>
+</div>
+<div class="line"><strong>max_power_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[W] Maximum power allowed by the EV</div>
+</div>
+<div class="line"><strong>max_voltage_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[V] Maximum voltage allowed by the EV</div>
+</div>
+<div class="line"><strong>energy_capacity</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[Wh] Energy capacity of the EV</div>
+</div>
+<div class="line"><strong>target_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[A] Target current requested by the EV</div>
+</div>
+<div class="line"><strong>target_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[V] Target voltage requested by the EV</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-dcevbptparameters">
+<div class="line"><strong>DcEvBPTParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">BPT settings for dc charging</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>discharge_max_current_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[A] Maximum discharge current allowed by the EV</div>
+</div>
+<div class="line"><strong>discharge_max_power_limit</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[W] Maximum discharge power allowed by the EV</div>
+</div>
+<div class="line"><strong>discharge_target_current</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[A] Discharge target current requested by the EV</div>
+</div>
+<div class="line"><strong>discharge_minimal_soc</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">[%] Discharge minimal soc at which the evse should shutdown</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="generic_array.html"
+                          title="previous chapter"><span class="section-number">13.3.12. </span>generic_array</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="isolation_monitor.html"
+                          title="next chapter"><span class="section-number">13.3.14. </span>isolation_monitor</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/types/iso15118.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="isolation_monitor.html" title="13.3.14. isolation_monitor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="generic_array.html" title="13.3.12. generic_array"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.13. </span>iso15118</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

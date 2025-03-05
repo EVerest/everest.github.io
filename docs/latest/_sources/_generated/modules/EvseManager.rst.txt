@@ -183,6 +183,9 @@ Module Configuration
 | **fail_on_powermeter_errors**:*boolean* <optional>
 | *default: True*
 |  Set the EVSE Manager to an inoperative state if the powermeter requirement is configured and has reported errors
+| **raise_mrec9**:*boolean* <optional>
+| *default: False*
+|  Allows to configure if an MREC9 authorization timeout error shall be raised by this module in case an authorization timeout occurs. It is recommended to disable it if OCPP1.6 is used.
 
 ********
 Provides
@@ -207,6 +210,7 @@ Requirements
 | **slac**::ref:`slac <everest_interfaces_slac>` 0..1
 | **hlc**::ref:`ISO15118_charger <everest_interfaces_ISO15118_charger>` 0..1
 | **imd**::ref:`isolation_monitor <everest_interfaces_isolation_monitor>` 0..1
+| **over_voltage_monitor**::ref:`over_voltage_monitor <everest_interfaces_over_voltage_monitor>` 0..1
 | **powersupply_DC**::ref:`power_supply_DC <everest_interfaces_power_supply_DC>` 0..1
 | **store**::ref:`kvs <everest_interfaces_kvs>` 0..1
 
@@ -220,5 +224,5 @@ Authors
 
 License
 =======
-| https://spdx.org/licenses/Apache-2.0.html
+| https://opensource.org/licenses/Apache-2.0
 

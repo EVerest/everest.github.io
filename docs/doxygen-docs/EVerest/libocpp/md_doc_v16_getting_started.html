@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -66,14 +66,14 @@ $(function() {
   <div class="headertitle"><div class="title">Getting Started with OCPP1.6 </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md59"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md60"></a>
 Integrate this library with your Charging Station Implementation for OCPP1.6</h1>
 <p >OCPP is a protocol that affects, controls and monitors many areas of a charging station's operation.</p>
 <p >If you want to integrate this library with your charging station implementation, you have to register a couple of <b>callbacks</b> and integrate <b>event handlers</b>. This is necessary for the library to interact with your charging station according to the requirements of OCPP.</p>
 <p >Libocpp needs registered <b>callbacks</b> in order to execute control commands defined within OCPP (e.g Reset.req or RemoteStartTransaction.req)</p>
 <p >The implementation must call <b>event handlers</b> of libocpp so that the library can track the state of the charging station and trigger OCPP messages accordingly (e.g. MeterValues.req , StatusNotification.req)</p>
 <p >Your reference within libocpp to interact is a single instance to the class <a class="el" href="classocpp_1_1v16_1_1ChargePoint.html" title="Contains a ChargePoint implementation compatible with OCPP-J 1.6.">ocpp::v16::ChargePoint</a> (<a href="include/ocpp/v16/charge_point.hpp">ChargePoint</a>) defined in <code><a class="el" href="v16_2charge__point_8hpp_source.html">ocpp/v16/charge_point.hpp</a></code> for OCPP 1.6.</p>
-<h2><a class="anchor" id="autotoc_md60"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Overview of the required callbacks and events and what libocpp expects to happen</h2>
 <p >The following section will give you a high level overview of how to integrate libocpp with your application. Please use the Doxygen Documentation as an additional source for the ChargePoint API.</p>
 <p >In EVerest the OCPP module leverages several other modules to perform tasks that relate to authorization, reservations, charging session handling and system tasks like rebooting or firmware updates.</p>
@@ -83,7 +83,7 @@ Overview of the required callbacks and events and what libocpp expects to happen
 <li>System handles firmware updates, log uploads and resets</li>
 </ul>
 <p >The following sections explain the steps you can follow to implement their functionality on your own and integrate the libocpp directly into your charging station software without relying on EVerest. However, in most cases it's much easier to write an EVerest driver using the <em>everest-core/interfaces/board_support_AC.yaml</em> interface.</p>
-<h3><a class="anchor" id="autotoc_md61"></a>
+<h3><a class="anchor" id="autotoc_md62"></a>
 ChargePoint() constructor</h3>
 <p >The main entrypoint for libocpp for OCPP1.6 is the <a class="el" href="classocpp_1_1v16_1_1ChargePoint.html" title="Contains a ChargePoint implementation compatible with OCPP-J 1.6.">ocpp::v16::ChargePoint</a> constructor. This is defined in <code><a class="el" href="v16_2charge__point_8hpp_source.html">v16/charge_point.hpp</a></code> and takes the following parameters:</p>
 <ul>
@@ -162,7 +162,7 @@ ChargePoint() constructor</h3>
 <div class="line">│       └── V2G_ROOT_CA.key</div>
 </div><!-- fragment --></li>
 </ul>
-<h3><a class="anchor" id="autotoc_md62"></a>
+<h3><a class="anchor" id="autotoc_md63"></a>
 registering callbacks</h3>
 <p >You can (and in many cases MUST) register a number of callbacks so libocpp can interact with the charger. In EVerest most of this functionality is orchestrated by the "EvseManager" module, but you can also register your own callbacks interacting directly with your chargers software. Following is a list of callbacks that you must register and a few words about their purpose.</p>
 <p >TODO: in a future version of libocpp the callbacks will be organised in a struct with optional members emphasizing the required and optional callbacks.</p>
@@ -227,7 +227,7 @@ registering callbacks</h3>
 </li>
 <li>register_configuration_key_changed_callback used to react on a changed configuration key. This callback is called when the specified configuration key has been changed by the CSMS</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md63"></a>
+<h3><a class="anchor" id="autotoc_md64"></a>
 Functions that need to be triggered from the outside after new information is availble (on_... functions in the charge point API)</h3>
 <ul>
 <li><p class="startli">on_log_status_notification(int32_t request_id, std::string log_status)</p>
@@ -243,7 +243,7 @@ Functions that need to be triggered from the outside after new information is av
 <p class="startli">the maximum current offered to the EV on this connector (in ampere)</p>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md64"></a>
+<h3><a class="anchor" id="autotoc_md65"></a>
 The following functions are triggered depending on different so called "Session Events" from the EvseManager</h3>
 <p >each of these functions will have a small note what the Session Event was and what it triggers in libocpp</p>
 <ul>
@@ -292,7 +292,7 @@ The following functions are triggered depending on different so called "Session 
 <p class="startli">Notifies libocpp that a reservation has ended</p>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md65"></a>
+<h3><a class="anchor" id="autotoc_md66"></a>
 Authorization</h3>
 <p >In EVerest authorization is handled by the Auth module and various auth token providers and validators. The OCPP module acts as both a token provider (for pre validated tokens in RemoteStartTransactions) and a token validator (using the authorize requests, or plug &amp; charge) To use libocpp as a auth token validator (e.g. before starting a transaction) you can call the "authorize_id_token" function of the ChargePoint object. </p>
 </div></div><!-- contents -->

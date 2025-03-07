@@ -10,6 +10,6 @@ var searchData=
   ['messagetype_7',['messageType',['../structocpp_1_1EnhancedMessage.html#a574b7d056b3031f2a0808cc41d58d091',1,'ocpp::EnhancedMessage::messageType()'],['../structocpp_1_1ControlMessage.html#accf5e1cd122833d95c830c49a0e4a5d5',1,'ocpp::ControlMessage::messageType()']]],
   ['messagetypeid_8',['messageTypeId',['../structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206',1,'ocpp::EnhancedMessage']]],
   ['meter_5fid_9',['meter_id',['../structocpp_1_1Powermeter.html#acc21d337aebf61e5ecb5b0367ef8aa39',1,'ocpp::Powermeter']]],
-  ['monitor_5fid_10',['monitor_id',['../structocpp_1_1v201_1_1UpdaterMonitorMeta.html#a96ec173781c052a380d4c19a14c2060f',1,'ocpp::v201::UpdaterMonitorMeta']]],
-  ['monitors_11',['monitors',['../structocpp_1_1v201_1_1DeviceModelVariable.html#a1591906a272cf05b52754ca37d8aa0c2',1,'ocpp::v201::DeviceModelVariable']]]
+  ['monitor_5fid_10',['monitor_id',['../structocpp_1_1v2_1_1UpdaterMonitorMeta.html#a9a11d47eafb7e9b79890e9a6dc048e53',1,'ocpp::v2::UpdaterMonitorMeta']]],
+  ['monitors_11',['monitors',['../structocpp_1_1v2_1_1DeviceModelVariable.html#a2a47c2868eee083783fffbabece262f3',1,'ocpp::v2::DeviceModelVariable']]]
 ];

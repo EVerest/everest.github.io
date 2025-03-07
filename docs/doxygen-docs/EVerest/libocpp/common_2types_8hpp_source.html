@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;ocpp/common/cistring.hpp&gt;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;ocpp/common/support_older_cpp_versions.hpp&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;ocpp/v16/ocpp_enums.hpp&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;ocpp/v201/ocpp_enums.hpp&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;ocpp/v2/ocpp_enums.hpp&gt;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">using </span>json = nlohmann::json;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
@@ -338,7 +338,7 @@ $(function() {
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="structocpp_1_1Measurement.html">  339</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1Measurement.html">Measurement</a> {</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="structocpp_1_1Measurement.html#a03e757c7dc1ee7d51b5e22c07d5f9e7f">  340</a></span>    <a class="code hl_struct" href="structocpp_1_1Powermeter.html">Powermeter</a> <a class="code hl_variable" href="structocpp_1_1Measurement.html#a03e757c7dc1ee7d51b5e22c07d5f9e7f">power_meter</a>;                   </div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno"><a class="line" href="structocpp_1_1Measurement.html#a6b681877df0c21502efa056ca9b330b9">  341</a></span>    std::optional&lt;StateOfCharge&gt; <a class="code hl_variable" href="structocpp_1_1Measurement.html#a6b681877df0c21502efa056ca9b330b9">soc_Percent</a>; </div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="structocpp_1_1Measurement.html#adf3faf5e94be28e907a43d81d9e6db32">  342</a></span>    std::optional&lt;Temperature&gt; <a class="code hl_variable" href="structocpp_1_1Measurement.html#adf3faf5e94be28e907a43d81d9e6db32">temperature_C</a>; </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="structocpp_1_1Measurement.html#a4f3f4e7c6b961d082f01296ef07cb6f0">  342</a></span>    std::vector&lt;Temperature&gt; <a class="code hl_variable" href="structocpp_1_1Measurement.html#a4f3f4e7c6b961d082f01296ef07cb6f0">temperature_C</a>;   </div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="structocpp_1_1Measurement.html#a1ef08bf62cf321a29b30f8b926484880">  343</a></span>    std::optional&lt;RPM&gt; <a class="code hl_variable" href="structocpp_1_1Measurement.html#a1ef08bf62cf321a29b30f8b926484880">rpm</a>;                   </div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code hl_friend" href="structocpp_1_1Measurement.html#abbecb8c1e13d83288926dac2569b03c0">to_json</a>(json&amp; j, <span class="keyword">const</span> <a class="code hl_struct" href="structocpp_1_1Measurement.html">Measurement</a>&amp; k);</div>
@@ -352,7 +352,7 @@ $(function() {
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="structocpp_1_1DisplayMessageContent.html">  356</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1DisplayMessageContent.html">DisplayMessageContent</a> {</div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    std::string message;</div>
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    std::optional&lt;std::string&gt; language;</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    std::optional&lt;v201::MessageFormatEnum&gt; message_format;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    std::optional&lt;v2::MessageFormatEnum&gt; message_format;</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keyword">friend</span> <span class="keywordtype">void</span> from_json(<span class="keyword">const</span> json&amp; j, <a class="code hl_struct" href="structocpp_1_1DisplayMessageContent.html">DisplayMessageContent</a>&amp; m);</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keyword">friend</span> <span class="keywordtype">void</span> to_json(json&amp; j, <span class="keyword">const</span> <a class="code hl_struct" href="structocpp_1_1DisplayMessageContent.html">DisplayMessageContent</a>&amp; m);</div>
@@ -366,8 +366,8 @@ $(function() {
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno"><a class="line" href="structocpp_1_1DisplayMessage.html">  374</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1DisplayMessage.html">DisplayMessage</a> {</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    std::optional&lt;int32_t&gt; id;</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    std::optional&lt;v201::MessagePriorityEnum&gt; priority;</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    std::optional&lt;v201::MessageStateEnum&gt; state;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    std::optional&lt;v2::MessagePriorityEnum&gt; priority;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    std::optional&lt;v2::MessageStateEnum&gt; state;</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    std::optional&lt;DateTime&gt; timestamp_from;</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    std::optional&lt;DateTime&gt; timestamp_to;</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    std::optional&lt;std::string&gt; identifier_id;</div>
@@ -556,209 +556,211 @@ $(function() {
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span><span class="keyword">enum class</span> OcppProtocolVersion {</div>
 <div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    v16,</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    v201</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>};</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span> </div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span><span class="keyword">namespace </span>conversions {</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>std::string ocpp_protocol_version_to_string(OcppProtocolVersion e);</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span> </div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>OcppProtocolVersion string_to_ocpp_protocol_version(<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>} <span class="comment">// namespace conversions</span></div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span> </div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> OcppProtocolVersion&amp; ocpp_protocol_version);</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span><span class="keyword">enum class</span> CertificateSigningUseEnum {</div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    ChargingStationCertificate,</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    V2GCertificate,</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    ManufacturerCertificate</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>};</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span><span class="keyword">namespace </span>conversions {</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>std::string certificate_signing_use_enum_to_string(CertificateSigningUseEnum e);</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>CertificateSigningUseEnum string_to_certificate_signing_use_enum(<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>} <span class="comment">// namespace conversions</span></div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span> </div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> CertificateSigningUseEnum&amp; certificate_signing_use_enum);</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno"><a class="line" href="structocpp_1_1OCSPRequestData.html">  652</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1OCSPRequestData.html">OCSPRequestData</a> {</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    HashAlgorithmEnumType hashAlgorithm;</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>    std::string issuerNameHash;</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    std::string issuerKeyHash;</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    std::string serialNumber;</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    std::string responderUrl;</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>};</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span><span class="keyword">enum class</span> GetCertificateSignRequestStatus {</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>    Accepted,</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    InvalidRequestedType, </div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>    KeyGenError,          </div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    GenerationError,      </div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>};</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span> </div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span><span class="keyword">enum class</span> GetCertificateInfoStatus {</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    Accepted,</div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>    Rejected,</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    NotFound,</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>    NotFoundValid,</div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>    PrivateKeyNotFound,</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>};</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span> </div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno"><a class="line" href="structocpp_1_1GetCertificateSignRequestResult.html">  675</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1GetCertificateSignRequestResult.html">GetCertificateSignRequestResult</a> {</div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>    GetCertificateSignRequestStatus status;</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>    std::optional&lt;std::string&gt; csr;</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>};</div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span> </div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno"><a class="line" href="structocpp_1_1CertificateOCSP.html">  680</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1CertificateOCSP.html">CertificateOCSP</a> {</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    <a class="code hl_struct" href="structocpp_1_1CertificateHashDataType.html">CertificateHashDataType</a> hash;</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>    std::optional&lt;fs::path&gt; ocsp_path;</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>};</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno"><a class="line" href="structocpp_1_1CertificateInfo.html">  685</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1CertificateInfo.html">CertificateInfo</a> {</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>    std::optional&lt;fs::path&gt; certificate_path;        <span class="comment">// path to the full certificate chain</span></div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    std::optional&lt;fs::path&gt; certificate_single_path; <span class="comment">// path to the single leaf certificate</span></div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    <span class="keywordtype">int</span> certificate_count;                           <span class="comment">// count of certs in the chain</span></div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    fs::path key_path;                               <span class="comment">// path to private key of the leaf certificate</span></div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>    std::optional&lt;std::string&gt; password;             <span class="comment">// optional password for the private key</span></div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    std::vector&lt;CertificateOCSP&gt; ocsp;               <span class="comment">// OCSP data if requested</span></div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>};</div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span> </div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno"><a class="line" href="structocpp_1_1GetCertificateInfoResult.html">  694</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1GetCertificateInfoResult.html">GetCertificateInfoResult</a> {</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>    GetCertificateInfoStatus status;</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>    std::optional&lt;CertificateInfo&gt; info;</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>};</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span> </div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span><span class="keyword">enum class</span> LeafCertificateType {</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    CSMS, <span class="comment">// Charging Station Management System</span></div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    V2G,  <span class="comment">// Vehicle to grid</span></div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    MF,   <span class="comment">// Manufacturer</span></div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    MO    <span class="comment">// Mobility Operator</span></div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>};</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span> </div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span><span class="keyword">namespace </span>conversions {</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>std::string bool_to_string(<span class="keywordtype">bool</span> b);</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span> </div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><span class="keywordtype">bool</span> string_to_bool(<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span> </div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>std::string double_to_string(<span class="keywordtype">double</span> d, <span class="keywordtype">int</span> precision);</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span> </div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>std::string double_to_string(<span class="keywordtype">double</span> d);</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>} <span class="comment">// namespace conversions</span></div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span> </div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span><span class="keyword">enum class</span> FirmwareStatusNotification {</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    Downloaded,</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    DownloadFailed,</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    Downloading,</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    DownloadScheduled,</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    DownloadPaused,</div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    Idle,</div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    InstallationFailed,</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    Installing,</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    Installed,</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    InstallRebooting,</div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    InstallScheduled,</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    InstallVerificationFailed,</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    InvalidSignature,</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    SignatureVerified</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>};</div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span> </div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span><span class="keyword">namespace </span>conversions {</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>std::string generate_certificate_signing_request_status_to_string(<span class="keyword">const</span> GetCertificateSignRequestStatus status);</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>} <span class="comment">// namespace conversions</span></div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span> </div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span><span class="keyword">namespace </span>conversions {</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    v201,</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    v21,</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    Unknown,</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>};</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span><span class="keyword">namespace </span>conversions {</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>std::string ocpp_protocol_version_to_string(OcppProtocolVersion e);</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span> </div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>OcppProtocolVersion string_to_ocpp_protocol_version(<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>} <span class="comment">// namespace conversions</span></div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span> </div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> OcppProtocolVersion&amp; ocpp_protocol_version);</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span> </div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span><span class="keyword">enum class</span> CertificateSigningUseEnum {</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    ChargingStationCertificate,</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    V2GCertificate,</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    ManufacturerCertificate</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>};</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span> </div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span><span class="keyword">namespace </span>conversions {</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>std::string certificate_signing_use_enum_to_string(CertificateSigningUseEnum e);</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span> </div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>CertificateSigningUseEnum string_to_certificate_signing_use_enum(<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>} <span class="comment">// namespace conversions</span></div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span> </div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> CertificateSigningUseEnum&amp; certificate_signing_use_enum);</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno"><a class="line" href="structocpp_1_1OCSPRequestData.html">  654</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1OCSPRequestData.html">OCSPRequestData</a> {</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    HashAlgorithmEnumType hashAlgorithm;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    std::string issuerNameHash;</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    std::string issuerKeyHash;</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    std::string serialNumber;</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    std::string responderUrl;</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>};</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span><span class="keyword">enum class</span> GetCertificateSignRequestStatus {</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>    Accepted,</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    InvalidRequestedType, </div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    KeyGenError,          </div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    GenerationError,      </div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>};</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span> </div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span><span class="keyword">enum class</span> GetCertificateInfoStatus {</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    Accepted,</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>    Rejected,</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>    NotFound,</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>    NotFoundValid,</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>    PrivateKeyNotFound,</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>};</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span> </div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno"><a class="line" href="structocpp_1_1GetCertificateSignRequestResult.html">  677</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1GetCertificateSignRequestResult.html">GetCertificateSignRequestResult</a> {</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>    GetCertificateSignRequestStatus status;</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>    std::optional&lt;std::string&gt; csr;</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>};</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span> </div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno"><a class="line" href="structocpp_1_1CertificateOCSP.html">  682</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1CertificateOCSP.html">CertificateOCSP</a> {</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    <a class="code hl_struct" href="structocpp_1_1CertificateHashDataType.html">CertificateHashDataType</a> hash;</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    std::optional&lt;fs::path&gt; ocsp_path;</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>};</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno"><a class="line" href="structocpp_1_1CertificateInfo.html">  687</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1CertificateInfo.html">CertificateInfo</a> {</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    std::optional&lt;fs::path&gt; certificate_path;        <span class="comment">// path to the full certificate chain</span></div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    std::optional&lt;fs::path&gt; certificate_single_path; <span class="comment">// path to the single leaf certificate</span></div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>    <span class="keywordtype">int</span> certificate_count;                           <span class="comment">// count of certs in the chain</span></div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    fs::path key_path;                               <span class="comment">// path to private key of the leaf certificate</span></div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>    std::optional&lt;std::string&gt; password;             <span class="comment">// optional password for the private key</span></div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    std::vector&lt;CertificateOCSP&gt; ocsp;               <span class="comment">// OCSP data if requested</span></div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>};</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span> </div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno"><a class="line" href="structocpp_1_1GetCertificateInfoResult.html">  696</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1GetCertificateInfoResult.html">GetCertificateInfoResult</a> {</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    GetCertificateInfoStatus status;</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    std::optional&lt;CertificateInfo&gt; info;</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>};</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span><span class="keyword">enum class</span> LeafCertificateType {</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    CSMS, <span class="comment">// Charging Station Management System</span></div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    V2G,  <span class="comment">// Vehicle to grid</span></div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    MF,   <span class="comment">// Manufacturer</span></div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>    MO    <span class="comment">// Mobility Operator</span></div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>};</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span> </div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span><span class="keyword">namespace </span>conversions {</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>std::string bool_to_string(<span class="keywordtype">bool</span> b);</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span><span class="keywordtype">bool</span> string_to_bool(<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span> </div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>std::string double_to_string(<span class="keywordtype">double</span> d, <span class="keywordtype">int</span> precision);</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span> </div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>std::string double_to_string(<span class="keywordtype">double</span> d);</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>} <span class="comment">// namespace conversions</span></div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span> </div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span><span class="keyword">enum class</span> FirmwareStatusNotification {</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    Downloaded,</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    DownloadFailed,</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    Downloading,</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    DownloadScheduled,</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    DownloadPaused,</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    Idle,</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>    InstallationFailed,</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    Installing,</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>    Installed,</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    InstallRebooting,</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>    InstallScheduled,</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    InstallVerificationFailed,</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    InvalidSignature,</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    SignatureVerified</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>};</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span> </div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span><span class="keyword">namespace </span>conversions {</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>std::string generate_certificate_signing_request_status_to_string(<span class="keyword">const</span> GetCertificateSignRequestStatus status);</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>} <span class="comment">// namespace conversions</span></div>
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>v16::FirmwareStatus firmware_status_notification_to_firmware_status(<span class="keyword">const</span> FirmwareStatusNotification status);</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>v16::FirmwareStatusEnumType</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>firmware_status_notification_to_firmware_status_enum_type(<span class="keyword">const</span> FirmwareStatusNotification status);</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span> </div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>} <span class="comment">// namespace conversions</span></div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span><span class="keyword">namespace </span>conversions {</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>v16::FirmwareStatus firmware_status_notification_to_firmware_status(<span class="keyword">const</span> FirmwareStatusNotification status);</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span> </div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>v16::FirmwareStatusEnumType</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>firmware_status_notification_to_firmware_status_enum_type(<span class="keyword">const</span> FirmwareStatusNotification status);</div>
 <div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span> </div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span><span class="keyword">namespace </span>security {</div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span><span class="comment">// The security profiles defined in OCPP 2.0.1 resp. in the OCPP 1.6 security-whitepaper.</span></div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><span class="keyword">enum</span> SecurityProfile { <span class="comment">// no &quot;enum class&quot; because values are used in implicit `switch`-comparisons to `int</span></div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>                       <span class="comment">// security_profile`</span></div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    OCPP_1_6_ONLY_UNSECURED_TRANSPORT_WITHOUT_BASIC_AUTHENTICATION = 0,</div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    UNSECURED_TRANSPORT_WITH_BASIC_AUTHENTICATION = 1,</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    TLS_WITH_BASIC_AUTHENTICATION = 2,</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    TLS_WITH_CLIENT_SIDE_CERTIFICATES = 3,</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>};</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>} <span class="comment">// namespace security</span></div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span><span class="keyword">namespace </span>security_events {</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>} <span class="comment">// namespace conversions</span></div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span> </div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><span class="keyword">namespace </span>security {</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span><span class="comment">// The security profiles defined in OCPP 2.0.1 resp. in the OCPP 1.6 security-whitepaper.</span></div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span><span class="keyword">enum</span> SecurityProfile { <span class="comment">// no &quot;enum class&quot; because values are used in implicit `switch`-comparisons to `int</span></div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>                       <span class="comment">// security_profile`</span></div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    OCPP_1_6_ONLY_UNSECURED_TRANSPORT_WITHOUT_BASIC_AUTHENTICATION = 0,</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    UNSECURED_TRANSPORT_WITH_BASIC_AUTHENTICATION = 1,</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    TLS_WITH_BASIC_AUTHENTICATION = 2,</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    TLS_WITH_CLIENT_SIDE_CERTIFICATES = 3,</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>};</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>} <span class="comment">// namespace security</span></div>
 <div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span><span class="comment">// This is the list of security events defined in OCPP 2.0.1 (and the 1.6 security whitepper).</span></div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span><span class="comment">// Security events that are marked critical should be pushed to the CSMS.</span></div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span><span class="comment">// This is a non-exhaustive list of security events, when a security event matches the description in the OCPP</span></div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span><span class="comment">// specification of one of the Security Events in this list, for interoperability reasons, the Security Event from this</span></div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span><span class="comment">// list shall be used, instead of adding a new (proprietary) Security Event.</span></div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span> </div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string FIRMWARE_UPDATED = <span class="stringliteral">&quot;FirmwareUpdated&quot;</span>; <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string FAILEDTOAUTHENTICATEATCSMS = <span class="stringliteral">&quot;FailedToAuthenticateAtCsms&quot;</span>;</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string CSMSFAILEDTOAUTHENTICATE = <span class="stringliteral">&quot;CsmsFailedToAuthenticate&quot;</span>;</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string CSRGENERATIONFAILED = <span class="stringliteral">&quot;CSRGenerationFailed&quot;</span>;</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string SETTINGSYSTEMTIME = <span class="stringliteral">&quot;SettingSystemTime&quot;</span>;         <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string RESET_OR_REBOOT = <span class="stringliteral">&quot;ResetOrReboot&quot;</span>;               <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string STARTUP_OF_THE_DEVICE = <span class="stringliteral">&quot;StartupOfTheDevice&quot;</span>;    <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string SECURITYLOGWASCLEARED = <span class="stringliteral">&quot;SecurityLogWasCleared&quot;</span>; <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string RECONFIGURATIONOFSECURITYPARAMETERS = <span class="stringliteral">&quot;ReconfigurationOfSecurityParameters&quot;</span>;</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string MEMORYEXHAUSTION = <span class="stringliteral">&quot;MemoryExhaustion&quot;</span>; <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDMESSAGES = <span class="stringliteral">&quot;InvalidMessages&quot;</span>;</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string ATTEMPTEDREPLAYATTACKS = <span class="stringliteral">&quot;AttemptedReplayAttacks&quot;</span>;</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string TAMPERDETECTIONACTIVATED = <span class="stringliteral">&quot;TamperDetectionActivated&quot;</span>; <span class="comment">// CRITICAL</span></div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDFIRMWARESIGNATURE = <span class="stringliteral">&quot;InvalidFirmwareSignature&quot;</span>;</div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDFIRMWARESIGNINGCERTIFICATE = <span class="stringliteral">&quot;InvalidFirmwareSigningCertificate&quot;</span>;</div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCSMSCERTIFICATE = <span class="stringliteral">&quot;InvalidCsmsCertificate&quot;</span>;</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCENTRALSYSTEMCERTIFICATE = <span class="stringliteral">&quot;InvalidCentralSystemCertificate&quot;</span>;</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCHARGINGSTATIONCERTIFICATE = <span class="stringliteral">&quot;InvalidChargingStationCertificate&quot;</span>;</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCHARGEPOINTCERTIFICATE = <span class="stringliteral">&quot;InvalidChargePointCertificate&quot;</span>; <span class="comment">// for OCPP1.6</span></div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDTLSVERSION = <span class="stringliteral">&quot;InvalidTLSVersion&quot;</span>;</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDTLSCIPHERSUITE = <span class="stringliteral">&quot;InvalidTLSCipherSuite&quot;</span>;</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string MAINTENANCELOGINACCEPTED = <span class="stringliteral">&quot;MaintenanceLoginAccepted&quot;</span>;</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string MAINTENANCELOGINFAILED = <span class="stringliteral">&quot;MaintenanceLoginFailed&quot;</span>;</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>} <span class="comment">// namespace security_events</span></div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span> </div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span><span class="keyword">enum class</span> MessageDirection {</div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>    CSMSToChargingStation,</div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>    ChargingStationToCSMS</div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>};</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span> </div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span><span class="keyword">enum class</span> ConnectionFailedReason {</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>    InvalidCSMSCertificate = 0,</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    FailedToAuthenticateAtCsms</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>};</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span> </div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span><span class="keyword">enum class</span> WebsocketCloseReason : uint8_t {</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    Normal = 1,</div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    ForceTcpDrop,</div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    GoingAway,</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    AbnormalClose,</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    ServiceRestart</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>};</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span> </div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span><span class="keyword">enum class</span> QueueType {</div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>    Normal,</div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>    Transaction,</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    None,</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>};</div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span> </div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno"><a class="line" href="structocpp_1_1CompositeScheduleDefaultLimits.html">  831</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1CompositeScheduleDefaultLimits.html">CompositeScheduleDefaultLimits</a> {</div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>    int32_t amps;</div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>    int32_t watts;</div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>    int32_t number_phases;</div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>};</div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span> </div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span><span class="keyword">enum class</span> ReservationCheckStatus {</div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>    NotReserved,           </div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>    ReservedForToken,      </div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>    ReservedForOtherToken, </div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    ReservedForOtherTokenAndHasParentToken, </div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>};</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span> </div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>} <span class="comment">// namespace ocpp</span></div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span><span class="keyword">namespace </span>security_events {</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span><span class="comment">// This is the list of security events defined in OCPP 2.0.1 (and the 1.6 security whitepper).</span></div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span><span class="comment">// Security events that are marked critical should be pushed to the CSMS.</span></div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span><span class="comment">// This is a non-exhaustive list of security events, when a security event matches the description in the OCPP</span></div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span><span class="comment">// specification of one of the Security Events in this list, for interoperability reasons, the Security Event from this</span></div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span><span class="comment">// list shall be used, instead of adding a new (proprietary) Security Event.</span></div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span> </div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string FIRMWARE_UPDATED = <span class="stringliteral">&quot;FirmwareUpdated&quot;</span>; <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string FAILEDTOAUTHENTICATEATCSMS = <span class="stringliteral">&quot;FailedToAuthenticateAtCsms&quot;</span>;</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string CSMSFAILEDTOAUTHENTICATE = <span class="stringliteral">&quot;CsmsFailedToAuthenticate&quot;</span>;</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string CSRGENERATIONFAILED = <span class="stringliteral">&quot;CSRGenerationFailed&quot;</span>;</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string SETTINGSYSTEMTIME = <span class="stringliteral">&quot;SettingSystemTime&quot;</span>;         <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string RESET_OR_REBOOT = <span class="stringliteral">&quot;ResetOrReboot&quot;</span>;               <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string STARTUP_OF_THE_DEVICE = <span class="stringliteral">&quot;StartupOfTheDevice&quot;</span>;    <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string SECURITYLOGWASCLEARED = <span class="stringliteral">&quot;SecurityLogWasCleared&quot;</span>; <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string RECONFIGURATIONOFSECURITYPARAMETERS = <span class="stringliteral">&quot;ReconfigurationOfSecurityParameters&quot;</span>;</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string MEMORYEXHAUSTION = <span class="stringliteral">&quot;MemoryExhaustion&quot;</span>; <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDMESSAGES = <span class="stringliteral">&quot;InvalidMessages&quot;</span>;</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string ATTEMPTEDREPLAYATTACKS = <span class="stringliteral">&quot;AttemptedReplayAttacks&quot;</span>;</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string TAMPERDETECTIONACTIVATED = <span class="stringliteral">&quot;TamperDetectionActivated&quot;</span>; <span class="comment">// CRITICAL</span></div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDFIRMWARESIGNATURE = <span class="stringliteral">&quot;InvalidFirmwareSignature&quot;</span>;</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDFIRMWARESIGNINGCERTIFICATE = <span class="stringliteral">&quot;InvalidFirmwareSigningCertificate&quot;</span>;</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCSMSCERTIFICATE = <span class="stringliteral">&quot;InvalidCsmsCertificate&quot;</span>;</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCENTRALSYSTEMCERTIFICATE = <span class="stringliteral">&quot;InvalidCentralSystemCertificate&quot;</span>;</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCHARGINGSTATIONCERTIFICATE = <span class="stringliteral">&quot;InvalidChargingStationCertificate&quot;</span>;</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDCHARGEPOINTCERTIFICATE = <span class="stringliteral">&quot;InvalidChargePointCertificate&quot;</span>; <span class="comment">// for OCPP1.6</span></div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDTLSVERSION = <span class="stringliteral">&quot;InvalidTLSVersion&quot;</span>;</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string INVALIDTLSCIPHERSUITE = <span class="stringliteral">&quot;InvalidTLSCipherSuite&quot;</span>;</div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string MAINTENANCELOGINACCEPTED = <span class="stringliteral">&quot;MaintenanceLoginAccepted&quot;</span>;</div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="keyword">inline</span> <span class="keyword">const</span> std::string MAINTENANCELOGINFAILED = <span class="stringliteral">&quot;MaintenanceLoginFailed&quot;</span>;</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>} <span class="comment">// namespace security_events</span></div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span> </div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span><span class="keyword">enum class</span> MessageDirection {</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    CSMSToChargingStation,</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    ChargingStationToCSMS</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>};</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span> </div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span><span class="keyword">enum class</span> ConnectionFailedReason {</div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>    InvalidCSMSCertificate = 0,</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>    FailedToAuthenticateAtCsms</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>};</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span> </div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span><span class="keyword">enum class</span> WebsocketCloseReason : uint8_t {</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    Normal = 1,</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    ForceTcpDrop,</div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    GoingAway,</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    AbnormalClose,</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    ServiceRestart</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>};</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span> </div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span><span class="keyword">enum class</span> QueueType {</div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    Normal,</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>    Transaction,</div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>    None,</div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>};</div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span> </div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno"><a class="line" href="structocpp_1_1CompositeScheduleDefaultLimits.html">  833</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structocpp_1_1CompositeScheduleDefaultLimits.html">CompositeScheduleDefaultLimits</a> {</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>    int32_t amps;</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>    int32_t watts;</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>    int32_t number_phases;</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>};</div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span> </div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span><span class="keyword">enum class</span> ReservationCheckStatus {</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>    NotReserved,           </div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    ReservedForToken,      </div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    ReservedForOtherToken, </div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>    ReservedForOtherTokenAndHasParentToken, </div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>};</div>
 <div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span> </div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>} <span class="comment">// namespace ocpp</span></div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span> </div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassocpp_1_1CiString_html"><div class="ttname"><a href="classocpp_1_1CiString.html">ocpp::CiString&lt; 128 &gt;</a></div></div>
 <div class="ttc" id="aclassocpp_1_1DateTimeImpl_html"><div class="ttname"><a href="classocpp_1_1DateTimeImpl.html">ocpp::DateTimeImpl</a></div><div class="ttdoc">Contains a DateTime implementation that can parse and create RFC 3339 compatible strings.</div><div class="ttdef"><b>Definition:</b> types.hpp:52</div></div>
 <div class="ttc" id="aclassocpp_1_1DateTimeImpl_html_a0f6546040c9e23dd2d2e2da7e9a28826"><div class="ttname"><a href="classocpp_1_1DateTimeImpl.html#a0f6546040c9e23dd2d2e2da7e9a28826">ocpp::DateTimeImpl::operator&lt;</a></div><div class="ttdeci">friend bool operator&lt;(const DateTimeImpl &amp;lhs, const DateTimeImpl &amp;rhs)</div><div class="ttdoc">Comparison operator&lt; between two DateTimeImpl lhs and rhs.</div><div class="ttdef"><b>Definition:</b> types.cpp:74</div></div>
@@ -782,9 +784,9 @@ $(function() {
 <div class="ttc" id="aclassocpp_1_1TimePointParseException_html"><div class="ttname"><a href="classocpp_1_1TimePointParseException.html">ocpp::TimePointParseException</a></div><div class="ttdoc">Exception used when DateTime class is initialized by invalid timepoint string.</div><div class="ttdef"><b>Definition:</b> types.hpp:37</div></div>
 <div class="ttc" id="astructocpp_1_1CertificateHashDataChain_html"><div class="ttname"><a href="structocpp_1_1CertificateHashDataChain.html">ocpp::CertificateHashDataChain</a></div><div class="ttdef"><b>Definition:</b> types.hpp:596</div></div>
 <div class="ttc" id="astructocpp_1_1CertificateHashDataType_html"><div class="ttname"><a href="structocpp_1_1CertificateHashDataType.html">ocpp::CertificateHashDataType</a></div><div class="ttdef"><b>Definition:</b> types.hpp:558</div></div>
-<div class="ttc" id="astructocpp_1_1CertificateInfo_html"><div class="ttname"><a href="structocpp_1_1CertificateInfo.html">ocpp::CertificateInfo</a></div><div class="ttdef"><b>Definition:</b> types.hpp:685</div></div>
-<div class="ttc" id="astructocpp_1_1CertificateOCSP_html"><div class="ttname"><a href="structocpp_1_1CertificateOCSP.html">ocpp::CertificateOCSP</a></div><div class="ttdef"><b>Definition:</b> types.hpp:680</div></div>
-<div class="ttc" id="astructocpp_1_1CompositeScheduleDefaultLimits_html"><div class="ttname"><a href="structocpp_1_1CompositeScheduleDefaultLimits.html">ocpp::CompositeScheduleDefaultLimits</a></div><div class="ttdoc">Struct containing default limits for amps, watts and number of phases.</div><div class="ttdef"><b>Definition:</b> types.hpp:831</div></div>
+<div class="ttc" id="astructocpp_1_1CertificateInfo_html"><div class="ttname"><a href="structocpp_1_1CertificateInfo.html">ocpp::CertificateInfo</a></div><div class="ttdef"><b>Definition:</b> types.hpp:687</div></div>
+<div class="ttc" id="astructocpp_1_1CertificateOCSP_html"><div class="ttname"><a href="structocpp_1_1CertificateOCSP.html">ocpp::CertificateOCSP</a></div><div class="ttdef"><b>Definition:</b> types.hpp:682</div></div>
+<div class="ttc" id="astructocpp_1_1CompositeScheduleDefaultLimits_html"><div class="ttname"><a href="structocpp_1_1CompositeScheduleDefaultLimits.html">ocpp::CompositeScheduleDefaultLimits</a></div><div class="ttdoc">Struct containing default limits for amps, watts and number of phases.</div><div class="ttdef"><b>Definition:</b> types.hpp:833</div></div>
 <div class="ttc" id="astructocpp_1_1Current_html"><div class="ttname"><a href="structocpp_1_1Current.html">ocpp::Current</a></div><div class="ttdef"><b>Definition:</b> types.hpp:173</div></div>
 <div class="ttc" id="astructocpp_1_1Current_html_a13e7e34d6ca32aeb5116b7655d506333"><div class="ttname"><a href="structocpp_1_1Current.html#a13e7e34d6ca32aeb5116b7655d506333">ocpp::Current::N</a></div><div class="ttdeci">std::optional&lt; float &gt; N</div><div class="ttdoc">AC Neutral value only.</div><div class="ttdef"><b>Definition:</b> types.hpp:178</div></div>
 <div class="ttc" id="astructocpp_1_1Current_html_a1fcc19f758162e82eb1d8623a1cceddd"><div class="ttname"><a href="structocpp_1_1Current.html#a1fcc19f758162e82eb1d8623a1cceddd">ocpp::Current::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Current &amp;k)</div><div class="ttdef"><b>Definition:</b> types.cpp:189</div></div>
@@ -811,19 +813,19 @@ $(function() {
 <div class="ttc" id="astructocpp_1_1Frequency_html_a8dd43672302ad73ba3ce0da06034f778"><div class="ttname"><a href="structocpp_1_1Frequency.html#a8dd43672302ad73ba3ce0da06034f778">ocpp::Frequency::L3</a></div><div class="ttdeci">std::optional&lt; float &gt; L3</div><div class="ttdoc">AC L3 value.</div><div class="ttdef"><b>Definition:</b> types.hpp:209</div></div>
 <div class="ttc" id="astructocpp_1_1Frequency_html_ae57fb6e1f41101acae328500d59aeaec"><div class="ttname"><a href="structocpp_1_1Frequency.html#ae57fb6e1f41101acae328500d59aeaec">ocpp::Frequency::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Frequency &amp;k)</div><div class="ttdef"><b>Definition:</b> types.cpp:262</div></div>
 <div class="ttc" id="astructocpp_1_1Frequency_html_ae9dc1025149bf7b74fd85bd78dd173d5"><div class="ttname"><a href="structocpp_1_1Frequency.html#ae9dc1025149bf7b74fd85bd78dd173d5">ocpp::Frequency::from_json</a></div><div class="ttdeci">friend void from_json(const json &amp;j, Frequency &amp;k)</div><div class="ttdoc">Conversion from a given json object j to a given Frequency k.</div><div class="ttdef"><b>Definition:</b> types.cpp:249</div></div>
-<div class="ttc" id="astructocpp_1_1GetCertificateInfoResult_html"><div class="ttname"><a href="structocpp_1_1GetCertificateInfoResult.html">ocpp::GetCertificateInfoResult</a></div><div class="ttdef"><b>Definition:</b> types.hpp:694</div></div>
-<div class="ttc" id="astructocpp_1_1GetCertificateSignRequestResult_html"><div class="ttname"><a href="structocpp_1_1GetCertificateSignRequestResult.html">ocpp::GetCertificateSignRequestResult</a></div><div class="ttdef"><b>Definition:</b> types.hpp:675</div></div>
+<div class="ttc" id="astructocpp_1_1GetCertificateInfoResult_html"><div class="ttname"><a href="structocpp_1_1GetCertificateInfoResult.html">ocpp::GetCertificateInfoResult</a></div><div class="ttdef"><b>Definition:</b> types.hpp:696</div></div>
+<div class="ttc" id="astructocpp_1_1GetCertificateSignRequestResult_html"><div class="ttname"><a href="structocpp_1_1GetCertificateSignRequestResult.html">ocpp::GetCertificateSignRequestResult</a></div><div class="ttdef"><b>Definition:</b> types.hpp:677</div></div>
 <div class="ttc" id="astructocpp_1_1Measurement_html"><div class="ttname"><a href="structocpp_1_1Measurement.html">ocpp::Measurement</a></div><div class="ttdef"><b>Definition:</b> types.hpp:339</div></div>
 <div class="ttc" id="astructocpp_1_1Measurement_html_a03e757c7dc1ee7d51b5e22c07d5f9e7f"><div class="ttname"><a href="structocpp_1_1Measurement.html#a03e757c7dc1ee7d51b5e22c07d5f9e7f">ocpp::Measurement::power_meter</a></div><div class="ttdeci">Powermeter power_meter</div><div class="ttdoc">Powermeter data.</div><div class="ttdef"><b>Definition:</b> types.hpp:340</div></div>
-<div class="ttc" id="astructocpp_1_1Measurement_html_a04973ba32c342abdeea71feb268ef91f"><div class="ttname"><a href="structocpp_1_1Measurement.html#a04973ba32c342abdeea71feb268ef91f">ocpp::Measurement::from_json</a></div><div class="ttdeci">friend void from_json(const json &amp;j, Measurement &amp;k)</div><div class="ttdoc">Conversion from a given json object j to a given Measurement k.</div><div class="ttdef"><b>Definition:</b> types.cpp:542</div></div>
+<div class="ttc" id="astructocpp_1_1Measurement_html_a04973ba32c342abdeea71feb268ef91f"><div class="ttname"><a href="structocpp_1_1Measurement.html#a04973ba32c342abdeea71feb268ef91f">ocpp::Measurement::from_json</a></div><div class="ttdeci">friend void from_json(const json &amp;j, Measurement &amp;k)</div><div class="ttdoc">Conversion from a given json object j to a given Measurement k.</div><div class="ttdef"><b>Definition:</b> types.cpp:540</div></div>
 <div class="ttc" id="astructocpp_1_1Measurement_html_a1ef08bf62cf321a29b30f8b926484880"><div class="ttname"><a href="structocpp_1_1Measurement.html#a1ef08bf62cf321a29b30f8b926484880">ocpp::Measurement::rpm</a></div><div class="ttdeci">std::optional&lt; RPM &gt; rpm</div><div class="ttdoc">RPM.</div><div class="ttdef"><b>Definition:</b> types.hpp:343</div></div>
-<div class="ttc" id="astructocpp_1_1Measurement_html_a4191b5a713f467ac9db9ab948d060b27"><div class="ttname"><a href="structocpp_1_1Measurement.html#a4191b5a713f467ac9db9ab948d060b27">ocpp::Measurement::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Measurement &amp;k)</div><div class="ttdef"><b>Definition:</b> types.cpp:555</div></div>
+<div class="ttc" id="astructocpp_1_1Measurement_html_a4191b5a713f467ac9db9ab948d060b27"><div class="ttname"><a href="structocpp_1_1Measurement.html#a4191b5a713f467ac9db9ab948d060b27">ocpp::Measurement::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Measurement &amp;k)</div><div class="ttdef"><b>Definition:</b> types.cpp:551</div></div>
+<div class="ttc" id="astructocpp_1_1Measurement_html_a4f3f4e7c6b961d082f01296ef07cb6f0"><div class="ttname"><a href="structocpp_1_1Measurement.html#a4f3f4e7c6b961d082f01296ef07cb6f0">ocpp::Measurement::temperature_C</a></div><div class="ttdeci">std::vector&lt; Temperature &gt; temperature_C</div><div class="ttdoc">Temperature in degree Celsius.</div><div class="ttdef"><b>Definition:</b> types.hpp:342</div></div>
 <div class="ttc" id="astructocpp_1_1Measurement_html_a6b681877df0c21502efa056ca9b330b9"><div class="ttname"><a href="structocpp_1_1Measurement.html#a6b681877df0c21502efa056ca9b330b9">ocpp::Measurement::soc_Percent</a></div><div class="ttdeci">std::optional&lt; StateOfCharge &gt; soc_Percent</div><div class="ttdoc">State of Charge in percent.</div><div class="ttdef"><b>Definition:</b> types.hpp:341</div></div>
 <div class="ttc" id="astructocpp_1_1Measurement_html_abbecb8c1e13d83288926dac2569b03c0"><div class="ttname"><a href="structocpp_1_1Measurement.html#abbecb8c1e13d83288926dac2569b03c0">ocpp::Measurement::to_json</a></div><div class="ttdeci">friend void to_json(json &amp;j, const Measurement &amp;k)</div><div class="ttdoc">Conversion from a given Measurement k to a given json object j.</div><div class="ttdef"><b>Definition:</b> types.cpp:529</div></div>
-<div class="ttc" id="astructocpp_1_1Measurement_html_adf3faf5e94be28e907a43d81d9e6db32"><div class="ttname"><a href="structocpp_1_1Measurement.html#adf3faf5e94be28e907a43d81d9e6db32">ocpp::Measurement::temperature_C</a></div><div class="ttdeci">std::optional&lt; Temperature &gt; temperature_C</div><div class="ttdoc">Temperature in degree Celsius.</div><div class="ttdef"><b>Definition:</b> types.hpp:342</div></div>
 <div class="ttc" id="astructocpp_1_1Message_html"><div class="ttname"><a href="structocpp_1_1Message.html">ocpp::Message</a></div><div class="ttdoc">Parent structure for all OCPP messages supported by this implementation.</div><div class="ttdef"><b>Definition:</b> types.hpp:30</div></div>
 <div class="ttc" id="astructocpp_1_1Message_html_a0039f8eabe47e829670165da8cc0a3cf"><div class="ttname"><a href="structocpp_1_1Message.html#a0039f8eabe47e829670165da8cc0a3cf">ocpp::Message::get_type</a></div><div class="ttdeci">virtual std::string get_type() const =0</div><div class="ttdoc">Provides the type of the message.</div></div>
-<div class="ttc" id="astructocpp_1_1OCSPRequestData_html"><div class="ttname"><a href="structocpp_1_1OCSPRequestData.html">ocpp::OCSPRequestData</a></div><div class="ttdoc">Struct for OCSPRequestData.</div><div class="ttdef"><b>Definition:</b> types.hpp:652</div></div>
+<div class="ttc" id="astructocpp_1_1OCSPRequestData_html"><div class="ttname"><a href="structocpp_1_1OCSPRequestData.html">ocpp::OCSPRequestData</a></div><div class="ttdoc">Struct for OCSPRequestData.</div><div class="ttdef"><b>Definition:</b> types.hpp:654</div></div>
 <div class="ttc" id="astructocpp_1_1Power_html"><div class="ttname"><a href="structocpp_1_1Power.html">ocpp::Power</a></div><div class="ttdef"><b>Definition:</b> types.hpp:221</div></div>
 <div class="ttc" id="astructocpp_1_1Power_html_a11792b432d097024d3ae059981c07ce6"><div class="ttname"><a href="structocpp_1_1Power.html#a11792b432d097024d3ae059981c07ce6">ocpp::Power::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Power &amp;k)</div><div class="ttdef"><b>Definition:</b> types.cpp:300</div></div>
 <div class="ttc" id="astructocpp_1_1Power_html_a174dbf46122a5766acb6c289eac007e7"><div class="ttname"><a href="structocpp_1_1Power.html#a174dbf46122a5766acb6c289eac007e7">ocpp::Power::from_json</a></div><div class="ttdeci">friend void from_json(const json &amp;j, Power &amp;k)</div><div class="ttdoc">Conversion from a given json object j to a given Power k.</div><div class="ttdef"><b>Definition:</b> types.cpp:284</div></div>

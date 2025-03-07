@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -91,8 +91,8 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;ocpp/common/types.hpp&gt;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;ocpp/v16/messages/StopTransaction.hpp&gt;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;ocpp/v16/types.hpp&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;ocpp/v201/messages/TransactionEvent.hpp&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;ocpp/v201/types.hpp&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;ocpp/v2/messages/TransactionEvent.hpp&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;ocpp/v2/types.hpp&gt;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span>ocpp {</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
@@ -172,11 +172,11 @@ $(function() {
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">bool</span> is_transaction_message(<span class="keyword">const</span> ocpp::v16::MessageType message_type);</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">bool</span> is_transaction_message(<span class="keyword">const</span> ocpp::v201::MessageType message_type);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">bool</span> is_transaction_message(<span class="keyword">const</span> ocpp::v2::MessageType message_type);</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keywordtype">bool</span> is_start_transaction_message(<span class="keyword">const</span> ocpp::v16::MessageType message_type);</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">bool</span> is_start_transaction_message(<span class="keyword">const</span> ocpp::v201::MessageType message_type);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">bool</span> is_start_transaction_message(<span class="keyword">const</span> ocpp::v2::MessageType message_type);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt; <span class="keyword">auto</span> is_start_transaction_message(<span class="keyword">const</span> ControlMessage&lt;M&gt;&amp; control_message) {</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">return</span> is_start_transaction_message(control_message.messageType);</div>
@@ -187,7 +187,7 @@ $(function() {
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="keywordtype">bool</span> is_boot_notification_message(<span class="keyword">const</span> ocpp::v16::MessageType message_type);</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keywordtype">bool</span> is_boot_notification_message(<span class="keyword">const</span> ocpp::v201::MessageType message_type);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keywordtype">bool</span> is_boot_notification_message(<span class="keyword">const</span> ocpp::v2::MessageType message_type);</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt;</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keywordtype">bool</span> allowed_to_send_message(<span class="keyword">const</span> ControlMessage&lt;M&gt;&amp; message, <span class="keyword">const</span> DateTime&amp; time,</div>
@@ -590,502 +590,499 @@ $(function() {
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>                    <span class="keywordflow">case</span> QueueType::None:</div>
 <div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>                        <span class="comment">// do nothing</span></div>
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span> </div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                    }</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                    }</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                }</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>                <span class="keywordflow">if</span> (this-&gt;transaction_message_queue.empty() &amp;&amp; this-&gt;normal_message_queue.empty()) {</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                    this-&gt;new_message = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                }</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                <span class="keywordflow">if</span> (this-&gt;transaction_message_queue.empty() &amp;&amp; this-&gt;normal_message_queue.empty()) {</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>                    this-&gt;new_message = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>                }</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>                lk.unlock();</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>                cv.notify_one();</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>            }</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>            EVLOG_info &lt;&lt; <span class="stringliteral">&quot;Message queue stopped processing messages&quot;</span>;</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        });</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    }</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span> </div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#aadd7fc0c6d483631e3ebe2845693a8b4">  577</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#aadd7fc0c6d483631e3ebe2845693a8b4">reset_next_message_to_send</a>() {</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        this-&gt;next_message_to_send.reset();</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    }</div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span> </div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ac9595bff4e95bffc7b6ee810ab28840e">  583</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ac9595bff4e95bffc7b6ee810ab28840e">get_persisted_messages_from_db</a>(<span class="keywordtype">bool</span> ignore_security_event_notifications = <span class="keyword">false</span>) {</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        std::vector&lt;QueueType&gt; queue_types = {QueueType::Normal, QueueType::Transaction};</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        <span class="comment">// do for Normal and Transaction queue</span></div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> queue_type : queue_types) {</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>            <span class="keyword">const</span> <span class="keyword">auto</span> persisted_messages = database_handler-&gt;get_message_queue_messages(queue_type);</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            <span class="keywordflow">if</span> (!persisted_messages.empty()) {</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>                <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; persisted_message : persisted_messages) {</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span> </div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>                    <span class="keywordflow">if</span> (ignore_security_event_notifications &amp;&amp;</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                        persisted_message.message_type == <span class="stringliteral">&quot;SecurityEventNotification&quot;</span>) {</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>                        <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>                            <span class="comment">// remove from database in case SecurityEventNotification.req should not be sent</span></div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>                            this-&gt;database_handler-&gt;remove_message_queue_message(persisted_message.unique_id,</div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>                                                                                 queue_type);</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>                        } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classocpp_1_1common_1_1QueryExecutionException.html">QueryExecutionException</a>&amp; e) {</div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>                            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                        } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>                            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                        }</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                        std::shared_ptr&lt;ControlMessage&lt;M&gt;&gt; message =</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                            std::make_shared&lt;ControlMessage&lt;M&gt;&gt;(persisted_message.json_message);</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>                        message-&gt;messageType = string_to_messagetype(persisted_message.message_type);</div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>                        message-&gt;timestamp = persisted_message.timestamp;</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                        message-&gt;message_attempts = persisted_message.message_attempts;</div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>                        <span class="keywordflow">if</span> (queue_type == QueueType::Normal) {</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>                            normal_message_queue.push_back(message);</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (queue_type == QueueType::Transaction) {</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>                            transaction_message_queue.push_back(message);</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>                        }</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>                    }</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>                }</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>                this-&gt;new_message = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>            }</div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>        }</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        <span class="keywordflow">if</span> (!this-&gt;config.queue_all_messages) {</div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>            <span class="comment">// make sure to clear normal message queue table in case queue_all_messages is false, since without clearing</span></div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>            <span class="comment">// it here messages would not be removed in handle_call_result or handle_call_timeout_or_error</span></div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>            this-&gt;database_handler-&gt;clear_message_queue(QueueType::Normal);</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        }</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    }</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    <span class="keywordtype">void</span> push_call(<span class="keyword">const</span> json&amp; message, <span class="keyword">const</span> <span class="keywordtype">bool</span> stall_until_accepted = <span class="keyword">false</span>) {</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>        <span class="keywordflow">if</span> (!running) {</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>        }</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>        <span class="keyword">auto</span> control_message = std::make_shared&lt;ControlMessage&lt;M&gt;&gt;(message, stall_until_accepted);</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        <span class="keywordflow">if</span> (is_transaction_message(*control_message)) {</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>            <span class="comment">// according to the spec the &quot;transaction related messages&quot; StartTransaction, StopTransaction and</span></div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>            <span class="comment">// MeterValues have to be delivered in chronological order</span></div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>            <span class="comment">// intentionally break this message for testing...</span></div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>            <span class="comment">// message-&gt;message[CALL_PAYLOAD][&quot;broken&quot;] = ocpp::create_message_id();</span></div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>            this-&gt;add_to_transaction_message_queue(control_message);</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>            <span class="comment">// all other messages are allowed to &quot;jump the queue&quot; to improve user experience</span></div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>            <span class="comment">// TODO: decide if we only want to allow this for a subset of messages</span></div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>            <span class="keywordflow">if</span> (!this-&gt;paused || this-&gt;resuming || this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(control_message-&gt;messageType) ||</div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>                control_message-&gt;messageType == M::BootNotification) {</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>                this-&gt;add_to_normal_message_queue(control_message);</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>            }</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        }</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    }</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ab14e9a8fdc9faec0e20e7df520602127">  652</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ab14e9a8fdc9faec0e20e7df520602127">push_call_result</a>(<span class="keyword">const</span> json&amp; call_result) {</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        <span class="keywordflow">if</span> (!running) {</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        }</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        this-&gt;send_callback(call_result);</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        {</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>            std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>            <span class="keywordflow">if</span> (next_message_to_send.has_value()) {</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                <span class="keywordflow">if</span> (next_message_to_send.value() == call_result.at(MESSAGE_ID)) {</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>                    next_message_to_send.reset();</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                }</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>            }</div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>        }</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                lk.unlock();</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>                cv.notify_one();</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>            }</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>            EVLOG_info &lt;&lt; <span class="stringliteral">&quot;Message queue stopped processing messages&quot;</span>;</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>        });</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>    }</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#aadd7fc0c6d483631e3ebe2845693a8b4">  574</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#aadd7fc0c6d483631e3ebe2845693a8b4">reset_next_message_to_send</a>() {</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        this-&gt;next_message_to_send.reset();</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>    }</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span> </div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ac9595bff4e95bffc7b6ee810ab28840e">  580</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ac9595bff4e95bffc7b6ee810ab28840e">get_persisted_messages_from_db</a>(<span class="keywordtype">bool</span> ignore_security_event_notifications = <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        std::vector&lt;QueueType&gt; queue_types = {QueueType::Normal, QueueType::Transaction};</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>        <span class="comment">// do for Normal and Transaction queue</span></div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> queue_type : queue_types) {</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>            <span class="keyword">const</span> <span class="keyword">auto</span> persisted_messages = database_handler-&gt;get_message_queue_messages(queue_type);</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>            <span class="keywordflow">if</span> (!persisted_messages.empty()) {</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>                <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; persisted_message : persisted_messages) {</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span> </div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>                    <span class="keywordflow">if</span> (ignore_security_event_notifications &amp;&amp;</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>                        persisted_message.message_type == <span class="stringliteral">&quot;SecurityEventNotification&quot;</span>) {</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>                        <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>                            <span class="comment">// remove from database in case SecurityEventNotification.req should not be sent</span></div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>                            this-&gt;database_handler-&gt;remove_message_queue_message(persisted_message.unique_id,</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>                                                                                 queue_type);</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>                        } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classocpp_1_1common_1_1QueryExecutionException.html">QueryExecutionException</a>&amp; e) {</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>                            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>                        } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>                            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>                        }</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>                        std::shared_ptr&lt;ControlMessage&lt;M&gt;&gt; message =</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                            std::make_shared&lt;ControlMessage&lt;M&gt;&gt;(persisted_message.json_message, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                        message-&gt;messageType = string_to_messagetype(persisted_message.message_type);</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                        message-&gt;timestamp = persisted_message.timestamp;</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                        message-&gt;message_attempts = persisted_message.message_attempts;</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>                        <span class="keywordflow">if</span> (queue_type == QueueType::Normal) {</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                            normal_message_queue.push_back(message);</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>                        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (queue_type == QueueType::Transaction) {</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>                            transaction_message_queue.push_back(message);</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>                        }</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>                    }</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>                }</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>                this-&gt;new_message = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>            }</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        }</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span> </div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>        <span class="keywordflow">if</span> (!this-&gt;config.queue_all_messages) {</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>            <span class="comment">// make sure to clear normal message queue table in case queue_all_messages is false, since without clearing</span></div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>            <span class="comment">// it here messages would not be removed in handle_call_result or handle_call_timeout_or_error</span></div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>            this-&gt;database_handler-&gt;clear_message_queue(QueueType::Normal);</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        }</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    }</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span> </div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <span class="keywordtype">void</span> push_call(<span class="keyword">const</span> json&amp; message, <span class="keyword">const</span> <span class="keywordtype">bool</span> stall_until_accepted = <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        <span class="keywordflow">if</span> (!running) {</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>        }</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span> </div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>        <span class="keyword">auto</span> control_message = std::make_shared&lt;ControlMessage&lt;M&gt;&gt;(message, stall_until_accepted);</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>        <span class="keywordflow">if</span> (is_transaction_message(*control_message)) {</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>            <span class="comment">// according to the spec the &quot;transaction related messages&quot; StartTransaction, StopTransaction and</span></div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>            <span class="comment">// MeterValues have to be delivered in chronological order</span></div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>            <span class="comment">// intentionally break this message for testing...</span></div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>            <span class="comment">// message-&gt;message[CALL_PAYLOAD][&quot;broken&quot;] = ocpp::create_message_id();</span></div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>            this-&gt;add_to_transaction_message_queue(control_message);</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>            <span class="comment">// all other messages are allowed to &quot;jump the queue&quot; to improve user experience</span></div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>            <span class="comment">// TODO: decide if we only want to allow this for a subset of messages</span></div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>            <span class="keywordflow">if</span> (!this-&gt;paused || this-&gt;resuming || this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(control_message-&gt;messageType) ||</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>                control_message-&gt;messageType == M::BootNotification) {</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>                this-&gt;add_to_normal_message_queue(control_message);</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>            }</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>        }</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>        this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    }</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span> </div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ab14e9a8fdc9faec0e20e7df520602127">  649</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ab14e9a8fdc9faec0e20e7df520602127">push_call_result</a>(<span class="keyword">const</span> json&amp; call_result) {</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        <span class="keywordflow">if</span> (!running) {</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>        }</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        this-&gt;send_callback(call_result);</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        {</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>            <span class="keywordflow">if</span> (next_message_to_send.has_value()) {</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                <span class="keywordflow">if</span> (next_message_to_send.value() == call_result.at(MESSAGE_ID)) {</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>                    next_message_to_send.reset();</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>                }</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>            }</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        }</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span> </div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>        this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    }</div>
 <div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span> </div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>    }</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span> </div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#adb8eefa55fdef8296669c5923c98941e">  670</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#adb8eefa55fdef8296669c5923c98941e">push_call_error</a>(<a class="code hl_struct" href="structocpp_1_1CallError.html">CallError</a> call_error) {</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>        <span class="keywordflow">if</span> (!running) {</div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        }</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span> </div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>        this-&gt;send_callback(call_error);</div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        {</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>            std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>            <span class="keywordflow">if</span> (next_message_to_send.has_value()) {</div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>                <span class="keywordflow">if</span> (next_message_to_send.value() == call_error.uniqueId) {</div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>                    next_message_to_send.reset();</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>                }</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>            }</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>        }</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#adb8eefa55fdef8296669c5923c98941e">  667</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#adb8eefa55fdef8296669c5923c98941e">push_call_error</a>(<a class="code hl_struct" href="structocpp_1_1CallError.html">CallError</a> call_error) {</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>        <span class="keywordflow">if</span> (!running) {</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        }</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span> </div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>        this-&gt;send_callback(call_error);</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        {</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>            std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>            <span class="keywordflow">if</span> (next_message_to_send.has_value()) {</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>                <span class="keywordflow">if</span> (next_message_to_send.value() == call_error.uniqueId) {</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                    next_message_to_send.reset();</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>                }</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>            }</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        }</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span> </div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    }</div>
 <div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>    }</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span> </div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a3bc7baad33d703ce0ee44b8815b402e4">  690</a></span>    std::future&lt;EnhancedMessage&lt;M&gt;&gt; <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a3bc7baad33d703ce0ee44b8815b402e4">push_call_async</a>(<span class="keyword">const</span> json&amp; call) {</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>        <span class="keyword">auto</span> message = std::make_shared&lt;ControlMessage&lt;M&gt;&gt;(call);</div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span> </div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        <span class="keywordflow">if</span> (!running) {</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            <span class="keyword">auto</span> enhanced_message = <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a>();</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            enhanced_message.offline = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            message-&gt;promise.set_value(enhanced_message);</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (is_transaction_message(message-&gt;messageType)) {</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            <span class="comment">// according to the spec the &quot;transaction related messages&quot; StartTransaction, StopTransaction and</span></div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>            <span class="comment">// MeterValues have to be delivered in chronological order</span></div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>            this-&gt;add_to_transaction_message_queue(message);</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>            <span class="comment">// all other messages are allowed to &quot;jump the queue&quot; to improve user experience</span></div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>            <span class="comment">// TODO: decide if we only want to allow this for a subset of messages</span></div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            <span class="keywordflow">if</span> (this-&gt;paused &amp;&amp; !this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(message-&gt;messageType) &amp;&amp; !this-&gt;resuming &amp;&amp;</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                message-&gt;messageType != M::BootNotification) {</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>                <span class="comment">// do not add a normal message to the queue if the queue is paused/offline</span></div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>                <span class="keyword">auto</span> enhanced_message = <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a>();</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                enhanced_message.offline = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>                message-&gt;promise.set_value(enhanced_message);</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>                this-&gt;add_to_normal_message_queue(message);</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>            }</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        }</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>        <span class="keywordflow">return</span> message-&gt;promise.get_future();</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    }</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span> </div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ad10496ef6883f93bf484e28b8d92d24b">  720</a></span>    <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ad10496ef6883f93bf484e28b8d92d24b">receive</a>(std::string_view message) {</div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> enhanced_message;</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span> </div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>        enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a> = json::parse(message);</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a> = this-&gt;getMessageId(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>);</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>        enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> = this-&gt;getMessageTypeId(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>);</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>        <span class="keywordflow">if</span> (enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALL) {</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a574b7d056b3031f2a0808cc41d58d091">messageType</a> = this-&gt;string_to_messagetype(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>.at(CALL_ACTION));</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a45f5932ce3b34c0d94154595c4dc7a45">call_message</a> = enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>;</div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span> </div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>            {</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>                <span class="comment">// save the uid of the message we just received to ensure the next message we send is a response to</span></div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                <span class="comment">// this message</span></div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>                next_message_to_send.emplace(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>);</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>            }</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>        }</div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span> </div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>        <span class="comment">// TODO(kai): what happens if we receive a CallResult or CallError out of order?</span></div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>        <span class="keywordflow">if</span> (enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALLRESULT ||</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALLERROR) {</div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>            {</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>                std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>                next_message_to_send.reset();</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>            }</div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>            <span class="comment">// we need to remove Call messages from in_flight if we receive a CallResult OR a CallError</span></div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>            <span class="comment">// TODO(kai): we need to do some error handling in the CallError case</span></div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>            std::unique_lock&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>            <span class="keywordflow">if</span> (this-&gt;in_flight == <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Received a CALLRESULT OR CALLERROR without a message in flight, this should not happen&quot;</span>;</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>                <span class="keywordflow">return</span> enhanced_message;</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>            }</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>            <span class="keywordflow">if</span> (this-&gt;in_flight-&gt;uniqueId() != enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>) {</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Received a CALLRESULT OR CALLERROR with mismatching uid: &quot;</span></div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>                            &lt;&lt; this-&gt;in_flight-&gt;<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>() &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>;</div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>                <span class="keywordflow">return</span> enhanced_message;</div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>            }</div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>            <span class="keywordflow">if</span> (enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALLERROR) {</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Received a CALLERROR for message with UID: &quot;</span> &lt;&lt; enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>;</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>                <span class="comment">// make sure the original call message is attached to the callerror</span></div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>                enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a45f5932ce3b34c0d94154595c4dc7a45">call_message</a> = this-&gt;in_flight-&gt;message;</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>                lk.unlock();</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>                this-&gt;<a class="code hl_function" href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">handle_timeout_or_callerror</a>(enhanced_message);</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>                this-&gt;handle_call_result(enhanced_message);</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>            }</div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        }</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a3bc7baad33d703ce0ee44b8815b402e4">  687</a></span>    std::future&lt;EnhancedMessage&lt;M&gt;&gt; <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a3bc7baad33d703ce0ee44b8815b402e4">push_call_async</a>(<span class="keyword">const</span> json&amp; call) {</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        <span class="keyword">auto</span> message = std::make_shared&lt;ControlMessage&lt;M&gt;&gt;(call);</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span> </div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        <span class="keywordflow">if</span> (!running) {</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>            <span class="keyword">auto</span> enhanced_message = <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a>();</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>            enhanced_message.offline = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            message-&gt;promise.set_value(enhanced_message);</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (is_transaction_message(message-&gt;messageType)) {</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            <span class="comment">// according to the spec the &quot;transaction related messages&quot; StartTransaction, StopTransaction and</span></div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            <span class="comment">// MeterValues have to be delivered in chronological order</span></div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            this-&gt;add_to_transaction_message_queue(message);</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>            <span class="comment">// all other messages are allowed to &quot;jump the queue&quot; to improve user experience</span></div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>            <span class="comment">// TODO: decide if we only want to allow this for a subset of messages</span></div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            <span class="keywordflow">if</span> (this-&gt;paused &amp;&amp; !this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(message-&gt;messageType) &amp;&amp; !this-&gt;resuming &amp;&amp;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>                message-&gt;messageType != M::BootNotification) {</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>                <span class="comment">// do not add a normal message to the queue if the queue is paused/offline</span></div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>                <span class="keyword">auto</span> enhanced_message = <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a>();</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                enhanced_message.offline = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>                message-&gt;promise.set_value(enhanced_message);</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                this-&gt;add_to_normal_message_queue(message);</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>            }</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>        }</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>        <span class="keywordflow">return</span> message-&gt;promise.get_future();</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    }</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span> </div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ad10496ef6883f93bf484e28b8d92d24b">  717</a></span>    <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ad10496ef6883f93bf484e28b8d92d24b">receive</a>(std::string_view message) {</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>        <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> enhanced_message;</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span> </div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>        enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a> = json::parse(message);</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a> = this-&gt;getMessageId(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>);</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>        enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> = this-&gt;getMessageTypeId(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>);</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span> </div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        <span class="keywordflow">if</span> (enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALL) {</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a574b7d056b3031f2a0808cc41d58d091">messageType</a> = this-&gt;string_to_messagetype(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>.at(CALL_ACTION));</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a45f5932ce3b34c0d94154595c4dc7a45">call_message</a> = enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a4bd68a5ab63e667baaada434fb2986dd">message</a>;</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span> </div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>            {</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>                std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>                <span class="comment">// save the uid of the message we just received to ensure the next message we send is a response to</span></div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>                <span class="comment">// this message</span></div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                next_message_to_send.emplace(enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>);</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>            }</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>        }</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span> </div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>        <span class="comment">// TODO(kai): what happens if we receive a CallResult or CallError out of order?</span></div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>        <span class="keywordflow">if</span> (enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALLRESULT ||</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALLERROR) {</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>            {</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>                std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;next_message_mutex);</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>                next_message_to_send.reset();</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>            }</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>            <span class="comment">// we need to remove Call messages from in_flight if we receive a CallResult OR a CallError</span></div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span> </div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>            <span class="comment">// TODO(kai): we need to do some error handling in the CallError case</span></div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>            std::unique_lock&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>            <span class="keywordflow">if</span> (this-&gt;in_flight == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Received a CALLRESULT OR CALLERROR without a message in flight, this should not happen&quot;</span>;</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>                <span class="keywordflow">return</span> enhanced_message;</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>            }</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>            <span class="keywordflow">if</span> (this-&gt;in_flight-&gt;uniqueId() != enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>) {</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Received a CALLRESULT OR CALLERROR with mismatching uid: &quot;</span></div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>                            &lt;&lt; this-&gt;in_flight-&gt;<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>() &lt;&lt; <span class="stringliteral">&quot; != &quot;</span> &lt;&lt; enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>;</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>                <span class="keywordflow">return</span> enhanced_message;</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>            }</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>            <span class="keywordflow">if</span> (enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6cd235d9fb7c14ca8d4e95a848dd2206">messageTypeId</a> == MessageTypeId::CALLERROR) {</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Received a CALLERROR for message with UID: &quot;</span> &lt;&lt; enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a6d01506ca04e3e53be5a417bb1155649">uniqueId</a>;</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                <span class="comment">// make sure the original call message is attached to the callerror</span></div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>                enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a45f5932ce3b34c0d94154595c4dc7a45">call_message</a> = this-&gt;in_flight-&gt;message;</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>                lk.unlock();</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>                this-&gt;<a class="code hl_function" href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">handle_timeout_or_callerror</a>(enhanced_message);</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>                this-&gt;handle_call_result(enhanced_message);</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>            }</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>        }</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span> </div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>        <span class="keywordflow">return</span> enhanced_message;</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    }</div>
 <div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        <span class="keywordflow">return</span> enhanced_message;</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>    }</div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span> </div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>    <span class="keywordtype">void</span> reset_in_flight() {</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>        this-&gt;in_flight = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>        this-&gt;in_flight_timeout_timer.stop();</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    }</div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span> </div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    <span class="keywordtype">void</span> handle_call_result(EnhancedMessage&lt;M&gt;&amp; enhanced_message) {</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>        <span class="keywordflow">if</span> (this-&gt;in_flight-&gt;uniqueId() == enhanced_message.uniqueId) {</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a45f5932ce3b34c0d94154595c4dc7a45">call_message</a> = this-&gt;in_flight-&gt;message;</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>            enhanced_message.messageType = this-&gt;string_to_messagetype(</div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>                this-&gt;in_flight-&gt;message.at(CALL_ACTION).template get&lt;std::string&gt;() + std::string(<span class="stringliteral">&quot;Response&quot;</span>));</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>            this-&gt;in_flight-&gt;promise.set_value(enhanced_message);</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span> </div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>            <span class="keyword">const</span> <span class="keyword">auto</span> queue_type =</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>                is_transaction_message(*this-&gt;in_flight) ? QueueType::Transaction : QueueType::Normal;</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>            <span class="keywordflow">if</span> (is_transaction_message(*this-&gt;in_flight) or this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(this-&gt;in_flight-&gt;messageType)) {</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>                <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>                    <span class="comment">// We only remove the message as soon as a response is received. Otherwise we might miss a message</span></div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>                    <span class="comment">// if the charging station just boots after sending, but before receiving the result.</span></div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>                    this-&gt;database_handler-&gt;remove_message_queue_message(this-&gt;in_flight-&gt;initial_unique_id,</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>                                                                         queue_type);</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classocpp_1_1common_1_1QueryExecutionException.html">QueryExecutionException</a>&amp; e) {</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>                }</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>            }</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>            this-&gt;reset_in_flight();</div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span> </div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>            <span class="comment">// we want the start transaction response handler to be executed before the next message will be</span></div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>            <span class="comment">// send in order to be able to replace the transaction id if necessary</span></div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>            <span class="comment">// start transaction response handler will notify</span></div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>            <span class="keywordflow">if</span> (std::find(this-&gt;external_notify.begin(), this-&gt;external_notify.end(), enhanced_message.messageType) ==</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>                this-&gt;external_notify.end()) {</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>                this-&gt;cv.notify_one();</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>            }</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>        }</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>    }</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span> </div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">  812</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">handle_timeout_or_callerror</a>(<span class="keyword">const</span> std::optional&lt;<a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a>&gt;&amp; enhanced_message_opt) {</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>        <span class="comment">// We got a timeout iff enhanced_message_opt is empty. Otherwise, enhanced_message_opt contains the CallError.</span></div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>        <span class="keywordtype">bool</span> timeout = !enhanced_message_opt.has_value();</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>        <span class="keywordflow">if</span> (timeout) {</div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message timeout for: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;messageType &lt;&lt; <span class="stringliteral">&quot; (&quot;</span></div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>                          &lt;&lt; this-&gt;in_flight-&gt;uniqueId() &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;CALLERROR for: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;messageType &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; this-&gt;in_flight-&gt;uniqueId()</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>                          &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>        }</div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span> </div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>        <span class="keyword">const</span> <span class="keyword">auto</span> queue_type = is_transaction_message(*this-&gt;in_flight) ? QueueType::Transaction : QueueType::Normal;</div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>        <span class="keywordflow">if</span> (is_transaction_message(*this-&gt;in_flight) or this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(this-&gt;in_flight-&gt;messageType)) {</div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>            <span class="keywordflow">if</span> (this-&gt;in_flight-&gt;message_attempts &lt; this-&gt;config.transaction_message_attempts) {</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>                EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message shall be persisted and will therefore be sent again&quot;</span>;</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>                <span class="comment">// Generate a new message ID for the retry</span></div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>                <span class="keyword">const</span> <span class="keyword">auto</span> old_message_id = this-&gt;in_flight-&gt;message[MESSAGE_ID];</div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>                this-&gt;in_flight-&gt;message[MESSAGE_ID] = ocpp::create_message_id();</div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>                <span class="keywordflow">if</span> (this-&gt;config.transaction_message_retry_interval &gt; 0) {</div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>                    <span class="comment">// exponential backoff</span></div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>                    this-&gt;in_flight-&gt;timestamp =</div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>                        <a class="code hl_class" href="classocpp_1_1DateTime.html">DateTime</a>(this-&gt;in_flight-&gt;timestamp.to_time_point() +</div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>                                 std::chrono::seconds(this-&gt;config.transaction_message_retry_interval) *</div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>                                     this-&gt;in_flight-&gt;message_attempts);</div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>                    EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Retry interval &gt; 0: &quot;</span> &lt;&lt; this-&gt;config.transaction_message_retry_interval</div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>                                &lt;&lt; <span class="stringliteral">&quot; attempting to retry message at: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;timestamp;</div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>                    <span class="comment">// immediate retry</span></div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>                    this-&gt;in_flight-&gt;timestamp = <a class="code hl_class" href="classocpp_1_1DateTime.html">DateTime</a>();</div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>                    EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Retry interval of 0 means immediate retry&quot;</span>;</div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>                }</div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span> </div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>                EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Attempt: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;message_attempts + 1 &lt;&lt; <span class="stringliteral">&quot;/&quot;</span></div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>                              &lt;&lt; this-&gt;config.transaction_message_attempts &lt;&lt; <span class="stringliteral">&quot; will be sent at &quot;</span></div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>                              &lt;&lt; this-&gt;in_flight-&gt;timestamp;</div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span> </div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>                <span class="keywordflow">if</span> (queue_type == QueueType::Transaction) {</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>                    this-&gt;transaction_message_queue.push_front(this-&gt;in_flight);</div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (queue_type == QueueType::Normal) {</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                    this-&gt;normal_message_queue.push_front(this-&gt;in_flight);</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>                }</div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>                <span class="keywordflow">if</span> (is_start_transaction_message(*this-&gt;in_flight)) {</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                    this-&gt;start_transaction_message_retry_callback(this-&gt;in_flight-&gt;message[MESSAGE_ID],</div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>                                                                   old_message_id);</div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                }</div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>                this-&gt;notify_queue_timer.at(</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>                    [<span class="keyword">this</span>]() {</div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>                        this-&gt;new_message = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>                        this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>                    },</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>                    this-&gt;in_flight-&gt;timestamp.to_time_point());</div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Could not deliver message within the configured amount of attempts, &quot;</span></div>
-<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>                               <span class="stringliteral">&quot;dropping message&quot;</span>;</div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>                <span class="keywordflow">if</span> (enhanced_message_opt) {</div>
-<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>                    this-&gt;in_flight-&gt;promise.set_value(enhanced_message_opt.value());</div>
-<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                    <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> enhanced_message;</div>
-<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>                    enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#aaf7a2c412254307361e2856db8490b61">offline</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>                    this-&gt;in_flight-&gt;promise.set_value(enhanced_message);</div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>                }</div>
-<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>                <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>                    <span class="comment">// also drop the message from the database</span></div>
-<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>                    this-&gt;database_handler-&gt;remove_message_queue_message(this-&gt;in_flight-&gt;initial_unique_id,</div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>                                                                         queue_type);</div>
-<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classocpp_1_1common_1_1QueryExecutionException.html">QueryExecutionException</a>&amp; e) {</div>
-<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from transaction queue: &quot;</span> &lt;&lt; e.what();</div>
-<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from transaction queue: &quot;</span> &lt;&lt; e.what();</div>
-<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>                }</div>
-<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>            }</div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (is_boot_notification_message(this-&gt;in_flight-&gt;messageType)) {</div>
-<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message is BootNotification.req and will therefore be sent again&quot;</span>;</div>
-<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            <span class="comment">// Generate a new message ID for the retry</span></div>
-<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>            this-&gt;in_flight-&gt;message[MESSAGE_ID] = ocpp::create_message_id();</div>
-<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>            <span class="comment">// Spec does not define how to handle retries for BootNotification.req: We use the</span></div>
-<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>            <span class="comment">// the boot_notification_retry_interval_seconds</span></div>
-<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>            this-&gt;in_flight-&gt;timestamp =</div>
-<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>                <a class="code hl_class" href="classocpp_1_1DateTime.html">DateTime</a>(this-&gt;in_flight-&gt;timestamp.to_time_point() +</div>
-<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>                         std::chrono::seconds(this-&gt;config.boot_notification_retry_interval_seconds));</div>
-<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>            this-&gt;normal_message_queue.push_front(this-&gt;in_flight);</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>            this-&gt;notify_queue_timer.at(</div>
-<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>                [<span class="keyword">this</span>]() {</div>
-<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>                    this-&gt;new_message = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>                    this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>                },</div>
-<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>                this-&gt;in_flight-&gt;timestamp.to_time_point());</div>
-<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message is not transaction related, dropping it&quot;</span>;</div>
-<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>            <span class="keywordflow">if</span> (enhanced_message_opt) {</div>
-<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>                this-&gt;in_flight-&gt;promise.set_value(enhanced_message_opt.value());</div>
-<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>                <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> enhanced_message;</div>
-<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>                enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#aaf7a2c412254307361e2856db8490b61">offline</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>                this-&gt;in_flight-&gt;promise.set_value(enhanced_message);</div>
-<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>            }</div>
-<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>        }</div>
-<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span>        this-&gt;reset_in_flight();</div>
-<div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span>        this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>    }</div>
-<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span> </div>
-<div class="line"><a id="l00915" name="l00915"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#aa85492beca71e898a26ce74708ed1ff4">  915</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#aa85492beca71e898a26ce74708ed1ff4">stop</a>() {</div>
-<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;stop()&quot;</span>;</div>
-<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>        <span class="comment">// stop the running thread</span></div>
-<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>        this-&gt;running = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>        this-&gt;cv.notify_one();</div>
-<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span>        this-&gt;worker_thread.join();</div>
-<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;stop() notified message queue&quot;</span>;</div>
-<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>    }</div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span> </div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a6cab50e7e7ef3fd1a8d106a8be43d549">  925</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a6cab50e7e7ef3fd1a8d106a8be43d549">pause</a>() {</div>
-<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;pause()&quot;</span>;</div>
-<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>        this-&gt;pause_resume_ctr++;</div>
-<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>        this-&gt;resume_timer.stop();</div>
-<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>        this-&gt;paused = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>        this-&gt;resuming = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span>        this-&gt;cv.notify_one();</div>
-<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;pause() notified message queue&quot;</span>;</div>
-<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>    }</div>
-<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span> </div>
-<div class="line"><a id="l00937" name="l00937"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#aa4cbb779974247a946e64ef4e9729e26">  937</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#aa4cbb779974247a946e64ef4e9729e26">resume</a>(std::chrono::seconds delay_on_reconnect) {</div>
-<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;resume() called&quot;</span>;</div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>        <span class="keywordflow">if</span> (!this-&gt;paused) {</div>
-<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>        }</div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>        this-&gt;pause_resume_ctr++;</div>
-<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>        <span class="comment">// Do not delay if this is the first call to resume(), i.e. this is the initial connection</span></div>
-<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>        <span class="keywordflow">if</span> (this-&gt;pause_resume_ctr &gt; 1 &amp;&amp; delay_on_reconnect &gt; std::chrono::seconds(0)) {</div>
-<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>            this-&gt;resuming = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>            EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Delaying message queue resume by &quot;</span> &lt;&lt; delay_on_reconnect.count() &lt;&lt; <span class="stringliteral">&quot; seconds&quot;</span>;</div>
-<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>            u_int64_t expected_pause_resume_ctr = this-&gt;pause_resume_ctr;</div>
-<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>            this-&gt;resume_timer.timeout(</div>
-<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>                [<span class="keyword">this</span>, expected_pause_resume_ctr] { this-&gt;resume_now(expected_pause_resume_ctr); }, delay_on_reconnect);</div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>            this-&gt;resume_now(this-&gt;pause_resume_ctr);</div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>        }</div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>    }</div>
-<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span> </div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>    <span class="keywordtype">void</span> set_registration_status_accepted() {</div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>        {</div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>            std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>            this-&gt;is_registration_status_accepted = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>        }</div>
-<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>        this-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>    }</div>
-<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span> </div>
-<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>    <span class="keywordtype">bool</span> is_transaction_message_queue_empty() {</div>
-<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>        <span class="keywordflow">return</span> this-&gt;transaction_message_queue.empty();</div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>    }</div>
-<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span> </div>
-<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>    <span class="keywordtype">bool</span> contains_transaction_messages(<span class="keyword">const</span> CiString&lt;36&gt; transaction_id) {</div>
-<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> control_message : this-&gt;transaction_message_queue) {</div>
-<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span>            <span class="keywordflow">if</span> (control_message-&gt;messageType == v201::MessageType::TransactionEvent) {</div>
-<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>                v201::TransactionEventRequest req = control_message-&gt;message.at(CALL_PAYLOAD);</div>
-<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>                <span class="keywordflow">if</span> (req.transactionInfo.transactionId == transaction_id) {</div>
-<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span>                }</div>
-<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span>            }</div>
-<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>        }</div>
-<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>    }</div>
-<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span> </div>
-<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>    <span class="keywordtype">bool</span> contains_stop_transaction_message(<span class="keyword">const</span> int32_t transaction_id) {</div>
-<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> control_message : this-&gt;transaction_message_queue) {</div>
-<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span>            <span class="keywordflow">if</span> (control_message-&gt;messageType == v16::MessageType::StopTransaction) {</div>
-<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span>                v16::StopTransactionRequest req = control_message-&gt;message.at(CALL_PAYLOAD);</div>
-<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span>                <span class="keywordflow">if</span> (req.transactionId == transaction_id) {</div>
-<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span>                }</div>
-<div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span>            }</div>
-<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span>        }</div>
-<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span>    }</div>
-<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span> </div>
-<div class="line"><a id="l00996" name="l00996"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91">  996</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91">update_transaction_message_attempts</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> transaction_message_attempts) {</div>
-<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span>        this-&gt;config.transaction_message_attempts = transaction_message_attempts;</div>
-<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span>    }</div>
-<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span> </div>
-<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402"> 1001</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402">update_transaction_message_retry_interval</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> transaction_message_retry_interval) {</div>
-<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>        this-&gt;config.transaction_message_retry_interval = transaction_message_retry_interval;</div>
-<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>    }</div>
-<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span> </div>
-<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728"> 1006</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728">update_message_timeout</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> timeout) {</div>
-<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>        this-&gt;config.message_timeout_seconds = timeout;</div>
-<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span>    }</div>
-<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span> </div>
-<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7"> 1012</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7">add_stopped_transaction_id</a>(std::string stop_transaction_message_id, int32_t transaction_id) {</div>
-<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;adding &quot;</span> &lt;&lt; stop_transaction_message_id &lt;&lt; <span class="stringliteral">&quot; for transaction &quot;</span> &lt;&lt; transaction_id;</div>
-<div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span>        this-&gt;message_id_transaction_id_map[stop_transaction_message_id] = transaction_id;</div>
-<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span>    }</div>
-<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span> </div>
-<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span>    <span class="keywordtype">void</span> add_meter_value_message_id(<span class="keyword">const</span> std::string&amp; start_transaction_message_id,</div>
-<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span>                                    <span class="keyword">const</span> std::string&amp; meter_value_message_id) {</div>
-<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span>        <span class="keywordflow">if</span> (this-&gt;start_transaction_mid_meter_values_mid_map.count(start_transaction_message_id)) {</div>
-<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span>            this-&gt;start_transaction_mid_meter_values_mid_map.at(start_transaction_message_id)</div>
-<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span>                .push_back(meter_value_message_id);</div>
-<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span>            std::vector&lt;std::string&gt; meter_value_message_ids;</div>
-<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span>            meter_value_message_ids.push_back(meter_value_message_id);</div>
-<div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span>            this-&gt;start_transaction_mid_meter_values_mid_map[start_transaction_message_id] = meter_value_message_ids;</div>
-<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>        }</div>
-<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>    }</div>
-<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span> </div>
-<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>    <span class="keywordtype">void</span> notify_start_transaction_handled(<span class="keyword">const</span> std::string&amp; start_transaction_message_id,</div>
-<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>                                          <span class="keyword">const</span> int32_t transaction_id) {</div>
-<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>        this-&gt;cv.notify_one();</div>
-<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span> </div>
-<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>        <span class="comment">// replace transaction id in meter values if start_transaction_message_id is present in map</span></div>
-<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>        <span class="comment">// this is necessary when the chargepoint queued MeterValue.req for a transaction with unknown transaction_id</span></div>
-<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
-<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span>        <span class="keywordflow">if</span> (this-&gt;start_transaction_mid_meter_values_mid_map.count(start_transaction_message_id)) {</div>
-<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = this-&gt;transaction_message_queue.begin(); it != transaction_message_queue.end(); ++it) {</div>
-<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; meter_value_message_id :</div>
-<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>                     this-&gt;start_transaction_mid_meter_values_mid_map.at(start_transaction_message_id)) {</div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span> </div>
-<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>                    <span class="keywordflow">if</span> (meter_value_message_id == (*it)-&gt;message.at(1)) {</div>
-<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Adding transactionId &quot;</span> &lt;&lt; transaction_id &lt;&lt; <span class="stringliteral">&quot; to MeterValue.req&quot;</span>;</div>
-<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>                        (*it)-&gt;message.at(3)[<span class="stringliteral">&quot;transactionId&quot;</span>] = transaction_id;</div>
-<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>                    }</div>
-<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>                }</div>
-<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>            }</div>
-<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span>        }</div>
-<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>        this-&gt;start_transaction_mid_meter_values_mid_map.erase(start_transaction_message_id);</div>
-<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>    }</div>
-<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span> </div>
-<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>    M string_to_messagetype(<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>    std::string messagetype_to_string(M m);</div>
-<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>};</div>
-<div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span> </div>
-<div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>} <span class="comment">// namespace ocpp</span></div>
-<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span><span class="preprocessor">#endif </span><span class="comment">// OCPP_COMMON_MESSAGE_QUEUE_HPP</span></div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    <span class="keywordtype">void</span> reset_in_flight() {</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        this-&gt;in_flight = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>        this-&gt;in_flight_timeout_timer.stop();</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>    }</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span> </div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    <span class="keywordtype">void</span> handle_call_result(EnhancedMessage&lt;M&gt;&amp; enhanced_message) {</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>        <span class="keywordflow">if</span> (this-&gt;in_flight-&gt;uniqueId() == enhanced_message.uniqueId) {</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>            enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#a45f5932ce3b34c0d94154595c4dc7a45">call_message</a> = this-&gt;in_flight-&gt;message;</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>            enhanced_message.messageType = this-&gt;string_to_messagetype(</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>                this-&gt;in_flight-&gt;message.at(CALL_ACTION).template get&lt;std::string&gt;() + std::string(<span class="stringliteral">&quot;Response&quot;</span>));</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>            this-&gt;in_flight-&gt;promise.set_value(enhanced_message);</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span> </div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>            <span class="keyword">const</span> <span class="keyword">auto</span> queue_type =</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>                is_transaction_message(*this-&gt;in_flight) ? QueueType::Transaction : QueueType::Normal;</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>            <span class="keywordflow">if</span> (is_transaction_message(*this-&gt;in_flight) or this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(this-&gt;in_flight-&gt;messageType)) {</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>                <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>                    <span class="comment">// We only remove the message as soon as a response is received. Otherwise we might miss a message</span></div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>                    <span class="comment">// if the charging station just boots after sending, but before receiving the result.</span></div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>                    this-&gt;database_handler-&gt;remove_message_queue_message(this-&gt;in_flight-&gt;initial_unique_id,</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>                                                                         queue_type);</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classocpp_1_1common_1_1QueryExecutionException.html">QueryExecutionException</a>&amp; e) {</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from message queue: &quot;</span> &lt;&lt; e.what();</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>                }</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>            }</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>            this-&gt;reset_in_flight();</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span> </div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>            <span class="comment">// we want the start transaction response handler to be executed before the next message will be</span></div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>            <span class="comment">// send in order to be able to replace the transaction id if necessary</span></div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>            <span class="comment">// start transaction response handler will notify</span></div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>            <span class="keywordflow">if</span> (std::find(this-&gt;external_notify.begin(), this-&gt;external_notify.end(), enhanced_message.messageType) ==</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>                this-&gt;external_notify.end()) {</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>                this-&gt;cv.notify_one();</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>            }</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>        }</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    }</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span> </div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">  809</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">handle_timeout_or_callerror</a>(<span class="keyword">const</span> std::optional&lt;<a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a>&gt;&amp; enhanced_message_opt) {</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>        <span class="comment">// We got a timeout iff enhanced_message_opt is empty. Otherwise, enhanced_message_opt contains the CallError.</span></div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>        <span class="keywordtype">bool</span> timeout = !enhanced_message_opt.has_value();</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>        <span class="keywordflow">if</span> (timeout) {</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message timeout for: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;messageType &lt;&lt; <span class="stringliteral">&quot; (&quot;</span></div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>                          &lt;&lt; this-&gt;in_flight-&gt;uniqueId() &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;CALLERROR for: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;messageType &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; this-&gt;in_flight-&gt;uniqueId()</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>                          &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>        }</div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span> </div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>        <span class="keyword">const</span> <span class="keyword">auto</span> queue_type = is_transaction_message(*this-&gt;in_flight) ? QueueType::Transaction : QueueType::Normal;</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>        <span class="keywordflow">if</span> (is_transaction_message(*this-&gt;in_flight) or this-&gt;config.<a class="code hl_function" href="structocpp_1_1MessageQueueConfig.html#ac62f6c3023ece3b4bc66fdb9662c7bd9">check_queue</a>(this-&gt;in_flight-&gt;messageType)) {</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>            <span class="keywordflow">if</span> (this-&gt;in_flight-&gt;message_attempts &lt; this-&gt;config.transaction_message_attempts) {</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>                EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message shall be persisted and will therefore be sent again&quot;</span>;</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>                <span class="comment">// Generate a new message ID for the retry</span></div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>                <span class="keyword">const</span> <span class="keyword">auto</span> old_message_id = this-&gt;in_flight-&gt;message[MESSAGE_ID];</div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>                this-&gt;in_flight-&gt;message[MESSAGE_ID] = ocpp::create_message_id();</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>                <span class="keywordflow">if</span> (this-&gt;config.transaction_message_retry_interval &gt; 0) {</div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>                    <span class="comment">// exponential backoff</span></div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>                    this-&gt;in_flight-&gt;timestamp =</div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>                        <a class="code hl_class" href="classocpp_1_1DateTime.html">DateTime</a>(this-&gt;in_flight-&gt;timestamp.to_time_point() +</div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>                                 std::chrono::seconds(this-&gt;config.transaction_message_retry_interval) *</div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>                                     this-&gt;in_flight-&gt;message_attempts);</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>                    EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Retry interval &gt; 0: &quot;</span> &lt;&lt; this-&gt;config.transaction_message_retry_interval</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>                                &lt;&lt; <span class="stringliteral">&quot; attempting to retry message at: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;timestamp;</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>                    <span class="comment">// immediate retry</span></div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>                    this-&gt;in_flight-&gt;timestamp = <a class="code hl_class" href="classocpp_1_1DateTime.html">DateTime</a>();</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>                    EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Retry interval of 0 means immediate retry&quot;</span>;</div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>                }</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span> </div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>                EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Attempt: &quot;</span> &lt;&lt; this-&gt;in_flight-&gt;message_attempts + 1 &lt;&lt; <span class="stringliteral">&quot;/&quot;</span></div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>                              &lt;&lt; this-&gt;config.transaction_message_attempts &lt;&lt; <span class="stringliteral">&quot; will be sent at &quot;</span></div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>                              &lt;&lt; this-&gt;in_flight-&gt;timestamp;</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span> </div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>                <span class="keywordflow">if</span> (queue_type == QueueType::Transaction) {</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>                    this-&gt;transaction_message_queue.push_front(this-&gt;in_flight);</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (queue_type == QueueType::Normal) {</div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>                    this-&gt;normal_message_queue.push_front(this-&gt;in_flight);</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>                }</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>                <span class="keywordflow">if</span> (is_start_transaction_message(*this-&gt;in_flight)) {</div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                    this-&gt;start_transaction_message_retry_callback(this-&gt;in_flight-&gt;message[MESSAGE_ID],</div>
+<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>                                                                   old_message_id);</div>
+<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>                }</div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                this-&gt;notify_queue_timer.at(</div>
+<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>                    [<span class="keyword">this</span>]() {</div>
+<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                        this-&gt;new_message = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>                        this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>                    },</div>
+<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>                    this-&gt;in_flight-&gt;timestamp.to_time_point());</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>                EVLOG_error &lt;&lt; <span class="stringliteral">&quot;Could not deliver message within the configured amount of attempts, &quot;</span></div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>                               <span class="stringliteral">&quot;dropping message&quot;</span>;</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>                <span class="keywordflow">if</span> (enhanced_message_opt) {</div>
+<div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>                    this-&gt;in_flight-&gt;promise.set_value(enhanced_message_opt.value());</div>
+<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>                    <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> enhanced_message;</div>
+<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>                    enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#aaf7a2c412254307361e2856db8490b61">offline</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>                    this-&gt;in_flight-&gt;promise.set_value(enhanced_message);</div>
+<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                }</div>
+<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>                <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>                    <span class="comment">// also drop the message from the database</span></div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>                    this-&gt;database_handler-&gt;remove_message_queue_message(this-&gt;in_flight-&gt;initial_unique_id,</div>
+<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>                                                                         queue_type);</div>
+<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classocpp_1_1common_1_1QueryExecutionException.html">QueryExecutionException</a>&amp; e) {</div>
+<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from transaction queue: &quot;</span> &lt;&lt; e.what();</div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>                    EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Could not delete message from transaction queue: &quot;</span> &lt;&lt; e.what();</div>
+<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>                }</div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>            }</div>
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (is_boot_notification_message(this-&gt;in_flight-&gt;messageType)) {</div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message is BootNotification.req and will therefore be sent again&quot;</span>;</div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>            <span class="comment">// Generate a new message ID for the retry</span></div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>            this-&gt;in_flight-&gt;message[MESSAGE_ID] = ocpp::create_message_id();</div>
+<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>            <span class="comment">// Spec does not define how to handle retries for BootNotification.req: We use the</span></div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            <span class="comment">// the boot_notification_retry_interval_seconds</span></div>
+<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>            this-&gt;in_flight-&gt;timestamp =</div>
+<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>                <a class="code hl_class" href="classocpp_1_1DateTime.html">DateTime</a>(this-&gt;in_flight-&gt;timestamp.to_time_point() +</div>
+<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>                         std::chrono::seconds(this-&gt;config.boot_notification_retry_interval_seconds));</div>
+<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>            this-&gt;normal_message_queue.push_front(this-&gt;in_flight);</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>            this-&gt;notify_queue_timer.at(</div>
+<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>                [<span class="keyword">this</span>]() {</div>
+<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>                    this-&gt;new_message = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>                    this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>                },</div>
+<div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>                this-&gt;in_flight-&gt;timestamp.to_time_point());</div>
+<div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>            EVLOG_warning &lt;&lt; <span class="stringliteral">&quot;Message is not transaction related, dropping it&quot;</span>;</div>
+<div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>            <span class="keywordflow">if</span> (enhanced_message_opt) {</div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>                this-&gt;in_flight-&gt;promise.set_value(enhanced_message_opt.value());</div>
+<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>                <a class="code hl_struct" href="structocpp_1_1EnhancedMessage.html">EnhancedMessage&lt;M&gt;</a> enhanced_message;</div>
+<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>                enhanced_message.<a class="code hl_variable" href="structocpp_1_1EnhancedMessage.html#aaf7a2c412254307361e2856db8490b61">offline</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>                this-&gt;in_flight-&gt;promise.set_value(enhanced_message);</div>
+<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>            }</div>
+<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>        }</div>
+<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>        this-&gt;reset_in_flight();</div>
+<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span>        this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>    }</div>
+<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span> </div>
+<div class="line"><a id="l00912" name="l00912"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#aa85492beca71e898a26ce74708ed1ff4">  912</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#aa85492beca71e898a26ce74708ed1ff4">stop</a>() {</div>
+<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;stop()&quot;</span>;</div>
+<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span>        <span class="comment">// stop the running thread</span></div>
+<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>        this-&gt;running = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>        this-&gt;cv.notify_one();</div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>        this-&gt;worker_thread.join();</div>
+<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;stop() notified message queue&quot;</span>;</div>
+<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>    }</div>
+<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span> </div>
+<div class="line"><a id="l00922" name="l00922"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a6cab50e7e7ef3fd1a8d106a8be43d549">  922</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a6cab50e7e7ef3fd1a8d106a8be43d549">pause</a>() {</div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;pause()&quot;</span>;</div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>        this-&gt;pause_resume_ctr++;</div>
+<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>        this-&gt;resume_timer.stop();</div>
+<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>        this-&gt;paused = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>        this-&gt;resuming = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>        this-&gt;cv.notify_one();</div>
+<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;pause() notified message queue&quot;</span>;</div>
+<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>    }</div>
+<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span> </div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#aa4cbb779974247a946e64ef4e9729e26">  934</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#aa4cbb779974247a946e64ef4e9729e26">resume</a>(std::chrono::seconds delay_on_reconnect) {</div>
+<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;resume() called&quot;</span>;</div>
+<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>        <span class="keywordflow">if</span> (!this-&gt;paused) {</div>
+<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        }</div>
+<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>        this-&gt;pause_resume_ctr++;</div>
+<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>        <span class="comment">// Do not delay if this is the first call to resume(), i.e. this is the initial connection</span></div>
+<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>        <span class="keywordflow">if</span> (this-&gt;pause_resume_ctr &gt; 1 &amp;&amp; delay_on_reconnect &gt; std::chrono::seconds(0)) {</div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>            this-&gt;resuming = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>            EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Delaying message queue resume by &quot;</span> &lt;&lt; delay_on_reconnect.count() &lt;&lt; <span class="stringliteral">&quot; seconds&quot;</span>;</div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>            u_int64_t expected_pause_resume_ctr = this-&gt;pause_resume_ctr;</div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>            this-&gt;resume_timer.timeout(</div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>                [<span class="keyword">this</span>, expected_pause_resume_ctr] { this-&gt;resume_now(expected_pause_resume_ctr); }, delay_on_reconnect);</div>
+<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>            this-&gt;resume_now(this-&gt;pause_resume_ctr);</div>
+<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>        }</div>
+<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>    }</div>
+<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span> </div>
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>    <span class="keywordtype">void</span> set_registration_status_accepted() {</div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>        {</div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>            std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>            this-&gt;is_registration_status_accepted = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>        }</div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>        this-&gt;cv.notify_all();</div>
+<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>    }</div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span> </div>
+<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>    <span class="keywordtype">bool</span> is_transaction_message_queue_empty() {</div>
+<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>        <span class="keywordflow">return</span> this-&gt;transaction_message_queue.empty();</div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>    }</div>
+<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span> </div>
+<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>    <span class="keywordtype">bool</span> contains_transaction_messages(<span class="keyword">const</span> CiString&lt;36&gt; transaction_id) {</div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> control_message : this-&gt;transaction_message_queue) {</div>
+<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>            <span class="keywordflow">if</span> (control_message-&gt;messageType == v2::MessageType::TransactionEvent) {</div>
+<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>                v2::TransactionEventRequest req = control_message-&gt;message.at(CALL_PAYLOAD);</div>
+<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>                <span class="keywordflow">if</span> (req.transactionInfo.transactionId == transaction_id) {</div>
+<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>                }</div>
+<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>            }</div>
+<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>        }</div>
+<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span>    }</div>
+<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span> </div>
+<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>    <span class="keywordtype">bool</span> contains_stop_transaction_message(<span class="keyword">const</span> int32_t transaction_id) {</div>
+<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> control_message : this-&gt;transaction_message_queue) {</div>
+<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>            <span class="keywordflow">if</span> (control_message-&gt;messageType == v16::MessageType::StopTransaction) {</div>
+<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>                v16::StopTransactionRequest req = control_message-&gt;message.at(CALL_PAYLOAD);</div>
+<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span>                <span class="keywordflow">if</span> (req.transactionId == transaction_id) {</div>
+<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span>                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span>                }</div>
+<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span>            }</div>
+<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span>        }</div>
+<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span>    }</div>
+<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span> </div>
+<div class="line"><a id="l00993" name="l00993"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91">  993</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91">update_transaction_message_attempts</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> transaction_message_attempts) {</div>
+<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span>        this-&gt;config.transaction_message_attempts = transaction_message_attempts;</div>
+<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span>    }</div>
+<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span> </div>
+<div class="line"><a id="l00998" name="l00998"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402">  998</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402">update_transaction_message_retry_interval</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> transaction_message_retry_interval) {</div>
+<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span>        this-&gt;config.transaction_message_retry_interval = transaction_message_retry_interval;</div>
+<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span>    }</div>
+<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span> </div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728"> 1003</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728">update_message_timeout</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> timeout) {</div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>        this-&gt;config.message_timeout_seconds = timeout;</div>
+<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>    }</div>
+<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span> </div>
+<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"><a class="line" href="classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7"> 1009</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7">add_stopped_transaction_id</a>(std::string stop_transaction_message_id, int32_t transaction_id) {</div>
+<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span>        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;adding &quot;</span> &lt;&lt; stop_transaction_message_id &lt;&lt; <span class="stringliteral">&quot; for transaction &quot;</span> &lt;&lt; transaction_id;</div>
+<div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span>        this-&gt;message_id_transaction_id_map[stop_transaction_message_id] = transaction_id;</div>
+<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span>    }</div>
+<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span> </div>
+<div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span>    <span class="keywordtype">void</span> add_meter_value_message_id(<span class="keyword">const</span> std::string&amp; start_transaction_message_id,</div>
+<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span>                                    <span class="keyword">const</span> std::string&amp; meter_value_message_id) {</div>
+<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span>        <span class="keywordflow">if</span> (this-&gt;start_transaction_mid_meter_values_mid_map.count(start_transaction_message_id)) {</div>
+<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span>            this-&gt;start_transaction_mid_meter_values_mid_map.at(start_transaction_message_id)</div>
+<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span>                .push_back(meter_value_message_id);</div>
+<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span>            std::vector&lt;std::string&gt; meter_value_message_ids;</div>
+<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span>            meter_value_message_ids.push_back(meter_value_message_id);</div>
+<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span>            this-&gt;start_transaction_mid_meter_values_mid_map[start_transaction_message_id] = meter_value_message_ids;</div>
+<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span>        }</div>
+<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span>    }</div>
+<div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span> </div>
+<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>    <span class="keywordtype">void</span> notify_start_transaction_handled(<span class="keyword">const</span> std::string&amp; start_transaction_message_id,</div>
+<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>                                          <span class="keyword">const</span> int32_t transaction_id) {</div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>        this-&gt;cv.notify_one();</div>
+<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span> </div>
+<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>        <span class="comment">// replace transaction id in meter values if start_transaction_message_id is present in map</span></div>
+<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>        <span class="comment">// this is necessary when the chargepoint queued MeterValue.req for a transaction with unknown transaction_id</span></div>
+<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>        std::lock_guard&lt;std::recursive_mutex&gt; lk(this-&gt;message_mutex);</div>
+<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>        <span class="keywordflow">if</span> (this-&gt;start_transaction_mid_meter_values_mid_map.count(start_transaction_message_id)) {</div>
+<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = this-&gt;transaction_message_queue.begin(); it != transaction_message_queue.end(); ++it) {</div>
+<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; meter_value_message_id :</div>
+<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span>                     this-&gt;start_transaction_mid_meter_values_mid_map.at(start_transaction_message_id)) {</div>
+<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span> </div>
+<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>                    <span class="keywordflow">if</span> (meter_value_message_id == (*it)-&gt;message.at(1)) {</div>
+<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>                        EVLOG_debug &lt;&lt; <span class="stringliteral">&quot;Adding transactionId &quot;</span> &lt;&lt; transaction_id &lt;&lt; <span class="stringliteral">&quot; to MeterValue.req&quot;</span>;</div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>                        (*it)-&gt;message.at(3)[<span class="stringliteral">&quot;transactionId&quot;</span>] = transaction_id;</div>
+<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>                    }</div>
+<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                }</div>
+<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>            }</div>
+<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>        }</div>
+<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>        this-&gt;start_transaction_mid_meter_values_mid_map.erase(start_transaction_message_id);</div>
+<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>    }</div>
+<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span> </div>
+<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>    M string_to_messagetype(<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>    std::string messagetype_to_string(M m);</div>
+<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>};</div>
+<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span> </div>
+<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>} <span class="comment">// namespace ocpp</span></div>
+<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span><span class="preprocessor">#endif </span><span class="comment">// OCPP_COMMON_MESSAGE_QUEUE_HPP</span></div>
 <div class="ttc" id="aclassocpp_1_1DateTime_html"><div class="ttname"><a href="classocpp_1_1DateTime.html">ocpp::DateTime</a></div><div class="ttdoc">Contains a DateTime implementation that can parse and create RFC 3339 compatible strings.</div><div class="ttdef"><b>Definition:</b> types.hpp:109</div></div>
 <div class="ttc" id="aclassocpp_1_1MessageId_html"><div class="ttname"><a href="classocpp_1_1MessageId.html">ocpp::MessageId</a></div><div class="ttdoc">Contains a MessageId implementation based on a case insensitive string with a maximum length of 36 pr...</div><div class="ttdef"><b>Definition:</b> call_types.hpp:34</div></div>
 <div class="ttc" id="aclassocpp_1_1MessageQueue_html"><div class="ttname"><a href="classocpp_1_1MessageQueue.html">ocpp::MessageQueue</a></div><div class="ttdoc">contains a message queue that makes sure that OCPPs synchronicity requirements are met</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:164</div></div>
 <div class="ttc" id="aclassocpp_1_1MessageQueue_html_a0a1bb54f62a3e2f5fb778d1030bc621a"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a0a1bb54f62a3e2f5fb778d1030bc621a">ocpp::MessageQueue::MessageQueue</a></div><div class="ttdeci">MessageQueue(const std::function&lt; bool(json message)&gt; &amp;send_callback, const MessageQueueConfig&lt; M &gt; &amp;config, const std::vector&lt; M &gt; &amp;external_notify, std::shared_ptr&lt; common::DatabaseHandlerCommon &gt; database_handler, const std::function&lt; void(const std::string &amp;new_message_id, const std::string &amp;old_message_id)&gt; start_transaction_message_retry_callback=[](const std::string &amp;new_message_id, const std::string &amp;old_message_id) {})</div><div class="ttdoc">Creates a new MessageQueue object with the provided configuration and send_callback.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:389</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a3760982430831a8f437ec39f81c53ec7"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7">ocpp::MessageQueue::add_stopped_transaction_id</a></div><div class="ttdeci">void add_stopped_transaction_id(std::string stop_transaction_message_id, int32_t transaction_id)</div><div class="ttdoc">Adds the given transaction_id to the message_id_transaction_id_map using the key stop_transaction_mes...</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:1012</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a3bc7baad33d703ce0ee44b8815b402e4"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a3bc7baad33d703ce0ee44b8815b402e4">ocpp::MessageQueue::push_call_async</a></div><div class="ttdeci">std::future&lt; EnhancedMessage&lt; M &gt; &gt; push_call_async(const json &amp;call)</div><div class="ttdoc">pushes a new call message onto the message queue</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:690</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a6cab50e7e7ef3fd1a8d106a8be43d549"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a6cab50e7e7ef3fd1a8d106a8be43d549">ocpp::MessageQueue::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the message queue.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:925</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a758a75529274b5eb78b4ec0198408402"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402">ocpp::MessageQueue::update_transaction_message_retry_interval</a></div><div class="ttdeci">void update_transaction_message_retry_interval(const int transaction_message_retry_interval)</div><div class="ttdoc">Set transaction_message_retry_interval to given transaction_message_retry_interval in seconds.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:1001</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a9d5989e833506f892a034f409742740a"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">ocpp::MessageQueue::handle_timeout_or_callerror</a></div><div class="ttdeci">void handle_timeout_or_callerror(const std::optional&lt; EnhancedMessage&lt; M &gt; &gt; &amp;enhanced_message_opt)</div><div class="ttdoc">Handles a message timeout or a CALLERROR. enhanced_message_opt is set only in case of CALLERROR.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:812</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_aa4cbb779974247a946e64ef4e9729e26"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#aa4cbb779974247a946e64ef4e9729e26">ocpp::MessageQueue::resume</a></div><div class="ttdeci">void resume(std::chrono::seconds delay_on_reconnect)</div><div class="ttdoc">Resumes the message queue.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:937</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_aa85492beca71e898a26ce74708ed1ff4"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#aa85492beca71e898a26ce74708ed1ff4">ocpp::MessageQueue::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops the message queue.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:915</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_aadd7fc0c6d483631e3ebe2845693a8b4"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#aadd7fc0c6d483631e3ebe2845693a8b4">ocpp::MessageQueue::reset_next_message_to_send</a></div><div class="ttdeci">void reset_next_message_to_send()</div><div class="ttdoc">Resets next message to send. Can be used in situation when we dont want to reply to a CALL message.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:577</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ab14e9a8fdc9faec0e20e7df520602127"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ab14e9a8fdc9faec0e20e7df520602127">ocpp::MessageQueue::push_call_result</a></div><div class="ttdeci">void push_call_result(const json &amp;call_result)</div><div class="ttdoc">Sends a new call_result message over the websocket.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:652</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ac9595bff4e95bffc7b6ee810ab28840e"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ac9595bff4e95bffc7b6ee810ab28840e">ocpp::MessageQueue::get_persisted_messages_from_db</a></div><div class="ttdeci">void get_persisted_messages_from_db(bool ignore_security_event_notifications=false)</div><div class="ttdoc">Gets all persisted messages of normal message queue and persisted message queue from the database.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:583</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ad0eb9e3cd5ec54f0c4bb3e50c42f3728"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728">ocpp::MessageQueue::update_message_timeout</a></div><div class="ttdeci">void update_message_timeout(const int timeout)</div><div class="ttdoc">Set message_timeout to given timeout (in seconds)</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:1006</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ad10496ef6883f93bf484e28b8d92d24b"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ad10496ef6883f93bf484e28b8d92d24b">ocpp::MessageQueue::receive</a></div><div class="ttdeci">EnhancedMessage&lt; M &gt; receive(std::string_view message)</div><div class="ttdoc">Enhances a received json_message with additional meta information, checks if it is a valid CallResult...</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:720</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_adb8eefa55fdef8296669c5923c98941e"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#adb8eefa55fdef8296669c5923c98941e">ocpp::MessageQueue::push_call_error</a></div><div class="ttdeci">void push_call_error(CallError call_error)</div><div class="ttdoc">Sends a new call_error message over the websocket.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:670</div></div>
-<div class="ttc" id="aclassocpp_1_1MessageQueue_html_afa136bc3c34a193cb73733bf7d99fa91"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91">ocpp::MessageQueue::update_transaction_message_attempts</a></div><div class="ttdeci">void update_transaction_message_attempts(const int transaction_message_attempts)</div><div class="ttdoc">Set transaction_message_attempts to given transaction_message_attempts.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:996</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a3760982430831a8f437ec39f81c53ec7"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a3760982430831a8f437ec39f81c53ec7">ocpp::MessageQueue::add_stopped_transaction_id</a></div><div class="ttdeci">void add_stopped_transaction_id(std::string stop_transaction_message_id, int32_t transaction_id)</div><div class="ttdoc">Adds the given transaction_id to the message_id_transaction_id_map using the key stop_transaction_mes...</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:1009</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a3bc7baad33d703ce0ee44b8815b402e4"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a3bc7baad33d703ce0ee44b8815b402e4">ocpp::MessageQueue::push_call_async</a></div><div class="ttdeci">std::future&lt; EnhancedMessage&lt; M &gt; &gt; push_call_async(const json &amp;call)</div><div class="ttdoc">pushes a new call message onto the message queue</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:687</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a6cab50e7e7ef3fd1a8d106a8be43d549"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a6cab50e7e7ef3fd1a8d106a8be43d549">ocpp::MessageQueue::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the message queue.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:922</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a758a75529274b5eb78b4ec0198408402"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a758a75529274b5eb78b4ec0198408402">ocpp::MessageQueue::update_transaction_message_retry_interval</a></div><div class="ttdeci">void update_transaction_message_retry_interval(const int transaction_message_retry_interval)</div><div class="ttdoc">Set transaction_message_retry_interval to given transaction_message_retry_interval in seconds.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:998</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_a9d5989e833506f892a034f409742740a"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#a9d5989e833506f892a034f409742740a">ocpp::MessageQueue::handle_timeout_or_callerror</a></div><div class="ttdeci">void handle_timeout_or_callerror(const std::optional&lt; EnhancedMessage&lt; M &gt; &gt; &amp;enhanced_message_opt)</div><div class="ttdoc">Handles a message timeout or a CALLERROR. enhanced_message_opt is set only in case of CALLERROR.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:809</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_aa4cbb779974247a946e64ef4e9729e26"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#aa4cbb779974247a946e64ef4e9729e26">ocpp::MessageQueue::resume</a></div><div class="ttdeci">void resume(std::chrono::seconds delay_on_reconnect)</div><div class="ttdoc">Resumes the message queue.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:934</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_aa85492beca71e898a26ce74708ed1ff4"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#aa85492beca71e898a26ce74708ed1ff4">ocpp::MessageQueue::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops the message queue.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:912</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_aadd7fc0c6d483631e3ebe2845693a8b4"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#aadd7fc0c6d483631e3ebe2845693a8b4">ocpp::MessageQueue::reset_next_message_to_send</a></div><div class="ttdeci">void reset_next_message_to_send()</div><div class="ttdoc">Resets next message to send. Can be used in situation when we dont want to reply to a CALL message.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:574</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ab14e9a8fdc9faec0e20e7df520602127"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ab14e9a8fdc9faec0e20e7df520602127">ocpp::MessageQueue::push_call_result</a></div><div class="ttdeci">void push_call_result(const json &amp;call_result)</div><div class="ttdoc">Sends a new call_result message over the websocket.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:649</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ac9595bff4e95bffc7b6ee810ab28840e"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ac9595bff4e95bffc7b6ee810ab28840e">ocpp::MessageQueue::get_persisted_messages_from_db</a></div><div class="ttdeci">void get_persisted_messages_from_db(bool ignore_security_event_notifications=false)</div><div class="ttdoc">Gets all persisted messages of normal message queue and persisted message queue from the database.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:580</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ad0eb9e3cd5ec54f0c4bb3e50c42f3728"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ad0eb9e3cd5ec54f0c4bb3e50c42f3728">ocpp::MessageQueue::update_message_timeout</a></div><div class="ttdeci">void update_message_timeout(const int timeout)</div><div class="ttdoc">Set message_timeout to given timeout (in seconds)</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:1003</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_ad10496ef6883f93bf484e28b8d92d24b"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#ad10496ef6883f93bf484e28b8d92d24b">ocpp::MessageQueue::receive</a></div><div class="ttdeci">EnhancedMessage&lt; M &gt; receive(std::string_view message)</div><div class="ttdoc">Enhances a received json_message with additional meta information, checks if it is a valid CallResult...</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:717</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_adb8eefa55fdef8296669c5923c98941e"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#adb8eefa55fdef8296669c5923c98941e">ocpp::MessageQueue::push_call_error</a></div><div class="ttdeci">void push_call_error(CallError call_error)</div><div class="ttdoc">Sends a new call_error message over the websocket.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:667</div></div>
+<div class="ttc" id="aclassocpp_1_1MessageQueue_html_afa136bc3c34a193cb73733bf7d99fa91"><div class="ttname"><a href="classocpp_1_1MessageQueue.html#afa136bc3c34a193cb73733bf7d99fa91">ocpp::MessageQueue::update_transaction_message_attempts</a></div><div class="ttdeci">void update_transaction_message_attempts(const int transaction_message_attempts)</div><div class="ttdoc">Set transaction_message_attempts to given transaction_message_attempts.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:993</div></div>
 <div class="ttc" id="aclassocpp_1_1common_1_1QueryExecutionException_html"><div class="ttname"><a href="classocpp_1_1common_1_1QueryExecutionException.html">ocpp::common::QueryExecutionException</a></div><div class="ttdoc">Exception for errors during query execution.</div><div class="ttdef"><b>Definition:</b> database_exceptions.hpp:49</div></div>
 <div class="ttc" id="astructocpp_1_1CallError_html"><div class="ttname"><a href="structocpp_1_1CallError.html">ocpp::CallError</a></div><div class="ttdoc">Contains a OCPP CallError message.</div><div class="ttdef"><b>Definition:</b> call_types.hpp:143</div></div>
 <div class="ttc" id="astructocpp_1_1ControlMessage_html"><div class="ttname"><a href="structocpp_1_1ControlMessage.html">ocpp::ControlMessage</a></div><div class="ttdoc">This contains an internal control message.</div><div class="ttdef"><b>Definition:</b> message_queue.hpp:65</div></div>

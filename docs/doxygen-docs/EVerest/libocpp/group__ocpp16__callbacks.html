@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -98,9 +98,9 @@ $(function() {
 <tr class="memitem:ga8828360b97a6e186c51f30d46189f47c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga8828360b97a6e186c51f30d46189f47c">ocpp::v16::ChargePoint::register_cancel_reservation_callback</a> (const std::function&lt; bool(int32_t reservation_id)&gt; &amp;callback)</td></tr>
 <tr class="memdesc:ga8828360b97a6e186c51f30d46189f47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used to cancel a reservation on a connector. Callback function should return false if the reservation could not be cancelled, else true . The cancel_reservation_callback is called when a CancelReservation.req is received  <a href="group__ocpp16__callbacks.html#ga8828360b97a6e186c51f30d46189f47c">More...</a><br /></td></tr>
 <tr class="separator:ga8828360b97a6e186c51f30d46189f47c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga76eebb521cbc744cf305ae46b31ed434"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga76eebb521cbc744cf305ae46b31ed434">ocpp::v16::ChargePoint::register_unlock_connector_callback</a> (const std::function&lt; bool(int32_t connector)&gt; &amp;callback)</td></tr>
-<tr class="memdesc:ga76eebb521cbc744cf305ae46b31ed434"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used to unlock the connector. The unlock_connector_callback is called:  <a href="group__ocpp16__callbacks.html#ga76eebb521cbc744cf305ae46b31ed434">More...</a><br /></td></tr>
-<tr class="separator:ga76eebb521cbc744cf305ae46b31ed434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga011056dd5ea4500ade01b3f64fd85096"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga011056dd5ea4500ade01b3f64fd85096">ocpp::v16::ChargePoint::register_unlock_connector_callback</a> (const std::function&lt; UnlockStatus(int32_t connector)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:ga011056dd5ea4500ade01b3f64fd85096"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used to unlock the connector. In case a transaction is  <a href="group__ocpp16__callbacks.html#ga011056dd5ea4500ade01b3f64fd85096">More...</a><br /></td></tr>
+<tr class="separator:ga011056dd5ea4500ade01b3f64fd85096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81a36204f4f2ce22569c512e98d13294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga81a36204f4f2ce22569c512e98d13294">ocpp::v16::ChargePoint::register_upload_diagnostics_callback</a> (const std::function&lt; <a class="el" href="structocpp_1_1v16_1_1GetLogResponse.html">GetLogResponse</a>(const <a class="el" href="structocpp_1_1v16_1_1GetDiagnosticsRequest.html">GetDiagnosticsRequest</a> &amp;request)&gt; &amp;callback)</td></tr>
 <tr class="memdesc:ga81a36204f4f2ce22569c512e98d13294"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used to trigger an upload of diagnostics. This callback should trigger a process of a diagnostics upload using the given parameters of the request. This process should call the on_log_status_notification handler in order to update the status of the file upload. The upload_diagnostics_callback is called when a GetDiagnostics.req is received  <a href="group__ocpp16__callbacks.html#ga81a36204f4f2ce22569c512e98d13294">More...</a><br /></td></tr>
 <tr class="separator:ga81a36204f4f2ce22569c512e98d13294"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,9 +138,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ocpp::v16::ChargePoin
 <tr class="memitem:ga810fc4167cd077fede470df9786d845b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga810fc4167cd077fede470df9786d845b">ocpp::v16::ChargePoint::register_connection_state_changed_callback</a> (const std::function&lt; void(bool is_connected)&gt; &amp;callback)</td></tr>
 <tr class="memdesc:ga810fc4167cd077fede470df9786d845b"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used when the connection state to CSMS changes. The connection_state_changed_callback is called when chargepoint has connected to or disconnected from the CSMS.  <a href="group__ocpp16__callbacks.html#ga810fc4167cd077fede470df9786d845b">More...</a><br /></td></tr>
 <tr class="separator:ga810fc4167cd077fede470df9786d845b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7687bc0da92236248dd20d13f0d8ff95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga7687bc0da92236248dd20d13f0d8ff95">ocpp::v16::ChargePoint::register_get_15118_ev_certificate_response_callback</a> (const std::function&lt; void(const int32_t connector, const <a class="el" href="structocpp_1_1v201_1_1Get15118EVCertificateResponse.html">ocpp::v201::Get15118EVCertificateResponse</a> &amp;certificate_response, const ocpp::v201::CertificateActionEnum &amp;certificate_action)&gt; &amp;callback)</td></tr>
-<tr class="memdesc:ga7687bc0da92236248dd20d13f0d8ff95"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used to publish the response to a Get15118Certificate.req wrapped in a DataTransfer.req . The get_15118_ev_certificate_response_callback is called after the response to a DataTransfer.req(Get15118EVCertificate) has been accepted.  <a href="group__ocpp16__callbacks.html#ga7687bc0da92236248dd20d13f0d8ff95">More...</a><br /></td></tr>
-<tr class="separator:ga7687bc0da92236248dd20d13f0d8ff95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga022f57c1fd4d9ed93ca85130520dd78e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#ga022f57c1fd4d9ed93ca85130520dd78e">ocpp::v16::ChargePoint::register_get_15118_ev_certificate_response_callback</a> (const std::function&lt; void(const int32_t connector, const <a class="el" href="structocpp_1_1v2_1_1Get15118EVCertificateResponse.html">ocpp::v2::Get15118EVCertificateResponse</a> &amp;certificate_response, const ocpp::v2::CertificateActionEnum &amp;certificate_action)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:ga022f57c1fd4d9ed93ca85130520dd78e"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that can be used to publish the response to a Get15118Certificate.req wrapped in a DataTransfer.req . The get_15118_ev_certificate_response_callback is called after the response to a DataTransfer.req(Get15118EVCertificate) has been accepted.  <a href="group__ocpp16__callbacks.html#ga022f57c1fd4d9ed93ca85130520dd78e">More...</a><br /></td></tr>
+<tr class="separator:ga022f57c1fd4d9ed93ca85130520dd78e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaecc2ad5359814ae3554a3705dbaf0e0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocpp16__callbacks.html#gaecc2ad5359814ae3554a3705dbaf0e0e">ocpp::v16::ChargePoint::register_transaction_started_callback</a> (const std::function&lt; void(const int32_t connector, const std::string &amp;session_id)&gt; &amp;callback)</td></tr>
 <tr class="memdesc:gaecc2ad5359814ae3554a3705dbaf0e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a <code>callback</code> function that is called when a StartTransaction.req message is sent by the chargepoint  <a href="group__ocpp16__callbacks.html#gaecc2ad5359814ae3554a3705dbaf0e0e">More...</a><br /></td></tr>
 <tr class="separator:gaecc2ad5359814ae3554a3705dbaf0e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -432,8 +432,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ocpp::v16::ChargePoin
 
 </div>
 </div>
-<a id="ga7687bc0da92236248dd20d13f0d8ff95" name="ga7687bc0da92236248dd20d13f0d8ff95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7687bc0da92236248dd20d13f0d8ff95">&#9670;&nbsp;</a></span>register_get_15118_ev_certificate_response_callback()</h2>
+<a id="ga022f57c1fd4d9ed93ca85130520dd78e" name="ga022f57c1fd4d9ed93ca85130520dd78e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga022f57c1fd4d9ed93ca85130520dd78e">&#9670;&nbsp;</a></span>register_get_15118_ev_certificate_response_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +441,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ocpp::v16::ChargePoin
         <tr>
           <td class="memname">void ocpp::v16::ChargePoint::register_get_15118_ev_certificate_response_callback </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void(const int32_t connector, const <a class="el" href="structocpp_1_1v201_1_1Get15118EVCertificateResponse.html">ocpp::v201::Get15118EVCertificateResponse</a> &amp;certificate_response, const ocpp::v201::CertificateActionEnum &amp;certificate_action)&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::function&lt; void(const int32_t connector, const <a class="el" href="structocpp_1_1v2_1_1Get15118EVCertificateResponse.html">ocpp::v2::Get15118EVCertificateResponse</a> &amp;certificate_response, const ocpp::v2::CertificateActionEnum &amp;certificate_action)&gt; &amp;&#160;</td>
           <td class="paramname"><em>callback</em></td><td>)</td>
           <td></td>
         </tr>
@@ -905,8 +905,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ocpp::v16::ChargePoin
 
 </div>
 </div>
-<a id="ga76eebb521cbc744cf305ae46b31ed434" name="ga76eebb521cbc744cf305ae46b31ed434"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga76eebb521cbc744cf305ae46b31ed434">&#9670;&nbsp;</a></span>register_unlock_connector_callback()</h2>
+<a id="ga011056dd5ea4500ade01b3f64fd85096" name="ga011056dd5ea4500ade01b3f64fd85096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga011056dd5ea4500ade01b3f64fd85096">&#9670;&nbsp;</a></span>register_unlock_connector_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -914,14 +914,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ocpp::v16::ChargePoin
         <tr>
           <td class="memname">void ocpp::v16::ChargePoint::register_unlock_connector_callback </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; bool(int32_t connector)&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::function&lt; UnlockStatus(int32_t connector)&gt; &amp;&#160;</td>
           <td class="paramname"><em>callback</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>registers a <code>callback</code> function that can be used to unlock the connector. The unlock_connector_callback is called: </p>
+<p>registers a <code>callback</code> function that can be used to unlock the connector. In case a transaction is </p>
 <ul>
 <li>when receiving a UnlockConnector.req and</li>
 <li>when a transaction has on_transaction_stopped is called and the configuration key UnlockConnectorOnEVSideDisconnect is true <dl class="params"><dt>Parameters</dt><dd>

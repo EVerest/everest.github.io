@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -78,7 +78,7 @@ $(function() {
 <div class="line">  <span class="keyword">const</span> DateTime&amp; end_time,</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> connector_id,</div>
 <div class="line">  std::optional&lt;ChargingRateUnit&gt; charging_rate_unit);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md42"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md43"></a>
 get_valid_profiles()</h1>
 <p >Retrieves all profiles that should be considered for calculating the composite schedule.</p>
 <ul>
@@ -88,7 +88,7 @@ get_valid_profiles()</h1>
 </ul>
 <p ><code>start_time</code> and <code>end_time</code> could be used to remove profiles that would never be valid within that period. However only the <code>validFrom</code> and <code>validTo</code> settings should be considered.</p>
 <p ><code>calculate_enhanced_composite_schedule</code> checks the <code>start_time</code> and <code>end_time</code> so it is not essential to remove profiles at this point.</p>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 calculate_enhanced_composite_schedule()</h1>
 <p >Assumes that profiles for other connectors and transactions have been removed.</p>
 <p >Processes profiles:</p>
@@ -99,7 +99,7 @@ calculate_enhanced_composite_schedule()</h1>
 <li>combines the three composite schedules into the single result</li>
 </ol>
 <p >When combining; TxDefault is the starting limit, overridden by Tx and potentially lowered by ChargePointMax. The result will never be higher than a ChargePointMax limit (where there is one).</p>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md45"></a>
 Time handling</h1>
 <p >The approach removes all calls for obtaining the current date and time.</p>
 <ul>
@@ -108,7 +108,7 @@ Time handling</h1>
 </ul>
 <p >For generating a composite schedule relative schedules are included based on the transaction start time. Where there isn't a transaction in progress the <code>start_time</code> is used - i.e. the assumption is that a transaction has just started.</p>
 <p >The removal of any relationship to the current time simplifies writing test cases and debugging test failures.</p>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 Default limit</h1>
 <p >The OCPP 1.6 specification doesn't support gaps in charging schedules. This presents a problem while creating a composite schedule when there is a period of time when no profile is active.</p>
 <ul>
@@ -134,7 +134,7 @@ Default limit</h1>
 <div class="line">    ],</div>
 <div class="line">  },</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md46"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md47"></a>
 No valid profiles</h1>
 <p >Since a default limit is applied a composite schedule will always start at the <code>start_time</code> and have a fixed duration even when there are no valid profiles for that time period.</p>
 <p >e.g. for 2024-01-01 starting at 08:00 for 10 minutes</p>
@@ -163,7 +163,7 @@ No valid profiles</h1>
 <div class="line">    &quot;chargingSchedulePeriod&quot;: {}</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md47"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md48"></a>
 Profile validity</h1>
 <p >The following items need to be considered when looking at a schedule:</p>
 <ul>
@@ -175,7 +175,7 @@ Profile validity</h1>
 <li>startPeriod</li>
 </ul>
 <p >The following sections explore some interesting edge cases.</p>
-<h2><a class="anchor" id="autotoc_md48"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 validFrom &amp; validTo and transaction start time</h2>
 <p >For the following schedule</p>
 <div class="fragment"><div class="line">{</div>
@@ -201,7 +201,7 @@ validFrom &amp; validTo and transaction start time</h2>
 <div class="line">}</div>
 </div><!-- fragment --><p >The PEV plugs in at "2024-01-01T10:00:00Z" the result is no charging until the profile is valid at 12:00 and then the limit is 6.0A since only the first hour of a transaction is at the higher limit of 32.0A</p>
 <p >The PEV plugs in at "2024-01-01T19:50:00Z" the result is charging for 10 minutes at 32. A and then no charge offered.</p>
-<h2><a class="anchor" id="autotoc_md49"></a>
+<h2><a class="anchor" id="autotoc_md50"></a>
 startSchedule and daily recurring</h2>
 <p >For the following schedule</p>
 <div class="fragment"><div class="line">{</div>
@@ -227,7 +227,7 @@ startSchedule and daily recurring</h2>
 <div class="line">}</div>
 </div><!-- fragment --><p >The PEV plugs in at "2024-01-10T11:50:00Z" the result is charging at 6.0A for 10 minutes (based on the previous day) and then at 32.0A from 12:00 when the schedule repeats.</p>
 <p ><code>validFrom</code> and <code>validTo</code> add additional complications.</p>
-<h2><a class="anchor" id="autotoc_md50"></a>
+<h2><a class="anchor" id="autotoc_md51"></a>
 startSchedule and daily recurring with duration</h2>
 <p >For the following schedule</p>
 <div class="fragment"><div class="line">{</div>

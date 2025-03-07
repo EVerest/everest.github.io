@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -80,34 +80,34 @@ $(function() {
 <div class="line">    - RegistrationStatus&amp; registration_status</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">class v201_MessageDispatcher {</div>
+<div class="line">class v2_MessageDispatcher {</div>
 <div class="line">    - MessageQueue&amp; message_queue</div>
 <div class="line">    - DeviceModel&amp; device_model</div>
 <div class="line">    - ConnectivityManager&amp; connectivity_manager</div>
 <div class="line">    - RegistrationStatusEnum&amp; registration_status</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">class v201_MessageHandlerInterface {</div>
-<div class="line">    +handle_message(EnhancedMessage~v201_MessageType~ message)</div>
+<div class="line">class v2_MessageHandlerInterface {</div>
+<div class="line">    +handle_message(EnhancedMessage~v2_MessageType~ message)</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line">class v16_MessageHandlerInterface {</div>
 <div class="line">    +handle_message(EnhancedMessage~v16_MessageType~ message)</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">class v201_DataTransferInterface {</div>
+<div class="line">class v2_DataTransferInterface {</div>
 <div class="line">    +data_transfer_req(request: DataTransferRequest): std::optional~DataTransferResponse~</div>
 <div class="line">    +handle_data_transfer_req(call: Call~DataTransferRequest~)</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">class v201_DataTransfer {</div>
+<div class="line">class v2_DataTransfer {</div>
 <div class="line">    -MessageDispatcherInterface &amp;message_dispatcher</div>
 <div class="line">    -std::optional~function~ data_transfer_callback</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">class v201_ChargePoint {</div>
+<div class="line">class v2_ChargePoint {</div>
 <div class="line">    std::unique_ptr~MessageDispatcherInterface~ message_dispatcher</div>
-<div class="line">    std::unique_ptr~v201_DataTransferInterface~ data_transfer</div>
+<div class="line">    std::unique_ptr~v2_DataTransferInterface~ data_transfer</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line">class v16_ChargePoint {</div>
@@ -115,12 +115,12 @@ $(function() {
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line">MessageDispatcherInterface &lt;|-- v16_MessageDispatcher  </div>
-<div class="line">MessageDispatcherInterface &lt;|-- v201_MessageDispatcher</div>
-<div class="line">v201_DataTransferInterface &lt;|-- v201_DataTransfer</div>
-<div class="line">v201_MessageHandlerInterface &lt;|-- v201_DataTransferInterface</div>
-<div class="line">MessageDispatcherInterface *-- v201_DataTransfer</div>
-<div class="line">MessageDispatcherInterface *-- v201_ChargePoint</div>
-<div class="line">v201_DataTransferInterface *-- v201_ChargePoint</div>
+<div class="line">MessageDispatcherInterface &lt;|-- v2_MessageDispatcher</div>
+<div class="line">v2_DataTransferInterface &lt;|-- v2_DataTransfer</div>
+<div class="line">v2_MessageHandlerInterface &lt;|-- v2_DataTransferInterface</div>
+<div class="line">MessageDispatcherInterface *-- v2_DataTransfer</div>
+<div class="line">MessageDispatcherInterface *-- v2_ChargePoint</div>
+<div class="line">v2_DataTransferInterface *-- v2_ChargePoint</div>
 <div class="line">MessageDispatcherInterface *-- v16_ChargePoint</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->

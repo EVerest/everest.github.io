@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ocpp<span id="projectnumber">&#160;0.21.0</span>
+   <div id="projectname">ocpp<span id="projectnumber">&#160;0.24.1</span>
    </div>
    <div id="projectbrief">A C++ implementation of the Open Charge Point Protocol</div>
   </td>
@@ -85,10 +85,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Websocket</b> (const <a class="el" href="structocpp_1_1WebsocketConnectionOptions.html">WebsocketConnectionOptions</a> &amp;connection_options, std::shared_ptr&lt; <a class="el" href="classocpp_1_1EvseSecurity.html">EvseSecurity</a> &gt; evse_security, std::shared_ptr&lt; <a class="el" href="classocpp_1_1MessageLogging.html">MessageLogging</a> &gt; logging)</td></tr>
 <tr class="memdesc:a4348d228fd84ae4d642af7f5814c12c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classocpp_1_1Websocket.html" title="contains a websocket abstraction that can connect to TLS and non-TLS websocket endpoints">Websocket</a> object with the provided <code>connection_options</code>. <br /></td></tr>
 <tr class="separator:a4348d228fd84ae4d642af7f5814c12c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade4cd0389a2ef5226a18a2ad69ec88d2"><td class="memItemLeft" align="right" valign="top"><a id="ade4cd0389a2ef5226a18a2ad69ec88d2" name="ade4cd0389a2ef5226a18a2ad69ec88d2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> ()</td></tr>
-<tr class="memdesc:ade4cd0389a2ef5226a18a2ad69ec88d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">connect to a websocket (TLS or non-TLS depending on the central system uri in the configuration). <br /></td></tr>
-<tr class="separator:ade4cd0389a2ef5226a18a2ad69ec88d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1d16ca366282f39b373f44722c5930"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classocpp_1_1Websocket.html#a4e1d16ca366282f39b373f44722c5930">start_connecting</a> ()</td></tr>
+<tr class="memdesc:a4e1d16ca366282f39b373f44722c5930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the connection attempts. It will init the websocket processing thread.  <a href="classocpp_1_1Websocket.html#a4e1d16ca366282f39b373f44722c5930">More...</a><br /></td></tr>
+<tr class="separator:a4e1d16ca366282f39b373f44722c5930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad599a71065670a5af41fcf9064136599"><td class="memItemLeft" align="right" valign="top"><a id="ad599a71065670a5af41fcf9064136599" name="ad599a71065670a5af41fcf9064136599"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_connection_options</b> (const <a class="el" href="structocpp_1_1WebsocketConnectionOptions.html">WebsocketConnectionOptions</a> &amp;connection_options)</td></tr>
 <tr class="separator:ad599a71065670a5af41fcf9064136599"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,18 +102,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>reconnect</b> (long d
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_connected</b> ()</td></tr>
 <tr class="memdesc:a365692664dcef8a3fcaff1c3752083ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates if the websocket is connected <br /></td></tr>
 <tr class="separator:a365692664dcef8a3fcaff1c3752083ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a703b47f118d047ab677884626452ef34"><td class="memItemLeft" align="right" valign="top"><a id="a703b47f118d047ab677884626452ef34" name="a703b47f118d047ab677884626452ef34"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>register_connected_callback</b> (const std::function&lt; void(const int security_profile)&gt; &amp;callback)</td></tr>
-<tr class="memdesc:a703b47f118d047ab677884626452ef34"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a <code>callback</code> that is called when the websocket is connected successfully <br /></td></tr>
-<tr class="separator:a703b47f118d047ab677884626452ef34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac38ccc66e6e41d8f026f86de0390c142"><td class="memItemLeft" align="right" valign="top"><a id="ac38ccc66e6e41d8f026f86de0390c142" name="ac38ccc66e6e41d8f026f86de0390c142"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>register_connected_callback</b> (const std::function&lt; void(OcppProtocolVersion protocol)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:ac38ccc66e6e41d8f026f86de0390c142"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a <code>callback</code> that is called when the websocket is connected successfully <br /></td></tr>
+<tr class="separator:ac38ccc66e6e41d8f026f86de0390c142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46ee0125aadcdff21254b50a082c1c7b"><td class="memItemLeft" align="right" valign="top"><a id="a46ee0125aadcdff21254b50a082c1c7b" name="a46ee0125aadcdff21254b50a082c1c7b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>register_disconnected_callback</b> (const std::function&lt; void()&gt; &amp;callback)</td></tr>
 <tr class="memdesc:a46ee0125aadcdff21254b50a082c1c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a <code>callback</code> that is called when the websocket connection is disconnected <br /></td></tr>
 <tr class="separator:a46ee0125aadcdff21254b50a082c1c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71d1498dfc50c3dd1bdc85f63934a4c5"><td class="memItemLeft" align="right" valign="top"><a id="a71d1498dfc50c3dd1bdc85f63934a4c5" name="a71d1498dfc50c3dd1bdc85f63934a4c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>register_closed_callback</b> (const std::function&lt; void(const WebsocketCloseReason)&gt; &amp;callback)</td></tr>
-<tr class="memdesc:a71d1498dfc50c3dd1bdc85f63934a4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a <code>callback</code> that is called when the websocket connection has been closed and will not attempt to reconnect <br /></td></tr>
-<tr class="separator:a71d1498dfc50c3dd1bdc85f63934a4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05cab865c1014156d82c5081a7a55aea"><td class="memItemLeft" align="right" valign="top"><a id="a05cab865c1014156d82c5081a7a55aea" name="a05cab865c1014156d82c5081a7a55aea"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>register_stopped_connecting_callback</b> (const std::function&lt; void(const WebsocketCloseReason)&gt; &amp;callback)</td></tr>
+<tr class="memdesc:a05cab865c1014156d82c5081a7a55aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a <code>callback</code> that is called when the websocket connection has been stopped and will not attempt to reconnect <br /></td></tr>
+<tr class="separator:a05cab865c1014156d82c5081a7a55aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad712d30d1daeafc79ae6d94bc852a8dd"><td class="memItemLeft" align="right" valign="top"><a id="ad712d30d1daeafc79ae6d94bc852a8dd" name="ad712d30d1daeafc79ae6d94bc852a8dd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>register_message_callback</b> (const std::function&lt; void(const std::string &amp;message)&gt; &amp;callback)</td></tr>
 <tr class="memdesc:ad712d30d1daeafc79ae6d94bc852a8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">register a <code>callback</code> that is called when the websocket receives a message <br /></td></tr>
@@ -156,6 +155,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>set_authorization_key
 
 <p>send a <code>message</code> over the websocket </p>
 <dl class="section return"><dt>Returns</dt><dd>true if the message was sent successfully </dd></dl>
+
+</div>
+</div>
+<a id="a4e1d16ca366282f39b373f44722c5930" name="a4e1d16ca366282f39b373f44722c5930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e1d16ca366282f39b373f44722c5930">&#9670;&nbsp;</a></span>start_connecting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ocpp::Websocket::start_connecting </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the connection attempts. It will init the websocket processing thread. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the websocket is successfully initialized, false otherwise. Does not wait for a successful connection </dd></dl>
 
 </div>
 </div>

@@ -94,6 +94,7 @@
 <div class="line">- Accepted</div>
 <div class="line">- Rejected</div>
 <div class="line">- TimedOut</div>
+<div class="line">- Withdrawn</div>
 </div>
 </div>
 </div>
@@ -317,6 +318,47 @@
 <div class="line">- KeyCode</div>
 <div class="line">- Local</div>
 <div class="line">- NoAuthorization</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="authorization-withdrawauthorizationrequest">
+<div class="line"><strong>WithdrawAuthorizationRequest</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Request to withdraw granted authorization. If only the evse_id is given, the granted authorization for this EVSE will be withdrawn. If only the id_token is given, the granted authorization for every EVSE where this id_token is placed will be</div>
+<div class="line-block">
+<div class="line">withdrawn</div>
+</div>
+</div>
+<div class="line">If both parameters are given, the granted authorization for the given EVSE will be withdrawn, if the placed</div>
+<div class="line-block">
+<div class="line">id_token matches the given id_token</div>
+</div>
+<div class="line">If no parameter is given, all granted authorizations for all EVSEs will be removed</div>
+<div class="line-block">
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>evse_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The evse id to withdraw authorization for.</div>
+</div>
+<div class="line"><strong>id_token</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">authorization-IdToken</span></a>)</div>
+<div class="line-block">
+<div class="line">The id token to withdraw authorization for.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#authorization-idtoken"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="authorization-withdrawauthorizationresult">
+<div class="line"><strong>WithdrawAuthorizationResult</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">The result of a WithdrawAuthorizationRequest: Accepted in case requested authorization was removed AuthorizationNotFound in case no match for request was found EvseNotFound in case no match for evse_id was found Rejected in case module could not process the request for other reasons</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Accepted</div>
+<div class="line">- AuthorizationNotFound</div>
+<div class="line">- EvseNotFound</div>
+<div class="line">- Rejected</div>
 </div>
 </div>
 </div>

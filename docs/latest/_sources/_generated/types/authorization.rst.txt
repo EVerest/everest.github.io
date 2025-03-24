@@ -46,6 +46,7 @@ Auth token validator types
 |    - Accepted
 |    - Rejected
 |    - TimedOut
+|    - Withdrawn
 
 .. _authorization-CustomIdToken:
 
@@ -189,3 +190,28 @@ Auth token validator types
 |    - KeyCode
 |    - Local
 |    - NoAuthorization
+
+.. _authorization-WithdrawAuthorizationRequest:
+
+| **WithdrawAuthorizationRequest**:*object* 
+|  Request to withdraw granted authorization. If only the evse_id is given, the granted authorization for this EVSE will be withdrawn. If only the id_token is given, the granted authorization for every EVSE where this id_token is placed will be
+|   withdrawn
+| If both parameters are given, the granted authorization for the given EVSE will be withdrawn, if the placed
+|   id_token matches the given id_token
+| If no parameter is given, all granted authorizations for all EVSEs will be removed
+|  properties:
+|   **evse_id**:*integer* <required>
+|    The evse id to withdraw authorization for.
+|   **id_token**:*object* <required> (:ref:`authorization-IdToken <authorization-IdToken>`)
+|    The id token to withdraw authorization for.
+|    **There is an extended definition for this object** :ref:`here <authorization-IdToken>`.
+
+.. _authorization-WithdrawAuthorizationResult:
+
+| **WithdrawAuthorizationResult**:*string* 
+|  The result of a WithdrawAuthorizationRequest: Accepted in case requested authorization was removed AuthorizationNotFound in case no match for request was found EvseNotFound in case no match for evse_id was found Rejected in case module could not process the request for other reasons
+|  enum:
+|    - Accepted
+|    - AuthorizationNotFound
+|    - EvseNotFound
+|    - Rejected

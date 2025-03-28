@@ -49,6 +49,40 @@
   <section id="energy">
 <span id="everest-types-energy"></span><h1><span class="section-number">13.3.5. </span>energy<a class="headerlink" href="#energy" title="Permalink to this heading">¶</a></h1>
 <p>Energy import/export capability/limit types</p>
+<div class="line-block" id="energy-numberwithsource">
+<div class="line"><strong>NumberWithSource</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Simple number type with source information</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>value</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Value</div>
+</div>
+<div class="line"><strong>source</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Source of the value</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="energy-integerwithsource">
+<div class="line"><strong>IntegerWithSource</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Simple number type with source information</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>value</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Value</div>
+</div>
+<div class="line"><strong>source</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Source of the value</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="energy-nodetype">
 <div class="line"><strong>NodeType</strong>:<em>string</em></div>
 <div class="line-block">
@@ -85,25 +119,30 @@
 <div class="line">Energy flow limiting object request (Evses to EnergyManager)</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>total_power_W</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>total_power_W</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">energy-NumberWithSource</span></a>)</div>
 <div class="line-block">
-<div class="line">Total power limit in Watt. Can be used for DC or as additional limit for AC.</div>
+<div class="line">Total power limit in Watt. Can be used for DC or as additional limit for AC. Positive number.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ac_max_current_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_current_A</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">energy-NumberWithSource</span></a>)</div>
 <div class="line-block">
-<div class="line">Max current limit (per phase) in Ampere. AC only.</div>
+<div class="line">Max current limit (per phase) in Ampere. AC only. Positive number.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ac_min_current_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_min_current_A</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">energy-NumberWithSource</span></a>)</div>
 <div class="line-block">
 <div class="line">Min AC current limit per phase in Ampere. Values below that value indicate the  device will not work properly, i.e. it will not charge below 6 amps. AC only.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ac_max_phase_count</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_phase_count</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-integerwithsource"><span class="std std-ref">energy-IntegerWithSource</span></a>)</div>
 <div class="line-block">
-<div class="line">Limit to number of phases. Omit if number of phases are not limited.</div>
+<div class="line">Limit to number of phases. Omit if number of phases are not limited. Value between 1 and 3.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-integerwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ac_min_phase_count</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_min_phase_count</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-integerwithsource"><span class="std std-ref">energy-IntegerWithSource</span></a>)</div>
 <div class="line-block">
-<div class="line">Minimal number of phases. Omit if number of phases are not limited.</div>
+<div class="line">Minimal number of phases. Omit if number of phases are not limited. Value between 1 and 3.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-integerwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>ac_supports_changing_phases_during_charging</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
@@ -122,17 +161,20 @@
 <div class="line">Energy flow limiting object Result (Energy manager to Evses)</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>total_power_W</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>total_power_W</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">energy-NumberWithSource</span></a>)</div>
 <div class="line-block">
 <div class="line">Total power limit in Watt. Can be used for DC or as additional limit for AC. Negative numbers mean export to grid direction.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ac_max_current_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_current_A</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">energy-NumberWithSource</span></a>)</div>
 <div class="line-block">
 <div class="line">Max current limit (per phase) in Ampere. AC only. Negative numbers mean export to grid direction.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-numberwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>ac_max_phase_count</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>ac_max_phase_count</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-integerwithsource"><span class="std std-ref">energy-IntegerWithSource</span></a>)</div>
 <div class="line-block">
 <div class="line">Limit to number of phases. Omit if number of phases are not limited.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-integerwithsource"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -166,6 +208,77 @@
 <div class="line"><strong>full_autonomy</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Only charge from locally generated energy. Do not draw power from grid for charging.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="energy-frequencywattpoint">
+<div class="line"><strong>FrequencyWattPoint</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">A point of a frequency-watt curve</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>frequency_Hz</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The frequency in Hz</div>
+</div>
+<div class="line"><strong>total_power_W</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The total power in W</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="energy-setpointtype">
+<div class="line"><strong>SetpointType</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Defines a setpoint, which is a target value for either charging or discharging depending on the sign. Setpoints per phase are currently not supported.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>ac_current_A</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The target value in amps per phase for either charging or discharging depending on the sign.  Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.</div>
+</div>
+<div class="line"><strong>total_power_W</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The target value for the total power for either charging or discharging depending on the sign. Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.</div>
+</div>
+<div class="line"><strong>frequency_table</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Frequency table for the setpoint. When used it must contain at least two coordinates to specify a power-frequency table to use during this period. If the array is empty, no frequency setpoint is set. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-frequencywattpoint"><span class="std std-ref">energy-FrequencyWattPoint</span></a>)</div>
+<div class="line-block">
+<div class="line">One entry for the frequency table</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-frequencywattpoint"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>priority</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Note: priority handling is not implemented for now. If multiple conflicting setpoints are specified in the tree, the priority selects which one is used. Highest priority is 0, lowest priority is 1000.</div>
+</div>
+<div class="line"><strong>source</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Source of the setpoint</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="energy-schedulesetpointentry">
+<div class="line"><strong>ScheduleSetpointEntry</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">One entry for the time series (setpoint request)</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>timestamp</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Absolute timestamp for this sample in RFC3339 UTC format</div>
+<div class="line">format:date-time</div>
+</div>
+<div class="line"><strong>setpoint</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#energy-setpointtype"><span class="std std-ref">energy-SetpointType</span></a>)</div>
+<div class="line-block">
+<div class="line">Setpoint for this timestamp</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-setpointtype"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>
@@ -235,7 +348,7 @@
 <div class="line-block">
 <div class="line"><strong>children</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Array of child node energy flow requests (in the direction to consumer/car</div>
+<div class="line">Array of child node energy flow requests (in the direction to consumer/car)</div>
 <div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-energyflowrequest"><span class="std std-ref">energy-EnergyFlowRequest</span></a>)</div>
 <div class="line-block">
 <div class="line">One entry per child node</div>
@@ -276,7 +389,7 @@
 <div class="line">Energy usage measurement of this node at leaves side</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="powermeter.html#powermeter-powermeter"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>schedule_import</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line"><strong>schedule_import</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
 <div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">energy-ScheduleReqEntry</span></a>)</div>
@@ -286,13 +399,23 @@
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="line"><strong>schedule_export</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line"><strong>schedule_export</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
 <div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">energy-ScheduleReqEntry</span></a>)</div>
 <div class="line-block">
 <div class="line">One entry for the time series. Values are always positive.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>schedule_setpoints</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Setpoints time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulesetpointentry"><span class="std std-ref">energy-ScheduleSetpointEntry</span></a>)</div>
+<div class="line-block">
+<div class="line">One entry for the time series.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulesetpointentry"><span class="std std-ref">here</span></a>.</div>
 <div class="line"><br /></div>
 </div>
 </div>
@@ -314,12 +437,12 @@
 <div class="line">Limits are valid until this timepoint in RFC3339 UTC. If no new update is received, power consumption must be stopped afer that timepoint.</div>
 <div class="line">format:date-time</div>
 </div>
-<div class="line"><strong>limits_root_side</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="#energy-limitsres"><span class="std std-ref">energy-LimitsRes</span></a>)</div>
+<div class="line"><strong>limits_root_side</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#energy-limitsres"><span class="std std-ref">energy-LimitsRes</span></a>)</div>
 <div class="line-block">
 <div class="line">Enforced limits that must be respected at the root side.</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-limitsres"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>schedule</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line"><strong>schedule</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Informative only. Do not use for actual limiting. Energy import/export limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
 <div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-scheduleresentry"><span class="std std-ref">energy-ScheduleResEntry</span></a>)</div>
@@ -355,6 +478,16 @@
 <div class="line-block">
 <div class="line">One entry for the time series</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulereqentry"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>schedule_setpoints</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Setpoints time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#energy-schedulesetpointentry"><span class="std std-ref">energy-ScheduleSetpointEntry</span></a>)</div>
+<div class="line-block">
+<div class="line">One entry for the time series.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#energy-schedulesetpointentry"><span class="std std-ref">here</span></a>.</div>
 <div class="line"><br /></div>
 </div>
 </div>

@@ -158,48 +158,142 @@ grid) and DC limits on the leaf side (facing the EV).</p>
 <p>Limits may also change over time, which is why the <em>schedule_import</em> and
 <em>schedule_export</em> properties are lists containing multiple limit
 specifications.</p>
+<p>Besides the limiting schedules for import and export, it also contains
+a <em>setpoint_schedule</em>. This is a list (time series) just like the limiting schedules
+and it may contain setpoints for each timeslot, see below for a more detailed description.</p>
+<p>Each value that is given for a limit or schedule has a source property (string).
+It is used to track which value is the actual limiting factor for the result in the
+optimization algorithm.</p>
+<p>This is useful to understand how the result that is sent to the EvseManager is composed.</p>
 <p>Below is an example JSON representation of an <strong>EnergyFlowRequest</strong> for a leaf node:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;evse_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Charging&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;node_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Evse&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;priority_request&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;schedule_export&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_leaves&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">16.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_number_of_active_phases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_supports_changing_phases_during_charging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-17T13:08:36.479Z&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;schedule_import&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_leaves&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_number_of_active_phases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_supports_changing_phases_during_charging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-17T13:08:36.479Z&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evse1&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
+<dl>
+<dt>{</dt><dd><p>“children”: [],
+“evse_state”: “Charging”,
+“node_type”: “Evse”,
+“priority_request”: false,
+“schedule_export”: [</p>
+<blockquote>
+<div><dl>
+<dt>{</dt><dd><dl>
+<dt>“limits_to_leaves”: {</dt><dd><dl class="simple">
+<dt>“ac_max_current_A”: {</dt><dd><p>“value”: 10.0,
+“source”: “EVSE1_leave”</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+<p>},
+“limits_to_root”: {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“ac_max_current_A”: {</dt><dd><p>“value”: 16.0,
+“source”: “EVSE1_root”</p>
+</dd>
+</dl>
+<p>},
+“ac_max_phase_count”: {</p>
+<blockquote>
+<div><p>“value”: 3,
+“source”: “EVSE1_phase”</p>
+</div></blockquote>
+<p>},
+“ac_min_current_A”: {</p>
+<blockquote>
+<div><p>“value”: 0.0,
+“source”: “EVSE1_mincurrent”</p>
+</div></blockquote>
+<p>},
+“ac_min_phase_count”: {</p>
+<blockquote>
+<div><p>“value”: 1,
+“source”: “EVSE1_minphase”</p>
+</div></blockquote>
+<p>},
+“ac_number_of_active_phases”: 3,
+“ac_supports_changing_phases_during_charging”: true</p>
+</div></blockquote>
+<p>},
+“timestamp”: “2024-12-17T13:08:36.479Z”</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>],
+“schedule_import”: [</p>
+<blockquote>
+<div><dl>
+<dt>{</dt><dd><dl>
+<dt>“limits_to_leaves”: {</dt><dd><dl class="simple">
+<dt>“ac_max_current_A”: {</dt><dd><p>“value”: 32.0,
+“source”: “EVSE1_leave”</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+<p>},
+“limits_to_root”: {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“ac_max_current_A”: {</dt><dd><p>“value”: 32.0,
+“source”: “EVSE1_root”</p>
+</dd>
+</dl>
+<p>},
+“ac_max_phase_count”: {</p>
+<blockquote>
+<div><p>“value”: 3,
+“source”: “EVSE1_phase”</p>
+</div></blockquote>
+<p>},
+“ac_min_current_A”: {</p>
+<blockquote>
+<div><p>“value”: 6.0,
+“source”: “EVSE1_mincurrent”</p>
+</div></blockquote>
+<p>},
+“ac_min_phase_count”: {</p>
+<blockquote>
+<div><p>“value”: 1,
+“source”: “EVSE1_minphase”</p>
+</div></blockquote>
+<p>},
+“ac_number_of_active_phases”: 3,
+“ac_supports_changing_phases_during_charging”: true</p>
+</div></blockquote>
+<p>},
+“timestamp”: “2024-12-17T13:08:36.479Z”</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>],
+“schedule_setpoints”: [],
+“uuid”: “evse1”</p>
+</dd>
+</dl>
+<p>}</p>
+</section>
+<section id="setpoints">
+<h2>Setpoints<a class="headerlink" href="#setpoints" title="Permalink to this heading">¶</a></h2>
+<p>Setpoints can optionally be specified for each time slot. Note that the schedule_setpoints list
+may have different timestamp entries then the limiting schedules.</p>
+<p>A setpoint entry may have an ampere or watt limit or specify a Watt-Grid Frequency table as setpoint.
+Only one of those three options may be set in each timeslot, but they may be different for each timeslot.</p>
+<p>The priority property is intended to be used if multiple conflicting setpoints exist in the energy tree.
+This is not implemented for now, the priority property will be ignored for now.</p>
+<p>In most cases a setpoint is not neccessary as the same functionality can also be implemented by setting the
+limits at the node appropriately.
+It is especially useful for the bidirectional use case, as it selects whether charging or discharging should be performed:</p>
+<p>E.g. with watt limits of -10kW to +10kW and a setpoint of -2kW, it will discharge at 2kW.
+A setpoint of +3kW will switch to charging without changing the limits.</p>
+<p>The Frequency based watt limit table can be set through e.g. OCPP 2.1 smart charging. It is intended to
+specifiy a grid stabilizing mode, in which the charger charges when the grid frequency is too high and discharges
+to support the grid if the frequency is too low.</p>
 </section>
 <section id="external-limits">
 <h2>External limits<a class="headerlink" href="#external-limits" title="Permalink to this heading">¶</a></h2>

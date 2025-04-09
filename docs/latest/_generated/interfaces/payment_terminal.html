@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.3.2. bank_transaction &#8212; EVerest  documentation</title>
+    <title>13.2.35. payment_terminal &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.3.3. board_support_common" href="board_support_common.html" />
-    <link rel="prev" title="13.3.1. authorization" href="authorization.html" /> 
+    <link rel="next" title="13.2.36. phyverso_mcu_temperature" href="phyverso_mcu_temperature.html" />
+    <link rel="prev" title="13.2.34. over_voltage_monitor" href="over_voltage_monitor.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="board_support_common.html" title="13.3.3. board_support_common"
+          <a href="phyverso_mcu_temperature.html" title="13.2.36. phyverso_mcu_temperature"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="authorization.html" title="13.3.1. authorization"
+          <a href="over_voltage_monitor.html" title="13.2.34. over_voltage_monitor"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.2. </span>bank_transaction</a></li> 
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.35. </span>payment_terminal</a></li> 
       </ul>
     </div>  
 
@@ -46,40 +46,48 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="bank-transaction">
-<span id="everest-types-bank-transaction"></span><h1><span class="section-number">13.3.2. </span>bank_transaction<a class="headerlink" href="#bank-transaction" title="Permalink to this heading">¶</a></h1>
-<p>Types needed for bookkeeping bank transactions</p>
-<div class="line-block" id="bank-transaction-banksessiontoken">
-<div class="line"><strong>BankSessionToken</strong>:<em>object</em></div>
+  <section id="payment-terminal">
+<span id="everest-interfaces-payment-terminal"></span><h1><span class="section-number">13.2.35. </span>payment_terminal<a class="headerlink" href="#payment-terminal" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">In some setups the unique token needs to be provided in the bank statement.</div>
-<div class="line">properties:</div>
+<div class="line">Interface that provides functionality for a Payment Terminal</div>
+</div>
+<section id="variables">
+<h2><span class="section-number">13.2.35.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>token</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><strong>bank_transaction_summary</strong>:<em>object</em>  (<a class="reference internal" href="../types/payment_terminal.html#payment-terminal-banktransactionsummary"><span class="std std-ref">payment_terminal-BankTransactionSummary</span></a>)</div>
 <div class="line-block">
-<div class="line">Arbitrary token string. Typically short string that is printable case insensitive ascii.</div>
+<div class="line">Provides information of the session that was committed to the bank. This data may be needed for accounting purposes. Summary of a bank transaction. Depends on bank and the backend. Therefore it’s mostly opaque data at the moment.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/payment_terminal.html#payment-terminal-banktransactionsummary"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
-</div>
-</div>
-<div class="line-block" id="bank-transaction-banktransactionsummary">
-<div class="line"><strong>BankTransactionSummary</strong>:<em>object</em></div>
+</section>
+<section id="commands">
+<h2><span class="section-number">13.2.35.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line">Summary of a bank transaction. Depends on bank and the backend. Therefore it’s mostly opaque data at the moment.</div>
-<div class="line">properties:</div>
+<div class="line"><strong>enable_card_reading</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line"><strong>session_token</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#bank-transaction-banksessiontoken"><span class="std std-ref">bank_transaction-BankSessionToken</span></a>)</div>
+<div class="line">Enables or disables card reading for given connector</div>
+<div class="line"><strong>supported_cards</strong>:<em>array</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Token to identify the session. This token can be used to download the invoices.</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#bank-transaction-banksessiontoken"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>transaction_data</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line">Supported card types array</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="../types/payment_terminal.html#payment-terminal-cardtype"><span class="std std-ref">payment_terminal-CardType</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">Arbitrary data that is needed to identify the transaction. This is mostly opaque data at the moment.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/payment_terminal.html#payment-terminal-cardtype"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
 </div>
 </div>
+<div class="line"><strong>connector_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Which connector</div>
 </div>
 </div>
+<div class="line"><strong>allow_all_cards_for_every_connector</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Enable all card types on each connector. This is default behavior on the startup</div>
+</div>
+</div>
+</section>
 </section>
 
 
@@ -105,26 +113,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
 </ul>
 </li>
 </ul>
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="authorization.html"
-                          title="previous chapter"><span class="section-number">13.3.1. </span>authorization</a></p>
+    <p class="topless"><a href="over_voltage_monitor.html"
+                          title="previous chapter"><span class="section-number">13.2.34. </span>over_voltage_monitor</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="board_support_common.html"
-                          title="next chapter"><span class="section-number">13.3.3. </span>board_support_common</a></p>
+    <p class="topless"><a href="phyverso_mcu_temperature.html"
+                          title="next chapter"><span class="section-number">13.2.36. </span>phyverso_mcu_temperature</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/types/bank_transaction.rst.txt"
+      <li><a href="../../_sources/_generated/interfaces/payment_terminal.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -155,15 +163,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="board_support_common.html" title="13.3.3. board_support_common"
+          <a href="phyverso_mcu_temperature.html" title="13.2.36. phyverso_mcu_temperature"
              >next</a> |</li>
         <li class="right" >
-          <a href="authorization.html" title="13.3.1. authorization"
+          <a href="over_voltage_monitor.html" title="13.2.34. over_voltage_monitor"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.2. </span>bank_transaction</a></li> 
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.35. </span>payment_terminal</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

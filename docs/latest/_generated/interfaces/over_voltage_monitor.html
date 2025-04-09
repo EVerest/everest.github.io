@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.2.35. over_voltage_monitor &#8212; EVerest  documentation</title>
+    <title>13.2.34. over_voltage_monitor &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.2.36. phyverso_mcu_temperature" href="phyverso_mcu_temperature.html" />
-    <link rel="prev" title="13.2.34. ocpp_data_transfer" href="ocpp_data_transfer.html" /> 
+    <link rel="next" title="13.2.35. payment_terminal" href="payment_terminal.html" />
+    <link rel="prev" title="13.2.33. ocpp_data_transfer" href="ocpp_data_transfer.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="phyverso_mcu_temperature.html" title="13.2.36. phyverso_mcu_temperature"
+          <a href="payment_terminal.html" title="13.2.35. payment_terminal"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ocpp_data_transfer.html" title="13.2.34. ocpp_data_transfer"
+          <a href="ocpp_data_transfer.html" title="13.2.33. ocpp_data_transfer"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" accesskey="U"><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.35. </span>over_voltage_monitor</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.34. </span>over_voltage_monitor</a></li> 
       </ul>
     </div>  
 
@@ -47,12 +47,12 @@
           <div class="body" role="main">
             
   <section id="over-voltage-monitor">
-<span id="everest-interfaces-over-voltage-monitor"></span><h1><span class="section-number">13.2.35. </span>over_voltage_monitor<a class="headerlink" href="#over-voltage-monitor" title="Permalink to this heading">¶</a></h1>
+<span id="everest-interfaces-over-voltage-monitor"></span><h1><span class="section-number">13.2.34. </span>over_voltage_monitor<a class="headerlink" href="#over-voltage-monitor" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
 <div class="line">This interface defines a fast over voltage monitoring device according to IEC61851-23:2023 6.3.1.106.2 for DC charging. An emergency shutdown needs to be triggered if the DC output voltage is above the limit of Table 103 for 9ms. The actual shutdown needs to be handled in a lower layer outside of EVerest, but this interface sets the  correct voltage limit at the start of the session and stops monitoring at the  end of the session. The over voltage error should be reported after the actual shutdown was already performed. Once an over voltage error was raised, it should only be cleared when the reset_over_voltage_error command is called. All other errors should be raised/cleared when they occur/are no longer active immediately. The var voltage_measurement_V should be published in regular intervals, e.g. 1 second. It is not used to compare it with the overvoltage threshold setting in EVerest, that has to be done in the OVM device itself. It will only be used to validate that the OVM and the IMD see the same voltage to ensure they are correctly wired to the same charging port. If it is not available in hardware, do not publish the voltage_measurement_V at all.</div>
 </div>
 <section id="variables">
-<h2><span class="section-number">13.2.35.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.2.34.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>voltage_measurement_V</strong>:<em>number</em></div>
 <div class="line-block">
@@ -61,7 +61,7 @@
 </div>
 </section>
 <section id="commands">
-<h2><span class="section-number">13.2.35.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.2.34.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
 <div class="line"><strong>start</strong>:<em>void</em></div>
 <div class="line-block">
@@ -115,12 +115,12 @@
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="ocpp_data_transfer.html"
-                          title="previous chapter"><span class="section-number">13.2.34. </span>ocpp_data_transfer</a></p>
+                          title="previous chapter"><span class="section-number">13.2.33. </span>ocpp_data_transfer</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="phyverso_mcu_temperature.html"
-                          title="next chapter"><span class="section-number">13.2.36. </span>phyverso_mcu_temperature</a></p>
+    <p class="topless"><a href="payment_terminal.html"
+                          title="next chapter"><span class="section-number">13.2.35. </span>payment_terminal</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -156,15 +156,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="phyverso_mcu_temperature.html" title="13.2.36. phyverso_mcu_temperature"
+          <a href="payment_terminal.html" title="13.2.35. payment_terminal"
              >next</a> |</li>
         <li class="right" >
-          <a href="ocpp_data_transfer.html" title="13.2.34. ocpp_data_transfer"
+          <a href="ocpp_data_transfer.html" title="13.2.33. ocpp_data_transfer"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/interfaces.html" ><span class="section-number">13.2. </span>EVerest Interfaces</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.35. </span>over_voltage_monitor</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.2.34. </span>over_voltage_monitor</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

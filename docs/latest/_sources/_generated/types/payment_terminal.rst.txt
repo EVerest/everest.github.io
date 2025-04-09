@@ -1,14 +1,14 @@
 
-.. _everest_types_bank_transaction:
+.. _everest_types_payment_terminal:
 
 
 ################
-bank_transaction
+payment_terminal
 ################
 
-Types needed for bookkeeping bank transactions
+Types needed for payment terminal - bookkeeping bank transactions, card types
 
-.. _bank_transaction-BankSessionToken:
+.. _payment_terminal-BankSessionToken:
 
 | **BankSessionToken**:*object* 
 |  In some setups the unique token needs to be provided in the bank statement.
@@ -16,13 +16,21 @@ Types needed for bookkeeping bank transactions
 |   **token**:*string* <required>
 |    Arbitrary token string. Typically short string that is printable case insensitive ascii.
 
-.. _bank_transaction-BankTransactionSummary:
+.. _payment_terminal-BankTransactionSummary:
 
 | **BankTransactionSummary**:*object* 
 |  Summary of a bank transaction. Depends on bank and the backend. Therefore it's mostly opaque data at the moment.
 |  properties:
-|   **session_token**:*object* <required> (:ref:`bank_transaction-BankSessionToken <bank_transaction-BankSessionToken>`)
+|   **session_token**:*object* <required> (:ref:`payment_terminal-BankSessionToken <payment_terminal-BankSessionToken>`)
 |    Token to identify the session. This token can be used to download the invoices.
-|    **There is an extended definition for this object** :ref:`here <bank_transaction-BankSessionToken>`.
+|    **There is an extended definition for this object** :ref:`here <payment_terminal-BankSessionToken>`.
 |   **transaction_data**:*string* <required>
 |    Arbitrary data that is needed to identify the transaction. This is mostly opaque data at the moment.
+
+.. _payment_terminal-CardType:
+
+| **CardType**:*string* 
+|  types of cards for the payment terminal
+|  enum:
+|    - BankCard
+|    - RfidCard

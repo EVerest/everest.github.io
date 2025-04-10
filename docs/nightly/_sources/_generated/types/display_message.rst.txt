@@ -8,6 +8,15 @@ display_message
 
 Message to show on a display
 
+.. _display_message-IdentifierType:
+
+| **IdentifierType**:*string* 
+|  Types of identifiers
+|  enum:
+|    - IdToken
+|    - SessionId
+|    - TransactionId
+
 .. _display_message-MessagePriorityEnum:
 
 | **MessagePriorityEnum**:*string* 
@@ -49,30 +58,6 @@ Message to show on a display
 |    - Accepted
 |    - Unknown
 
-.. _display_message-MessageContent:
-
-| **MessageContent**:*object* 
-|  Contains message details
-|  properties:
-|   **format**:*string* <optional> (:ref:`display_message-MessageFormat <display_message-MessageFormat>`)
-|    
-|    **There is an extended definition for this object** :ref:`here <display_message-MessageFormat>`.
-|   **language**:*string* <optional>
-|    
-|   **content**:*string* <required>
-|    
-
-.. _display_message-MessageFormat:
-
-| **MessageFormat**:*string* 
-|  Format of the message to be displayed
-|  enum:
-|    - ASCII
-|    - HTML
-|    - URI
-|    - UTF8
-|    - QRCODE
-
 .. _display_message-DisplayMessage:
 
 | **DisplayMessage**:*object* 
@@ -94,15 +79,12 @@ Message to show on a display
 |    format:date-time
 |   **identifier_id**:*string* <optional>
 |    To which user / during which session shall this message be shown. User can be identified by id token (when the session did not start yet), session id or transaction id. identifier_type will hold the type of identifier_id (default session id). Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.
-|   **identifier_type**:*string* <optional>
+|   **identifier_type**:*string* <optional> (:ref:`display_message-IdentifierType <display_message-IdentifierType>`)
 |    The type of 'identifier_id'. If omitted, type will be session id.
-|    enum:
-|      - IdToken
-|      - SessionId
-|      - TransactionId
-|   **message**:*object* <required> (:ref:`display_message-MessageContent <display_message-MessageContent>`)
+|    **There is an extended definition for this object** :ref:`here <display_message-IdentifierType>`.
+|   **message**:*object* <required> (:ref:`text_message-MessageContent <text_message-MessageContent>`)
 |    The message to show
-|    **There is an extended definition for this object** :ref:`here <display_message-MessageContent>`.
+|    **There is an extended definition for this object** :ref:`here <text_message-MessageContent>`.
 |   **qr_code**:*string* <optional>
 |    QR Code to scan for more information.
 

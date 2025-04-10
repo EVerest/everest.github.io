@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.3.27. uk_random_delay &#8212; EVerest  documentation</title>
+    <title>13.3.26. text_message &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.3.28. units" href="units.html" />
-    <link rel="prev" title="13.3.26. text_message" href="text_message.html" /> 
+    <link rel="next" title="13.3.27. uk_random_delay" href="uk_random_delay.html" />
+    <link rel="prev" title="13.3.25. temperature" href="temperature.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="units.html" title="13.3.28. units"
+          <a href="uk_random_delay.html" title="13.3.27. uk_random_delay"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="text_message.html" title="13.3.26. text_message"
+          <a href="temperature.html" title="13.3.25. temperature"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" accesskey="U"><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.27. </span>uk_random_delay</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.26. </span>text_message</a></li> 
       </ul>
     </div>  
 
@@ -46,32 +46,38 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="uk-random-delay">
-<span id="everest-types-uk-random-delay"></span><h1><span class="section-number">13.3.27. </span>uk_random_delay<a class="headerlink" href="#uk-random-delay" title="Permalink to this heading">¶</a></h1>
-<p>UK Random delay types</p>
-<div class="line-block" id="uk-random-delay-countdown">
-<div class="line"><strong>CountDown</strong>:<em>object</em></div>
+  <section id="text-message">
+<span id="everest-types-text-message"></span><h1><span class="section-number">13.3.26. </span>text_message<a class="headerlink" href="#text-message" title="Permalink to this heading">¶</a></h1>
+<p>Message to send, for example to show on a display</p>
+<div class="line-block" id="text-message-messagecontent">
+<div class="line"><strong>MessageContent</strong>:<em>object</em></div>
 <div class="line-block">
-<div class="line">Count down object</div>
+<div class="line">Contains message details</div>
 <div class="line">properties:</div>
 <div class="line-block">
-<div class="line"><strong>countdown_s</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line"><strong>format</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#text-message-messageformat"><span class="std std-ref">text_message-MessageFormat</span></a>)</div>
+<div class="line"><br /></div>
 <div class="line-block">
-<div class="line">Remaining count down in seconds. It is set to zero if random delay is inactive</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#text-message-messageformat"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>current_limit_after_delay_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line"><strong>language</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><br /></div>
+<div class="line"><strong>content</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="line-block" id="text-message-messageformat">
+<div class="line"><strong>MessageFormat</strong>:<em>string</em></div>
 <div class="line-block">
-<div class="line">Current limit that will be used after the random delay is over</div>
-</div>
-<div class="line"><strong>current_limit_during_delay_A</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line">Format of the message to be displayed</div>
+<div class="line">enum:</div>
 <div class="line-block">
-<div class="line">Current limit that is used while the delay is active</div>
-</div>
-<div class="line"><strong>start_time</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line-block">
-<div class="line">UTC timestamp when this random delay was started</div>
-<div class="line">format:date-time</div>
-</div>
+<div class="line">- ASCII</div>
+<div class="line">- HTML</div>
+<div class="line">- URI</div>
+<div class="line">- UTF8</div>
+<div class="line">- QRCODE</div>
 </div>
 </div>
 </div>
@@ -108,18 +114,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="text_message.html"
-                          title="previous chapter"><span class="section-number">13.3.26. </span>text_message</a></p>
+    <p class="topless"><a href="temperature.html"
+                          title="previous chapter"><span class="section-number">13.3.25. </span>temperature</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="units.html"
-                          title="next chapter"><span class="section-number">13.3.28. </span>units</a></p>
+    <p class="topless"><a href="uk_random_delay.html"
+                          title="next chapter"><span class="section-number">13.3.27. </span>uk_random_delay</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/types/uk_random_delay.rst.txt"
+      <li><a href="../../_sources/_generated/types/text_message.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -150,15 +156,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="units.html" title="13.3.28. units"
+          <a href="uk_random_delay.html" title="13.3.27. uk_random_delay"
              >next</a> |</li>
         <li class="right" >
-          <a href="text_message.html" title="13.3.26. text_message"
+          <a href="temperature.html" title="13.3.25. temperature"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/types.html" ><span class="section-number">13.3. </span>EVerest Types</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.27. </span>uk_random_delay</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.3.26. </span>text_message</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

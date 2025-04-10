@@ -49,6 +49,18 @@
   <section id="display-message">
 <span id="everest-types-display-message"></span><h1><span class="section-number">13.3.3. </span>display_message<a class="headerlink" href="#display-message" title="Permalink to this heading">¶</a></h1>
 <p>Message to show on a display</p>
+<div class="line-block" id="display-message-identifiertype">
+<div class="line"><strong>IdentifierType</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Types of identifiers</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- IdToken</div>
+<div class="line">- SessionId</div>
+<div class="line">- TransactionId</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="display-message-messagepriorityenum">
 <div class="line"><strong>MessagePriorityEnum</strong>:<em>string</em></div>
 <div class="line-block">
@@ -102,38 +114,6 @@
 </div>
 </div>
 </div>
-<div class="line-block" id="display-message-messagecontent">
-<div class="line"><strong>MessageContent</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Contains message details</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>format</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#display-message-messageformat"><span class="std std-ref">display_message-MessageFormat</span></a>)</div>
-<div class="line"><br /></div>
-<div class="line-block">
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messageformat"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>language</strong>:<em>string</em> &lt;optional&gt;</div>
-<div class="line"><br /></div>
-<div class="line"><strong>content</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line"><br /></div>
-</div>
-</div>
-</div>
-<div class="line-block" id="display-message-messageformat">
-<div class="line"><strong>MessageFormat</strong>:<em>string</em></div>
-<div class="line-block">
-<div class="line">Format of the message to be displayed</div>
-<div class="line">enum:</div>
-<div class="line-block">
-<div class="line">- ASCII</div>
-<div class="line">- HTML</div>
-<div class="line">- URI</div>
-<div class="line">- UTF8</div>
-<div class="line">- QRCODE</div>
-</div>
-</div>
-</div>
 <div class="line-block" id="display-message-displaymessage">
 <div class="line"><strong>DisplayMessage</strong>:<em>object</em></div>
 <div class="line-block">
@@ -168,20 +148,15 @@
 <div class="line-block">
 <div class="line">To which user / during which session shall this message be shown. User can be identified by id token (when the session did not start yet), session id or transaction id. identifier_type will hold the type of identifier_id (default session id). Message SHALL be removed by the Charging Station after session has ended. If omitted, message is not tight to a session.</div>
 </div>
-<div class="line"><strong>identifier_type</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><strong>identifier_type</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#display-message-identifiertype"><span class="std std-ref">display_message-IdentifierType</span></a>)</div>
 <div class="line-block">
 <div class="line">The type of ‘identifier_id’. If omitted, type will be session id.</div>
-<div class="line">enum:</div>
-<div class="line-block">
-<div class="line">- IdToken</div>
-<div class="line">- SessionId</div>
-<div class="line">- TransactionId</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-identifiertype"><span class="std std-ref">here</span></a>.</div>
 </div>
-</div>
-<div class="line"><strong>message</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#display-message-messagecontent"><span class="std std-ref">display_message-MessageContent</span></a>)</div>
+<div class="line"><strong>message</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="text_message.html#text-message-messagecontent"><span class="std std-ref">text_message-MessageContent</span></a>)</div>
 <div class="line-block">
 <div class="line">The message to show</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#display-message-messagecontent"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="text_message.html#text-message-messagecontent"><span class="std std-ref">here</span></a>.</div>
 </div>
 <div class="line"><strong>qr_code</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">

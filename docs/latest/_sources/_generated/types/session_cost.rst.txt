@@ -8,6 +8,25 @@ session_cost
 
 Types to provide the session price
 
+.. _session_cost-TariffMessage:
+
+| **TariffMessage**:*object* 
+|  Message containing cost information
+|  properties:
+|   **ocpp_transaction_id**:*string* <optional>
+|    Transaction id of ocpp.
+|   **identifier_id**:*string* <optional>
+|    To which token this message is bound.
+|   **identifier_type**:*string* <optional> (:ref:`display_message-IdentifierType <display_message-IdentifierType>`)
+|    The type of 'identifier_id'. If omitted, type will be session id.
+|    **There is an extended definition for this object** :ref:`here <display_message-IdentifierType>`.
+|   **messages**:*array* <required>
+|    Message with session price information to show the user.
+|    **array_item**:*object*  (:ref:`text_message-MessageContent <text_message-MessageContent>`)
+|     Message with pricing information in a specific language
+|     **There is an extended definition for this object** :ref:`here <text_message-MessageContent>`.
+| 
+
 .. _session_cost-IdlePrice:
 
 | **IdlePrice**:*object* 
@@ -125,9 +144,9 @@ Types to provide the session price
 |    **There is an extended definition for this object** :ref:`here <session_cost-SessionStatus>`.
 |   **message**:*array* <optional>
 |    Message to show to the user containing information about the price
-|    **array_item**:*object*  (:ref:`display_message-MessageContent <display_message-MessageContent>`)
+|    **array_item**:*object*  (:ref:`text_message-MessageContent <text_message-MessageContent>`)
 |     Message with pricing information in a specific language
-|     **There is an extended definition for this object** :ref:`here <display_message-MessageContent>`.
+|     **There is an extended definition for this object** :ref:`here <text_message-MessageContent>`.
 | 
 |   **qr_code**:*string* <optional>
 |    QR Code with more information. For example when the charging is finished, to download the invoice from

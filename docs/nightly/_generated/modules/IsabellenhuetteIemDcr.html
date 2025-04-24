@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.21. JsTibber &#8212; EVerest  documentation</title>
+    <title>13.1.20. IsabellenhuetteIemDcr &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.22. LemDCBM400600" href="LemDCBM400600.html" />
-    <link rel="prev" title="13.1.20. IsoMux" href="IsoMux.html" /> 
+    <link rel="next" title="13.1.21. IsoMux" href="IsoMux.html" />
+    <link rel="prev" title="13.1.19. GenericPowermeter" href="GenericPowermeter.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="LemDCBM400600.html" title="13.1.22. LemDCBM400600"
+          <a href="IsoMux.html" title="13.1.21. IsoMux"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="IsoMux.html" title="13.1.20. IsoMux"
+          <a href="GenericPowermeter.html" title="13.1.19. GenericPowermeter"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.21. </span>JsTibber</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.20. </span>IsabellenhuetteIemDcr</a></li> 
       </ul>
     </div>  
 
@@ -46,65 +46,96 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="jstibber">
-<span id="everest-modules-jstibber"></span><h1><span class="section-number">13.1.21. </span>JsTibber<a class="headerlink" href="#jstibber" title="Permalink to this heading">¶</a></h1>
+  <section id="isabellenhuetteiemdcr">
+<span id="everest-modules-isabellenhuetteiemdcr"></span><h1><span class="section-number">13.1.20. </span>IsabellenhuetteIemDcr<a class="headerlink" href="#isabellenhuetteiemdcr" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This modules fetches data from the Tibber Price Energy Forecast API and publishes it.</div>
+<div class="line">Module implements Isabellenhuette IEM-DCR power meter driver, connecting via HTTP/REST</div>
 </div>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/IsabellenhuetteIemDcr.html#everest-modules-handwritten-isabellenhuetteiemdcr"><span class="std std-ref">here</span></a></p>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.20.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>ip_address</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “192.168.60.12”</em></div>
+<div class="line-block">
+<div class="line">IPv4 Address of the power meter API.</div>
+</div>
+<div class="line"><strong>port_http</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 80</em></div>
+<div class="line-block">
+<div class="line">HTTP-Port of the power meter API.</div>
+</div>
+<div class="line"><strong>timezone</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “+0100”</em></div>
+<div class="line-block">
+<div class="line">The timezone offset information according to ISO8601 (version without colon) for normal time.</div>
+</div>
+<div class="line"><strong>timezone_handle_DST</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Controls whether daylight saving time (DST) is handled or normal time is used continuously.</div>
+</div>
+<div class="line"><strong>datetime_resync_interval</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Interval for cyclic time resync in hours.</div>
+</div>
+<div class="line"><strong>resilience_initial_connection_retry_delay</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 10000</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the delay in milliseconds before a retry attempt at module initialization.</div>
+</div>
+<div class="line"><strong>resilience_transaction_request_retries</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the number of retries to connect to the powermeter at a transaction start or stop request.</div>
+</div>
+<div class="line"><strong>resilience_transaction_request_retry_delay</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 250</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the delay in milliseconds before a retry attempt  at a transaction start or stop request.</div>
+</div>
+<div class="line"><strong>CT</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “EVSEID”</em></div>
+<div class="line-block">
+<div class="line">Charge point identification type (part of the signed OCMF data tuple).</div>
+</div>
+<div class="line"><strong>CI</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “1234”</em></div>
+<div class="line-block">
+<div class="line">Charge point identification (part of the signed OCMF data tuple).</div>
+</div>
+<div class="line"><strong>TT_initial</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Initial tariff text. (Its current value is part of signed OCMF data tuple).</div>
+</div>
+<div class="line"><strong>US</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Controls whether UserID is shown on display or not.</div>
+</div>
+</div>
+</section>
 <section id="provides">
-<h2><span class="section-number">13.1.21.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.20.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/energy_price_information.html#everest-interfaces-energy-price-information"><span class="std std-ref">energy_price_information</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
 <div class="line-block">
-<div class="line">This interface is responsible for providing the price forecast data from Tibber</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line">api_key:</div>
-<div class="line-block">
-<div class="line">description:API key from Tibber developer account</div>
-<div class="line">type:string</div>
-</div>
-<div class="line">update_interval:</div>
-<div class="line-block">
-<div class="line">description:Update interval in minutes. Typically 60 or so.</div>
-<div class="line">type:integer</div>
-</div>
-<div class="line">additional_cost_per_kwh:</div>
-<div class="line-block">
-<div class="line">description:Constant to add to the reported price. Usually 0.</div>
-<div class="line">type:number</div>
-</div>
-</div>
-<div class="line">config:</div>
-<div class="line-block">
-<div class="line"><strong>api_key</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">API key from Tibber developer account</div>
-</div>
-<div class="line"><strong>update_interval</strong>:<em>integer</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Update interval in minutes. Typically 60 or so.</div>
-</div>
-<div class="line"><strong>additional_cost_per_kwh</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Constant to add to the reported price. Usually 0.</div>
-</div>
-</div>
+<div class="line">This is the main unit of the module</div>
 </div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.21.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.20.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.21.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.20.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Andreas Heinrich</div>
-<div class="line">Leonardo Oliveira</div>
-<div class="line">Cornelius Claussen</div>
+<div class="line">Josef Herbert &lt;<a class="reference external" href="mailto:josef&#46;herbert&#37;&#52;&#48;isabellenhuette&#46;com">josef<span>&#46;</span>herbert<span>&#64;</span>isabellenhuette<span>&#46;</span>com</a>&gt;</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.21.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.20.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -143,18 +174,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="IsoMux.html"
-                          title="previous chapter"><span class="section-number">13.1.20. </span>IsoMux</a></p>
+    <p class="topless"><a href="GenericPowermeter.html"
+                          title="previous chapter"><span class="section-number">13.1.19. </span>GenericPowermeter</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="LemDCBM400600.html"
-                          title="next chapter"><span class="section-number">13.1.22. </span>LemDCBM400600</a></p>
+    <p class="topless"><a href="IsoMux.html"
+                          title="next chapter"><span class="section-number">13.1.21. </span>IsoMux</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/JsTibber.rst.txt"
+      <li><a href="../../_sources/_generated/modules/IsabellenhuetteIemDcr.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -185,15 +216,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="LemDCBM400600.html" title="13.1.22. LemDCBM400600"
+          <a href="IsoMux.html" title="13.1.21. IsoMux"
              >next</a> |</li>
         <li class="right" >
-          <a href="IsoMux.html" title="13.1.20. IsoMux"
+          <a href="GenericPowermeter.html" title="13.1.19. GenericPowermeter"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.21. </span>JsTibber</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.20. </span>IsabellenhuetteIemDcr</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

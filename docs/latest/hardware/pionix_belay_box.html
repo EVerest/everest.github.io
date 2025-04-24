@@ -177,11 +177,10 @@ have a look at
 </div>
 <p>Now to the steps to flash the board:</p>
 <p><strong>STEP 1: Downloading</strong></p>
-<p>Download the latest stable image and the matching .bmap file:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://pionix-update.de/releases/stable/belaybox-image-raspberrypi4-kirkstone-release-330-1.wic.bz2">https://pionix-update.de/releases/stable/belaybox-image-raspberrypi4-kirkstone-release-330-1.wic.bz2</a></p></li>
-<li><p><a class="reference external" href="https://pionix-update.de/releases/stable/belaybox-image-raspberrypi4-kirkstone-release-330-1.wic.bmap">https://pionix-update.de/releases/stable/belaybox-image-raspberrypi4-kirkstone-release-330-1.wic.bmap</a></p></li>
-</ul>
+<p>Download the latest stable image and the matching .bmap file.
+You will find the required files (.bz2 and .bmap) here:</p>
+<p><a class="reference external" href="https://pionix-update.de/releases/index.php">PIONIX update files</a></p>
+<p>Make sure to download the correct files from the BelayBox section.</p>
 <p><strong>STEP 2: Set boot jumper and connect Micro-USB</strong></p>
 <p>Place the small black jumper onto the “BOOT” pins.
 This is needed to be able to make the emmC flash accessible to the host system.</p>
@@ -311,7 +310,22 @@ any other open PCB parts to prevent damage to the boards.</p>
 <span id="belaybox-furtherinfo"></span><h2><span class="section-number">11.3. </span>BelayBox Use Cases<a class="headerlink" href="#belaybox-use-cases" title="Permalink to this heading">¶</a></h2>
 <section id="how-to-install-updates-via-rauc-bundles">
 <span id="belaybox-rauc"></span><h3><span class="section-number">11.3.1. </span>How to install updates via RAUC bundles<a class="headerlink" href="#how-to-install-updates-via-rauc-bundles" title="Permalink to this heading">¶</a></h3>
-<p>Connect via SSH into your Yak board. The credentials are:</p>
+<p>To enable automatic RAUC updates, ensure your configuration file includes the
+LinuxRaucSystem module.</p>
+<p>Add the following snippet to your config file (if it does not exist):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>system:
+<span class="w">  </span>module:<span class="w"> </span>Linux_Systemd_Rauc
+<span class="w">  </span>config_module:
+<span class="w">    </span>RebootCommand:<span class="w"> </span><span class="s2">&quot;reboot &#39;0 tryboot&#39;&quot;</span>
+<span class="w">  </span>connections:
+<span class="w">    </span>store:
+<span class="w">    </span>-<span class="w"> </span>module_id:<span class="w"> </span>persistent_store
+<span class="w">      </span>implementation_id:<span class="w"> </span>main
+</pre></div>
+</div>
+<p>Verify that the module ID of your store module is named correctly.</p>
+<p>After modifying the configuration, restart the everest/basecamp service.</p>
+<p>Next, connect via SSH into your Yak board. The credentials are:</p>
 <ul class="simple">
 <li><p>User: root</p></li>
 <li><p>Password: basecamp</p></li>
@@ -321,19 +335,23 @@ any other open PCB parts to prevent damage to the boards.</p>
 </pre></div>
 </div>
 <p>Remember the slot for comparison afterwards.</p>
+<p>Download the RAUC bundle from the PIONIX update server. You can find the
+latest file here:</p>
+<p><a class="reference external" href="https://pionix-update.de/releases/index.php">PIONIX update files</a></p>
+<p>Make sure to download the correct .raucb file from the BelayBox section.</p>
 <p>Execute the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rauc<span class="w"> </span>install<span class="w"> </span>https://pionix-update.de/belaybox-basecamp-demo/stable/belaybox-bundle-raspberrypi4-kirkstone-v1.0-186.raucb
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rauc<span class="w"> </span>install<span class="w"> </span>&lt;path_to_rauc_bundle.raucb&gt;
 </pre></div>
 </div>
 </section>
 <section id="cross-compile-toolchain">
 <span id="belaybox-yeti-flash"></span><h3><span class="section-number">11.3.2. </span>Cross-compile toolchain<a class="headerlink" href="#cross-compile-toolchain" title="Permalink to this heading">¶</a></h3>
-<p>If you want to cross-compile your EVerest version, this is the toolchain to
-use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>https://pionix-update.de/belaybox-basecamp-demo/stable/poky-glibc-x86_64-belaybox-image-cortexa7t2hf-neon-vfpv4-raspberrypi4-toolchain-4.0.16.sh
-</pre></div>
-</div>
-<p>First of all you need to install it. It is a shell script, so just do a
+<p>If you want to cross-compile your EVerest version, get the toolchain from the
+PIONIX update page here (file extension is .sh):</p>
+<p><a class="reference external" href="https://pionix-update.de/releases/index.php">PIONIX update files</a></p>
+<p>Make sure to download the correct file from the BelayBox section. The file with
+extension .sh is the required one.</p>
+<p>First of all, you need to install it. It is a shell script, so just do a
 “chmod +x name_of_toolchain.sh” and then run it with</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./name_of_toolchain.sh
 </pre></div>

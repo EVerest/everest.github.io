@@ -146,7 +146,7 @@ Auth token validator types
 |    Parent Id Tag of the validated token
 |    **There is an extended definition for this object** :ref:`here <authorization-IdToken>`.
 |   **evse_ids**:*array* <optional>
-|    Only used when the id token is valid for one or more specific evses,  not for the whole charging station. Indicates for which evse ids the provided token is valid
+|    Only used when the id token is valid for one or more specific evses, not for the whole charging station. Indicates for which evse ids the provided token is valid
 |    **array_item**:*integer* 
 |     
 | 
@@ -169,7 +169,7 @@ Auth token validator types
 .. _authorization-AuthorizationType:
 
 | **AuthorizationType**:*string* 
-|  Type of authorization of the provided token. The value  of AuthorizationType can influence the authorization process
+|  Type of authorization of the provided token. The value of AuthorizationType can influence the authorization process
 |  enum:
 |    - OCPP
 |    - RFID
@@ -215,3 +215,14 @@ Auth token validator types
 |    - AuthorizationNotFound
 |    - EvseNotFound
 |    - Rejected
+
+.. _authorization-ValidationResultUpdate:
+
+| **ValidationResultUpdate**:*object* 
+|  Result object containing an updated validation result for a given token. This is needed since certain information can be updated at a later time.
+|  properties:
+|   **validation_result**:*object* <required> (:ref:`authorization-ValidationResult <authorization-ValidationResult>`)
+|    Result object containing authorization status enum value and an optional parentIdTag
+|    **There is an extended definition for this object** :ref:`here <authorization-ValidationResult>`.
+|   **connector_id**:*integer* <required>
+|    Id of the connector on which the id token information has been updated.

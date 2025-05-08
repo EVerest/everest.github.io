@@ -14,10 +14,10 @@ Module Configuration
 ********************
 | **ChargePointConfigPath**:*string* <optional>
 | *default: "ocpp-config.json"*
-|  Path to the ocpp configuration file. Libocpp defines a JSON schema for this file. Please refer to the documentation of libocpp for more information about the configuration options.  
+|  Path to the ocpp configuration file. Libocpp defines a JSON schema for this file. Please refer to the documentation of libocpp for more information about the configuration options.
 | **UserConfigPath**:*string* <optional>
 | *default: "user_config.json"*
-|  Path to the file of the OCPP user config. The user config is used as an overlay for the original config defined by the ChargePointConfigPath. Any changes to configuration keys turned out internally or by the CSMS will be  written to the user config file.
+|  Path to the file of the OCPP user config. The user config is used as an overlay for the original config defined by the ChargePointConfigPath. Any changes to configuration keys turned out internally or by the CSMS will be written to the user config file.
 | **DatabasePath**:*string* <optional>
 | *default: "/tmp/ocpp_1_6_charge_point"*
 |  Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.
@@ -40,7 +40,10 @@ Module Configuration
 | *default: "A"*
 |  Unit in which composite schedules are requested and shared within EVerest. It is recommended to use Amps for AC and Watts for DC charging stations. Allowed values:
 |   - 'A' for Amps
-|   - 'W' for Watts 
+|   - 'W' for Watts
+| **DelayOcppStart**:*integer* <optional>
+| *default: 0*
+|  Small delay in time (milliseconds) to start the ocpp chargepoint to allow time for the rest of everest to update the connector status. This is only used to prevent issues from passing by availlable before preparing on a restart.
 
 ********
 Provides

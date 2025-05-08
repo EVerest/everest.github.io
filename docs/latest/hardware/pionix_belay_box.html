@@ -180,7 +180,11 @@ have a look at
 <p>Download the latest stable image and the matching .bmap file.
 You will find the required files (.bz2 and .bmap) here:</p>
 <p><a class="reference external" href="https://pionix-update.de/releases/index.php">PIONIX update files</a></p>
-<p>Make sure to download the correct files from the BelayBox section.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to download the correct files (.bz2 and .bmap) from the BelayBox
+section.</p>
+</div>
 <p><strong>STEP 2: Set boot jumper and connect Micro-USB</strong></p>
 <p>Place the small black jumper onto the “BOOT” pins.
 This is needed to be able to make the emmC flash accessible to the host system.</p>
@@ -296,7 +300,7 @@ cables are isolated to prevent damage to the Yak board.</p>
 <li><p>ESD underlay mat</p></li>
 <li><p>Preassembled Yak, Yeti kits and cable-set as shown in sections above</p></li>
 </ul>
-<img alt="../_images/final-assembly-w425.png" src="../_images/final-assembly-w425.png" />
+<img alt="../_images/final-assembly-425.png" src="../_images/final-assembly-425.png" />
 <p>Plug in the 10-pin cable into the corresponding sockets on both ends.
 Plug in the 4-pin RFID/NFC reader cable.
 The assembly of Yak, Yet kit and cable set is completed.</p>
@@ -310,8 +314,8 @@ any other open PCB parts to prevent damage to the boards.</p>
 <span id="belaybox-furtherinfo"></span><h2><span class="section-number">11.3. </span>BelayBox Use Cases<a class="headerlink" href="#belaybox-use-cases" title="Permalink to this heading">¶</a></h2>
 <section id="how-to-install-updates-via-rauc-bundles">
 <span id="belaybox-rauc"></span><h3><span class="section-number">11.3.1. </span>How to install updates via RAUC bundles<a class="headerlink" href="#how-to-install-updates-via-rauc-bundles" title="Permalink to this heading">¶</a></h3>
-<p>To enable automatic RAUC updates, ensure your configuration file includes the
-LinuxRaucSystem module.</p>
+<p>To enable the seamless updating via RAUC, ensure your configuration file
+includes the LinuxRaucSystem module.</p>
 <p>Add the following snippet to your config file (if it does not exist):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>system:
 <span class="w">  </span>module:<span class="w"> </span>Linux_Systemd_Rauc
@@ -338,7 +342,11 @@ LinuxRaucSystem module.</p>
 <p>Download the RAUC bundle from the PIONIX update server. You can find the
 latest file here:</p>
 <p><a class="reference external" href="https://pionix-update.de/releases/index.php">PIONIX update files</a></p>
-<p>Make sure to download the correct .raucb file from the BelayBox section.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to download the correct file (.raucb) from the BelayBox
+section.</p>
+</div>
 <p>Execute the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rauc<span class="w"> </span>install<span class="w"> </span>&lt;path_to_rauc_bundle.raucb&gt;
 </pre></div>
@@ -349,8 +357,11 @@ latest file here:</p>
 <p>If you want to cross-compile your EVerest version, get the toolchain from the
 PIONIX update page here (file extension is .sh):</p>
 <p><a class="reference external" href="https://pionix-update.de/releases/index.php">PIONIX update files</a></p>
-<p>Make sure to download the correct file from the BelayBox section. The file with
-extension .sh is the required one.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to download the correct file (.sh) from the BelayBox
+section.</p>
+</div>
 <p>First of all, you need to install it. It is a shell script, so just do a
 “chmod +x name_of_toolchain.sh” and then run it with</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./name_of_toolchain.sh
@@ -587,6 +598,14 @@ not installed.</p>
 </section>
 <section id="no-reboot-after-rauc-update">
 <h3><span class="section-number">11.4.2. </span>No reboot after RAUC update<a class="headerlink" href="#no-reboot-after-rauc-update" title="Permalink to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before doing further troubleshooting, please make sure to have the necessary
+configuration in place.
+See <a class="reference internal" href="#belaybox-rauc"><span class="std std-ref">the section about RAUC updates</span></a> for the snippet you
+will need.
+After that, restart the basecamp service and try to do the RAUC update again.</p>
+</div>
 <p>If you have done a RAUC udpate and the Linux system does not reboot after some
 seconds, execute:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tryboot
@@ -614,8 +633,7 @@ in</p>
 </div>
 <p>It points to the config to be used. This can be
 changed to a config to your liking:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>/etc/everest/basecamp.yaml
-ln<span class="w"> </span>-s<span class="w"> </span>/etc/everest/&lt;your-custom-config&gt;<span class="w"> </span>/etc/everest/basecamp.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-sf<span class="w"> </span>/etc/everest/&lt;your-custom-config&gt;<span class="w"> </span>/etc/everest/basecamp.yaml
 </pre></div>
 </div>
 <p>After this, restart the basecamp service or reboot.</p>

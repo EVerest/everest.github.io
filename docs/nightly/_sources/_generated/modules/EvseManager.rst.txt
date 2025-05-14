@@ -191,10 +191,13 @@ Module Configuration
 |  Sleep before the PWM signal is updated in HLC mode. Teslas are really fast with sending the first slac packet after enabling PWM, so the sleep allows SLAC to be ready for it. Some EV testers have issues with a value >= 1000ms, although ISO15118 or IEC61851 does not specify a timeout.
 | **central_contract_validation_allowed**:*boolean* <optional>
 | *default: False*
-|  Used for ISO15118 plug and charge:  If false, contract shall not be present in PaymentOptionList. If true, contract may be present in PaymentOptionList if TLS is used. 
+|  Used for ISO15118 plug and charge: If false, contract shall not be present in PaymentOptionList. If true, contract may be present in PaymentOptionList if TLS is used.
 | **contract_certificate_installation_enabled**:*boolean* <optional>
 | *default: True*
 |  Used for ISO15118 plug and charge: Indicates if the charger supports contract CertificateInstall and CertificateUpdate
+| **inoperative_error_use_vendor_id**:*boolean* <optional>
+| *default: False*
+|  When raising evse_manager/Inoperative use the vendor ID from the original cause
 
 ********
 Provides

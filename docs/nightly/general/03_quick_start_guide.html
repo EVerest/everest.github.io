@@ -137,32 +137,6 @@ python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </s
 HOME directory in <cite>.local/bin/</cite>.</p>
 <p>In a later step, we will use <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> to create module stubs.</p>
 </section>
-<section id="packages-for-iso-15118-communication">
-<h4><span class="section-number">3.2.1.3. </span>Packages for ISO 15118 communication<a class="headerlink" href="#packages-for-iso-15118-communication" title="Permalink to this heading">¶</a></h4>
-<p>To be able to build EVerest with ISO 15118 capability, you will have to
-install the requirements for Josev:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/Josev
-python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-</pre></div>
-</div>
-<p>For ISO 15118 communication including Plug&amp;Charge, install Josev and some CA
-certificates:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/Josev/iso15118/shared/pki
-./create_certs.sh<span class="w"> </span>-v<span class="w"> </span>iso-2<span class="w"> </span>-i<span class="w"> </span><span class="o">{</span>EVerest<span class="w"> </span>Workspace<span class="w"> </span>Directory<span class="o">}</span>/everest-core
-</pre></div>
-</div>
-<p>This will enable ISO 15118 communication including Plug&amp;Charge and install the
-required CA certificates inside <cite>config/certs/ca</cite> and the client certificates,
-private keys and password files inside <cite>config/certs/client</cite>.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>This will generate an example PKI setup that can only be used for testing
-and simulation. It will not work and is not recommended for production.</p>
-<p>As the shell script uses the Java <cite>keytool</cite>, it is required for this
-procedure to have Java installed.</p>
-</div>
-<p>The script for setting up PKI can also be used with the EvseV2G module.</p>
-</section>
 </section>
 <section id="build-everest">
 <h3><span class="section-number">3.2.2. </span>Build EVerest<a class="headerlink" href="#build-everest" title="Permalink to this heading">¶</a></h3>

@@ -59,6 +59,9 @@ Provides
 |   debug_simulate_failed_matching:
 |    description:Only for debugging. Simulate failed matching by sending a wrong NMK to the EV.
 |    type:boolean
+|   reset_instead_of_fail:
+|    description:Go to reset state instead of failed state. This is against the ISO15118-3. But some cars directly send a CM_SLAC_PARAM.req message when the SLAC process aborts. To react to this message and restart the SLAC process, the EVSE go to the reset state here.
+|    type:boolean
 |  config:
 |   **device**:*string* <optional>
 |   *default: "eth1"*
@@ -102,6 +105,9 @@ Provides
 |   **debug_simulate_failed_matching**:*boolean* <optional>
 |   *default: False*
 |    Only for debugging. Simulate failed matching by sending a wrong NMK to the EV.
+|   **reset_instead_of_fail**:*boolean* <optional>
+|   *default: True*
+|    Go to reset state instead of failed state. This is against the ISO15118-3. But some cars directly send a CM_SLAC_PARAM.req message when the SLAC process aborts. To react to this message and restart the SLAC process, the EVSE go to the reset state here.
 
 
 ********

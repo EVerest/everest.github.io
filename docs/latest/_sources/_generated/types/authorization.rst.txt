@@ -136,9 +136,12 @@ Auth token validator types
 |   **certificate_status**:*string* <optional> (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
 |    
 |    **There is an extended definition for this object** :ref:`here <authorization-CertificateStatus>`.
-|   **reason**:*object* <optional> (:ref:`authorization-TokenValidationStatusMessage <authorization-TokenValidationStatusMessage>`)
-|    
-|    **There is an extended definition for this object** :ref:`here <authorization-TokenValidationStatusMessage>`.
+|   **tariff_messages**:*array* <required>
+|    Messages that can contain session price information to show the user. The array can contain multiple messages in different languages. The first message in this array shall be used to start the transaction at the powermeter (for OCMF).  Empty if no messages are available.
+|    **array_item**:*object*  (:ref:`text_message-MessageContent <text_message-MessageContent>`)
+|     Message with pricing information in a specific language
+|     **There is an extended definition for this object** :ref:`here <text_message-MessageContent>`.
+| 
 |   **expiry_time**:*string* <optional>
 |    Absolute UTC time point when reservation expires in RFC3339 format
 |    format:date-time

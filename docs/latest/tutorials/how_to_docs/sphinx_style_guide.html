@@ -852,147 +852,148 @@ Figure caption <span class="na">:figure:</span><span class="nv">`figure-name`</s
 <span class="linenos">125</span><span class="gh">Planned restructuring of docs</span>
 <span class="linenos">126</span><span class="gh">*****************************</span>
 <span class="linenos">127</span>
-<span class="linenos">128</span>We will start to migrate the documentation to a new page structure end of 2024.
-<span class="linenos">129</span>
-<span class="linenos">130</span>More information about the new structure will follow soon.
-<span class="linenos">131</span>
-<span class="linenos">132</span>You will not have to change anything for this migration as we will try to stay
-<span class="linenos">133</span>backwards-compatible or - where not possible - adjust existing docs to new
-<span class="linenos">134</span>structure.
-<span class="linenos">135</span>
-<span class="linenos">136</span><span class="gh">********************************</span>
-<span class="linenos">137</span><span class="gh">Process of EVerest documentation</span>
-<span class="linenos">138</span><span class="gh">********************************</span>
-<span class="linenos">139</span>
-<span class="linenos">140</span><span class="gh">Preparing a new documentation page</span>
-<span class="linenos">141</span><span class="gh">==================================</span>
-<span class="linenos">142</span>
-<span class="linenos">143</span>Let&#39;s suppose, you are aware of a brand-new EVerest feature that is still not
-<span class="linenos">144</span>documented. Or you found some aspect of EVerest that still lacks a
-<span class="linenos">145</span>corresponding documentation page.
-<span class="linenos">146</span>
-<span class="linenos">147</span>This is what to do:
-<span class="linenos">148</span>
-<span class="linenos">149</span><span class="m">1.</span> Check the existing documentation for similar sections.
-<span class="linenos">150</span>  a. Search https://everest.github.io/nightly/index.html
-<span class="linenos">151</span>  b. Is it a module that you want to add documentation to? Then have a look
-<span class="linenos">152</span>    at the <span class="s">``everest-core``</span> repository in the <span class="s">``modules``</span> directory and check
-<span class="linenos">153</span>    if any documentation pages already do exist there.
-<span class="linenos">154</span>  <span class="m">c.</span> Use GitHub search with <span class="s">``org:EVerest``</span> and your keywords to check if you
-<span class="linenos">155</span>    can find existing documentation snippets near the source code of the
-<span class="linenos">156</span>    feature. 
-<span class="linenos">157</span>
-<span class="linenos">158</span>  If you can find something that is related to the topic on your mind, please
-<span class="linenos">159</span>  decide, whether a new documentation section should be added or the existing
-<span class="linenos">160</span>  page should be updated.
-<span class="linenos">161</span>
-<span class="linenos">162</span><span class="m">2.</span> Create a GitHub issue
-<span class="linenos">163</span>  a. In the repository https://github.com/EVerest/EVerest, click on <span class="s">``Issues``</span>
-<span class="linenos">164</span>    and then <span class="s">``New issue``</span>.
-<span class="linenos">165</span>  b. Choose <span class="s">``Documentation change request``</span> and fill out the title and
-<span class="linenos">166</span>    the description fields. Answer the templated questions, which have already
-<span class="linenos">167</span>    been added to the description text area.
-<span class="linenos">168</span>  <span class="m">c.</span> Also add a reference to any related documentation pages and describe how
-<span class="linenos">169</span>    the new documentation parts shall relate to that (new section, change of
-<span class="linenos">170</span>    docs, new page with reference to existing ones etc.).
-<span class="linenos">171</span>
-<span class="linenos">172</span><span class="m">3.</span> Optionally: Inform others about the issue
-<span class="linenos">173</span>
-<span class="linenos">174</span>  Especially if you do not want to create documentation on your own (due to
-<span class="linenos">175</span>  lack of time or knowledge), you can inform others about this new
-<span class="linenos">176</span>  documentation requirement (the issue). This is optional as the maintainers
-<span class="linenos">177</span>  of the EVerest documentation will get informed about the newly created issue.
-<span class="linenos">178</span>  But by taking the topic into an appropriate working group or into the EVerest
-<span class="linenos">179</span>  Zulip channels, you could find the right people who have time and knowledge
-<span class="linenos">180</span>  to create such a new section in the documentation.
-<span class="linenos">181</span>
-<span class="linenos">182</span><span class="gh">Creating a new documentation page</span>
-<span class="linenos">183</span><span class="gh">=================================</span>
-<span class="linenos">184</span>
-<span class="linenos">185</span><span class="gh">Creating a Git branch</span>
-<span class="linenos">186</span><span class="gh">---------------------</span>
-<span class="linenos">187</span>
-<span class="linenos">188</span>As with source code feature development, documentation is also organized with
-<span class="linenos">189</span>Git branches. The scheme to name a branch should be adhered to
-<span class="linenos">190</span>
-<span class="linenos">191</span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
-<span class="linenos">192</span>
-<span class="linenos">193</span>  doc/name-of-topic
-<span class="linenos">194</span>
-<span class="linenos">195</span>Optionally, to better find your own branches in a list, you could also add
-<span class="linenos">196</span>your name initials.
-<span class="linenos">197</span>
-<span class="linenos">198</span>In case your name is Abraham Braveman and you are creating a documentation
-<span class="linenos">199</span>about Plug&#39;n&#39;Charge, you could name your branch
-<span class="linenos">200</span>
-<span class="linenos">201</span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
-<span class="linenos">202</span>
-<span class="linenos">203</span>  doc/ab-plug-n-charge
-<span class="linenos">204</span>
-<span class="linenos">205</span>or also
-<span class="linenos">206</span>
-<span class="linenos">207</span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
-<span class="linenos">208</span>
-<span class="linenos">209</span>  doc/abraham-plug-n-charge
-<span class="linenos">210</span>
-<span class="linenos">211</span><span class="gh">Choosing a place to store the docs</span>
-<span class="linenos">212</span><span class="gh">----------------------------------</span>
-<span class="linenos">213</span>
-<span class="linenos">214</span>If you want to create a new documentation page, you should first check if
-<span class="linenos">215</span>pages with similar topics are already existing. It is a good idea to place
-<span class="linenos">216</span>your new page in the same location.
-<span class="linenos">217</span>
-<span class="linenos">218</span>In general, you can decide where to put your documentation pages:
-<span class="linenos">219</span>
-<span class="linenos">220</span><span class="m">*</span> The repository for the main documentation:
-<span class="linenos">221</span>  https://github.com/EVerest/EVerest in directory <span class="s">``docs``</span>
-<span class="linenos">222</span><span class="m">*</span> Directly inside of a <span class="s">``docs.rst``</span> file or the <span class="s">``docs``</span> directory in your
-<span class="linenos">223</span>  modules directory structure. This will generate documentation pages in the
-<span class="linenos">224</span>  <span class="s">``references``</span> section of the main documentation.
-<span class="linenos">225</span><span class="m">*</span> Near the source code which implements the feature that is to be documented.
-<span class="linenos">226</span>
-<span class="linenos">227</span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
-<span class="linenos">228</span>  Don&#39;t be afraid to put your documentation at a &quot;wrong&quot; location. It is more
-<span class="linenos">229</span>  important that documentation does exist. The maintainers of the EVerest
-<span class="linenos">230</span>  documentation will be able to move your docs to a better suitable place later.
-<span class="linenos">231</span>
-<span class="linenos">232</span><span class="gh">Writing</span>
-<span class="linenos">233</span><span class="gh">-------</span>
-<span class="linenos">234</span>
-<span class="linenos">235</span>Best practice is to look at existing documentation sources to get an idea about
-<span class="linenos">236</span>how headlines or bullet points are to be handled.
-<span class="linenos">237</span>
-<span class="linenos">238</span>You can create a <span class="s">``Draft pull request``</span> on GitHub at an early stage of your
-<span class="linenos">239</span>work to let others already get an idea how the new documentation part will look
-<span class="linenos">240</span>like and give them the opportunity to comment on your work already.
-<span class="linenos">241</span>
-<span class="linenos">242</span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
-<span class="linenos">243</span>  Consider referencing to existing docs with the same topic and vice versa.
-<span class="linenos">244</span>
-<span class="linenos">245</span><span class="gh">Creating a PR and merge</span>
-<span class="linenos">246</span><span class="gh">-----------------------</span>
-<span class="linenos">247</span>
-<span class="linenos">248</span>If you have finished your documentation work, you can create a pull request
-<span class="linenos">249</span>for your branch. Don&#39;t forget to reference the originating issue (if existing).
-<span class="linenos">250</span>The maintainers of the corresponding repository will get informed and will try
-<span class="linenos">251</span>to invest time to review your work.
-<span class="linenos">252</span>
-<span class="linenos">253</span>After merging the PR, don&#39;t forget to also close the issue and eventually
-<span class="linenos">254</span>inform the community about your newly created documentation work.
-<span class="linenos">255</span>
-<span class="linenos">256</span><span class="gh">**************************</span>
-<span class="linenos">257</span><span class="gh">Building the documentation</span>
-<span class="linenos">258</span><span class="gh">**************************</span>
-<span class="linenos">259</span>
-<span class="linenos">260</span>The documentation is built by the <span class="s">``deploy-sphinx-doc.yml``</span> workflow located in
-<span class="linenos">261</span><span class="s">``EVerest/EVerest``</span>. It is triggered by a push to the <span class="s">``main``</span> branch of
-<span class="linenos">262</span><span class="s">``EVerest/EVerest``</span>. The workflow generates the documentation and pushes it to
-<span class="linenos">263</span>GitHub Pages.
-<span class="linenos">264</span>
-<span class="linenos">265</span>After that, the documentation is available at <span class="s">`&lt;https://everest.github.io&gt;`_</span>.
-<span class="linenos">266</span>
-<span class="linenos">267</span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
-<span class="linenos">268</span>  Documentation about building the documentation locally will follow.
+<span class="linenos">128</span>There is a plan to start migrating the documentation to a new page structure.
+<span class="linenos">129</span>It is still not clear, when this will be done, though.
+<span class="linenos">130</span>
+<span class="linenos">131</span>More information about the new structure will follow soon.
+<span class="linenos">132</span>
+<span class="linenos">133</span>You will not have to change anything for this migration as we will try to stay
+<span class="linenos">134</span>backwards-compatible or - where not possible - adjust existing docs to new
+<span class="linenos">135</span>structure.
+<span class="linenos">136</span>
+<span class="linenos">137</span><span class="gh">********************************</span>
+<span class="linenos">138</span><span class="gh">Process of EVerest documentation</span>
+<span class="linenos">139</span><span class="gh">********************************</span>
+<span class="linenos">140</span>
+<span class="linenos">141</span><span class="gh">Preparing a new documentation page</span>
+<span class="linenos">142</span><span class="gh">==================================</span>
+<span class="linenos">143</span>
+<span class="linenos">144</span>Let&#39;s suppose, you are aware of a brand-new EVerest feature that is still not
+<span class="linenos">145</span>documented. Or you found some aspect of EVerest that still lacks a
+<span class="linenos">146</span>corresponding documentation page.
+<span class="linenos">147</span>
+<span class="linenos">148</span>This is what to do:
+<span class="linenos">149</span>
+<span class="linenos">150</span><span class="m">1.</span> Check the existing documentation for similar sections.
+<span class="linenos">151</span>  a. Search https://everest.github.io/nightly/index.html
+<span class="linenos">152</span>  b. Is it a module that you want to add documentation to? Then have a look
+<span class="linenos">153</span>    at the <span class="s">``everest-core``</span> repository in the <span class="s">``modules``</span> directory and check
+<span class="linenos">154</span>    if any documentation pages already do exist there.
+<span class="linenos">155</span>  <span class="m">c.</span> Use GitHub search with <span class="s">``org:EVerest``</span> and your keywords to check if you
+<span class="linenos">156</span>    can find existing documentation snippets near the source code of the
+<span class="linenos">157</span>    feature. 
+<span class="linenos">158</span>
+<span class="linenos">159</span>  If you can find something that is related to the topic on your mind, please
+<span class="linenos">160</span>  decide, whether a new documentation section should be added or the existing
+<span class="linenos">161</span>  page should be updated.
+<span class="linenos">162</span>
+<span class="linenos">163</span><span class="m">2.</span> Create a GitHub issue
+<span class="linenos">164</span>  a. In the repository https://github.com/EVerest/EVerest, click on <span class="s">``Issues``</span>
+<span class="linenos">165</span>    and then <span class="s">``New issue``</span>.
+<span class="linenos">166</span>  b. Choose <span class="s">``Documentation change request``</span> and fill out the title and
+<span class="linenos">167</span>    the description fields. Answer the templated questions, which have already
+<span class="linenos">168</span>    been added to the description text area.
+<span class="linenos">169</span>  <span class="m">c.</span> Also add a reference to any related documentation pages and describe how
+<span class="linenos">170</span>    the new documentation parts shall relate to that (new section, change of
+<span class="linenos">171</span>    docs, new page with reference to existing ones etc.).
+<span class="linenos">172</span>
+<span class="linenos">173</span><span class="m">3.</span> Optionally: Inform others about the issue
+<span class="linenos">174</span>
+<span class="linenos">175</span>  Especially if you do not want to create documentation on your own (due to
+<span class="linenos">176</span>  lack of time or knowledge), you can inform others about this new
+<span class="linenos">177</span>  documentation requirement (the issue). This is optional as the maintainers
+<span class="linenos">178</span>  of the EVerest documentation will get informed about the newly created issue.
+<span class="linenos">179</span>  But by taking the topic into an appropriate working group or into the EVerest
+<span class="linenos">180</span>  Zulip channels, you could find the right people who have time and knowledge
+<span class="linenos">181</span>  to create such a new section in the documentation.
+<span class="linenos">182</span>
+<span class="linenos">183</span><span class="gh">Creating a new documentation page</span>
+<span class="linenos">184</span><span class="gh">=================================</span>
+<span class="linenos">185</span>
+<span class="linenos">186</span><span class="gh">Creating a Git branch</span>
+<span class="linenos">187</span><span class="gh">---------------------</span>
+<span class="linenos">188</span>
+<span class="linenos">189</span>As with source code feature development, documentation is also organized with
+<span class="linenos">190</span>Git branches. The scheme to name a branch should be adhered to
+<span class="linenos">191</span>
+<span class="linenos">192</span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
+<span class="linenos">193</span>
+<span class="linenos">194</span>  doc/name-of-topic
+<span class="linenos">195</span>
+<span class="linenos">196</span>Optionally, to better find your own branches in a list, you could also add
+<span class="linenos">197</span>your name initials.
+<span class="linenos">198</span>
+<span class="linenos">199</span>In case your name is Abraham Braveman and you are creating a documentation
+<span class="linenos">200</span>about Plug&#39;n&#39;Charge, you could name your branch
+<span class="linenos">201</span>
+<span class="linenos">202</span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
+<span class="linenos">203</span>
+<span class="linenos">204</span>  doc/ab-plug-n-charge
+<span class="linenos">205</span>
+<span class="linenos">206</span>or also
+<span class="linenos">207</span>
+<span class="linenos">208</span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">bash</span>
+<span class="linenos">209</span>
+<span class="linenos">210</span>  doc/abraham-plug-n-charge
+<span class="linenos">211</span>
+<span class="linenos">212</span><span class="gh">Choosing a place to store the docs</span>
+<span class="linenos">213</span><span class="gh">----------------------------------</span>
+<span class="linenos">214</span>
+<span class="linenos">215</span>If you want to create a new documentation page, you should first check if
+<span class="linenos">216</span>pages with similar topics are already existing. It is a good idea to place
+<span class="linenos">217</span>your new page in the same location.
+<span class="linenos">218</span>
+<span class="linenos">219</span>In general, you can decide where to put your documentation pages:
+<span class="linenos">220</span>
+<span class="linenos">221</span><span class="m">*</span> The repository for the main documentation:
+<span class="linenos">222</span>  https://github.com/EVerest/EVerest in directory <span class="s">``docs``</span>
+<span class="linenos">223</span><span class="m">*</span> Directly inside of a <span class="s">``docs.rst``</span> file or the <span class="s">``docs``</span> directory in your
+<span class="linenos">224</span>  modules directory structure. This will generate documentation pages in the
+<span class="linenos">225</span>  <span class="s">``references``</span> section of the main documentation.
+<span class="linenos">226</span><span class="m">*</span> Near the source code which implements the feature that is to be documented.
+<span class="linenos">227</span>
+<span class="linenos">228</span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
+<span class="linenos">229</span>  Don&#39;t be afraid to put your documentation at a &quot;wrong&quot; location. It is more
+<span class="linenos">230</span>  important that documentation does exist. The maintainers of the EVerest
+<span class="linenos">231</span>  documentation will be able to move your docs to a better suitable place later.
+<span class="linenos">232</span>
+<span class="linenos">233</span><span class="gh">Writing</span>
+<span class="linenos">234</span><span class="gh">-------</span>
+<span class="linenos">235</span>
+<span class="linenos">236</span>Best practice is to look at existing documentation sources to get an idea about
+<span class="linenos">237</span>how headlines or bullet points are to be handled.
+<span class="linenos">238</span>
+<span class="linenos">239</span>You can create a <span class="s">``Draft pull request``</span> on GitHub at an early stage of your
+<span class="linenos">240</span>work to let others already get an idea how the new documentation part will look
+<span class="linenos">241</span>like and give them the opportunity to comment on your work already.
+<span class="linenos">242</span>
+<span class="linenos">243</span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
+<span class="linenos">244</span>  Consider referencing to existing docs with the same topic and vice versa.
+<span class="linenos">245</span>
+<span class="linenos">246</span><span class="gh">Creating a PR and merge</span>
+<span class="linenos">247</span><span class="gh">-----------------------</span>
+<span class="linenos">248</span>
+<span class="linenos">249</span>If you have finished your documentation work, you can create a pull request
+<span class="linenos">250</span>for your branch. Don&#39;t forget to reference the originating issue (if existing).
+<span class="linenos">251</span>The maintainers of the corresponding repository will get informed and will try
+<span class="linenos">252</span>to invest time to review your work.
+<span class="linenos">253</span>
+<span class="linenos">254</span>After merging the PR, don&#39;t forget to also close the issue and eventually
+<span class="linenos">255</span>inform the community about your newly created documentation work.
+<span class="linenos">256</span>
+<span class="linenos">257</span><span class="gh">**************************</span>
+<span class="linenos">258</span><span class="gh">Building the documentation</span>
+<span class="linenos">259</span><span class="gh">**************************</span>
+<span class="linenos">260</span>
+<span class="linenos">261</span>The documentation is built by the <span class="s">``deploy-sphinx-doc.yml``</span> workflow located in
+<span class="linenos">262</span><span class="s">``EVerest/EVerest``</span>. It is triggered by a push to the <span class="s">``main``</span> branch of
+<span class="linenos">263</span><span class="s">``EVerest/EVerest``</span>. The workflow generates the documentation and pushes it to
+<span class="linenos">264</span>GitHub Pages.
+<span class="linenos">265</span>
+<span class="linenos">266</span>After that, the documentation is available at <span class="s">`&lt;https://everest.github.io&gt;`_</span>.
+<span class="linenos">267</span>
+<span class="linenos">268</span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
+<span class="linenos">269</span>  Documentation about building the documentation locally will follow.
 </pre></div>
 </div>
 </section>

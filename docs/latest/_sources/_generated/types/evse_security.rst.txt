@@ -265,3 +265,26 @@ Types for evse security
 |     
 |     **There is an extended definition for this object** :ref:`here <evse_security-CertificateInfo>`.
 | 
+
+.. _evse_security-CertificateStoreUpdateOperation:
+
+| **CertificateStoreUpdateOperation**:*string* 
+|  Type that specifies the operation performed on the certificate store
+|  enum:
+|    - Installed
+|    - Deleted
+
+.. _evse_security-CertificateStoreUpdate:
+
+| **CertificateStoreUpdate**:*object* 
+|  Type that specifies the update of the certificate store. One of leaf_certificate_type  or ca_certificate_type must be present.
+|  properties:
+|   **operation**:*string* <required> (:ref:`evse_security-CertificateStoreUpdateOperation <evse_security-CertificateStoreUpdateOperation>`)
+|    The operation perfomred on the certificate store
+|    **There is an extended definition for this object** :ref:`here <evse_security-CertificateStoreUpdateOperation>`.
+|   **leaf_certificate_type**:*string* <optional> (:ref:`evse_security-LeafCertificateType <evse_security-LeafCertificateType>`)
+|    The type of the leaf certificate that was installed or deleted. Only present if type of updated certificate is a leaf certificate
+|    **There is an extended definition for this object** :ref:`here <evse_security-LeafCertificateType>`.
+|   **ca_certificate_type**:*string* <optional> (:ref:`evse_security-CaCertificateType <evse_security-CaCertificateType>`)
+|    The type of the CA certificate that was installed or deleted. Only present if type of updated certificate is a CA certificate
+|    **There is an extended definition for this object** :ref:`here <evse_security-CaCertificateType>`.

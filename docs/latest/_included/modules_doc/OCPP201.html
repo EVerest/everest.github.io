@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.3.11. OCPP 2.1 and 2.0.1 Module &#8212; EVerest  documentation</title>
+    <title>5.3.12. OCPP 2.1 and 2.0.1 Module &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5.3.12. PN7160TokenProvider" href="PN7160TokenProvider.html" />
-    <link rel="prev" title="5.3.10. OCPP1.6 Module" href="OCPP.html" /> 
+    <link rel="next" title="5.3.13. PN7160TokenProvider" href="PN7160TokenProvider.html" />
+    <link rel="prev" title="5.3.11. OCPP1.6 Module" href="OCPP.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="PN7160TokenProvider.html" title="5.3.12. PN7160TokenProvider"
+          <a href="PN7160TokenProvider.html" title="5.3.13. PN7160TokenProvider"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="OCPP.html" title="5.3.10. OCPP1.6 Module"
+          <a href="OCPP.html" title="5.3.11. OCPP1.6 Module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.11. </span>OCPP 2.1 and 2.0.1 Module</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.12. </span>OCPP 2.1 and 2.0.1 Module</a></li> 
       </ul>
     </div>  
 
@@ -46,7 +46,7 @@
           <div class="body" role="main">
             
   <section id="ocpp-2-1-and-2-0-1-module">
-<span id="everest-modules-handwritten-ocpp201"></span><h1><span class="section-number">5.3.11. </span>OCPP 2.1 and 2.0.1 Module<a class="headerlink" href="#ocpp-2-1-and-2-0-1-module" title="Permalink to this heading">¶</a></h1>
+<span id="everest-modules-handwritten-ocpp201"></span><h1><span class="section-number">5.3.12. </span>OCPP 2.1 and 2.0.1 Module<a class="headerlink" href="#ocpp-2-1-and-2-0-1-module" title="Permalink to this heading">¶</a></h1>
 <p>This module implements and integrates OCPP 2.0.1 and OCPP 2.1 within EVerest. A connection to a Charging Station Management System (CSMS) can be
 established by loading this module as part of the EVerest configuration. This module leverages <a class="reference external" href="https://github.com/EVerest/libocpp">libocpp</a>,
 EVerest’s OCPP library.</p>
@@ -56,7 +56,7 @@ to your EVerest config.</p>
 compatability with existing EVerest configurations. It will likely be renamed in the future. The following descriptions apply for both
 OCPP2.0.1 and OCPP2.1, referred by using the term <strong>OCPP2</strong>.</p>
 <section id="module-configuration">
-<h2><span class="section-number">5.3.11.1. </span>Module configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.1. </span>Module configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <p>Like for every EVerest module, the configuration parameters are defined as part of the module <a class="reference external" href="../manifest.yaml">manifest</a>. OCPP2 defines
 a device model structure and a lot of standardized variables that are used within the functional requirements of the protocol. Please see
 Part 1 - Architecture &amp; Topology of the OCPP2.0.1 or OCPP2.1 specification for further information about the device model and how it is composed.</p>
@@ -76,7 +76,7 @@ characteristics, attributes, and monitors. Please see <a class="reference extern
 <p>To add a custom component, you can simply add another JSON configuration file for it, and it will automatically be applied and reported.</p>
 </section>
 <section id="configuring-the-ocpp2-version">
-<h2><span class="section-number">5.3.11.2. </span>Configuring the OCPP2 version<a class="headerlink" href="#configuring-the-ocpp2-version" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.2. </span>Configuring the OCPP2 version<a class="headerlink" href="#configuring-the-ocpp2-version" title="Permalink to this heading">¶</a></h2>
 <p>This module supports OCPP2.0.1 and OCPP2.1. The charging station and the CSMS agree on the protocol version to be used during the websocket
 handshake. The charging station indicates which versions it supports in the Sec-WebSocket-Protocol header. This header is set based on
 the device model configuration <strong>SupportedOcppVersions</strong> of the <strong>InternalCtrlr</strong>. The CSMS then selects the version to use and reports
@@ -84,7 +84,7 @@ it in the handshake response. Note that <strong>SupportedOcppVersions</strong> i
 in the order of preference.</p>
 </section>
 <section id="integration-in-everest">
-<h2><span class="section-number">5.3.11.3. </span>Integration in EVerest<a class="headerlink" href="#integration-in-everest" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.3. </span>Integration in EVerest<a class="headerlink" href="#integration-in-everest" title="Permalink to this heading">¶</a></h2>
 <p>This module leverages <strong>libocpp</strong> <a class="reference external" href="https://github.com/EVerest/libocpp">https://github.com/EVerest/libocpp</a>, EVerest’s OCPP library. Libocpp’s approach to implementing the OCPP
 protocol is to do as much work as possible as part of the library. It therefore fulfills a large amount of protocol requirements internally.
 OCPP is a protocol that affects, controls, and monitors many areas of a charging station’s operation though. It is therefore required to
@@ -94,35 +94,35 @@ integrate libocpp with other parts of EVerest. This integration is done by this 
 with other parts of EVerest. In order to describe how the responsibilities for functions and operations required by OCPP are divided between libocpp
 and this module, the following sections pick up the requirements of this module and implementations one by one.</p>
 <section id="provides-auth-validator">
-<h3><span class="section-number">5.3.11.3.1. </span>Provides: auth_validator<a class="headerlink" href="#provides-auth-validator" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.1. </span>Provides: auth_validator<a class="headerlink" href="#provides-auth-validator" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/auth_token_validator.yaml">auth_token_validator</a></p>
 <p>This interface is implemented to forward authorization requests from EVerest to libocpp. Libocpp contains the business logic to either validate the
 authorization request locally using the authorization cache and local authorization list or to forward the request to the CSMS using an
 <strong>Authorize.req</strong>. The implementation also covers the validation of Plug&amp;Charge authorization requests.</p>
 </section>
 <section id="provides-auth-provider">
-<h3><span class="section-number">5.3.11.3.2. </span>Provides: auth_provider<a class="headerlink" href="#provides-auth-provider" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.2. </span>Provides: auth_provider<a class="headerlink" href="#provides-auth-provider" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/auth_token_provider.yaml">auth_token_provider</a></p>
 <p>This interface is implemented to publish authorization requests from the CSMS within EVerest. An authorization request from the CSMS is implemented
 by a <strong>RequestStartTransaction.req</strong>.</p>
 </section>
 <section id="provides-data-transfer">
-<h3><span class="section-number">5.3.11.3.3. </span>Provides: data_transfer<a class="headerlink" href="#provides-data-transfer" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.3. </span>Provides: data_transfer<a class="headerlink" href="#provides-data-transfer" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/ocpp_data_transfer.yaml">ocpp_data_transfer</a></p>
 <p>This interface is implemented to provide a command to initiate a <strong>DataTransfer.req</strong> from the charging station to the CSMS.</p>
 </section>
 <section id="provides-ocpp-generic">
-<h3><span class="section-number">5.3.11.3.4. </span>Provides: ocpp_generic<a class="headerlink" href="#provides-ocpp-generic" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.4. </span>Provides: ocpp_generic<a class="headerlink" href="#provides-ocpp-generic" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/ocpp.yaml">ocpp</a></p>
 <p>This interface is implemented to provide an API to control an OCPP service and to set and get OCPP-specific data.</p>
 </section>
 <section id="provides-session-cost">
-<h3><span class="section-number">5.3.11.3.5. </span>Provides: session_cost<a class="headerlink" href="#provides-session-cost" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.5. </span>Provides: session_cost<a class="headerlink" href="#provides-session-cost" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/session_cost.yaml">session_cost</a></p>
 <p>This interface is implemented to publish session costs received by the CSMS as part of the California Pricing whitepaper extension.</p>
 </section>
 <section id="requires-evse-manager">
-<h3><span class="section-number">5.3.11.3.6. </span>Requires: evse_manager<a class="headerlink" href="#requires-evse-manager" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.6. </span>Requires: evse_manager<a class="headerlink" href="#requires-evse-manager" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/evse_manager.yaml">evse_manager</a></p>
 <p>Typically the <a class="reference external" href="../EvseManager/">EvseManager</a> module is used to fulfill this requirement.</p>
 <p>This module requires (1-128) implementations of this interface in order to integrate with the charge control logic of EVerest. One connection represents
@@ -157,7 +157,7 @@ the transaction handling of libocpp.</p></li>
 </ul>
 </section>
 <section id="requires-connector-zero-sink">
-<h3><span class="section-number">5.3.11.3.7. </span>Requires: connector_zero_sink<a class="headerlink" href="#requires-connector-zero-sink" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.7. </span>Requires: connector_zero_sink<a class="headerlink" href="#requires-connector-zero-sink" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/external_energy_limits.yaml">external_energy_limits</a></p>
 <p>Typically the <a class="reference external" href="../EnergyNode/">EnergyNode</a> module is used to fulfill this requirement.</p>
 <p>This module optionally requires the connection to a module implementing the <strong>external_energy_limits</strong> interface. This connection is used to apply power or
@@ -166,7 +166,7 @@ ampere limits at EVSE id zero received by the CSMS using the SmartCharging featu
 * <strong>set_external_limits</strong> to apply power or ampere limits at EVSE id zero received by the CSMS using the SmartCharging feature profile.</p>
 </section>
 <section id="requires-auth">
-<h3><span class="section-number">5.3.11.3.8. </span>Requires: auth<a class="headerlink" href="#requires-auth" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.8. </span>Requires: auth<a class="headerlink" href="#requires-auth" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/auth.yaml">auth</a></p>
 <p>Typically the <a class="reference external" href="../Auth/">Auth</a> module is used to fulfill this requirement.</p>
 <p>This module requires a connection to a module implementing the <strong>auth</strong> interface. This connection is used to set the standardized <strong>ConnectionTimeout</strong>
@@ -178,7 +178,7 @@ configuration key if configured and/or changed by the CSMS.</p>
 </ul>
 </section>
 <section id="requires-system">
-<h3><span class="section-number">5.3.11.3.9. </span>Requires: system<a class="headerlink" href="#requires-system" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.9. </span>Requires: system<a class="headerlink" href="#requires-system" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/system.yaml">system</a></p>
 <p>The <a class="reference external" href="../System/">System</a> module can be used to fulfill this requirement. Note that this module is not meant to be used in production systems without any
 modification!</p>
@@ -204,7 +204,7 @@ status. This signal is expected as a result of an <strong>update_firmware</stron
 </ul>
 </section>
 <section id="requires-security">
-<h3><span class="section-number">5.3.11.3.10. </span>Requires: security<a class="headerlink" href="#requires-security" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.10. </span>Requires: security<a class="headerlink" href="#requires-security" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/evse_security.yaml">evse_security</a></p>
 <p>This module requires a connection to a module implementing the <strong>evse_security</strong> interface. This connection is used to execute security-related operations and to
 manage certificates and private keys.</p>
@@ -234,7 +234,7 @@ conversion functionality is used by this OCPP2 module and the OCPP1.6 module, it
 <a class="reference external" href="../../lib/staging/ocpp/">separate library</a> .</p>
 </section>
 <section id="requires-data-transfer">
-<h3><span class="section-number">5.3.11.3.11. </span>Requires: data_transfer<a class="headerlink" href="#requires-data-transfer" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.11. </span>Requires: data_transfer<a class="headerlink" href="#requires-data-transfer" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/ocpp_data_transfer.yaml">ocpp_data_transfer</a></p>
 <p>This module optionally requires a connection to a module implementing the <strong>ocpp_data_transfer</strong> interface. This connection is used to handle <strong>DataTransfer.req</strong>
 messages from the CSMS. A module implementing this interface can contain custom logic to handle the requests from the CSMS.</p>
@@ -244,7 +244,7 @@ messages from the CSMS. A module implementing this interface can contain custom 
 </ul>
 </section>
 <section id="requires-display-message">
-<h3><span class="section-number">5.3.11.3.12. </span>Requires: display_message<a class="headerlink" href="#requires-display-message" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.12. </span>Requires: display_message<a class="headerlink" href="#requires-display-message" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/display_message.yaml">display_message</a></p>
 <p>This module optionally requires a connection to a module implementing the <strong>display_message</strong> interface. This connection is used to allow the CSMS to display pricing
 or other information on the display of a charging station. In order to fulfill the requirements of the California Pricing whitepaper, it is required to connect a
@@ -257,7 +257,7 @@ module implementing this interface.</p>
 </ul>
 </section>
 <section id="requires-extensions-15118">
-<h3><span class="section-number">5.3.11.3.13. </span>Requires: extensions_15118<a class="headerlink" href="#requires-extensions-15118" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.3.13. </span>Requires: extensions_15118<a class="headerlink" href="#requires-extensions-15118" title="Permalink to this heading">¶</a></h3>
 <p><strong>Interface</strong>: <a class="reference external" href="../../interfaces/iso15118_extensions.yaml">iso15118_extensions</a></p>
 <p>This module optionally requires (0-128) implementations of this interface in order to share data between ISO15118 and OCPP modules. One
 connection represents one ISO15118 module.</p>
@@ -273,21 +273,21 @@ the CSMS (EV Contract installation for Plug&amp;Charge)</p></li>
 </section>
 </section>
 <section id="error-handling">
-<h2><span class="section-number">5.3.11.4. </span>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.4. </span>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">¶</a></h2>
 <p>The <strong>enable_global_errors</strong> flag for this module is true in its manifest. This module is
 therefore able to retrieve and process all reported errors from other
 modules that are loaded in the same EVerest configuration.</p>
 <p>The error reporting via OCPP2 follows the Minimum Required Error Codes (MRECS): <a class="reference external" href="https://inl.gov/chargex/mrec/">https://inl.gov/chargex/mrec/</a> . This proposes a unified methodology
 to define and classify a minimum required set of error codes and how to report them via OCPP2.</p>
 <section id="statusnotification">
-<h3><span class="section-number">5.3.11.4.1. </span>StatusNotification<a class="headerlink" href="#statusnotification" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.4.1. </span>StatusNotification<a class="headerlink" href="#statusnotification" title="Permalink to this heading">¶</a></h3>
 <p>In contrast to OCPP1.6, error information is not transmitted as part of the StatusNotification.req.
 A <strong>StatusNotification.req</strong> with status <strong>Faulted</strong> will be set to faulted only in case the error received is of the special type <strong>evse_manager/Inoperative</strong>.
 This indicates that the EVSE is inoperative (not ready for energy transfer).</p>
 <p>In OCPP2 errors can be reported using the <strong>NotifyEventRequest.req</strong>. This message is used to report all other errros received.</p>
 </section>
 <section id="current-limitation">
-<h3><span class="section-number">5.3.11.4.2. </span>Current Limitation<a class="headerlink" href="#current-limitation" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.4.2. </span>Current Limitation<a class="headerlink" href="#current-limitation" title="Permalink to this heading">¶</a></h3>
 <p>In OCPP2 errors can be reported using the <strong>NotifyEventRequest</strong>
 message. The <strong>eventData</strong> property carries the relevant information.</p>
 <p>This format of reporting errors deviates from the mechanism used within
@@ -306,7 +306,7 @@ combination.</p>
 </section>
 </section>
 <section id="certificate-management">
-<h2><span class="section-number">5.3.11.5. </span>Certificate Management<a class="headerlink" href="#certificate-management" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.5. </span>Certificate Management<a class="headerlink" href="#certificate-management" title="Permalink to this heading">¶</a></h2>
 <p>Two leaf certificates are managed by the OCPP communication enabled by this module:</p>
 <ul class="simple">
 <li><p>CSMS Leaf certificate (used for mTLS for SecurityProfile3)</p></li>
@@ -324,7 +324,7 @@ every seven days. The timestamp of the last update is stored persistently, so th
 at every start up.</p>
 </section>
 <section id="energy-management-and-smart-charging-integration">
-<h2><span class="section-number">5.3.11.6. </span>Energy Management and Smart Charging Integration<a class="headerlink" href="#energy-management-and-smart-charging-integration" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.6. </span>Energy Management and Smart Charging Integration<a class="headerlink" href="#energy-management-and-smart-charging-integration" title="Permalink to this heading">¶</a></h2>
 <p>OCPP2 defines the SmartCharging feature profile to allow the CSMS to control or influence the power consumption of the charging station.
 This module integrates the composite schedule(s) within EVerest’s energy management. For further information about smart charging and the
 composite schedule calculation please refer to the OCPP2.0.1 or OCPP2.1 specification.</p>
@@ -344,7 +344,7 @@ the duration in seconds of the requested composite schedules starting now. The v
 than the value configured for <cite>CompositeScheduleIntervalS</cite> because otherwise time periods could be missed by the application.</p>
 </section>
 <section id="device-model-implementation-details">
-<h2><span class="section-number">5.3.11.7. </span>Device model implementation details<a class="headerlink" href="#device-model-implementation-details" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.12.7. </span>Device model implementation details<a class="headerlink" href="#device-model-implementation-details" title="Permalink to this heading">¶</a></h2>
 <p>For managing configuration and telemetry data of a charging station, the OCPP2 specification introduces
 a device model that is very different to the design of OCPP1.6.
 The specified device model comes with these high-level requirements:</p>
@@ -360,7 +360,7 @@ libocpp, in OCPP2 the configuration and telemetry variables that can be part of 
 control or reporting capabilities of only libocpp. Still there is a large share of standardized variables in OCPP2
 that do influence the control flow of libocpp.</p>
 <section id="internally-and-externally-managed-variables">
-<h3><span class="section-number">5.3.11.7.1. </span>Internally and externally managed variables<a class="headerlink" href="#internally-and-externally-managed-variables" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.7.1. </span>Internally and externally managed variables<a class="headerlink" href="#internally-and-externally-managed-variables" title="Permalink to this heading">¶</a></h3>
 <p>EVerest has multiple different data sources that control the values variables that OCPP requires to report to the CSMS.
 It is therefore required to make a distinction between <strong>internally</strong> and <strong>externally</strong> managed variables of the device model.</p>
 <p>We define <strong>internally</strong> and <strong>externally</strong> managed variables as follows:</p>
@@ -375,14 +375,14 @@ Examples: ConnectionTimeout, MasterPassGroupId</p></li>
 by the libocpp device model storage implementation.</p>
 </section>
 <section id="device-model-implementation-of-this-module">
-<h3><span class="section-number">5.3.11.7.2. </span>Device Model Implementation of this module<a class="headerlink" href="#device-model-implementation-of-this-module" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.7.2. </span>Device Model Implementation of this module<a class="headerlink" href="#device-model-implementation-of-this-module" title="Permalink to this heading">¶</a></h3>
 <p>This module provides an implementation of device model API provided as part of libocpp (it implements
 <cite>device_model_storage_interface.hpp</cite>).
 The implementation is designed to fullfill the requirements of the device model API even if the components and variables are
 controlled by different sources (Internally, Externally).</p>
 </section>
 <section id="device-model-sources">
-<h3><span class="section-number">5.3.11.7.3. </span>Device Model Sources<a class="headerlink" href="#device-model-sources" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.7.3. </span>Device Model Sources<a class="headerlink" href="#device-model-sources" title="Permalink to this heading">¶</a></h3>
 <p>Device Model variables are defined in JSON component configs. For each variable a property <cite>source</cite> can be used to define
 the source that controls it. This design allows for a single source of truth for each variable and it
 allows the device model implementation of this module to address the correct source for the requested operation.
@@ -390,11 +390,11 @@ Today <cite>OCPP</cite> is the only supported source for internally managed vari
 <p>Sources for externally managed configuration variables like the EVerest config service are under development.</p>
 </section>
 <section id="sequence-of-variable-access-for-internally-and-externally-managed-variables">
-<h3><span class="section-number">5.3.11.7.4. </span>Sequence of variable access for internally and externally managed variables<a class="headerlink" href="#sequence-of-variable-access-for-internally-and-externally-managed-variables" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.7.4. </span>Sequence of variable access for internally and externally managed variables<a class="headerlink" href="#sequence-of-variable-access-for-internally-and-externally-managed-variables" title="Permalink to this heading">¶</a></h3>
 <img alt="_included/modules_doc/doc/sequence_config_service_and_ocpp.png" src="_included/modules_doc/doc/sequence_config_service_and_ocpp.png" />
 </section>
 <section id="class-diagram-for-device-model">
-<h3><span class="section-number">5.3.11.7.5. </span>Class diagram for device model<a class="headerlink" href="#class-diagram-for-device-model" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.12.7.5. </span>Class diagram for device model<a class="headerlink" href="#class-diagram-for-device-model" title="Permalink to this heading">¶</a></h3>
 <img alt="_included/modules_doc/doc/device_model_class_diagram.png" src="_included/modules_doc/doc/device_model_class_diagram.png" />
 <p>Clarification of the device model classes of this diagram:</p>
 <ul class="simple">
@@ -467,12 +467,12 @@ Today <cite>OCPP</cite> is the only supported source for internally managed vari
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="OCPP.html"
-                          title="previous chapter"><span class="section-number">5.3.10. </span>OCPP1.6 Module</a></p>
+                          title="previous chapter"><span class="section-number">5.3.11. </span>OCPP1.6 Module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="PN7160TokenProvider.html"
-                          title="next chapter"><span class="section-number">5.3.12. </span>PN7160TokenProvider</a></p>
+                          title="next chapter"><span class="section-number">5.3.13. </span>PN7160TokenProvider</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -508,14 +508,14 @@ Today <cite>OCPP</cite> is the only supported source for internally managed vari
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="PN7160TokenProvider.html" title="5.3.12. PN7160TokenProvider"
+          <a href="PN7160TokenProvider.html" title="5.3.13. PN7160TokenProvider"
              >next</a> |</li>
         <li class="right" >
-          <a href="OCPP.html" title="5.3.10. OCPP1.6 Module"
+          <a href="OCPP.html" title="5.3.11. OCPP1.6 Module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.11. </span>OCPP 2.1 and 2.0.1 Module</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.12. </span>OCPP 2.1 and 2.0.1 Module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

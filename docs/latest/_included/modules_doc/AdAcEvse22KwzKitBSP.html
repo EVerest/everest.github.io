@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>5.3.1. AdAcEvse22KwzKitBSP &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.3.2. EvManager" href="EvManager.html" />
+    <link rel="prev" title="5. EVerest Module Configurations" href="../../general/05_existing_modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="EvManager.html" title="5.3.2. EvManager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../../general/05_existing_modules.html" title="5. EVerest Module Configurations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.1. </span>AdAcEvse22KwzKitBSP</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="adacevse22kwzkitbsp">
+<span id="everest-modules-handwritten-adacevse22kwzkitbsp"></span><h1><span class="section-number">5.3.1. </span>AdAcEvse22KwzKitBSP<a class="headerlink" href="#adacevse22kwzkitbsp" title="Permalink to this heading">¶</a></h1>
+<p>See also module’s <a class="reference internal" href="../../_generated/modules/AdAcEvse22KwzKitBSP.html#everest-modules-adacevse22kwzkitbsp"><span class="std std-ref">auto-generated reference</span></a>.
+The module <code class="docutils literal notranslate"><span class="pre">AdAcEvse22KwzKitBSP</span></code> is a board support driver for the Analog Devices
+<a class="reference external" href="https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/ad-acevse22kwz-kit.html#eb-overview">AD-ACEVSE22KWZ-KIT</a>
+EVSE reference design.</p>
+<section id="adacevse22kwzkitbsp-quickstart">
+<h2><span class="section-number">5.3.1.1. </span>AdAcEvse22KwzKitBSP Quickstart<a class="headerlink" href="#adacevse22kwzkitbsp-quickstart" title="Permalink to this heading">¶</a></h2>
+<p>A typical hardware setup would consist of the AD-ACEVSE22KWZ-KIT and a Raspberry Pi 4 running
+EVerest with this module. Communication between AD-ACEVSE22KWZ-KIT and the AdAcEvse22KwzKitBSP
+on the Raspberry Pi 4 is through a 3.3V TTL UART link with a default configuration of 115200 bps 8N1.
+There is also a GPIO used to reset AD-ACEVSE22KWZ-KIT from EVerest so the firmware is in a known state.</p>
+<section id="hardware-connectivity">
+<h3><span class="section-number">5.3.1.1.1. </span>Hardware Connectivity<a class="headerlink" href="#hardware-connectivity" title="Permalink to this heading">¶</a></h3>
+<p>By default, AD-ACEVSE22KWZ-KIT supports the Pionix Yak board and Raspberry Pi 4 as host boards running
+EVerest.</p>
+<p>The simplest way to get AD-ACEVSE22KWZ-KIT up and running with EVerest is with a Pionix Yak board. First,
+you must connect AD-ACEVSE22KWZ-KIT’s P3 to Yak’s J3 using a 10-wire cable. Note that using the 10-wire
+cable has Yak powered off AD-ACEVSE22KWZ-KIT’s 12V supply.</p>
+<p>Next, we need to add the AdAcEvse22KwzKitBSP as an active module inside the configuration YAML file
+passed to EVerest:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ** Other EVerest modules **</span>
+<span class="w">  </span><span class="nt">adacevse22kwz_driver</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">telemetry</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">config_module</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span><span class="w"> </span><span class="c1"># default baud rate</span>
+<span class="w">      </span><span class="nt">reset_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27</span><span class="w"> </span><span class="c1"># Yak reset GPIO pin</span>
+<span class="w">      </span><span class="nt">serial_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/serial0</span><span class="w"> </span><span class="c1"># Yak UART0 port</span>
+<span class="w">    </span><span class="nt">connections</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AdAcEvse22KwzKitBSP</span>
+<span class="w">    </span><span class="c1"># ** Other EVerest modules **</span>
+</pre></div>
+</div>
+<p>Next, we need to link our active AdAcEvse22KwzKitBSP to EvseManager to facilitate high-level charging
+logic. This can be done by adding the following to EvseManager inside the EVerest configuration YAML:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ** Other EVerest modules **</span>
+<span class="w">  </span><span class="nt">evse_manager</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config_module</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># ** Various EvseManager configurations **</span>
+<span class="w">    </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">bsp</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">board_support</span>
+<span class="w">        </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adacevse22kwz_driver</span>
+<span class="w">      </span><span class="nt">powermeter_grid_side</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">powermeter</span>
+<span class="w">        </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adacevse22kwz_driver</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseManager</span>
+<span class="w">    </span><span class="nt">telemetry</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="c1"># ** Other EVerest modules **</span>
+</pre></div>
+</div>
+<p>Finally, we can start EVerest. AD-ACEVSE22KWZ-KIT should now be able to communicate with EVerest
+on the Yak board using AdAcEvse22KwzKitBSP.</p>
+<p>AD-ACEVSE22KWZ-KIT can also be run off a Raspberry Pi 4 by using various test points on the
+AD-ACEVSE22KWZ-KIT instead of the 10-wire cable. These test points can then be connected to
+Raspberry Pi pins which can operate as a UART link and a standard GPIO:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Purpose</p></th>
+<th class="head"><p>Test Point</p></th>
+<th class="head"><p>RPI Pin</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reset Pin</p></td>
+<td><p>TP_18</p></td>
+<td><p>GPIO27</p></td>
+</tr>
+<tr class="row-odd"><td><p>Host TX</p></td>
+<td><p>TP_28</p></td>
+<td><p>TX_D0</p></td>
+</tr>
+<tr class="row-even"><td><p>Host RX</p></td>
+<td><p>TP_41</p></td>
+<td><p>RX_D0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shared ground</p></td>
+<td><p>Any GND pin</p></td>
+<td><p>Any GND pin</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can now follow the steps used for configuring EVerest on the Yak board to start EVerest
+on the Raspberry Pi.</p>
+</section>
+</section>
+<section id="protocol">
+<h2><span class="section-number">5.3.1.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
+<p>EVerest can send commands to AD-ACEVSE22KWZ-KIT and AD-ACEVSE22KWZ-KIT publishes
+data and events back to EVerest. The packets are defined with protobuf to serialize the C structs
+into a binary representation that is transferred over the serial wire in a
+stream:</p>
+<p><a class="reference external" href="https://developers.google.com/protocol-buffers">https://developers.google.com/protocol-buffers</a></p>
+<p>To be able to split the stream back into packets all data is encoded using COBS
+before it is transmitted on the UART:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing">https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing</a></p>
+<section id="cobs">
+<h3><span class="section-number">5.3.1.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
+<p>COBS is implemented in <code class="docutils literal notranslate"><span class="pre">adkit_comms/evSerial.cpp</span></code>. Whenever a new packet
+was extracted from the stream <code class="docutils literal notranslate"><span class="pre">handlePacket()</span></code> is called to decode protobuf
+and generate the corresponding signals.
+Other parts of the module subscribe to these signals to handle the incoming
+packets.</p>
+<p>For TX <code class="docutils literal notranslate"><span class="pre">linkWrite</span></code> encodes the packet with COBS and outputs it to the UART.</p>
+</section>
+<section id="protobuf">
+<h3><span class="section-number">5.3.1.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
+<p>The actual packet definitions are located under <code class="docutils literal notranslate"><span class="pre">adkit_comms/protobuf</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">adkit.proto</span></code> contains all messages that can be sent by EVerest and AD-ACEVSE22KWZ-KIT.</p>
+<p>Refer to these files for an up-to-date definition as they may change
+frequently.</p>
+<p>To generate the C code nanopb is used:</p>
+<p><code class="docutils literal notranslate"><span class="pre">nanopb_generator</span> <span class="pre">-I</span> <span class="pre">.</span> <span class="pre">-D</span> <span class="pre">.</span> <span class="pre">*.proto</span></code></p>
+<p>The output should also be manually copied to AD-ACEVSE22KWZ-KIT Firmware to ensure the same
+definition is used on both sides when making changes.</p>
+</section>
+<section id="modes-of-operation">
+<h3><span class="section-number">5.3.1.2.3. </span>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this heading">¶</a></h3>
+<p>AD-ACEVSE22KWZ-KIT board operates in the following two modes:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hostless</span> <span class="pre">mode</span></code>: AD-ACEVSE22KWZ-KIT acts as a standalone EVSE
+and will control PWM and relay state without external influence. In this
+mode, PWM will be enabled immediately upon entering state B1 with the
+relay closing in state C2 assuming no errors occur. If an error occurs
+(i.e. RCD trigger, diode short, C1 timeout, etc.), AD-ACEVSE22KWZ-KIT
+will open the relay and disable PWM until state A1 is reentered where
+the errors will be cleared.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Host-driven</span> <span class="pre">mode</span></code>: AD-ACEVSE22KWZ-KIT will allow EVerest to influence PWM
+and relay states. In this mode, PWM will not be enabled until an EVerest
+<code class="docutils literal notranslate"><span class="pre">PwmDutyCycle</span></code> command is received. Similarly, the relay will not open in state
+C2 until an <code class="docutils literal notranslate"><span class="pre">AllowPowerOn</span></code> message is received. AD-ACEVSE22KWZ-KIT can
+override relay and PWM state in the event of an error.</p>
+<p>By default, the AD-ACEVSE22KWZ-KIT operates in hostless mode until a message
+is received from the host. Additionally, all outbound messages from
+AD-ACEVSE22KWZ-KIT are sent irrespective of mode of operation. This enables
+AD-ACEVSE22KWZ-KIT evaluation without using EVerest.</p>
+</section>
+<section id="message-types">
+<h3><span class="section-number">5.3.1.2.4. </span>Message types<a class="headerlink" href="#message-types" title="Permalink to this heading">¶</a></h3>
+<p>AD-ACEVSE22KWZ-KIT supports the following set of messages:</p>
+<section id="everest-to-ad-acevse22kwz-kit">
+<h4><span class="section-number">5.3.1.2.4.1. </span>EVerest to AD-ACEVSE22KWZ-KIT:<a class="headerlink" href="#everest-to-ad-acevse22kwz-kit" title="Permalink to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">AllowPowerOn(bool)</span></code>: Inform AD-ACEVSE22KWZ-KIT that it is allowed to
+switch on the power relays/contactors to the car on (true) or must switch
+off now (false). The final decision remains with AD-ACEVSE22KWZ-KIT in
+case of power on, it should only power on after all other requirements
+are met (such as RCD current is below limit, car is in CP state C etc).
+On power off, AD-ACEVSE22KWZ-KIT will switch off immediately.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PwmDutyCycle(uint32)</span></code>: Set AD-ACEVSE22KWZ-KIT PWM state and duty
+cycle. PWM can be enabled at specific duty cycle by passing a value of
+1-10000, where each value corresponds to 0.0001% duty cycle (i.e. 50%
+duty cycle = 5000 passed value). AD-ACEVSE22KWZ will ignore any duty cycles
+greater than 5333 as this corresponds to the maximum duty cycle supported.
+PWM can be disabled by passing a value greater than 10000. PWM state F can
+be enabled by passing a PWM value of 0.</p>
+<p><code class="docutils literal notranslate"><span class="pre">KeepAlive(Message)</span></code>: EVerest sends this packet to AD-ACEVSE22KWZ-KIT at 1Hz.
+Currently unused by AD-ACEVSE22KWZ-KIT.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Reset(bool)</span></code>: Reset AD-ACEVSE22KWZ-KIT firmware.</p>
+</section>
+</section>
+<section id="ad-acevse22kwz-kit-to-everest">
+<h3><span class="section-number">5.3.1.2.5. </span>AD-ACEVSE22KWZ-KIT to EVerest<a class="headerlink" href="#ad-acevse22kwz-kit-to-everest" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">CpState(enum)</span></code>: Notify EVerest of current CP state (A/B/C/D/E/F). Sent upon
+state change. AD-ACEVSE22KWZ-KIT currently doesn’t support State D.</p>
+<p><code class="docutils literal notranslate"><span class="pre">RelaisState(bool)</span></code>: Notify EVerest of current relay state. Sent upon relay
+closing/opening. True corresponds to relay closed and false is sent when relay
+is open.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PpState(enum)</span></code>: Notify EVerest of current PP state (NC/13A/20A/32A/70A/F).
+AD-ACEVSE22KWZ-KIT currently doesn’t support PP for maximum output current
+so 32A is sent by default.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PowerMeter(Message)</span></code>: Sent roughly every second when relay is closed.
+Contains all data from the ADE9178 power measurement.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ErrorState(Message)</span></code>: Notify EVerest of active errors. Sent when an errors
+are set/cleared. Each error has an associated boolean value where true
+corresponds to active error and false corresponds to error not active. Currently,
+only diode faults, RCD triggered, and overcurrent are supported by
+AD-ACEVSE22KWZ-KIT.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Telemetry(Message)</span></code>: Telemetry message with cp pwm high and low voltage
+values. Not currently supported by AD-ACEVSE22KWZ-KIT firmware.</p>
+<p><code class="docutils literal notranslate"><span class="pre">KeepAliveLo(Message)</span></code>: AD-ACEVSE22KWZ-KIT sends this every 3 seconds to keep
+connection online.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ResetReason(enum)</span></code>: Sent once on boot of the AD-ACEVSE22KWZ-KIT firmware.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#tier-module-mappings">5.2. 3-tier module mappings</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../general/05_existing_modules.html#module-functionality-in-detail">5.3. Module functionality in detail</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../../general/05_existing_modules.html"
+                          title="previous chapter"><span class="section-number">5. </span>EVerest Module Configurations</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="EvManager.html"
+                          title="next chapter"><span class="section-number">5.3.2. </span>EvManager</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_included/modules_doc/AdAcEvse22KwzKitBSP.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="EvManager.html" title="5.3.2. EvManager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../../general/05_existing_modules.html" title="5. EVerest Module Configurations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.1. </span>AdAcEvse22KwzKitBSP</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

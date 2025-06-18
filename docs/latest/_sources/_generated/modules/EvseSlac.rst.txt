@@ -24,7 +24,7 @@ Provides
 |    description:SLAC number of sounds.
 |    type:integer
 |   ac_mode_five_percent:
-|    description:Use 5% mode in AC (true). Set to false for DC. The only difference is the handling of retries.
+|    description:Use AC 5% mode according to ISO15118-3. This restarts SLAC sessions if they fail according to the standard. The standard only allows the retries for AC, not for DC. However, it is strongly recommended to always set this option to true, also for DC, otherwise some EVs in the field will fail to do SLAC frequently.
 |    type:boolean
 |   set_key_timeout_ms:
 |    description:Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.
@@ -70,8 +70,8 @@ Provides
 |   *default: 10*
 |    SLAC number of sounds.
 |   **ac_mode_five_percent**:*boolean* <optional>
-|   *default: False*
-|    Use 5% mode in AC (true). Set to false for DC. The only difference is the handling of retries.
+|   *default: True*
+|    Use AC 5% mode according to ISO15118-3. This restarts SLAC sessions if they fail according to the standard. The standard only allows the retries for AC, not for DC. However, it is strongly recommended to always set this option to true, also for DC, otherwise some EVs in the field will fail to do SLAC frequently.
 |   **set_key_timeout_ms**:*integer* <optional>
 |   *default: 1000*
 |    Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.

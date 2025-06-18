@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.3.8. IsabellenhuetteIemDcr &#8212; EVerest  documentation</title>
+    <title>5.3.9. IsabellenhuetteIemDcr &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5.3.9. LEM DCBM 400/600" href="LemDCBM400600.html" />
-    <link rel="prev" title="5.3.7. GenericPowermeter" href="GenericPowermeter.html" /> 
+    <link rel="next" title="5.3.10. LEM DCBM 400/600" href="LemDCBM400600.html" />
+    <link rel="prev" title="5.3.8. GenericPowermeter" href="GenericPowermeter.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="LemDCBM400600.html" title="5.3.9. LEM DCBM 400/600"
+          <a href="LemDCBM400600.html" title="5.3.10. LEM DCBM 400/600"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="GenericPowermeter.html" title="5.3.7. GenericPowermeter"
+          <a href="GenericPowermeter.html" title="5.3.8. GenericPowermeter"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.8. </span>IsabellenhuetteIemDcr</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.9. </span>IsabellenhuetteIemDcr</a></li> 
       </ul>
     </div>  
 
@@ -46,15 +46,15 @@
           <div class="body" role="main">
             
   <span class="target" id="everest-modules-handwritten-isabellenhuetteiemdcr"></span><section id="isabellenhuetteiemdcr">
-<h1><span class="section-number">5.3.8. </span>IsabellenhuetteIemDcr<a class="headerlink" href="#isabellenhuetteiemdcr" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">5.3.9. </span>IsabellenhuetteIemDcr<a class="headerlink" href="#isabellenhuetteiemdcr" title="Permalink to this heading">¶</a></h1>
 <p>Module implements Isabellenhuette IEM-DCR power meter driver, connecting via HTTP/REST.</p>
 <section id="implementation-details">
-<h2><span class="section-number">5.3.8.1. </span>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.9.1. </span>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this heading">¶</a></h2>
 <p>This section offers some additional information on driver implementation. The underlying HTTP communication functionality
 is mainly duplicated from other open source powermeter modules of EVerest to support a standarization of this interface
 later on.</p>
 <section id="initialization">
-<h3><span class="section-number">5.3.8.1.1. </span>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.9.1.1. </span>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading">¶</a></h3>
 <p>It begins with checking some plausibility measures on the handed configuration. Its default values are given in manifest.yaml.
 Please make sure to explicitly specify values that deviate from default configuration before starting the driver. If there is no
 conspicuousness in configuration, HTTP communication is verified with GET requests on /gw node. In case of no success, several
@@ -65,12 +65,12 @@ will appear on EVerest console if CI and CT are already written and could not be
 text is transferred as configured. This will show up on display before a charging transaction.</p>
 </section>
 <section id="live-values">
-<h3><span class="section-number">5.3.8.1.2. </span>Live values<a class="headerlink" href="#live-values" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.9.1.2. </span>Live values<a class="headerlink" href="#live-values" title="Permalink to this heading">¶</a></h3>
 <p>Each second the MQTT variable Powermeter is updated to current values of /metervalue node. Also the public key is made available
 via MQTT.</p>
 </section>
 <section id="start-transaction">
-<h3><span class="section-number">5.3.8.1.3. </span>Start transaction<a class="headerlink" href="#start-transaction" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.9.1.3. </span>Start transaction<a class="headerlink" href="#start-transaction" title="Permalink to this heading">¶</a></h3>
 <p>Starting a transaction will terminate any other running transaction (if there is one). The status type TransactionRequestStatus::
 NOT_SUPPORTED is returned, if given evse_id does not match CI (which was already transfered in initialization phase) and if IEM-DCR
 is in error state. Please refer to retrurned TransactionStartResponse.error for distinguishing between them. Starting a charging
@@ -81,7 +81,7 @@ instead. Please note that a transaction cannot be started while the sensor unit 
 Please refer to operation manual for details.</p>
 </section>
 <section id="stop-transaction">
-<h3><span class="section-number">5.3.8.1.4. </span>Stop transaction<a class="headerlink" href="#stop-transaction" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.9.1.4. </span>Stop transaction<a class="headerlink" href="#stop-transaction" title="Permalink to this heading">¶</a></h3>
 <p>If a transaction is in progress, it will be stopped and its signed data tuple returned. If no transaction is running, the last signed
 data tuple will be returned. Therefore input parameter transaction_id of this routine has no impact on its operation. Please note that
 TransactionRequestStatus::UNEXPECTED_ERROR may be returned, if no transaction is in progress and there has also been no transaction
@@ -90,7 +90,7 @@ Please refer to operation manual for details.</p>
 </section>
 </section>
 <section id="references">
-<h2><span class="section-number">5.3.8.2. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.9.2. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://www.isabellenhuette.de/iem-dcr">Official website</a></p>
 </section>
 </section>
@@ -127,12 +127,12 @@ Please refer to operation manual for details.</p>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="GenericPowermeter.html"
-                          title="previous chapter"><span class="section-number">5.3.7. </span>GenericPowermeter</a></p>
+                          title="previous chapter"><span class="section-number">5.3.8. </span>GenericPowermeter</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="LemDCBM400600.html"
-                          title="next chapter"><span class="section-number">5.3.9. </span>LEM DCBM 400/600</a></p>
+                          title="next chapter"><span class="section-number">5.3.10. </span>LEM DCBM 400/600</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -168,14 +168,14 @@ Please refer to operation manual for details.</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="LemDCBM400600.html" title="5.3.9. LEM DCBM 400/600"
+          <a href="LemDCBM400600.html" title="5.3.10. LEM DCBM 400/600"
              >next</a> |</li>
         <li class="right" >
-          <a href="GenericPowermeter.html" title="5.3.7. GenericPowermeter"
+          <a href="GenericPowermeter.html" title="5.3.8. GenericPowermeter"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.8. </span>IsabellenhuetteIemDcr</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.9. </span>IsabellenhuetteIemDcr</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

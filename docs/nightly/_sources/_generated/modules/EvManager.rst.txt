@@ -26,6 +26,9 @@ Module Configuration
 | **auto_exec_commands**:*string* <optional>
 | *default: ""*
 |  Simulation commands, e.g. sleep 1;iec_wait_pwr_ready;sleep 1;draw_power_regulated 16,3;sleep 30;unplug
+| **ac_nominal_voltage**:*number* <optional>
+| *default: 230*
+|  Nominal AC voltage between phase and neutral in Volt
 | **dc_max_current_limit**:*integer* <optional>
 | *default: 300*
 |  Maximum current allowed by the EV
@@ -65,6 +68,9 @@ Module Configuration
 | **three_phases**:*boolean* <optional>
 | *default: True*
 |  Support three phase
+| **soc**:*integer* <optional>
+| *default: 30*
+|  SoC at start of a simulated charging process
 | **keep_cross_boot_plugin_state**:*boolean* <optional>
 | *default: False*
 |  Keep plugin state across boot (use for simulation only).
@@ -74,6 +80,8 @@ Provides
 ********
 | **main**::ref:`car_simulator <everest_interfaces_car_simulator>`
 |  This implements the car simulator
+| **ev_manager**::ref:`ev_manager <everest_interfaces_ev_manager>`
+|  Implementation of the ev manager to provide additional information such as detailed EV info
 
 ************
 Requirements

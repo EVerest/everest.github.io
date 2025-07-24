@@ -46,6 +46,12 @@ Variables
 |  Signals that the EVSE Manager is ready to start charging
 | **selected_protocol**:*string* 
 |  Contains the selected protocol used for charging for informative purposes
+| **supported_energy_transfer_modes**:*array* 
+|  Contains the list of supported energy transfers e.g. AC mono/tri, DC, DC_BPT, etc.
+|  **array_item**:*object*  (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
+|   
+|   **There is an extended definition for this object** :ref:`here <iso15118-EnergyTransferMode>`.
+| 
 
 ********
 Commands
@@ -114,3 +120,14 @@ Commands
 |  **plug_and_charge_configuration**:*object* <required> (:ref:`evse_manager-PlugAndChargeConfiguration <evse_manager-PlugAndChargeConfiguration>`)
 |   The plug and charge configuration object
 |   **There is an extended definition for this object** :ref:`here <evse_manager-PlugAndChargeConfiguration>`.
+| **update_allowed_energy_transfer_modes**:*string*
+|  Sets the supported energy transfer mode for ISO15118. It is expected that this command will update the ISO15118 software stack to only propose the list of allowed_energy_transfer_modes presented in this message. If a transaction is already in progress, it is expected that this triggers a service renegotiation. If no HLC is present, this will be accepted, but do nothing.
+|  **allowed_energy_transfer_modes**:*array* <required>
+|   The list of supported energy transfer modes. It cannot be empty as we need to propose something to the EV.
+|   **array_item**:*string*  (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
+|    
+|    **There is an extended definition for this object** :ref:`here <iso15118-EnergyTransferMode>`.
+| 
+|  **Result**:*string*  (:ref:`evse_manager-UpdateAllowedEnergyTransferModesResult <evse_manager-UpdateAllowedEnergyTransferModesResult>`)
+|   Returns an enum indicating whether the update was successful or not.
+|   **There is an extended definition for this object** :ref:`here <evse_manager-UpdateAllowedEnergyTransferModesResult>`.

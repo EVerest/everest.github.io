@@ -377,17 +377,6 @@ ISO15118 charger types
 |   **responderURL**:*string* <required>
 |    This contains the responder URL
 
-.. _iso15118-SupportedEnergyMode:
-
-| **SupportedEnergyMode**:*object* 
-|  Supported energy mode and if the mode supports bidirectional
-|  properties:
-|   **energy_transfer_mode**:*string* <required> (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
-|    The energy mode supported by the SECC
-|    **There is an extended definition for this object** :ref:`here <iso15118-EnergyTransferMode>`.
-|   **bidirectional**:*boolean* <required>
-|    Set true if the powersupply (AC or DC) supports bidi mode
-
 .. _iso15118-DisplayParameters:
 
 | **DisplayParameters**:*object* 
@@ -846,3 +835,26 @@ ISO15118 charger types
 |    [A] Discharge target current requested by the EV
 |   **discharge_minimal_soc**:*number* <required>
 |    [%] Discharge minimal soc at which the evse should shutdown
+
+.. _iso15118-EvInformation:
+
+| **EvInformation**:*object* 
+|  Information concerning TLS certificates used by EV, as well as supported protocols.
+|  properties:
+|   **supported_protocols**:*object* <required> (:ref:`iso15118-AppProtocols <iso15118-AppProtocols>`)
+|    Ordered list of all of the supported protocols by the EV.
+|    **There is an extended definition for this object** :ref:`here <iso15118-AppProtocols>`.
+|   **selected_protocol**:*object* <required> (:ref:`iso15118-AppProtocol <iso15118-AppProtocol>`)
+|    The protocol chosen for the communication.
+|    **There is an extended definition for this object** :ref:`here <iso15118-AppProtocol>`.
+|   **evcc_id**:*string* <required>
+|    Specifies the EVs identification in a readable format. It contains the MAC address of the EVCC in uppercase
+|    pattern:^[A-F0-9]{2}(:[A-F0-9]{2}){5}$
+|   **tls_leaf_certificate**:*string* <optional>
+|    Certificate used by the EV for the TLS1.3 communication.
+|   **tls_sub_ca_1_certificate**:*string* <optional>
+|    Certificate used by the EV for the TLS1.3 communication.
+|   **tls_sub_ca_2_certificate**:*string* <optional>
+|    Certificate used by the EV for the TLS1.3 communication.
+|   **tls_root_certificate**:*string* <optional>
+|    Certificate used by the EV for the TLS1.3 communication.

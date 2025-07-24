@@ -110,14 +110,8 @@ Commands
 | **setup**:*void*
 |  At startup all necessary info should be sent to the module once.
 |  **evse_id**:*object* <required> (:ref:`iso15118-EVSEID <iso15118-EVSEID>`)
-|   Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to 
+|   Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to
 |   **There is an extended definition for this object** :ref:`here <iso15118-EVSEID>`.
-|  **supported_energy_transfer_modes**:*array* <required>
-|   Available energy transfer modes supported by the EVSE
-|   **array_item**:*object*  (:ref:`iso15118-SupportedEnergyMode <iso15118-SupportedEnergyMode>`)
-|    The different energy modes supported by the SECC
-|    **There is an extended definition for this object** :ref:`here <iso15118-SupportedEnergyMode>`.
-| 
 |  **sae_j2847_mode**:*string* <required> (:ref:`iso15118-SaeJ2847BidiMode <iso15118-SaeJ2847BidiMode>`)
 |   Charger is supporting SAE J2847 V2G/V2H version
 |   **There is an extended definition for this object** :ref:`here <iso15118-SaeJ2847BidiMode>`.
@@ -139,7 +133,7 @@ Commands
 |  **supported_certificate_service**:*boolean* <required>
 |   The charger supports the certificate installation/update service and has a connection to an SA for this purpose
 |  **central_contract_validation_allowed**:*boolean* <required>
-|   Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case  local validation was not successful
+|   Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case local validation was not successful
 | **authorization_response**:*void*
 |  This message is an async response to a previously published require_auth_eim or require_auth_pnc. The SECC informs the EVCC whether the authorization is accecpted or not.
 |  **authorization_status**:*string* <required> (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
@@ -172,6 +166,14 @@ Commands
 |  Pause the charging process (only in ISO15118-20)
 |  **pause**:*boolean* <required>
 |   Set to true when to pause, set to false when to continue
+| **update_energy_transfer_modes**:*void*
+|  Update the supported energy transfer modes. Call at least once during start up. Typically for ISO15118-2 and basic charging we expect unidirectional charging modes. For ISO15118-20 the user can set what type of modes the hardware supports, may that be bidirectional, unidirectional, wireless, etc charging.
+|  **supported_energy_transfer_modes**:*array* <required>
+|   Available energy transfer modes supported by the EVSE
+|   **array_item**:*object*  (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
+|    The different energy modes supported by the SECC
+|    **There is an extended definition for this object** :ref:`here <iso15118-EnergyTransferMode>`.
+| 
 | **update_ac_max_current**:*void*
 |  Update the maximum allowed line current restriction per phase. Call at least once during start up.
 |  **max_current**:*number* <required>

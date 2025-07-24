@@ -236,16 +236,6 @@
 <div class="line">Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-evseid"><span class="std std-ref">here</span></a>.</div>
 </div>
-<div class="line"><strong>supported_energy_transfer_modes</strong>:<em>array</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Available energy transfer modes supported by the EVSE</div>
-<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-supportedenergymode"><span class="std std-ref">iso15118-SupportedEnergyMode</span></a>)</div>
-<div class="line-block">
-<div class="line">The different energy modes supported by the SECC</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-supportedenergymode"><span class="std std-ref">here</span></a>.</div>
-<div class="line"><br /></div>
-</div>
-</div>
 <div class="line"><strong>sae_j2847_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-saej2847bidimode"><span class="std std-ref">iso15118-SaeJ2847BidiMode</span></a>)</div>
 <div class="line-block">
 <div class="line">Charger is supporting SAE J2847 V2G/V2H version</div>
@@ -284,7 +274,7 @@
 </div>
 <div class="line"><strong>central_contract_validation_allowed</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case  local validation was not successful</div>
+<div class="line">Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case local validation was not successful</div>
 </div>
 </div>
 <div class="line"><strong>authorization_response</strong>:<em>void</em></div>
@@ -347,6 +337,20 @@
 <div class="line"><strong>pause</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Set to true when to pause, set to false when to continue</div>
+</div>
+</div>
+<div class="line"><strong>update_energy_transfer_modes</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the supported energy transfer modes. Call at least once during start up. Typically for ISO15118-2 and basic charging we expect unidirectional charging modes. For ISO15118-20 the user can set what type of modes the hardware supports, may that be bidirectional, unidirectional, wireless, etc charging.</div>
+<div class="line"><strong>supported_energy_transfer_modes</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Available energy transfer modes supported by the EVSE</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The different energy modes supported by the SECC</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
 </div>
 </div>
 <div class="line"><strong>update_ac_max_current</strong>:<em>void</em></div>

@@ -114,6 +114,16 @@
 <div class="line-block">
 <div class="line">Contains the selected protocol used for charging for informative purposes</div>
 </div>
+<div class="line"><strong>supported_energy_transfer_modes</strong>:<em>array</em></div>
+<div class="line-block">
+<div class="line">Contains the list of supported energy transfers e.g. AC mono/tri, DC, DC_BPT, etc.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
 </div>
 </section>
 <section id="commands">
@@ -239,6 +249,25 @@
 <div class="line-block">
 <div class="line">The plug and charge configuration object</div>
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-plugandchargeconfiguration"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_allowed_energy_transfer_modes</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Sets the supported energy transfer mode for ISO15118. It is expected that this command will update the ISO15118 software stack to only propose the list of allowed_energy_transfer_modes presented in this message. If a transaction is already in progress, it is expected that this triggers a service renegotiation. If no HLC is present, this will be accepted, but do nothing.</div>
+<div class="line"><strong>allowed_energy_transfer_modes</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The list of supported energy transfer modes. It cannot be empty as we need to propose something to the EV.</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>string</em>  (<a class="reference internal" href="../types/evse_manager.html#evse-manager-updateallowedenergytransfermodesresult"><span class="std std-ref">evse_manager-UpdateAllowedEnergyTransferModesResult</span></a>)</div>
+<div class="line-block">
+<div class="line">Returns an enum indicating whether the update was successful or not.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/evse_manager.html#evse-manager-updateallowedenergytransfermodesresult"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 </div>

@@ -66,6 +66,40 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="ocpp-v2xfreqwattpointtype">
+<div class="line"><strong>V2XFreqWattPointType</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">A point of a frequency-watt curve.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>frequency</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Net frequency in Hz</div>
+</div>
+<div class="line"><strong>power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Power in W to charge (positive) or discharge (negative) at specified frequency.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="ocpp-v2xsignalwattpointcurve">
+<div class="line"><strong>V2XSignalWattPointCurve</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">A point of a signal-watt curve.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>signal</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Signal value from an AFRRSignalRequest.</div>
+</div>
+<div class="line"><strong>power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Power in W to charge (positive) or discharge (negative) at specified frequency.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="ocpp-chargingscheduleperiod">
 <div class="line"><strong>ChargingSchedulePeriod</strong>:<em>object</em></div>
 <div class="line-block">
@@ -75,13 +109,106 @@
 <div class="line"><strong>start_period</strong>:<em>integer</em> &lt;required&gt;</div>
 <div class="line"><br /></div>
 <div class="line"><strong>limit</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">Optional only when not required by the operationMode, as in CentralSetpoint, ExternalSetpoint, ExternalLimits, LocalFrequency, LocalLoadBalancing. Charging rate limit during the schedule period, in the applicable chargingRateUnit. This SHOULD be a non-negative value; a negative value is only supported for backwards compatibility with older systems that use a negative value to specify a discharging limit. When using chargingRateUnit = W, this field represents the sum of the power of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1.</div>
+</div>
+<div class="line"><strong>limit_L2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Charging rate limit on phase L2 in the applicable chargingRateUnit.</div>
+</div>
+<div class="line"><strong>limit_L3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Charging rate limit on phase L3 in the applicable chargingRateUnit.</div>
+</div>
 <div class="line"><strong>number_phases</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><br /></div>
 <div class="line"><strong>stack_level</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><br /></div>
 <div class="line"><strong>phase_to_use</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><br /></div>
+<div class="line"><strong>discharge_limit</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">value &lt;= 0. Limit in chargingRateUnit that the EV is allowed to discharge with. Note, these are negative values in order to be consistent with setpoint, which can be positive and negative. For AC this field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1.</div>
+</div>
+<div class="line"><strong>discharge_limit_L2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Limit in chargingRateUnit on phase L2 that the EV is allowed to discharge with</div>
+</div>
+<div class="line"><strong>discharge_limit_L3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Limit in chargingRateUnit on phase L3 that the EV is allowed to discharge with</div>
+</div>
+<div class="line"><strong>setpoint</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Setpoint in chargingRateUnit that the EV should follow as close as possible. Use negative values for discharging. When a limit and/or dischargeLimit are given the overshoot when following setpoint must remain within these values. This field represents the sum of all phases,unless values are provided for L2 and L3, in which case this field represents phase L1.</div>
+</div>
+<div class="line"><strong>setpoint_L2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Setpoint in chargingRateUnit that the EV should follow on phase L2 as close as possible.</div>
+</div>
+<div class="line"><strong>setpoint_L3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Setpoint in chargingRateUnit that the EV should follow on phase L3 as close as possible.</div>
+</div>
+<div class="line"><strong>setpoint_reactive</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Setpoint for reactive power (or current) in chargingRateUnit that the EV should follow as closely as possible. Positive values for inductive, negative for capacitive reactive power or current. This field represents the sum of all phases, unless values are provided for L2 and L3, in which case this field represents phase L1.</div>
+</div>
+<div class="line"><strong>setpoint_reactive_L2</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Setpoint for reactive power (or current) in chargingRateUnit that the EV should follow on phase L2 as closely as possible.</div>
+</div>
+<div class="line"><strong>setpoint_reactive_L3</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Setpoint for reactive power (or current) in chargingRateUnit that the EV should follow on phase L3 as closely as possible.</div>
+</div>
+<div class="line"><strong>preconditioning_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">If true, the EV should attempt to keep the BMS preconditioned for this time interval.</div>
+</div>
+<div class="line"><strong>evse_sleep</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">If true, the EVSE must turn off power electronics/modules associated with this transaction. Default value when absent is false.</div>
+</div>
+<div class="line"><strong>v2x_baseline</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Power value that, when present, is used as a baseline on top of which values from v2xFreqWattCurve and v2xSignalWattCurve are added</div>
+</div>
+<div class="line"><strong>operation_mode</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Operation mode for (bi-)directional charging during a charging schedule period.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Idle</div>
+<div class="line">- ChargingOnly</div>
+<div class="line">- CentralSetpoint</div>
+<div class="line">- ExternalSetpoint</div>
+<div class="line">- ExternalLimits</div>
+<div class="line">- CentralFrequency</div>
+<div class="line">- LocalFrequency</div>
+<div class="line">- LocalLoadBalancing</div>
+</div>
+</div>
+<div class="line"><strong>v2x_freq_watt_curve</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Only required when operationMode = LocalFrequency. When used it must contain at least two coordinates to specify a power-frequency table to use during this period. The table determines the value of setpoint power for a given frequency. chargingRateUnit must be W for LocalFrequency control.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#ocpp-v2xfreqwattpointtype"><span class="std std-ref">ocpp-V2XFreqWattPointType</span></a>)</div>
+<div class="line-block">
+<div class="line">A point of a frequency-watt curve.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-v2xfreqwattpointtype"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><strong>v2x_signal_watt_curve</strong>:<em>array</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Only used, but not required, when operationMode = LocalFrequency. When used it must contain at least two coordinates to specify a signal-frequency curve to use during this period. The curve determines the value of setpoint power for a given signal. chargingRateUnit must be W for LocalFrequency control.</div>
+<div class="line"><strong>array_item</strong>:<em>object</em>  (<a class="reference internal" href="#ocpp-v2xsignalwattpointcurve"><span class="std std-ref">ocpp-V2XSignalWattPointCurve</span></a>)</div>
+<div class="line-block">
+<div class="line">A point of a signal-watt curve.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#ocpp-v2xsignalwattpointcurve"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
 </div>
 </div>
 </div>

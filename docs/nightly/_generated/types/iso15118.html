@@ -599,24 +599,6 @@
 </div>
 </div>
 </div>
-<div class="line-block" id="iso15118-supportedenergymode">
-<div class="line"><strong>SupportedEnergyMode</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Supported energy mode and if the mode supports bidirectional</div>
-<div class="line">properties:</div>
-<div class="line-block">
-<div class="line"><strong>energy_transfer_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">iso15118-EnergyTransferMode</span></a>)</div>
-<div class="line-block">
-<div class="line">The energy mode supported by the SECC</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-energytransfermode"><span class="std std-ref">here</span></a>.</div>
-</div>
-<div class="line"><strong>bidirectional</strong>:<em>boolean</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Set true if the powersupply (AC or DC) supports bidi mode</div>
-</div>
-</div>
-</div>
-</div>
 <div class="line-block" id="iso15118-displayparameters">
 <div class="line"><strong>DisplayParameters</strong>:<em>object</em></div>
 <div class="line-block">
@@ -1411,6 +1393,46 @@
 <div class="line"><strong>discharge_minimal_soc</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">[%] Discharge minimal soc at which the evse should shutdown</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-evinformation">
+<div class="line"><strong>EvInformation</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Information concerning TLS certificates used by EV, as well as supported protocols.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>supported_protocols</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-appprotocols"><span class="std std-ref">iso15118-AppProtocols</span></a>)</div>
+<div class="line-block">
+<div class="line">Ordered list of all of the supported protocols by the EV.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-appprotocols"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>selected_protocol</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-appprotocol"><span class="std std-ref">iso15118-AppProtocol</span></a>)</div>
+<div class="line-block">
+<div class="line">The protocol chosen for the communication.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-appprotocol"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>evcc_id</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Specifies the EVs identification in a readable format. It contains the MAC address of the EVCC in uppercase</div>
+<div class="line">pattern:^[A-F0-9]{2}(:[A-F0-9]{2}){5}$</div>
+</div>
+<div class="line"><strong>tls_leaf_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Certificate used by the EV for the TLS1.3 communication.</div>
+</div>
+<div class="line"><strong>tls_sub_ca_1_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Certificate used by the EV for the TLS1.3 communication.</div>
+</div>
+<div class="line"><strong>tls_sub_ca_2_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Certificate used by the EV for the TLS1.3 communication.</div>
+</div>
+<div class="line"><strong>tls_root_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Certificate used by the EV for the TLS1.3 communication.</div>
 </div>
 </div>
 </div>

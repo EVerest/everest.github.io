@@ -339,6 +339,15 @@
 <div class="line">Set to true when to pause, set to false when to continue</div>
 </div>
 </div>
+<div class="line"><strong>no_energy_pause_charging</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Right now there is no power available for the charging process. According to IEC61851-23:2023 CC3.5.3 the charger can pause the session before or after the cable check and pre charge stage.</div>
+<div class="line"><strong>mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-noenergypausemode"><span class="std std-ref">iso15118-NoEnergyPauseMode</span></a>)</div>
+<div class="line-block">
+<div class="line">Set to different no energy pause modes. For PauseAfterPrecharge the charger should pause but has power for cable check and pre charge. For PauseBeforeCableCheck the charger should pause before cable check. For AllowEvToIgnorePause charger should ignore, that the ev will go to CurrentDemand instead of pausing the session, this is against IEC61851-23:2023.</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-noenergypausemode"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
 <div class="line"><strong>update_energy_transfer_modes</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Update the supported energy transfer modes. Call at least once during start up. Typically for ISO15118-2 and basic charging we expect unidirectional charging modes. For ISO15118-20 the user can set what type of modes the hardware supports, may that be bidirectional, unidirectional, wireless, etc charging.</div>

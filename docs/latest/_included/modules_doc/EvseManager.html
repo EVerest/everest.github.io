@@ -232,6 +232,7 @@ number of switching cycles per charging session.</p>
 the side effects that can be caused by errors raised by a requirement.</p>
 <p>This module subscribes to all errors of the following requirements:</p>
 <ul class="simple">
+<li><p>evse_manager</p></li>
 <li><p>evse_board_support</p></li>
 <li><p>connector_lock</p></li>
 <li><p>ac_rcd</p></li>
@@ -244,8 +245,16 @@ If no charging session is currently running, it will prevent sessions from being
 this will interrupt the charging session.</p>
 <p>Almost all errors that are reported from the requirements of this module cause the EvseManager to become Inoperative until the error is cleared.
 The following sections provide an overview of the errors that do <strong>not</strong> cause the EvseManager to become Inoperative.</p>
+<section id="evse-manager">
+<h3><span class="section-number">5.3.3.6.1. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>evse_manager/Inoperative</p></li>
+<li><p>evse_manager/MREC22ResistanceFault</p></li>
+<li><p>evse_manager/MREC11CableCheckFault</p></li>
+</ul>
+</section>
 <section id="evse-board-support">
-<h3><span class="section-number">5.3.3.6.1. </span>evse_board_support<a class="headerlink" href="#evse-board-support" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.3.6.2. </span>evse_board_support<a class="headerlink" href="#evse-board-support" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>evse_board_support/MREC3HighTemperature</p></li>
 <li><p>evse_board_support/MREC18CableOverTempDerate</p></li>
@@ -253,31 +262,32 @@ The following sections provide an overview of the errors that do <strong>not</st
 </ul>
 </section>
 <section id="connector-lock">
-<h3><span class="section-number">5.3.3.6.2. </span>connector_lock<a class="headerlink" href="#connector-lock" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.3.6.3. </span>connector_lock<a class="headerlink" href="#connector-lock" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>connector_lock/VendorWarning</p></li>
 </ul>
 </section>
 <section id="ac-rcd">
-<h3><span class="section-number">5.3.3.6.3. </span>ac_rcd<a class="headerlink" href="#ac-rcd" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.3.6.4. </span>ac_rcd<a class="headerlink" href="#ac-rcd" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>ac_rcd/VendorWarning</p></li>
 </ul>
 </section>
 <section id="isolation-monitor">
-<h3><span class="section-number">5.3.3.6.4. </span>isolation_monitor<a class="headerlink" href="#isolation-monitor" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.3.6.5. </span>isolation_monitor<a class="headerlink" href="#isolation-monitor" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>isolation_monitor/VendorWarning</p></li>
 </ul>
 </section>
 <section id="power-supply-dc">
-<h3><span class="section-number">5.3.3.6.5. </span>power_supply_DC<a class="headerlink" href="#power-supply-dc" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.3.6.6. </span>power_supply_DC<a class="headerlink" href="#power-supply-dc" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>power_supply_DC/VendorWarning</p></li>
 </ul>
 </section>
 <section id="id1">
-<h3><span class="section-number">5.3.3.6.6. </span>powermeter<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.3.6.7. </span>powermeter<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>Powermeter errors cause the EvseManager to become Inoperative, if fail_on_powermeter_errors is configured to true. If it is configured to false, errors from the powermeter will not cause the EvseManager to become Inoperative.</p>
 <ul class="simple">
 <li><p>powermeter/CommunicationFault</p></li>
 </ul>

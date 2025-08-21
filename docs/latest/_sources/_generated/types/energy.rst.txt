@@ -64,7 +64,7 @@ Energy import/export capability/limit types
 |    Max current limit (per phase) in Ampere. AC only. Positive number.
 |    **There is an extended definition for this object** :ref:`here <energy-NumberWithSource>`.
 |   **ac_min_current_A**:*object* <required> (:ref:`energy-NumberWithSource <energy-NumberWithSource>`)
-|    Min AC current limit per phase in Ampere. Values below that value indicate the  device will not work properly, i.e. it will not charge below 6 amps. AC only.
+|    Min AC current limit per phase in Ampere. Values below that value indicate the device will not work properly, i.e. it will not charge below 6 amps. AC only.
 |    **There is an extended definition for this object** :ref:`here <energy-NumberWithSource>`.
 |   **ac_max_phase_count**:*object* <required> (:ref:`energy-IntegerWithSource <energy-IntegerWithSource>`)
 |    Limit to number of phases. Omit if number of phases are not limited. Value between 1 and 3.
@@ -104,7 +104,7 @@ Energy import/export capability/limit types
 |   **car_battery_soc**:*number* <required>
 |    Car battery State Of Charge in percent
 |   **leave_time**:*string* <required>
-|    RFC3339 UTC format time when the car needs to drive away with charging targets fullfilled. Will charge cheapest within this timeframe.
+|    RFC3339 UTC format time when the car needs to drive away with charging targets fulfilled. Will charge cheapest within this timeframe.
 |   **price_limit**:*number* <required>
 |    Always charge if price below this limit. This includes solar charging and price for solar energy if price levels set correctly.
 |   **full_autonomy**:*boolean* <required>
@@ -126,7 +126,7 @@ Energy import/export capability/limit types
 |  Defines a setpoint, which is a target value for either charging or discharging depending on the sign. Setpoints per phase are currently not supported.
 |  properties:
 |   **ac_current_A**:*number* <optional>
-|    The target value in amps per phase for either charging or discharging depending on the sign.  Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.
+|    The target value in amps per phase for either charging or discharging depending on the sign. Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.
 |   **total_power_W**:*number* <optional>
 |    The target value for the total power for either charging or discharging depending on the sign. Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.
 |   **frequency_table**:*array* <optional>
@@ -204,7 +204,7 @@ Energy import/export capability/limit types
 |    Node Type Enum
 |    **There is an extended definition for this object** :ref:`here <energy-NodeType>`.
 |   **priority_request**:*boolean* <optional>
-|    If set to true, this is a high priority request that needs to be handled now.  Otherwise energymanager may merge multiple requests and address them later.
+|    If set to true, this is a high priority request that needs to be handled now. Otherwise energymanager may merge multiple requests and address them later.
 |   **evse_state**:*object* <optional> (:ref:`energy-EvseState <energy-EvseState>`)
 |    State of the EVSE
 |    **There is an extended definition for this object** :ref:`here <energy-EvseState>`.
@@ -243,9 +243,8 @@ Energy import/export capability/limit types
 |  properties:
 |   **uuid**:*string* <required>
 |    UUID of node that this limit applies to
-|   **valid_until**:*string* <required>
-|    Limits are valid until this timepoint in RFC3339 UTC. If no new update is received, power consumption must be stopped afer that timepoint.
-|    format:date-time
+|   **valid_for**:*integer* <required>
+|    Limits are valid for this number of seconds. If no new update is received after valid_for seconds then power consumption must be stopped.
 |   **limits_root_side**:*object* <required> (:ref:`energy-LimitsRes <energy-LimitsRes>`)
 |    Enforced limits that must be respected at the root side.
 |    **There is an extended definition for this object** :ref:`here <energy-LimitsRes>`.
@@ -262,7 +261,7 @@ Energy import/export capability/limit types
 |  External Limits data type
 |  properties:
 |   **schedule_import**:*array* <required>
-|    Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.  The last entry is valid for any time after the schedule ends.
+|    Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time. The last entry is valid for any time after the schedule ends.
 |    **array_item**:*object*  (:ref:`energy-ScheduleReqEntry <energy-ScheduleReqEntry>`)
 |     One entry for the time series
 |     **There is an extended definition for this object** :ref:`here <energy-ScheduleReqEntry>`.

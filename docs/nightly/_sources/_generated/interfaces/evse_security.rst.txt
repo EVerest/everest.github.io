@@ -13,7 +13,7 @@ evse_security
 Variables
 *********
 | **certificate_store_update**:*object*  (:ref:`evse_security-CertificateStoreUpdate <evse_security-CertificateStoreUpdate>`)
-|  Variable that indicates that the certificate store has been updated, i.e. either a certificate has been installed or deleted.  This is used to notify other modules that the certificate store has changed.
+|  Variable that indicates that the certificate store has been updated, i.e. either a certificate has been installed or deleted. This is used to notify other modules that the certificate store has changed.
 |  **There is an extended definition for this object** :ref:`here <evse_security-CertificateStoreUpdate>`.
 
 ********
@@ -72,16 +72,16 @@ Commands
 |   Indicates the result of the command and optional certificate hash data
 |   **There is an extended definition for this object** :ref:`here <evse_security-GetInstalledCertificatesResult>`.
 | **get_v2g_ocsp_request_data**:*object*
-|  Command to retrieve the OCSP request data of the V2G certificates. Contains OCSP data for each certificate that is present in the chain (excluding the root). 
+|  Command to retrieve the OCSP request data of the V2G certificates. Contains OCSP data for each certificate that is present in the chain (excluding the root).
 |  **Result**:*object*  (:ref:`evse_security-OCSPRequestDataList <evse_security-OCSPRequestDataList>`)
-|   The OCSP request data of all V2G CA certificates including the Sub CAs (exluding the root)
+|   The OCSP request data of all V2G CA certificates including the Sub CAs (excluding the root)
 |   **There is an extended definition for this object** :ref:`here <evse_security-OCSPRequestDataList>`.
 | **get_mo_ocsp_request_data**:*object*
 |  Command to retrieve the OCSP request data of the given MO certificate chain. Contains OCSP data for each certificate that is present in the chain (excluding the root)
 |  **certificate_chain**:*string* <required>
 |   Certificate chain for which the OCSP data is retrieved
 |  **Result**:*object*  (:ref:`evse_security-OCSPRequestDataList <evse_security-OCSPRequestDataList>`)
-|   The OCSP request data of the given certificate chain. Contains OCSP data for each certificate in the given chain. 
+|   The OCSP request data of the given certificate chain. Contains OCSP data for each certificate in the given chain.
 |   **There is an extended definition for this object** :ref:`here <evse_security-OCSPRequestDataList>`.
 | **update_ocsp_cache**:*void*
 |  Command to update the OCSP cache with the given data
@@ -154,7 +154,7 @@ Commands
 |  **Result**:*string* 
 |   The path of the CA certificates directory
 | **get_leaf_expiry_days_count**:*integer*
-|  Command to get the days count until the given leaf certificate expires.  If no leaf certificate is installed this command will return 0
+|  Command to get the days count until the given leaf certificate expires. If no leaf certificate is installed this command will return 0
 |  **certificate_type**:*string* <required> (:ref:`evse_security-LeafCertificateType <evse_security-LeafCertificateType>`)
 |   Indicates the type of the certificate
 |   **There is an extended definition for this object** :ref:`here <evse_security-LeafCertificateType>`.

@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>5.3.18. TIDA010939 &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.3.19. YetiDriver" href="YetiDriver.html" />
+    <link rel="prev" title="5.3.17. PN7160TokenProvider" href="PN7160TokenProvider.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="YetiDriver.html" title="5.3.19. YetiDriver"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PN7160TokenProvider.html" title="5.3.17. PN7160TokenProvider"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.18. </span>TIDA010939</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="tida010939">
+<span id="everest-modules-handwritten-tida010939"></span><h1><span class="section-number">5.3.18. </span>TIDA010939<a class="headerlink" href="#tida010939" title="Permalink to this heading">¶</a></h1>
+<p>See also module’s <a class="reference internal" href="../../_generated/modules/TIDA010939.html#everest-modules-tida010939"><span class="std std-ref">auto-generated reference</span></a>.
+The module <code class="docutils literal notranslate"><span class="pre">TIDA010939</span></code> is a board support driver for Texas Instruments
+TIDA-010939 reference design. It is based on the Yeti driver with similar structure
+and functionality.</p>
+<section id="communication-between-the-tida010939-microcontroller-and-this-driver-module">
+<h2><span class="section-number">5.3.18.1. </span>Communication between the TIDA010939 microcontroller and this driver module<a class="headerlink" href="#communication-between-the-tida010939-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
+<p>The hardware connection between TIDA010939 and the host system (the board running EVerest and
+this module) is 3.3V TTL UART plus 2 GPIOs (one to reset the microcontroller
+from Linux and one to boot into the bootloader).</p>
+<p>The default configuration is 115200 bps 8N1.</p>
+</section>
+<section id="protocol">
+<h2><span class="section-number">5.3.18.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
+<p>EVerest can send commands to TIDA010939 and TIDA010939 publishes data and events back
+to EVerest. The packets are defined with protobuf to serialize the C structs
+into a binary representation that is transferred over the serial wire in a
+stream:</p>
+<p><a class="reference external" href="https://developers.google.com/protocol-buffers">https://developers.google.com/protocol-buffers</a></p>
+<p>To be able to split the stream back into packets all data is encoded using COBS
+before it is transmitted on the UART:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing">https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing</a></p>
+<section id="cobs">
+<h3><span class="section-number">5.3.18.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
+<p>COBS is implemented in <code class="docutils literal notranslate"><span class="pre">tida_010939_comms/evSerial.cpp</span></code>. Whenever a new packet
+was extracted from the stream <code class="docutils literal notranslate"><span class="pre">handlePacket()</span></code> is called to decode protobuf
+and generate the corresponding signals.
+Other parts of the module subscribe to these signals to handle the incoming
+packets.</p>
+<p>For TX <code class="docutils literal notranslate"><span class="pre">linkWrite</span></code> encodes the packet with COBS and outputs it to the UART.</p>
+</section>
+<section id="protobuf">
+<h3><span class="section-number">5.3.18.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
+<p>The actual packet definitions are located under <code class="docutils literal notranslate"><span class="pre">tida_010939_comms/protobuf</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tida_010939.proto</span></code> contains all messages that can be sent from EVerest to TIDA010939 and
+all messages that TIDA010939 sends to EVerest.</p>
+<p>Refer to these files for an up to date definition as they may change
+frequently.</p>
+<p>To generate the C code nanopb is used:</p>
+<p><code class="docutils literal notranslate"><span class="pre">nanopb_generator</span> <span class="pre">-I</span> <span class="pre">.</span> <span class="pre">-D</span> <span class="pre">.</span> <span class="pre">*.proto</span></code></p>
+<p>The output should also be manually copied to TIDA010939 Firmware to ensure the same
+definition is used on both sides when making changes.</p>
+</section>
+</section>
+<section id="references">
+<h2><span class="section-number">5.3.18.3. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://www.ti.com/tool/TIDA-010939">Official website https://www.ti.com/tool/TIDA-010939</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#tier-module-mappings">5.2. 3-tier module mappings</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../general/05_existing_modules.html#module-functionality-in-detail">5.3. Module functionality in detail</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="PN7160TokenProvider.html"
+                          title="previous chapter"><span class="section-number">5.3.17. </span>PN7160TokenProvider</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="YetiDriver.html"
+                          title="next chapter"><span class="section-number">5.3.19. </span>YetiDriver</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_included/modules_doc/TIDA010939.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="YetiDriver.html" title="5.3.19. YetiDriver"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="PN7160TokenProvider.html" title="5.3.17. PN7160TokenProvider"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.18. </span>TIDA010939</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

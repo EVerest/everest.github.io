@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13.1.13. EnergyManager &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13.1.14. EnergyNode" href="EnergyNode.html" />
+    <link rel="prev" title="13.1.12. DummyV2G" href="DummyV2G.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="EnergyNode.html" title="13.1.14. EnergyNode"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="DummyV2G.html" title="13.1.12. DummyV2G"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.13. </span>EnergyManager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="energymanager">
+<span id="everest-modules-energymanager"></span><h1><span class="section-number">13.1.13. </span>EnergyManager<a class="headerlink" href="#energymanager" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">This module is the global Energy Manager for all EVSE/Charging stations in this building</div>
+</div>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/EnergyManager.rst/index.html#everest-modules-handwritten-energymanager"><span class="std std-ref">here</span></a></p>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.13.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>nominal_ac_voltage</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 230.0</em></div>
+<div class="line-block">
+<div class="line">Nominal AC voltage to use to convert Ampere to Watt on AC</div>
+</div>
+<div class="line"><strong>update_interval</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
+<div class="line-block">
+<div class="line">Update interval for energy distribution [s]</div>
+</div>
+<div class="line"><strong>schedule_interval_duration</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 60</em></div>
+<div class="line-block">
+<div class="line">Duration of the schedule interval for forecast [min]</div>
+</div>
+<div class="line"><strong>schedule_total_duration</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
+<div class="line-block">
+<div class="line">Total duration of schedule forcast [h]</div>
+</div>
+<div class="line"><strong>slice_ampere</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0.5</em></div>
+<div class="line-block">
+<div class="line">Ampere slice for trading. Lower values will give more even distribution but increase processing time [A].</div>
+</div>
+<div class="line"><strong>slice_watt</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 500</em></div>
+<div class="line-block">
+<div class="line">Watt slice for trading. Lower values will give more even distribution but increase processing time [W].</div>
+</div>
+<div class="line"><strong>debug</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Show debug output on command line.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_while_charging_mode</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “Never”</em></div>
+<div class="line-block">
+<div class="line">If supported by BSP in capabilities to switch between three phases and one phase and config option three_phases is set to true, this controls the algorithm:</div>
+<div class="line-block">
+<div class="line">- Never: Do not use 1ph/3ph switching even if supported by the BSP</div>
+<div class="line">- Oneway: Only switch from 3ph to 1ph if power is not enough, but never switch back to 3ph for a session.</div>
+<div class="line">- Both: Switch in both directions, i.e. from 3ph to 1ph and back to 3ph if available power changes</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Never</div>
+<div class="line">- Oneway</div>
+<div class="line">- Both</div>
+</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_max_nr_of_switches_per_session</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Limit the maximum number of switches between 1ph and 3ph per charging session. Set to 0 for no limit.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_switch_limit_stickyness</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “DontChange”</em></div>
+<div class="line-block">
+<div class="line">If the maximum number of switches between 1ph and 3ph is reached, select what should happen:</div>
+<div class="line-block">
+<div class="line">- SinglePhase: Switch to 1ph mode</div>
+<div class="line">- ThreePhase: Switch to 3ph mode</div>
+<div class="line">- DontChange: Stay in the mode it is currently in</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- SinglePhase</div>
+<div class="line">- ThreePhase</div>
+<div class="line">- DontChange</div>
+</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_power_hysteresis_W</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 200</em></div>
+<div class="line-block">
+<div class="line">Power based hysteresis in Watt. If set to 200W for example, the hysteresis for PWM based charging will be 4.2kW to 4.4kW. Actual values will depend on configured nominal AC voltage, and they may be different for PWM vs ISO based charging in the future.</div>
+</div>
+<div class="line"><strong>switch_3ph1ph_time_hysteresis_s</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 600</em></div>
+<div class="line-block">
+<div class="line">Time based hysteresis. It will only switch to 3 phases if the condition to select 3 phases is stable for the configured number of seconds. It will always switch to 1ph mode without waiting for this delay. Set to 0 to disable time based hysteresis.</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">13.1.13.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/energy_manager.html#everest-interfaces-energy-manager"><span class="std std-ref">energy_manager</span></a></div>
+<div class="line-block">
+<div class="line">Main interface of the energy manager</div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">13.1.13.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>energy_trunk</strong>:<a class="reference internal" href="../interfaces/energy.html#everest-interfaces-energy"><span class="std std-ref">energy</span></a> 1</div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">13.1.13.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">13.1.13.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Cornelius Claussen</div>
+<div class="line">Lars Dieckmann</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">13.1.13.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="DummyV2G.html"
+                          title="previous chapter"><span class="section-number">13.1.12. </span>DummyV2G</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="EnergyNode.html"
+                          title="next chapter"><span class="section-number">13.1.14. </span>EnergyNode</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/modules/EnergyManager.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="EnergyNode.html" title="13.1.14. EnergyNode"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="DummyV2G.html" title="13.1.12. DummyV2G"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.13. </span>EnergyManager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

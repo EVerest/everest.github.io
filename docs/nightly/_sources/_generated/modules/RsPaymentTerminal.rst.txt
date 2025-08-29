@@ -1,0 +1,65 @@
+
+.. _everest_modules_RsPaymentTerminal:
+
+#################
+RsPaymentTerminal
+#################
+| Payment terminal module for Feig devices.
+
+
+
+********************
+Module Configuration
+********************
+| **ip**:*string* <required>
+|  IP Address of Feig terminal, like "192.168.0.1"
+| **feig_serial**:*string* <required>
+|  Serial of Feig terminal. Typically a seven characters long string like "ABCD123".
+| **terminal_id**:*string* <required>
+|  Payment terminal ID.
+| **currency**:*integer* <optional>
+| *default: 978*
+|  Currency in ISO 4217 format.
+| **pre_authorization_amount**:*integer* <optional>
+| *default: 2500*
+|  Pre authentication amount in Cents.
+| **read_card_timeout**:*integer* <optional>
+| *default: 2*
+|  The time (is seconds) to wait for a card to be read.
+| **read_card_debounce**:*integer* <optional>
+| *default: 2*
+|  The debounce time (in seconds) after a successful card reading. The parameter prevents re-reading the same card.
+| **transactions_max_num**:*integer* <optional>
+| *default: 1*
+|  The maximum number of concurrent transactions. The Feig terminal will reject a transaction if it would exceed the maximum number of concurrent transactions - in this case you need to finish a transaction to allow a new one.
+| **password**:*integer* <required>
+|  Password for the Feig terminal.
+| **end_of_day_max_interval**:*integer* <optional>
+| *default: 86400*
+|  The maximum time (in sec) between end of day jobs. Payment backends might force the payment terminals to run them regularly. Defaults to one day.
+
+********
+Provides
+********
+| **token_provider**::ref:`auth_token_provider <everest_interfaces_auth_token_provider>`
+|  Provides an authentication token from the Feig terminal.
+| **payment_terminal**::ref:`payment_terminal <everest_interfaces_payment_terminal>`
+|  Provides all the commands specific for bank cards handling
+
+************
+Requirements
+************
+| **session**::ref:`session_cost <everest_interfaces_session_cost>` 0..1
+| **bank_session_token**::ref:`bank_session_token_provider <everest_interfaces_bank_session_token_provider>` 0..1
+
+********
+Metadata
+********
+Authors
+=======
+| embedded-team@qwello.eu
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

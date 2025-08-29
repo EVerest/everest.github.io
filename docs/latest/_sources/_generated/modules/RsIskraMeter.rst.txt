@@ -1,0 +1,66 @@
+
+.. _everest_modules_RsIskraMeter:
+
+############
+RsIskraMeter
+############
+| Iskra meter
+
+
+
+********************
+Module Configuration
+********************
+| **powermeter_device_id**:*integer* <optional>
+| *default: 33*
+|  The address of the device on the modbus
+| **ocmf_format_version**:*string* <optional>
+| *default: "1.0"*
+|  Version of the data format in the representation.
+| **ocmf_gateway_identification**:*string* <optional>
+| *default: ""*
+|  Identifier of the manufacturer for the system which has generated the present data.
+| **ocmf_gateway_serial**:*string* <optional>
+| *default: ""*
+|  Serial number of the above mentioned system.
+| **ocmf_gateway_version**:*string* <optional>
+| *default: ""*
+|  Version designation of the manufacturer for the software.
+| **ocmf_charge_point_identification_type**:*string* <optional>
+| *default: "EVSEID"*
+|  Type of the specification for the identification of the charge point.
+| **ocmf_charge_point_identification**:*string* <optional>
+| *default: ""*
+|  Identification information for the charge point. If you set it to `EVSEID` it will be overwritten by the evse-id provided by `TransactionReq`
+| **communication_errors_threshold**:*integer* <optional>
+| *default: 10*
+|  The maximum number of consecutive errors allowed before a persistent error is reported
+| **lcd_main_text**:*string* <optional>
+| *default: ""*
+|  Text to display when there is no transaction. At most 8 chars.
+| **lcd_label_text**:*string* <optional>
+| *default: ""*
+|  Label to display when there is no transaction. At most 4 chars.
+
+********
+Provides
+********
+| **meter**::ref:`powermeter <everest_interfaces_powermeter>`
+|  Implementation of the driver functionality
+
+************
+Requirements
+************
+| **modbus**::ref:`serial_communication_hub <everest_interfaces_serial_communication_hub>` 1
+
+********
+Metadata
+********
+Authors
+=======
+| embedded@qwello.eu
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

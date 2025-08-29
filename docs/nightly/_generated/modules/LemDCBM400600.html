@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13.1.33. LemDCBM400600 &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13.1.34. MicroMegaWattBSP" href="MicroMegaWattBSP.html" />
+    <link rel="prev" title="13.1.32. IsoMux" href="IsoMux.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="MicroMegaWattBSP.html" title="13.1.34. MicroMegaWattBSP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IsoMux.html" title="13.1.32. IsoMux"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>LemDCBM400600</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="lemdcbm400600">
+<span id="everest-modules-lemdcbm400600"></span><h1><span class="section-number">13.1.33. </span>LemDCBM400600<a class="headerlink" href="#lemdcbm400600" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">Module implementing the LEM DCBM 400/600 power meter driver adapter via HTTP.</div>
+</div>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/LemDCBM400600.html#everest-modules-handwritten-lemdcbm400600"><span class="std std-ref">here</span></a></p>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.33.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>ip_address</strong>:<em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">IP Address of the power meter API.</div>
+</div>
+<div class="line"><strong>port</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 80</em></div>
+<div class="line-block">
+<div class="line">Port of the power meter API.</div>
+</div>
+<div class="line"><strong>interface</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Bind to a specific network interface. If left empty, the module will bind to all interfaces.</div>
+</div>
+<div class="line"><strong>meter_tls_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">The DCBM’s HTTPS certificate, in PEM format. If provided, HTTPS will be used. If left empty, regular HTTP will be used. Note that this does not affect the default port - specify a port explicitly if you wish to use a port other than 80.</div>
+</div>
+<div class="line"><strong>ntp_server_1_ip_addr</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">The IPv4 address (in 4-octet form W.X.Y.Z) of the first NTP server to use for time sync. If this is left empty, NTP will not be configured on the DCBM - its time will be synced with EVerest’s system time instead.</div>
+</div>
+<div class="line"><strong>ntp_server_1_port</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 123</em></div>
+<div class="line-block">
+<div class="line">The port (1-65535) of the first NTP server.</div>
+</div>
+<div class="line"><strong>ntp_server_2_ip_addr</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">The IPv4 address (in 4-octet form W.X.Y.Z) of the second NTP server to use for time sync. This is ignored if ntp_server_1_ip_addr is empty.</div>
+</div>
+<div class="line"><strong>ntp_server_2_port</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 123</em></div>
+<div class="line-block">
+<div class="line">The port (1-65535) fof the second NTP server.</div>
+</div>
+<div class="line"><strong>meter_timezone</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “+00:00”</em></div>
+<div class="line-block">
+<div class="line">The timezone offset (ignored if NTP servers are set) - it can go from -11 to +14 for hours and 00, 15, 30, 45 for minutes</div>
+</div>
+<div class="line"><strong>meter_dst</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “{“activated”: false, “offset”: 60, “start”: {“order”: “last”, “day”: “sunday”, “month”: “march”, “hour”: “T01:00Z”}, “end”: {“order”: “last”, “day”: “sunday”, “month”: “october”, “hour”: “T01:00Z” }}”</em></div>
+<div class="line-block">
+<div class="line">The Daylight Saving Time (DST) settings (ignored if NTP is set)</div>
+</div>
+<div class="line"><strong>resilience_initial_connection_retries</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 25</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the number of retries to connect to the powermeter at module initialization.</div>
+</div>
+<div class="line"><strong>resilience_initial_connection_retry_delay</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 10000</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the delay in milliseconds before a retry attempt at module initialization..</div>
+</div>
+<div class="line"><strong>resilience_transaction_request_retries</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the number of retries to connect to the powermeter at a transaction start or stop request.</div>
+</div>
+<div class="line"><strong>resilience_transaction_request_retry_delay</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 250</em></div>
+<div class="line-block">
+<div class="line">For the controller resilience, the delay in milliseconds before a retry attempt  at a transaction start or stop request.</div>
+</div>
+<div class="line"><strong>cable_id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">The cable loss compensation level to use. This allows compensating the measurements of the DCBM with a resistance.</div>
+</div>
+<div class="line"><strong>tariff_id</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Used for a unique transaction tariff designation</div>
+</div>
+<div class="line"><strong>SC</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">SC (OCMF/transaction fields)</div>
+</div>
+<div class="line"><strong>UV</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">User SW Version (OCMF/transaction fields)</div>
+</div>
+<div class="line"><strong>UD</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">UD (OCMF/transaction fields)</div>
+</div>
+<div class="line"><strong>command_timeout_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5000</em></div>
+<div class="line-block">
+<div class="line">The timeout in milliseconds for a HTTP command to the LEM power meter.</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">13.1.33.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
+<div class="line-block">
+<div class="line">This is the main unit of the module</div>
+</div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">13.1.33.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">13.1.33.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Valentin Dimov, <a class="reference external" href="mailto:valentin&#46;dimov&#37;&#52;&#48;pionix&#46;de">valentin<span>&#46;</span>dimov<span>&#64;</span>pionix<span>&#46;</span>de</a></div>
+<div class="line">Fabian Klemm, <a class="reference external" href="mailto:fabian&#46;klemm&#37;&#52;&#48;pionix&#46;de">fabian<span>&#46;</span>klemm<span>&#64;</span>pionix<span>&#46;</span>de</a></div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">13.1.33.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="IsoMux.html"
+                          title="previous chapter"><span class="section-number">13.1.32. </span>IsoMux</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="MicroMegaWattBSP.html"
+                          title="next chapter"><span class="section-number">13.1.34. </span>MicroMegaWattBSP</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/modules/LemDCBM400600.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="MicroMegaWattBSP.html" title="13.1.34. MicroMegaWattBSP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IsoMux.html" title="13.1.32. IsoMux"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.33. </span>LemDCBM400600</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

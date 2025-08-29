@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13.1.35. OCPP &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13.1.36. OCPP201" href="OCPP201.html" />
+    <link rel="prev" title="13.1.34. MicroMegaWattBSP" href="MicroMegaWattBSP.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="OCPP201.html" title="13.1.36. OCPP201"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MicroMegaWattBSP.html" title="13.1.34. MicroMegaWattBSP"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.35. </span>OCPP</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="ocpp">
+<span id="everest-modules-ocpp"></span><h1><span class="section-number">13.1.35. </span>OCPP<a class="headerlink" href="#ocpp" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">A OCPP charge point / charging station module, currently targeting OCPP-J 1.6</div>
+</div>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/OCPP.html#everest-modules-handwritten-ocpp"><span class="std std-ref">here</span></a></p>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.35.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>ChargePointConfigPath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “ocpp-config.json”</em></div>
+<div class="line-block">
+<div class="line">Path to the ocpp configuration file. Libocpp defines a JSON schema for this file. Please refer to the documentation of libocpp for more information about the configuration options.</div>
+</div>
+<div class="line"><strong>UserConfigPath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “user_config.json”</em></div>
+<div class="line-block">
+<div class="line">Path to the file of the OCPP user config. The user config is used as an overlay for the original config defined by the ChargePointConfigPath. Any changes to configuration keys turned out internally or by the CSMS will be written to the user config file.</div>
+</div>
+<div class="line"><strong>DatabasePath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “/tmp/ocpp_1_6_charge_point”</em></div>
+<div class="line-block">
+<div class="line">Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.</div>
+</div>
+<div class="line"><strong>EnableExternalWebsocketControl</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">If true websocket can be disconnected and connected externally. This parameter is for debug and testing purposes.</div>
+</div>
+<div class="line"><strong>PublishChargingScheduleIntervalS</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 30</em></div>
+<div class="line-block">
+<div class="line">Interval in seconds in which charging schedules received from OCPP are be published over MQTT and signalled to connected modules. If the value is set to 0, charging schedules are only published when changed by CSMS</div>
+</div>
+<div class="line"><strong>PublishChargingScheduleDurationS</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 600</em></div>
+<div class="line-block">
+<div class="line">Duration in seconds that defines the duration of the requested charging schedules starting from now</div>
+</div>
+<div class="line"><strong>MessageLogPath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “/tmp/everest_ocpp_logs”</em></div>
+<div class="line-block">
+<div class="line">Path to directory where logs of all OCPP messages are written to</div>
+</div>
+<div class="line"><strong>MessageQueueResumeDelay</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Time (seconds) to delay resuming the message queue after reconnecting. This parameter was introduced because some OCTT test cases require that the first message after a reconnect is sent by the CSMS.</div>
+</div>
+<div class="line"><strong>RequestCompositeScheduleUnit</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “A”</em></div>
+<div class="line-block">
+<div class="line">Unit in which composite schedules are requested and shared within EVerest. It is recommended to use Amps for AC and Watts for DC charging stations. Allowed values:</div>
+<div class="line-block">
+<div class="line">- ‘A’ for Amps</div>
+<div class="line">- ‘W’ for Watts</div>
+</div>
+</div>
+<div class="line"><strong>DelayOcppStart</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Small delay in time (milliseconds) to start the ocpp chargepoint to allow time for the rest of everest to update the connector status. This is only used to prevent issues from passing by availlable before preparing on a restart.</div>
+</div>
+<div class="line"><strong>ResetStopDelay</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Time (seconds) to delay the stopping of the charge point so that the CSMS has enough time to respond to the charge point’s last messages before resetting.</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">13.1.35.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/ocpp_1_6_charge_point.html#everest-interfaces-ocpp-1-6-charge-point"><span class="std std-ref">ocpp_1_6_charge_point</span></a></div>
+<div class="line-block">
+<div class="line">This is a OCPP 1.6 charge point</div>
+</div>
+<div class="line"><strong>auth_validator</strong>:<a class="reference internal" href="../interfaces/auth_token_validator.html#everest-interfaces-auth-token-validator"><span class="std std-ref">auth_token_validator</span></a></div>
+<div class="line-block">
+<div class="line">Validates the provided auth token with OCPP</div>
+</div>
+<div class="line"><strong>auth_provider</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
+<div class="line-block">
+<div class="line">Provides auth tokens from OCPP</div>
+</div>
+<div class="line"><strong>data_transfer</strong>:<a class="reference internal" href="../interfaces/ocpp_data_transfer.html#everest-interfaces-ocpp-data-transfer"><span class="std std-ref">ocpp_data_transfer</span></a></div>
+<div class="line-block">
+<div class="line">OCPP data transfer towards the CSMS</div>
+</div>
+<div class="line"><strong>ocpp_generic</strong>:<a class="reference internal" href="../interfaces/ocpp.html#everest-interfaces-ocpp"><span class="std std-ref">ocpp</span></a></div>
+<div class="line-block">
+<div class="line">Generic OCPP interface.</div>
+</div>
+<div class="line"><strong>session_cost</strong>:<a class="reference internal" href="../interfaces/session_cost.html#everest-interfaces-session-cost"><span class="std std-ref">session_cost</span></a></div>
+<div class="line-block">
+<div class="line">Send session cost</div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">13.1.35.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>charger_information</strong>:<a class="reference internal" href="../interfaces/charger_information.html#everest-interfaces-charger-information"><span class="std std-ref">charger_information</span></a> 0..1</div>
+<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a> 1..128</div>
+<div class="line"><strong>evse_energy_sink</strong>:<a class="reference internal" href="../interfaces/external_energy_limits.html#everest-interfaces-external-energy-limits"><span class="std std-ref">external_energy_limits</span></a> 0..129</div>
+<div class="line"><strong>reservation</strong>:<a class="reference internal" href="../interfaces/reservation.html#everest-interfaces-reservation"><span class="std std-ref">reservation</span></a> 1</div>
+<div class="line"><strong>auth</strong>:<a class="reference internal" href="../interfaces/auth.html#everest-interfaces-auth"><span class="std std-ref">auth</span></a> 1</div>
+<div class="line"><strong>system</strong>:<a class="reference internal" href="../interfaces/system.html#everest-interfaces-system"><span class="std std-ref">system</span></a> 1</div>
+<div class="line"><strong>security</strong>:<a class="reference internal" href="../interfaces/evse_security.html#everest-interfaces-evse-security"><span class="std std-ref">evse_security</span></a> 1</div>
+<div class="line"><strong>data_transfer</strong>:<a class="reference internal" href="../interfaces/ocpp_data_transfer.html#everest-interfaces-ocpp-data-transfer"><span class="std std-ref">ocpp_data_transfer</span></a> 0..1</div>
+<div class="line"><strong>display_message</strong>:<a class="reference internal" href="../interfaces/display_message.html#everest-interfaces-display-message"><span class="std std-ref">display_message</span></a> 0..1</div>
+<div class="line"><strong>extensions_15118</strong>:<a class="reference internal" href="../interfaces/iso15118_extensions.html#everest-interfaces-iso15118-extensions"><span class="std std-ref">iso15118_extensions</span></a> 0..128</div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">13.1.35.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">13.1.35.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Kai-Uwe Hermann</div>
+<div class="line">Piet Gömpel</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">13.1.35.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="MicroMegaWattBSP.html"
+                          title="previous chapter"><span class="section-number">13.1.34. </span>MicroMegaWattBSP</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="OCPP201.html"
+                          title="next chapter"><span class="section-number">13.1.36. </span>OCPP201</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/modules/OCPP.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="OCPP201.html" title="13.1.36. OCPP201"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="MicroMegaWattBSP.html" title="13.1.34. MicroMegaWattBSP"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.35. </span>OCPP</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

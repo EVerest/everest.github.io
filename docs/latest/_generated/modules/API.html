@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13.1.1. API &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13.1.2. AdAcEvse22KwzKitBSP" href="AdAcEvse22KwzKitBSP.html" />
+    <link rel="prev" title="13.1. EVerest Modules" href="../../appendix/01_everest_reference/modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="AdAcEvse22KwzKitBSP.html" title="13.1.2. AdAcEvse22KwzKitBSP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../../appendix/01_everest_reference/modules.html" title="13.1. EVerest Modules"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.1. </span>API</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="api">
+<span id="everest-modules-api"></span><h1><span class="section-number">13.1.1. </span>API<a class="headerlink" href="#api" title="Permalink to this heading">¶</a></h1>
+<div class="line-block">
+<div class="line">The EVerest API module, exposing some internal functionality on an external MQTT connection.</div>
+</div>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.1.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>charger_information_file</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Path to a file containing information about the charger like its serial number. The content of this file is not used, when the optional dependency <cite>charger_information</cite> is used.</div>
+</div>
+<div class="line"><strong>powermeter_energy_import_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for import energy in the power meter</div>
+</div>
+<div class="line"><strong>powermeter_energy_export_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for export energy in the power meter</div>
+</div>
+<div class="line"><strong>powermeter_power_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for power in the power meter</div>
+</div>
+<div class="line"><strong>powermeter_voltage_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for voltage in the power meter</div>
+</div>
+<div class="line"><strong>powermeter_VAR_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for VAR in the power meter</div>
+</div>
+<div class="line"><strong>powermeter_current_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for current in the power meter</div>
+</div>
+<div class="line"><strong>powermeter_frequency_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for frequency in the power meter</div>
+</div>
+<div class="line"><strong>hw_caps_max_current_export_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for maximum export current in the hardware capabilities</div>
+</div>
+<div class="line"><strong>hw_caps_max_current_import_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for maximum import current in the hardware capabilities</div>
+</div>
+<div class="line"><strong>hw_caps_min_current_export_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for minimum export current in the hardware capabilities</div>
+</div>
+<div class="line"><strong>hw_caps_min_current_import_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for minimum import current in the hardware capabilities</div>
+</div>
+<div class="line"><strong>hw_caps_max_plug_temperature_C_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for max_plug_temperature_C in the hardware capabilities</div>
+</div>
+<div class="line"><strong>limits_max_current_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for maximum current in the limits</div>
+</div>
+<div class="line"><strong>telemetry_evse_temperature_C_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for evse_temperature_C in telemetry</div>
+</div>
+<div class="line"><strong>telemetry_fan_rpm_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for fan RPM in telemetry</div>
+</div>
+<div class="line"><strong>telemetry_supply_voltage_12V_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for supply voltage 12V in telemetry</div>
+</div>
+<div class="line"><strong>telemetry_supply_voltage_minus_12V_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for supply voltage -12V in telemetry</div>
+</div>
+<div class="line"><strong>telemetry_plug_temperature_C_decimal_places</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Maximum number of decimal places for RCD current in telemetry</div>
+</div>
+<div class="line"><strong>powermeter_energy_import_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round import energy to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>powermeter_energy_export_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round export energy to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>powermeter_power_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round power to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>powermeter_voltage_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round voltage to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>powermeter_VAR_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round VAR to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>powermeter_current_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round current to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>powermeter_frequency_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round frequency to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>hw_caps_max_current_export_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round maximum export current in hardware limits to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>hw_caps_max_current_import_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round maximum import current in hardware limits to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>hw_caps_min_current_export_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round minimum export current in hardware limits to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>hw_caps_min_current_import_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round minimum import current in hardware limits to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>hw_caps_max_plug_temperature_C_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round max_plug_temperature_C in hardware limits to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>limits_max_current_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round maximum current in limits to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>telemetry_evse_temperature_C_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round evse_temperature_C in telemetry to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>telemetry_fan_rpm_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round fan RPM in telemetry to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>telemetry_supply_voltage_12V_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round supply voltage 12V in telemetry to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>telemetry_supply_voltage_minus_12V_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round supply voltage -12V in telemetry to the nearest step. Ignored if value is 0</div>
+</div>
+<div class="line"><strong>telemetry_plug_temperature_C_round_to</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Round plug_temperature_C in telemetry to the nearest step. Ignored if value is 0</div>
+</div>
+</div>
+</section>
+<section id="provides">
+<h2><span class="section-number">13.1.1.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
+<div class="line-block">
+<div class="line">EVerest API</div>
+</div>
+</div>
+</section>
+<section id="requirements">
+<h2><span class="section-number">13.1.1.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>charger_information</strong>:<a class="reference internal" href="../interfaces/charger_information.html#everest-interfaces-charger-information"><span class="std std-ref">charger_information</span></a> 0..1</div>
+<div class="line"><strong>evse_manager</strong>:<a class="reference internal" href="../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a> 1..128</div>
+<div class="line"><strong>ocpp</strong>:<a class="reference internal" href="../interfaces/ocpp.html#everest-interfaces-ocpp"><span class="std std-ref">ocpp</span></a> 0..1</div>
+<div class="line"><strong>random_delay</strong>:<a class="reference internal" href="../interfaces/uk_random_delay.html#everest-interfaces-uk-random-delay"><span class="std std-ref">uk_random_delay</span></a> 0..128</div>
+<div class="line"><strong>error_history</strong>:<a class="reference internal" href="../interfaces/error_history.html#everest-interfaces-error-history"><span class="std std-ref">error_history</span></a> 0..1</div>
+<div class="line"><strong>evse_energy_sink</strong>:<a class="reference internal" href="../interfaces/external_energy_limits.html#everest-interfaces-external-energy-limits"><span class="std std-ref">external_energy_limits</span></a> 0..128</div>
+</div>
+</section>
+<section id="metadata">
+<h2><span class="section-number">13.1.1.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<section id="authors">
+<h3><span class="section-number">13.1.1.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Kai-Uwe Hermann</div>
+</div>
+</section>
+<section id="license">
+<h3><span class="section-number">13.1.1.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../appendix/01_everest_reference/modules.html">13.1. EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/interfaces.html">13.2. EVerest Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../appendix/01_everest_reference/types.html">13.3. EVerest Types</a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../../appendix/01_everest_reference/modules.html"
+                          title="previous chapter"><span class="section-number">13.1. </span>EVerest Modules</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="AdAcEvse22KwzKitBSP.html"
+                          title="next chapter"><span class="section-number">13.1.2. </span>AdAcEvse22KwzKitBSP</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_generated/modules/API.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="AdAcEvse22KwzKitBSP.html" title="13.1.2. AdAcEvse22KwzKitBSP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../../appendix/01_everest_reference/modules.html" title="13.1. EVerest Modules"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.1. </span>API</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

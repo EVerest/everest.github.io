@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.54. RsPaymentTerminal &#8212; EVerest  documentation</title>
+    <title>13.1.38. NxpNfcFrontendTokenProvider &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.55. SerialCommHub" href="SerialCommHub.html" />
-    <link rel="prev" title="13.1.53. RsIskraMeter" href="RsIskraMeter.html" /> 
+    <link rel="next" title="13.1.39. OCPP" href="OCPP.html" />
+    <link rel="prev" title="13.1.37. MicroMegaWattBSP" href="MicroMegaWattBSP.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="SerialCommHub.html" title="13.1.55. SerialCommHub"
+          <a href="OCPP.html" title="13.1.39. OCPP"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="RsIskraMeter.html" title="13.1.53. RsIskraMeter"
+          <a href="MicroMegaWattBSP.html" title="13.1.37. MicroMegaWattBSP"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.54. </span>RsPaymentTerminal</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.38. </span>NxpNfcFrontendTokenProvider</a></li> 
       </ul>
     </div>  
 
@@ -46,92 +46,48 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="rspaymentterminal">
-<span id="everest-modules-rspaymentterminal"></span><h1><span class="section-number">13.1.54. </span>RsPaymentTerminal<a class="headerlink" href="#rspaymentterminal" title="Permalink to this heading">¶</a></h1>
+  <section id="nxpnfcfrontendtokenprovider">
+<span id="everest-modules-nxpnfcfrontendtokenprovider"></span><h1><span class="section-number">13.1.38. </span>NxpNfcFrontendTokenProvider<a class="headerlink" href="#nxpnfcfrontendtokenprovider" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">Payment terminal module for Feig devices.</div>
+<div class="line">NXP NFC Reader Library token provider returning the token as soon as the tag can be read by the reader</div>
 </div>
-<section id="module-configuration">
-<h2><span class="section-number">13.1.54.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>ip</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">IP Address of Feig terminal, like “192.168.0.1”</div>
-</div>
-<div class="line"><strong>feig_serial</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Serial of Feig terminal. Typically a seven characters long string like “ABCD123”.</div>
-</div>
-<div class="line"><strong>terminal_id</strong>:<em>string</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Payment terminal ID.</div>
-</div>
-<div class="line"><strong>currency</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 978</em></div>
-<div class="line-block">
-<div class="line">Currency in ISO 4217 format.</div>
-</div>
-<div class="line"><strong>pre_authorization_amount</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 2500</em></div>
-<div class="line-block">
-<div class="line">Pre authentication amount in Cents.</div>
-</div>
-<div class="line"><strong>read_card_timeout</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 2</em></div>
-<div class="line-block">
-<div class="line">The time (is seconds) to wait for a card to be read.</div>
-</div>
-<div class="line"><strong>read_card_debounce</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 2</em></div>
-<div class="line-block">
-<div class="line">The debounce time (in seconds) after a successful card reading. The parameter prevents re-reading the same card.</div>
-</div>
-<div class="line"><strong>transactions_max_num</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 1</em></div>
-<div class="line-block">
-<div class="line">The maximum number of concurrent transactions. The Feig terminal will reject a transaction if it would exceed the maximum number of concurrent transactions - in this case you need to finish a transaction to allow a new one.</div>
-</div>
-<div class="line"><strong>password</strong>:<em>integer</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Password for the Feig terminal.</div>
-</div>
-<div class="line"><strong>end_of_day_max_interval</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 86400</em></div>
-<div class="line-block">
-<div class="line">The maximum time (in sec) between end of day jobs. Payment backends might force the payment terminals to run them regularly. Defaults to one day.</div>
-</div>
-</div>
-</section>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/NxpNfcFrontendTokenProvider.html#everest-modules-handwritten-nxpnfcfrontendtokenprovider"><span class="std std-ref">here</span></a></p>
 <section id="provides">
-<h2><span class="section-number">13.1.54.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.38.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>token_provider</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/auth_token_provider.html#everest-interfaces-auth-token-provider"><span class="std std-ref">auth_token_provider</span></a></div>
 <div class="line-block">
-<div class="line">Provides an authentication token from the Feig terminal.</div>
+<div class="line">Implementation of NXP NFC Reader Library based token provider</div>
+<div class="line">config:</div>
+<div class="line-block">
+<div class="line">token_debounce_interval_ms:</div>
+<div class="line-block">
+<div class="line">description:Minimal wait time in ms until next token will be published (debounce interval).</div>
+<div class="line">type:integer</div>
 </div>
-<div class="line"><strong>payment_terminal</strong>:<a class="reference internal" href="../interfaces/payment_terminal.html#everest-interfaces-payment-terminal"><span class="std std-ref">payment_terminal</span></a></div>
+</div>
+<div class="line">config:</div>
 <div class="line-block">
-<div class="line">Provides all the commands specific for bank cards handling</div>
+<div class="line"><strong>token_debounce_interval_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2000</em></div>
+<div class="line-block">
+<div class="line">Minimal wait time in ms until next token will be published (debounce interval).</div>
 </div>
 </div>
-</section>
-<section id="requirements">
-<h2><span class="section-number">13.1.54.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
-<div class="line-block">
-<div class="line"><strong>session</strong>:<a class="reference internal" href="../interfaces/session_cost.html#everest-interfaces-session-cost"><span class="std std-ref">session_cost</span></a> 0..1</div>
-<div class="line"><strong>bank_session_token</strong>:<a class="reference internal" href="../interfaces/bank_session_token_provider.html#everest-interfaces-bank-session-token-provider"><span class="std std-ref">bank_session_token_provider</span></a> 0..1</div>
+</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.54.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.38.2. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.54.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.38.2.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line"><a class="reference external" href="mailto:embedded-team&#37;&#52;&#48;qwello&#46;eu">embedded-team<span>&#64;</span>qwello<span>&#46;</span>eu</a></div>
+<div class="line">Christoph Burandt</div>
+<div class="line">Cornelius Claussen</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.54.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.38.2.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -170,18 +126,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="RsIskraMeter.html"
-                          title="previous chapter"><span class="section-number">13.1.53. </span>RsIskraMeter</a></p>
+    <p class="topless"><a href="MicroMegaWattBSP.html"
+                          title="previous chapter"><span class="section-number">13.1.37. </span>MicroMegaWattBSP</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="SerialCommHub.html"
-                          title="next chapter"><span class="section-number">13.1.55. </span>SerialCommHub</a></p>
+    <p class="topless"><a href="OCPP.html"
+                          title="next chapter"><span class="section-number">13.1.39. </span>OCPP</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/RsPaymentTerminal.rst.txt"
+      <li><a href="../../_sources/_generated/modules/NxpNfcFrontendTokenProvider.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -212,15 +168,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="SerialCommHub.html" title="13.1.55. SerialCommHub"
+          <a href="OCPP.html" title="13.1.39. OCPP"
              >next</a> |</li>
         <li class="right" >
-          <a href="RsIskraMeter.html" title="13.1.53. RsIskraMeter"
+          <a href="MicroMegaWattBSP.html" title="13.1.37. MicroMegaWattBSP"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.54. </span>RsPaymentTerminal</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.38. </span>NxpNfcFrontendTokenProvider</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

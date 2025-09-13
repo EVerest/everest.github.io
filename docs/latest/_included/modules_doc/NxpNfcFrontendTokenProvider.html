@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>5.3.15. NxpNfcFrontendTokenProvider &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.3.16. OCPP1.6 Module" href="OCPP.html" />
+    <link rel="prev" title="5.3.14. LEM DCBM 400/600" href="LemDCBM400600.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="OCPP.html" title="5.3.16. OCPP1.6 Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="LemDCBM400600.html" title="5.3.14. LEM DCBM 400/600"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.15. </span>NxpNfcFrontendTokenProvider</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="nxpnfcfrontendtokenprovider">
+<span id="everest-modules-handwritten-nxpnfcfrontendtokenprovider"></span><h1><span class="section-number">5.3.15. </span>NxpNfcFrontendTokenProvider<a class="headerlink" href="#nxpnfcfrontendtokenprovider" title="Permalink to this heading">¶</a></h1>
+<p>The module <code class="docutils literal notranslate"><span class="pre">NxpNfcFrontendTokenProvider</span></code> implements the <code class="docutils literal notranslate"><span class="pre">auth_token_provider</span></code> interface.
+It reads data from NXP NFC frontend chips like CLRC663.
+It relies on <strong>NxpNfcRdLib_Linux_v07.10.00_PUB.zip</strong> which users need to obtain from NXP: [nxp.com](<a class="reference external" href="https://www.nxp.com/design/design-center/development-boards-and-designs/nfc-reader-library-software-support-for-nfc-frontend-solutions:NFC-READER-LIBRARY">https://www.nxp.com/design/design-center/development-boards-and-designs/nfc-reader-library-software-support-for-nfc-frontend-solutions:NFC-READER-LIBRARY</a>).
+The variety of hardware supported by <code class="docutils literal notranslate"><span class="pre">NxpNfcFrontendTokenProvider</span></code> is limited by the time of writing but could be extended by modification of the <code class="docutils literal notranslate"><span class="pre">nxpnfcrdlib_wrapper</span></code>.</p>
+<section id="building-the-module">
+<h2><span class="section-number">5.3.15.1. </span>Building the module<a class="headerlink" href="#building-the-module" title="Permalink to this heading">¶</a></h2>
+<p>The module can be built in two ways:</p>
+<ul class="simple">
+<li><p>Setting <em>CMake</em> variable <code class="docutils literal notranslate"><span class="pre">EXTERNAL_NXPNFCRDLIB_ZIP_PATH_NxpNfcFrontendTokenProvider</span></code> to the path to <code class="docutils literal notranslate"><span class="pre">NxpNfcRdLib_Linux_v07.10.00_PUB.zip</span></code>.</p></li>
+<li><p>Leaving this option undefined uses the included <code class="docutils literal notranslate"><span class="pre">NamedPipeDataSource</span></code> which acts as a drop-in replacement without any external build dependencies but does not support real NFC hardware.</p></li>
+</ul>
+<p>To enable users who do not use NxpNfcFrontend to build EVerest without having to explicitly set variables or options, the variable is undefined by default.</p>
+<section id="namedpipedatasource">
+<h3><span class="section-number">5.3.15.1.1. </span>NamedPipeDataSource<a class="headerlink" href="#namedpipedatasource" title="Permalink to this heading">¶</a></h3>
+<p>Cannot interface real NFC hardware.
+During runtime it creates a named pipe (FIFO) at <code class="docutils literal notranslate"><span class="pre">/tmp/EV_NXP_NFC_FRONTEND_TOKEN_PROVIDER_FIFO_SUBSTITUTE</span></code> and tries to read from it.
+As soon, as it can read a <code class="docutils literal notranslate"><span class="pre">\n</span></code>-terminated line, it tries to parse it as <code class="docutils literal notranslate"><span class="pre">&lt;protocol&gt;:&lt;uid&gt;</span></code> (see examples below).</p>
+</section>
+</section>
+<section id="configuring-the-module">
+<h2><span class="section-number">5.3.15.2. </span>Configuring the module<a class="headerlink" href="#configuring-the-module" title="Permalink to this heading">¶</a></h2>
+<p>Runtime configuration allows to</p>
+<ul class="simple">
+<li><p><em>token_debounce_interval_ms</em>: select a minimum intervall between publishes</p></li>
+</ul>
+<p>See <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code> for details.</p>
+</section>
+<section id="testing-the-module">
+<h2><span class="section-number">5.3.15.3. </span>Testing the module<a class="headerlink" href="#testing-the-module" title="Permalink to this heading">¶</a></h2>
+<p>The module does not implement any commands.</p>
+<section id="using-namedpipedatasource">
+<h3><span class="section-number">5.3.15.3.1. </span>Using NamedPipeDataSource<a class="headerlink" href="#using-namedpipedatasource" title="Permalink to this heading">¶</a></h3>
+<p>Possible input for ISO14443 (MIFARE card) emulation:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ISO14443:44332211&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/EV_NXP_NFC_FRONTEND_TOKEN_PROVIDER_FIFO_SUBSTITUTE
+</pre></div>
+</div>
+</div></blockquote>
+<p>Possible input for ISO15693 (Vicinity card) emulation:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ISO15693:8877665544332211&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/EV_NXP_NFC_FRONTEND_TOKEN_PROVIDER_FIFO_SUBSTITUTE
+</pre></div>
+</div>
+</div></blockquote>
+<p>It publishes an <code class="docutils literal notranslate"><span class="pre">types::authorization::ProvidedIdToken</span></code> to the topic <code class="docutils literal notranslate"><span class="pre">everest/tokenprovider/main/var</span></code>.</p>
+<p>It publishes whenever the NFC chip is able to detect a RFID card of the supported types.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Published</span> <span class="pre">JSON:</span></code></p>
+<blockquote>
+<div><div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;authorization_type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RFID&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;id_token&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ISO14443&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;74F2EF5B&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;provided_token&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="using-nxpnfcfrontendwrapper">
+<h3><span class="section-number">5.3.15.3.2. </span>Using NxpNfcFrontendWrapper<a class="headerlink" href="#using-nxpnfcfrontendwrapper" title="Permalink to this heading">¶</a></h3>
+<p>Requires NFC hardware from NXP.
+A hardware setup similar to the one shown in the <code class="docutils literal notranslate"><span class="pre">nxpnfcrdlib_wrapper</span></code> documentation can be used.
+Detection of an RFID card of the supported type will trigger publishing of a <code class="docutils literal notranslate"><span class="pre">types::authorization::ProvidedIdToken</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../general/05_existing_modules.html">5. EVerest Module Configurations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#module-connections-for-dedicated-use-cases">5.1. Module connections for dedicated use cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/05_existing_modules.html#tier-module-mappings">5.2. 3-tier module mappings</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../general/05_existing_modules.html#module-functionality-in-detail">5.3. Module functionality in detail</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="LemDCBM400600.html"
+                          title="previous chapter"><span class="section-number">5.3.14. </span>LEM DCBM 400/600</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="OCPP.html"
+                          title="next chapter"><span class="section-number">5.3.16. </span>OCPP1.6 Module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_included/modules_doc/NxpNfcFrontendTokenProvider.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="OCPP.html" title="5.3.16. OCPP1.6 Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="LemDCBM400600.html" title="5.3.14. LEM DCBM 400/600"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.15. </span>NxpNfcFrontendTokenProvider</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

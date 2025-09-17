@@ -240,7 +240,7 @@ the side effects that can be caused by errors raised by a requirement.</p>
 <li><p>power_supply_DC</p></li>
 <li><p>powermeter (if the config option fail_on_powermeter_errors is set true)</p></li>
 </ul>
-<p>A raised error can cause the EvseManager to become Inoperative. This means that charging is not possible until the error is cleared.
+<p>A raised error can cause the EvseManager to stop the charging session and become inoperative. Charging is not possible until the error is cleared.
 If no charging session is currently running, it will prevent sessions from being started. If a charging session is currently running and an error is raised
 this will interrupt the charging session.</p>
 <p>Almost all errors that are reported from the requirements of this module cause the EvseManager to become Inoperative until the error is cleared.
@@ -249,7 +249,6 @@ The following sections provide an overview of the errors that do <strong>not</st
 <h3><span class="section-number">5.3.5.6.1. </span>evse_manager<a class="headerlink" href="#evse-manager" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>evse_manager/Inoperative</p></li>
-<li><p>evse_manager/MREC22ResistanceFault</p></li>
 <li><p>evse_manager/MREC11CableCheckFault</p></li>
 </ul>
 </section>
@@ -290,6 +289,23 @@ The following sections provide an overview of the errors that do <strong>not</st
 <p>Powermeter errors cause the EvseManager to become Inoperative, if fail_on_powermeter_errors is configured to true. If it is configured to false, errors from the powermeter will not cause the EvseManager to become Inoperative.</p>
 <ul class="simple">
 <li><p>powermeter/CommunicationFault</p></li>
+</ul>
+<p>When a charging session is stopped because of an error, the EvseManager differentiates between <strong>Emergency Shutdowns</strong> and <strong>Error Shutdowns</strong>. The severity of the
+error influences the type of the shudown. Emergency shutdowns are caused by errors with <cite>Severity::High</cite> and error shutdowns are caused by errors with <cite>Severity::Medium</cite> or <cite>Severity::Low</cite>.</p>
+<p>In case of an <strong>Emergency Shutdown</strong> the EvseManager will immediately:</p>
+<ul class="simple">
+<li><p>Signal PWM state F if HLC is not active</p></li>
+<li><p>Turn off the PWM</p></li>
+<li><p>Turn off the DC power supply in case of DC</p></li>
+<li><p>Signal to open the contactor</p></li>
+</ul>
+<p>In case of an <strong>Error Shutdown</strong> the EvseManager will:</p>
+<ul class="simple">
+<li><p>Signal PWM state F if HLC is not active</p></li>
+<li><p>Keep the PWM on if HLC is active</p></li>
+<li><p>Turn off the DC power supply in case of DC</p></li>
+<li><p>Signal to open the contactor</p></li>
+<li><p>Report the error via HLC to the EV (if HLC active)</p></li>
 </ul>
 </section>
 </section>

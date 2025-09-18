@@ -59,6 +59,9 @@ Module Configuration
 |  enum:
 |    - AC
 |    - DC
+| **supported_iso_ac_bpt**:*boolean* <optional>
+| *default: False*
+|  Set to true if ISO15118-20 AC BPT is supported and should be offered to the EV
 | **ac_hlc_enabled**:*boolean* <optional>
 | *default: False*
 |  Enable or disable HLC (aka ISO15118) for AC mode
@@ -211,6 +214,27 @@ Module Configuration
 | **zero_power_allow_ev_to_ignore_pause**:*boolean* <optional>
 | *default: False*
 |  If no energy is available the charger can signal a pause to the car before cable check. With this option, the charger ignores that the ev goes to the energy phase instead of pausing the session. This is not standard compliant!
+| **bpt_channel**:*string* <optional>
+| *default: "None"*
+|  Type of installed/uninstalled power transfer channel
+|  enum:
+|    - None
+|    - Unified
+|    - Separated
+| **bpt_generator_mode**:*string* <optional>
+| *default: "None"*
+|  Power converter behavior
+|  enum:
+|    - None
+|    - GridFollowing
+|    - GridForming
+| **bpt_grid_code_island_method**:*string* <optional>
+| *default: "None"*
+|  Active/inactive islanding detection method. Only for AC.
+|  enum:
+|    - None
+|    - Active
+|    - Passive
 
 ********
 Provides

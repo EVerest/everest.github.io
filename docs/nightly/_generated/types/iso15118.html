@@ -756,6 +756,39 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="iso15118-servicecategory">
+<div class="line"><strong>ServiceCategory</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Different service (energy and VAS) in ISO15118-20</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- AC</div>
+<div class="line">- DC</div>
+<div class="line">- WPT</div>
+<div class="line">- DC_ACDP</div>
+<div class="line">- AC_BPT</div>
+<div class="line">- DC_BPT</div>
+<div class="line">- DC_ACDP_BPT</div>
+<div class="line">- Internet</div>
+<div class="line">- ParkingStatus</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-connector">
+<div class="line"><strong>Connector</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Different AC and DC connector</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- SinglePhase</div>
+<div class="line">- ThreePhase</div>
+<div class="line">- Core</div>
+<div class="line">- Extended</div>
+<div class="line">- Dual2</div>
+<div class="line">- Dual4</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="iso15118-controlmode">
 <div class="line"><strong>ControlMode</strong>:<em>string</em></div>
 <div class="line-block">
@@ -799,6 +832,51 @@
 <div class="line-block">
 <div class="line">- EVCC</div>
 <div class="line">- EVCC_SECC</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-pricing">
+<div class="line"><strong>Pricing</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Providing information about which pricing structure will be used in the offered schedules.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NoPricing</div>
+<div class="line">- AbsolutePricing</div>
+<div class="line">- PriceLevels</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-bptchannel">
+<div class="line"><strong>BptChannel</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Type of installed power transfer channel</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Unified</div>
+<div class="line">- Separated</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-generatormode">
+<div class="line"><strong>GeneratorMode</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Power converter behavior.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- GridFollowing</div>
+<div class="line">- GridForming</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-gridcodeislandingdetectionmethod">
+<div class="line"><strong>GridCodeIslandingDetectionMethod</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Islanding detection method</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- Active</div>
+<div class="line">- Passive</div>
 </div>
 </div>
 </div>
@@ -1351,6 +1429,251 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="iso15118-acparameters">
+<div class="line"><strong>AcParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Ac parameters the EVSE is setting</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>nominal_frequency</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Nominal frequency supported by the EVSE in Hz</div>
+</div>
+<div class="line"><strong>max_power_asymmetry</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Maximum asymmetric power in W</div>
+</div>
+<div class="line"><strong>power_ramp_limitation</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Limitation of the power variation in %/min</div>
+</div>
+<div class="line"><strong>nominal_voltage</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Nominal voltage supported by the EVSE in V</div>
+</div>
+<div class="line"><strong>connectors</strong>:<em>array</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Supported ac connectors from the EVSE</div>
+<div class="line"><strong>array_item</strong>:<em>string</em>  (<a class="reference internal" href="#iso15118-connector"><span class="std std-ref">iso15118-Connector</span></a>)</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-connector"><span class="std std-ref">here</span></a>.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-acevsemaximumpower">
+<div class="line"><strong>AcEvseMaximumPower</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Maximum ac power values (charge and discharge) the EVSE can deliver</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>charge_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Maximum ac power the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>discharge_power</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Maximum ac discharge power the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-acevseminimumpower">
+<div class="line"><strong>AcEvseMinimumPower</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Minimum ac power values (charge and discharge) the EVSE can deliver</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>charge_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Minimum ac power the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>discharge_power</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Minimum ac discharge power the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-acevpowerlimits">
+<div class="line"><strong>AcEvPowerLimits</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Ac charge &amp; discharge power values supported and allowed by the EV</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>max_charge_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Maximum power supported by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>min_charge_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Minimum power supported by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>max_discharge_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Maximum discharge power supported by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>min_discharge_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Minimum discharge power supported by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-acevpresentpowervalues">
+<div class="line"><strong>AcEvPresentPowerValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Present active and reactive power measured from the EV</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>present_active_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Present active power measured from the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>present_reactive_power</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Present reactive power measured from the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-acevdynamicmodevalues">
+<div class="line"><strong>AcEvDynamicModeValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Parameters for ac ev dynamic control mode</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>departure_time</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">The time when the EV wants to finish charging</div>
+</div>
+<div class="line"><strong>target_energy_request</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Energy request to fulfil the target SoC in Wh</div>
+</div>
+<div class="line"><strong>max_energy_request</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Maximum acceptable energy level of the EV in Wh</div>
+</div>
+<div class="line"><strong>min_energy_request</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Energy request to fulfil the minimum SoC in Wh</div>
+</div>
+<div class="line"><strong>max_v2x_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy which may be charged until the PresentSOC has left the range dedicated for cycling activity in Wh</div>
+</div>
+<div class="line"><strong>min_v2x_energy_request</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Energy which needs to be charged until the PresentSOC has left the range dedicated for cycling activity in Wh</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-actargetvalues">
+<div class="line"><strong>AcTargetValues</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Target ac values requested by the EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>target_active_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Target active power requested by the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-power"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>target_reactive_power</strong>:<em>object</em> &lt;optional&gt; (<a class="reference internal" href="units.html#units-reactivepower"><span class="std std-ref">units-ReactivePower</span></a>)</div>
+<div class="line-block">
+<div class="line">Target reactive power requested by the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="units.html#units-reactivepower"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>target_frequency</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Target frequency requested by the EVSE</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-selectedserviceparameters">
+<div class="line"><strong>SelectedServiceParameters</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">The selected service parameters selected from the EV in the ServiceSelectionReq message. Only for ISO15118-20.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>energy_transfer</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-servicecategory"><span class="std std-ref">iso15118-ServiceCategory</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected energy mode by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-servicecategory"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>connector</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-connector"><span class="std std-ref">iso15118-Connector</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected connector by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-connector"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>control_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-controlmode"><span class="std std-ref">iso15118-ControlMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected control mode by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-controlmode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>mobility_needs_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-mobilityneedsmode"><span class="std std-ref">iso15118-MobilityNeedsMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected mobility needs mode by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-mobilityneedsmode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>pricing</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-pricing"><span class="std std-ref">iso15118-Pricing</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected pricing by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-pricing"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>bpt_channel</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-bptchannel"><span class="std std-ref">iso15118-BptChannel</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected bpt channel by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-bptchannel"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>generator_mode</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-generatormode"><span class="std std-ref">iso15118-GeneratorMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The selected generator mode by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-generatormode"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-bptsetup">
+<div class="line"><strong>BptSetup</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">The required parameters for a BPT setup</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>bpt_channel</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-bptchannel"><span class="std std-ref">iso15118-BptChannel</span></a>)</div>
+<div class="line-block">
+<div class="line">The supported bpt channel by the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-bptchannel"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>generator_mode</strong>:<em>string</em> &lt;required&gt; (<a class="reference internal" href="#iso15118-generatormode"><span class="std std-ref">iso15118-GeneratorMode</span></a>)</div>
+<div class="line-block">
+<div class="line">The supported generator mode by the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-generatormode"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>grid_code_detection</strong>:<em>string</em> &lt;optional&gt; (<a class="reference internal" href="#iso15118-gridcodeislandingdetectionmethod"><span class="std std-ref">iso15118-GridCodeIslandingDetectionMethod</span></a>)</div>
+<div class="line-block">
+<div class="line">The supported grid code detection method supported by the EVSE</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="#iso15118-gridcodeislandingdetectionmethod"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="iso15118-dcevparameters">
 <div class="line"><strong>DcEvParameters</strong>:<em>object</em></div>
 <div class="line-block">
@@ -1445,6 +1768,39 @@
 <div class="line"><strong>tls_root_certificate</strong>:<em>string</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">Certificate used by the EV for the TLS1.3 communication.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="iso15118-actargetpower">
+<div class="line"><strong>AcTargetPower</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Target active and reactive power from the EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>target_active_power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target active power requested by the EVSE in W</div>
+</div>
+<div class="line"><strong>target_active_power_L2</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target active power requested by the EVSE on L2 in W</div>
+</div>
+<div class="line"><strong>target_active_power_L3</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target active power requested by the EVSE on L3 in W</div>
+</div>
+<div class="line"><strong>target_reactive_power</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target reactive power requested by the EVSE in W</div>
+</div>
+<div class="line"><strong>target_reactive_power_L2</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target reactive power requested by the EVSE on L2 in W</div>
+</div>
+<div class="line"><strong>target_reactive_power_L3</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Target reactive power requested by the EVSE on L3 in W</div>
 </div>
 </div>
 </div>

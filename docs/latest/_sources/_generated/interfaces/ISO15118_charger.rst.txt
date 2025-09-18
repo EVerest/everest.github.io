@@ -55,6 +55,15 @@ Variables
 |  [A] Maximum current supported by the EV per phase
 | **ac_ev_min_current**:*number* 
 |  [A] EVMinCurrent is used to indicate to the SECC that charging below this minimum is not energy/cost efficient for the EV
+| **ac_ev_power_limits**:*object*  (:ref:`iso15118-AcEvPowerLimits <iso15118-AcEvPowerLimits>`)
+|  Ac charge & discharge power values supported and allowed by the EV
+|  **There is an extended definition for this object** :ref:`here <iso15118-AcEvPowerLimits>`.
+| **ac_ev_present_powers**:*object*  (:ref:`iso15118-AcEvPresentPowerValues <iso15118-AcEvPresentPowerValues>`)
+|  Present active and reactive power measured from the EV
+|  **There is an extended definition for this object** :ref:`here <iso15118-AcEvPresentPowerValues>`.
+| **ac_ev_dynamic_control_mode**:*object*  (:ref:`iso15118-AcEvDynamicModeValues <iso15118-AcEvDynamicModeValues>`)
+|  The parameters the EVCC offers and sets for ac dynamic control mode
+|  **There is an extended definition for this object** :ref:`here <iso15118-AcEvDynamicModeValues>`.
 | **dc_ev_energy_capacity**:*number* 
 |  Optional: [Wh] Energy capacity of the EV
 | **dc_ev_energy_request**:*number* 
@@ -103,6 +112,9 @@ Variables
 |  Present Voltage measured from the EV
 | **meter_info_requested**:*null* 
 |  The EV requested meter infos from the EVSE
+| **selected_service_parameters**:*object*  (:ref:`iso15118-SelectedServiceParameters <iso15118-SelectedServiceParameters>`)
+|  From the EV selected service parameters
+|  **There is an extended definition for this object** :ref:`here <iso15118-SelectedServiceParameters>`.
 
 ********
 Commands
@@ -134,6 +146,11 @@ Commands
 |   The charger supports the certificate installation/update service and has a connection to an SA for this purpose
 |  **central_contract_validation_allowed**:*boolean* <required>
 |   Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case local validation was not successful
+| **bpt_setup**:*void*
+|  At startup, set the bpt setup for ISO15118-20 at least once. May be updated later on.
+|  **bpt_config**:*object* <required> (:ref:`iso15118-BptSetup <iso15118-BptSetup>`)
+|   The required parameters for a BPT setup
+|   **There is an extended definition for this object** :ref:`here <iso15118-BptSetup>`.
 | **authorization_response**:*void*
 |  This message is an async response to a previously published require_auth_eim or require_auth_pnc. The SECC informs the EVCC whether the authorization is accepted or not.
 |  **authorization_status**:*string* <required> (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
@@ -183,6 +200,31 @@ Commands
 |  Update the maximum allowed line current restriction per phase. Call at least once during start up.
 |  **max_current**:*number* <required>
 |   Max current in A
+| **update_ac_parameters**:*void*
+|  Update the d20 initial ac parameters. Call at least once during start up
+|  **ac_parameters**:*object* <required> (:ref:`iso15118-AcParameters <iso15118-AcParameters>`)
+|   Ac parameters the EVSE is setting
+|   **There is an extended definition for this object** :ref:`here <iso15118-AcParameters>`.
+| **update_ac_maximum_limits**:*void*
+|  Update the ac maximum limits. Call at least once during start up.
+|  **maximum_limits**:*object* <required> (:ref:`iso15118-AcEvseMaximumPower <iso15118-AcEvseMaximumPower>`)
+|   Maximum values (charge and discharge) the EVSE can deliver
+|   **There is an extended definition for this object** :ref:`here <iso15118-AcEvseMaximumPower>`.
+| **update_ac_minimum_limits**:*void*
+|  Update the ac minimum limits. Call at least once during start up.
+|  **minimum_limits**:*object* <required> (:ref:`iso15118-AcEvseMinimumPower <iso15118-AcEvseMinimumPower>`)
+|   Minimum values (charge and discharge) the EVSE can deliver
+|   **There is an extended definition for this object** :ref:`here <iso15118-AcEvseMinimumPower>`.
+| **update_ac_target_values**:*void*
+|  Update the ac target values. Call at least once before charging begins.
+|  **target_values**:*object* <required> (:ref:`iso15118-AcTargetValues <iso15118-AcTargetValues>`)
+|   AC target values
+|   **There is an extended definition for this object** :ref:`here <iso15118-AcTargetValues>`.
+| **update_ac_present_power**:*void*
+|  Update the present power from the powermeter. Call at least once before charging begins
+|  **present_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|   Present active power
+|   **There is an extended definition for this object** :ref:`here <units-Power>`.
 | **update_dc_maximum_limits**:*void*
 |  Update the maximum limits. Call at least once during start up.
 |  **maximum_limits**:*object* <required> (:ref:`iso15118-DcEvseMaximumLimits <iso15118-DcEvseMaximumLimits>`)

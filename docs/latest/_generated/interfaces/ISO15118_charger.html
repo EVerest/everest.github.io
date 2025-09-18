@@ -135,6 +135,21 @@
 <div class="line-block">
 <div class="line">[A] EVMinCurrent is used to indicate to the SECC that charging below this minimum is not energy/cost efficient for the EV</div>
 </div>
+<div class="line"><strong>ac_ev_power_limits</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-acevpowerlimits"><span class="std std-ref">iso15118-AcEvPowerLimits</span></a>)</div>
+<div class="line-block">
+<div class="line">Ac charge &amp; discharge power values supported and allowed by the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-acevpowerlimits"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ac_ev_present_powers</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-acevpresentpowervalues"><span class="std std-ref">iso15118-AcEvPresentPowerValues</span></a>)</div>
+<div class="line-block">
+<div class="line">Present active and reactive power measured from the EV</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-acevpresentpowervalues"><span class="std std-ref">here</span></a>.</div>
+</div>
+<div class="line"><strong>ac_ev_dynamic_control_mode</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-acevdynamicmodevalues"><span class="std std-ref">iso15118-AcEvDynamicModeValues</span></a>)</div>
+<div class="line-block">
+<div class="line">The parameters the EVCC offers and sets for ac dynamic control mode</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-acevdynamicmodevalues"><span class="std std-ref">here</span></a>.</div>
+</div>
 <div class="line"><strong>dc_ev_energy_capacity</strong>:<em>number</em></div>
 <div class="line-block">
 <div class="line">Optional: [Wh] Energy capacity of the EV</div>
@@ -223,6 +238,11 @@
 <div class="line-block">
 <div class="line">The EV requested meter infos from the EVSE</div>
 </div>
+<div class="line"><strong>selected_service_parameters</strong>:<em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-selectedserviceparameters"><span class="std std-ref">iso15118-SelectedServiceParameters</span></a>)</div>
+<div class="line-block">
+<div class="line">From the EV selected service parameters</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-selectedserviceparameters"><span class="std std-ref">here</span></a>.</div>
+</div>
 </div>
 </section>
 <section id="commands">
@@ -275,6 +295,15 @@
 <div class="line"><strong>central_contract_validation_allowed</strong>:<em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case local validation was not successful</div>
+</div>
+</div>
+<div class="line"><strong>bpt_setup</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">At startup, set the bpt setup for ISO15118-20 at least once. May be updated later on.</div>
+<div class="line"><strong>bpt_config</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-bptsetup"><span class="std std-ref">iso15118-BptSetup</span></a>)</div>
+<div class="line-block">
+<div class="line">The required parameters for a BPT setup</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-bptsetup"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>authorization_response</strong>:<em>void</em></div>
@@ -368,6 +397,51 @@
 <div class="line"><strong>max_current</strong>:<em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Max current in A</div>
+</div>
+</div>
+<div class="line"><strong>update_ac_parameters</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the d20 initial ac parameters. Call at least once during start up</div>
+<div class="line"><strong>ac_parameters</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-acparameters"><span class="std std-ref">iso15118-AcParameters</span></a>)</div>
+<div class="line-block">
+<div class="line">Ac parameters the EVSE is setting</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-acparameters"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_ac_maximum_limits</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the ac maximum limits. Call at least once during start up.</div>
+<div class="line"><strong>maximum_limits</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-acevsemaximumpower"><span class="std std-ref">iso15118-AcEvseMaximumPower</span></a>)</div>
+<div class="line-block">
+<div class="line">Maximum values (charge and discharge) the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-acevsemaximumpower"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_ac_minimum_limits</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the ac minimum limits. Call at least once during start up.</div>
+<div class="line"><strong>minimum_limits</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-acevseminimumpower"><span class="std std-ref">iso15118-AcEvseMinimumPower</span></a>)</div>
+<div class="line-block">
+<div class="line">Minimum values (charge and discharge) the EVSE can deliver</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-acevseminimumpower"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_ac_target_values</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the ac target values. Call at least once before charging begins.</div>
+<div class="line"><strong>target_values</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-actargetvalues"><span class="std std-ref">iso15118-AcTargetValues</span></a>)</div>
+<div class="line-block">
+<div class="line">AC target values</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/iso15118.html#iso15118-actargetvalues"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>update_ac_present_power</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Update the present power from the powermeter. Call at least once before charging begins</div>
+<div class="line"><strong>present_power</strong>:<em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/units.html#units-power"><span class="std std-ref">units-Power</span></a>)</div>
+<div class="line-block">
+<div class="line">Present active power</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/units.html#units-power"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
 <div class="line"><strong>update_dc_maximum_limits</strong>:<em>void</em></div>

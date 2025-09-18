@@ -474,6 +474,33 @@ ISO15118 charger types
 |    - WattPF
 |    - WattVar
 
+.. _iso15118-ServiceCategory:
+
+| **ServiceCategory**:*string* 
+|  Different service (energy and VAS) in ISO15118-20
+|  enum:
+|    - AC
+|    - DC
+|    - WPT
+|    - DC_ACDP
+|    - AC_BPT
+|    - DC_BPT
+|    - DC_ACDP_BPT
+|    - Internet
+|    - ParkingStatus
+
+.. _iso15118-Connector:
+
+| **Connector**:*string* 
+|  Different AC and DC connector
+|  enum:
+|    - SinglePhase
+|    - ThreePhase
+|    - Core
+|    - Extended
+|    - Dual2
+|    - Dual4
+
 .. _iso15118-ControlMode:
 
 | **ControlMode**:*string* 
@@ -510,6 +537,39 @@ ISO15118 charger types
 |  enum:
 |    - EVCC
 |    - EVCC_SECC
+
+.. _iso15118-Pricing:
+
+| **Pricing**:*string* 
+|  Providing information about which pricing structure will be used in the offered schedules.
+|  enum:
+|    - NoPricing
+|    - AbsolutePricing
+|    - PriceLevels
+
+.. _iso15118-BptChannel:
+
+| **BptChannel**:*string* 
+|  Type of installed power transfer channel
+|  enum:
+|    - Unified
+|    - Separated
+
+.. _iso15118-GeneratorMode:
+
+| **GeneratorMode**:*string* 
+|  Power converter behavior.
+|  enum:
+|    - GridFollowing
+|    - GridForming
+
+.. _iso15118-GridCodeIslandingDetectionMethod:
+
+| **GridCodeIslandingDetectionMethod**:*string* 
+|  Islanding detection method
+|  enum:
+|    - Active
+|    - Passive
 
 .. _iso15118-V2XChargingParameters:
 
@@ -813,6 +873,154 @@ ISO15118 charger types
 |   **departure_time**:*string* <optional>
 |    Estimated departure time of the EV. ISO 15118-2: AC/DC_EVChargeParameterType: DepartureTime ISO 15118-20: Dynamic/Scheduled_SEReqControlModeType: DepartureTime
 
+.. _iso15118-AcParameters:
+
+| **AcParameters**:*object* 
+|  Ac parameters the EVSE is setting
+|  properties:
+|   **nominal_frequency**:*number* <required>
+|    Nominal frequency supported by the EVSE in Hz
+|   **max_power_asymmetry**:*number* <optional>
+|    Maximum asymmetric power in W
+|   **power_ramp_limitation**:*number* <optional>
+|    Limitation of the power variation in %/min
+|   **nominal_voltage**:*number* <required>
+|    Nominal voltage supported by the EVSE in V
+|   **connectors**:*array* <required>
+|    Supported ac connectors from the EVSE
+|    **array_item**:*string*  (:ref:`iso15118-Connector <iso15118-Connector>`)
+|     
+|     **There is an extended definition for this object** :ref:`here <iso15118-Connector>`.
+| 
+
+.. _iso15118-AcEvseMaximumPower:
+
+| **AcEvseMaximumPower**:*object* 
+|  Maximum ac power values (charge and discharge) the EVSE can deliver
+|  properties:
+|   **charge_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Maximum ac power the EVSE can deliver
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **discharge_power**:*object* <optional> (:ref:`units-Power <units-Power>`)
+|    Maximum ac discharge power the EVSE can deliver
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+
+.. _iso15118-AcEvseMinimumPower:
+
+| **AcEvseMinimumPower**:*object* 
+|  Minimum ac power values (charge and discharge) the EVSE can deliver
+|  properties:
+|   **charge_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Minimum ac power the EVSE can deliver
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **discharge_power**:*object* <optional> (:ref:`units-Power <units-Power>`)
+|    Minimum ac discharge power the EVSE can deliver
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+
+.. _iso15118-AcEvPowerLimits:
+
+| **AcEvPowerLimits**:*object* 
+|  Ac charge & discharge power values supported and allowed by the EV
+|  properties:
+|   **max_charge_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Maximum power supported by the EV
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **min_charge_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Minimum power supported by the EV
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **max_discharge_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Maximum discharge power supported by the EV
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **min_discharge_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Minimum discharge power supported by the EV
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+
+.. _iso15118-AcEvPresentPowerValues:
+
+| **AcEvPresentPowerValues**:*object* 
+|  Present active and reactive power measured from the EV
+|  properties:
+|   **present_active_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Present active power measured from the EV
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **present_reactive_power**:*object* <optional> (:ref:`units-Power <units-Power>`)
+|    Present reactive power measured from the EV
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+
+.. _iso15118-AcEvDynamicModeValues:
+
+| **AcEvDynamicModeValues**:*object* 
+|  Parameters for ac ev dynamic control mode
+|  properties:
+|   **departure_time**:*number* <optional>
+|    The time when the EV wants to finish charging
+|   **target_energy_request**:*number* <required>
+|    Energy request to fulfil the target SoC in Wh
+|   **max_energy_request**:*number* <required>
+|    Maximum acceptable energy level of the EV in Wh
+|   **min_energy_request**:*number* <required>
+|    Energy request to fulfil the minimum SoC in Wh
+|   **max_v2x_energy_request**:*number* <optional>
+|    Energy which may be charged until the PresentSOC has left the range dedicated for cycling activity in Wh
+|   **min_v2x_energy_request**:*number* <optional>
+|    Energy which needs to be charged until the PresentSOC has left the range dedicated for cycling activity in Wh
+
+.. _iso15118-AcTargetValues:
+
+| **AcTargetValues**:*object* 
+|  Target ac values requested by the EVSE
+|  properties:
+|   **target_active_power**:*object* <required> (:ref:`units-Power <units-Power>`)
+|    Target active power requested by the EVSE
+|    **There is an extended definition for this object** :ref:`here <units-Power>`.
+|   **target_reactive_power**:*object* <optional> (:ref:`units-ReactivePower <units-ReactivePower>`)
+|    Target reactive power requested by the EVSE
+|    **There is an extended definition for this object** :ref:`here <units-ReactivePower>`.
+|   **target_frequency**:*number* <optional>
+|    Target frequency requested by the EVSE
+
+.. _iso15118-SelectedServiceParameters:
+
+| **SelectedServiceParameters**:*object* 
+|  The selected service parameters selected from the EV in the ServiceSelectionReq message. Only for ISO15118-20.
+|  properties:
+|   **energy_transfer**:*string* <required> (:ref:`iso15118-ServiceCategory <iso15118-ServiceCategory>`)
+|    The selected energy mode by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-ServiceCategory>`.
+|   **connector**:*string* <required> (:ref:`iso15118-Connector <iso15118-Connector>`)
+|    The selected connector by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-Connector>`.
+|   **control_mode**:*string* <required> (:ref:`iso15118-ControlMode <iso15118-ControlMode>`)
+|    The selected control mode by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-ControlMode>`.
+|   **mobility_needs_mode**:*string* <required> (:ref:`iso15118-MobilityNeedsMode <iso15118-MobilityNeedsMode>`)
+|    The selected mobility needs mode by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-MobilityNeedsMode>`.
+|   **pricing**:*string* <required> (:ref:`iso15118-Pricing <iso15118-Pricing>`)
+|    The selected pricing by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-Pricing>`.
+|   **bpt_channel**:*string* <optional> (:ref:`iso15118-BptChannel <iso15118-BptChannel>`)
+|    The selected bpt channel by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-BptChannel>`.
+|   **generator_mode**:*string* <optional> (:ref:`iso15118-GeneratorMode <iso15118-GeneratorMode>`)
+|    The selected generator mode by the EV
+|    **There is an extended definition for this object** :ref:`here <iso15118-GeneratorMode>`.
+
+.. _iso15118-BptSetup:
+
+| **BptSetup**:*object* 
+|  The required parameters for a BPT setup
+|  properties:
+|   **bpt_channel**:*string* <required> (:ref:`iso15118-BptChannel <iso15118-BptChannel>`)
+|    The supported bpt channel by the EVSE
+|    **There is an extended definition for this object** :ref:`here <iso15118-BptChannel>`.
+|   **generator_mode**:*string* <required> (:ref:`iso15118-GeneratorMode <iso15118-GeneratorMode>`)
+|    The supported generator mode by the EVSE
+|    **There is an extended definition for this object** :ref:`here <iso15118-GeneratorMode>`.
+|   **grid_code_detection**:*string* <optional> (:ref:`iso15118-GridCodeIslandingDetectionMethod <iso15118-GridCodeIslandingDetectionMethod>`)
+|    The supported grid code detection method supported by the EVSE
+|    **There is an extended definition for this object** :ref:`here <iso15118-GridCodeIslandingDetectionMethod>`.
+
 .. _iso15118-DcEvParameters:
 
 | **DcEvParameters**:*object* 
@@ -867,3 +1075,21 @@ ISO15118 charger types
 |    Certificate used by the EV for the TLS1.3 communication.
 |   **tls_root_certificate**:*string* <optional>
 |    Certificate used by the EV for the TLS1.3 communication.
+
+.. _iso15118-AcTargetPower:
+
+| **AcTargetPower**:*object* 
+|  Target active and reactive power from the EVSE
+|  properties:
+|   **target_active_power**:*number* <required>
+|    Target active power requested by the EVSE in W
+|   **target_active_power_L2**:*number* <required>
+|    Target active power requested by the EVSE on L2 in W
+|   **target_active_power_L3**:*number* <required>
+|    Target active power requested by the EVSE on L3 in W
+|   **target_reactive_power**:*number* <required>
+|    Target reactive power requested by the EVSE in W
+|   **target_reactive_power_L2**:*number* <required>
+|    Target reactive power requested by the EVSE on L2 in W
+|   **target_reactive_power_L3**:*number* <required>
+|    Target reactive power requested by the EVSE on L3 in W

@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Iso15118InternetVas &#8212; EVerest  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/contentui.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/contentui.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Iso15118InternetVas</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="iso15118internetvas">
+<span id="everest-modules-handwritten-iso15118internetvas"></span><h1>Iso15118InternetVas<a class="headerlink" href="#iso15118internetvas" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference internal" href="../../../_generated/modules/Iso15118InternetVas.html#everest-modules-iso15118internetvas"><span class="std std-ref">Link</span></a> to the module’s reference.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module and its helper scripts are <strong>examples</strong> and not intended for
+production use without modification. The provided <code class="docutils literal notranslate"><span class="pre">vas-internet-setup.sh</span></code>
+script is a starting point and may not cover all edge cases for your
+specific hardware and network environment. It is the user’s responsibility
+to ensure the configuration is secure and robust.</p>
+</div>
+<p>This module implements the ISO 15118-2 Value Added Service (VAS) for providing
+internet access to a connected electric vehicle (EV). When an EV requests this
+service, the module configures the charger’s networking to share its internet
+connection with the EV over the power line communication (PLC) interface.</p>
+<section id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p><strong>Service Announcement</strong>: The module advertises the availability of the
+Internet Access service (Service ID 3) to the EV, offering HTTP and/or HTTPS
+access based on the module’s configuration.</p></li>
+<li><p><strong>Service Selection</strong>: If the EV selects this service, the module initiates
+the network setup.</p></li>
+<li><p><strong>Network Setup</strong>: The module executes a helper script,
+<code class="docutils literal notranslate"><span class="pre">vas-internet-setup.sh</span></code>, to configure all necessary networking components.
+The script’s behavior depends on the configuration and the services selected
+by the EV:
+- It enables IPv6 forwarding and sets up NAT using <code class="docutils literal notranslate"><span class="pre">ip6tables</span></code>.
+- If IPv4 support is enabled in the configuration, it also:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Starts a DHCPv4 server (<code class="docutils literal notranslate"><span class="pre">udhcpd</span></code>) on the EV-facing network
+interface (<code class="docutils literal notranslate"><span class="pre">ev_interface</span></code>). This DHCP server provides the EV with an
+IPv4 address and DNS server information.</p></li>
+<li><p>Enables IPv4 forwarding and NAT using <code class="docutils literal notranslate"><span class="pre">iptables</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>It starts a Router Advertisement Daemon (<code class="docutils literal notranslate"><span class="pre">radvd</span></code>) on the
+<code class="docutils literal notranslate"><span class="pre">ev_interface</span></code> to enable the EV to configure an IPv6 address using SLAAC.
+This also includes advertising Recursive DNS Servers (RDNSS) for IPv6.</p></li>
+<li><p>The module determines which ports to open based on the parameter sets
+(HTTP, HTTPS) selected by the EV. The forwarding is then restricted to
+allow only TCP traffic on the selected ports (80 for HTTP, 443 for HTTPS).</p></li>
+<li><p>The example script uses public DNS servers (Google’s 8.8.8.8 for IPv4
+and 2001:4860:4860::8888 for IPv6). This can be changed in the script.</p></li>
+</ul>
+</li>
+<li><p><strong>Session Teardown</strong>: When the charging session ends (signaled by the
+<code class="docutils literal notranslate"><span class="pre">evse_manager</span></code>), the module calls the same script to automatically tear
+down the network configuration, stopping the services and removing all
+forwarding and NAT rules.</p></li>
+</ol>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<section id="software">
+<h3>Software<a class="headerlink" href="#software" title="Permalink to this heading">¶</a></h3>
+<p>The module relies on the <code class="docutils literal notranslate"><span class="pre">vas-internet-setup.sh</span></code> script, which requires the
+following external tools to be available in the system’s PATH:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">radvd</span></code>: For IPv6 Router Advertisements.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ip6tables</span></code>: For setting up IPv6 NAT and forwarding rules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ip</span></code> (from the <code class="docutils literal notranslate"><span class="pre">iproute2</span></code> package): For network interface configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iptables</span></code> (optional, for IPv4): For IPv4 NAT and forwarding rules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">udhcpd</span></code> (optional, for IPv4): For the DHCPv4 server (typically provided by
+BusyBox).</p></li>
+</ul>
+<p>The EVerest framework must be run with sufficient privileges to allow these
+tools to modify network settings. This typically means running as the <code class="docutils literal notranslate"><span class="pre">root</span></code>
+user.</p>
+</section>
+<section id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>A working internet connection on the charging station.</p></li>
+<li><p>A network interface that is connected to the internet (e.g., <code class="docutils literal notranslate"><span class="pre">eth0</span></code>, <code class="docutils literal notranslate"><span class="pre">wwan0</span></code>).</p></li>
+<li><p>A network interface for the Power Line Communication (PLC) modem that
+communicates with the EV (e.g., a HomePlug Green PHY modem connected via
+Ethernet).</p></li>
+</ul>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ev_interface</span></code></p></td>
+<td><p>The name of the network interface connected to the EV via the PLC modem.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">modem_interface</span></code></p></td>
+<td><p>The name of the network interface connected to the internet.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">http_support</span></code></p></td>
+<td><p>(boolean) Whether to announce support for HTTP (Port 80). Defaults to <cite>true</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">https_support</span></code></p></td>
+<td><p>(boolean) Whether to announce support for HTTPS (Port 443). Defaults to <cite>true</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="example-configuration">
+<h3>Example Configuration<a class="headerlink" href="#example-configuration" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Iso15118InternetVas</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ev_interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eth1</span>
+<span class="w">    </span><span class="nt">modem_interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eth0</span>
+<span class="w">    </span><span class="nt">http_support</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">https_support</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="provided-interfaces">
+<h2>Provided Interfaces<a class="headerlink" href="#provided-interfaces" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>iso15118_vas</strong>: Implements the <code class="docutils literal notranslate"><span class="pre">ISO15118_vas</span></code> interface to handle service
+discovery and selection from the EV.</p></li>
+</ul>
+</section>
+<section id="required-interfaces">
+<h2>Required Interfaces<a class="headerlink" href="#required-interfaces" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>evse_manager</strong>: The module optionally connects to an <code class="docutils literal notranslate"><span class="pre">evse_manager</span></code> to
+monitor the charging session. When the session finishes, it triggers the
+teardown of the internet connection for the EV.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/01_framework/index.html">1. EVerest Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/02_detail_pre_setup.html">2. Prepare Your Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/03_quick_start_guide.html">3. A Kind Of Quick Guide To EVerest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/04_detail_module_concept.html">4. EVerest Modules in Detail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/05_existing_modules.html">5. EVerest Module Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/06_handling_bank_cards.html">6. Bank Card Payment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/07_configure_plug_and_charge.html">7. Configure Plug&amp;Charge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_tools/index.html">8. EVerest development tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">9. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../general/faq.html">10. Frequently Asked Questions And Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hardware/pionix_belay_box.html">11. Pionix BelayBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/02_snapshot.html">12. Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/01_everest_reference/index.html">13. EVerest Reference</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/_included/modules_doc/Iso15118InternetVas.rst/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div><h3>Community</h3>
+<ul class="nav nav-sidebar">
+<li><a href="https://lists.lfenergy.org/g/everest" target="_blank"><img src="../../../_static/icons/mail.svg" style="height: 0.8em" /> Get Support</a></li>
+<li><a href="https://www.youtube.com/@lfe_everest" target="_blank"><img src="../../../_static/icons/youtube.svg" style="height: 0.8em" /> YouTube Channel</a></li>
+<li><a href="https://twitter.com/everestincharge" target="_blank"><img src="../../../_static/icons/twitter.svg" style="height: 0.8em" /> Twitter</a></li>
+<li><a href="https://fosstodon.org/@EVerest" target="_blank">Mastodon</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">EVerest  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Iso15118InternetVas</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Pionix GmbH.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

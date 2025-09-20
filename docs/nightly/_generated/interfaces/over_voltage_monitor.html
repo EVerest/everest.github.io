@@ -49,7 +49,17 @@
   <section id="over-voltage-monitor">
 <span id="everest-interfaces-over-voltage-monitor"></span><h1><span class="section-number">13.2.37. </span>over_voltage_monitor<a class="headerlink" href="#over-voltage-monitor" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">This interface defines a fast over voltage monitoring device according to IEC61851-23:2023 6.3.1.106.2 for DC charging. An emergency shutdown needs to be triggered if the DC output voltage is above the limit of Table 103 for 9ms. The actual shutdown needs to be handled in a lower layer outside of EVerest, but this interface sets the  correct voltage limit at the start of the session and stops monitoring at the  end of the session. The over voltage error should be reported after the actual shutdown was already performed. Once an over voltage error was raised, it should only be cleared when the reset_over_voltage_error command is called. All other errors should be raised/cleared when they occur/are no longer active immediately. The var voltage_measurement_V should be published in regular intervals, e.g. 1 second. It is not used to compare it with the overvoltage threshold setting in EVerest, that has to be done in the OVM device itself. It will only be used to validate that the OVM and the IMD see the same voltage to ensure they are correctly wired to the same charging port. If it is not available in hardware, do not publish the voltage_measurement_V at all.</div>
+<div class="line">This interface defines a fast over voltage monitoring device according to IEC61851-23:2023 6.3.1.106.2 and 6.3.1.106.3 for DC charging.</div>
+<div class="line">6.3.1.106.2 An emergency shutdown needs to be triggered if the DC output voltage is above the limit of Table 103 for 9ms.  The actual shutdown needs to be handled in a lower layer outside of EVerest, but this interface sets the  correct voltage limit during the power transfer and stops monitoring at the end of the session.  After the actual emergency shutdown was already performed, report an MREC5OverVoltage error with severity set to high.</div>
+<div class="line">6.3.1.106.3 An error shutdown needs to be triggered if the DC output voltage is above the limits of Table 104:</div>
+<div class="line-block">
+<div class="line">- Present voltage &gt; negotiated maximum for &gt;400ms: Trigger error shutdown in &lt;50ms.</div>
+<div class="line">- Present voltage &gt; negotiated maximum for &lt;400ms and &gt;200ms: Allow energy transfer or error shutdown</div>
+<div class="line">- Present voltage &gt; negotiated maximum for &lt;200ms: Allow energy transfer</div>
+</div>
+<div class="line">To trigger an error shutdown, raise the error MREC5OverVoltage with severity set to medium or low.</div>
+<div class="line">Once an MREC5OverVoltage error was raised, it shall only be cleared when the reset_over_voltage_error command is called. All other errors shall be raised/cleared when they occur/are no longer active immediately.</div>
+<div class="line">The var voltage_measurement_V should be published in regular intervals, e.g. 1 second. It is not used to compare it with the overvoltage threshold setting in EVerest, that has to be done in the OVM device itself. It will only be used to validate that the OVM and the IMD see the same voltage to ensure they are correctly wired to the same charging port. If it is not available in hardware, do not publish the voltage_measurement_V at all.</div>
 </div>
 <section id="variables">
 <h2><span class="section-number">13.2.37.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h2>
@@ -63,21 +73,29 @@
 <section id="commands">
 <h2><span class="section-number">13.2.37.2. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
+<div class="line"><strong>set_limits</strong>:<em>void</em></div>
+<div class="line-block">
+<div class="line">Set the overvoltage limits. It will be called any time the voltage limits change, independent of  whether the monitoring is currently active or not. The values shall be cached, and the last value received shall be used as threshold while monitoring is active.</div>
+<div class="line"><strong>emergency_over_voltage_limit_V</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Specifies the over voltage threshold [V] for emergency shutdown (based on IEC61851-23:2023 Table 103 and IEC61851-23-3:(DRAFT 2025) Table 202) An emergency shutdown shall be triggered if the DC output voltage is higher  than this value.</div>
+</div>
+<div class="line"><strong>error_over_voltage_limit_V</strong>:<em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Specifies the over voltage threshold [V] for error shutdown (for use with IEC61851-23:2023 Table 104). An error shutdown shall be triggered if the DC output voltage is higher  than this value. The OVM shall trigger an emergency shutdown if error shutdown does not work properly (after 2.5s, see CC.3.4.2).</div>
+</div>
+</div>
 <div class="line"><strong>start</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Start over voltage monitoring</div>
-<div class="line"><strong>over_voltage_limit_V</strong>:<em>number</em> &lt;required&gt;</div>
-<div class="line-block">
-<div class="line">Specifies the over voltage threshold [V] (based on IEC61851-23:2023 Table 103) An emergency shutdown should be triggered if the DC output voltage is higher  than this value.</div>
-</div>
+<div class="line">Start monitoring. Called once at the beginning of power transfer. Use the last limits set by set_limits and make sure to update them when set_limits is called while monitoring is active. Trigger shutdowns and raise errors as needed.</div>
 </div>
 <div class="line"><strong>stop</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Stop over voltage monitoring at the end of the power transfer.</div>
+<div class="line">Stop monitoring. Called once at the end of power transfer. Do not raise any over voltage errors or trigger any shutdowns in this mode.</div>
 </div>
 <div class="line"><strong>reset_over_voltage_error</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Resets the detection logic to allow for new charging session after an over voltage error occurred. This should clear the over voltage error. If monitoring is still active, it should be stopped.</div>
+<div class="line">Resets the detection logic to allow for new charging session after an over voltage error occurred. This shall clear the over voltage error. If monitoring is still active, it shall be stopped.</div>
 </div>
 </div>
 </section>

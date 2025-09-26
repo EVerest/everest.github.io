@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>5.3.20. TIDA010939 &#8212; EVerest  documentation</title>
+    <title>5.3.21. TIDA010939 &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5.3.21. YetiDriver" href="YetiDriver.html" />
-    <link rel="prev" title="5.3.19. PN7160TokenProvider" href="PN7160TokenProvider.html" /> 
+    <link rel="next" title="5.3.22. YetiDriver" href="YetiDriver.html" />
+    <link rel="prev" title="5.3.20. PN7160TokenProvider" href="PN7160TokenProvider.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,14 +29,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="YetiDriver.html" title="5.3.21. YetiDriver"
+          <a href="YetiDriver.html" title="5.3.22. YetiDriver"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="PN7160TokenProvider.html" title="5.3.19. PN7160TokenProvider"
+          <a href="PN7160TokenProvider.html" title="5.3.20. PN7160TokenProvider"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" accesskey="U"><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.20. </span>TIDA010939</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.21. </span>TIDA010939</a></li> 
       </ul>
     </div>  
 
@@ -46,20 +46,20 @@
           <div class="body" role="main">
             
   <section id="tida010939">
-<span id="everest-modules-handwritten-tida010939"></span><h1><span class="section-number">5.3.20. </span>TIDA010939<a class="headerlink" href="#tida010939" title="Permalink to this heading">¶</a></h1>
+<span id="everest-modules-handwritten-tida010939"></span><h1><span class="section-number">5.3.21. </span>TIDA010939<a class="headerlink" href="#tida010939" title="Permalink to this heading">¶</a></h1>
 <p>See also module’s <a class="reference internal" href="../../_generated/modules/TIDA010939.html#everest-modules-tida010939"><span class="std std-ref">auto-generated reference</span></a>.
 The module <code class="docutils literal notranslate"><span class="pre">TIDA010939</span></code> is a board support driver for Texas Instruments
 TIDA-010939 reference design. It is based on the Yeti driver with similar structure
 and functionality.</p>
 <section id="communication-between-the-tida010939-microcontroller-and-this-driver-module">
-<h2><span class="section-number">5.3.20.1. </span>Communication between the TIDA010939 microcontroller and this driver module<a class="headerlink" href="#communication-between-the-tida010939-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.21.1. </span>Communication between the TIDA010939 microcontroller and this driver module<a class="headerlink" href="#communication-between-the-tida010939-microcontroller-and-this-driver-module" title="Permalink to this heading">¶</a></h2>
 <p>The hardware connection between TIDA010939 and the host system (the board running EVerest and
 this module) is 3.3V TTL UART plus 2 GPIOs (one to reset the microcontroller
 from Linux and one to boot into the bootloader).</p>
 <p>The default configuration is 115200 bps 8N1.</p>
 </section>
 <section id="protocol">
-<h2><span class="section-number">5.3.20.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.21.2. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this heading">¶</a></h2>
 <p>EVerest can send commands to TIDA010939 and TIDA010939 publishes data and events back
 to EVerest. The packets are defined with protobuf to serialize the C structs
 into a binary representation that is transferred over the serial wire in a
@@ -69,7 +69,7 @@ stream:</p>
 before it is transmitted on the UART:</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing">https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing</a></p>
 <section id="cobs">
-<h3><span class="section-number">5.3.20.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.21.2.1. </span>COBS<a class="headerlink" href="#cobs" title="Permalink to this heading">¶</a></h3>
 <p>COBS is implemented in <code class="docutils literal notranslate"><span class="pre">tida_010939_comms/evSerial.cpp</span></code>. Whenever a new packet
 was extracted from the stream <code class="docutils literal notranslate"><span class="pre">handlePacket()</span></code> is called to decode protobuf
 and generate the corresponding signals.
@@ -78,7 +78,7 @@ packets.</p>
 <p>For TX <code class="docutils literal notranslate"><span class="pre">linkWrite</span></code> encodes the packet with COBS and outputs it to the UART.</p>
 </section>
 <section id="protobuf">
-<h3><span class="section-number">5.3.20.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">5.3.21.2.2. </span>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h3>
 <p>The actual packet definitions are located under <code class="docutils literal notranslate"><span class="pre">tida_010939_comms/protobuf</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">tida_010939.proto</span></code> contains all messages that can be sent from EVerest to TIDA010939 and
 all messages that TIDA010939 sends to EVerest.</p>
@@ -91,7 +91,7 @@ definition is used on both sides when making changes.</p>
 </section>
 </section>
 <section id="references">
-<h2><span class="section-number">5.3.20.3. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3.21.3. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://www.ti.com/tool/TIDA-010939">Official website https://www.ti.com/tool/TIDA-010939</a></p>
 </section>
 </section>
@@ -128,12 +128,12 @@ definition is used on both sides when making changes.</p>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="PN7160TokenProvider.html"
-                          title="previous chapter"><span class="section-number">5.3.19. </span>PN7160TokenProvider</a></p>
+                          title="previous chapter"><span class="section-number">5.3.20. </span>PN7160TokenProvider</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="YetiDriver.html"
-                          title="next chapter"><span class="section-number">5.3.21. </span>YetiDriver</a></p>
+                          title="next chapter"><span class="section-number">5.3.22. </span>YetiDriver</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -169,14 +169,14 @@ definition is used on both sides when making changes.</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="YetiDriver.html" title="5.3.21. YetiDriver"
+          <a href="YetiDriver.html" title="5.3.22. YetiDriver"
              >next</a> |</li>
         <li class="right" >
-          <a href="PN7160TokenProvider.html" title="5.3.19. PN7160TokenProvider"
+          <a href="PN7160TokenProvider.html" title="5.3.20. PN7160TokenProvider"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../general/05_existing_modules.html" ><span class="section-number">5. </span>EVerest Module Configurations</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.20. </span>TIDA010939</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5.3.21. </span>TIDA010939</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

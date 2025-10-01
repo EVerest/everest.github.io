@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.78. TerminalCostAndPriceMessage &#8212; EVerest  documentation</title>
+    <title>13.1.51. Linux_Systemd_Rauc &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.79. TerminalDisplayMessage" href="TerminalDisplayMessage.html" />
-    <link rel="prev" title="13.1.77. TIDA010939" href="TIDA010939.html" /> 
+    <link rel="next" title="13.1.52. LocalAllowlistTokenValidator" href="LocalAllowlistTokenValidator.html" />
+    <link rel="prev" title="13.1.50. LemDCBM400600" href="LemDCBM400600.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="TerminalDisplayMessage.html" title="13.1.79. TerminalDisplayMessage"
+          <a href="LocalAllowlistTokenValidator.html" title="13.1.52. LocalAllowlistTokenValidator"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="TIDA010939.html" title="13.1.77. TIDA010939"
+          <a href="LemDCBM400600.html" title="13.1.50. LemDCBM400600"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.78. </span>TerminalCostAndPriceMessage</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.51. </span>Linux_Systemd_Rauc</a></li> 
       </ul>
     </div>  
 
@@ -46,37 +46,74 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="terminalcostandpricemessage">
-<span id="everest-modules-terminalcostandpricemessage"></span><h1><span class="section-number">13.1.78. </span>TerminalCostAndPriceMessage<a class="headerlink" href="#terminalcostandpricemessage" title="Permalink to this heading">¶</a></h1>
+  <section id="linux-systemd-rauc">
+<span id="everest-modules-linux-systemd-rauc"></span><h1><span class="section-number">13.1.51. </span>Linux_Systemd_Rauc<a class="headerlink" href="#linux-systemd-rauc" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">Example cost and price message module</div>
+<div class="line">This module implements system wide operations for the base linux system</div>
 </div>
-<p>For a detailed handwritten documentation see <span class="xref std std-ref">here</span></p>
+<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/Linux_Systemd_Rauc.rst/index.html#everest-modules-handwritten-linux-systemd-rauc"><span class="std std-ref">here</span></a></p>
+<section id="module-configuration">
+<h2><span class="section-number">13.1.51.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>DefaultRetries</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
+<div class="line-block">
+<div class="line">Specifies how many times Charge Point tries to upload or download files on previous failure.</div>
+</div>
+<div class="line"><strong>DefaultRetryInterval</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
+<div class="line-block">
+<div class="line">Specifies in seconds after which time a retry of an upload or download on previous failure may be attempted.</div>
+</div>
+<div class="line"><strong>OCPPLogPath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “/var/log/everest/ocpp”</em></div>
+<div class="line-block">
+<div class="line">Path to folder where logs of all OCPP messages get written to (see ocpp MessageLogPath)</div>
+</div>
+<div class="line"><strong>SessionLogPath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “/var/log/everest/session”</em></div>
+<div class="line-block">
+<div class="line">Output directory for session log files (see evse_manager session_logging_path)</div>
+</div>
+<div class="line"><strong>RebootCommand</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “/sbin/reboot”</em></div>
+<div class="line-block">
+<div class="line">Command to execute for rebooting the system</div>
+</div>
+<div class="line"><strong>VerifyUpdateScriptPath</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Full path to shell script that checks if an OTA update has been successful. The script is executed after  an update and shall verify the success of the update. It shall return 0 in case of success and non-zero in case of failure. If empty no check is performed and the update is considered successful and it is marked as good.</div>
+</div>
+</div>
+</section>
 <section id="provides">
-<h2><span class="section-number">13.1.78.1. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.51.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/empty.html#everest-interfaces-empty"><span class="std std-ref">empty</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/system.html#everest-interfaces-system"><span class="std std-ref">system</span></a></div>
 <div class="line-block">
-<div class="line">EVerest API</div>
+<div class="line">Implements the system interface</div>
 </div>
 </div>
 </section>
 <section id="requirements">
-<h2><span class="section-number">13.1.78.2. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.51.3. </span>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>session_cost</strong>:<a class="reference internal" href="../interfaces/session_cost.html#everest-interfaces-session-cost"><span class="std std-ref">session_cost</span></a> 1</div>
+<div class="line"><strong>store</strong>:<a class="reference internal" href="../interfaces/kvs.html#everest-interfaces-kvs"><span class="std std-ref">kvs</span></a> 1</div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.78.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.51.4. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.78.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.51.4.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Maaike Zijderveld</div>
+<div class="line">Piet Gömpel</div>
+<div class="line">Cornelius Claussen</div>
+<div class="line">James Chapman</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.78.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.51.4.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -115,18 +152,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="TIDA010939.html"
-                          title="previous chapter"><span class="section-number">13.1.77. </span>TIDA010939</a></p>
+    <p class="topless"><a href="LemDCBM400600.html"
+                          title="previous chapter"><span class="section-number">13.1.50. </span>LemDCBM400600</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="TerminalDisplayMessage.html"
-                          title="next chapter"><span class="section-number">13.1.79. </span>TerminalDisplayMessage</a></p>
+    <p class="topless"><a href="LocalAllowlistTokenValidator.html"
+                          title="next chapter"><span class="section-number">13.1.52. </span>LocalAllowlistTokenValidator</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/TerminalCostAndPriceMessage.rst.txt"
+      <li><a href="../../_sources/_generated/modules/Linux_Systemd_Rauc.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -157,15 +194,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="TerminalDisplayMessage.html" title="13.1.79. TerminalDisplayMessage"
+          <a href="LocalAllowlistTokenValidator.html" title="13.1.52. LocalAllowlistTokenValidator"
              >next</a> |</li>
         <li class="right" >
-          <a href="TIDA010939.html" title="13.1.77. TIDA010939"
+          <a href="LemDCBM400600.html" title="13.1.50. LemDCBM400600"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.78. </span>TerminalCostAndPriceMessage</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.51. </span>Linux_Systemd_Rauc</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

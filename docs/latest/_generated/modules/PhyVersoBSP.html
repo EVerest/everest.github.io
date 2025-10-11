@@ -181,15 +181,35 @@
 <div class="line">GPIO peripheral pin the nRST pin of the MCU is mapped to</div>
 </div>
 <div class="line"><strong>conn1_motor_lock_type</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 2</em></div>
+<div class="line"><em>default: -1</em></div>
 <div class="line-block">
-<div class="line">Connector 1 motor lock type; 1 == Hella Style time-based lock, 2 == Valeo potentiometer feedback based</div>
+<div class="line">Connector 1 motor lock type;</div>
+<div class="line-block">
+<div class="line">-1 == no Lock</div>
+<div class="line-block">
+<div class="line">1 == Hella Style time-based lock,</div>
+<div class="line">2 == Valeo potentiometer feedback based;</div>
+<div class="line"><br /></div>
 </div>
+</div>
+</div>
+<div class="line">If charging port has a socket and is AC charging, it will need a lock specified</div>
+<div class="line"><br /></div>
 <div class="line"><strong>conn2_motor_lock_type</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 2</em></div>
+<div class="line"><em>default: -1</em></div>
 <div class="line-block">
-<div class="line">Connector 2 motor lock type; 1 == Hella Style time-based lock, 2 == Valeo potentiometer feedback based</div>
+<div class="line">Connector 2 motor lock type;</div>
+<div class="line-block">
+<div class="line">-1 == no Lock</div>
+<div class="line-block">
+<div class="line">1 == Hella Style time-based lock,</div>
+<div class="line">2 == Valeo potentiometer feedback based;</div>
+<div class="line"><br /></div>
 </div>
+</div>
+</div>
+<div class="line">If charging port has a socket and is AC charging, it will need a lock specified</div>
+<div class="line"><br /></div>
 <div class="line"><strong>conn1_gpio_stop_button_enabled</strong>:<em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
@@ -230,6 +250,36 @@
 <div class="line-block">
 <div class="line">Set to true to invert pin logic</div>
 </div>
+<div class="line"><strong>conn1_disable_port</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Set to true if port 1 is neither used for AC nor DC charging (will overwrite conn1_dc parameter)</div>
+</div>
+<div class="line"><strong>conn2_disable_port</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Set to true if port 2 is neither used for AC nor DC charging (will overwrite conn2_dc parameter)</div>
+</div>
+<div class="line"><strong>conn1_feedback_active_low</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Set to true if relay mirror contact on port 1 feedback is active LOW, false if active HIGH; don’t change for AC port config</div>
+</div>
+<div class="line"><strong>conn2_feedback_active_low</strong>:<em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Set to true if relay mirror contact on port 2 feedback is active LOW, false if active HIGH; don’t change for AC port config</div>
+</div>
+<div class="line"><strong>conn1_feedback_pull</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">DC port config only - specify which way internal pull resistors will work; 0 -&gt; None, 1 -&gt; PullUp, 2 -&gt; PullDown (default=PD)</div>
+</div>
+<div class="line"><strong>conn2_feedback_pull</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">DC port config only - specify which way internal pull resistors will work; 0 -&gt; None, 1 -&gt; PullUp, 2 -&gt; PullDown (default=PD)</div>
+</div>
 </div>
 </section>
 <section id="provides">
@@ -245,11 +295,11 @@
 </div>
 <div class="line"><strong>rcd_1</strong>:<a class="reference internal" href="../interfaces/ac_rcd.html#everest-interfaces-ac-rcd"><span class="std std-ref">ac_rcd</span></a></div>
 <div class="line-block">
-<div class="line">RCD interface of the onboard RCD</div>
+<div class="line">RCD interface for an external RDC-MD</div>
 </div>
 <div class="line"><strong>rcd_2</strong>:<a class="reference internal" href="../interfaces/ac_rcd.html#everest-interfaces-ac-rcd"><span class="std std-ref">ac_rcd</span></a></div>
 <div class="line-block">
-<div class="line">RCD interface of the onboard RCD</div>
+<div class="line">RCD interface of the onboard RDC-MD</div>
 </div>
 <div class="line"><strong>connector_lock_1</strong>:<a class="reference internal" href="../interfaces/connector_lock.html#everest-interfaces-connector-lock"><span class="std std-ref">connector_lock</span></a></div>
 <div class="line-block">
@@ -267,6 +317,7 @@
 <h3><span class="section-number">13.1.63.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Cornelius Claussen</div>
+<div class="line">Jonas Rockstroh</div>
 </div>
 </section>
 <section id="license">

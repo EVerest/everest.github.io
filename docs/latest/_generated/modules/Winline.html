@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.1.96. isolation_monitor_API &#8212; EVerest  documentation</title>
+    <title>13.1.81. Winline &#8212; EVerest  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/contentui.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="13.1.97. ocpp_consumer_API" href="ocpp_consumer_API.html" />
-    <link rel="prev" title="13.1.95. generic_error_raiser_API" href="generic_error_raiser_API.html" /> 
+    <link rel="next" title="13.1.82. YamlStore" href="YamlStore.html" />
+    <link rel="prev" title="13.1.80. UUGreenPower_UR1000X0" href="UUGreenPower_UR1000X0.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,15 +29,15 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="ocpp_consumer_API.html" title="13.1.97. ocpp_consumer_API"
+          <a href="YamlStore.html" title="13.1.82. YamlStore"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="generic_error_raiser_API.html" title="13.1.95. generic_error_raiser_API"
+          <a href="UUGreenPower_UR1000X0.html" title="13.1.80. UUGreenPower_UR1000X0"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" accesskey="U"><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.96. </span>isolation_monitor_API</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.81. </span>Winline</a></li> 
       </ul>
     </div>  
 
@@ -46,49 +46,123 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="isolation-monitor-api">
-<span id="everest-modules-isolation-monitor-api"></span><h1><span class="section-number">13.1.96. </span>isolation_monitor_API<a class="headerlink" href="#isolation-monitor-api" title="Permalink to this heading">¶</a></h1>
+  <section id="winline">
+<span id="everest-modules-winline"></span><h1><span class="section-number">13.1.81. </span>Winline<a class="headerlink" href="#winline" title="Permalink to this heading">¶</a></h1>
 <div class="line-block">
-<div class="line">API for isolation monitors</div>
+<div class="line">Driver for Winline ACDC power supply. Supports multiple Winline modules using CAN protocol either in fixed address mode or group discovery mode.</div>
 </div>
-<p>For a detailed handwritten documentation see <a class="reference internal" href="../../_included/modules_doc/isolation_monitor_API.html#everest-modules-handwritten-isolation-monitor-api"><span class="std std-ref">here</span></a></p>
 <section id="module-configuration">
-<h2><span class="section-number">13.1.96.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.81.1. </span>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>cfg_communication_check_to_s</strong>:<em>integer</em> &lt;optional&gt;</div>
-<div class="line"><em>default: 5</em></div>
+<div class="line"><strong>can_device</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “can0”</em></div>
 <div class="line-block">
-<div class="line">Maximum time between two communication check events. Values &lt;= 0 disables communication checks.</div>
+<div class="line">CAN interface name</div>
 </div>
-<div class="line"><strong>cfg_heartbeat_interval_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><strong>module_addresses</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Module Addresses to use. If you have multiple PSUs, use individual addresses and list them comma separated, e.g. “1,2”.</div>
+</div>
+<div class="line"><strong>group_address</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Group address. Use this if your PSUs are using automatic allocation of the addresses. If you have multiple PSUs, set this number in accordance with the group dial setting of the PSUs you want to use. Can’t use module addresses and group addresses at the same time, if both are set, the module addresses will be used.</div>
+</div>
+<div class="line"><strong>device_connection_timeout_s</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 15</em></div>
+<div class="line-block">
+<div class="line">Timeout in seconds to wait for a module to respond before considering it offline. CRITICAL SAFETY: Must be greater than module internal timeout to prevent overcurrent risk. Recommended: 15s.</div>
+</div>
+<div class="line"><strong>conversion_efficiency_export</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0.95</em></div>
+<div class="line-block">
+<div class="line">Conversion efficiency of the export mode.</div>
+</div>
+<div class="line"><strong>controller_address</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 240</em></div>
+<div class="line-block">
+<div class="line">Controller address defaults to 0xF0.</div>
+</div>
+<div class="line"><strong>min_export_voltage_V</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 50.0</em></div>
+<div class="line-block">
+<div class="line">Minimum export voltage limit (V)</div>
+</div>
+<div class="line"><strong>max_export_voltage_V</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1000.0</em></div>
+<div class="line-block">
+<div class="line">Maximum export voltage limit (V)</div>
+</div>
+<div class="line"><strong>min_export_current_A</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0.0</em></div>
+<div class="line-block">
+<div class="line">Minimum export current limit (A)</div>
+</div>
+<div class="line"><strong>max_export_current_A</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 133.3</em></div>
+<div class="line-block">
+<div class="line">Maximum export current limit (A) - will be updated by device rated values</div>
+</div>
+<div class="line"><strong>power_state_grace_period_ms</strong>:<em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2000</em></div>
+<div class="line-block">
+<div class="line">Grace period in milliseconds to wait before verifying power state changes</div>
+</div>
+<div class="line"><strong>current_regulation_tolerance_A</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0.5</em></div>
+<div class="line-block">
+<div class="line">Current regulation tolerance (A)</div>
+</div>
+<div class="line"><strong>peak_current_ripple_A</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2</em></div>
+<div class="line-block">
+<div class="line">Peak current ripple (A)</div>
+</div>
+<div class="line"><strong>altitude_setting_m</strong>:<em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 1000</em></div>
 <div class="line-block">
-<div class="line">Interval between two heartbeat messages send by the API. Values &lt;= 0 disable heartbeat.</div>
+<div class="line">Working altitude setting in meters. This affects the power derating of the modules at high altitudes. Valid range: 1000-5000m. Default: 1000m (sea level).</div>
+</div>
+<div class="line"><strong>input_mode</strong>:<em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “AC”</em></div>
+<div class="line-block">
+<div class="line">Input mode for the power supply modules. AC mode for AC input, DC mode for DC input. This setting affects the internal configuration of the modules.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- AC</div>
+<div class="line">- DC</div>
+</div>
+</div>
+<div class="line"><strong>module_current_limit_point</strong>:<em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3.3325</em></div>
+<div class="line-block">
+<div class="line">Percentage of the rated current that the module will use as the current limit point (0.0-3.3325)</div>
 </div>
 </div>
 </section>
 <section id="provides">
-<h2><span class="section-number">13.1.96.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.81.2. </span>Provides<a class="headerlink" href="#provides" title="Permalink to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/isolation_monitor.html#everest-interfaces-isolation-monitor"><span class="std std-ref">isolation_monitor</span></a></div>
+<div class="line"><strong>main</strong>:<a class="reference internal" href="../interfaces/power_supply_DC.html#everest-interfaces-power-supply-dc"><span class="std std-ref">power_supply_DC</span></a></div>
 <div class="line-block">
-<div class="line">Allows EVerest to control an isolation monitor device via API clients.</div>
+<div class="line">Main interface</div>
+<div class="line">config:</div>
+<div class="line">config:</div>
+<div class="line"><br /></div>
 </div>
 </div>
 </section>
 <section id="metadata">
-<h2><span class="section-number">13.1.96.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">13.1.81.3. </span>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">¶</a></h2>
 <section id="authors">
-<h3><span class="section-number">13.1.96.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.81.3.1. </span>Authors<a class="headerlink" href="#authors" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Cornelius Claussen</div>
-<div class="line">Jan Christoph Habig</div>
 <div class="line">Florin Mihut</div>
-<div class="line">Miriam Thome</div>
 </div>
 </section>
 <section id="license">
-<h3><span class="section-number">13.1.96.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">13.1.81.3.2. </span>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
@@ -127,18 +201,18 @@
 
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="generic_error_raiser_API.html"
-                          title="previous chapter"><span class="section-number">13.1.95. </span>generic_error_raiser_API</a></p>
+    <p class="topless"><a href="UUGreenPower_UR1000X0.html"
+                          title="previous chapter"><span class="section-number">13.1.80. </span>UUGreenPower_UR1000X0</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ocpp_consumer_API.html"
-                          title="next chapter"><span class="section-number">13.1.97. </span>ocpp_consumer_API</a></p>
+    <p class="topless"><a href="YamlStore.html"
+                          title="next chapter"><span class="section-number">13.1.82. </span>YamlStore</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/_generated/modules/isolation_monitor_API.rst.txt"
+      <li><a href="../../_sources/_generated/modules/Winline.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div><h3>Community</h3>
@@ -169,15 +243,15 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="ocpp_consumer_API.html" title="13.1.97. ocpp_consumer_API"
+          <a href="YamlStore.html" title="13.1.82. YamlStore"
              >next</a> |</li>
         <li class="right" >
-          <a href="generic_error_raiser_API.html" title="13.1.95. generic_error_raiser_API"
+          <a href="UUGreenPower_UR1000X0.html" title="13.1.80. UUGreenPower_UR1000X0"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">EVerest  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../appendix/01_everest_reference/index.html" ><span class="section-number">13. </span>EVerest Reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../../appendix/01_everest_reference/modules.html" ><span class="section-number">13.1. </span>EVerest Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.96. </span>isolation_monitor_API</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><span class="section-number">13.1.81. </span>Winline</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

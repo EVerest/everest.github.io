@@ -137,15 +137,6 @@
 <div class="line">Time in ms for the duration of the replug sequence</div>
 </div>
 </div>
-<div class="line"><strong>ac_read_pp_ampacity</strong>:<em>object</em></div>
-<div class="line-block">
-<div class="line">Read the current carrying capacity of the connected cable in ampere for AC charging with a socket. This function will be used by EvseManager to get the PP value at  a distinct time. You should also publish the var pp_ampacity whenever the PP ampacity reading changes to signal changes e.g. during the charging time. This has no meaning for DC or AC charging with a fixed attached cable, it does not  need to be implemented and the returned value is not used in those cases.</div>
-<div class="line"><strong>Result</strong>:<em>object</em>  (<a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">board_support_common-ProximityPilot</span></a>)</div>
-<div class="line-block">
-<div class="line">Returns the current carrying capacity of the connected cable</div>
-<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/board_support_common.html#board-support-common-proximitypilot"><span class="std std-ref">here</span></a>.</div>
-</div>
-</div>
 <div class="line"><strong>ac_set_overcurrent_limit_A</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Many chargers implement a fast over current shutdown directly in the hardware that triggers if the EV draws more current than the PWM allows. If the hardware does not have this functionality, just ignore this command. Do not use it to set the PWM duty cycle. Otherwise this command reports a value that should be used for the overcurrent detection.  A margin needs to be added to avoid false triggers. Do not use the PWM duty cycle to infer the current limit in the BSP, as this will not work with HLC.</div>

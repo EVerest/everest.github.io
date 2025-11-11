@@ -139,6 +139,48 @@
 <div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">here</span></a>.</div>
 </div>
 </div>
+<div class="line"><strong>modbus_read_coils</strong>:<em>object</em></div>
+<div class="line-block">
+<div class="line">Send a Modbus RTU ‘read coils’ command via serial interface to the target hardware. (return value: response)</div>
+<div class="line"><strong>target_device_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">ID (1 byte) of the device to send the commands to</div>
+</div>
+<div class="line"><strong>first_coil_address</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Start address for read operation (16 bit address)</div>
+</div>
+<div class="line"><strong>num_coils_to_read</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Number of coils to read (1 bit each)</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>object</em>  (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-resultbool"><span class="std std-ref">serial_comm_hub_requests-ResultBool</span></a>)</div>
+<div class="line-block">
+<div class="line">Result of the transfer</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-resultbool"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
+<div class="line"><strong>modbus_write_single_coil</strong>:<em>string</em></div>
+<div class="line-block">
+<div class="line">Send a Modbus RTU ‘write single coil’ command via serial interface to the target hardware. (return value: response)</div>
+<div class="line"><strong>target_device_id</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">ID (1 byte) of the device to send the commands to</div>
+</div>
+<div class="line"><strong>coil_address</strong>:<em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Address of the coil to write to (16 bit address)</div>
+</div>
+<div class="line"><strong>data</strong>:<em>boolean</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Data content to be written to the selected coil</div>
+</div>
+<div class="line"><strong>Result</strong>:<em>string</em>  (<a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">serial_comm_hub_requests-StatusCodeEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Status code of the transfer</div>
+<div class="line"><strong>There is an extended definition for this object</strong> <a class="reference internal" href="../types/serial_comm_hub_requests.html#serial-comm-hub-requests-statuscodeenum"><span class="std std-ref">here</span></a>.</div>
+</div>
+</div>
 <div class="line"><strong>nonstd_write</strong>:<em>void</em></div>
 <div class="line-block">
 <div class="line">Non standard mode to write registers in read discrete input mode without waiting for reply. Used e.g. by GYDCG-UBC1 isolation monitor.</div>

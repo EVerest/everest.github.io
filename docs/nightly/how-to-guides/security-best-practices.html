@@ -606,7 +606,7 @@ securing private keys.</p></li>
 <li><p>Don’t use the <em>admin-panel</em> on the product and ensure EVerest does
 not listen on port 8849. In the Yocto recipes, this is disabled by
 default. Take special care if you use another build system. Set
-“EVEREST_ENABLE_ADMIN_PANEL_BACKEND=OFF2 in cmake.</p></li>
+“EVEREST_ENABLE_ADMIN_PANEL_BACKEND=OFF” in cmake.</p></li>
 <li><p>Do not run EVerest modules as root user. Create a low privilege
 user, that has access only to what is needed (via filesystem
 permissions, group memberships, …). In Yocto, you can do this in your
@@ -644,15 +644,18 @@ should be given individual Linux capabilities like this:</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>EvseSlac / EvSlac</p></th>
-<th class="head"><p>CAP_NET_RAW</p></th>
+<tr class="row-odd"><th class="head"><p>Module name</p></th>
+<th class="head"><p>Capabilities</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Setup</p></td>
+<tr class="row-even"><td><p>EvseSlac / EvSlac</p></td>
+<td><p>CAP_NET_RAW</p></td>
+</tr>
+<tr class="row-odd"><td><p>Setup</p></td>
 <td><p>CAP_NET_ADMIN, CAP_NET_RAW, CAP_DAC_OVERRIDE</p></td>
 </tr>
-<tr class="row-odd"><td><p>PacketSniffer</p></td>
+<tr class="row-even"><td><p>PacketSniffer</p></td>
 <td><p>CAP_NET_RAW</p></td>
 </tr>
 </tbody>

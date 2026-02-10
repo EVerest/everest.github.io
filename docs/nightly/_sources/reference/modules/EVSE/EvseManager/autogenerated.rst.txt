@@ -77,27 +77,30 @@ Module Configuration
 | **ac_with_soc**: *boolean* <optional>
 | *default: False*
 |  Special mode that switches between AC and DC charging to get SoC percentage with AC charging
-| **dc_isolation_voltage_V**: *integer* <optional>
-| *default: 0*
-|  Override DC voltage used to test isolation in CableCheck. Default is 0, which means the voltage will be determined according to IEC 61851-23 (2023) CC.4.1.2
 | **internal_over_voltage_duration_ms**: *integer* <optional>
 | *default: 400*
 |  Time in milliseconds the internal software over voltage monitor waits before raising MREC5 once the measured voltage exceeds the negotiated limit.
 | **dbg_hlc_auth_after_tstep**: *boolean* <optional>
 | *default: False*
 |  Special mode: send HLC auth ok only after t_step_XX is finished (true) or directly when available (false)
-| **hack_sleep_in_cable_check**: *integer* <optional>
+| **dc_isolation_voltage_V**: *integer* <optional>
 | *default: 0*
-|  Hack: Sleep for n seconds at the end of cable check.
-| **hack_sleep_in_cable_check_volkswagen**: *integer* <optional>
-| *default: 0*
-|  Hack: Additional sleep for Volkswagen cars for n seconds at the end of cable check
+|  Override DC voltage used to test isolation in CableCheck. Default is 0, which means the voltage will be determined according to IEC 61851-23 (2023) CC.4.1.2
 | **cable_check_wait_number_of_imd_measurements**: *integer* <optional>
 | *default: 1*
-|  Amount of isolation measurement samples to collect before the value can be trusted. This does not average, it will evaluate the last measurement. Some IMDs (e.g. from Bender) need to measure for 10s to really get a trustable result. In this case, at 1 Hz sample rate, specify 10 samples here.
+|  Amount of isolation measurement samples to collect before the value can be trusted. This does not average, it will evaluate the last measurement. Some IMDs (e.g. from Bender) need to measure for 10s to really get a trustable result. In this case, at 1 Hz sample rate, specify 10 samples here. If the self test includes the isolation resistance checking you may also set this to 0.
 | **cable_check_enable_imd_self_test**: *boolean* <optional>
 | *default: True*
-|  Enable self testing of IMD in cable check. This is required for IEC 61851-23 (2023) compliance.
+|  Enable self testing of IMD in cable check with the voltage calculated from ev_max_voltage and with relays closed. This is required e.g. for Bender IMDs which also perform an isolation measurement during the self test. A self test is required for IEC 61851-23 (2023) compliance.
+| **cable_check_enable_imd_self_test_relays_open**: *boolean* <optional>
+| *default: False*
+|  Enable self testing of IMD at the beginning of cable check where the relays may still be open. The voltage is set by the cable_check_relays_open_voltage_V config option and may differ from the  voltage that is later used to perform the isolation resistance sample. cable_check_wait_number_of_imd_measurements needs to be >=1 in this case as no isolation resistance checking can be performed at this stage. A self test is required for IEC 61851-23 (2023) compliance.
+| **cable_check_relays_open_voltage_V**: *integer* <optional>
+| *default: 48*
+|  Voltage to set for the self test using cable_check_enable_imd_self_test_relays_open option.
+| **cable_check_relays_closed_timeout_s**: *integer* <optional>
+| *default: 5*
+|  Timeout in seconds to wait for the relays to close at the beginning of cablecheck. Normally they should be closed right away, but when cable_check_enable_imd_self_test_relays_open option, the relays may close may be delayed by the self test.
 | **cable_check_wait_below_60V_before_finish**: *boolean* <optional>
 | *default: True*
 |  Switch off power supply and wait until output voltage drops below 60V before cable check is finished. Note: There are different versions of IEC 61851-23:2023 in the wild with the same version number but slightly different content. The IEC was correcting mistakes _after_ releasing the document initially without tagging a new version number. Some early versions require to wait for the output voltage to drop below 60V in CC.4.1.2 (last sentence). Later versions do not have that requirement. The later versions are correct and should be used according to IEC. Both settings (true and false) are compliant with the correct version of IEC 61851-23:2023. Set to true when:

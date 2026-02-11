@@ -685,6 +685,11 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <div class="line-block">
 <div class="line">Go to reset state instead of failed state. This is against the ISO15118-3. But some cars directly send a CM_SLAC_PARAM.req message when the SLAC process aborts. To react to this message and restart the SLAC process, the EVSE go to the reset state here.</div>
 </div>
+<div class="line"><strong>startup_delay_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Delay initialization of SLAC I/O by the given amount. On some hardware platforms with multiple EvseSlac modules loaded this can be necessary to ensure that the initial query of the device information does not happen at the same time.</div>
+</div>
 </div>
 </div>
 </div>

@@ -70,6 +70,9 @@ Provides
 |   **reset_instead_of_fail**: *boolean* <optional>
 |   *default: True*
 |    Go to reset state instead of failed state. This is against the ISO15118-3. But some cars directly send a CM_SLAC_PARAM.req message when the SLAC process aborts. To react to this message and restart the SLAC process, the EVSE go to the reset state here.
+|   **startup_delay_ms**: *integer* <optional>
+|   *default: 0*
+|    Delay initialization of SLAC I/O by the given amount. On some hardware platforms with multiple EvseSlac modules loaded this can be necessary to ensure that the initial query of the device information does not happen at the same time.
 
 
 ********

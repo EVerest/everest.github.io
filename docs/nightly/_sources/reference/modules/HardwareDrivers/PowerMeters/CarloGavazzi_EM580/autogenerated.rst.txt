@@ -1,0 +1,70 @@
+
+
+.. _everest_modules_CarloGavazzi_EM580:
+
+##################
+CarloGavazzi_EM580
+##################
+| Carlo Gavazzi EM580 powermeter
+
+
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
+
+************************
+Auto-Generated Reference
+************************
+
+
+
+Provides
+========
+| **main**: :ref:`powermeter <everest_interfaces_powermeter>`
+|  Implementation of the driver functionality
+|  **config:**
+|   **powermeter_device_id**: *integer* <optional>
+|   *default: 1*
+|    The powermeter's address on the serial bus
+|   **communication_retry_count**: *integer* <optional>
+|   *default: 3*
+|    Number of retries for communication operations before giving up.
+|   **communication_retry_delay_ms**: *integer* <optional>
+|   *default: 500*
+|    Delay in milliseconds between retry attempts.
+|   **communication_error_pause_delay_s**: *integer* <optional>
+|   *default: 10*
+|    Delay in seconds before retrying communication in the live measurement thread after a failure. Default 10 seconds. Applies to initial communication too.
+|   **initial_connection_retry_count**: *integer* <optional>
+|   *default: 10*
+|    Number of retries for initial connection/signature config read during module initialization. 0 means infinite retries.
+|   **initial_connection_retry_delay_ms**: *integer* <optional>
+|   *default: 2000*
+|    Delay in milliseconds between retry attempts during initialization.
+|   **timezone_offset_minutes**: *integer* <optional>
+|   *default: 0*
+|    Timezone offset from UTC in minutes (e.g., 60 for UTC+1, -300 for UTC-5). Range -1440 to +1440 minutes. Default is 0 (UTC).
+|   **live_measurement_interval_ms**: *integer* <optional>
+|   *default: 1000*
+|    Interval in milliseconds between live powermeter reads and publishes. Default 1000 ms (once per second). Allowed range 500-60000 ms (twice per second to once per minute).
+|   **device_state_read_interval_ms**: *integer* <optional>
+|   *default: 10000*
+|    Interval in milliseconds between reading the device state bitfield (used for VendorError reporting). Default 10000 ms (once per 10 seconds). Allowed range 500-60000 ms.
+
+Requirements
+============
+| **modbus**: :ref:`serial_communication_hub <everest_interfaces_serial_communication_hub>` 1
+
+********
+Metadata
+********
+Authors
+=======
+| florin.mihut@pionix.com
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

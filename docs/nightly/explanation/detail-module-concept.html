@@ -761,10 +761,6 @@ interface.</p>
 <p>We can have a “ping client” module, which requires the <code class="docutils literal notranslate"><span class="pre">ping_interface</span></code>.</p>
 <p>Here is the <code class="docutils literal notranslate"><span class="pre">modules/PingClientModule/manifest.yaml</span></code> file:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example ping-pong client module</span>
-<span class="nt">provides</span><span class="p">:</span><span class="w"> </span><span class="c1"># list of interface implementations</span>
-<span class="w">  </span><span class="nt">if_impl_id_empty</span><span class="p">:</span><span class="w"> </span><span class="c1"># there must be at least one, so we add a dummy interface</span>
-<span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty</span><span class="w"> </span><span class="c1"># the definition of this interface is in everest-core</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dummy interface</span>
 <span class="nt">requires</span><span class="p">:</span><span class="w"> </span><span class="c1"># list of interface requirements</span>
 <span class="w">  </span><span class="nt">requirement_ping_server</span><span class="p">:</span><span class="w"> </span><span class="c1"># requirement ID</span>
 <span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">interface_ping</span><span class="w"> </span><span class="c1"># interface name</span>
@@ -873,11 +869,8 @@ the following new files (we omit the <code class="docutils literal notranslate">
         ├── PingClientModule.cpp
         ├── PingClientModule.hpp
         ├── doc.rst
-        ├── docs
-        │   └── index.rst
-        └── if_impl_id_empty
-            ├── emptyImpl.cpp
-            └── emptyImpl.hpp
+        └── docs
+            └── index.rst
 </pre></div>
 </div>
 <p>Focusing on the source and header files, generally, the tool generates:</p>

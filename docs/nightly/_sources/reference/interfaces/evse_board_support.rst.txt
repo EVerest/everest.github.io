@@ -31,17 +31,17 @@ Variables
 Commands
 ********
 | **enable**:*void*
-|  Enables or disables the charging port. Typically disabled results in control pilot state F. It must not accept cars for new charging sessions if disabled.
+|  Enables or disables the charging port. When disabled, the BSP must prevent new charging sessions and may signal unavailability using a hardware-appropriate CP state (E/F/X1) and/or mechanical blocking. While disabled, the BSP should still listen for PWM updates and cache the last duty cycle received. When re-enabled, it must apply the cached PWM value.
 |  **value**: *boolean* <required>
 |   True: enabled, false: disabled.
 | **pwm_on**:*void*
-|  Turns PWM on with duty cycle (in percent)
+|  Turns PWM on with duty cycle (in percent). This command only applies when the charging port is enabled; if disabled, the value must be cached and applied when re-enabled.
 |  **value**: *number* <required>
 |   PWM duty cycle (>0, <100)
 | **pwm_off**:*void*
-|  Turns PWM off (constant high voltage)
+|  Turns PWM off (constant high voltage). This command only applies when the charging port is enabled; if disabled, the value must be cached and applied when re-enabled.
 | **pwm_F**:*void*
-|  Turns PWM off with Error F (constant negative voltage)
+|  Turns PWM off with Error F (constant negative voltage). This command only applies when the charging port is enabled; if disabled, the value must be cached and applied when re-enabled.
 | **allow_power_on**:*void*
 |  Sets allow_power_on flag. If false, Relais must never be switched on.
 |  **value**: *object* <required> (:ref:`evse_board_support-PowerOnOff <evse_board_support-PowerOnOff>`)

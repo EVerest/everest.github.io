@@ -612,7 +612,7 @@
 <div class="line-block">
 <div class="line"><strong>enable</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Enables or disables the charging port. Typically disabled results in control pilot state F. It must not accept cars for new charging sessions if disabled.</div>
+<div class="line">Enables or disables the charging port. When disabled, the BSP must prevent new charging sessions and may signal unavailability using a hardware-appropriate CP state (E/F/X1) and/or mechanical blocking. While disabled, the BSP should still listen for PWM updates and cache the last duty cycle received. When re-enabled, it must apply the cached PWM value.</div>
 <div class="line"><strong>value</strong>: <em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">True: enabled, false: disabled.</div>
@@ -620,7 +620,7 @@
 </div>
 <div class="line"><strong>pwm_on</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Turns PWM on with duty cycle (in percent)</div>
+<div class="line">Turns PWM on with duty cycle (in percent). This command only applies when the charging port is enabled; if disabled, the value must be cached and applied when re-enabled.</div>
 <div class="line"><strong>value</strong>: <em>number</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">PWM duty cycle (&gt;0, &lt;100)</div>
@@ -628,11 +628,11 @@
 </div>
 <div class="line"><strong>pwm_off</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Turns PWM off (constant high voltage)</div>
+<div class="line">Turns PWM off (constant high voltage). This command only applies when the charging port is enabled; if disabled, the value must be cached and applied when re-enabled.</div>
 </div>
 <div class="line"><strong>pwm_F</strong>:<em>void</em></div>
 <div class="line-block">
-<div class="line">Turns PWM off with Error F (constant negative voltage)</div>
+<div class="line">Turns PWM off with Error F (constant negative voltage). This command only applies when the charging port is enabled; if disabled, the value must be cached and applied when re-enabled.</div>
 </div>
 <div class="line"><strong>allow_power_on</strong>:<em>void</em></div>
 <div class="line-block">

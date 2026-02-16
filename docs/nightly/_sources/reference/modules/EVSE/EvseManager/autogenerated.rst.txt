@@ -210,6 +210,12 @@ Module Configuration
 | **inoperative_error_use_vendor_id**: *boolean* <optional>
 | *default: False*
 |  When raising evse_manager/Inoperative use the vendor ID from the original cause
+| **voltage_plausibility_max_spread_threshold_V**: *number* <optional>
+| *default: 50.0*
+|  Maximum allowed spread (max-min) in volts between voltage measurements from different sources (power supply, powermeter, isolation monitor, over voltage monitor) before a voltage plausibility fault is triggered. During DC charging, if the spread exceeds this threshold for the configured duration, a fault is raised.
+| **voltage_plausibility_fault_duration_ms**: *integer* <optional>
+| *default: 30000*
+|  Duration in milliseconds for which the spread must exceed the threshold before a voltage plausibility fault is raised. A duration of 0 ms means that a fault will be raised immediately when the threshold is exceeded.
 | **session_id_type**: *string* <optional>
 | *default: "UUID"*
 |  Type to use for generation of session ids. UUID: 36 characters UUIDs UUID_BASE64: 22 characters base64 encoded uuids SHORT_BASE64: 16 characters base64 encoded ids

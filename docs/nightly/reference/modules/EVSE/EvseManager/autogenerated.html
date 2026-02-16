@@ -1174,6 +1174,16 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line-block">
 <div class="line">When raising evse_manager/Inoperative use the vendor ID from the original cause</div>
 </div>
+<div class="line"><strong>voltage_plausibility_max_spread_threshold_V</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 50.0</em></div>
+<div class="line-block">
+<div class="line">Maximum allowed spread (max-min) in volts between voltage measurements from different sources (power supply, powermeter, isolation monitor, over voltage monitor) before a voltage plausibility fault is triggered. During DC charging, if the spread exceeds this threshold for the configured duration, a fault is raised.</div>
+</div>
+<div class="line"><strong>voltage_plausibility_fault_duration_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 30000</em></div>
+<div class="line-block">
+<div class="line">Duration in milliseconds for which the spread must exceed the threshold before a voltage plausibility fault is raised. A duration of 0 ms means that a fault will be raised immediately when the threshold is exceeded.</div>
+</div>
 <div class="line"><strong>session_id_type</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “UUID”</em></div>
 <div class="line-block">

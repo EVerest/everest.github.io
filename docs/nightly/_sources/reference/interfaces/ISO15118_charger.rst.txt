@@ -108,7 +108,7 @@ Variables
 ********
 Commands
 ********
-| **setup**:*void*
+| **setup**: *void*
 |  At startup all necessary info should be sent to the module once.
 |  **evse_id**: *object* <required> (:ref:`iso15118-EVSEID <iso15118-EVSEID>`)
 |   Set an ID that uniquely identifies the EVSE and the power outlet the vehicle is connected to
@@ -116,11 +116,11 @@ Commands
 |   Charger is supporting SAE J2847 V2G/V2H version
 |  **debug_mode**: *boolean* <required>
 |   Enable/Disable debug mode
-| **set_charging_parameters**:*void*
+| **set_charging_parameters**: *void*
 |  At startup, set the the charging parameters at least once. May be updated later on. If a charging session is currently active, some updated values may only be used for the next charging session.
 |  **physical_values**: *object* <required> (:ref:`iso15118-SetupPhysicalValues <iso15118-SetupPhysicalValues>`)
 |   Set up initial physical values for a AC or DC charging session
-| **session_setup**:*void*
+| **session_setup**: *void*
 |  At each session start this info should be sent to the module.
 |  **payment_options**: *array* <required>
 |   Providing a list of payment options to the EVCC
@@ -130,102 +130,102 @@ Commands
 |   The charger supports the certificate installation/update service and has a connection to an SA for this purpose
 |  **central_contract_validation_allowed**: *boolean* <required>
 |   Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case local validation was not successful
-| **bpt_setup**:*void*
+| **bpt_setup**: *void*
 |  At startup, set the bpt setup for ISO15118-20 at least once. May be updated later on.
 |  **bpt_config**: *object* <required> (:ref:`iso15118-BptSetup <iso15118-BptSetup>`)
 |   The required parameters for a BPT setup
-| **set_powersupply_capabilities**:*void*
+| **set_powersupply_capabilities**: *void*
 |  At startup, set the min and max limits from the power supply. Can be updated later on.
 |  **capabilities**: *object* <required> (:ref:`power_supply_DC-Capabilities <power_supply_DC-Capabilities>`)
 |   The required capabilities from the power supply
-| **authorization_response**:*void*
+| **authorization_response**: *void*
 |  This message is an async response to a previously published require_auth_eim or require_auth_pnc. The SECC informs the EVCC whether the authorization is accepted or not.
 |  **authorization_status**: *string* <required> (:ref:`authorization-AuthorizationStatus <authorization-AuthorizationStatus>`)
 |   Authorization status of the ID Token
 |  **certificate_status**: *string* <required> (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
 |   Certificate status information
-| **ac_contactor_closed**:*void*
+| **ac_contactor_closed**: *void*
 |  This message is an async response to a previously published ac_close_contactor or ac_open_contactor.
 |  **status**: *boolean* <required>
 |   Set to true when contactor is closed, false when contactor is open
-| **dlink_ready**:*void*
+| **dlink_ready**: *void*
 |  Signals dlink_ready from SLAC layer according to ISO15118-3
 |  **value**: *boolean* <required>
 |   Set to true when link becomes ready, false when the link is terminated
-| **cable_check_finished**:*void*
+| **cable_check_finished**: *void*
 |  Cable check is finished, voltage is under 20V and insulation resistor on the cable is alright
 |  **status**: *boolean* <required>
 |   Set to true when cable check is okay
-| **receipt_is_required**:*void*
+| **receipt_is_required**: *void*
 |  This element is used by the SECC to indicate that the EVCC is required to send a MeteringReceiptReq message for the purpose of signing the meter info record.
 |  **receipt_required**: *boolean* <required>
 |   Set to true when receipt is required, set to false when not
-| **stop_charging**:*void*
+| **stop_charging**: *void*
 |  Stops the charging process
 |  **stop**: *boolean* <required>
 |   Set to true when to stop, set to false when to continue
-| **pause_charging**:*void*
+| **pause_charging**: *void*
 |  Pause the charging process (only in ISO15118-20)
 |  **pause**: *boolean* <required>
 |   Set to true when to pause, set to false when to continue
-| **no_energy_pause_charging**:*void*
+| **no_energy_pause_charging**: *void*
 |  Right now there is no power available for the charging process. According to IEC61851-23:2023 CC3.5.3 the charger can pause the session before or after the cable check and pre charge stage.
 |  **mode**: *string* <required> (:ref:`iso15118-NoEnergyPauseMode <iso15118-NoEnergyPauseMode>`)
 |   Set to different no energy pause modes. For PauseAfterPrecharge the charger should pause but has power for cable check and pre charge. For PauseBeforeCableCheck the charger should pause before cable check. For AllowEvToIgnorePause charger should ignore, that the ev will go to CurrentDemand instead of pausing the session, this is against IEC61851-23:2023.
-| **update_energy_transfer_modes**:*void*
+| **update_energy_transfer_modes**: *void*
 |  Update the supported energy transfer modes. Call at least once during start up. Typically for ISO15118-2 and basic charging we expect unidirectional charging modes. For ISO15118-20 the user can set what type of modes the hardware supports, may that be bidirectional, unidirectional, wireless, etc charging.
 |  **supported_energy_transfer_modes**: *array* <required>
 |   Available energy transfer modes supported by the EVSE
 |   **array_item**: *object*  (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
 |    The different energy modes supported by the SECC
-| **update_ac_max_current**:*void*
+| **update_ac_max_current**: *void*
 |  Update the maximum allowed line current restriction per phase. Call at least once during start up.
 |  **max_current**: *number* <required>
 |   Max current in A
-| **update_ac_parameters**:*void*
+| **update_ac_parameters**: *void*
 |  Update the d20 initial ac parameters. Call at least once during start up
 |  **ac_parameters**: *object* <required> (:ref:`iso15118-AcParameters <iso15118-AcParameters>`)
 |   Ac parameters the EVSE is setting
-| **update_ac_maximum_limits**:*void*
+| **update_ac_maximum_limits**: *void*
 |  Update the ac maximum limits. Call at least once during start up.
 |  **maximum_limits**: *object* <required> (:ref:`iso15118-AcEvseMaximumPower <iso15118-AcEvseMaximumPower>`)
 |   Maximum values (charge and discharge) the EVSE can deliver
-| **update_ac_minimum_limits**:*void*
+| **update_ac_minimum_limits**: *void*
 |  Update the ac minimum limits. Call at least once during start up.
 |  **minimum_limits**: *object* <required> (:ref:`iso15118-AcEvseMinimumPower <iso15118-AcEvseMinimumPower>`)
 |   Minimum values (charge and discharge) the EVSE can deliver
-| **update_ac_target_values**:*void*
+| **update_ac_target_values**: *void*
 |  Update the ac target values. Call at least once before charging begins.
 |  **target_values**: *object* <required> (:ref:`iso15118-AcTargetValues <iso15118-AcTargetValues>`)
 |   AC target values
-| **update_ac_present_power**:*void*
+| **update_ac_present_power**: *void*
 |  Update the present power from the powermeter. Call at least once before charging begins
 |  **present_power**: *object* <required> (:ref:`units-Power <units-Power>`)
 |   Present active power
-| **update_dc_maximum_limits**:*void*
+| **update_dc_maximum_limits**: *void*
 |  Update the maximum limits. Call at least once during start up.
 |  **maximum_limits**: *object* <required> (:ref:`iso15118-DcEvseMaximumLimits <iso15118-DcEvseMaximumLimits>`)
 |   Maximum values (current, power and voltage) the EVSE can deliver
-| **update_dc_minimum_limits**:*void*
+| **update_dc_minimum_limits**: *void*
 |  Update the minimum limits. Call at least once during start up.
 |  **minimum_limits**: *object* <required> (:ref:`iso15118-DcEvseMinimumLimits <iso15118-DcEvseMinimumLimits>`)
 |   Minimum values (current and voltage) the EVSE can deliver
-| **update_isolation_status**:*void*
+| **update_isolation_status**: *void*
 |  Update the isolation condition
 |  **isolation_status**: *string* <required> (:ref:`iso15118-IsolationStatus <iso15118-IsolationStatus>`)
 |   Result of the isolation monitoring
-| **update_dc_present_values**:*void*
+| **update_dc_present_values**: *void*
 |  Update the present values from the DC powersupply
 |  **present_voltage_current**: *object* <required> (:ref:`iso15118-DcEvsePresentVoltageCurrent <iso15118-DcEvsePresentVoltageCurrent>`)
 |   Present voltage and current
-| **update_meter_info**:*void*
+| **update_meter_info**: *void*
 |  Update meter info
 |  **powermeter**: *object* <required> (:ref:`powermeter-Powermeter <powermeter-Powermeter>`)
 |   Includes the meterInfo record containing the latest meter reading and other meter relevant data
-| **send_error**:*void*
+| **send_error**: *void*
 |  An error has happened. Send this error to inform the EV.
 |  **error**: *string* <required> (:ref:`iso15118-EvseError <iso15118-EvseError>`)
 |   The EVSE error enum
-| **reset_error**:*void*
+| **reset_error**: *void*
 |  Reset all errors
 

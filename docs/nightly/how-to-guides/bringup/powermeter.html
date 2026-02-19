@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -582,7 +582,7 @@ to verify its functionality as well now - even though it is not strictly
 necessary for charging.</p>
 <p>Write a bring-up config for your power meter and start it the same way
 as described in <a class="reference internal" href="index.html#htg-bring-up"><span class="std std-ref">BringUp &amp; Qualification</span></a>. There are a few examples you can copy
-and modify, e.g. “config-bringup-DZG.yaml” or “config-bringup-LEM.yaml”.</p>
+and modify, e.g. <code class="docutils literal notranslate"><span class="pre">config-bringup-DZG.yaml</span></code> or <code class="docutils literal notranslate"><span class="pre">config-bringup-LEM.yaml</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/everest/run_tmux_helper.sh<span class="w"> </span>/etc/everest/bringup/config-bringup-mypowermeter.yaml<span class="w"> </span>/usr
 </pre></div>
 </div>
@@ -591,32 +591,20 @@ and modify, e.g. “config-bringup-DZG.yaml” or “config-bringup-LEM.yaml”.
 <p>Complete the following steps:</p>
 <ul class="simple">
 <li><p>Verify that the measurements come in regularly (e.g. every second).</p></li>
-<li><dl class="simple">
-<dt>Imported energy in Wh and timestamp are the only required values.</dt><dd><p>Verify they are correct. For bidirectional metering, also verify the
-exported energy values.</p>
-</dd>
-</dl>
-</li>
+<li><p>Imported energy in Wh and timestamp are the only required values.
+Verify they are correct. For bidirectional metering, also verify the
+exported energy values.</p></li>
 <li><p>Validate the other reported measurements.</p></li>
-<li><dl class="simple">
-<dt>If supported by the power meter (e.g. for</dt><dd><p><a class="reference internal" href="../eichrecht.html"><span class="doc">German Eichrecht</span></a>), click
+<li><p>If supported by the power meter (e.g. for
+<a class="reference internal" href="../eichrecht.html"><span class="doc">German Eichrecht</span></a>), click
 on “Start Transaction”. Verify that it replies correctly, and verify
-the time to reply is less than a few seconds.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Click on “Stop Transaction” and verify the reply. The reply should</dt><dd><p>not take more than a few seconds.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Apply some test load if possible, and verify that the flow</dt><dd><p>direction of energy is correct. A common mistake is to swap input and
+the time to reply is less than a few seconds.</p></li>
+<li><p>Click on “Stop Transaction” and verify the reply. The reply should
+not take more than a few seconds.</p></li>
+<li><p>Apply some test load if possible, and verify that the flow
+direction of energy is correct. A common mistake is to swap input and
 output of the meter. If you don’t have a test load, you can also test
-this when doing the first charging tests with a real car.</p>
-</dd>
-</dl>
-</li>
+this when doing the first charging tests with a real car.</p></li>
 </ul>
 <hr class="docutils" />
 <p><strong>Authors</strong>: Cornelius Claussen</p>

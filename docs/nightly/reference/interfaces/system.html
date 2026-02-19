@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -596,7 +596,7 @@
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>update_firmware</strong>:<em>string</em></div>
+<div class="line"><strong>update_firmware</strong>: <em>string</em></div>
 <div class="line-block">
 <div class="line">Call to start a firmware update</div>
 <div class="line"><strong>firmware_update_request</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/system.html#system-firmwareupdaterequest"><span class="std std-ref">system-FirmwareUpdateRequest</span></a>)</div>
@@ -608,11 +608,11 @@
 <div class="line">Returns the result of the attempt to update the firmware</div>
 </div>
 </div>
-<div class="line"><strong>allow_firmware_installation</strong>:<em>void</em></div>
+<div class="line"><strong>allow_firmware_installation</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Call to allow a firmware installation to proceed</div>
 </div>
-<div class="line"><strong>upload_logs</strong>:<em>object</em></div>
+<div class="line"><strong>upload_logs</strong>: <em>object</em></div>
 <div class="line-block">
 <div class="line">Call to start a log upload</div>
 <div class="line"><strong>upload_logs_request</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/system.html#system-uploadlogsrequest"><span class="std std-ref">system-UploadLogsRequest</span></a>)</div>
@@ -624,7 +624,7 @@
 <div class="line">Returns the result of the attempt to upload the logs</div>
 </div>
 </div>
-<div class="line"><strong>is_reset_allowed</strong>:<em>boolean</em></div>
+<div class="line"><strong>is_reset_allowed</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Call to determine if a reset of the system is allowed</div>
 <div class="line"><strong>type</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/system.html#system-resettype"><span class="std std-ref">system-ResetType</span></a>)</div>
@@ -636,7 +636,7 @@
 <div class="line">Indicates if the system can be reset</div>
 </div>
 </div>
-<div class="line"><strong>reset</strong>:<em>void</em></div>
+<div class="line"><strong>reset</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Call to reset the system immediately</div>
 <div class="line"><strong>type</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/system.html#system-resettype"><span class="std std-ref">system-ResetType</span></a>)</div>
@@ -648,7 +648,7 @@
 <div class="line">Indicates if this reset command was scheduled or immediately executed. A scheduled reset means that the system was waiting for all transactions to finish before this command was executed. This value is only informational.</div>
 </div>
 </div>
-<div class="line"><strong>set_system_time</strong>:<em>boolean</em></div>
+<div class="line"><strong>set_system_time</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Call to set the system time of EVerest</div>
 <div class="line"><strong>timestamp</strong>: <em>string</em> &lt;required&gt;</div>
@@ -661,7 +661,7 @@
 <div class="line">Returns true if the system time could be set successfully, else false</div>
 </div>
 </div>
-<div class="line"><strong>get_boot_reason</strong>:<em>string</em></div>
+<div class="line"><strong>get_boot_reason</strong>: <em>string</em></div>
 <div class="line-block">
 <div class="line">Call to get the boot reason of the system</div>
 <div class="line"><strong>Result</strong>: <em>string</em>  (<a class="reference internal" href="../types/system.html#system-bootreason"><span class="std std-ref">system-BootReason</span></a>)</div>

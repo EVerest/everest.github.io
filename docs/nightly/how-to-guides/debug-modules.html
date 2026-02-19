@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -585,24 +585,24 @@ debugging enabled. One easy way to achieve this is to call</p>
 </pre></div>
 </div>
 <p>from the root folder of everest-core, assuming you have already created the
-<em>build</em> directory.</p>
+<code class="docutils literal notranslate"><span class="pre">build</span></code> directory.</p>
 </section>
 <section id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Link to this heading">¶</a></h2>
 <p>It is possible to use the GNU Debugger (GDB) to debug a single EVerest module.</p>
 <p>The easiest way is to run the module in standalone mode. Say, for example, you
-want to debug the Auth module for the SIL config (config-sil.yaml).</p>
-<p>Let’s assume you are in directory <em>build/dist</em>.</p>
+want to debug the Auth module for the SIL config (<code class="docutils literal notranslate"><span class="pre">config-sil.yaml</span></code>).</p>
+<p>Let’s assume you are in directory <code class="docutils literal notranslate"><span class="pre">build/dist</span></code>.</p>
 <p>Start the manager with</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./bin/manager<span class="w"> </span>--config<span class="w"> </span>config-sil<span class="w"> </span>--standalone<span class="w"> </span>auth
 </pre></div>
 </div>
 <p>This will start EVerest with the config-sil.yaml as configuration, but it
-won’t start the Auth module (note <em>auth</em> is written small because it is the
+won’t start the Auth module (note <code class="docutils literal notranslate"><span class="pre">auth</span></code> is written small because it is the
 <em>module instance id</em> - this way there can be multiple Auth module instances
 in your config).</p>
 <p>Now you need to start the Auth module manual using gdb. When using
-Visual Studio Code, the debug configuration (launch.json) looks like this:</p>
+Visual Studio Code, the debug configuration (<code class="docutils literal notranslate"><span class="pre">launch.json</span></code>) looks like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
 <span class="w">  </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span>,
 <span class="w">  </span><span class="s2">&quot;configurations&quot;</span>:<span class="w"> </span><span class="o">[</span>
@@ -635,7 +635,7 @@ Visual Studio Code, the debug configuration (launch.json) looks like this:</p>
 </pre></div>
 </div>
 <p>This will then start the Auth module instance.</p>
-<p>Also note the argument <em>–module auth</em>, which again specifies the module
+<p>Also note the argument <code class="docutils literal notranslate"><span class="pre">--module</span> <span class="pre">auth</span></code>, which again specifies the module
 instance id and needs to match the one you’ve used for standalone.</p>
 <p>Now, EVerest will continue to start and breakpoints set in the source file of
 the Auth module should be taken.</p>

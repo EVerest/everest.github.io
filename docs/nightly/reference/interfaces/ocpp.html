@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -620,7 +620,7 @@
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>stop</strong>:<em>boolean</em></div>
+<div class="line"><strong>stop</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Disconnects the websocket connection and stops the OCPP communication. No OCPP messages will be stored and sent after a restart.</div>
 <div class="line"><strong>Result</strong>: <em>boolean</em></div>
@@ -628,7 +628,7 @@
 <div class="line">Returns true if the service could be stopped successfully, else false</div>
 </div>
 </div>
-<div class="line"><strong>restart</strong>:<em>boolean</em></div>
+<div class="line"><strong>restart</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Connects the websocket and enables OCPP communication after a previous stop call.</div>
 <div class="line"><strong>Result</strong>: <em>boolean</em></div>
@@ -636,7 +636,7 @@
 <div class="line">Returns true if the service could be restarted successfully, else false</div>
 </div>
 </div>
-<div class="line"><strong>security_event</strong>:<em>void</em></div>
+<div class="line"><strong>security_event</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Triggers a SecurityEventNotification.req at the CSMS if it is deemed critical, either by setting the flag in this event or if absent automatically by libocpp</div>
 <div class="line"><strong>event</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/ocpp.html#ocpp-securityevent"><span class="std std-ref">ocpp-SecurityEvent</span></a>)</div>
@@ -644,7 +644,7 @@
 <div class="line">A security event</div>
 </div>
 </div>
-<div class="line"><strong>get_variables</strong>:<em>array</em></div>
+<div class="line"><strong>get_variables</strong>: <em>array</em></div>
 <div class="line-block">
 <div class="line">Command to get a variable from OCPP. With OCPP1.6: Retrieves a configuration key. With OCPP2.0.1: Retrieves a variable with value from the device model storage</div>
 <div class="line"><strong>requests</strong>: <em>array</em> &lt;required&gt;</div>
@@ -658,7 +658,7 @@
 <div class="line"><strong>array_item</strong>: <em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-getvariableresult"><span class="std std-ref">ocpp-GetVariableResult</span></a>)</div>
 </div>
 </div>
-<div class="line"><strong>set_variables</strong>:<em>array</em></div>
+<div class="line"><strong>set_variables</strong>: <em>array</em></div>
 <div class="line-block">
 <div class="line">Command to set a variable at OCPP. With OCPP1.6: This command can be used to set configuration keys With OCPP2.0.1: This command can be used to set variables in the device model storage</div>
 <div class="line"><strong>requests</strong>: <em>array</em> &lt;required&gt;</div>
@@ -676,7 +676,7 @@
 <div class="line"><strong>array_item</strong>: <em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-setvariableresult"><span class="std std-ref">ocpp-SetVariableResult</span></a>)</div>
 </div>
 </div>
-<div class="line"><strong>change_availability</strong>:<em>object</em></div>
+<div class="line"><strong>change_availability</strong>: <em>object</em></div>
 <div class="line-block">
 <div class="line">Allows to send a ChangeAvailabilityRequest internally (as can be done by the CSMS).</div>
 <div class="line"><strong>request</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/ocpp.html#ocpp-changeavailabilityrequest"><span class="std std-ref">ocpp-ChangeAvailabilityRequest</span></a>)</div>
@@ -688,7 +688,7 @@
 <div class="line">Response to ChangeAvailabilityRequest as specified in OCPP 2.0.1</div>
 </div>
 </div>
-<div class="line"><strong>monitor_variables</strong>:<em>void</em></div>
+<div class="line"><strong>monitor_variables</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS. Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage</div>
 <div class="line"><strong>component_variables</strong>: <em>array</em> &lt;required&gt;</div>

@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -645,7 +645,7 @@
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>get_evse</strong>:<em>object</em></div>
+<div class="line"><strong>get_evse</strong>: <em>object</em></div>
 <div class="line-block">
 <div class="line">Call to get information about the EVSE including its connectors</div>
 <div class="line"><strong>Result</strong>: <em>object</em>  (<a class="reference internal" href="../types/evse_manager.html#evse-manager-evse"><span class="std std-ref">evse_manager-Evse</span></a>)</div>
@@ -653,7 +653,7 @@
 <div class="line">Object that contains information of the EVSE including its connectors</div>
 </div>
 </div>
-<div class="line"><strong>enable_disable</strong>:<em>boolean</em></div>
+<div class="line"><strong>enable_disable</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Enables or disables the evse. Turns off PWM with error F. Charging is only possible if an EVSE is enabled.</div>
 <div class="line"><strong>connector_id</strong>: <em>integer</em> &lt;required&gt;</div>
@@ -669,7 +669,7 @@
 <div class="line">Returns true if evse is enabled after the command, false if it is disabled. This may not be the same value as the request, since there may be a higher priority request from another source that is actually deciding whether it is enabled or disabled.</div>
 </div>
 </div>
-<div class="line"><strong>authorize_response</strong>:<em>void</em></div>
+<div class="line"><strong>authorize_response</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Reports the result of an authorization request to the EvseManager. Contains the provided_token for which authorization was requested and the validation_result</div>
 <div class="line"><strong>provided_token</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/authorization.html#authorization-providedidtoken"><span class="std std-ref">authorization-ProvidedIdToken</span></a>)</div>
@@ -681,11 +681,11 @@
 <div class="line">The validation result</div>
 </div>
 </div>
-<div class="line"><strong>withdraw_authorization</strong>:<em>void</em></div>
+<div class="line"><strong>withdraw_authorization</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Call to signals that EVSE is not further authorized to start a transaction (e.g. on a connection_timeout)</div>
 </div>
-<div class="line"><strong>reserve</strong>:<em>boolean</em></div>
+<div class="line"><strong>reserve</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Call to signal that EVSE is reserved. This can be used to e.g. change the color of the HMI LEDs to indicate reservation.</div>
 <div class="line"><strong>reservation_id</strong>: <em>integer</em> &lt;required&gt;</div>
@@ -697,11 +697,11 @@
 <div class="line">Returns true if the EVSE accepted the reservation, else false.</div>
 </div>
 </div>
-<div class="line"><strong>cancel_reservation</strong>:<em>void</em></div>
+<div class="line"><strong>cancel_reservation</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Call to signal that EVSE is not reserved anymore</div>
 </div>
-<div class="line"><strong>pause_charging</strong>:<em>boolean</em></div>
+<div class="line"><strong>pause_charging</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Call to signal EVSE to pause charging</div>
 <div class="line"><strong>Result</strong>: <em>boolean</em></div>
@@ -709,7 +709,7 @@
 <div class="line">Returns true if successfully paused or was already in paused_by_evse mode</div>
 </div>
 </div>
-<div class="line"><strong>resume_charging</strong>:<em>boolean</em></div>
+<div class="line"><strong>resume_charging</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Call to signal EVSE to resume charging</div>
 <div class="line"><strong>Result</strong>: <em>boolean</em></div>
@@ -717,7 +717,7 @@
 <div class="line">Returns true if resume was successful, false otherwise (e.g. resuming a car pause won’t work)</div>
 </div>
 </div>
-<div class="line"><strong>stop_transaction</strong>:<em>boolean</em></div>
+<div class="line"><strong>stop_transaction</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Stops transaction and cancels charging externally, charging can only be resumed by replugging car. EVSE will also stop transaction automatically e.g. on disconnect, so this only needs to be called if the transaction should end before.</div>
 <div class="line"><strong>request</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/evse_manager.html#evse-manager-stoptransactionrequest"><span class="std std-ref">evse_manager-StopTransactionRequest</span></a>)</div>
@@ -729,7 +729,7 @@
 <div class="line">Returns true if successful</div>
 </div>
 </div>
-<div class="line"><strong>force_unlock</strong>:<em>boolean</em></div>
+<div class="line"><strong>force_unlock</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">Forces connector to unlock connector now. During normal operation, connector will be locked/unlocked in the correct sequence. Do not use this function except if explicitly requested by e.g. management cloud.</div>
 <div class="line"><strong>connector_id</strong>: <em>integer</em> &lt;required&gt;</div>
@@ -741,7 +741,7 @@
 <div class="line">Returns true if unlocking command was accepted, or false if it is not supported. It does not reflect the success/failure of the actual unlocking. If unlocking fails, the connector_lock interface shall raise an error asynchronously.</div>
 </div>
 </div>
-<div class="line"><strong>external_ready_to_start_charging</strong>:<em>boolean</em></div>
+<div class="line"><strong>external_ready_to_start_charging</strong>: <em>boolean</em></div>
 <div class="line-block">
 <div class="line">There are situations where another module needs to do some initialization after evse manager is in principle ready to start charging. This command can be used (optimally in combination with a configuration option) to delay charging ready until the external module is done with its initialization</div>
 <div class="line"><strong>Result</strong>: <em>boolean</em></div>
@@ -749,7 +749,7 @@
 <div class="line">Returns true if the signal was used by the evse manager implementation</div>
 </div>
 </div>
-<div class="line"><strong>set_plug_and_charge_configuration</strong>:<em>void</em></div>
+<div class="line"><strong>set_plug_and_charge_configuration</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Sets the configuration required for ISO15118 to handle contract authorization.</div>
 <div class="line"><strong>plug_and_charge_configuration</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/evse_manager.html#evse-manager-plugandchargeconfiguration"><span class="std std-ref">evse_manager-PlugAndChargeConfiguration</span></a>)</div>
@@ -757,7 +757,7 @@
 <div class="line">The plug and charge configuration object</div>
 </div>
 </div>
-<div class="line"><strong>update_allowed_energy_transfer_modes</strong>:<em>string</em></div>
+<div class="line"><strong>update_allowed_energy_transfer_modes</strong>: <em>string</em></div>
 <div class="line-block">
 <div class="line">Sets the supported energy transfer mode for ISO15118. It is expected that this command will update the ISO15118 software stack to only propose the list of allowed_energy_transfer_modes presented in this message. If a transaction is already in progress, it is expected that this triggers a service renegotiation. If no HLC is present, this will be accepted, but do nothing.</div>
 <div class="line"><strong>allowed_energy_transfer_modes</strong>: <em>array</em> &lt;required&gt;</div>

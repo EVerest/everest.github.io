@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -600,16 +600,27 @@ using <a class="reference external" href="https://docs.python.org/3/library/venv
 </pre></div>
 </div>
 </section>
+<section id="python-packages-needed-to-run-edm">
+<h3>Python packages needed to run edm<a class="headerlink" href="#python-packages-needed-to-run-edm" title="Link to this heading">¶</a></h3>
+<p>The following Python3 packages are needed to run <strong>edm</strong>. If you install edm
+using this guide they will be installed automatically.</p>
+<ul class="simple">
+<li><p>Python &gt;= 3.6</p></li>
+<li><p>Jinja2 &gt;= 3.0</p></li>
+<li><p>PyYAML &gt;= 5.4</p></li>
+</ul>
+</section>
 <section id="installing-edm">
 <h3>Installing edm<a class="headerlink" href="#installing-edm" title="Link to this heading">¶</a></h3>
 <p>Now you can clone this repository and install <strong>edm</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-dev-environment
-<span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
-python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-core
+<span class="nb">cd</span><span class="w"> </span>everest-core/applications/dev-environment/dependency_manager
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--break-system-packages
+
 edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
 </pre></div>
 </div>
-<p>The last command creates a workspace in the <em>~/checkout/everest-workspace</em>
+<p>The last command creates a workspace in the <code class="docutils literal notranslate"><span class="pre">~/checkout/everest-workspace</span></code>
 directory from the most recent release of EVerest. If you want the most recent
 main you can use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>main<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
@@ -645,7 +656,7 @@ this workspace.</p>
 <p>The EVerest dependency manager uses
 <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a>
 for its CMake integration. This means you <em>can</em> and <strong>should</strong> set the
-<em>CPM_SOURCE_CACHE</em> environment variable. This makes sure that dependencies
+<code class="docutils literal notranslate"><span class="pre">CPM_SOURCE_CACHE</span></code> environment variable. This makes sure that dependencies
 that you do not manage in the workspace are not re-downloaded multiple times.
 For detailed information and other useful environment variables please
 refer to the <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake/blob/master/README.md#CPM_SOURCE_CACHE">CPM Documentation</a>.</p>
@@ -666,16 +677,6 @@ cmake<span class="w"> </span>..
 make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>install
 </pre></div>
 </div>
-</section>
-<section id="python-packages-needed-to-run-edm">
-<h3>Python packages needed to run edm<a class="headerlink" href="#python-packages-needed-to-run-edm" title="Link to this heading">¶</a></h3>
-<p>The following Python3 packages are needed to run <strong>edm</strong>. If you installed edm
-using the guide above they were already installed automatically.</p>
-<ul class="simple">
-<li><p>Python &gt;= 3.6</p></li>
-<li><p>Jinja2 &gt;= 3.0</p></li>
-<li><p>PyYAML &gt;= 5.4</p></li>
-</ul>
 </section>
 </section>
 <section id="setting-up-and-updating-a-workspace">
@@ -707,14 +708,17 @@ CMakeLists.txt file in the respective source repository:</p>
 <p>To define dependencies you can now add a dependencies.yaml file to your source
 repository. It should look like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---
-liblog:
-<span class="w">  </span>git:<span class="w"> </span>https://github.com/EVerest/liblog
-<span class="w">  </span>git_tag:<span class="w"> </span>main
-<span class="w">  </span>options:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;BUILD_EXAMPLES OFF&quot;</span><span class="o">]</span>
-libtimer:
-<span class="w">  </span>git:<span class="w"> </span>https://github.com/EVerest/libtimer
-<span class="w">  </span>git_tag:<span class="w"> </span>main
-<span class="w">  </span>options:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;BUILD_EXAMPLES OFF&quot;</span><span class="o">]</span>
+sigslot:
+<span class="w">  </span>git:<span class="w"> </span>https://github.com/palacaze/sigslot
+<span class="w">  </span>git_tag:<span class="w"> </span>v1.2.3
+<span class="w">  </span>cmake_condition:<span class="w"> </span><span class="s2">&quot;EVEREST_DEPENDENCY_ENABLED_SIGSLOT&quot;</span>
+<span class="w">  </span>options:
+<span class="w">    </span>-<span class="w"> </span><span class="s2">&quot;SIGSLOT_COMPILE_EXAMPLES OFF&quot;</span>
+<span class="w">    </span>-<span class="w"> </span><span class="s2">&quot;SIGSLOT_COMPILE_TESTS OFF&quot;</span>
+pugixml:
+<span class="w">  </span>git:<span class="w"> </span>https://github.com/zeux/pugixml
+<span class="w">  </span>git_tag:<span class="w"> </span>v1.15
+<span class="w">  </span>cmake_condition:<span class="w"> </span><span class="s2">&quot;EVEREST_DEPENDENCY_ENABLED_PUGIXML&quot;</span>
 </pre></div>
 </div>
 <p>If you want to conditionally include some dependencies, e.g. for testing, you can
@@ -727,21 +731,21 @@ do this in the following way:</p>
 </div>
 <p>Here <em>cmake_condition</em> can be any string that CMake can use in an if() block.
 Please be aware that any variables you use here must be defined before a call to
-<em>evc_setup_edm()</em> is made in your CMakeLists.txt</p>
-<p>Additionally you can set the <em>EVEREST_MODIFY_DEPENDENCIES</em> environment variable
-to a file containing modifications to the projects dependencies.yaml files when
+<em>evc_setup_edm()</em> is made in your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code></p>
+<p>Additionally you can set the <code class="docutils literal notranslate"><span class="pre">EVEREST_MODIFY_DEPENDENCIES</span></code> environment variable
+to a file containing modifications to the projects <code class="docutils literal notranslate"><span class="pre">dependencies.yaml</span></code> files when
 running cmake:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EVEREST_MODIFY_DEPENDENCIES</span><span class="o">=</span>../dependencies_modified.yaml<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
 </pre></div>
 </div>
-<p>The <em>dependencies_modified.yaml</em> file can contain something along these lines:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dependencies_modified.yaml</span></code> file can contain something along these lines:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nlohmann_json:
-<span class="w">  </span>git:<span class="w"> </span>null<span class="w"> </span><span class="c1"># this makes edm look for nlohmann_json via find_package</span>
+<span class="w">  </span>git:<span class="w"> </span>null<span class="w">       </span><span class="c1"># this makes edm look for nlohmann_json via find_package</span>
 libfmt:
-<span class="w">  </span>rename:<span class="w"> </span>fmt<span class="w"> </span><span class="c1"># if find_package needs a different dependency name you can rename it</span>
+<span class="w">  </span>rename:<span class="w"> </span>fmt<span class="w">     </span><span class="c1"># if find_package needs a different dependency name you can rename it</span>
 <span class="w">  </span>git:<span class="w"> </span>null
 catch2:
-<span class="w">  </span>git_tag:<span class="w"> </span>v1.2.3<span class="w"> </span><span class="c1"># if you want to select a different git tag for a build this is also possible</span>
+<span class="w">  </span>git_tag:<span class="w"> </span>v1.2.3<span class="w"> </span><span class="c1"># select a different git tag for a build</span>
 </pre></div>
 </div>
 </section>
@@ -760,7 +764,7 @@ file. You can do this with the following command:</p>
 remotes to this list as you want.</p>
 <p>For example, if you only want to include certain repositories you can use the
 following command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml<span class="w"> </span>--include-remotes<span class="w"> </span>https://github.com/EVerest/everest*<span class="w"> </span>https://github.com/EVerest/liblog.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>--create-config<span class="w"> </span>custom-config.yaml<span class="w"> </span>--include-remotes<span class="w"> </span>https://github.com/EVerest/everest*<span class="w"> </span>https://github.com/EVerest/ext-switchev-iso15118.git
 </pre></div>
 </div>
 <p>If you want to include all repositories, including external dependencies, in
@@ -856,10 +860,10 @@ the following command:</p>
 <li><a class="reference internal" href="#">edm</a><ul>
 <li><a class="reference internal" href="#dependency-manager-for-everest">Dependency Manager for EVerest</a><ul>
 <li><a class="reference internal" href="#install-and-quick-start">Install and Quick Start</a></li>
+<li><a class="reference internal" href="#python-packages-needed-to-run-edm">Python packages needed to run edm</a></li>
 <li><a class="reference internal" href="#installing-edm">Installing edm</a></li>
 <li><a class="reference internal" href="#enabling-cpm-source-cache-and-setting-path">Enabling CPM_SOURCE_CACHE and setting PATH</a></li>
 <li><a class="reference internal" href="#building-everest">Building EVerest</a></li>
-<li><a class="reference internal" href="#python-packages-needed-to-run-edm">Python packages needed to run edm</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#setting-up-and-updating-a-workspace">Setting up and updating a workspace</a></li>

@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -652,19 +652,23 @@ sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> <
 libraries and tools that are distributed across multiple EVerest repositories.</p>
 <p>The EVerest Dependency Manager - short <code class="docutils literal notranslate"><span class="pre">edm</span></code> - helps you with orchestrating and pulling in
 the dependencies in the build process of <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>.</p>
-<p>To start with that, let’s get <cite>edm</cite> ready to work.</p>
-<p>You will first of all need to pull <cite>everest-dev-environment</cite> to your
+<p>To start with that, let’s get <code class="docutils literal notranslate"><span class="pre">edm</span></code> ready to work.</p>
+<p>You will first of all need to pull <code class="docutils literal notranslate"><span class="pre">everest-dev-environment</span></code> to your
 development environment.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-dev-environment
-<span class="nb">cd</span><span class="w"> </span>everest-dev-environment/dependency_manager
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/everest/everest-core.git
+<span class="nb">cd</span><span class="w"> </span>everest-core/applications/dev-environment/dependency_manager
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--break-system-packages
+</pre></div>
+</div>
+<p>or in short</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/everest/everest-core.git@main#subdirectory<span class="o">=</span>applications/dev-environment/dependency_manager<span class="w"> </span>--break-system-packages
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Alternatively, you can also install <cite>edm</cite> in a python virtual environment.
+<p>Alternatively, you can also install <code class="docutils literal notranslate"><span class="pre">edm</span></code> in a python virtual environment.
 Make sure edm is available in your PATH after the installation.You can verify
-this by running <cite>edm –version</cite>.</p>
+this by running <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">edm</span></code> uses <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a> for its CMake
 integration. This means you can and should set the <cite>CPM_SOURCE_CACHE</cite> environment
@@ -682,7 +686,7 @@ environment variables please refer to the
 <p>We can now continue to build <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-core
 mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-cmake<span class="w"> </span>..
+cmake<span class="w"> </span>../everest-core/
 make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>install
 </pre></div>
 </div>
@@ -704,7 +708,7 @@ If not, see install instructions for <a class="reference external" href="https:/
 </div>
 <p>In order for custom or local containers being able to talk to the services,
 provided by the docker-compose containers, we need to create a common docker
-network. It is called <cite>infranet_network</cite> and needs to be created by the
+network. It is called <code class="docutils literal notranslate"><span class="pre">infranet_network</span></code> and needs to be created by the
 following command (IPv6 is enabled for containers which might need it):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>bridge<span class="w"> </span>--ipv6<span class="w">  </span>--subnet<span class="w"> </span>fd00::/80<span class="w"> </span>infranet_network<span class="w"> </span>--attachable
 </pre></div>
@@ -723,7 +727,7 @@ chapter.</p>
 software-in-the-loop configuration. This means that all hardware related
 parts like Powermeter, RFID-Reader are loaded as simulated modules.
 Also the Electric Vehicle simulations run as part of EVerest.</p>
-<p>Change to the directory <cite>everest-core/build</cite>, which has been created during
+<p>Change to the directory <code class="docutils literal notranslate"><span class="pre">everest-core/build</span></code>, which has been created during
 EVerest install.</p>
 <p>Since the EVerest config we are going to use includes ISO15118 functionality on the EV
 side, we need to source the preinstalled virtual environment and install the respective
@@ -823,7 +827,7 @@ entities in <code class="docutils literal notranslate"><span class="pre">everest
 <p>Of course, you can change the functionality of those modules or add your
 custom ones to the whole module stack.</p>
 <p>In simple terms, a new module can be created by describing its structure
-via a manifest file and interface files. After that, an EVerest helper tool (ev-cli)
+via a manifest file and interface files. After that, an EVerest helper tool (<a class="reference internal" href="../../explanation/dev-tools/ev-cli.html#exp-dev-tools-evcli"><span class="std std-ref">ev-cli</span></a>)
 will create the necessary files as stub files, so that you can implement the
 details. The EVerest framework will also know how the modules can be connected
 by the restrictions you set in the manifest.</p>
@@ -867,7 +871,7 @@ section.</p>
 <p>Line 11 starts with the requirements of your own module. This is the other
 side: Your module tells the EVerest module framework which implementations it
 will require to work.</p>
-<p>With the <cite>min_connections</cite> and <cite>max_connections</cite> keys you can configure how
+<p>With the <code class="docutils literal notranslate"><span class="pre">min_connections</span></code> and <code class="docutils literal notranslate"><span class="pre">max_connections</span></code> keys you can configure how
 many connections are required or allowed for your module.</p>
 <p>In EVerest, you find a manifest file for each module. See the module
 directories in <em>everest-core/modules</em>.</p>
@@ -923,8 +927,8 @@ of simple data-types grouped inside of one logical unit) for publishing.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In some yaml interface files in the EVerest GitHub project, you will still
-find an additional type attribute besides a <cite>$ref</cite> attribute. In most cases,
-the type will be of value <cite>object</cite>. This is considered bad practice and will
+find an additional type attribute besides a <code class="docutils literal notranslate"><span class="pre">$ref</span></code> attribute. In most cases,
+the type will be of value <code class="docutils literal notranslate"><span class="pre">object</span></code>. This is considered bad practice and will
 be deprecated in future versions.</p>
 </div>
 <p>Let’s have a look at a type definition in the next section.</p>
@@ -956,15 +960,15 @@ documentation in the <a class="reference internal" href="../../reference/index.h
 <p>You can see one defined type here. It has two properties. A property could
 again be another type reference.</p>
 <p>Now, as we have defined everything, it is time to let the EVerest command line
-interface - the ev-cli tool - generate the implementation stubs.</p>
+interface - the <a class="reference internal" href="../../explanation/dev-tools/ev-cli.html#exp-dev-tools-evcli"><span class="std std-ref">ev-cli tool</span></a> - generate the implementation stubs.</p>
 </section>
 </section>
 <section id="generate-the-stub-files">
 <h3>Generate the stub files<a class="headerlink" href="#generate-the-stub-files" title="Link to this heading">¶</a></h3>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> to generate stub files for a module. Everything that you need
-is a module directory within <cite>everest-core/modules</cite> containing a <cite>manifest.yaml</cite> file
+is a module directory within <code class="docutils literal notranslate"><span class="pre">everest-core/modules</span></code> containing a <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code> file
 described above.</p>
-<p>Assuming the module is defined inside the <cite>EVSE</cite> directory you can use ev-cli to create
+<p>Assuming the module is defined inside the <code class="docutils literal notranslate"><span class="pre">EVSE</span></code> directory you can use <a class="reference internal" href="../../explanation/dev-tools/ev-cli.html#exp-dev-tools-evcli"><span class="std std-ref">ev-cli</span></a> to create
 the module skeleton like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli<span class="w"> </span>mod<span class="w"> </span>create<span class="w"> </span>EVSE/MyModuleName
 </pre></div>
@@ -974,12 +978,12 @@ the module skeleton like this:</p>
 <span class="kt">void</span><span class="w"> </span><span class="nf">MyModuleName::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 </pre></div>
 </div>
-<p>When initialising, the EVerest framework will call all init() functions of all
+<p>When initialising, the EVerest framework will call all <code class="docutils literal notranslate"><span class="pre">init()</span></code> functions of all
 modules one after the other. After having initialised all modules in that way,
-the framework calls the ready() functions.</p>
+the framework calls the <code class="docutils literal notranslate"><span class="pre">ready()</span></code> functions.</p>
 <p>This allows you to do setup things that relate only to your current module in
-the init() function and all stuff requiring other modules being initialised in
-your ready() function.</p>
+the <code class="docutils literal notranslate"><span class="pre">init()</span></code> function and all stuff requiring other modules being initialised in
+your <code class="docutils literal notranslate"><span class="pre">ready()</span></code> function.</p>
 <p>Furthermore, you will get generated files for all interfaces that you
 declared to be implemented in your module. Those interface files will contain
 handler methods for the CMDs you have declared in the interface files.</p>

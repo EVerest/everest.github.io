@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -611,7 +611,7 @@ that you can modify to use the correct BSP driver for your hardware:</p>
 </pre></div>
 </div>
 <p>Before you start the bring-up, make sure there is no other EVerest
-instance running (e.g. do a <em>systemctl stop everest</em>).</p>
+instance running (e.g. do a <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">stop</span> <span class="pre">everest</span></code>).</p>
 <p>On the target, start it the following way:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/everest/run_tmux_helper.sh<span class="w"> </span>/etc/everest/bringup/config-bringup-yetidriver.yaml<span class="w"> </span>/usr
 </pre></div>
@@ -631,57 +631,39 @@ charging.</p>
 This should output constant +12 V on the CP line.</p>
 </div>
 <ul>
-<li><dl>
-<dt>Select AC coupling on the scope and verify the ripple noise. There</dt><dd><p>is no hard limit, but we recommend keeping it below 100 mV VPP.</p>
+<li><p>Select AC coupling on the scope and verify the ripple noise. There
+is no hard limit, but we recommend keeping it below 100 mV VPP.</p>
 <a class="reference internal image-reference" href="../../_images/constant-cp-line.png"><img alt="Constant CP Line" src="../../_images/constant-cp-line.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>Switch to DC coupling, measure DC voltage range. It must be +12 V</dt><dd><p>+/- 5% (11.4 V to 12.6 V). Use a multimeter if your scope does not
-provide sufficient DC accuracy.</p>
-</dd>
-</dl>
-</li>
+<li><p>Switch to DC coupling, measure DC voltage range. It must be +12 V
++/- 5% (11.4 V to 12.6 V). Use a multimeter if your scope does not
+provide sufficient DC accuracy.</p></li>
 </ul>
 <p>Now select PWM State F. This outputs constant -12 V on the CP line.</p>
 <ul class="simple">
-<li><dl class="simple">
-<dt>Select AC coupling on the scope and verify the ripple noise. There</dt><dd><p>is no hard limit, but we recommend keeping it below 100 mV.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Switch back to DC coupling, measure DC voltage range. It must be</dt><dd><p>-12 V +/- 5% (-12.6 V to -11.4 V). Use a multimeter if your scope
-does not provide sufficient DC accuracy.</p>
-</dd>
-</dl>
-</li>
+<li><p>Select AC coupling on the scope and verify the ripple noise. There
+is no hard limit, but we recommend keeping it below 100 mV.</p></li>
+<li><p>Switch back to DC coupling, measure DC voltage range. It must be
+-12 V +/- 5% (-12.6 V to -11.4 V). Use a multimeter if your scope
+does not provide sufficient DC accuracy.</p></li>
 </ul>
 <p>Select <em>PWM on</em> with a duty cycle of 5%, and connect the EV on the
 simulator (State B). Note that the images below were done in state A,
 but you should use state B.</p>
 <ul>
-<li><dl>
-<dt>PWM frequency: Must be in the range 980 Hz - 1020 Hz. It should be</dt><dd><p>1000 Hz.</p>
+<li><p>PWM frequency: Must be in the range 980 Hz - 1020 Hz. It should be
+1000 Hz.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-1.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-1.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>Measure the (high) pulse length for the 5% duty cycle. Measure the</dt><dd><p>time between the zero crossings. It should be 50 µs.</p>
+<li><p>Measure the (high) pulse length for the 5% duty cycle. Measure the
+time between the zero crossings. It should be 50 µs.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-2.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-2.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>Equivalent source resistance: 970 - 1030 Ohm. Using a 1% 1-kOhm</dt><dd><p>resistor should be sufficient to fulfill this requirement if the
-output of the PWM generator is low impedance.</p>
-</dd>
-</dl>
-</li>
-<li><dl>
-<dt>Set state B and verify that the PWM duty cycle can be set to any</dt><dd><p>value between 5% (HLC) and the maximum current value your EVSE
+<li><p>Equivalent source resistance: 970 - 1030 Ohm. Using a 1% 1-kOhm
+resistor should be sufficient to fulfill this requirement if the
+output of the PWM generator is low impedance.</p></li>
+<li><p>Set state B and verify that the PWM duty cycle can be set to any
+value between 5% (HLC) and the maximum current value your EVSE
 supports (e.g. 53.3% for 32 A for AC). For AC, the maximum PWM for
 your application can be calculated with:</p>
 <div class="math-wrapper docutils container">
@@ -690,65 +672,44 @@ your application can be calculated with:</p>
 </div>
 <p>For DC, it is always 5%. The range from 5% to
 10% is not used and it is ok to not support PWM in that range.</p>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>Set state B, which will have a PWM voltage range from +9 V to -12</dt><dd><p>V. Verify rise time is below 10 µs from 10% (-9.9 V) to 90% (6.9 V)
+<li><p>Set state B, which will have a PWM voltage range from +9 V to -12
+V. Verify rise time is below 10 µs from 10% (-9.9 V) to 90% (6.9 V)
 of the signal. The example has a rise time of 4.3 µs.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-3.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-3.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>State B: Verify fall time is less than 13 µs. As you can see in the</dt><dd><p>screenshot, the fall time is 10.68 µs, which is longer than the open
+<li><p>State B: Verify fall time is less than 13 µs. As you can see in the
+screenshot, the fall time is 10.68 µs, which is longer than the open
 circuit time due to the diode in the EV simulator.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-4.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-4.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>Set state C. Verify rise time is below 7 µs from 10% (-10.2 V) to</dt><dd><p>90% (4.2 V) of the signal. The example has a rise time of 3.08 µs.</p>
+<li><p>Set state C. Verify rise time is below 7 µs from 10% (-10.2 V) to
+90% (4.2 V) of the signal. The example has a rise time of 3.08 µs.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-5.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-5.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>State C: Fall time must be less than 13 µs from 90% (4.2 V) to 10%</dt><dd><p>(-10.2 V) of the signal. The example has a fall time of 12 µs which
+<li><p>State C: Fall time must be less than 13 µs from 90% (4.2 V) to 10%
+(-10.2 V) of the signal. The example has a fall time of 12 µs which
 is in range.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-6.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-6.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl>
-<dt>Set State E (sometimes called <em>CP Error</em> or so). The CP signal</dt><dd><p>should be at 0 V constantly according to the norm. Some EV simulators
+<li><p>Set State E (sometimes called <em>CP Error</em> or so). The CP signal
+should be at 0 V constantly according to the norm. Some EV simulators
 only short after the diode as seen in the screenshot. Make sure that
 your CP detection circuitry also treats that as state E.</p>
 <a class="reference internal image-reference" href="../../_images/pwm-freq-7.png"><img alt="PWM Frequency" src="../../_images/pwm-freq-7.png" style="width: 560px;" /></a>
-</dd>
-</dl>
 </li>
-<li><dl class="simple">
-<dt>Test diode failure detection: Short the diode on the EV side. Many</dt><dd><p>off-the-shelf EV simulators can be easily modified with an extra push
+<li><p>Test diode failure detection: Short the diode on the EV side. Many
+off-the-shelf EV simulators can be easily modified with an extra push
 button if it is not included already. Verify that the BSP throws an
-error (DiodeFault)</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Test short state changes: Toggle between states B, C, B quickly to</dt><dd><p>produce a short time in state C (about 200 ms or less). The short
+error (DiodeFault)</p></li>
+<li><p>Test short state changes: Toggle between states B, C, B quickly to
+produce a short time in state C (about 200 ms or less). The short
 state C should be reliably reported to EVerest. It is a common issue
 that the safety MCU filters out state durations that are too short.
 This will cause issues with the BCB toggle wakeup sequence detection
-of ISO 15118-3.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Disconnect PE between EV and EVSE. This should be detected as an</dt><dd><p>error or state A.</p>
-</dd>
-</dl>
-</li>
+of ISO 15118-3.</p></li>
+<li><p>Disconnect PE between EV and EVSE. This should be detected as an
+error or state A.</p></li>
 </ul>
 <p>Now that the basic functionality is working, test stability of the state
 detection. Most cheap EV simulators only use the nominal resistor values
@@ -846,48 +807,33 @@ as over-temperature etc.</p>
 <p>If the safety MCU receives a force power off from EVerest, it shall
 open the relay immediately.</p>
 <p>Complete the following checklist:</p>
-<ul>
-<li><div class="line-block">
-<div class="line">☐ State A, PWM off, force power off. Set State B then enable PWM 5%
-and then C.</div>
-<div class="line">Then allow power on. Relays should switch on within a short period
+<ul class="simple">
+<li><p>State A, PWM off, force power off. Set State B then enable PWM 5%
+and then C.
+Then allow power on. Relays should switch on within a short period
 of time after sending allow power on. You should see a “Power On”
 event (the time between “Allow power on” and the “Power On”
 feedback event should be short, e.g. less than 300 ms or so, no
 hard limit here). Click on “Force power off”. You should see a
 “Power Off” (same timings as above). These timings should be short
 - see below. You can click “Power On/Off” a couple of times and
-verify the timing of the feedback.</div>
-</div>
-</li>
-<li><dl class="simple">
-<dt>Toggle the relay on and off a couple of times and observe the</dt><dd><p>PowerOn/PowerOff events. There should be exactly one event for each
+verify the timing of the feedback.</p></li>
+<li><p>Toggle the relay on and off a couple of times and observe the
+PowerOn/PowerOff events. There should be exactly one event for each
 on or off switching of the relay. Make sure that there are not
 multiple PowerOn/PowerOff/PowerOn events being generated because the
-relay is bouncing.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>State A, PWM off, state State B. Then enable PWM 5%, allow <em>power on</em>.</dt><dd><p>Relay should not close. Wait a few seconds, then set state C.
+relay is bouncing.</p></li>
+<li><p>State A, PWM off, state State B. Then enable PWM 5%, allow <em>power on</em>.
+Relay should not close. Wait a few seconds, then set state C.
 Relay should close immediately after entering state C. Ignore the
 time shown on the “Power On” event. It measures the time from the
-last “Allow power on” command to feedback.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>State C, PWM 5%, Relay closed. Then set state B. Relay should open</dt><dd><p>immediately (max 100 ms). Go back to state C. Relay should close
-again. (IEC 61851-1:2017 Table A.6: Sequence 8.1)</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>State C, PWM 5%, Relay closed. Then stop PWM but stay in state C.</dt><dd><p>Relay should open after a minimum of 6 seconds. (IEC 61851-1:2017
-Table A.6: Sequence 10.2)</p>
-</dd>
-</dl>
-</li>
+last “Allow power on” command to feedback.</p></li>
+<li><p>State C, PWM 5%, Relay closed. Then set state B. Relay should open
+immediately (max 100 ms). Go back to state C. Relay should close
+again. (IEC 61851-1:2017 Table A.6: Sequence 8.1)</p></li>
+<li><p>State C, PWM 5%, Relay closed. Then stop PWM but stay in state C.
+Relay should open after a minimum of 6 seconds. (IEC 61851-1:2017
+Table A.6: Sequence 10.2)</p></li>
 </ul>
 <p>Timing on closing relays is quite relaxed, but ISO 15118 has a limit of
 one second from the ISO command to switch on to the ISO feedback that it

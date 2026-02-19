@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -593,8 +593,8 @@ components and a prototype hardware should be in place.</p>
 environment:</p>
 <ul class="simple">
 <li><p>Working cross compiler on your PC to do fast updates of your code
-(e.g. with <em>rsync</em> to the target). On Yocto, use <em>bitbake -c
-populate_sdk my-image</em> to generate the SDK.</p></li>
+(e.g. with <em>rsync</em> to the target). On Yocto, use <code class="docutils literal notranslate"><span class="pre">bitbake</span> <span class="pre">-c</span>
+<span class="pre">populate_sdk</span> <span class="pre">my-image</span></code> to generate the SDK.</p></li>
 <li><p>SSH to the target</p></li>
 <li><p>Ensure the hardware interfaces to all components are up and running</p></li>
 <li><p>Include “tmux” in your image</p></li>
@@ -623,8 +623,8 @@ parameter points to the EVerest installation to use.</p>
 </div>
 <p>The second argument now points to the EVerest version installed in the
 base Yocto system. If you use a cross-compiled development version
-installed under <em>/var/everest</em>, simply set the second argument to
-<em>/var/everest</em>.</p>
+installed under <code class="docutils literal notranslate"><span class="pre">/var/everest</span></code>, simply set the second argument to
+<code class="docutils literal notranslate"><span class="pre">/var/everest</span></code>.</p>
 <p>You should see a split-screen setup (using tmux) similar to this:</p>
 <img alt="Bring-Up Split-Screen" src="../../_images/bring-up-split-screen.png" />
 <p>In the left pane, EVerest is running all modules except for the two
@@ -632,12 +632,12 @@ BringUp modules. They are running in their own shell. Mouse support
 should be working and you can click on the buttons.</p>
 <p>E.g., click on “Start Measurements” and check that new isolation
 measurements are coming in roughly every second.</p>
-<p>To exit the tmux session, press <em>Ctrl+B</em> and then <em>d</em>. Normally with
+<p>To exit the tmux session, press <code class="docutils literal notranslate"><span class="pre">Ctrl+B</span></code> and then <code class="docutils literal notranslate"><span class="pre">d</span></code>. Normally with
 tmux, this puts the session running into the background but it keeps
-running. The <em>run_tmux_helper.sh</em> script will take care of ending the
+running. The <code class="docutils literal notranslate"><span class="pre">run_tmux_helper.sh</span></code> script will take care of ending the
 session properly here and cleaning up.</p>
 <p>Have a look at the config file that it is using
-(<em>config/bringup/config-bringup-isolation-monitor-sil.yaml</em>):</p>
+(<code class="docutils literal notranslate"><span class="pre">config/bringup/config-bringup-isolation-monitor-sil.yaml</span></code>):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
 <span class="w"> </span><span class="nt">bsp_ui</span><span class="p">:</span>
 <span class="w">   </span><span class="nt">standalone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>

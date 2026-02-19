@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -602,7 +602,7 @@
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h2>
 <div class="line-block">
-<div class="line"><strong>set_limits</strong>:<em>void</em></div>
+<div class="line"><strong>set_limits</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Set the overvoltage limits. It will be called any time the voltage limits change, independent of  whether the monitoring is currently active or not. The values shall be cached, and the last value received shall be used as threshold while monitoring is active.</div>
 <div class="line"><strong>emergency_over_voltage_limit_V</strong>: <em>number</em> &lt;required&gt;</div>
@@ -614,15 +614,15 @@
 <div class="line">Specifies the over voltage threshold [V] for error shutdown (for use with IEC61851-23:2023 Table 104). An error shutdown shall be triggered if the DC output voltage is higher  than this value. The OVM shall trigger an emergency shutdown if error shutdown does not work properly (after 2.5s, see CC.3.4.2).</div>
 </div>
 </div>
-<div class="line"><strong>start</strong>:<em>void</em></div>
+<div class="line"><strong>start</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Start monitoring. Called once at the beginning of power transfer. Use the last limits set by set_limits and make sure to update them when set_limits is called while monitoring is active. Trigger shutdowns and raise errors as needed.</div>
 </div>
-<div class="line"><strong>stop</strong>:<em>void</em></div>
+<div class="line"><strong>stop</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Stop monitoring. Called once at the end of power transfer. Do not raise any over voltage errors or trigger any shutdowns in this mode.</div>
 </div>
-<div class="line"><strong>reset_over_voltage_error</strong>:<em>void</em></div>
+<div class="line"><strong>reset_over_voltage_error</strong>: <em>void</em></div>
 <div class="line-block">
 <div class="line">Resets the detection logic to allow for new charging session after an over voltage error occurred. This shall clear the over voltage error. If monitoring is still active, it shall be stopped.</div>
 </div>

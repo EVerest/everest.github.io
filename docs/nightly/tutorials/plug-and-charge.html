@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Experimental Bazel Support in EVerest" href="bazel.html"><link rel="prev" title="How To: OCPP 2.0.1 and 2.1 in EVerest" href="ocpp2.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Experimental Bazel Support" href="bazel.html"><link rel="prev" title="OCPP 2.0.1 and 2.1 in EVerest" href="ocpp2.html">
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Plug&amp;Charge with EVerest Software in the loop - EVerest Manual 2026.02.0</title>
+        <title>Plug&amp;Charge with EVerest Software in the Loop - EVerest Manual 2026.02.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -576,7 +576,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="plug-charge-with-everest-software-in-the-loop">
-<span id="tutorial-plug-and-charge"></span><h1>Plug&amp;Charge with EVerest Software in the loop<a class="headerlink" href="#plug-charge-with-everest-software-in-the-loop" title="Link to this heading">¶</a></h1>
+<span id="tutorial-plug-and-charge"></span><h1>Plug&amp;Charge with EVerest Software in the Loop<a class="headerlink" href="#plug-charge-with-everest-software-in-the-loop" title="Link to this heading">¶</a></h1>
 <p>EVerest provides support for Plug&amp;Charge within ISO15118-2 and OCPP1.6 and
 OCPP2.0.1. This tutorial explains how you can set up and configure EVerest
 for Plug&amp;Charge with the software in the loop.</p>
@@ -606,13 +606,13 @@ certificates:</p>
 </pre></div>
 </div>
 <p>This will enable ISO 15118 communication including Plug&amp;Charge and install the
-required CA certificates inside <cite>config/certs/ca</cite> and the client certificates,
-private keys and password files inside <cite>config/certs/client</cite>.</p>
+required CA certificates inside <code class="docutils literal notranslate"><span class="pre">config/certs/ca</span></code> and the client certificates,
+private keys and password files inside <code class="docutils literal notranslate"><span class="pre">config/certs/client</span></code>.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>This will generate an example PKI setup that can only be used for testing
 and simulation. It will not work and is not recommended for production.</p>
-<p>As the shell script uses the Java <cite>keytool</cite>, it is required for this
+<p>As the shell script uses the Java <code class="docutils literal notranslate"><span class="pre">keytool</span></code>, it is required for this
 procedure to have Java installed.</p>
 </div>
 <p>The script for setting up PKI can also be used with the EvseV2G module.</p>
@@ -641,12 +641,12 @@ system based on the Python ocpp package from TheMobilityHouse
 <li><p>Prerequisites must be fullfilled: EVerest must be installed on your system.
 By default, the installation of everest-core includes a complete and
 automatic installation of a test PKI. The certificates and keys are located
-under <cite>dist/etc/everest/certs</cite>.</p></li>
+under <code class="docutils literal notranslate"><span class="pre">dist/etc/everest/certs</span></code>.</p></li>
 <li><p>Let’s prepare the central system that we are going to use. Follow the
 instructions described here to set it up:
 <a class="reference external" href="https://github.com/EVerest/ocpp-csms">https://github.com/EVerest/ocpp-csms</a></p></li>
 <li><p>Run everest-core with either OCPP1.6, OCPP2.x using the prepared run-scripts.
-Make sure the the endpoint <cite>localhost:9000/&lt;id&gt;</cite> is specified in the respective
+Make sure the the endpoint <code class="docutils literal notranslate"><span class="pre">localhost:9000/&lt;id&gt;</span></code> is specified in the respective
 ocpp configuration file (OCPP2.x config defaults to this address, while for
 OCPP1.6 the default is different).</p></li>
 </ol>
@@ -657,9 +657,9 @@ OCPP1.6 the default is different).</p></li>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run-scripts/run-sil-ocpp-pnc.sh
 </pre></div>
 </div>
-<p>Make sure Node-RED is running and access the UI on <cite>localhost:1880/ui</cite>.</p>
+<p>Make sure Node-RED is running and access the UI on <code class="docutils literal notranslate"><span class="pre">localhost:1880/ui</span></code>.</p>
 <p>In Node-RED select <code class="docutils literal notranslate"><span class="pre">AC</span> <span class="pre">ISO</span> <span class="pre">15118-2</span></code> from the Car Simulation dropdown and click “Car Plugin”. This will initiate the EV plugin and start the Plug&amp;Charge process.</p>
-<p>Check the EVerest console and OCPP logs. By default OCPP logs are located in /tmp/everest_ocpp_logs .</p>
+<p>Check the EVerest console and OCPP logs. By default OCPP logs are located in <code class="docutils literal notranslate"><span class="pre">/tmp/everest_ocpp_logs</span></code> .</p>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h2>
@@ -687,7 +687,7 @@ the EVCC and SECC modules.</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Experimental Bazel Support in EVerest</div>
+                <div class="title">Experimental Bazel Support</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -698,7 +698,7 @@ the EVCC and SECC modules.</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">How To: OCPP 2.0.1 and 2.1 in EVerest</div>
+                <div class="title">OCPP 2.0.1 and 2.1 in EVerest</div>
                 
               </div>
             </a>
@@ -732,7 +732,7 @@ the EVCC and SECC modules.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Plug&amp;Charge with EVerest Software in the loop</a><ul>
+<li><a class="reference internal" href="#">Plug&amp;Charge with EVerest Software in the Loop</a><ul>
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#packages-for-iso-15118-communication">Packages for ISO 15118 communication</a></li>
 <li><a class="reference internal" href="#the-plug-charge-process">The Plug&amp;Charge process</a></li>

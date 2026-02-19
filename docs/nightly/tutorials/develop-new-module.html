@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="How To: OCPP 1.6 in EVerest" href="ocpp16.html"><link rel="prev" title="Tutorials" href="index.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="OCPP 1.6 in EVerest" href="ocpp16.html"><link rel="prev" title="Tutorials" href="index.html">
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Develop New EVerest Modules - EVerest Manual 2026.02.0</title>
+        <title>Develop New Modules - EVerest Manual 2026.02.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -575,8 +575,8 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="develop-new-everest-modules">
-<span id="tutorial-develop-new-everest-module"></span><h1>Develop New EVerest Modules<a class="headerlink" href="#develop-new-everest-modules" title="Link to this heading">¶</a></h1>
+          <section id="develop-new-modules">
+<span id="tutorial-develop-new-everest-module"></span><h1>Develop New Modules<a class="headerlink" href="#develop-new-modules" title="Link to this heading">¶</a></h1>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>The module concept will be improved in the next couple of months with
@@ -631,15 +631,20 @@ mkdir -p $EVEREST_WORKSPACE
 benefit of allowing your to select a specific snapshot (see the corresponding
 <a class="reference internal" href="../explanation/dev-tools/edm.html#exp-dev-tools-edm"><span class="std std-ref">docs</span></a> for details), as well as it is a single command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>edm init --workspace $EVEREST_WORKSPACE
+cd $EVEREST_WORKSPACE
+</pre></div>
+</div>
+<p>As of 2026 the EVerest dependency manager layouts the workspace to be compatible with
+older non-mono-repository versions of everest-core. Assuming you want to build a recent
+version of everest, you can delete the dependencies which are part of the mono-repo today:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">everest</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">environment</span><span class="o">/</span> <span class="n">everest</span><span class="o">-</span><span class="n">utils</span><span class="o">/</span>
 </pre></div>
 </div>
 </section>
 <section id="alternative-2-clone-required-repositories">
 <h3>Alternative 2: Clone required repositories<a class="headerlink" href="#alternative-2-clone-required-repositories" title="Link to this heading">¶</a></h3>
-<p>If you want to restrict yourself only to the required dependencies, you may also just clone those:</p>
+<p>If you want to restrict yourself only to the required dependencies, you may also just clone this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https:///github.com/EVerest/everest-cmake ${EVEREST_WORKSPACE}/everest-cmake
-git clone https:///github.com/EVerest/everest-framework ${EVEREST_WORKSPACE}/everest-framework
-git clone https:///github.com/EVerest/everest-utils ${EVEREST_WORKSPACE}/everest-utils
 </pre></div>
 </div>
 </section>
@@ -672,7 +677,7 @@ command <cite>command_tutorial</cite> that can be called by another module and w
 just always return the string “everest” as result. We will later give some
 ideas how to extend this minimal example.</p>
 <p>We store the following interface configuration in form of a .yaml file in
-<cite>$EVEREST_TUTORIAL_DIR/interfaces/interface_tutorial_module.yaml</cite>:</p>
+<code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/interfaces/interface_tutorial_module.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The interface of the tutorial module.</span>
 <span class="nt">cmds</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">command_tutorial</span><span class="p">:</span>
@@ -688,7 +693,7 @@ ideas how to extend this minimal example.</p>
 </div>
 <p>Second, we use the  <cite>ev-cli</cite> tool to auto-generate header files for this
 interface:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli interface generate-headers --schemas-dir $EVEREST_WORKSPACE/everest-framework/schemas interface_tutorial_module
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli interface generate-headers --schemas-dir $EVEREST_WORKSPACE/everest-core/lib/everest/framework/schemas interface_tutorial_module
 </pre></div>
 </div>
 <p>After this, you should find the following file tree structure in your module:</p>
@@ -749,7 +754,7 @@ we have defined before). We give this implementation the name <cite>interface_im
 </ul>
 <p>Again, we use the EVerest cli tool to auto-generate code from this
 configuration:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli module create --schemas-dir $EVEREST_WORKSPACE/everest-framework/schemas TutorialModule --licenses $EVEREST_WORKSPACE/everest-utils/ev-dev-tools/src/ev_cli/licenses
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli module create --schemas-dir $EVEREST_WORKSPACE/everest-core/lib/everest/framework/schemas TutorialModule --licenses $EVEREST_WORKSPACE/everest-core/applications/utils/ev-dev-tools/src/ev_cli/licenses
 </pre></div>
 </div>
 <p>After that, you should have the following file structure:</p>
@@ -893,16 +898,14 @@ CMAKE_PREFIX_PATH=$EVEREST_WORKSPACE cmake --install-prefix $EVEREST_TUTORIAL_DI
 </pre></div>
 </div>
 <p>Here, we added two instructions to cmake:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Setting <cite>CMAKE_PREFIX_PATH=$EVEREST_WORKSPACE</cite> allows cmake to find the
+<ul class="simple">
+<li><p>Setting <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH=$EVEREST_WORKSPACE</span></code> allows cmake to find the
 <code class="docutils literal notranslate"><span class="pre">everest-cmake</span></code> repository in the workspace.</p></li>
-<li><p>Specifying the <cite>–install-prefix</cite> allows you to specify where the finished
+<li><p>Specifying the <code class="docutils literal notranslate"><span class="pre">--install-prefix</span></code> allows you to specify where the finished
 binaries will be placed, e.g. into the <code class="docutils literal notranslate"><span class="pre">dist/</span></code> folder in the modules repository.
 EVerest can be installed system wide (e.g. into <code class="docutils literal notranslate"><span class="pre">users/local/bin</span></code>), but this
-usually requires <cite>sudo</cite> permissions.</p></li>
+usually requires <code class="docutils literal notranslate"><span class="pre">sudo</span></code> permissions.</p></li>
 </ul>
-</div></blockquote>
 <p>Then, build and install the project:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR/build
 make -j &lt;number of parallel jobs&gt;
@@ -940,17 +943,17 @@ your configurations.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">generate_config_run_script</span><span class="p">(</span><span class="n">CONFIG</span> <span class="n">modules</span><span class="o">-</span><span class="n">tutorial</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, the <cite>generate_config_run_script(&lt;CONFIG_NAME&gt;)</cite> expects the existence of
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">generate_config_run_script(&lt;CONFIG_NAME&gt;)</span></code> expects the existence of
 a file <code class="docutils literal notranslate"><span class="pre">config-&lt;CONFIG_NAME&gt;.yaml</span></code>.</p>
 <p>It will then generate a run script for this configuration.</p>
 <p>You must then “activate” this configuraton by adapting the
-<code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/CMakeLists.txt</span></code> file removing the commenting <cite>#</cite>
-before the <cite>add_subdirectory(config)</cite> instruction, i.e.:</p>
-<blockquote>
-<div><p># config
-# (not needed if you do not need a run script for your configuration)
-add_subdirectory(config)</p>
-</div></blockquote>
+<code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/CMakeLists.txt</span></code> file removing the commenting <code class="docutils literal notranslate"><span class="pre">#</span></code>
+before the <code class="docutils literal notranslate"><span class="pre">add_subdirectory(config)</span></code> instruction, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># config</span>
+<span class="c1"># (not needed if you do not need a run script for your configuration)</span>
+<span class="n">add_subdirectory</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>After that, once more run cmake:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR/build
 CMAKE_PREFIX_PATH=$EVEREST_WORKSPACE cmake --install-prefix $EVEREST_TUTORIAL_DIR/dist ..
@@ -1022,7 +1025,7 @@ notice an <cite>everest</cite> topic popping up.</p>
 </pre></div>
 </div>
 <p>Our module should return with a “everest” response (you may have to reselect
-the <cite>everest/tutorial_module_instance/interface_impl_tutorial_module/cmd</cite>
+the <code class="docutils literal notranslate"><span class="pre">everest/tutorial_module_instance/interface_impl_tutorial_module/cmd</span></code>
 on the left to refresh this view.</p>
 <img alt="../_images/mqtt_explorer_example.png" src="../_images/mqtt_explorer_example.png" />
 </section>
@@ -1083,16 +1086,19 @@ debugging experience.</p>
 <section id="exemplary-module-customizations">
 <h2>Exemplary Module Customizations<a class="headerlink" href="#exemplary-module-customizations" title="Link to this heading">¶</a></h2>
 <p>Having prepared a buildable and runnable module, we can now extend the logic
-of our implementation:
-* Add a variable to your interface, and publish it;
-* Add a second module which requires the <code class="docutils literal notranslate"><span class="pre">interface_tutorial_module</span></code> interface and sends commands or subscribes to variables.</p>
+of our implementation:</p>
+<ul class="simple">
+<li><p>Add a variable to your interface, and publish it;</p></li>
+<li><p>Add a second module which requires the <code class="docutils literal notranslate"><span class="pre">interface_tutorial_module</span></code> interface and sends commands or subscribes to variables.</p></li>
+<li><p>…</p></li>
+</ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>This section is yet to come. Want to help us with that? Feel free and create
 a suggestion for this.</p>
 </div>
 <hr class="docutils" />
-<p><strong>Authors</strong>: Valentin Dimov, Manuel Ziegler, Andreas Heinrich, Lukas Mertens, Martin Litre, Piet Gömpel</p>
+<p><strong>Authors</strong>: Valentin Dimov, Manuel Ziegler, Andreas Heinrich, Lukas Mertens, Martin Litre, Piet Gömpel, Christoph Burandt</p>
 </section>
 </section>
 
@@ -1106,7 +1112,7 @@ a suggestion for this.</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">How To: OCPP 1.6 in EVerest</div>
+                <div class="title">OCPP 1.6 in EVerest</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -1151,7 +1157,7 @@ a suggestion for this.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Develop New EVerest Modules</a><ul>
+<li><a class="reference internal" href="#">Develop New Modules</a><ul>
 <li><a class="reference internal" href="#goal-of-this-tutorial">Goal Of This Tutorial</a></li>
 <li><a class="reference internal" href="#install-prerequisites">Install Prerequisites</a></li>
 <li><a class="reference internal" href="#workspace-setup">Workspace Setup</a><ul>

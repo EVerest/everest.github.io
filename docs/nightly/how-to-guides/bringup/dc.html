@@ -204,11 +204,11 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New EVerest Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">How To: OCPP 1.6 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">How To: OCPP 2.0.1 and 2.1 in EVerest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -607,8 +607,8 @@ no-load conditions.</p>
 <p>Create a simple BringUp configuration file that contains only the
 BUPowerSupplyDC module and the actual driver module / bridge module to
 your external driver. There are a couple of examples that you can
-modify: <em>config-bringup-huawei.yaml</em>, <em>config-bringup-uugreen.yaml</em>,
-<em>config-bringup-api-powersupply.yaml</em>.</p>
+modify: <code class="docutils literal notranslate"><span class="pre">config-bringup-huawei.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">config-bringup-uugreen.yaml</span></code>,
+<code class="docutils literal notranslate"><span class="pre">config-bringup-api-powersupply.yaml</span></code>.</p>
 <p>Start the BringUp &amp; Qualification session with the following command in
 the build folder:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/everest/run_tmux_helper.sh<span class="w"> </span>/etc/everest/bringup/config-bringup-mypowersupply.yaml<span class="w"> </span>/usr
@@ -871,27 +871,18 @@ with DC for the first time.</p>
 <p>There are many error cases that should be tested now. Listing all goes
 beyond the scope of this manual. A few examples that should be tested:</p>
 <ul class="simple">
-<li><dl class="simple">
-<dt>Place a 100 kOhm resistor from minus wire to PE. Start a charging</dt><dd><p>session. It should also fail in <em>CableCheck</em> state.</p>
-</dd>
-</dl>
-</li>
+<li><p>Place a 100 kOhm resistor from minus wire to PE. Start a charging
+session. It should also fail in <em>CableCheck</em> state.</p></li>
 <li><p>Test short circuit under full load.</p></li>
-<li><dl class="simple">
-<dt>Test load dump: Charge at maximum power and open the relays to zero</dt><dd><p>load. Watch the voltage overshoot. The power supplies need to survive
+<li><p>Test load dump: Charge at maximum power and open the relays to zero
+load. Watch the voltage overshoot. The power supplies need to survive
 that multiple times. This does happen in the field with some EVs that
 open their contactors during charging when the onboard controller
-firmware resets.</p>
-</dd>
-</dl>
-</li>
+firmware resets.</p></li>
 <li><p>AC under-/over-voltage input</p></li>
 <li><p>Over-temperature shutdown</p></li>
-<li><dl class="simple">
-<dt>On three-phase AC/DC converters, switch off one phase on the input</dt><dd><p>at full load.</p>
-</dd>
-</dl>
-</li>
+<li><p>On three-phase AC/DC converters, switch off one phase on the input
+at full load.</p></li>
 </ul>
 <hr class="docutils" />
 <p><strong>Authors</strong>: Cornelius Claussen</p>

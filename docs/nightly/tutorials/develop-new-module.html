@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="OCPP 1.6 in EVerest" href="ocpp16.html"><link rel="prev" title="Tutorials" href="index.html">
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
         <title>Develop New Modules - EVerest Manual 2026.02.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
@@ -609,8 +609,8 @@ value.</p></li>
 all prerequisites into your environment.</p>
 <p>After that, you should in particular have:</p>
 <ul class="simple">
-<li><p>The EVerest dependency manager (check via <cite>edm –version</cite>)</p></li>
-<li><p>The EVerest cli utility (check via <cite>ev-cli –version</cite>)</p></li>
+<li><p>The EVerest dependency manager (check via <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>)</p></li>
+<li><p>The EVerest cli utility (check via <code class="docutils literal notranslate"><span class="pre">ev-cli</span> <span class="pre">--version</span></code>)</p></li>
 <li><p>A running MQTT broker (e.g. started as container as described in the setup
 guide; per default expected on localhost on port 1883)</p></li>
 </ul>
@@ -620,7 +620,7 @@ guide; per default expected on localhost on port 1883)</p></li>
 <p>This section describes how to setup an EVerest workspace (or at least the
 necessary parts of it) to develop EVerest modules.</p>
 <p>First, create a directory for your workspace. In the following, we will assume
-the environment variable <cite>EVEREST_WORKSPACE</cite> to hold this directory:</p>
+the environment variable <code class="docutils literal notranslate"><span class="pre">EVEREST_WORKSPACE</span></code> to hold this directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export EVEREST_WORKSPACE=~/ev-workspace
 mkdir -p $EVEREST_WORKSPACE
 </pre></div>
@@ -637,15 +637,19 @@ cd $EVEREST_WORKSPACE
 </div>
 <p>As of 2026 the EVerest dependency manager layouts the workspace to be compatible with
 older non-mono-repository versions of everest-core. Assuming you want to build a recent
-version of everest, you can delete the dependencies which are part of the mono-repo today:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">everest</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">environment</span><span class="o">/</span> <span class="n">everest</span><span class="o">-</span><span class="n">utils</span><span class="o">/</span>
+version of everest, you can delete the dependencies which are part of the mono-repo today.</p>
+<p><strong>Remove everything except</strong> <code class="docutils literal notranslate"><span class="pre">everest-core/</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">everest-cmake/</span></code> <strong>.</strong></p>
+<p>The result should look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls
+everest-core    everest-cmake
 </pre></div>
 </div>
 </section>
 <section id="alternative-2-clone-required-repositories">
 <h3>Alternative 2: Clone required repositories<a class="headerlink" href="#alternative-2-clone-required-repositories" title="Link to this heading">¶</a></h3>
 <p>If you want to restrict yourself only to the required dependencies, you may also just clone this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https:///github.com/EVerest/everest-cmake ${EVEREST_WORKSPACE}/everest-cmake
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/EVerest/everest-cmake ${EVEREST_WORKSPACE}/everest-cmake
+git clone https://github.com/EVerest/everest-core ${EVEREST_WORKSPACE}/everest-core
 </pre></div>
 </div>
 </section>
@@ -655,13 +659,13 @@ version of everest, you can delete the dependencies which are part of the mono-r
 <p>The following describes how to define the fundamental skeleton of a module.
 This includes configuration files and the auto-generation of source files.</p>
 <p>First, create an empty folder that is to contain your module. In the
-following, we assume the environment variable <cite>EVEREST_TUTORIAL_DIR</cite> to hold
+following, we assume the environment variable <code class="docutils literal notranslate"><span class="pre">EVEREST_TUTORIAL_DIR</span></code> to hold
 this directory, for example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export EVEREST_TUTORIAL_DIR=~/everest-tutorial-module
 git clone https://github.com/EVerest/everest-template $EVEREST_TUTORIAL_DIR
 </pre></div>
 </div>
-<p>This provides you in particular with the <cite>.clang-format</cite> and <cite>.eslintrc.json</cite>
+<p>This provides you in particular with the <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> and <code class="docutils literal notranslate"><span class="pre">.eslintrc.json</span></code>
 files.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -692,22 +696,22 @@ ideas how to extend this minimal example.</p>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 </pre></div>
 </div>
-<p>Second, we use the  <cite>ev-cli</cite> tool to auto-generate header files for this
+<p>Second, we use the  <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> tool to auto-generate header files for this
 interface:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli interface generate-headers --schemas-dir $EVEREST_WORKSPACE/everest-core/lib/everest/framework/schemas interface_tutorial_module
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli interface generate-headers --everest-dir . --schemas-dir $EVEREST_WORKSPACE/everest-core/lib/everest/framework/schemas interface_tutorial_module
 </pre></div>
 </div>
 <p>After this, you should find the following file tree structure in your module:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
 ├── build
-│        └── generated
-│            └── include
-│                └── generated
-│                    └── interfaces
-│                        └── interface_tutorial_module
-│                            ├── Implementation.hpp
-│                            ├── Interface.hpp
-│                            └── Types.hpp
+│   └── generated
+│       └── include
+│           └── generated
+│               └── interfaces
+│                   └── interface_tutorial_module
+│                       ├── Implementation.hpp
+│                       ├── Interface.hpp
+│                       └── Types.hpp
 └── interfaces
     └── interface_tutorial_module.yaml
 </pre></div>
@@ -755,7 +759,7 @@ we have defined before). We give this implementation the name <cite>interface_im
 </ul>
 <p>Again, we use the EVerest cli tool to auto-generate code from this
 configuration:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli module create --schemas-dir $EVEREST_WORKSPACE/everest-core/lib/everest/framework/schemas TutorialModule --licenses $EVEREST_WORKSPACE/everest-core/applications/utils/ev-dev-tools/src/ev_cli/licenses
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli module create --everest-dir . --schemas-dir $EVEREST_WORKSPACE/everest-core/lib/everest/framework/schemas TutorialModule --licenses $EVEREST_WORKSPACE/everest-core/applications/utils/ev-dev-tools/src/ev_cli/licenses
 </pre></div>
 </div>
 <p>After that, you should have the following file structure:</p>
@@ -871,7 +875,7 @@ where to look for modules, in order to add them to the build.</p>
 </pre></div>
 </div>
 <p>Note that you could also develop several modules at once in your repository.
-In that case you would add a respective <cite>ev_add_module(&lt;MODULE_NAME&gt;)</cite> line
+In that case you would add a respective <code class="docutils literal notranslate"><span class="pre">ev_add_module(&lt;MODULE_NAME&gt;)</span></code> line
 for each of those.</p>
 </section>
 <section id="adding-dependencies-yaml">

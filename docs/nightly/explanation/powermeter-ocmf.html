@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Reference" href="../reference/index.html"><link rel="prev" title="The EVerest Documentation" href="the-everest-documentation.html">
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
         <title>Powermeter OCMF Handling - EVerest Manual 2026.02.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
@@ -592,136 +592,142 @@ during the start and stop of a transaction, including error handling scenarios:<
 <span id="exp-powermeter-ocmf-start-transaction"></span><h2>Start of a transaction<a class="headerlink" href="#start-of-a-transaction" title="Link to this heading">¶</a></h2>
 <pre  class="mermaid">
         sequenceDiagram
-autonumber
-participant Powermeter
-participant EvseManager
-participant OCPP
-participant CSMS
+   autonumber
+   participant Powermeter
+   participant EvseManager
+   participant OCPP
+   participant CSMS
 
-title Start of a Transaction
+   title Start of a Transaction
 
-Note over EvseManager: User plugs in EV and authorizes
+   Note over EvseManager: User plugs in EV and authorizes
 
-EvseManager-&gt;&gt;OCPP: Event(SessionStarted)
+   EvseManager-&gt;&gt;OCPP: Event(SessionStarted)
 
-OCPP-&gt;&gt;CSMS: StatusNotification.req(Preparing)
-CSMS--&gt;&gt;OCPP: StatusNotification.conf
+   OCPP-&gt;&gt;CSMS: StatusNotification.req(Preparing)
+   CSMS--&gt;&gt;OCPP: StatusNotification.conf
 
-alt successful case
-    EvseManager-&gt;&gt;Powermeter: startTransaction
-    Powermeter--&gt;&gt;EvseManager: startTransaction Response (OK/ID)
+   alt successful case
+       EvseManager-&gt;&gt;Powermeter: startTransaction
+       Powermeter--&gt;&gt;EvseManager: startTransaction Response (OK/ID)
 
-    EvseManager-&gt;&gt;OCPP: Event(TransactionStarted)
-    OCPP-&gt;&gt;CSMS: StartTransaction.req
-    CSMS--&gt;&gt;OCPP: StartTransaction.conf
+       EvseManager-&gt;&gt;OCPP: Event(TransactionStarted)
+       OCPP-&gt;&gt;CSMS: StartTransaction.req
+       CSMS--&gt;&gt;OCPP: StartTransaction.conf
 
-    Note over EvseManager: Transaction started successfully
+       Note over EvseManager: Transaction started successfully
 
-else startTransaction failing due to power loss
-    EvseManager-&gt;&gt;Powermeter: startTransaction
-    Powermeter--&gt;&gt;EvseManager: startTransaction Response (FAIL)
+   else startTransaction failing due to power loss
+       EvseManager-&gt;&gt;Powermeter: startTransaction
+       Powermeter--&gt;&gt;EvseManager: startTransaction Response (FAIL)
 
-    EvseManager-&gt;&gt;OCPP: Event(Deauthorized)
+       EvseManager-&gt;&gt;OCPP: Event(Deauthorized)
 
-    OCPP-&gt;&gt;CSMS: StatusNotification.req(Finishing)
-    CSMS--&gt;&gt;OCPP: StatusNotification.conf
+       OCPP-&gt;&gt;CSMS: StatusNotification.req(Finishing)
+       CSMS--&gt;&gt;OCPP: StatusNotification.conf
 
-    EvseManager-&gt;&gt;OCPP: raiseError (PowermeterTransactionStartFailed)
-    OCPP-&gt;&gt;CSMS: StatusNotification.req(Finishing, PowermeterTransactionStartFailed)
-    CSMS--&gt;&gt;OCPP: StatusNotification.conf
+       EvseManager-&gt;&gt;OCPP: raiseError (PowermeterTransactionStartFailed)
+       OCPP-&gt;&gt;CSMS: StatusNotification.req(Finishing, PowermeterTransactionStartFailed)
+       CSMS--&gt;&gt;OCPP: StatusNotification.conf
 
-    Note over EvseManager: Transaction did not start
-end
+       Note over EvseManager: Transaction did not start
+   end
 
-alt EvseManager configured to become inoperative in case of Powermeter CommunicationError
-    Powermeter-&gt;&gt;EvseManager: raise_error(CommunicationError)
-    Note over Powermeter,EvseManager: Powermeter raises a CommunicationError &lt;br/&gt;and EvseManager is registered for notification
-    EvseManager-&gt;&gt;OCPP: raise_error (Inoperative)
-    OCPP-&gt;&gt;CSMS: StatusNotification.req(Faulted)
-    CSMS--&gt;&gt;OCPP: StatusNotification.conf
-end
+   alt EvseManager configured to become inoperative in case of Powermeter CommunicationError
+       Powermeter-&gt;&gt;EvseManager: raise_error(CommunicationError)
+       Note over Powermeter,EvseManager: Powermeter raises a CommunicationError &lt;br/&gt;and EvseManager is registered for notification
+       EvseManager-&gt;&gt;OCPP: raise_error (Inoperative)
+       OCPP-&gt;&gt;CSMS: StatusNotification.req(Faulted)
+       CSMS--&gt;&gt;OCPP: StatusNotification.conf
+   end
+
+
     </pre></section>
 <section id="stopping-transaction-in-error">
 <span id="exp-powermeter-ocmf-stopping-transaction-error"></span><h2>Stopping Transaction in Error<a class="headerlink" href="#stopping-transaction-in-error" title="Link to this heading">¶</a></h2>
 <pre  class="mermaid">
         sequenceDiagram
-autonumber
-participant Powermeter
-participant EvseManager
-participant OCPP
-participant CSMS
+   autonumber
+   participant Powermeter
+   participant EvseManager
+   participant OCPP
+   participant CSMS
 
-title Stopping Transaction in Error
+   title Stopping Transaction in Error
 
-Note over Powermeter, CSMS: Transaction is running
+   Note over Powermeter, CSMS: Transaction is running
 
-Powermeter-&gt;&gt;Powermeter: detects a &lt;br/&gt; CommunicationError
-Note over Powermeter,EvseManager: Powermeter raises a CommunicationError &lt;br/&gt;and EvseManager is registered for notification
-Powermeter-&gt;&gt;EvseManager: raise_error (CommunicationFault)
-Powermeter-&gt;&gt;OCPP: raise_error (CommunicationFault)
+   Powermeter-&gt;&gt;Powermeter: detects a &lt;br/&gt; CommunicationError
+   Note over Powermeter,EvseManager: Powermeter raises a CommunicationError &lt;br/&gt;and EvseManager is registered for notification
+   Powermeter-&gt;&gt;EvseManager: raise_error (CommunicationFault)
+   Powermeter-&gt;&gt;OCPP: raise_error (CommunicationFault)
 
-OCPP-&gt;&gt;CSMS: StatusNotification.req(Charging, CommunicationFault)
-CSMS--&gt;&gt;OCPP: StatusNotification.conf
+   OCPP-&gt;&gt;CSMS: StatusNotification.req(Charging, CommunicationFault)
+   CSMS--&gt;&gt;OCPP: StatusNotification.conf
 
-alt EvseManager configured to become inoperative in case of PowermeterCommError
-    EvseManager-&gt;&gt;EvseManager: Pause charging
-    EvseManager-&gt;&gt;OCPP: raiseError (Inoperative)
-    OCPP-&gt;&gt;CSMS: StatusNotification.req(Faulted)
-    Note over EvseManager: Note that we would just continue charging otherwise
-end
+   alt EvseManager configured to become inoperative in case of PowermeterCommError
+       EvseManager-&gt;&gt;EvseManager: Pause charging
+       EvseManager-&gt;&gt;OCPP: raiseError (Inoperative)
+       OCPP-&gt;&gt;CSMS: StatusNotification.req(Faulted)
+       Note over EvseManager: Note that we would just continue charging otherwise
+   end
 
-Note over Powermeter, CSMS: User stops the transaction
+   Note over Powermeter, CSMS: User stops the transaction
 
-alt successful case (Powermeter has no CommunicationError)
-    EvseManager-&gt;&gt;Powermeter: stopTransaction (ID)
-    Powermeter--&gt;&gt;EvseManager: stopTransaction Response (OK/OCMF)
-    EvseManager-&gt;&gt;OCPP: Event(TransactionFinished(OCMF))
+   alt successful case (Powermeter has no CommunicationError)
+       EvseManager-&gt;&gt;Powermeter: stopTransaction (ID)
+       Powermeter--&gt;&gt;EvseManager: stopTransaction Response (OK/OCMF)
+       EvseManager-&gt;&gt;OCPP: Event(TransactionFinished(OCMF))
 
-    OCPP-&gt;&gt;CSMS: StopTransaction.req(OCMF)
-    CSMS--&gt;&gt;OCPP: StopTransaction.conf
-else stopTransaction failing due to subsequent power loss (this applies as well when Powermeter still in CommunicationError)
-    EvseManager-&gt;&gt;Powermeter: stopTransaction (ID)
-    Powermeter-&gt;&gt;EvseManager: stopTransaction Response (FAIL)
-    EvseManager-&gt;&gt;OCPP: Event(TransactionFinished)
+       OCPP-&gt;&gt;CSMS: StopTransaction.req(OCMF)
+       CSMS--&gt;&gt;OCPP: StopTransaction.conf
+   else stopTransaction failing due to subsequent power loss (this applies as well when Powermeter still in CommunicationError)
+       EvseManager-&gt;&gt;Powermeter: stopTransaction (ID)
+       Powermeter-&gt;&gt;EvseManager: stopTransaction Response (FAIL)
+       EvseManager-&gt;&gt;OCPP: Event(TransactionFinished)
 
-    Note right of OCPP: In this case we can't stop the transaction including the OCMF
-    OCPP-&gt;&gt;CSMS: StopTransaction.req()
-    CSMS--&gt;&gt;OCPP: StopTransaction.conf
-end
+       Note right of OCPP: In this case we can't stop the transaction including the OCMF
+       OCPP-&gt;&gt;CSMS: StopTransaction.req()
+       CSMS--&gt;&gt;OCPP: StopTransaction.conf
+   end
+
+
     </pre></section>
 <section id="start-of-powermeter-or-recovery-after-communication-loss">
 <span id="exp-powermeter-ocmf-start-recovery"></span><h2>Start of Powermeter or recovery after communication loss<a class="headerlink" href="#start-of-powermeter-or-recovery-after-communication-loss" title="Link to this heading">¶</a></h2>
 <pre  class="mermaid">
         sequenceDiagram
-autonumber
-participant Powermeter
-participant EvseManager
+  autonumber
+  participant Powermeter
+  participant EvseManager
 
-title Start of Powermeter or recovery after communication loss
+  title Start of Powermeter or recovery after communication loss
 
-Note over Powermeter: Device communication (re)established
+  Note over Powermeter: Device communication (re)established
 
-Powermeter-&gt;&gt;Powermeter: Request status from device
-Powermeter-&gt;&gt;Powermeter: Detects a running transaction
-Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to true
+  Powermeter-&gt;&gt;Powermeter: Request status from device
+  Powermeter-&gt;&gt;Powermeter: Detects a running transaction
+  Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to true
 
-alt Next command is startTransaction
-    EvseManager-&gt;&gt;Powermeter: startTransaction
-    Powermeter--&gt;&gt;Powermeter: stopTransaction
-    Note over Powermeter: internal triggered stopTransaction will not send &lt;br&gt;a response to EvseManager since no stopTransaction was issued
-    Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to false
-    Powermeter--&gt;&gt;EvseManager: startTransaction Response (OK/ID)
-    Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to true
+  alt Next command is startTransaction
+      EvseManager-&gt;&gt;Powermeter: startTransaction
+      Powermeter--&gt;&gt;Powermeter: stopTransaction
+      Note over Powermeter: internal triggered stopTransaction will not send &lt;br&gt;a response to EvseManager since no stopTransaction was issued
+      Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to false
+      Powermeter--&gt;&gt;EvseManager: startTransaction Response (OK/ID)
+      Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to true
 
-    Note over EvseManager: Transaction started successfully
+      Note over EvseManager: Transaction started successfully
 
-else Next command is stopTransaction
-    EvseManager-&gt;&gt;Powermeter: stopTransaction
-    Powermeter--&gt;&gt;EvseManager: stopTransaction Response (OK/OCMF)
-    Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to false
-end
+  else Next command is stopTransaction
+      EvseManager-&gt;&gt;Powermeter: stopTransaction
+      Powermeter--&gt;&gt;EvseManager: stopTransaction Response (OK/OCMF)
+      Powermeter-&gt;&gt;Powermeter: Mark need_to_stop_transaction to false
+  end
 
-Note over Powermeter: In case of CommunicationError during start/stop&lt;br&gt; transaction please check the start/stop transaction diagrams
+  Note over Powermeter: In case of CommunicationError during start/stop&lt;br&gt; transaction please check the start/stop transaction diagrams
+
+
     </pre><hr class="docutils" />
 <p><strong>Authors</strong>: Florin Mihut, Piet Gömpel</p>
 </section>

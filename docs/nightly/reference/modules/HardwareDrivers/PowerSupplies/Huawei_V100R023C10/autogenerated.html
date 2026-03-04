@@ -728,6 +728,14 @@ They are still sent, just not secured.</p></li>
 messages. This also allows to receive completely unsigned messages.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_ETH</span></code>: The ethernet interface to use for receiving and sending goose messages. Defaults to
 <code class="docutils literal notranslate"><span class="pre">veth0</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_PORT</span></code>: The Modbus TCP port to listen on. Defaults to <code class="docutils literal notranslate"><span class="pre">8502</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_HOST</span></code>: MQTT broker hostname or IP address. When set together with
+<code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_PORT</span></code>, the mock will publish power request data via MQTT.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_PORT</span></code>: MQTT broker port. Required together with <code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_HOST</span></code> to
+enable MQTT publishing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_BASE_TOPIC</span></code>: Base topic for MQTT publishing. Defaults to <code class="docutils literal notranslate"><span class="pre">fusion_charger_mock/</span></code>.
+Power requests are published to <code class="docutils literal notranslate"><span class="pre">&lt;base_topic&gt;/&lt;connector_number&gt;/power_request</span></code> with JSON payload containing
+voltage and current values.</p></li>
 </ul>
 <p>It also has one optional command line argument, being the path to a folder with certificates and keys for mTLS.</p>
 </section>
@@ -742,6 +750,10 @@ messages. This also allows to receive completely unsigned messages.</p></li>
 <p>These files can be generated with dummy values using the script located here (Note that this also generates the
 corresponding files for the dispenser):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/fusion_charger_lib/fusion-charger-dispenser-library/user-acceptance-tests/test_certificates/generate.sh
+</pre></div>
+</div>
+<p>Then run the mock with the path to the certificates folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./fusion_charger_mock<span class="w"> </span>/path/to/certificates
 </pre></div>
 </div>
 </section>

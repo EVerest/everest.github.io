@@ -521,6 +521,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/reservation.html">reservation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/serial_comm_hub_requests.html">serial_comm_hub_requests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/types/slac.html">slac</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/system.html">system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/temperature.html">temperature</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/text_message.html">text_message</a></li>
@@ -665,40 +666,26 @@ sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> <
 <section id="download-and-install-everest">
 <span id="htg-getting-started-sw-download-install"></span><h2>Download And Install EVerest<a class="headerlink" href="#download-and-install-everest" title="Link to this heading">¶</a></h2>
 <p>EVerest’s main application code is located in <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>. It makes use of various
-libraries and tools that are distributed across multiple EVerest repositories.</p>
-<p>The EVerest Dependency Manager - short <code class="docutils literal notranslate"><span class="pre">edm</span></code> - helps you with orchestrating and pulling in
-the dependencies in the build process of <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>.</p>
-<p>To start with that, let’s get <code class="docutils literal notranslate"><span class="pre">edm</span></code> ready to work.</p>
-<p>You will first of all need to pull <code class="docutils literal notranslate"><span class="pre">everest-dev-environment</span></code> to your
-development environment.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/everest/everest-core.git
-<span class="nb">cd</span><span class="w"> </span>everest-core/applications/dev-environment/dependency_manager
-python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--break-system-packages
-</pre></div>
-</div>
-<p>or in short</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/everest/everest-core.git@main#subdirectory<span class="o">=</span>applications/dev-environment/dependency_manager<span class="w"> </span>--break-system-packages
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Alternatively, you can also install <code class="docutils literal notranslate"><span class="pre">edm</span></code> in a python virtual environment.
-Make sure edm is available in your PATH after the installation.You can verify
-this by running <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>.</p>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">edm</span></code> uses <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a> for its CMake
-integration. This means you can and should set the <cite>CPM_SOURCE_CACHE</cite> environment
+libraries which are included in the same repository for the most part. External dependencies
+are dynamically loaded via <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a>.</p>
+<p>This means you can and should set the <code class="docutils literal notranslate"><span class="pre">CPM_SOURCE_CACHE</span></code> environment
 variable. This makes sure that dependencies that you do not manage in the workspace
 are not re-downloaded multiple times. For detailed information and other useful
 environment variables please refer to the
 <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake/blob/master/README.md#CPM_SOURCE_CACHE">CPM Documentation</a>.</p>
-<p>Make sure to set the PATH and the CPM_SOURCE_CACHE variable in your shell profile:</p>
+<p>Make sure to set the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and the <code class="docutils literal notranslate"><span class="pre">CPM_SOURCE_CACHE</span></code> variable in your shell profile:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CPM_SOURCE_CACHE</span><span class="o">=</span><span class="nv">$HOME</span>/.cache/CPM
 <span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/<span class="k">$(</span>whoami<span class="k">)</span>/.local/bin
 </pre></div>
 </div>
-<p>For more details about <code class="docutils literal notranslate"><span class="pre">edm</span></code>, see the dedicated
-<a class="reference internal" href="../../explanation/dev-tools/edm.html"><span class="doc">edm documentation</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the past the EVerest Dependency Manager - short <code class="docutils literal notranslate"><span class="pre">edm</span></code> - helped you with orchestrating
+and pulling in the dependencies in the build process of <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>. Since EVerest has
+been restructered into a (quasi)-mono-repository, manual installation of <code class="docutils literal notranslate"><span class="pre">edm</span></code> is no longer
+recommended for building recent releases of EVerest (2026 and later).
+For more details about <code class="docutils literal notranslate"><span class="pre">edm</span></code>, see the dedicated <a class="reference internal" href="../../explanation/dev-tools/edm.html"><span class="doc">edm documentation</span></a>.</p>
+</div>
 <p>We can now continue to build <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-core
 mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
@@ -715,7 +702,7 @@ make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</s
 <p>EVerest provides some Docker containers that help with the simulation.
 One container is used to run an MQTT Broker (mosquitto), which is required to run EVerest.
 This documentation section shows the necessary steps to start the simulation and get a
-simple NODERED user interface running.</p>
+simple Node-RED user interface running.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>To get all this working, make sure you have docker and docker-compose installed during the previous install phase.
@@ -731,7 +718,7 @@ following command (IPv6 is enabled for containers which might need it):</p>
 </div>
 <p>Now, start the mosquitto broker, which is deployed as built docker image.
 It is used for the communication between the EVerest modules:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>mqtt-server<span class="w"> </span>--network<span class="w"> </span>infranet_network<span class="w"> </span>-p<span class="w"> </span><span class="m">1883</span>:1883<span class="w"> </span>-p<span class="w"> </span><span class="m">9001</span>:9001<span class="w"> </span>ghcr.io/everest/everest-dev-environment/mosquitto:docker-images-v0.1.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>mqtt-server<span class="w"> </span>--network<span class="w"> </span>infranet_network<span class="w"> </span>-p<span class="w"> </span><span class="m">1883</span>:1883<span class="w"> </span>-p<span class="w"> </span><span class="m">9001</span>:9001<span class="w"> </span>ghcr.io/everest/containers/mosquitto:docker-images-v0.1.0
 </pre></div>
 </div>
 <p>That makes us ready for entering the simulation phase described in the next
@@ -772,8 +759,7 @@ etc.</p>
 <p>In the GUI, you can simulate car charging sessions using the available buttons,
 e.g. <cite>CAR PLUGIN</cite>, <cite>PAUSE</cite>, <cite>RESUME</cite> and so on:</p>
 <a class="reference internal image-reference" href="../../_images/quick-start-sil-gui.png"><img alt="../../_images/quick-start-sil-gui.png" src="../../_images/quick-start-sil-gui.png" style="width: 200px;" /></a>
-<p>Having a very first basic feeling for that will be enough for now. We are
-preparing a module tutorial, in which we will dig deeper into things.</p>
+<p>Having a very first basic feeling for that will be enough for now.</p>
 </section>
 </section>
 <section id="admin-panel-and-simulations">

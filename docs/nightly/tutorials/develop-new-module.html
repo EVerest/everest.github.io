@@ -521,6 +521,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/types/reservation.html">reservation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/types/serial_comm_hub_requests.html">serial_comm_hub_requests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/types/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/slac.html">slac</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/types/system.html">system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/types/temperature.html">temperature</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/types/text_message.html">text_message</a></li>
@@ -618,7 +619,7 @@ value.</p></li>
 all prerequisites into your environment.</p>
 <p>After that, you should in particular have:</p>
 <ul class="simple">
-<li><p>The EVerest dependency manager (check via <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>)</p></li>
+<li><p><em>optional:</em> The EVerest dependency manager (check via <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>)</p></li>
 <li><p>The EVerest cli utility (check via <code class="docutils literal notranslate"><span class="pre">ev-cli</span> <span class="pre">--version</span></code>)</p></li>
 <li><p>A running MQTT broker (e.g. started as container as described in the setup
 guide; per default expected on localhost on port 1883)</p></li>
@@ -635,8 +636,16 @@ mkdir -p $EVEREST_WORKSPACE
 </pre></div>
 </div>
 <p>Now you have two options:</p>
-<section id="alternative-1-setup-workspace-via-everest-dependency-manager">
-<h3>Alternative 1: Setup Workspace via EVerest Dependency Manager<a class="headerlink" href="#alternative-1-setup-workspace-via-everest-dependency-manager" title="Link to this heading">¶</a></h3>
+<section id="alternative-1-clone-required-repositories-recommended-for-recent-versions">
+<h3>Alternative 1: Clone required repositories (recommended for recent versions)<a class="headerlink" href="#alternative-1-clone-required-repositories-recommended-for-recent-versions" title="Link to this heading">¶</a></h3>
+<p>Just clone this, to get the required dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/EVerest/everest-cmake.git ${EVEREST_WORKSPACE}/everest-cmake
+git clone https://github.com/EVerest/everest-core.git ${EVEREST_WORKSPACE}/everest-core
+</pre></div>
+</div>
+</section>
+<section id="alternative-2-setup-workspace-via-everest-dependency-manager-recommended-for-pre-2026-version">
+<h3>Alternative 2: Setup Workspace via EVerest Dependency Manager (recommended for pre-2026 version)<a class="headerlink" href="#alternative-2-setup-workspace-via-everest-dependency-manager-recommended-for-pre-2026-version" title="Link to this heading">¶</a></h3>
 <p>Use the EVerest dependency manager to setup your workspace. This has the
 benefit of allowing your to select a specific snapshot (see the corresponding
 <a class="reference internal" href="../explanation/dev-tools/edm.html#exp-dev-tools-edm"><span class="std std-ref">docs</span></a> for details), as well as it is a single command:</p>
@@ -654,14 +663,6 @@ everest-core    everest-cmake
 </pre></div>
 </div>
 </section>
-<section id="alternative-2-clone-required-repositories">
-<h3>Alternative 2: Clone required repositories<a class="headerlink" href="#alternative-2-clone-required-repositories" title="Link to this heading">¶</a></h3>
-<p>If you want to restrict yourself only to the required dependencies, you may also just clone this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/EVerest/everest-cmake ${EVEREST_WORKSPACE}/everest-cmake
-git clone https://github.com/EVerest/everest-core ${EVEREST_WORKSPACE}/everest-core
-</pre></div>
-</div>
-</section>
 </section>
 <section id="create-module-skeleton">
 <h2>Create Module Skeleton<a class="headerlink" href="#create-module-skeleton" title="Link to this heading">¶</a></h2>
@@ -671,7 +672,7 @@ This includes configuration files and the auto-generation of source files.</p>
 following, we assume the environment variable <code class="docutils literal notranslate"><span class="pre">EVEREST_TUTORIAL_DIR</span></code> to hold
 this directory, for example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export EVEREST_TUTORIAL_DIR=~/everest-tutorial-module
-git clone https://github.com/EVerest/everest-template $EVEREST_TUTORIAL_DIR
+git clone https://github.com/EVerest/everest-template.git $EVEREST_TUTORIAL_DIR
 </pre></div>
 </div>
 <p>This provides you in particular with the <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> and <code class="docutils literal notranslate"><span class="pre">.eslintrc.json</span></code>
@@ -1175,8 +1176,8 @@ a suggestion for this.</p>
 <li><a class="reference internal" href="#goal-of-this-tutorial">Goal Of This Tutorial</a></li>
 <li><a class="reference internal" href="#install-prerequisites">Install Prerequisites</a></li>
 <li><a class="reference internal" href="#workspace-setup">Workspace Setup</a><ul>
-<li><a class="reference internal" href="#alternative-1-setup-workspace-via-everest-dependency-manager">Alternative 1: Setup Workspace via EVerest Dependency Manager</a></li>
-<li><a class="reference internal" href="#alternative-2-clone-required-repositories">Alternative 2: Clone required repositories</a></li>
+<li><a class="reference internal" href="#alternative-1-clone-required-repositories-recommended-for-recent-versions">Alternative 1: Clone required repositories (recommended for recent versions)</a></li>
+<li><a class="reference internal" href="#alternative-2-setup-workspace-via-everest-dependency-manager-recommended-for-pre-2026-version">Alternative 2: Setup Workspace via EVerest Dependency Manager (recommended for pre-2026 version)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#create-module-skeleton">Create Module Skeleton</a><ul>

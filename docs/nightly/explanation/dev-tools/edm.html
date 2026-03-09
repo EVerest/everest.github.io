@@ -521,6 +521,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/reservation.html">reservation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/serial_comm_hub_requests.html">serial_comm_hub_requests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/types/slac.html">slac</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/system.html">system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/temperature.html">temperature</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/types/text_message.html">text_message</a></li>
@@ -589,6 +590,13 @@
 <span id="exp-dev-tools-edm"></span><h1>edm<a class="headerlink" href="#edm" title="Link to this heading">¶</a></h1>
 <p>edm stands for EVerest dependency manager. It helps you orchestrating the
 dependencies between the different EVerest repositories.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The EDM tool was developed at a time when the EVerest source code was
+organized in many different repositories. Since 2026, EVerest has essentially
+changed to a (quasi-)mono-repository layout. Manual installation of EDM is
+usually not necessary to work with recent versions of EVerest.</p>
+</div>
 <section id="dependency-manager-for-everest">
 <h2>Dependency Manager for EVerest<a class="headerlink" href="#dependency-manager-for-everest" title="Link to this heading">¶</a></h2>
 <section id="install-and-quick-start">
@@ -623,14 +631,26 @@ using this guide they will be installed automatically.</p>
 <section id="installing-edm">
 <h3>Installing edm<a class="headerlink" href="#installing-edm" title="Link to this heading">¶</a></h3>
 <p>Now you can clone this repository and install <strong>edm</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-core
-<span class="nb">cd</span><span class="w"> </span>everest-core/applications/dev-environment/dependency_manager
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-core.git
+<span class="nb">cd</span><span class="w"> </span>everest-core/applications/dependency_manager
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--break-system-packages
-
-edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
 </pre></div>
 </div>
-<p>The last command creates a workspace in the <code class="docutils literal notranslate"><span class="pre">~/checkout/everest-workspace</span></code>
+<p>or in short</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/EVerest/everest-core.git@main#subdirectory<span class="o">=</span>applications/dependency_manager<span class="w"> </span>--break-system-packages
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can also install <code class="docutils literal notranslate"><span class="pre">edm</span></code> in a python virtual environment.
+Make sure edm is available in your PATH after the installation. You can verify
+this by running <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>.</p>
+</div>
+<p>Next you could run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
+</pre></div>
+</div>
+<p>This creates a workspace in the <code class="docutils literal notranslate"><span class="pre">~/checkout/everest-workspace</span></code>
 directory from the most recent release of EVerest. If you want the most recent
 main you can use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>main<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace

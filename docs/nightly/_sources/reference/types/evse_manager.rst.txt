@@ -80,6 +80,27 @@ EVSE manager types
 |    - EVConnected
 |    - Authorized
 
+.. _evse_manager-PauseChargingEVSEReasonEnum:
+
+| **PauseChargingEVSEReasonEnum**: *string* 
+|  Reason Enum for EVSE Pause
+|    UserPause: Session was paused due to external request on the EvseManager interface
+|    Error: An error prevents charging, it will resume once the error is cleared
+|    NoEnergy: Paused because there is no energy available at this moment
+|  enum:
+|    - UserPause
+|    - Error
+|    - NoEnergy
+
+.. _evse_manager-ChargingPausedEVSEReasons:
+
+| **ChargingPausedEVSEReasons**: *object* 
+|  Multiple reasons to be in pause state can be active at any point in time.
+|  properties:
+|   **reasons**: *array* <required>
+|    **array_item**: *string/object*  (:ref:`evse_manager-PauseChargingEVSEReasonEnum <evse_manager-PauseChargingEVSEReasonEnum>`)
+|     A single reason to be paused
+
 .. _evse_manager-SwitchThreePhasesWhileChargingResult:
 
 | **SwitchThreePhasesWhileChargingResult**: *string* 
@@ -109,15 +130,12 @@ EVSE manager types
 |    ChargingStarted: DC: CurrentDemand has started. AC: Auth is ok and car requested power (state C/D)
 |    ChargingPausedEV: Signaled when charging is paused by the EV
 |    ChargingPausedEVSE: Signaled when charging is paused by the EVSE
-|    ChargingResumed: Charging has resumed from a pause
 |    StoppingCharging: EVSE has started to stop the charging process. DC: CurrentDemand has finished, now doing WeldingCheck etc, AC: Wait for car to return to state B or A
 |    ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity
 |    TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
 |    SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)
 |    ReservationStart: Signaled when a reservation starts
 |    ReservationEnd: Signaled when a reservation ends
-|    ReplugStarted: Signaled when the EVSE Manager virtually replugs without interrupting the session or transaction
-|    ReplugFinished: Signaled when the virtual replug process has finished
 |    PluginTimeout: Signaled when an EV has been plugged in but no authorization is present within specified ConnectionTimeout
 |    SwitchingPhases: Signaled when the EVSE Manager starts switching phases
 |    SessionResumed: Signaled when a session is resumed at startup (e.g. because of previous powerloss)
@@ -133,16 +151,12 @@ EVSE manager types
 |    - ChargingStarted
 |    - ChargingPausedEV
 |    - ChargingPausedEVSE
-|    - WaitingForEnergy
-|    - ChargingResumed
 |    - StoppingCharging
 |    - ChargingFinished
 |    - TransactionFinished
 |    - SessionFinished
 |    - ReservationStart
 |    - ReservationEnd
-|    - ReplugStarted
-|    - ReplugFinished
 |    - PluginTimeout
 |    - SwitchingPhases
 |    - SessionResumed
@@ -266,8 +280,10 @@ EVSE manager types
 |    data for TransactionStarted event
 |   **transaction_finished**: *object* <optional> (:ref:`evse_manager-TransactionFinished <evse_manager-TransactionFinished>`)
 |    data for TransactionFinished event that happens when car is plugged out
+|   **charging_paused_evse**: *object* <optional> (:ref:`evse_manager-ChargingPausedEVSEReasons <evse_manager-ChargingPausedEVSEReasons>`)
+|    Multiple reasons to be in pause state can be active at any point in time.
 |   **charging_state_changed_event**: *object* <optional> (:ref:`evse_manager-ChargingStateChangedEvent <evse_manager-ChargingStateChangedEvent>`)
-|    Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums: ChargingStarted, ChargingResumed, ChargingPausedEV, Charging
+|    Data for ChargingStateChangedEvent. Shall be set for the following SessionEventEnums: ChargingStarted, ChargingPausedEV, Charging
 |   **authorization_event**: *object* <optional> (:ref:`evse_manager-AuthorizationEvent <evse_manager-AuthorizationEvent>`)
 |    Data for Authorization event. Shall be set for the following SessionEventEnums: Authorized, Deauthorized
 |   **source**: *object* <optional> (:ref:`evse_manager-EnableDisableSource <evse_manager-EnableDisableSource>`)

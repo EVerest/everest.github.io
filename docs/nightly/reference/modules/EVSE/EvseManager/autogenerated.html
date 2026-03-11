@@ -842,7 +842,11 @@ The following sections provide an overview of the errors that do <strong>not</st
 <p>Powermeter errors cause the EvseManager to become Inoperative, if fail_on_powermeter_errors is configured to true. If it is configured to false, errors from the powermeter will not cause the EvseManager to become Inoperative.</p>
 <ul class="simple">
 <li><p>powermeter/CommunicationFault</p></li>
+<li><p>powermeter/VendorError</p></li>
 </ul>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">powermeter/VendorWarning</span></code> is explicitly ignored by the EvseManager’s inoperative logic (similar to other <code class="docutils literal notranslate"><span class="pre">VendorWarning</span></code> errors)
+and will not block charging even if <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is set to true. It should be used to signal non-fatal conditions such as
+high temperature warnings from the powermeter.</p>
 <p>When a charging session is stopped because of an error, the EvseManager differentiates between <strong>Emergency Shutdowns</strong> and <strong>Error Shutdowns</strong>. The severity of the
 error influences the type of the shudown. Emergency shutdowns are caused by errors with <cite>Severity::High</cite> and error shutdowns are caused by errors with <cite>Severity::Medium</cite> or <cite>Severity::Low</cite>.</p>
 <p>In case of an <strong>Emergency Shutdown</strong> the EvseManager will immediately:</p>

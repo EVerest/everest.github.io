@@ -820,6 +820,26 @@ in general is considered vulnerable.</p>
 <div class="line-block">
 <div class="line">UD (OCMF/transaction fields)</div>
 </div>
+<div class="line"><strong>temperature_warning_level_C</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5000</em></div>
+<div class="line-block">
+<div class="line">Temperature warning threshold in degrees Celsius. If the maximum of temperatureH and temperatureL exceeds this value for at least temperature_min_time_as_valid_ms, a VendorWarning is raised. Charging continues. Default of 5000 effectively disables this.</div>
+</div>
+<div class="line"><strong>temperature_error_level_C</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5000</em></div>
+<div class="line-block">
+<div class="line">Temperature error threshold in degrees Celsius. If the maximum of temperatureH and temperatureL exceeds this value for at least temperature_min_time_as_valid_ms, a VendorError is raised. Charging is stopped. Default of 5000 effectively disables this.</div>
+</div>
+<div class="line"><strong>temperature_hysteresis_K</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3</em></div>
+<div class="line-block">
+<div class="line">Hysteresis in Kelvin for clearing temperature warnings and errors. A warning is cleared when max temperature drops below warning_level - hysteresis. An error is cleared when max temperature drops below error_level - hysteresis.</div>
+</div>
+<div class="line"><strong>temperature_min_time_as_valid_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5000</em></div>
+<div class="line-block">
+<div class="line">Minimum time in milliseconds that the temperature must continuously exceed the warning or error level before the corresponding event is raised.</div>
+</div>
 <div class="line"><strong>command_timeout_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 5000</em></div>
 <div class="line-block">

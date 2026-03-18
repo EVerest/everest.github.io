@@ -766,6 +766,58 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="evse-manager-hlcsessionfailedreasonenum">
+<div class="line"><strong>HlcSessionFailedReasonEnum</strong>: <em>string</em></div>
+<div class="line-block">
+<div class="line">Reason for a higher-level-communication (HLC) session failure event.</div>
+<div class="line-block">
+<div class="line">Published via HlcSessionFailed whenever HLC session encounters a failure.</div>
+<div class="line">- ProtocolNegotiationFailed: No common communication protocol or version could be</div>
+<div class="line-block">
+<div class="line">negotiated. Applies to protocols with a version handshake phase.</div>
+</div>
+<div class="line">- AuthorizationFailed: The authorization phase did not succeed and the EV terminated</div>
+<div class="line-block">
+<div class="line">the session. This covers both explicit rejection (e.g. failed PnC contract or</div>
+<div class="line">certificate verification) and authorization timeout (the EVSE did not respond</div>
+<div class="line">within the timeout of the EV).</div>
+</div>
+<div class="line">- ChargingParametersNotAccepted: The EV terminated during parameter negotiation,</div>
+<div class="line-block">
+<div class="line">indicating it could not accept the offered energy transfer parameters (power</div>
+<div class="line">levels, voltage range, schedule, etc.).</div>
+</div>
+<div class="line">- EnergyTransferSetupFailed: The setup phase immediately before energy transfer</div>
+<div class="line-block">
+<div class="line">began (e.g. power delivery request, pre-charge coordination) failed or was</div>
+<div class="line">rejected by the EV before any energy was transferred.</div>
+</div>
+<div class="line">- ChargingInterrupted: The EV stopped energy transfer unexpectedly during active</div>
+<div class="line-block">
+<div class="line">charging without completing a normal stop sequence.</div>
+</div>
+<div class="line">- FailedTLSHandshake: The TLS handshake between EV and EVSE failed before any</div>
+<div class="line-block">
+<div class="line">V2G message exchange could take place, preventing the session from starting.</div>
+</div>
+<div class="line">- UnexpectedSessionEnd: The communication session ended unexpectedly at a phase</div>
+<div class="line-block">
+<div class="line">not covered by the above reasons, or without completing a normal termination</div>
+<div class="line">sequence. Catch-all for unclassified EV-side terminations.</div>
+</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- ProtocolNegotiationFailed</div>
+<div class="line">- AuthorizationFailed</div>
+<div class="line">- ChargingParametersNotAccepted</div>
+<div class="line">- EnergyTransferSetupFailed</div>
+<div class="line">- ChargingInterrupted</div>
+<div class="line">- FailedTLSHandshake</div>
+<div class="line">- UnexpectedSessionEnd</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="evse-manager-switchthreephaseswhilechargingresult">
 <div class="line"><strong>SwitchThreePhasesWhileChargingResult</strong>: <em>string</em></div>
 <div class="line-block">
@@ -1054,6 +1106,23 @@
 <div class="line"><strong>source</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-enabledisablesource"><span class="std std-ref">evse_manager-EnableDisableSource</span></a>)</div>
 <div class="line-block">
 <div class="line">Additional data for Enabled/Disabled events. Specifies the source of the command that changed the state.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-hlcsessionfailedevent">
+<div class="line"><strong>HlcSessionFailedEvent</strong>: <em>object</em></div>
+<div class="line-block">
+<div class="line">Published whenever an HLC session failure occurs. Published immediately when the failure is detected, independently of the EvseManager state machine transitions. Can fire multiple times per EVerest session (e.g. on each retry attempt). Use the uuid field to correlate with session_event.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>uuid</strong>: <em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Session UUID for correlation with session_event</div>
+</div>
+<div class="line"><strong>reason</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="#evse-manager-hlcsessionfailedreasonenum"><span class="std std-ref">evse_manager-HlcSessionFailedReasonEnum</span></a>)</div>
+<div class="line-block">
+<div class="line">Protocol-agnostic reason for the HLC session failure</div>
 </div>
 </div>
 </div>

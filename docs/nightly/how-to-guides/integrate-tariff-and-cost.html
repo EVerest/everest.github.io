@@ -679,6 +679,32 @@ the tariff and session cost messages must be used to show the required
 information on a charger display. The APIs only provide the necessary data.</p>
 </div>
 </section>
+<section id="no-local-cost-calculation">
+<h2>No local cost calculation<a class="headerlink" href="#no-local-cost-calculation" title="Link to this heading">¶</a></h2>
+<p>EVerest does not calculate session costs locally. All cost figures
+published on the session cost consumer API originate exclusively from the
+CSMS:</p>
+<ul class="simple">
+<li><p>In OCPP 2.x, cost values come from the <code class="docutils literal notranslate"><span class="pre">totalCost</span></code> field in
+<code class="docutils literal notranslate"><span class="pre">TransactionEventResponse</span></code> or from a <code class="docutils literal notranslate"><span class="pre">CostUpdated</span></code> message.</p></li>
+<li><p>In OCPP 1.6, cost values come from <code class="docutils literal notranslate"><span class="pre">RunningCost</span></code> and <code class="docutils literal notranslate"><span class="pre">FinalCost</span></code>
+DataTransfer messages sent by the CSMS.</p></li>
+</ul>
+<p>EVerest only formats these values (e.g. applying the configured number of
+decimal places) before forwarding them. No energy-based or time-based
+cost computation is performed on the charging station.</p>
+<p>When the charging station is offline, no cost figures are available at
+all. The session cost consumer API will only receive human-readable tariff
+text messages (from the locally configured fallback variables), never
+computed cost amounts. The actual session cost is only published once the
+CSMS responds after the connection is restored.</p>
+<p>In addition to CSMS-provided cost data, the locally configured fallback
+messages (<code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code>, <code class="docutils literal notranslate"><span class="pre">OfflineTariffFallbackMessage</span></code>,
+<code class="docutils literal notranslate"><span class="pre">TotalCostFallbackMessage</span></code> in OCPP 2.x; <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code> in OCPP 1.6)
+are also published via the session cost consumer API as <code class="docutils literal notranslate"><span class="pre">tariff_message</span></code>
+publications. These contain human-readable pricing text only — they carry
+no cost figures and are not derived from any local computation.</p>
+</section>
 <section id="ocpp-configuration">
 <h2>OCPP configuration<a class="headerlink" href="#ocpp-configuration" title="Link to this heading">¶</a></h2>
 <p>If you plan to use session cost information from OCPP (e.g. according to the California
@@ -688,8 +714,16 @@ cost information from the CSMS.</p>
 <h3>OCPP 1.6<a class="headerlink" href="#ocpp-1-6" title="Link to this heading">¶</a></h3>
 <p>Enable the <code class="docutils literal notranslate"><span class="pre">CostAndPrice</span></code> profile in the OCPP 1.6 module configuration.
 Once enabled, the OCPP module registers the tariff message and session cost
-callbacks. Configure the configuration keys of the <code class="docutils literal notranslate"><span class="pre">CostAndPrice</span></code> profile
-as needed.</p>
+callbacks. The relevant configuration keys are:</p>
+<ul class="simple">
+<li><p><strong>DefaultPriceText</strong> — the tariff fallback message shown when no
+<code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code> DataTransfer is received within the timeout. This is the
+OCPP 1.6 equivalent of <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> in OCPP 2.x.</p></li>
+<li><p><strong>WaitForSetUserPriceTimeout</strong> — how long to wait for a <code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code>
+DataTransfer before publishing the <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code> fallback.</p></li>
+</ul>
+<p>There is no OCPP 1.6 equivalent of <code class="docutils literal notranslate"><span class="pre">TotalCostFallbackMessage</span></code>: no
+fallback cost message is published when a transaction ends while offline.</p>
 </section>
 <section id="ocpp-2-x">
 <h3>OCPP 2.x<a class="headerlink" href="#ocpp-2-x" title="Link to this heading">¶</a></h3>
@@ -704,12 +738,36 @@ features are active:</p>
 </ul>
 <p>Both can be enabled independently. Also configure other variables of the
 <code class="docutils literal notranslate"><span class="pre">TariffCostCtrlr</span></code> as needed.</p>
+<section id="fallback-messages">
+<h4>Fallback messages<a class="headerlink" href="#fallback-messages" title="Link to this heading">¶</a></h4>
+<p>When the CSMS provides no tariff information, the charging station
+displays locally configured fallback messages. The following
+<code class="docutils literal notranslate"><span class="pre">TariffCostCtrlr</span></code> variables control this:</p>
+<ul class="simple">
+<li><p><strong>TariffFallbackMessage</strong> — published when tariff is enabled but the
+CSMS provides no <code class="docutils literal notranslate"><span class="pre">personalMessage</span></code> in the <code class="docutils literal notranslate"><span class="pre">AuthorizeResponse</span></code>.</p></li>
+<li><p><strong>OfflineTariffFallbackMessage</strong> — used instead of
+<code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> when the charging station is offline. If not
+configured, <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> is used as a fallback.</p></li>
+<li><p><strong>TotalCostFallbackMessage</strong> — published when a transaction ends while
+the charging station is offline and no CSMS <code class="docutils literal notranslate"><span class="pre">totalCost</span></code> response can
+be received.</p></li>
+</ul>
+<p>For multi-language deployments, add a language-specific instance of
+<code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> for each supported language (e.g. instance
+<code class="docutils literal notranslate"><span class="pre">de</span></code> for German, <code class="docutils literal notranslate"><span class="pre">nl</span></code> for Dutch). The supported languages are derived
+from <code class="docutils literal notranslate"><span class="pre">DisplayMessageCtrlr.Language.valuesList</span></code>. The default-language
+text goes into <code class="docutils literal notranslate"><span class="pre">personalMessage</span></code>; up to four additional language
+entries go into <code class="docutils literal notranslate"><span class="pre">customData.personalMessageExtra</span></code> per California
+Pricing spec 4.3.4. All languages are forwarded together as entries
+in the <code class="docutils literal notranslate"><span class="pre">messages</span></code> field of the <code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> publication.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Additional requirements of the OCPP 2.1 specification with respect to
 tariff and costs have not yet been implemented. The implemented features
 can still be used with OCPP 2.1.</p>
 </div>
+</section>
 </section>
 </section>
 <section id="tariff-message-flow">
@@ -723,19 +781,27 @@ session cost consumer API.</p>
 by the CSMS. The CSMS typically sends this message shortly after the
 <code class="docutils literal notranslate"><span class="pre">Authorize.conf</span></code>, so the tariff message is available close to
 authorization time.</p>
-<p>If the <code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code> DataTransfer is not received within the configured
-timeout, a default tariff message (if configured) is published instead.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code> DataTransfer is not received within the
+<code class="docutils literal notranslate"><span class="pre">WaitForSetUserPriceTimeout</span></code>, the <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code> fallback (if
+configured) is published. The <code class="docutils literal notranslate"><span class="pre">identifier_type</span></code> is <code class="docutils literal notranslate"><span class="pre">IdToken</span></code> at
+authorization time, and <code class="docutils literal notranslate"><span class="pre">TransactionId</span></code> once a transaction has started.</p>
 </section>
 <section id="id2">
 <h3>OCPP 2.x<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <p>Tariff messages are published at two points:</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p><strong>Authorization time</strong> — from the <code class="docutils literal notranslate"><span class="pre">personalMessage</span></code> field in the
 <code class="docutils literal notranslate"><span class="pre">AuthorizeResponse</span></code>. The tariff message is also included in the
 <code class="docutils literal notranslate"><span class="pre">messages</span></code> field of the <code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code> on the auth
 consumer API. At this point the <code class="docutils literal notranslate"><span class="pre">identifier_type</span></code> is <code class="docutils literal notranslate"><span class="pre">IdToken</span></code> and
 the <code class="docutils literal notranslate"><span class="pre">identifier_id</span></code> is the token value, since no transaction exists
-yet.</p></li>
+yet.</p>
+<p>If the CSMS does not provide a <code class="docutils literal notranslate"><span class="pre">personalMessage</span></code>, the charging
+station automatically injects the configured <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">OfflineTariffFallbackMessage</span></code> when offline) so that a tariff
+message is always published when tariff is enabled and a fallback is
+configured.</p>
+</li>
 <li><p><strong>During the session</strong> — from the <code class="docutils literal notranslate"><span class="pre">updatedPersonalMessage</span></code> field in
 <code class="docutils literal notranslate"><span class="pre">TransactionEventResponse</span></code> messages. At this point the
 <code class="docutils literal notranslate"><span class="pre">identifier_type</span></code> is <code class="docutils literal notranslate"><span class="pre">TransactionId</span></code> and the <code class="docutils literal notranslate"><span class="pre">identifier_id</span></code> is
@@ -761,6 +827,13 @@ the session cost consumer API.</p>
 <h3>OCPP 1.6<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <p>Session cost updates are triggered by <code class="docutils literal notranslate"><span class="pre">RunningCost</span></code> and <code class="docutils literal notranslate"><span class="pre">FinalCost</span></code>
 DataTransfer messages from the CSMS.</p>
+<p>When a transaction ends while the charging station is offline, the queued
+<code class="docutils literal notranslate"><span class="pre">StopTransaction</span></code> is sent to the CSMS once the connection is
+re-established. The <code class="docutils literal notranslate"><span class="pre">StopTransactionResponse</span></code> carries no cost data. No
+fallback cost message is published. If the CSMS sends a <code class="docutils literal notranslate"><span class="pre">FinalCost</span></code>
+DataTransfer after reconnect, a <code class="docutils literal notranslate"><span class="pre">session_cost</span></code> will be published at
+that point — but this is entirely at the CSMS’s discretion and may not
+happen at all.</p>
 </section>
 <section id="id4">
 <h3>OCPP 2.x<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
@@ -775,10 +848,23 @@ cost update with status <code class="docutils literal notranslate"><span class="
 same <code class="docutils literal notranslate"><span class="pre">TransactionEventResponse</span></code>, the personal message appears in both the
 <code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> variable and the <code class="docutils literal notranslate"><span class="pre">message</span></code> field of the
 <code class="docutils literal notranslate"><span class="pre">session_cost</span></code> record.</p>
+<p>When a transaction ends while the charging station is offline, the CSMS
+<code class="docutils literal notranslate"><span class="pre">totalCost</span></code> response will never arrive. In this case, if
+<code class="docutils literal notranslate"><span class="pre">TotalCostFallbackMessage</span></code> is configured, a <code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> is
+published with <code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">TransactionId</span></code>. This message contains
+human-readable text only — no actual cost figures are available.
+Consumers should display this text as a notification that the session
+cost is unavailable, rather than as a cost breakdown.</p>
+<p>Once the OCPP connection is re-established, the queued
+<code class="docutils literal notranslate"><span class="pre">TransactionEvent(Ended)</span></code> is sent to the CSMS. If the CSMS responds
+with a <code class="docutils literal notranslate"><span class="pre">totalCost</span></code>, a <code class="docutils literal notranslate"><span class="pre">session_cost</span></code> with status <code class="docutils literal notranslate"><span class="pre">Finished</span></code> is
+published for the same transaction ID.</p>
 </section>
 </section>
 <section id="relationship-between-the-apis">
 <h2>Relationship between the APIs<a class="headerlink" href="#relationship-between-the-apis" title="Link to this heading">¶</a></h2>
+<section id="id5">
+<h3>OCPP 2.x<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper colwidths-given docutils container">
 <table class="docutils align-default">
 <colgroup>
@@ -793,21 +879,78 @@ same <code class="docutils literal notranslate"><span class="pre">TransactionEve
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Token authorized with tariff</p></td>
+<tr class="row-even"><td><p>Token authorized, CSMS provides tariff</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code> includes <code class="docutils literal notranslate"><span class="pre">messages</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">IdToken</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p>In-session tariff update</p></td>
+<tr class="row-odd"><td><p>Token authorized, no CSMS tariff, fallback configured</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code> includes <code class="docutils literal notranslate"><span class="pre">messages</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published from <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">IdToken</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>In-session tariff update</p></td>
 <td><p>—</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">TransactionId</span></code>)</p></td>
 </tr>
-<tr class="row-even"><td><p>Running / final cost</p></td>
+<tr class="row-odd"><td><p>Running / final cost (online)</p></td>
 <td><p>—</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">session_cost</span></code> published (may include <code class="docutils literal notranslate"><span class="pre">message</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Transaction ended offline, fallback configured</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published from <code class="docutils literal notranslate"><span class="pre">TotalCostFallbackMessage</span></code> (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">TransactionId</span></code>); no <code class="docutils literal notranslate"><span class="pre">session_cost</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Reconnected, CSMS sends <code class="docutils literal notranslate"><span class="pre">totalCost</span></code> for offline transaction</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">session_cost</span></code> with status <code class="docutils literal notranslate"><span class="pre">Finished</span></code> published; supersedes the earlier fallback text</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</section>
+<section id="id6">
+<h3>OCPP 1.6<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper colwidths-given docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event</p></th>
+<th class="head"><p>Auth consumer API</p></th>
+<th class="head"><p>Session cost consumer API</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Token authorized, CSMS sends <code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code> includes <code class="docutils literal notranslate"><span class="pre">messages</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">IdToken</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code> timeout, <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code> configured</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code> includes <code class="docutils literal notranslate"><span class="pre">messages</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published from <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code> (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">IdToken</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>In-session <code class="docutils literal notranslate"><span class="pre">SetUserPrice</span></code> DataTransfer</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> published (<code class="docutils literal notranslate"><span class="pre">identifier_type</span> <span class="pre">=</span> <span class="pre">TransactionId</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RunningCost</span></code> / <code class="docutils literal notranslate"><span class="pre">FinalCost</span></code> DataTransfer (online)</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">session_cost</span></code> published (may include <code class="docutils literal notranslate"><span class="pre">message</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Transaction ended offline</p></td>
+<td><p>—</p></td>
+<td><p>nothing published</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reconnected, CSMS sends <code class="docutils literal notranslate"><span class="pre">FinalCost</span></code> DataTransfer</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">session_cost</span></code> with status <code class="docutils literal notranslate"><span class="pre">Finished</span></code> published</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 </section>
 </section>
 
@@ -869,9 +1012,13 @@ same <code class="docutils literal notranslate"><span class="pre">TransactionEve
 <li><a class="reference internal" href="#">Integrate Tariff and Cost</a><ul>
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#relevant-consumer-apis">Relevant Consumer APIs</a></li>
+<li><a class="reference internal" href="#no-local-cost-calculation">No local cost calculation</a></li>
 <li><a class="reference internal" href="#ocpp-configuration">OCPP configuration</a><ul>
 <li><a class="reference internal" href="#ocpp-1-6">OCPP 1.6</a></li>
-<li><a class="reference internal" href="#ocpp-2-x">OCPP 2.x</a></li>
+<li><a class="reference internal" href="#ocpp-2-x">OCPP 2.x</a><ul>
+<li><a class="reference internal" href="#fallback-messages">Fallback messages</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#tariff-message-flow">Tariff message flow</a><ul>
@@ -884,7 +1031,11 @@ same <code class="docutils literal notranslate"><span class="pre">TransactionEve
 <li><a class="reference internal" href="#id4">OCPP 2.x</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#relationship-between-the-apis">Relationship between the APIs</a></li>
+<li><a class="reference internal" href="#relationship-between-the-apis">Relationship between the APIs</a><ul>
+<li><a class="reference internal" href="#id5">OCPP 2.x</a></li>
+<li><a class="reference internal" href="#id6">OCPP 1.6</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -723,7 +723,7 @@ sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> <
 </section>
 <section id="download-and-install-everest">
 <span id="htg-getting-started-sw-download-install"></span><h2>Download And Install EVerest<a class="headerlink" href="#download-and-install-everest" title="Link to this heading">¶</a></h2>
-<p>EVerest’s main application code is located in <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>. It makes use of various
+<p>EVerest’s main application code is located in <a class="reference external" href="https://github.com/EVerest/EVerest">EVerest</a>. It makes use of various
 libraries which are included in the same repository for the most part. External dependencies
 are dynamically loaded via <a class="reference external" href="https://github.com/cpm-cmake/CPM.cmake">CPM</a>.</p>
 <p>This means you can and should set the <code class="docutils literal notranslate"><span class="pre">CPM_SOURCE_CACHE</span></code> environment
@@ -739,15 +739,15 @@ environment variables please refer to the
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In the past the EVerest Dependency Manager - short <code class="docutils literal notranslate"><span class="pre">edm</span></code> - helped you with orchestrating
-and pulling in the dependencies in the build process of <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>. Since EVerest has
+and pulling in the dependencies in the build process of <code class="docutils literal notranslate"><span class="pre">EVerest</span></code>. Since EVerest has
 been restructered into a (quasi)-mono-repository, manual installation of <code class="docutils literal notranslate"><span class="pre">edm</span></code> is no longer
 recommended for building recent releases of EVerest (2026 and later).
 For more details about <code class="docutils literal notranslate"><span class="pre">edm</span></code>, see the dedicated <a class="reference internal" href="../../explanation/dev-tools/edm.html"><span class="doc">edm documentation</span></a>.</p>
 </div>
-<p>We can now continue to build <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/everest-core
+<p>We can now continue to build <code class="docutils literal notranslate"><span class="pre">EVerest</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/EVerest/EVerest
 mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-cmake<span class="w"> </span>../everest-core/
+cmake<span class="w"> </span>../EVerest/
 make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span><span class="w"> </span>install
 </pre></div>
 </div>
@@ -788,7 +788,7 @@ chapter.</p>
 software-in-the-loop configuration. This means that all hardware related
 parts like Powermeter, RFID-Reader are loaded as simulated modules.
 Also the Electric Vehicle simulations run as part of EVerest.</p>
-<p>Change to the directory <code class="docutils literal notranslate"><span class="pre">everest-core/build</span></code>, which has been created during
+<p>Change to the directory <code class="docutils literal notranslate"><span class="pre">EVerest/build</span></code>, which has been created during
 EVerest install.</p>
 <p>Since the EVerest config we are going to use includes ISO15118 functionality on the EV
 side, we need to source the preinstalled virtual environment and install the respective
@@ -874,7 +874,7 @@ We will stick to C++ in the examples below.</p>
 </div>
 <p>So, let’s dig into the overview:</p>
 <p>EVerest is a modular framework. So, there are lots of modules for different
-entities in <code class="docutils literal notranslate"><span class="pre">everest-core</span></code>:</p>
+entities in <code class="docutils literal notranslate"><span class="pre">EVerest/modules</span></code>:</p>
 <ul class="simple">
 <li><p>EvseManager (a charging port as part of a charging station)</p></li>
 <li><p>Hardware driver modules</p></li>
@@ -934,7 +934,7 @@ will require to work.</p>
 <p>With the <code class="docutils literal notranslate"><span class="pre">min_connections</span></code> and <code class="docutils literal notranslate"><span class="pre">max_connections</span></code> keys you can configure how
 many connections are required or allowed for your module.</p>
 <p>In EVerest, you find a manifest file for each module. See the module
-directories in <em>everest-core/modules</em>.</p>
+directories in <em>EVerest/modules</em>.</p>
 </section>
 <section id="interfaces">
 <h4>Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading">¶</a></h4>
@@ -949,7 +949,7 @@ module implements. Those interfaces could already exist. If not, you would have
 to create a new one. EVerest contains a rich set of interfaces defining common
 functionality of a charging station software stack.</p>
 <p>You can find all interface source files in the directory
-<em>everest-core/interfaces</em> as yaml files or their
+<em>EVerest/interfaces</em> as yaml files or their
 respective documentation in the <a class="reference internal" href="../../reference/types_index.html"><span class="doc">EVerest Reference Documentation</span></a>.</p>
 <p>This is an easy interface as an example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe why we need this interface.</span>
@@ -999,7 +999,7 @@ be deprecated in future versions.</p>
 of primitive data types (like boolean, integer, string).</p>
 <p>In the interface, you saw a reference to an EVerest type definition.</p>
 <p>You can find the type definitions as yaml files in the following directory:</p>
-<p><em>everest-core/types</em> or their respective
+<p><em>EVerest/types</em> or their respective
 documentation in the <a class="reference internal" href="../../reference/index.html"><span class="doc">EVerest Reference Documentation</span></a>.</p>
 <p>An easy definition of a type could look like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe which group of types will follow.</span>
@@ -1026,7 +1026,7 @@ interface - the <a class="reference internal" href="../../explanation/dev-tools/
 <section id="generate-the-stub-files">
 <h3>Generate the stub files<a class="headerlink" href="#generate-the-stub-files" title="Link to this heading">¶</a></h3>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> to generate stub files for a module. Everything that you need
-is a module directory within <code class="docutils literal notranslate"><span class="pre">everest-core/modules</span></code> containing a <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code> file
+is a module directory within <code class="docutils literal notranslate"><span class="pre">EVerest/modules</span></code> containing a <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code> file
 described above.</p>
 <p>Assuming the module is defined inside the <code class="docutils literal notranslate"><span class="pre">EVSE</span></code> directory you can use <a class="reference internal" href="../../explanation/dev-tools/ev-cli.html#exp-dev-tools-evcli"><span class="std std-ref">ev-cli</span></a> to create
 the module skeleton like this:</p>

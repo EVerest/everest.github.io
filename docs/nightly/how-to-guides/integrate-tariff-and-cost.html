@@ -662,8 +662,9 @@ consumer API topics.</p></li>
 <h2>Relevant Consumer APIs<a class="headerlink" href="#relevant-consumer-apis" title="Link to this heading">¶</a></h2>
 <p>Two consumer APIs carry tariff and cost information:</p>
 <ul class="simple">
-<li><p><strong>Session cost consumer API</strong> — provides the <code class="docutils literal notranslate"><span class="pre">tariff_message</span></code> and
-<code class="docutils literal notranslate"><span class="pre">session_cost</span></code> variables on the <code class="docutils literal notranslate"><span class="pre">session_cost</span></code> interface.</p></li>
+<li><p><strong>Session cost consumer API</strong> — provides the <code class="docutils literal notranslate"><span class="pre">tariff_message</span></code>,
+<code class="docutils literal notranslate"><span class="pre">session_cost</span></code>, and <code class="docutils literal notranslate"><span class="pre">default_price</span></code> variables on the <code class="docutils literal notranslate"><span class="pre">session_cost</span></code>
+interface.</p></li>
 <li><p><strong>Auth consumer API</strong> — provides <code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code>, which may
 include tariff messages received at authorization time.</p></li>
 </ul>
@@ -862,10 +863,47 @@ with a <code class="docutils literal notranslate"><span class="pre">totalCost</s
 published for the same transaction ID.</p>
 </section>
 </section>
+<section id="station-default-price">
+<h2>Station default price<a class="headerlink" href="#station-default-price" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">default_price</span></code> variable on the session cost consumer API carries the
+currently applicable station-wide fallback tariff text. Unlike
+<code class="docutils literal notranslate"><span class="pre">tariff_message</span></code>, it is not bound to a specific session or token — it
+represents the price a customer can expect to pay at this station when no
+personalised tariff has been provided by the CSMS.</p>
+<p>It is published in the following situations:</p>
+<ul class="simple">
+<li><p><strong>On startup</strong> — once before the first connection attempt, using the
+offline fallback text (if configured).</p></li>
+<li><p><strong>On connect / reconnect</strong> — with the online fallback text.</p></li>
+<li><p><strong>On disconnect</strong> — with the offline fallback text (if configured);
+falls back to the online text if no offline text is configured.</p></li>
+<li><p><strong>On configuration change</strong> — immediately after the relevant fallback
+variable is updated via <code class="docutils literal notranslate"><span class="pre">ChangeConfiguration</span></code> (OCPP 1.6) or
+<code class="docutils literal notranslate"><span class="pre">SetVariables</span></code> (OCPP 2.x)</p></li>
+</ul>
+<section id="id5">
+<h3>OCPP 1.6<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">default_price</span></code> variable is populated from the <code class="docutils literal notranslate"><span class="pre">DefaultPrice</span></code>
+configuration key (<code class="docutils literal notranslate"><span class="pre">CostAndPrice</span></code> section). It contains both a
+<code class="docutils literal notranslate"><span class="pre">priceText</span></code> (online) and a <code class="docutils literal notranslate"><span class="pre">priceTextOffline</span></code> field. The relevant
+configuration key changes that trigger a re-publication are <code class="docutils literal notranslate"><span class="pre">DefaultPrice</span></code>
+and <code class="docutils literal notranslate"><span class="pre">DefaultPriceText,&lt;language&gt;</span></code>.</p>
+</section>
+<section id="id6">
+<h3>OCPP 2.x<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">default_price</span></code> variable is populated from the
+<code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> (online) and <code class="docutils literal notranslate"><span class="pre">OfflineTariffFallbackMessage</span></code>
+(offline) variables of the <code class="docutils literal notranslate"><span class="pre">TariffCostCtrlr</span></code> component. If no offline
+message is configured, <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> is used in both states.
+A change to either variable via <code class="docutils literal notranslate"><span class="pre">SetVariables</span></code> triggers an immediate
+re-publication.</p>
+<p>If neither variable is configured, no <code class="docutils literal notranslate"><span class="pre">default_price</span></code> publication occurs.</p>
+</section>
+</section>
 <section id="relationship-between-the-apis">
 <h2>Relationship between the APIs<a class="headerlink" href="#relationship-between-the-apis" title="Link to this heading">¶</a></h2>
-<section id="id5">
-<h3>OCPP 2.x<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<section id="id7">
+<h3>OCPP 2.x<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper colwidths-given docutils container">
 <table class="docutils align-default">
 <colgroup>
@@ -904,12 +942,24 @@ published for the same transaction ID.</p>
 <td><p>—</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">session_cost</span></code> with status <code class="docutils literal notranslate"><span class="pre">Finished</span></code> published; supersedes the earlier fallback text</p></td>
 </tr>
+<tr class="row-even"><td><p>Connected / reconnected</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default_price</span></code> published with online <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> (if configured)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Disconnected</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default_price</span></code> published with <code class="docutils literal notranslate"><span class="pre">OfflineTariffFallbackMessage</span></code>, or <code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> if not configured</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TariffFallbackMessage</span></code> or <code class="docutils literal notranslate"><span class="pre">OfflineTariffFallbackMessage</span></code> changed via <code class="docutils literal notranslate"><span class="pre">SetVariables</span></code></p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default_price</span></code> re-published with new online text</p></td>
+</tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="id6">
-<h3>OCPP 1.6<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<section id="id8">
+<h3>OCPP 1.6<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper colwidths-given docutils container">
 <table class="docutils align-default">
 <colgroup>
@@ -947,6 +997,18 @@ published for the same transaction ID.</p>
 <tr class="row-odd"><td><p>Reconnected, CSMS sends <code class="docutils literal notranslate"><span class="pre">FinalCost</span></code> DataTransfer</p></td>
 <td><p>—</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">session_cost</span></code> with status <code class="docutils literal notranslate"><span class="pre">Finished</span></code> published</p></td>
+</tr>
+<tr class="row-even"><td><p>Connected / reconnected</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default_price</span></code> published with online <code class="docutils literal notranslate"><span class="pre">DefaultPrice.priceText</span></code> (if configured)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Disconnected</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default_price</span></code> published with <code class="docutils literal notranslate"><span class="pre">DefaultPrice.priceTextOffline</span></code> (if configured)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DefaultPrice</span></code> changed via <code class="docutils literal notranslate"><span class="pre">ChangeConfiguration</span></code></p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">default_price</span></code> re-published with new online text</p></td>
 </tr>
 </tbody>
 </table>
@@ -1032,9 +1094,14 @@ published for the same transaction ID.</p>
 <li><a class="reference internal" href="#id4">OCPP 2.x</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#station-default-price">Station default price</a><ul>
+<li><a class="reference internal" href="#id5">OCPP 1.6</a></li>
+<li><a class="reference internal" href="#id6">OCPP 2.x</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#relationship-between-the-apis">Relationship between the APIs</a><ul>
-<li><a class="reference internal" href="#id5">OCPP 2.x</a></li>
-<li><a class="reference internal" href="#id6">OCPP 1.6</a></li>
+<li><a class="reference internal" href="#id7">OCPP 2.x</a></li>
+<li><a class="reference internal" href="#id8">OCPP 1.6</a></li>
 </ul>
 </li>
 </ul>

@@ -652,6 +652,10 @@
 <section id="variables">
 <h2>Variables<a class="headerlink" href="#variables" title="Link to this heading">¶</a></h2>
 <div class="line-block">
+<div class="line"><strong>supported_app_protocols_secc</strong>: <em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-supportedappprotocols"><span class="std std-ref">iso15118-SupportedAppProtocols</span></a>)</div>
+<div class="line-block">
+<div class="line">Supported charging protocols of the SECC. This always returns all supported protocols, even if they are restricted via cmd update_supported_app_protocols.</div>
+</div>
 <div class="line"><strong>require_auth_eim</strong>: <em>null</em></div>
 <div class="line-block">
 <div class="line">An EIM authorization is required</div>
@@ -965,6 +969,18 @@
 <div class="line"><strong>mode</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-noenergypausemode"><span class="std std-ref">iso15118-NoEnergyPauseMode</span></a>)</div>
 <div class="line-block">
 <div class="line">Set to different no energy pause modes. For PauseAfterPrecharge the charger should pause but has power for cable check and pre charge. For PauseBeforeCableCheck the charger should pause before cable check. For AllowEvToIgnorePause charger should ignore, that the ev will go to CurrentDemand instead of pausing the session, this is against IEC61851-23:2023.</div>
+</div>
+</div>
+<div class="line"><strong>update_supported_app_protocols</strong>: <em>boolean</em></div>
+<div class="line-block">
+<div class="line">Update the supported charging protocols (DIN70121, ISO15118-2, ISO15118-20). Defaults are typically configured already; if this command is not called, the module keeps its default set of supported protocols. Note: This command is intended exclusively for Fake DC, primarily to disable specific supported protocols in case of incompatibilities between EVCC and SECC.</div>
+<div class="line"><strong>supported_app_protocols</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-supportedappprotocols"><span class="std std-ref">iso15118-SupportedAppProtocols</span></a>)</div>
+<div class="line-block">
+<div class="line">Supported communication protocols advertised by the EVSE</div>
+</div>
+<div class="line"><strong>Result</strong>: <em>boolean</em></div>
+<div class="line-block">
+<div class="line">Returns true if the supported protocols were updated successfully</div>
 </div>
 </div>
 <div class="line"><strong>update_energy_transfer_modes</strong>: <em>void</em></div>

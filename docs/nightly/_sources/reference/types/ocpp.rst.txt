@@ -522,3 +522,23 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    When Status is Accepted, this contains the heartbeat interval in seconds. If the CSMS returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request.
 |   **status_info**: *object* <optional> (:ref:`ocpp-StatusInfoType <ocpp-StatusInfoType>`)
 |    Detailed status information.
+
+.. _ocpp-MessageDirection:
+
+| **MessageDirection**: *string* 
+|  OCPP message direction
+|  enum:
+|    - CSMSToChargingStation
+|    - ChargingStationToCSMS
+
+.. _ocpp-Message:
+
+| **Message**: *object* 
+|  OCPP message with direction
+|  properties:
+|   **message**: *string* <required>
+|    Serialized OCPP-J message
+|   **direction**: *string* <required> (:ref:`ocpp-MessageDirection <ocpp-MessageDirection>`)
+|    OCPP message direction
+|   **version**: *string* <optional>
+|    OCPP version of the serialized message

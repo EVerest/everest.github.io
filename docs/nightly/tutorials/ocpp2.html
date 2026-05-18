@@ -923,25 +923,116 @@ for your specific charging station.</p>
 <p>The following sections explain important component and variables in order to
 connect to a different CSMS or to enable certain features.</p>
 </section>
+<section id="network-configuration">
+<span id="tutorial-ocpp2-network-configuration"></span><h3>Network Configuration<a class="headerlink" href="#network-configuration" title="Link to this heading">¶</a></h3>
+<p>OCPP 2.x uses <strong>NetworkConfiguration</strong> components in the device model to define
+how the charging station connects to a CSMS. Each connection profile is stored
+as a separate component instance (called a <strong>slot</strong>), and a priority list
+determines the order in which slots are tried during connection and failover.</p>
 <section id="connect-to-a-different-csms">
-<span id="tutorial-ocpp2-different-csms"></span><h3>Connect to a different CSMS<a class="headerlink" href="#connect-to-a-different-csms" title="Link to this heading">¶</a></h3>
-<p>In order to connect to a different CSMS, you have to modify the connection
-details within your device model configuration:</p>
+<span id="tutorial-ocpp2-different-csms"></span><h4>Connect to a different CSMS<a class="headerlink" href="#connect-to-a-different-csms" title="Link to this heading">¶</a></h4>
+<p>Each connection profile is defined in its own JSON file under the device model
+configuration directory. At least two slots must be configured; you may add as
+many additional slots as you need (see <a class="reference internal" href="#tutorial-ocpp2-adding-slots"><span class="std std-ref">Adding more network configuration slots</span></a>).
+The default profiles are:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">NetworkConnectionProfiles</span></code> in the <code class="docutils literal notranslate"><span class="pre">InternalCtrlr</span></code>. Note that this is a JSON array, so you can define multiple connection profiles.
-- <code class="docutils literal notranslate"><span class="pre">ocppCsmsUrl</span></code>: Specifies the endpoint of the CSMS
-- <code class="docutils literal notranslate"><span class="pre">securityProfile</span></code>: Specifies the SecurityProfile which defines type of transport layer connection between ChargePoint and CSMS</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Identity</span></code> in the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>: The identity of the charging station</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code> in the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>: Specifies the password used for HTTP Basic Authentication (SecurityProfile 1 or 2)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">component_config/standardized/NetworkConfiguration_1.json</span></code> (slot 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">component_config/standardized/NetworkConfiguration_2.json</span></code> (slot 2)</p></li>
 </ul>
-<p>Modify these parameters according to the connection requirements of the CSMS.</p>
+<p>To connect to a different CSMS, modify the following variables in the
+appropriate slot’s JSON file:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code>: The WebSocket endpoint of the CSMS, <strong>without</strong> the
+charging-station identifier path segment (e.g. <code class="docutils literal notranslate"><span class="pre">ws://csms.example.com:9000</span></code>
+or <code class="docutils literal notranslate"><span class="pre">wss://csms.example.com:443</span></code>). The identifier from <code class="docutils literal notranslate"><span class="pre">Identity</span></code> is
+appended at connect time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>: Defines the transport layer security level:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: No security (OCPP 1.6 compatibility, disabled by default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: Basic authentication over <code class="docutils literal notranslate"><span class="pre">ws://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: TLS with server certificate over <code class="docutils literal notranslate"><span class="pre">wss://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code>: TLS with mutual authentication (client + server certificates) over <code class="docutils literal notranslate"><span class="pre">wss://</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code>: The network interface to use (<code class="docutils literal notranslate"><span class="pre">Wired0</span></code>–<code class="docutils literal notranslate"><span class="pre">Wired3</span></code>, <code class="docutils literal notranslate"><span class="pre">Wireless0</span></code>–<code class="docutils literal notranslate"><span class="pre">Wireless3</span></code>, or <code class="docutils literal notranslate"><span class="pre">Any</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OcppTransport</span></code>: The transport protocol (<code class="docutils literal notranslate"><span class="pre">JSON</span></code> or <code class="docutils literal notranslate"><span class="pre">SOAP</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MessageTimeout</span></code>: Message timeout in seconds (minimum 1)</p></li>
+</ul>
+<p>Each slot can optionally override the charging station’s identity and
+authentication credentials:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Identity</span></code>: Per-slot identity override. If empty, falls back to <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr.Identity</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code>: Per-slot password override. If empty, falls back to <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr.BasicAuthPassword</span></code>.</p></li>
+</ul>
+<p>The global fallback values are configured in the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code> component:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Identity</span></code> in <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>: The default identity of the charging station</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code> in <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>: The default password for HTTP Basic Authentication (SecurityProfile 1 or 2)</p></li>
+</ul>
+<p>The <strong>connection priority</strong> is controlled by the <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code>
+variable in <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>. This is a comma-separated list of slot numbers
+that determines the order in which profiles are tried. For example, <code class="docutils literal notranslate"><span class="pre">&quot;1,2&quot;</span></code>
+means slot 1 is tried first; if it fails, slot 2 is tried, then back to slot 1
+(round-robin failover).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For TLS, it might be required to prepare the required certificates and private keys.
-Please see the documentation of the
+<p>For TLS (SecurityProfile 2 or 3), you must prepare the required certificates
+and private keys. Please see the documentation of the
 <a class="reference internal" href="../reference/modules/EVSE/EvseSecurity/autogenerated.html#everest-modules-evsesecurity"><span class="std std-ref">EvseSecurity module</span></a> for more information
 on how to set up the TLS connection for OCPP.</p>
 </div>
+</section>
+<section id="adding-more-network-configuration-slots">
+<span id="tutorial-ocpp2-adding-slots"></span><h4>Adding more network configuration slots<a class="headerlink" href="#adding-more-network-configuration-slots" title="Link to this heading">¶</a></h4>
+<p>By default, libocpp ships with two NetworkConfiguration slots. To add more:</p>
+<ol class="arabic">
+<li><p><strong>Create the JSON file.</strong> Copy an existing slot file (e.g. <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_1.json</span></code>)
+to a new file named <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_N.json</span></code> where <code class="docutils literal notranslate"><span class="pre">N</span></code> is your slot number.</p></li>
+<li><p><strong>Update the instance number.</strong> In the new file, change the <code class="docutils literal notranslate"><span class="pre">&quot;instance&quot;</span></code> field
+at the top level to match your slot number:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="err">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configure the slot’s variables.</strong> Set <code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code>, <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>,
+and other variables as needed for this connection profile.</p></li>
+<li><p><strong>Add the slot to the priority list.</strong> In <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr.json</span></code>, append the new
+slot number to the <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> value. For example, change
+<code class="docutils literal notranslate"><span class="pre">&quot;1,2&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;1,2,3&quot;</span></code>.</p></li>
+<li><p><strong>Rebuild and restart.</strong> The device model database will be re-initialized with the
+new slot on next startup.</p></li>
+</ol>
+</section>
+<section id="migration-from-legacy-networkconnectionprofiles">
+<span id="tutorial-ocpp2-migration"></span><h4>Migration from legacy NetworkConnectionProfiles<a class="headerlink" href="#migration-from-legacy-networkconnectionprofiles" title="Link to this heading">¶</a></h4>
+<p>Older versions of libocpp stored all connection profiles as a single JSON array
+blob in the <code class="docutils literal notranslate"><span class="pre">InternalCtrlr.NetworkConnectionProfiles</span></code> variable. The current
+implementation stores each profile as individual device model variables in
+per-slot <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> components.</p>
+<p><strong>Automatic migration:</strong> On startup, libocpp automatically detects and migrates
+the legacy format. No manual action is required for existing deployments.
+The migration works as follows:</p>
+<ol class="arabic simple">
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">NetworkConnectionProfiles</span></code> blob is empty, no migration is needed.</p></li>
+<li><p>If any existing <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> slot already has a configured
+<code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code>, migration is skipped (the new format is already in use).</p></li>
+<li><p>Otherwise, each profile in the JSON array is written to its corresponding
+slot using the <code class="docutils literal notranslate"><span class="pre">configurationSlot</span></code> field from the blob as the slot number.</p></li>
+<li><p>If a profile in the blob does not contain a <code class="docutils literal notranslate"><span class="pre">basicAuthPassword</span></code>, the
+global <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr.BasicAuthPassword</span></code> is used as a fallback.</p></li>
+<li><p>After successful import, the blob is cleared to prevent re-running the
+migration on subsequent startups.</p></li>
+</ol>
+<p>If you are setting up a new deployment, you do not need the legacy blob format.
+Configure your connection profiles directly using the per-slot
+<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_N.json</span></code> files as described above. Make sure the
+<code class="docutils literal notranslate"><span class="pre">InternalCtrlr.NetworkConnectionProfiles</span></code> blob remains empty (its default)
+so the migration step is skipped on first boot.</p>
+</section>
 </section>
 <section id="enable-plug-charge">
 <span id="tutorial-ocpp2-enable-pnc"></span><h3>Enable Plug&amp;Charge<a class="headerlink" href="#enable-plug-charge" title="Link to this heading">¶</a></h3>
@@ -1098,7 +1189,12 @@ Auth module.</p></li>
 <li><a class="reference internal" href="#device-model-definition-and-configuration-structure">Device Model definition and configuration structure</a></li>
 <li><a class="reference internal" href="#device-model-initialization">Device Model initialization</a></li>
 <li><a class="reference internal" href="#libocpp-provides-a-device-model-configuration-as-a-starting-point">Libocpp provides a device model configuration as a starting point</a></li>
+<li><a class="reference internal" href="#network-configuration">Network Configuration</a><ul>
 <li><a class="reference internal" href="#connect-to-a-different-csms">Connect to a different CSMS</a></li>
+<li><a class="reference internal" href="#adding-more-network-configuration-slots">Adding more network configuration slots</a></li>
+<li><a class="reference internal" href="#migration-from-legacy-networkconnectionprofiles">Migration from legacy NetworkConnectionProfiles</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#enable-plug-charge">Enable Plug&amp;Charge</a></li>
 </ul>
 </li>

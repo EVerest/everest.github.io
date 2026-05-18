@@ -1084,26 +1084,29 @@ right away when opening MQTT explorer.</p>
 <p>Then start (or re-start) the EVerest manager (as described above). You should
 notice an <cite>everest</cite> topic popping up.</p>
 <p>We can now publish a command to our self-written module. For this, choose the topic:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">everest</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">tutorial_module_instance</span><span class="o">/</span><span class="n">impl</span><span class="o">/</span><span class="n">interface_impl_tutorial_module</span><span class="o">/</span><span class="n">cmd</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">everest</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">tutorial_module_instance</span><span class="o">/</span><span class="n">impl</span><span class="o">/</span><span class="n">interface_impl_tutorial_module</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span><span class="n">command_tutorial</span>
 </pre></div>
 </div>
 <p>and publish the JSON:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">&quot;payload&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World!&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000042&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;manual_test&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;command_tutorial&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;call&quot;</span>
+    <span class="s2">&quot;msg_type&quot;</span><span class="p">:</span> <span class="s2">&quot;Cmd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;payload&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World!&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000042&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;origin&quot;</span><span class="p">:</span> <span class="s2">&quot;manual_test&quot;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Our module should return with a “everest” response (you may have to reselect
 the <code class="docutils literal notranslate"><span class="pre">everest/tutorial_module_instance/interface_impl_tutorial_module/cmd</span></code>
 on the left to refresh this view.</p>
+<p>The response should be on topic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">everest</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">tutorial_module_instance</span><span class="o">/</span><span class="n">impl</span><span class="o">/</span><span class="n">interface_impl_tutorial_module</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span><span class="n">command_tutorial</span><span class="o">/</span><span class="n">response</span><span class="o">/</span><span class="n">manual_test</span>
+</pre></div>
+</div>
 <img alt="../_images/mqtt_explorer_example.png" src="../_images/mqtt_explorer_example.png" />
 </section>
 <section id="debugging">

@@ -655,7 +655,8 @@
 </div>
 <section id="handwritten-documentation">
 <h2>Handwritten Documentation<a class="headerlink" href="#handwritten-documentation" title="Link to this heading">¶</a></h2>
-<span class="target" id="everest-modules-handwritten-carlogavazzi-em580"></span><p>Module implementing the Carlo Gavazzi EM580 power meter driver adapter via Modbus RTU (through SerialCommHub).</p>
+<span class="target" id="everest-modules-handwritten-carlogavazzi-em580"></span><p>Module implementing the Carlo Gavazzi EM580 power meter driver adapter via Modbus RTU (through SerialCommHub).
+This module also supports models without OCMF/Eichrecht support (e.g. EM300 series).</p>
 <section id="description">
 <h3>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h3>
 <p>The module consists of a single <code class="docutils literal notranslate"><span class="pre">main</span></code> implementation that serves the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> interface. Modbus access is done
@@ -665,10 +666,11 @@ via the required <code class="docutils literal notranslate"><span class="pre">se
 <h3>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Live meter reads and <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> publishing (interval configurable)</p></li>
-<li><p>OCMF/Eichrecht transaction start/stop logic</p></li>
-<li><p>Public key reading and publishing (hex)</p></li>
 <li><p>Resilient Modbus transport with retries and protocol-compliant write chunking</p></li>
 </ul>
+<p>If supported by meter:
+- OCMF/Eichrecht transaction start/stop logic
+- Public key reading and publishing (hex)</p>
 </section>
 <section id="module-configuration">
 <h3>Module Configuration<a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h3>
@@ -704,6 +706,17 @@ via the required <code class="docutils literal notranslate"><span class="pre">se
 <li><p>Modbus <code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">Multiple</span> <span class="pre">Registers</span></code> requests are chunked to max 123 registers per request.</p></li>
 <li><p>TT is a <code class="docutils literal notranslate"><span class="pre">CHAR[252]</span></code> field (126 words); overlong strings are warned and truncated.</p></li>
 </ul>
+<section id="device-identification-code-register-300012-000bh">
+<h4>Device identification code (register <code class="docutils literal notranslate"><span class="pre">300012</span></code> / <code class="docutils literal notranslate"><span class="pre">000Bh</span></code>)<a class="headerlink" href="#device-identification-code-register-300012-000bh" title="Link to this heading">¶</a></h4>
+<p>At startup the driver reads the Carlo Gavazzi <strong>Controls identification code</strong> from Modbus register <code class="docutils literal notranslate"><span class="pre">300012</span></code>
+(<code class="docutils literal notranslate"><span class="pre">000Bh</span></code>) to decide whether OCMF transactions are exposed.</p>
+<p>The following identification codes are <strong>explicitly supported</strong> as <strong>EM300/ET300 series</strong> (live metering only;
+<code class="docutils literal notranslate"><span class="pre">start_transaction</span></code> / <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> return <code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code>): <strong>331</strong>, <strong>332</strong>, <strong>335</strong>, <strong>336</strong>, <strong>340</strong>,
+<strong>341</strong>, <strong>345</strong>, <strong>346</strong>, <strong>355</strong>.</p>
+<p>Any <strong>other</strong> identification code is treated as an OCMF-capable device (e.g. EM580 class): the full transaction flow
+applies. If a new meter without OCMF uses a code not listed above, the driver should be updated to recognise it;
+otherwise it may incorrectly attempt the OCMF path.</p>
+</section>
 </section>
 </section>
 <section id="auto-generated-reference">
@@ -864,7 +877,10 @@ via the required <code class="docutils literal notranslate"><span class="pre">se
 <li><a class="reference internal" href="#stop-transaction">Stop transaction</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#notes-limitations">Notes / Limitations</a></li>
+<li><a class="reference internal" href="#notes-limitations">Notes / Limitations</a><ul>
+<li><a class="reference internal" href="#device-identification-code-register-300012-000bh">Device identification code (register <code class="docutils literal notranslate"><span class="pre">300012</span></code> / <code class="docutils literal notranslate"><span class="pre">000Bh</span></code>)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>

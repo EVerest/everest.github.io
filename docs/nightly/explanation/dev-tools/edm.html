@@ -914,6 +914,120 @@ are <strong>not available</strong> in <code class="docutils literal notranslate"
 <code class="docutils literal notranslate"><span class="pre">EVEREST_EXCLUDE_MODULES</span></code> instead if you need those libraries.</p>
 </div>
 </section>
+<section id="framework-thread-pool-scaling-policy">
+<h2>Framework thread pool scaling policy<a class="headerlink" href="#framework-thread-pool-scaling-policy" title="Link to this heading">¶</a></h2>
+<p>The framework message handler uses a dynamically scaling thread pool for
+operation messages such as variable updates, commands, errors, GetConfig and
+ModuleReady messages. Its scaling policy can be selected at CMake configure
+time.</p>
+<p><strong>CMake options:</strong></p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">latency</span></code></p></td>
+<td><p>Selects the policy. Supported values are <code class="docutils literal notranslate"><span class="pre">latency</span></code>, <code class="docutils literal notranslate"><span class="pre">greedy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">conservative</span></code>, <code class="docutils literal notranslate"><span class="pre">fixed_size</span></code> and <code class="docutils literal notranslate"><span class="pre">custom</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_THRESHOLD_MS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">50</span></code></p></td>
+<td><p>Maximum queued task wait time, in milliseconds, before the <code class="docutils literal notranslate"><span class="pre">latency</span></code>
+policy adds another worker.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_TICK_MS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+<td><p>Supervisor tick, in milliseconds, for the <code class="docutils literal notranslate"><span class="pre">latency</span></code> policy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_FIXED_SIZE_THRESHOLD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Queue size threshold at which the <code class="docutils literal notranslate"><span class="pre">fixed_size</span></code> policy adds another
+worker.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY_CUSTOM_HEADER</span></code></p></td>
+<td><p>(empty)</p></td>
+<td><p>Header to include when the policy is <code class="docutils literal notranslate"><span class="pre">custom</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY_CUSTOM_TYPE</span></code></p></td>
+<td><p>(empty)</p></td>
+<td><p>Fully-qualified C++ policy type to use when the policy is <code class="docutils literal notranslate"><span class="pre">custom</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY_CUSTOM_INCLUDE_DIR</span></code></p></td>
+<td><p>(empty)</p></td>
+<td><p>Additional include directory for the custom policy header.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The built-in policies are:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Policy</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">latency</span></code></p></td>
+<td><p>Default. Adds workers when queued work has waited longer than the
+framework latency threshold.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">greedy</span></code></p></td>
+<td><p>Adds workers as soon as backlog is detected.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conservative</span></code></p></td>
+<td><p>Adds workers only when the queue depth significantly exceeds the current
+worker count.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fixed_size</span></code></p></td>
+<td><p>Adds workers once the queue size reaches the configured
+<code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_FIXED_SIZE_THRESHOLD</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example: selecting a built-in policy for a full EVerest build</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY<span class="o">=</span>latency<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_THRESHOLD_MS<span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_TICK_MS<span class="o">=</span><span class="m">5</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build
+</pre></div>
+</div>
+<p><strong>Example: selecting fixed-size scaling</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY<span class="o">=</span>fixed_size<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_FIXED_SIZE_THRESHOLD<span class="o">=</span><span class="m">3</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build
+</pre></div>
+</div>
+<p><strong>Example: using a custom policy</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY<span class="o">=</span>custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY_CUSTOM_HEADER<span class="o">=</span>my_policy.hpp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY_CUSTOM_TYPE<span class="o">=</span>my_project::MyPolicy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY_CUSTOM_INCLUDE_DIR<span class="o">=</span>/path/to/include
+cmake<span class="w"> </span>--build<span class="w"> </span>build
+</pre></div>
+</div>
+<p>A custom policy must provide the same interface as the built-in policies:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">MyPolicy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="o">&gt;</span><span class="w"> </span><span class="n">supervisor_tick</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">should_grow</span><span class="p">(</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">current_workers</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">queue_size</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="o">::</span><span class="n">time_point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">oldest_arrival</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
 <section id="create-a-workspace-config-from-an-existing-directory-tree">
 <h2>Create a workspace config from an existing directory tree<a class="headerlink" href="#create-a-workspace-config-from-an-existing-directory-tree" title="Link to this heading">¶</a></h2>
 <p>Suppose you already have a directory tree that you want to save into a config
@@ -1034,6 +1148,7 @@ the following command:</p>
 <li><a class="reference internal" href="#setting-up-and-updating-a-workspace">Setting up and updating a workspace</a></li>
 <li><a class="reference internal" href="#using-the-edm-cmake-module-and-dependencies-yaml">Using the edm CMake module and dependencies.yaml</a></li>
 <li><a class="reference internal" href="#selective-library-consumption">Selective library consumption</a></li>
+<li><a class="reference internal" href="#framework-thread-pool-scaling-policy">Framework thread pool scaling policy</a></li>
 <li><a class="reference internal" href="#create-a-workspace-config-from-an-existing-directory-tree">Create a workspace config from an existing directory tree</a></li>
 <li><a class="reference internal" href="#git-information-at-a-glance">Git information at a glance</a></li>
 </ul>

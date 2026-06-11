@@ -59,6 +59,9 @@ Module Configuration
 | **negative_bidirectional_limits**: *boolean* <optional>
 | *default: False*
 |  Some cars send or expect negative discharge limits. However, it is not clear from the standard whether the discharge limits should be negative. Until this is clarified, the positive limits can be converted using this option.
+| **selecting_sap_based_on_energy_service**: *boolean* <optional>
+| *default: False*
+|  Based on ISO15118-20 AMD1, selecting the SAP namespace does not imply a final selection. The final decision on which service to select is made later in the D20 service states. However, since AMD1 is relatively new, it is possible that EVs will only support certain energy services after the SAP namespace has been selected. If this is the case, this option should be set to true so that libiso15118 will select the sap namespace based on the supported energy services.
 
 Provides
 ========

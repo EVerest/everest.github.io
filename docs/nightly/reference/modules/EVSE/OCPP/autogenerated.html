@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPP - EVerest Manual main@2ee9fe9</title>
+        <title>OCPP - EVerest Manual main@5f1d5e0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@2ee9fe9</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@5f1d5e0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@2ee9fe9</span>
+  <span class="sidebar-brand-text">EVerest Manual main@5f1d5e0</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -251,6 +251,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/integrate-tariff-and-cost.html">Integrate Tariff and Cost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/devcontainer-usage/index.html">Use the EVerest Development Container (devrd managed)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/ocpp-storage-migration.html">Migrate OCPP 1.6 Storage to the Device Model</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -986,6 +987,56 @@ The OCSP response is cached and can be used as part of the ISO15118 TLS handshak
 every seven days (or can be configured using the <strong>OCSPRequestInterval</strong> configuration key).
 The timestamp of the last update is stored persistently, so that this process is not necessarily performed at every start up.</p>
 </section>
+<section id="ocpp-1-6-device-model-storage-backends">
+<h3>OCPP 1.6 device model storage backends<a class="headerlink" href="#ocpp-1-6-device-model-storage-backends" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The separate OCPP and OCPP201 modules are planned to be merged into a single combined module. That new
+module will use the device model as its only configuration storage backend. New integrations should
+therefore use <strong>ConfigBackend = “device_model”</strong> from the start: the same database can then be reused
+directly when switching to OCPP201 or adopting the new combined module without a further migration step.
+Existing deployments using the legacy JSON backend should migrate using <strong>“device_model_with_migration”</strong>.</p>
+</div>
+<p>The OCPP module supports three configuration storage backends, selected by the <strong>ConfigBackend</strong> parameter:</p>
+<ul class="simple">
+<li><p><strong>“legacy”</strong> <em>(default)</em>: reads OCPP 1.6 configuration from the JSON file at <strong>ChargePointConfigPath</strong>, with
+an optional overlay from <strong>UserConfigPath</strong>. No device model database is used.</p></li>
+<li><p><strong>“device_model”</strong>: initializes and updates the device model database from component configuration JSON files.
+<strong>ChargePointConfigPath</strong> is not needed. Recommended for all new integrations.</p></li>
+<li><p><strong>“device_model_with_migration”</strong>: on first startup, performs a one-time migration of the effective OCPP 1.6
+JSON configuration (base file plus user overlay) into the device model database, then operates identically to
+<strong>“device_model”</strong> on all subsequent starts. Use this when transitioning an existing deployment.</p></li>
+</ul>
+<p>The following module configuration parameters are relevant for device model backends:</p>
+<ul class="simple">
+<li><p><strong>DeviceModelDatabasePath</strong>: path to the SQLite database file for the device model
+(default: <code class="docutils literal notranslate"><span class="pre">device_model_storage.db</span></code>, resolved against the module share path)</p></li>
+<li><p><strong>DeviceModelDatabaseMigrationPath</strong>: path to the SQL migration files for the device model schema
+(default: <code class="docutils literal notranslate"><span class="pre">device_model_migrations</span></code>, resolved against the module share path)</p></li>
+<li><p><strong>DeviceModelConfigPath</strong>: path to the component-config directory that defines the device model structure
+and optional default values (default: <code class="docutils literal notranslate"><span class="pre">component_config</span></code>, resolved against the module share path)</p></li>
+<li><p><strong>DeviceModelConfigMappings</strong>: optional YAML file mapping non-standard OCPP 1.6 keys to device model
+component/variable targets; only used with <strong>“device_model_with_migration”</strong>. The built-in mapping for
+standard OCPP 1.6 keys is documented in
+<a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a></p></li>
+<li><p><strong>Ocpp16NetworkConfigSlot</strong>: <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> slot number that OCPP 1.6 network connection
+details (<code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code>, <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>, <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code>, <code class="docutils literal notranslate"><span class="pre">HostName</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ChargePointId</span></code>) are migrated to during the one-time migration (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>; set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to skip)</p></li>
+<li><p><strong>EnableDeviceModelFallbackToLegacyJson</strong>: if <code class="docutils literal notranslate"><span class="pre">true</span></code> and device model initialization or integrity check
+fails at startup, the module falls back to the legacy JSON backend; requires <strong>ChargePointConfigPath</strong> to
+exist (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+</ul>
+<p>Migration is a one-time operation gated by the SQLite <code class="docutils literal notranslate"><span class="pre">user_version</span></code> of the database. Once the database
+has been initialized, subsequent starts skip the migration step and update the database from component
+configuration only. To rerun the migration, delete the database file at <strong>DeviceModelDatabasePath</strong>
+and restart.</p>
+<p>The component configuration at <strong>DeviceModelConfigPath</strong> serves as the structural baseline for the device
+model: it defines which components and variables exist and may also provide initial/default values.
+During migration, OCPP 1.6 values are patched on top of this baseline and take precedence over any
+defaults. The <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> component is always required; if absent from <strong>DeviceModelConfigPath</strong>,
+the module injects a built-in default schema for it automatically.</p>
+<p>For step-by-step migration instructions, see <a class="reference internal" href="../../../../how-to-guides/ocpp-storage-migration.html#howto-ocpp-storage-migration"><span class="std std-ref">Migrate OCPP 1.6 Storage to the Device Model</span></a>.</p>
+</section>
 </section>
 <section id="auto-generated-reference">
 <h2>Auto-Generated Reference<a class="headerlink" href="#auto-generated-reference" title="Link to this heading">¶</a></h2>
@@ -1006,6 +1057,39 @@ The timestamp of the last update is stored persistently, so that this process is
 <div class="line"><em>default: “/tmp/ocpp_1_6_charge_point”</em></div>
 <div class="line-block">
 <div class="line">Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.</div>
+</div>
+<div class="line"><strong>DeviceModelDatabasePath</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “device_model_storage.db”</em></div>
+<div class="line-block">
+<div class="line">Path to the SQLite database file for the OCPP device model. Relative paths are resolved against this module’s share path. Required when ConfigBackend is “device_model” or “device_model_with_migration”.</div>
+</div>
+<div class="line"><strong>DeviceModelDatabaseMigrationPath</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “device_model_migrations”</em></div>
+<div class="line-block">
+<div class="line">Path to the migration files for the OCPP device model database. Relative paths are resolved against this module’s share path. Required when ConfigBackend is “device_model” or “device_model_with_migration”.</div>
+</div>
+<div class="line"><strong>DeviceModelConfigPath</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “component_config”</em></div>
+<div class="line-block">
+<div class="line">Path to the OCPP device model component config directory used as the baseline for the device model. Relative paths are resolved against this module’s share path. Required when ConfigBackend is “device_model” or “device_model_with_migration”.</div>
+</div>
+<div class="line"><strong>DeviceModelConfigMappings</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Optional path to a YAML file with custom OCPP1.6 to device model component-config mappings. Relative paths are resolved against this module’s share path. If empty, only built-in mappings are used. Only used when ConfigBackend is “device_model_with_migration”.</div>
+</div>
+<div class="line"><strong>ConfigBackend</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “legacy”</em></div>
+<div class="line-block">
+<div class="line">Selects the configuration storage backend for OCPP 1.6: - “legacy” (default): use the legacy OCPP 1.6 JSON file. ChargePointConfigPath must exist. - “device_model”: bootstrap device model from component configs. All DeviceModel* paths must be set. - “device_model_with_migration”: like “device_model”, but on first startup migrates OCPP 1.6 JSON</div>
+<div class="line-block">
+<div class="line">values into the device model database. ChargePointConfigPath must exist for the migration source.</div>
+</div>
+</div>
+<div class="line"><strong>EnableDeviceModelFallbackToLegacyJson</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Only relevant when ConfigBackend is “device_model” or “device_model_with_migration”. If true and device model initialization or integrity check fails, fall back to the JSON backend. Requires ChargePointConfigPath to exist.</div>
 </div>
 <div class="line"><strong>EnableExternalWebsocketControl</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
@@ -1050,6 +1134,11 @@ The timestamp of the last update is stored persistently, so that this process is
 <div class="line"><em>default: 0</em></div>
 <div class="line-block">
 <div class="line">Time (seconds) to delay the stopping of the charge point so that the CSMS has enough time to respond to the charge point’s last messages before resetting.</div>
+</div>
+<div class="line"><strong>Ocpp16NetworkConfigSlot</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
+<div class="line-block">
+<div class="line">NetworkConfiguration slot number that OCPP 1.6 connection details (CentralSystemURI, SecurityProfile, AuthorizationKey, HostName, ChargePointId) are migrated to during the one-time device model migration. Any existing attribute values in the target slot are overwritten. Set to 0 to skip migration of network connection details entirely.</div>
 </div>
 </div>
 </section>
@@ -1195,6 +1284,7 @@ The timestamp of the last update is stored persistently, so that this process is
 <li><a class="reference internal" href="#global-errors-and-error-reporting">Global Errors and Error Reporting</a></li>
 <li><a class="reference internal" href="#energy-management-and-smart-charging-integration">Energy Management and Smart Charging Integration</a></li>
 <li><a class="reference internal" href="#certificate-management">Certificate Management</a></li>
+<li><a class="reference internal" href="#ocpp-1-6-device-model-storage-backends">OCPP 1.6 device model storage backends</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
@@ -1219,7 +1309,7 @@ The timestamp of the last update is stored persistently, so that this process is
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=3359c536"></script>
+</div><script src="../../../../_static/documentation_options.js?v=6b86301b"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

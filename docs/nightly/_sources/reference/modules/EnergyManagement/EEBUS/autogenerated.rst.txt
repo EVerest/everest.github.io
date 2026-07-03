@@ -1,0 +1,85 @@
+
+
+.. _everest_modules_EEBUS:
+
+#####
+EEBUS
+#####
+| EEBUS module
+
+
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
+
+************************
+Auto-Generated Reference
+************************
+
+
+Module Configuration
+====================
+| **manage_eebus_grpc_api_binary**: *boolean* <optional>
+| *default: True*
+|  Whether the module should manage the eebus grpc api binary
+| **eebus_service_port**: *integer* <optional>
+| *default: 4715*
+|  Port for the control service, this will be sent in the SetConfig call.
+| **grpc_port**: *integer* <optional>
+| *default: 50051*
+|  Port for grpc control service connection. This is the port on which we will create our control service channel and start the grpc binary with, required/used when manage_eebus_grpc_api_binary=true
+| **eebus_ems_ski_allowlist**: *string* <optional>
+| *default: ""*
+|  Comma-separated list of pre-trusted EEBUS EMS SKIs (lowercase SHA-1 hex, 40 chars each). Any EG discovered on the LAN whose SKI matches an entry is auto-registered with the sidecar at startup. May be empty when accept_unknown_ems is true. Whitespace around entries is trimmed.
+| **accept_unknown_ems**: *boolean* <optional>
+| *default: False*
+|  When true, every EG SKI discovered at runtime that is NOT already in the sidecar's trust list is auto-registered for the duration of this session. Security note: only enable on isolated/trusted networks. When false (default), unknown EGs are logged and ignored.
+| **certificate_path**: *string* <optional>
+| *default: "eebus/evse_cert"*
+|  Path to the certificate file used by eebus go client. If relative will be prefixed with everest prefix + etc/everest/certs. Otherwise absolute file path is used, required/used when manage_eebus_grpc_api_binary=true
+| **private_key_path**: *string* <optional>
+| *default: "eebus/evse_key"*
+|  Path to the private key file used by eebus go client. If relative will be prefixed with everest prefix + etc/everest/certs. Otherwise absolute file path is used, required/used when manage_eebus_grpc_api_binary=true
+| **eebus_grpc_api_binary_path**: *string* <optional>
+| *default: "eebus_grpc_api"*
+|  Path to the eebus grpc api binary. If relative will be prefixed with everest prefix + libexec. Otherwise absolute file path is used, required/used when manage_eebus_grpc_api_binary=true
+| **vendor_code**: *string* <required>
+|  Vendor code for the configuration of the control service
+| **device_brand**: *string* <required>
+|  Device brand for the configuration of the control service
+| **device_model**: *string* <required>
+|  Device model for the configuration of the control service
+| **serial_number**: *string* <required>
+|  Serial number for the configuration of the control service
+| **failsafe_control_limit_W**: *integer* <optional>
+| *default: 4200*
+|  Failsafe control limit for LPC use case. This will also be used for the default consumption limit, unit is Watts
+| **max_nominal_power_W**: *integer* <optional>
+| *default: 32000*
+|  Maximum nominal power of the charging station. This is the max power the CS can consume.
+| **restart_delay_s**: *integer* <optional>
+| *default: 5*
+|  Delay in seconds before restarting the eebus_grpc_api binary.
+| **reconnect_delay_s**: *integer* <optional>
+| *default: 5*
+|  Delay in seconds before trying to reconnect to the gRPC service.
+
+
+Requirements
+============
+| **eebus_energy_sink**: :ref:`external_energy_limits <everest_interfaces_external_energy_limits>` 1
+
+********
+Metadata
+********
+Authors
+=======
+| Andreas Heinrich
+| Martin Litre
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

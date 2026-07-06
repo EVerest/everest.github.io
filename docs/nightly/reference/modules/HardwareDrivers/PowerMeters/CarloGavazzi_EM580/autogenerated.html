@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>CarloGavazzi_EM580 - EVerest Manual main@0b3eaa9</title>
+        <title>CarloGavazzi_EM580 - EVerest Manual main@855f703</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@0b3eaa9</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@855f703</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@0b3eaa9</span>
+  <span class="sidebar-brand-text">EVerest Manual main@855f703</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -663,57 +663,278 @@
 </div>
 <section id="handwritten-documentation">
 <h2>Handwritten Documentation<a class="headerlink" href="#handwritten-documentation" title="Link to this heading">¶</a></h2>
-<span class="target" id="everest-modules-handwritten-carlogavazzi-em580"></span><p>Module implementing the Carlo Gavazzi EM580 power meter driver adapter via Modbus RTU (through SerialCommHub).
-This module also supports models without OCMF/Eichrecht support (e.g. EM300 series).</p>
+<span class="target" id="everest-modules-handwritten-carlogavazzi-em580"></span><p>Driver module for the <strong>Carlo Gavazzi EM580</strong> power meter using Modbus via EVerest’s <code class="docutils literal notranslate"><span class="pre">serial_communication_hub</span></code>
+interface. It implements the standardized EVerest <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> interface and supports <strong>OCMF/Eichrecht</strong> transaction
+flows. This module also supports models without OCMF/Eichrecht support (e.g. EM300 series).</p>
 <section id="description">
 <h3>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h3>
-<p>The module consists of a single <code class="docutils literal notranslate"><span class="pre">main</span></code> implementation that serves the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> interface. Modbus access is done
-via the required <code class="docutils literal notranslate"><span class="pre">serial_communication_hub</span></code> interface.</p>
+<p>This is an <strong>EVerest Hardware Driver</strong> module that:</p>
+<ul class="simple">
+<li><p><strong>Implements</strong>: <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> interface</p></li>
+<li><p><strong>Communicates</strong>: Modbus RTU (through <code class="docutils literal notranslate"><span class="pre">SerialCommHub</span></code>)</p></li>
+<li><p><strong>Provides</strong>: Live meter values, OCMF transaction start/stop handling, public key publishing</p></li>
+</ul>
+<p>The module consists of a single <code class="docutils literal notranslate"><span class="pre">main</span></code> implementation. Modbus access is done via the required
+<code class="docutils literal notranslate"><span class="pre">serial_communication_hub</span></code> interface.</p>
 </section>
 <section id="features">
 <h3>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Live meter reads and <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> publishing (interval configurable)</p></li>
-<li><p>Resilient Modbus transport with retries and protocol-compliant write chunking</p></li>
+<li><p><strong>Live measurements</strong>: Publishes <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> readings periodically (<code class="docutils literal notranslate"><span class="pre">live_measurement_interval_ms</span></code>)</p></li>
+<li><p><strong>OCMF transactions</strong> (when supported by the meter):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_transaction</span></code>: writes OCMF identification fields + tariff text (TT) + start command</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code>: ends transaction, waits for READY, reads OCMF file, confirms file read</p></li>
 </ul>
-<p>If supported by meter:
-- OCMF/Eichrecht transaction start/stop logic
-- Public key reading and publishing (hex)</p>
+</li>
+<li><p><strong>Modbus protocol compliance</strong>: transport splits writes into chunks (max 123 registers per request)</p></li>
+<li><p><strong>Resilience / retries</strong>:</p>
+<ul>
+<li><p>Separate initial connection retry settings vs. normal operation retry settings</p></li>
+<li><p>Communication-fault raise/clear hooks</p></li>
+</ul>
+</li>
+<li><p><strong>Device and transaction state monitoring</strong>: periodic read of device state bitfield and OCMF transaction state
+(<code class="docutils literal notranslate"><span class="pre">device_state_read_interval_ms</span></code>; optional OCMF monitoring via <code class="docutils literal notranslate"><span class="pre">monitor_transaction_state</span></code>)</p></li>
+<li><p><strong>Signature key readout</strong>: reads signature type and public keys; publishes public key (hex) via <code class="docutils literal notranslate"><span class="pre">public_key_ocmf</span></code></p></li>
+</ul>
+</section>
+<section id="hardware-requirements-and-compatibility">
+<h3>Hardware requirements and compatibility<a class="headerlink" href="#hardware-requirements-and-compatibility" title="Link to this heading">¶</a></h3>
+<section id="supported-devices">
+<h4>Supported devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Carlo Gavazzi EM580</strong> with <strong>Modbus RTU</strong> enabled/available.</p></li>
+<li><p><strong>OCMF/Eichrecht flow</strong>: requires a meter variant/firmware that supports the OCMF register set used by this driver.</p></li>
+</ul>
+<p>If you are unsure which EM580 variant you have, check the device documentation/ordering code and confirm:</p>
+<ul class="simple">
+<li><p>Modbus RTU via RS-485 is supported and enabled</p></li>
+<li><p>The meter is configured for a known Modbus <strong>unit id</strong> (device address)</p></li>
+<li><p><strong>Carlo Gavazzi EM300</strong> with <strong>Modbus RTU</strong> enabled/available. These models do not support OCMF/Eichrecht and can
+only be used as a usual power meter. All transaction-related configuration does not apply for such devices.</p></li>
+</ul>
+</section>
+<section id="bus-physical-layer">
+<h4>Bus / physical layer<a class="headerlink" href="#bus-physical-layer" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>RS-485 (2-wire, half duplex)</strong>: correct A/B wiring is essential.</p></li>
+<li><p><strong>Termination</strong>: enable 120Ω termination at the ends of the RS-485 bus (and only at the ends).</p></li>
+<li><p><strong>Biasing</strong>: ensure the bus has proper bias resistors (often provided by the adapter/master or by dedicated biasing).</p></li>
+</ul>
+</section>
+<section id="host-requirements">
+<h4>Host requirements<a class="headerlink" href="#host-requirements" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>A Linux host running EVerest with access to a serial device (e.g. <code class="docutils literal notranslate"><span class="pre">/dev/ttyUSB0</span></code>).</p></li>
+<li><p>A <strong>USB-to-RS485</strong> adapter (or equivalent RS-485 interface) supported by the OS.</p></li>
+<li><p>Permissions to access the serial device node (group membership / udev rules).</p></li>
+</ul>
+</section>
+</section>
+<section id="interfaces">
+<h3>Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading">¶</a></h3>
+<section id="provides">
+<h4>Provides<a class="headerlink" href="#provides" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">main</span></code>: <code class="docutils literal notranslate"><span class="pre">powermeter</span></code></p></li>
+</ul>
+</section>
+<section id="requires">
+<h4>Requires<a class="headerlink" href="#requires" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">modbus</span></code>: <code class="docutils literal notranslate"><span class="pre">serial_communication_hub</span></code></p></li>
+</ul>
+</section>
 </section>
 <section id="module-configuration">
 <h3>Module Configuration<a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h3>
-<p>The module configuration parameters are defined in <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code>. A complete example configuration can be found at
-<code class="docutils literal notranslate"><span class="pre">config/bringup/config-bringup-CGEM580.yaml</span></code>.</p>
+<section id="required-connections">
+<h4>Required connections<a class="headerlink" href="#required-connections" title="Link to this heading">¶</a></h4>
+<p>The module requires a <code class="docutils literal notranslate"><span class="pre">serial_communication_hub</span></code> implementation (typically <code class="docutils literal notranslate"><span class="pre">SerialCommHub</span></code>) via its <code class="docutils literal notranslate"><span class="pre">modbus</span></code>
+requirement. <code class="docutils literal notranslate"><span class="pre">SerialCommHub</span></code> encapsulates the serial port settings (port, baudrate, parity, timeouts). The EM580
+module only needs the hub connection plus its Modbus unit id (<code class="docutils literal notranslate"><span class="pre">powermeter_device_id</span></code>).</p>
+</section>
+<section id="example-configuration-bringup">
+<h4>Example configuration (bringup)<a class="headerlink" href="#example-configuration-bringup" title="Link to this heading">¶</a></h4>
+<p>See <code class="docutils literal notranslate"><span class="pre">config/bringup/config-bringup-CGEM580.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cgem580</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CarloGavazzi_EM580</span>
+<span class="w">    </span><span class="nt">config_implementation</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">main</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">powermeter_device_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">communication_retry_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">communication_retry_delay_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+<span class="w">        </span><span class="nt">communication_error_pause_delay_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">        </span><span class="nt">initial_connection_retry_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">        </span><span class="nt">initial_connection_retry_delay_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">        </span><span class="nt">timezone_offset_minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">        </span><span class="nt">live_measurement_interval_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">        </span><span class="nt">device_state_read_interval_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">    </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">modbus</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">comm_hub</span>
+<span class="w">          </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+</pre></div>
+</div>
+</section>
+<section id="multiple-em580-devices-on-one-rs-485-bus">
+<h4>Multiple EM580 devices on one RS-485 bus<a class="headerlink" href="#multiple-em580-devices-on-one-rs-485-bus" title="Link to this heading">¶</a></h4>
+<p>You can run multiple EM580 devices on the same RS-485 line by:</p>
+<ul class="simple">
+<li><p>Creating multiple <code class="docutils literal notranslate"><span class="pre">CarloGavazzi_EM580</span></code> module instances</p></li>
+<li><p>Pointing them all to the same <code class="docutils literal notranslate"><span class="pre">SerialCommHub</span></code></p></li>
+<li><p>Giving each instance a unique <code class="docutils literal notranslate"><span class="pre">powermeter_device_id</span></code> (Modbus unit id)</p></li>
+</ul>
+</section>
+<section id="configuration-parameters">
+<h4>Configuration parameters<a class="headerlink" href="#configuration-parameters" title="Link to this heading">¶</a></h4>
+<p>All parameters are defined in <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code>:</p>
+<div class="table-wrapper colwidths-given docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 52.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">powermeter_device_id</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Modbus device ID on the bus</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">communication_retry_count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Retries for regular Modbus operations</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">communication_retry_delay_ms</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">500</span></code></p></td>
+<td><p>Delay between regular retries</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">communication_error_pause_delay_s</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+<td><p>Pause after a communication failure in the live measurement thread before retrying (also applies to initial communication)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">initial_connection_retry_count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code> (0 = infinite)</p></td>
+<td><p>Retries during initial device setup/signature config reads</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">initial_connection_retry_delay_ms</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2000</span></code></p></td>
+<td><p>Delay between initialization retries</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timezone_offset_minutes</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Timezone offset from UTC (minutes)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">live_measurement_interval_ms</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1000</span></code></p></td>
+<td><p>Interval for reading/publishing live measurements</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">device_state_read_interval_ms</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10000</span></code></p></td>
+<td><p>Interval for reading device-state bitfield and OCMF transaction state (when <code class="docutils literal notranslate"><span class="pre">monitor_transaction_state</span></code> is enabled)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">public_key_format</span></code></p></td>
+<td><p>enum</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">binary</span></code></p></td>
+<td><p>The key format to use for the public key</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">monitor_transaction_state</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>While a transaction is active, read OCMF state at <code class="docutils literal notranslate"><span class="pre">device_state_read_interval_ms</span></code> and raise <code class="docutils literal notranslate"><span class="pre">powermeter/VendorError</span></code> if the device reports READY (e.g. after a brief power loss). Useful when <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is enabled in EvseManager.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="parameter-tuning-notes">
+<h4>Parameter tuning notes<a class="headerlink" href="#parameter-tuning-notes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>``initial_connection_*``</strong>:</p>
+<ul>
+<li><p>Used during module startup for device setup / signature config reads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initial_connection_retry_count:</span> <span class="pre">0</span></code> means <strong>retry forever</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initial_connection_retry_delay_ms</span></code> has a <strong>minimum of 100 ms</strong> (see <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>``communication_*``</strong>:</p>
+<ul>
+<li><p>Used for regular Modbus operations during runtime.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">communication_retry_delay_ms</span></code> has a <strong>minimum of 10 ms</strong> (see <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code>).</p></li>
+<li><p>At startup the driver warns if retry settings can defer <code class="docutils literal notranslate"><span class="pre">CommunicationFault</span></code> for too long relative to a typical
+meter reboot (see implementation in <code class="docutils literal notranslate"><span class="pre">powermeterImpl.cpp</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>``communication_error_pause_delay_s``</strong>:</p>
+<ul>
+<li><p>After a communication exception in the live thread, the module waits this long before retrying.</p></li>
+<li><p>If the line is physically broken (wrong wiring / adapter unplugged), increasing this value reduces log spam.</p></li>
+</ul>
+</li>
+<li><p><strong>``live_measurement_interval_ms`` / ``device_state_read_interval_ms``</strong>:</p>
+<ul>
+<li><p>Keep live measurements reasonable for your bus speed and number of devices.</p></li>
+<li><p>For multi-drop RS-485, consider increasing intervals if you see bus contention/timeouts.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="transaction-flow-ocmf">
 <h3>Transaction flow (OCMF)<a class="headerlink" href="#transaction-flow-ocmf" title="Link to this heading">¶</a></h3>
 <section id="start-transaction">
 <h4>Start transaction<a class="headerlink" href="#start-transaction" title="Link to this heading">¶</a></h4>
-<p>At transaction start the module:</p>
+<p>High-level flow:</p>
 <ol class="arabic simple">
-<li><p>Ensures OCMF state is <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code></p></li>
-<li><p>Writes OCMF identification data, EVSE ID and tariff text (TT) (0-terminated, used bytes only)</p></li>
-<li><p>Writes session modality</p></li>
-<li><p>Sends the start command (<code class="docutils literal notranslate"><span class="pre">'B'</span></code>)</p></li>
+<li><p>Read OCMF state. If it is not <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">READY</span></code> with an unread OCMF file after a communication outage),
+log a warning, run cleanup via <code class="docutils literal notranslate"><span class="pre">clear_transaction_states()</span></code> (for <code class="docutils literal notranslate"><span class="pre">READY</span></code>: read and confirm the file on the
+device), then continue with the new transaction below.</p></li>
+<li><p>Write OCMF transaction registers:</p>
+<ul class="simple">
+<li><p>Identification status/level/flags/type</p></li>
+<li><p>Identification data (ID)</p></li>
+<li><p>Charging point identifier type + value (EVSE ID)</p></li>
+<li><p>Tariff text (TT) as <code class="docutils literal notranslate"><span class="pre">tariff_text</span> <span class="pre">+</span> <span class="pre">&quot;&lt;=&gt;&quot;</span> <span class="pre">+</span> <span class="pre">transaction_id</span></code> (written as <strong>0-terminated</strong>, <strong>used bytes only</strong>)</p></li>
+</ul>
+</li>
+<li><p>Write session modality (charging vehicle).</p></li>
+<li><p>Write the start command (<code class="docutils literal notranslate"><span class="pre">'B'</span></code>).</p></li>
 </ol>
+<p><strong>Important:</strong> Cleanup on start confirms a pending OCMF file on the device but does <strong>not</strong> return it to the caller.
+For billable sessions, call <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> with the session id <strong>before</strong> <code class="docutils literal notranslate"><span class="pre">start_transaction</span></code> so the OCMF
+report is delivered to the upper layer (e.g. EvseManager/OCPP). Use start-time cleanup only when discarding a stale
+unread file is acceptable.</p>
 </section>
 <section id="stop-transaction">
 <h4>Stop transaction<a class="headerlink" href="#stop-transaction" title="Link to this heading">¶</a></h4>
-<p>At transaction stop the module:</p>
+<p>High-level flow:</p>
 <ol class="arabic simple">
-<li><p>Sends the end command (<code class="docutils literal notranslate"><span class="pre">'E'</span></code>) for the tracked transaction</p></li>
-<li><p>Waits for OCMF state <code class="docutils literal notranslate"><span class="pre">READY</span></code></p></li>
-<li><p>Reads the OCMF file (size + content)</p></li>
-<li><p>Confirms the file read by setting state back to <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code></p></li>
+<li><p>Write end command (<code class="docutils literal notranslate"><span class="pre">'E'</span></code>) if stopping the currently tracked transaction.</p></li>
+<li><p>Wait for OCMF state <code class="docutils literal notranslate"><span class="pre">READY</span></code>.</p></li>
+<li><p>Read OCMF file (size + content).</p></li>
+<li><p>Confirm file read by writing <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code> to OCMF state.</p></li>
+<li><p>Return OCMF report in <code class="docutils literal notranslate"><span class="pre">signed_meter_value</span></code> (with <code class="docutils literal notranslate"><span class="pre">public_key</span></code> attached).</p></li>
 </ol>
 </section>
-</section>
-<section id="notes-limitations">
-<h3>Notes / Limitations<a class="headerlink" href="#notes-limitations" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>Modbus <code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">Multiple</span> <span class="pre">Registers</span></code> requests are chunked to max 123 registers per request.</p></li>
-<li><p>TT is a <code class="docutils literal notranslate"><span class="pre">CHAR[252]</span></code> field (126 words); overlong strings are warned and truncated.</p></li>
-</ul>
 <section id="device-identification-code-register-300012-000bh">
 <h4>Device identification code (register <code class="docutils literal notranslate"><span class="pre">300012</span></code> / <code class="docutils literal notranslate"><span class="pre">000Bh</span></code>)<a class="headerlink" href="#device-identification-code-register-300012-000bh" title="Link to this heading">¶</a></h4>
 <p>At startup the driver reads the Carlo Gavazzi <strong>Controls identification code</strong> from Modbus register <code class="docutils literal notranslate"><span class="pre">300012</span></code>
@@ -726,11 +947,112 @@ applies. If a new meter without OCMF uses a code not listed above, the driver sh
 otherwise it may incorrectly attempt the OCMF path.</p>
 </section>
 </section>
+<section id="signature-validation-recommended">
+<h3>Signature validation (recommended)<a class="headerlink" href="#signature-validation-recommended" title="Link to this heading">¶</a></h3>
+<p>For troubleshooting and integration testing, this module ships a small signature validation tool under
+<code class="docutils literal notranslate"><span class="pre">ocmf_validation/</span></code>. It can validate EM580 OCMF signatures (<code class="docutils literal notranslate"><span class="pre">ECDSA-brainpoolP384r1-SHA256</span></code>) against the public key
+read from the meter. See <code class="docutils literal notranslate"><span class="pre">ocmf_validation/README.md</span></code> for usage details.</p>
+</section>
+<section id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h3>
+<section id="no-communication-timeouts">
+<h4>No communication / timeouts<a class="headerlink" href="#no-communication-timeouts" title="Link to this heading">¶</a></h4>
+<p>Common causes and checks:</p>
+<ul class="simple">
+<li><p><strong>Wrong unit id</strong>:</p>
+<ul>
+<li><p>Verify <code class="docutils literal notranslate"><span class="pre">powermeter_device_id</span></code> matches the meter’s Modbus address.</p></li>
+<li><p>If you have multiple meters, ensure each has a unique id (1..247 are typical).</p></li>
+</ul>
+</li>
+<li><p><strong>Wrong serial settings</strong>:</p>
+<ul>
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">SerialCommHub</span></code> settings match the meter configuration (baudrate, parity).</p></li>
+<li><p>If you are unsure, start with conservative settings and increase once stable.</p></li>
+</ul>
+</li>
+<li><p><strong>RS-485 wiring / termination</strong>:</p>
+<ul>
+<li><p>Swap A/B if you see only timeouts.</p></li>
+<li><p>Ensure termination is correct (only at bus ends).</p></li>
+<li><p>Keep cables short / twisted pair; avoid star topologies where possible.</p></li>
+</ul>
+</li>
+<li><p><strong>Adapter / permissions</strong>:</p>
+<ul>
+<li><p>Confirm the serial device path exists and is stable (<code class="docutils literal notranslate"><span class="pre">/dev/ttyUSB0</span></code> can change between boots).</p></li>
+<li><p>Ensure the EVerest process has permissions to open the device node.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="repeated-communicationfault-raises">
+<h4>Repeated <code class="docutils literal notranslate"><span class="pre">CommunicationFault</span></code> raises<a class="headerlink" href="#repeated-communicationfault-raises" title="Link to this heading">¶</a></h4>
+<p>The module raises a communication fault when Modbus operations fail and clears it once communication is restored.
+If you see frequent toggling:</p>
+<ul class="simple">
+<li><p>Reduce bus load (increase <code class="docutils literal notranslate"><span class="pre">live_measurement_interval_ms</span></code>, especially with multiple meters)</p></li>
+<li><p>Increase <code class="docutils literal notranslate"><span class="pre">communication_retry_count</span></code> modestly (and keep <code class="docutils literal notranslate"><span class="pre">communication_retry_delay_ms</span></code> ≥ 10 ms)</p></li>
+<li><p>Consider increasing <code class="docutils literal notranslate"><span class="pre">communication_error_pause_delay_s</span></code> to reduce retry storms on hard faults</p></li>
+</ul>
+</section>
+<section id="ocmf-transaction-does-not-complete-stuck-waiting-for-ready">
+<h4>OCMF transaction does not complete / stuck waiting for READY<a class="headerlink" href="#ocmf-transaction-does-not-complete-stuck-waiting-for-ready" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Check that the meter is in the expected OCMF state and is not holding a previous transaction open.</p></li>
+<li><p>Ensure the transaction ids passed to <code class="docutils literal notranslate"><span class="pre">start_transaction</span></code> / <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> match your intended flow.</p></li>
+<li><p>Inspect logs around OCMF state transitions and file readout to see which step fails.</p></li>
+</ul>
+</section>
+<section id="tariff-text-tt-is-truncated">
+<h4>Tariff text (TT) is truncated<a class="headerlink" href="#tariff-text-tt-is-truncated" title="Link to this heading">¶</a></h4>
+<p>The EM580 TT field is limited to <code class="docutils literal notranslate"><span class="pre">CHAR[252]</span></code>. The driver logs a warning and truncates overlong strings. Shorten
+<code class="docutils literal notranslate"><span class="pre">tariff_text</span></code> and/or the appended data (e.g. transaction id formatting).</p>
+</section>
+<section id="signature-verification-fails">
+<h4>Signature verification fails<a class="headerlink" href="#signature-verification-fails" title="Link to this heading">¶</a></h4>
+<p>Use the validation tool in <code class="docutils literal notranslate"><span class="pre">ocmf_validation/</span></code> to validate the produced OCMF string against the published public key.
+If it fails:</p>
+<ul class="simple">
+<li><p>Ensure public key and OCMF data come from the <strong>same device</strong> and <strong>same transaction</strong></p></li>
+<li><p>Ensure the OCMF data is not modified (OCMF signatures are over compact JSON)</p></li>
+</ul>
+</section>
+</section>
+<section id="notes-limitations">
+<h3>Notes / Limitations<a class="headerlink" href="#notes-limitations" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Modbus <code class="docutils literal notranslate"><span class="pre">Write</span> <span class="pre">Multiple</span> <span class="pre">Registers</span></code> requests are chunked to max 123 registers per request.</p></li>
+<li><p>TT is a <code class="docutils literal notranslate"><span class="pre">CHAR[252]</span></code> field (126 words); overlong strings are warned and truncated.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">start_transaction</span></code> runs while the device OCMF state is <code class="docutils literal notranslate"><span class="pre">READY</span></code> (unread closed transaction), the driver
+confirms and discards that file on the meter without returning it. Call <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> first when the OCMF
+report must reach the CSMS.</p></li>
+</ul>
+</section>
+<section id="unit-tests">
+<h3>Unit tests<a class="headerlink" href="#unit-tests" title="Link to this heading">¶</a></h3>
+<p>Unit tests live under <code class="docutils literal notranslate"><span class="pre">tests/</span></code> and include:</p>
+<ul class="simple">
+<li><p>Helper-level tests (<code class="docutils literal notranslate"><span class="pre">helper.hpp</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">powermeterImpl</span></code> behavior tests using a fake Modbus transport and small test hooks</p></li>
+</ul>
+<p>Build/run example (target name may vary by build system settings):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ninja<span class="w"> </span>-C<span class="w"> </span>build<span class="w"> </span>everest-core_carlo_gavazzi_em580_helper_tests
+./build/modules/HardwareDrivers/PowerMeters/CarloGavazzi_EM580/tests/everest-core_carlo_gavazzi_em580_helper_tests
+</pre></div>
+</div>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>OCMF spec: <a class="reference external" href="https://github.com/SAFE-eV/OCMF-Open-Charge-Metering-Format">SAFE-eV OCMF specification</a></p></li>
+</ul>
+</section>
 </section>
 <section id="auto-generated-reference">
 <h2>Auto-Generated Reference<a class="headerlink" href="#auto-generated-reference" title="Link to this heading">¶</a></h2>
-<section id="provides">
-<h3>Provides<a class="headerlink" href="#provides" title="Link to this heading">¶</a></h3>
+<section id="id1">
+<h3>Provides<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><strong>main</strong>: <a class="reference internal" href="../../../../interfaces/powermeter.html#everest-interfaces-powermeter"><span class="std std-ref">powermeter</span></a></div>
 <div class="line-block">
@@ -780,7 +1102,7 @@ otherwise it may incorrectly attempt the OCMF path.</p>
 <div class="line"><strong>device_state_read_interval_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 10000</em></div>
 <div class="line-block">
-<div class="line">Interval in milliseconds between reading the device state bitfield (used for VendorError reporting). Default 10000 ms (once per 10 seconds). Allowed range 500-60000 ms.</div>
+<div class="line">Interval in milliseconds between reading the device state bitfield (VendorError reporting) and, when monitor_transaction_state is enabled, the OCMF transaction state while a transaction is active. Default 10000 ms (once per 10 seconds). Allowed range 500-60000 ms.</div>
 </div>
 <div class="line"><strong>public_key_format</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “binary”</em></div>
@@ -791,6 +1113,11 @@ otherwise it may incorrectly attempt the OCMF path.</p>
 <div class="line">- binary</div>
 <div class="line">- der</div>
 </div>
+</div>
+<div class="line"><strong>monitor_transaction_state</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">When enabled, reads the OCMF state at device_state_read_interval_ms while a transaction is active. If the device reports READY (transaction closed on the meter side, e.g. after a brief power loss), raises powermeter/VendorError so the charging session can be stopped when fail_on_powermeter_errors is enabled in the EvseManager module.</div>
 </div>
 </div>
 </div>
@@ -879,20 +1206,47 @@ otherwise it may incorrectly attempt the OCMF path.</p>
 <li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#features">Features</a></li>
-<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#hardware-requirements-and-compatibility">Hardware requirements and compatibility</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported devices</a></li>
+<li><a class="reference internal" href="#bus-physical-layer">Bus / physical layer</a></li>
+<li><a class="reference internal" href="#host-requirements">Host requirements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#interfaces">Interfaces</a><ul>
+<li><a class="reference internal" href="#provides">Provides</a></li>
+<li><a class="reference internal" href="#requires">Requires</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a><ul>
+<li><a class="reference internal" href="#required-connections">Required connections</a></li>
+<li><a class="reference internal" href="#example-configuration-bringup">Example configuration (bringup)</a></li>
+<li><a class="reference internal" href="#multiple-em580-devices-on-one-rs-485-bus">Multiple EM580 devices on one RS-485 bus</a></li>
+<li><a class="reference internal" href="#configuration-parameters">Configuration parameters</a></li>
+<li><a class="reference internal" href="#parameter-tuning-notes">Parameter tuning notes</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#transaction-flow-ocmf">Transaction flow (OCMF)</a><ul>
 <li><a class="reference internal" href="#start-transaction">Start transaction</a></li>
 <li><a class="reference internal" href="#stop-transaction">Stop transaction</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#notes-limitations">Notes / Limitations</a><ul>
 <li><a class="reference internal" href="#device-identification-code-register-300012-000bh">Device identification code (register <code class="docutils literal notranslate"><span class="pre">300012</span></code> / <code class="docutils literal notranslate"><span class="pre">000Bh</span></code>)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#signature-validation-recommended">Signature validation (recommended)</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#no-communication-timeouts">No communication / timeouts</a></li>
+<li><a class="reference internal" href="#repeated-communicationfault-raises">Repeated <code class="docutils literal notranslate"><span class="pre">CommunicationFault</span></code> raises</a></li>
+<li><a class="reference internal" href="#ocmf-transaction-does-not-complete-stuck-waiting-for-ready">OCMF transaction does not complete / stuck waiting for READY</a></li>
+<li><a class="reference internal" href="#tariff-text-tt-is-truncated">Tariff text (TT) is truncated</a></li>
+<li><a class="reference internal" href="#signature-verification-fails">Signature verification fails</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notes-limitations">Notes / Limitations</a></li>
+<li><a class="reference internal" href="#unit-tests">Unit tests</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
-<li><a class="reference internal" href="#provides">Provides</a></li>
+<li><a class="reference internal" href="#id1">Provides</a></li>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 </ul>
 </li>
@@ -912,7 +1266,7 @@ otherwise it may incorrectly attempt the OCMF path.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=a33b6076"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=693e03df"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

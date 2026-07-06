@@ -51,13 +51,16 @@ Provides
 |    Interval in milliseconds between live powermeter reads and publishes. Default 1000 ms (once per second). Allowed range 500-60000 ms (twice per second to once per minute).
 |   **device_state_read_interval_ms**: *integer* <optional>
 |   *default: 10000*
-|    Interval in milliseconds between reading the device state bitfield (used for VendorError reporting). Default 10000 ms (once per 10 seconds). Allowed range 500-60000 ms.
+|    Interval in milliseconds between reading the device state bitfield (VendorError reporting) and, when monitor_transaction_state is enabled, the OCMF transaction state while a transaction is active. Default 10000 ms (once per 10 seconds). Allowed range 500-60000 ms.
 |   **public_key_format**: *string* <optional>
 |   *default: "binary"*
 |    The key format to use for the public key.
 |    enum:
 |      - binary
 |      - der
+|   **monitor_transaction_state**: *boolean* <optional>
+|   *default: False*
+|    When enabled, reads the OCMF state at device_state_read_interval_ms while a transaction is active. If the device reports READY (transaction closed on the meter side, e.g. after a brief power loss), raises powermeter/VendorError so the charging session can be stopped when fail_on_powermeter_errors is enabled in the EvseManager module.
 
 Requirements
 ============

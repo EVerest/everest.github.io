@@ -1,0 +1,468 @@
+:orphan:
+
+
+.. _everest_types_grid_support:
+
+
+############
+grid_support
+############
+
+Grid support / DER control types
+
+.. _grid_support-DirectiveType:
+
+| **DirectiveType**: *string* 
+|  Kind of DER control directive. Each value selects one DER control mode:
+|  enter-service gating, a frequency- or voltage-dependent curve, a fixed
+|  power-factor or reactive-power setpoint, ramp-rate limits, a trip /
+|  momentary-cessation / ride-through profile, or a DSO-commanded setpoint.
+|  EnterService: Enter-service criteria (voltage/frequency window and ramp) gating reconnection after a disconnect.
+|  FreqDroop: Frequency-droop active-power response to frequency deviation.
+|  FreqWatt: Frequency-watt curve: active power as a piecewise function of frequency.
+|  FixedPFAbsorb: Fixed power factor applied while absorbing (charging) active power.
+|  FixedPFInject: Fixed power factor applied while injecting (discharging) active power.
+|  FixedVar: Fixed reactive-power setpoint.
+|  Gradients: Ramp-rate / open-loop response-time limits applied to setpoint changes.
+|  HFMustTrip: High-frequency must-trip curve (mandatory disconnect thresholds).
+|  HFMayTrip: High-frequency may-trip / ride-through curve.
+|  HVMustTrip: High-voltage must-trip curve.
+|  HVMomCess: High-voltage momentary-cessation curve.
+|  HVMayTrip: High-voltage may-trip / ride-through curve.
+|  LimitMaxDischarge: Limit on maximum discharge power (percent of rating).
+|  LFMustTrip: Low-frequency must-trip curve.
+|  LVMustTrip: Low-voltage must-trip curve.
+|  LVMomCess: Low-voltage momentary-cessation curve.
+|  LVMayTrip: Low-voltage may-trip / ride-through curve.
+|  PowerMonitoringMustTrip: Power-monitoring must-trip curve (e.g. reverse-power / export threshold).
+|  VoltVar: Volt-var reactive-power response as a function of voltage.
+|  VoltWatt: Volt-watt active-power curtailment as a function of voltage.
+|  WattPF: Watt-power-factor curve: power factor as a function of active power.
+|  WattVar: Watt-var reactive-power as a function of active power.
+|  ZeroCurrent: Command the DER to zero output current (cease output).
+|  OvervoltageFaultRideThrough: Overvoltage fault-ride-through profile.
+|  UndervoltageFaultRideThrough: Undervoltage fault-ride-through profile.
+|  DSOQSetpoint: DSO-commanded reactive-power (Q) setpoint.
+|  DSOCosPhiSetpoint: DSO-commanded cos-phi (power-factor) setpoint.
+|  MaximumLevelDCInjection: Maximum permitted DC-current injection level.
+|  enum:
+|    - EnterService
+|    - FreqDroop
+|    - FreqWatt
+|    - FixedPFAbsorb
+|    - FixedPFInject
+|    - FixedVar
+|    - Gradients
+|    - HFMustTrip
+|    - HFMayTrip
+|    - HVMustTrip
+|    - HVMomCess
+|    - HVMayTrip
+|    - LimitMaxDischarge
+|    - LFMustTrip
+|    - LVMustTrip
+|    - LVMomCess
+|    - LVMayTrip
+|    - PowerMonitoringMustTrip
+|    - VoltVar
+|    - VoltWatt
+|    - WattPF
+|    - WattVar
+|    - ZeroCurrent
+|    - OvervoltageFaultRideThrough
+|    - UndervoltageFaultRideThrough
+|    - DSOQSetpoint
+|    - DSOCosPhiSetpoint
+|    - MaximumLevelDCInjection
+
+.. _grid_support-DERUnit:
+
+| **DERUnit**: *string* 
+|  Unit of measure for a DER curve y-axis or setpoint value.
+|  enum:
+|    - Not_Applicable
+|    - PctMaxW
+|    - PctMaxVar
+|    - PctWAvail
+|    - PctVarAvail
+|    - PctEffectiveV
+
+.. _grid_support-PowerDuringCessation:
+
+| **PowerDuringCessation**: *string* 
+|  Whether power during cessation is expressed as active or reactive power.
+|  enum:
+|    - Active
+|    - Reactive
+
+.. _grid_support-DERCurvePoint:
+
+| **DERCurvePoint**: *object* 
+|  A single point on a DER curve.
+|  properties:
+|   **x**: *number* <required>
+|    X-axis value; unit follows the curve's independent variable (e.g. volts, hertz, or percent) per directive_type.
+|   **y**: *number* <required>
+|    Y-axis value, in the unit given by the curve's y_unit.
+
+.. _grid_support-Hysteresis:
+
+| **Hysteresis**: *object* 
+|  Hysteresis parameters applied to a DER curve.
+|  properties:
+|   **hysteresis_high**: *number* <required>
+|    High hysteresis threshold, in the curve's x-axis unit.
+|   **hysteresis_low**: *number* <required>
+|    Low hysteresis threshold, in the curve's x-axis unit.
+|   **hysteresis_delay**: *number* <required>
+|    Hysteresis delay, in seconds.
+|   **hysteresis_gradient**: *number* <required>
+|    Hysteresis gradient, in the curve's y_unit per second.
+
+.. _grid_support-ReactivePowerParams:
+
+| **ReactivePowerParams**: *object* 
+|  Reactive power parameters for a DER curve.
+|  properties:
+|   **v_ref**: *number* <required>
+|    Voltage reference value, in volts.
+|   **autonomous_v_ref_enable**: *boolean* <required>
+|    Whether autonomous voltage reference adjustment is enabled.
+|   **autonomous_v_ref_time_constant**: *number* <required>
+|    Time constant for autonomous voltage reference adjustment, in seconds.
+
+.. _grid_support-VoltageParams:
+
+| **VoltageParams**: *object* 
+|  Voltage parameters for a DER curve.
+|  properties:
+|   **hv_10min_mean_value**: *number* <required>
+|    High-voltage 10-minute mean value, in volts.
+|   **hv_10min_mean_trip_delay**: *number* <required>
+|    High-voltage 10-minute mean trip delay, in seconds.
+|   **power_during_cessation**: *string* <required> (:ref:`grid_support-PowerDuringCessation <grid_support-PowerDuringCessation>`)
+|    Whether power during cessation is active or reactive.
+
+.. _grid_support-DERCurve:
+
+| **DERCurve**: *object* 
+|  A DER control curve and its associated parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **curve_data**: *array* <required>
+|    Ordered list of points defining the curve.
+|    **array_item**: *object*  (:ref:`grid_support-DERCurvePoint <grid_support-DERCurvePoint>`)
+|   **y_unit**: *string* <required> (:ref:`grid_support-DERUnit <grid_support-DERUnit>`)
+|    Unit of the curve y-axis values.
+|   **hysteresis**: *object* <optional> (:ref:`grid_support-Hysteresis <grid_support-Hysteresis>`)
+|    Optional hysteresis parameters for the curve.
+|   **reactive_power_params**: *object* <optional> (:ref:`grid_support-ReactivePowerParams <grid_support-ReactivePowerParams>`)
+|    Optional reactive power parameters for the curve.
+|   **voltage_params**: *object* <optional> (:ref:`grid_support-VoltageParams <grid_support-VoltageParams>`)
+|    Optional voltage parameters for the curve.
+|   **response_time**: *number* <optional>
+|    Curve open-loop response time, in seconds.
+
+.. _grid_support-EnterServiceParams:
+
+| **EnterServiceParams**: *object* 
+|  Enter-service voltage and frequency parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **high_voltage**: *number* <required>
+|    High voltage threshold, in volts.
+|   **low_voltage**: *number* <required>
+|    Low voltage threshold, in volts.
+|   **high_freq**: *number* <required>
+|    High frequency threshold, in hertz.
+|   **low_freq**: *number* <required>
+|    Low frequency threshold, in hertz.
+|   **delay**: *number* <optional>
+|    Delay before entering service, in seconds.
+|   **random_delay**: *number* <optional>
+|    Additional randomized delay, in seconds.
+|   **ramp_rate**: *number* <optional>
+|    Ramp rate applied when entering service, as percent of nameplate active power per second (%/s).
+
+.. _grid_support-FixedPFParams:
+
+| **FixedPFParams**: *object* 
+|  Fixed power-factor parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **displacement**: *number* <required>
+|    Power-factor displacement value (cos phi), dimensionless in the range 0..1.
+|   **excitation**: *boolean* <required>
+|    True for over-excited, false for under-excited.
+
+.. _grid_support-FixedVarParams:
+
+| **FixedVarParams**: *object* 
+|  Fixed reactive-power (var) parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **setpoint**: *number* <required>
+|    Reactive power setpoint, expressed in the unit given by the unit field.
+|   **unit**: *string* <required> (:ref:`grid_support-DERUnit <grid_support-DERUnit>`)
+|    Unit of the setpoint value.
+
+.. _grid_support-FreqDroopParams:
+
+| **FreqDroopParams**: *object* 
+|  Frequency droop parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **over_freq**: *number* <required>
+|    Over-frequency threshold, in hertz.
+|   **under_freq**: *number* <required>
+|    Under-frequency threshold, in hertz.
+|   **over_droop**: *number* <required>
+|    Over-frequency droop, as percent (droop slope).
+|   **under_droop**: *number* <required>
+|    Under-frequency droop, as percent (droop slope).
+|   **response_time**: *number* <required>
+|    Open-loop response time, in seconds.
+
+.. _grid_support-GradientParams:
+
+| **GradientParams**: *object* 
+|  Power gradient (ramp) parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **gradient**: *number* <required>
+|    Open-loop response-time gradient, in seconds (time to ramp across the full operating range).
+|   **soft_gradient**: *number* <required>
+|    Soft-start response-time gradient, in seconds.
+
+.. _grid_support-LimitMaxDischargeParams:
+
+| **LimitMaxDischargeParams**: *object* 
+|  Maximum discharge limit parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **pct_max_discharge_power**: *number* <required>
+|    Maximum discharge power, as percent of nameplate active power (%).
+|   **power_monitoring_must_trip**: *object* <required> (:ref:`grid_support-DERCurve <grid_support-DERCurve>`)
+|    Optional power-monitoring must-trip curve. The nested curve uses the enclosing directive's priority; a must-trip curve priority distinct from the directive is not represented (model it as its own PowerMonitoringMustTrip directive if a separate priority is required).
+
+.. _grid_support-Directive:
+
+| **Directive**: *object* 
+|  A single DER control directive. Producer discipline: exactly one payload
+|  field is populated, keyed by directive_type. Scheduling and priority
+|  (priority, start_time, duration_s, randomize_start_s) live on the
+|  directive itself and are not repeated inside the payload types.
+|  directive_type -> payload field:
+|    EnterService                      -> enter_service
+|    FreqDroop                         -> freq_droop
+|    FixedPFAbsorb, FixedPFInject      -> fixed_pf
+|    FixedVar                          -> fixed_var
+|    Gradients                         -> gradient
+|    LimitMaxDischarge                 -> limit_max_discharge
+|    FreqWatt, VoltWatt, VoltVar,      -> curve
+|      WattPF, WattVar,
+|      HFMustTrip, HFMayTrip,
+|      HVMustTrip, HVMayTrip, HVMomCess,
+|      LFMustTrip,
+|      LVMustTrip, LVMayTrip, LVMomCess,
+|      PowerMonitoringMustTrip
+|    ZeroCurrent,                      -> (no payload in v1)
+|      OvervoltageFaultRideThrough,
+|      UndervoltageFaultRideThrough,
+|      DSOQSetpoint, DSOCosPhiSetpoint,
+|      MaximumLevelDCInjection
+|  The 6 payload-less values (ZeroCurrent and the five below it) are ISO
+|  15118-20 AMD1 AC-DER values with no OCPP DERControl mapping in v1.
+|  properties:
+|   **id**: *string* <required>
+|    Unique identifier of the directive.
+|   **directive_type**: *string* <required> (:ref:`grid_support-DirectiveType <grid_support-DirectiveType>`)
+|    Kind of DER control this directive carries.
+|   **priority**: *integer* <required>
+|    Priority of the directive; lower wins over higher.
+|   **is_default**: *boolean* <required>
+|    Whether this is a default (fallback) directive.
+|   **source**: *string* <required>
+|    Origin of the directive (e.g. the producing protocol).
+|   **received_at**: *string* <required>
+|    Time the directive was received.
+|    format:date-time
+|   **start_time**: *string* <optional>
+|    Time at which the directive becomes active.
+|    format:date-time
+|   **duration_s**: *integer* <optional>
+|    Duration the directive remains active, in seconds.
+|   **randomize_start_s**: *integer* <optional>
+|    Window in seconds over which to randomize the start time.
+|   **curve**: *object* <optional> (:ref:`grid_support-DERCurve <grid_support-DERCurve>`)
+|    Curve payload, present when directive_type selects a curve control.
+|   **enter_service**: *object* <optional> (:ref:`grid_support-EnterServiceParams <grid_support-EnterServiceParams>`)
+|    Enter-service payload.
+|   **freq_droop**: *object* <optional> (:ref:`grid_support-FreqDroopParams <grid_support-FreqDroopParams>`)
+|    Frequency droop payload.
+|   **fixed_pf**: *object* <optional> (:ref:`grid_support-FixedPFParams <grid_support-FixedPFParams>`)
+|    Fixed power-factor payload.
+|   **fixed_var**: *object* <optional> (:ref:`grid_support-FixedVarParams <grid_support-FixedVarParams>`)
+|    Fixed reactive-power payload.
+|   **gradient**: *object* <optional> (:ref:`grid_support-GradientParams <grid_support-GradientParams>`)
+|    Gradient payload.
+|   **limit_max_discharge**: *object* <optional> (:ref:`grid_support-LimitMaxDischargeParams <grid_support-LimitMaxDischargeParams>`)
+|    Maximum discharge limit payload.
+
+.. _grid_support-ActiveDirectiveSet:
+
+| **ActiveDirectiveSet**: *object* 
+|  The set of currently active directives for one EVSE. A directive's identity is its id (the producing protocol's control identifier, e.g. the OCPP controlId); multiple directives of the same directive_type may be active simultaneously, differentiated by id and ordered by priority. is_default marks a directive as a fallback/default and is not part of its identity. An empty array means no active directives for the EVSE.
+|  properties:
+|   **evse_id**: *integer* <required>
+|    Identifier of the EVSE these directives apply to.
+|   **directives**: *array* <required>
+|    The active directives for this EVSE.
+|    **array_item**: *object*  (:ref:`grid_support-Directive <grid_support-Directive>`)
+
+.. _grid_support-SetDirectivesResponse:
+
+| **SetDirectivesResponse**: *object* 
+|  Response to a set-active-directives request. Deliberately a bool plus reason rather than a status enum (Accepted/Rejected/NotSupported/ NotFound): the call replaces the whole active set, so per-directive status does not apply, and the backend consumes the result fire-and-forget. Unsupported directive types never reach the device (the backend filters on the advertised EVSECapability).
+|  properties:
+|   **accepted**: *boolean* <required>
+|    Whether the device accepted the directive set.
+|   **reason**: *string* <optional>
+|    Optional human-readable reason, typically set on rejection.
+
+.. _grid_support-NameplateRating:
+
+| **NameplateRating**: *object* 
+|  DER nameplate ratings.
+|  properties:
+|   **max_w_W**: *number* <required>
+|    Maximum active power in watts.
+|   **max_va_VA**: *number* <required>
+|    Maximum apparent power in volt-amperes.
+|   **v_nom_V**: *number* <required>
+|    Nominal voltage in volts.
+|   **max_var_over_excited_var**: *number* <optional>
+|    Maximum over-excited reactive power in var.
+|   **max_var_under_excited_var**: *number* <optional>
+|    Maximum under-excited reactive power in var.
+|   **max_charge_w_W**: *number* <optional>
+|    Maximum charge power in watts.
+|   **max_discharge_w_W**: *number* <optional>
+|    Maximum discharge power in watts.
+|   **max_a_A**: *number* <optional>
+|    Maximum current in amperes.
+|   **max_wh_Wh**: *number* <optional>
+|    Maximum energy in watt-hours.
+|   **max_ah_Ah**: *number* <optional>
+|    Maximum charge in ampere-hours.
+|   **min_pf_over_excited**: *number* <optional>
+|    Minimum over-excited power factor.
+|   **min_pf_under_excited**: *number* <optional>
+|    Minimum under-excited power factor.
+
+.. _grid_support-ACCapability:
+
+| **ACCapability**: *object* 
+|  AC-side DER capability.
+|  properties:
+|   **phase_count**: *integer* <required>
+|    Number of AC phases.
+|   **grid_frequency_Hz**: *number* <optional>
+|    Nominal grid frequency in hertz.
+
+.. _grid_support-DeviceInfo:
+
+| **DeviceInfo**: *object* 
+|  Generic device identity/nameplate metadata.
+|  properties:
+|   **manufacturer**: *string* <required>
+|    Manufacturer name.
+|   **model**: *string* <required>
+|    Model name.
+|   **sw_version**: *string* <required>
+|    Software version.
+|   **hw_version**: *string* <required>
+|    Hardware version.
+|   **serial**: *string* <required>
+|    Serial number.
+
+.. _grid_support-DCCapability:
+
+| **DCCapability**: *object* 
+|  DC-side DER capability.
+|  properties:
+|   **device_info**: *object* <required> (:ref:`grid_support-DeviceInfo <grid_support-DeviceInfo>`)
+|    Device identity metadata (manufacturer, model, versions, serial).
+|   **over_excited_pf**: *number* <required>
+|    Over-excited power factor.
+|   **under_excited_pf**: *number* <required>
+|    Under-excited power factor.
+|   **over_excited_w**: *number* <required>
+|    Over-excited active power in watts.
+|   **under_excited_w**: *number* <required>
+|    Under-excited active power in watts.
+|   **reactive_susceptance**: *number* <required>
+|    Reactive susceptance, in siemens.
+
+.. _grid_support-DERCapability:
+
+| **DERCapability**: *object* 
+|  Aggregate DER capability for an EVSE. Invariant: at least one of ac or dc is populated.
+|  properties:
+|   **supported_types**: *array* <required>
+|    DER control types this EVSE supports.
+|    **array_item**: *string*  (:ref:`grid_support-DirectiveType <grid_support-DirectiveType>`)
+|   **nameplate**: *object* <required> (:ref:`grid_support-NameplateRating <grid_support-NameplateRating>`)
+|    Nameplate ratings of the DER.
+|   **ac**: *object* <optional> (:ref:`grid_support-ACCapability <grid_support-ACCapability>`)
+|    AC-side capability, if applicable.
+|   **dc**: *object* <optional> (:ref:`grid_support-DCCapability <grid_support-DCCapability>`)
+|    DC-side capability, if applicable.
+
+.. _grid_support-EVSECapability:
+
+| **EVSECapability**: *object* 
+|  A device's DER capability tagged with the EVSE it applies to. Published by the DER device as the capability variable.
+|  properties:
+|   **evse_id**: *integer* <required>
+|    Identifier of the EVSE this capability applies to.
+|   **capability**: *object* <required> (:ref:`grid_support-DERCapability <grid_support-DERCapability>`)
+|    The DER capability of the EVSE.
+
+.. _grid_support-GridEventFault:
+
+| **GridEventFault**: *string* 
+|  Kind of grid event fault.
+|  CurrentImbalance: AC phase currents imbalanced beyond tolerance.
+|  LocalEmergency: Local emergency condition at the DER.
+|  LowInputPower: DER input (e.g. DC source) power too low to operate.
+|  OverCurrent: Output current exceeded its limit.
+|  OverFrequency: Grid frequency above the permitted range.
+|  OverVoltage: Grid voltage above the permitted range.
+|  PhaseRotation: Incorrect phase rotation / sequence detected.
+|  RemoteEmergency: Remotely commanded emergency condition.
+|  UnderFrequency: Grid frequency below the permitted range.
+|  UnderVoltage: Grid voltage below the permitted range.
+|  VoltageImbalance: AC phase voltages imbalanced beyond tolerance.
+|  enum:
+|    - CurrentImbalance
+|    - LocalEmergency
+|    - LowInputPower
+|    - OverCurrent
+|    - OverFrequency
+|    - OverVoltage
+|    - PhaseRotation
+|    - RemoteEmergency
+|    - UnderFrequency
+|    - UnderVoltage
+|    - VoltageImbalance
+
+.. _grid_support-GridAlarm:
+
+| **GridAlarm**: *object* 
+|  A grid event alarm. directive_type is effectively required when the alarm is forwarded to a protocol backend. Alarms carry no correlation id: an alarm_ended=true event clears the alarm previously raised with the same (directive_type, fault) pair.
+|  properties:
+|   **directive_type**: *string* <optional> (:ref:`grid_support-DirectiveType <grid_support-DirectiveType>`)
+|    DER control directive associated with the fault, if any.
+|   **fault**: *string* <required> (:ref:`grid_support-GridEventFault <grid_support-GridEventFault>`)
+|    Kind of grid event fault.
+|   **alarm_ended**: *boolean* <required>
+|    True when the alarm has cleared, false when it is active.
+|   **timestamp**: *string* <required>
+|    Time of the alarm event.
+|    format:date-time
+|   **extra_info**: *string* <optional>
+|    Optional additional human-readable detail.

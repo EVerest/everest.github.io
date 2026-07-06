@@ -460,34 +460,6 @@ ISO15118 charger types
 |   **min_v2x_energy_request**: *number* <optional>
 |    Energy which needs to be charged until the PresentSOC has left the range dedicated for cycling activity.
 
-.. _iso15118-DERControl:
-
-| **DERControl**: *string* 
-|  Name of control settings to clear. Not used when _controlId_ is provided.
-|  enum:
-|    - EnterService
-|    - FreqDroop
-|    - FreqWatt
-|    - FixedPFAbsorb
-|    - FixedPFInject
-|    - FixedVar
-|    - Gradients
-|    - HFMustTrip
-|    - HFMayTrip
-|    - HVMustTrip
-|    - HVMomCess
-|    - HVMayTrip
-|    - LimitMaxDischarge
-|    - LFMustTrip
-|    - LVMustTrip
-|    - LVMomCess
-|    - LVMayTrip
-|    - PowerMonitoringMustTrip
-|    - VoltVar
-|    - VoltWatt
-|    - WattPF
-|    - WattVar
-
 .. _iso15118-ServiceCategory:
 
 | **ServiceCategory**: *string* 
@@ -722,7 +694,7 @@ ISO15118 charger types
 |  properties:
 |   **ev_supported_dercontrol**: *array* <optional>
 |    DER control functions supported by EV. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType:DERControlFunctions (bitmap)
-|    **array_item**: *string*  (:ref:`iso15118-DERControl <iso15118-DERControl>`)
+|    **array_item**: *string*  (:ref:`grid_support-DirectiveType <grid_support-DirectiveType>`)
 |   **ev_over_excited_max_discharge_power**: *number* <optional>
 |    Rated maximum injected active power by EV, at specified over-excited power factor (overExcitedPowerFactor). It can also be defined as the rated maximum discharge power at the rated minimum injected reactive power value. This means that if the EV is providing reactive power support, and it is requested to discharge at max power (e.g. to satisfy an EMS request), the EV may override the request and discharge up to overExcitedMaximumDischargePower to meet the minimum reactive power requirements. Corresponds to the WOvPF attribute in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVOverExcitedMaximumDischargePower
 |   **ev_over_excited_power_factor**: *number* <optional>

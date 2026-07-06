@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="iso15118_vas" href="iso15118_vas.html"><link rel="prev" title="evse_security" href="evse_security.html">
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="iso15118_vas" href="iso15118_vas.html"><link rel="prev" title="grid_support" href="grid_support.html">
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>iso15118 - EVerest Manual main@6211d40</title>
+        <title>iso15118 - EVerest Manual main@0b3eaa9</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@6211d40</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@0b3eaa9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@6211d40</span>
+  <span class="sidebar-brand-text">EVerest Manual main@0b3eaa9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -483,6 +483,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../interfaces/example_user.html">example_user</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interfaces/external_energy_limits.html">external_energy_limits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interfaces/generic_error.html">generic_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/grid_support.html">grid_support</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interfaces/iso15118_extensions.html">iso15118_extensions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interfaces/isolation_monitor.html">isolation_monitor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../interfaces/kvs.html">kvs</a></li>
@@ -518,6 +519,7 @@
 <li class="toctree-l3"><a class="reference internal" href="evse_board_support.html">evse_board_support</a></li>
 <li class="toctree-l3"><a class="reference internal" href="evse_manager.html">evse_manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_support.html">grid_support</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">iso15118</a></li>
 <li class="toctree-l3"><a class="reference internal" href="iso15118_vas.html">iso15118_vas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="isolation_monitor.html">isolation_monitor</a></li>
@@ -1351,37 +1353,6 @@
 </div>
 </div>
 </div>
-<div class="line-block" id="iso15118-dercontrol">
-<div class="line"><strong>DERControl</strong>: <em>string</em></div>
-<div class="line-block">
-<div class="line">Name of control settings to clear. Not used when _controlId_ is provided.</div>
-<div class="line">enum:</div>
-<div class="line-block">
-<div class="line">- EnterService</div>
-<div class="line">- FreqDroop</div>
-<div class="line">- FreqWatt</div>
-<div class="line">- FixedPFAbsorb</div>
-<div class="line">- FixedPFInject</div>
-<div class="line">- FixedVar</div>
-<div class="line">- Gradients</div>
-<div class="line">- HFMustTrip</div>
-<div class="line">- HFMayTrip</div>
-<div class="line">- HVMustTrip</div>
-<div class="line">- HVMomCess</div>
-<div class="line">- HVMayTrip</div>
-<div class="line">- LimitMaxDischarge</div>
-<div class="line">- LFMustTrip</div>
-<div class="line">- LVMustTrip</div>
-<div class="line">- LVMomCess</div>
-<div class="line">- LVMayTrip</div>
-<div class="line">- PowerMonitoringMustTrip</div>
-<div class="line">- VoltVar</div>
-<div class="line">- VoltWatt</div>
-<div class="line">- WattPF</div>
-<div class="line">- WattVar</div>
-</div>
-</div>
-</div>
 <div class="line-block" id="iso15118-servicecategory">
 <div class="line"><strong>ServiceCategory</strong>: <em>string</em></div>
 <div class="line-block">
@@ -1742,7 +1713,7 @@
 <div class="line"><strong>ev_supported_dercontrol</strong>: <em>array</em> &lt;optional&gt;</div>
 <div class="line-block">
 <div class="line">DER control functions supported by EV. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType:DERControlFunctions (bitmap)</div>
-<div class="line"><strong>array_item</strong>: <em>string</em>  (<a class="reference internal" href="#iso15118-dercontrol"><span class="std std-ref">iso15118-DERControl</span></a>)</div>
+<div class="line"><strong>array_item</strong>: <em>string</em>  (<a class="reference internal" href="grid_support.html#grid-support-directivetype"><span class="std std-ref">grid_support-DirectiveType</span></a>)</div>
 </div>
 <div class="line"><strong>ev_over_excited_max_discharge_power</strong>: <em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
@@ -2421,14 +2392,14 @@
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="evse_security.html">
+          <a class="prev-page" href="grid_support.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">evse_security</div>
+                <div class="title">grid_support</div>
                 
               </div>
             </a>
@@ -2456,7 +2427,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=c6077e21"></script>
+</div><script src="../../_static/documentation_options.js?v=a33b6076"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

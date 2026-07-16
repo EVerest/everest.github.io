@@ -1,0 +1,112 @@
+:orphan:
+
+
+.. _everest_types_units_signed:
+
+
+############
+units_signed
+############
+
+Unit types
+
+.. _units_signed-SignedMeterValue:
+
+| **SignedMeterValue**: *object* 
+|  Representation of a signed meter value
+|  properties:
+|   **signed_meter_data**: *string* <required>
+|    Signed meter data (encoded in a string representation with eg. Base64)
+|   **signing_method**: *string* <required>
+|    Method used to create the signature
+|   **encoding_method**: *string* <required>
+|    Method used to encode the meter values before signing them
+|   **public_key**: *string* <optional>
+|    Public key (encoded in a string representation with eg. Base64)
+|   **timestamp**: *string* <optional>
+|    Timestamp of measurement
+|    format:date-time
+
+.. _units_signed-Current:
+
+| **Current**: *object* 
+|  Current in Ampere
+|  properties:
+|   **DC**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    DC current
+|   **L1**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L1 value only
+|   **L2**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L2 value only
+|   **L3**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L3 value only
+|   **N**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC Neutral value only
+
+.. _units_signed-Voltage:
+
+| **Voltage**: *object* 
+|  Voltage in Volt
+|  properties:
+|   **DC**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    DC voltage
+|   **L1**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L1 value only
+|   **L2**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L2 value only
+|   **L3**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L3 value only
+
+.. _units_signed-Frequency:
+
+| **Frequency**: *object* 
+|  AC only: Frequency in Hertz
+|  properties:
+|   **L1**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L1 value
+|   **L2**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L2 value
+|   **L3**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L3 value
+
+.. _units_signed-Power:
+
+| **Power**: *object* 
+|  Instantaneous power in Watt. Negative values are exported, positive values imported Energy.
+|  properties:
+|   **total**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    DC / AC Sum value
+|   **L1**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L1 value only
+|   **L2**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L2 value only
+|   **L3**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L3 value only
+
+.. _units_signed-Energy:
+
+| **Energy**: *object* 
+|  Energy in Wh.
+|  properties:
+|   **total**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    DC / AC Sum value (which is relevant for billing)
+|   **L1**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L1 value only
+|   **L2**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L2 value only
+|   **L3**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    AC L3 value only
+
+.. _units_signed-ReactivePower:
+
+| **ReactivePower**: *object* 
+|  Reactive power VAR
+|  properties:
+|   **total**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    VAR total
+|   **L1**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    VAR phase A
+|   **L2**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    VAR phase B
+|   **L3**: *object* <required> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    VAR phase C

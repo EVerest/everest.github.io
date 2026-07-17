@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@46c7419</title>
+        <title>OCPPmulti - EVerest Manual main@bcfb4f5</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@46c7419</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@bcfb4f5</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@46c7419</span>
+  <span class="sidebar-brand-text">EVerest Manual main@bcfb4f5</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -668,11 +668,42 @@
 <section id="handwritten-documentation">
 <h2>Handwritten Documentation<a class="headerlink" href="#handwritten-documentation" title="Link to this heading">¶</a></h2>
 <span class="target" id="everest-modules-handwritten-ocppmulti"></span><p>A OCPP charge point / charging station module, (supporting 1.6, 2.0.1, 2.1)</p>
+<section id="requires-grid-support">
+<h3>Requires: grid_support<a class="headerlink" href="#requires-grid-support" title="Link to this heading">¶</a></h3>
+<p><strong>Interface</strong>: <a class="reference internal" href="../../../interfaces/grid_support.html#everest-interfaces-grid-support"><span class="std std-ref">grid_support</span></a></p>
+<p>This optional requirement (0-128) connects the module to per-EVSE DER devices (inverter / grid-support hardware
+abstraction) implementing the grid_support interface, exposing the OCPP 2.1 DER / grid-code functional block (block R).
+DER is an OCPP 2.x-only feature: when the active protocol is OCPP 1.6, any wired grid_support connection is inert.
+One connection represents one EVSE and is routed by its framework <code class="docutils literal notranslate"><span class="pre">mapping</span></code>: the connection whose mapping names an
+EVSE serves that EVSE. A connection without a mapping is a configuration error and is excluded from routing.</p>
+<p>The module maintains a per-EVSE snapshot of the DER directives currently applied by the CSMS and pushes it to that
+EVSE’s connection through the <strong>set_active_directives</strong> command. When libocpp applies, schedules, clears, supersedes, or
+expires a DER control, the snapshot is rebuilt and re-sent for every registered EVSE on its own connection.</p>
+<p>At startup the module pre-provisions an <code class="docutils literal notranslate"><span class="pre">ACDERCtrlr</span></code> or <code class="docutils literal notranslate"><span class="pre">DCDERCtrlr</span></code> device-model component (chosen by the EVSE’s
+energy-transfer modes) for every DER-capable EVSE, so no static device-model JSON is required for the DER controllers.
+Any EVSE without a wired grid_support connection has its DER controller forced to <code class="docutils literal notranslate"><span class="pre">Available=&quot;false&quot;</span></code> (preserving a
+CSMS-written <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code> and its source), so the CSMS does not see DER as available after the wiring is removed.</p>
+<p>The device declares its inverter capability through the <code class="docutils literal notranslate"><span class="pre">capability</span></code> variable. The module stores the capability, writes
+its config variables (<code class="docutils literal notranslate"><span class="pre">ModesSupported</span></code> and the DC nameplate values) through the device model, and republishes the
+current active directives filtered to the declared control types. If the device model rejects a capability re-report, the
+module rolls back to the last accepted capability; an EVSE whose very first capability is rejected is unregistered.</p>
+<p>The CSMS may write the <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> variable (<code class="docutils literal notranslate"><span class="pre">ReadWrite</span></code>). Writing <code class="docutils literal notranslate"><span class="pre">Enabled=&quot;false&quot;</span></code> makes the module push an empty
+directive replacement set to that EVSE, so the device clears the EV’s curves; writing <code class="docutils literal notranslate"><span class="pre">Enabled=&quot;true&quot;</span></code> republishes the
+filtered active set for that EVSE. A CSMS-written <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> persists across reboots and is restored at boot.</p>
+<p>The device reports grid event faults through the <code class="docutils literal notranslate"><span class="pre">alarm</span></code> variable, forwarded to the CSMS as a <strong>NotifyDERAlarm.req</strong>.
+Alarms raised before the backend has accepted a capability for any EVSE are buffered and delivered once the first
+capability is accepted; if no capability is ever accepted, the buffered alarms are dropped. Capability and alarm updates
+received before the charge point is initialized are queued and replayed once the charge point is ready.</p>
+<p>In addition to enabling the DER device-model component, the module asserts DER availability to the matching EvseManager
+via its <strong>set_der_available</strong> command, so that EvseManager can advertise the corresponding ISO 15118-20 DER energy
+transfer modes. If the device model rejects the capability, DER availability is withdrawn instead.</p>
+<p>The configuration parameter <strong>GridSupportHeartbeatS</strong> sets the interval (in seconds) at which the current active
+directive set is re-sent for every registered EVSE. A value of <code class="docutils literal notranslate"><span class="pre">0</span></code> disables the heartbeat; the set is then sent only
+when it changes.</p>
+</section>
 </section>
 <section id="auto-generated-reference">
 <h2>Auto-Generated Reference<a class="headerlink" href="#auto-generated-reference" title="Link to this heading">¶</a></h2>
-<section id="module-configuration">
-<h3>Module Configuration<a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><strong>ChargePointConfigPath</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “ocpp-config.json”</em></div>
@@ -739,6 +770,11 @@
 <div class="line-block">
 <div class="line">OCPP 2.0.1 Path to the SQLite databse for the EVerest device model. This database stores components and variables like EVSE and Connector that are closely related to EVerest and therefore not owned and managed by libocpp.</div>
 </div>
+<div class="line"><strong>GridSupportHeartbeatS</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 60</em></div>
+<div class="line-block">
+<div class="line">Interval (seconds) at which the current active DER directive set is republished per EVSE. 0 disables the heartbeat.</div>
+</div>
 <div class="line"><strong>MessageLogPath</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “/tmp/everest_ocpp_logs”</em></div>
 <div class="line-block">
@@ -791,9 +827,6 @@
 <div class="line">OCPP 1.6 Path to the file of the OCPP user config. The user config is used as an overlay for the original config defined by the ChargePointConfigPath. Any changes to configuration keys turned out internally or by the CSMS will be written to the user config file.</div>
 </div>
 </div>
-</section>
-<section id="provides">
-<h3>Provides<a class="headerlink" href="#provides" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><strong>auth_validator</strong>: <a class="reference internal" href="../../../interfaces/auth_token_validator.html#everest-interfaces-auth-token-validator"><span class="std std-ref">auth_token_validator</span></a></div>
 <div class="line-block">
@@ -816,9 +849,6 @@
 <div class="line">Send session cost</div>
 </div>
 </div>
-</section>
-<section id="requirements">
-<h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><strong>auth</strong>: <a class="reference internal" href="../../../interfaces/auth.html#everest-interfaces-auth"><span class="std std-ref">auth</span></a> 1</div>
 <div class="line"><strong>charger_information</strong>: <a class="reference internal" href="../../../interfaces/charger_information.html#everest-interfaces-charger-information"><span class="std std-ref">charger_information</span></a> 0..1</div>
@@ -827,28 +857,22 @@
 <div class="line"><strong>evse_energy_sink</strong>: <a class="reference internal" href="../../../interfaces/external_energy_limits.html#everest-interfaces-external-energy-limits"><span class="std std-ref">external_energy_limits</span></a> 0..129</div>
 <div class="line"><strong>evse_manager</strong>: <a class="reference internal" href="../../../interfaces/evse_manager.html#everest-interfaces-evse-manager"><span class="std std-ref">evse_manager</span></a> 1..128</div>
 <div class="line"><strong>extensions_15118</strong>: <a class="reference internal" href="../../../interfaces/iso15118_extensions.html#everest-interfaces-iso15118-extensions"><span class="std std-ref">iso15118_extensions</span></a> 0..128</div>
+<div class="line"><strong>grid_support</strong>: <a class="reference internal" href="../../../interfaces/grid_support.html#everest-interfaces-grid-support"><span class="std std-ref">grid_support</span></a> 0..128</div>
 <div class="line"><strong>reservation</strong>: <a class="reference internal" href="../../../interfaces/reservation.html#everest-interfaces-reservation"><span class="std std-ref">reservation</span></a> 0..1</div>
 <div class="line"><strong>security</strong>: <a class="reference internal" href="../../../interfaces/evse_security.html#everest-interfaces-evse-security"><span class="std std-ref">evse_security</span></a> 1</div>
 <div class="line"><strong>system</strong>: <a class="reference internal" href="../../../interfaces/system.html#everest-interfaces-system"><span class="std std-ref">system</span></a> 1</div>
 </div>
 </section>
-</section>
 <section id="metadata">
 <h2>Metadata<a class="headerlink" href="#metadata" title="Link to this heading">¶</a></h2>
-<section id="authors">
-<h3>Authors<a class="headerlink" href="#authors" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Piet Gömpel</div>
 <div class="line">Kai-Uwe Hermann</div>
 <div class="line">James Chapman</div>
 </div>
-</section>
-<section id="license">
-<h3>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
 </div>
-</section>
 </section>
 </section>
 
@@ -908,18 +932,12 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">OCPPmulti</a><ul>
-<li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a></li>
-<li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
-<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
-<li><a class="reference internal" href="#provides">Provides</a></li>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
+<li><a class="reference internal" href="#requires-grid-support">Requires: grid_support</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#metadata">Metadata</a><ul>
-<li><a class="reference internal" href="#authors">Authors</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a></li>
+<li><a class="reference internal" href="#metadata">Metadata</a></li>
 </ul>
 </li>
 </ul>
@@ -931,7 +949,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=452b030e"></script>
+</div><script src="../../../../_static/documentation_options.js?v=cbe4ac8e"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

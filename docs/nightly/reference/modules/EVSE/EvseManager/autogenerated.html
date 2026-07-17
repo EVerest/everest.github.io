@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@46c7419</title>
+        <title>EvseManager - EVerest Manual main@bcfb4f5</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@46c7419</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@bcfb4f5</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@46c7419</span>
+  <span class="sidebar-brand-text">EVerest Manual main@bcfb4f5</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -999,6 +999,20 @@ freedom to make the choice in this case.</p>
 actual use case to avoid relays wearing due too a lot of switching cycles. Consider also to limit the maximum
 number of switching cycles per charging session.</p>
 </section>
+<section id="der-grid-support-advertising">
+<h3>DER (grid support) advertising<a class="headerlink" href="#der-grid-support-advertising" title="Link to this heading">¶</a></h3>
+<p>EvseManager exposes a <code class="docutils literal notranslate"><span class="pre">set_der_available</span></code> command that records, per EVSE, whether DER directive support
+(a <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> provider) is wired for that EVSE. This is a boot-time fact asserted by whichever module
+provides the <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> connection (the OCPP module is one such provider, asserting it from the presence
+of a <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> connection); the EV’s runtime DER capability is never sent here.</p>
+<p>When DER is available and the EVSE is export-capable (its hardware capabilities report a non-zero export
+current and at least one export phase), EvseManager folds the ISO 15118-20 <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> energy transfer mode
+into the set it advertises, alongside <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code> (advertised whenever <code class="docutils literal notranslate"><span class="pre">supported_iso_ac_bpt</span></code> is set and the
+EVSE is export-capable). ISO 15118-20 has no combined <code class="docutils literal notranslate"><span class="pre">AC_BPT_DER</span></code> service category, so “AC_BPT_DER supported”
+is conveyed by advertising both <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code> and <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> as separate energy transfer modes; the EV selects
+one per session.</p>
+<p>The command returns <code class="docutils literal notranslate"><span class="pre">NoHlc</span></code> when no HLC is enabled for the EVSE (and does nothing), and <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> otherwise.</p>
+</section>
 <section id="error-handling">
 <h3>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">¶</a></h3>
 <p>The control flow of this module can be influenced by the error implementation of its requirements. This section documents
@@ -1636,6 +1650,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 </li>
 <li><a class="reference internal" href="#energy-management">Energy Management</a></li>
 <li><a class="reference internal" href="#energy-management-1ph-3ph-switching">Energy Management: 1ph/3ph switching</a></li>
+<li><a class="reference internal" href="#der-grid-support-advertising">DER (grid support) advertising</a></li>
 <li><a class="reference internal" href="#error-handling">Error Handling</a><ul>
 <li><a class="reference internal" href="#evse-manager">evse_manager</a></li>
 <li><a class="reference internal" href="#evse-board-support">evse_board_support</a></li>
@@ -1670,7 +1685,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=452b030e"></script>
+</div><script src="../../../../_static/documentation_options.js?v=cbe4ac8e"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

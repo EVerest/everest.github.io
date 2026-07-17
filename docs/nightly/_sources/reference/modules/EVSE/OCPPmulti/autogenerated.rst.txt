@@ -60,6 +60,9 @@ Module Configuration
 | **EverestDeviceModelDatabasePath**: *string* <optional>
 | *default: "everest_device_model_storage.db"*
 |  OCPP 2.0.1 Path to the SQLite databse for the EVerest device model. This database stores components and variables like EVSE and Connector that are closely related to EVerest and therefore not owned and managed by libocpp.
+| **GridSupportHeartbeatS**: *integer* <optional>
+| *default: 60*
+|  Interval (seconds) at which the current active DER directive set is republished per EVSE. 0 disables the heartbeat.
 | **MessageLogPath**: *string* <optional>
 | *default: "/tmp/everest_ocpp_logs"*
 |  OCPP 1.6 OCPP 2.0.1 Path to directory where logs of all OCPP messages are written to
@@ -114,6 +117,7 @@ Requirements
 | **evse_energy_sink**: :ref:`external_energy_limits <everest_interfaces_external_energy_limits>` 0..129
 | **evse_manager**: :ref:`evse_manager <everest_interfaces_evse_manager>` 1..128
 | **extensions_15118**: :ref:`iso15118_extensions <everest_interfaces_iso15118_extensions>` 0..128
+| **grid_support**: :ref:`grid_support <everest_interfaces_grid_support>` 0..128
 | **reservation**: :ref:`reservation <everest_interfaces_reservation>` 0..1
 | **security**: :ref:`evse_security <everest_interfaces_evse_security>` 1
 | **system**: :ref:`system <everest_interfaces_system>` 1

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>ocpp - EVerest Manual main@c5eb7ee</title>
+        <title>ocpp - EVerest Manual main@f7dfd95</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@c5eb7ee</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@f7dfd95</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@c5eb7ee</span>
+  <span class="sidebar-brand-text">EVerest Manual main@f7dfd95</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -691,11 +691,7 @@
 </div>
 <div class="line"><strong>event_data</strong>: <em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-eventdata"><span class="std std-ref">ocpp-EventData</span></a>)</div>
 <div class="line-block">
-<div class="line">Published for a component variable combination when a variable with a monitor has been changed For OCPP1.6: The object may only contain the required properties of the EventData type because in OCPP1.6</div>
-<div class="line-block">
-<div class="line">there is not more information available or required.</div>
-</div>
-<div class="line">For OCPP2.0.1: The object may contain all available properties</div>
+<div class="line">Published when a variable registered via monitor_variables has been changed. The event echoes the addressing form used at registration: canonical registrations receive the canonical component_variable, deprecated legacy key registrations (empty component.name) receive legacy-shaped events. With OCPP1.6 the object may only contain the required properties of the EventData type; with OCPP2.x it may contain all available properties.</div>
 </div>
 <div class="line"><strong>boot_notification_response</strong>: <em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-bootnotificationresponse"><span class="std std-ref">ocpp-BootNotificationResponse</span></a>)</div>
 <div class="line-block">
@@ -736,7 +732,7 @@
 </div>
 <div class="line"><strong>get_variables</strong>: <em>array</em></div>
 <div class="line-block">
-<div class="line">Command to get a variable from OCPP. With OCPP1.6: Retrieves a configuration key. With OCPP2.0.1: Retrieves a variable with value from the device model storage</div>
+<div class="line">Command to read variables from OCPP. Variables are addressed canonically by component and variable name (e.g. component OCPPCommCtrlr, variable HeartbeatInterval), regardless of whether OCPP1.6 or OCPP2.x is active. An empty component.name marks the deprecated OCPP1.6 legacy key form (variable.name = configuration key); it is only accepted while OCPP1.6 is active and will be removed per the deprecation policy. A request with a non-empty component.name is never reinterpreted as a configuration key. Canonical addressing across protocol versions is provided by the OCPPmulti module; other modules implementing this interface may differ.</div>
 <div class="line"><strong>requests</strong>: <em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of GetVariableRequest</div>
@@ -744,13 +740,13 @@
 </div>
 <div class="line"><strong>Result</strong>: <em>array</em></div>
 <div class="line-block">
-<div class="line">List of GetVariableResult containing the result for every requested value. Preserves the order of the input requests.</div>
+<div class="line">List of GetVariableResult containing the result for every requested value. Preserves the order of the input requests. Each result echoes the requested component_variable and carries a status (Accepted, Rejected, UnknownComponent, UnknownVariable or NotSupportedAttributeType).</div>
 <div class="line"><strong>array_item</strong>: <em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-getvariableresult"><span class="std std-ref">ocpp-GetVariableResult</span></a>)</div>
 </div>
 </div>
 <div class="line"><strong>set_variables</strong>: <em>array</em></div>
 <div class="line-block">
-<div class="line">Command to set a variable at OCPP. With OCPP1.6: This command can be used to set configuration keys With OCPP2.0.1: This command can be used to set variables in the device model storage</div>
+<div class="line">Command to write variables at OCPP. Uses the same canonical component/variable addressing as get_variables in both protocol versions; the empty-component OCPP1.6 legacy key form is deprecated and scheduled for removal. Connection-configuration writes (component NetworkConfiguration with the profile slot number as component instance, and the OCPPCommCtrlr/NetworkConfigurationPriority selector) return RebootRequired: the value is validated and persisted immediately and takes effect on the next (re)connect or reboot. Slot-based connection configuration is provided by the OCPPmulti module; other modules implementing this interface may differ.</div>
 <div class="line"><strong>requests</strong>: <em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of SetVariableRequests</div>
@@ -762,7 +758,7 @@
 </div>
 <div class="line"><strong>Result</strong>: <em>array</em></div>
 <div class="line-block">
-<div class="line">List of SetVariableResult containing the result for every requested set operation</div>
+<div class="line">List of SetVariableResult containing the result for every requested set operation. Each result echoes the requested component_variable and carries a status (Accepted, RebootRequired, Rejected, UnknownComponent, UnknownVariable or NotSupportedAttributeType).</div>
 <div class="line"><strong>array_item</strong>: <em>object</em>  (<a class="reference internal" href="../types/ocpp.html#ocpp-setvariableresult"><span class="std std-ref">ocpp-SetVariableResult</span></a>)</div>
 </div>
 </div>
@@ -780,7 +776,7 @@
 </div>
 <div class="line"><strong>monitor_variables</strong>: <em>void</em></div>
 <div class="line-block">
-<div class="line">Command to start monitoring the given ComponentVariable(s). Any of the provided configuration keys will be published on change by the CSMS. Consecutive calls of this operation will not override but extend the existing monitors. With OCPP1.6: This command can be used to monitor configuration keys With OCPP2.0.1: This command can be used to monitor any kind of variable in the device model storage</div>
+<div class="line">Command to start monitoring the given ComponentVariable(s), using the same canonical component/variable addressing as get_variables in both protocol versions; the empty-component OCPP1.6 legacy key form is deprecated. Changes to monitored variables are published on the event_data var. Consecutive calls of this operation will not override but extend the existing monitors.</div>
 <div class="line"><strong>component_variables</strong>: <em>array</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">List of ComponentVariable(s) to monitor</div>
@@ -860,7 +856,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=dd4d1c48"></script>
+</div><script src="../../_static/documentation_options.js?v=d9cafbcc"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

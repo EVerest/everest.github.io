@@ -1,0 +1,28 @@
+:orphan:
+
+
+.. _everest_interfaces_temperature_sensor:
+
+
+##################
+temperature_sensor
+##################
+
+| Generic temperature sensor reporting interface. Providers publish one or more temperature readings (e.g. ambient temperature, internal temperature, etc.).
+
+
+*********
+Variables
+*********
+| **temperatures**: *array* 
+|  Temperature readings in degree Celsius. The meaning of each entry is product specific and may be specified via the identification or location fields.
+|  **array_item**: *object*  (:ref:`temperature-Temperature <temperature-Temperature>`)
+
+
+******
+Errors
+******
+| **/errors/generic** :
+|  **CommunicationFault** : Communication with the underlying hardware or device has a fault
+|  **VendorError** : Vendor specific error code.
+|  **VendorWarning** : Vendor specific error code.

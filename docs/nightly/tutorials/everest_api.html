@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Using the EVerestAPI - EVerest Manual main@7638ea0</title>
+        <title>Using the EVerestAPI - EVerest Manual main@5868552</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@7638ea0</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@5868552</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@7638ea0</span>
+  <span class="sidebar-brand-text">EVerest Manual main@5868552</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -682,6 +682,34 @@ For more details, see the <a class="reference internal" href="../reference/modul
 Configuring the required APIs is done by adding the corresponding modules to your EVerest configuration;
 they connect to other modules using the standard EVerest logic.</p>
 </section>
+<section id="providing-vs-consumer-apis">
+<h2>Providing vs Consumer APIs<a class="headerlink" href="#providing-vs-consumer-apis" title="Link to this heading">¶</a></h2>
+<p>The available EVerest APIs can be categorized into two groups: <em>consuming</em> APIs and <em>providing</em> APIs.
+Providing APIs (e.g. <cite>auth_token_provider_API</cite> or <cite>power_supply_DC_API</cite>) can be used to implement
+(“provide”) an interface outside of EVerest. For example the <cite>power_supply_DC_API</cite> module provides the
+internal <cite>power_supply_DC</cite> interface. The actual implementation is in the API client.
+Providing APIs usually subscribe to external topics and forward the received values to the internal
+interface as <cite>variables</cite>. They also define external topics which the client shall subscribe to, which
+are used for command invokations.</p>
+<p>On the other hand, <em>consuming</em> APIs (e.g. <cite>evse_manager_consumer_API</cite>) can be thought to allow API clients
+to monitor internal modules and send commands to them. They define topics which a client can subscribe to
+in order to monitor some variable. They subscribe to external topics to allow the client to invoke commands.</p>
+</section>
+<section id="latching-variables">
+<h2>Latching Variables<a class="headerlink" href="#latching-variables" title="Link to this heading">¶</a></h2>
+<p>In case a API client subscribes to an consumer_API variable, it may happen that EVerest has already been
+running and the client missed the first value published for that variable. It can now wait for the next
+value to be published, which may be acceptable in many cases, but sometimes not. Therefore, the latest
+published value of each variable is chached in the API modules. The client can actively request its value
+via the request-reply-pattern (see section further below). The corresponding topic is
+<cite>&lt;topic-that-variable-is-published-to&gt;/get</cite>. The API will then send the latest known value to the API client
+if such a value exists (if nothing was published yet, and no value is available, then the API will reply with
+“null”).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Latching variables is enabled by default, but can be disabled by module configuration parameters.</p>
+</div>
+</section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">config/bringup/config-bringup-EVerestAPI-entrypoint.yaml</span></code> configuration file demonstrates the API in action.
@@ -910,6 +938,8 @@ and version to construct topics as described in the MQTT Topic Structure section
 <li><a class="reference internal" href="#">Using the EVerestAPI</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#architecture">Architecture</a></li>
+<li><a class="reference internal" href="#providing-vs-consumer-apis">Providing vs Consumer APIs</a></li>
+<li><a class="reference internal" href="#latching-variables">Latching Variables</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#example">Example</a></li>
 <li><a class="reference internal" href="#mqtt-topic-structure">MQTT Topic Structure</a></li>
@@ -937,7 +967,7 @@ and version to construct topics as described in the MQTT Topic Structure section
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=9b631c9c"></script>
+</div><script src="../_static/documentation_options.js?v=c6031f60"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

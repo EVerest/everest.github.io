@@ -18,6 +18,8 @@ Variables
 |  Describes the current status of a firmware update of the system
 | **log_status**: *object*  (:ref:`system-LogStatus <system-LogStatus>`)
 |  Describes the current status of log upload of the system
+| **configure_network_status**: *object*  (:ref:`network-ConfigureNetworkStatus <network-ConfigureNetworkStatus>`)
+|  Asynchronous outcome of a configure_network request previously answered with Processing.
 
 ********
 Commands
@@ -59,6 +61,12 @@ Commands
 |  Call to get the boot reason of the system
 |  **Result**: *string*  (:ref:`system-BootReason <system-BootReason>`)
 |   Returns the boot reason of the system
+| **configure_network**: *object*
+|  Request preparation of the given network interface (e.g. modem/APN/VPN bring-up). May answer directly with Ready/Failed/Rejected, or with Processing, in which case the final outcome is published on the configure_network_status var with the same request_id. Providers without network-configuration support return NotSupported.
+|  **request**: *object* <required> (:ref:`network-ConfigureNetworkRequest <network-ConfigureNetworkRequest>`)
+|   The network configuration request
+|  **Result**: *object*  (:ref:`network-ConfigureNetworkResponse <network-ConfigureNetworkResponse>`)
+|   Direct response; Processing defers the outcome to the status var
 
 ******
 Errors

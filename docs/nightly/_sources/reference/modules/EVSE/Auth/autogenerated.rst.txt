@@ -45,6 +45,11 @@ Module Configuration
 |  Controls the authorization-timeout behavior after a plug-in event. When enabled, an internal timer is started immediately after an EV is detected as plugged in. During the time defined by connection_timeout, the user must present a valid authorization token.
 |  If no valid token is received within the specified connection_timeout, the authorization attempt is considered as timed out and a re-plug by the user is required to start a new authorization process.
 |  This setting is particularly useful for charging stations with multiple EVSEs and a shared, non-EVSE-specific authorization interface (e.g., a single RFID reader). It prevents authorization tokens from being incorrectly associated with an EVSE where an EV is plugged in but has not been authorized, by ensuring that expired or ambiguous plug-ins are not considered for EVSE assignments for future authorization attempts.
+| **stop_transaction_on_reswipe**: *boolean* <optional>
+| *default: True*
+|  Boolean value describing the behavior when a token (or a token sharing the same parent id token) that was used to start a transaction is presented again while the transaction is active.
+|  If true, presenting the token again stops the ongoing transaction.
+|  If false, the transaction is not stopped. Instead, the token_validation_status var reports UsedToReauthorize with the referenced EVSE in the token's connectors field. This allows e.g. a display application to let the user decide whether to stop the transaction manually. Stopping transactions via the master pass group id is not affected by this option.
 
 Provides
 ========

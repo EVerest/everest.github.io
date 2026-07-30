@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Auth - EVerest Manual main@3823368</title>
+        <title>Auth - EVerest Manual main@03f2a41</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3823368</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@03f2a41</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3823368</span>
+  <span class="sidebar-brand-text">EVerest Manual main@03f2a41</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -691,8 +691,10 @@ available algorithms are described in <a class="reference internal" href="#selec
     B --&gt; C{Token valid?}
     C -- no --&gt; RJ[[&quot;Rejected&quot;]]
     C -- yes --&gt; D{&quot;Should the token stop&lt;br/&gt;an ongoing transaction?&quot;}
-    D -- yes --&gt; E[Stop the transaction]
+    D -- yes --&gt; D2{&quot;stop_transaction_on_reswipe?&quot;}
+    D2 -- true --&gt; E[Stop the transaction]
     E --&gt; RS[[&quot;Transaction stopped&quot;]]
+    D2 -- false --&gt; RE[[&quot;Publish UsedToReauthorize&lt;br/&gt;(transaction continues)&quot;]]
     D -- no --&gt; F[&quot;Select an available connector&lt;br/&gt;using the configured algorithm&quot;]
     F -- &quot;none available or timeout&quot; --&gt; RJ
     F -- selected --&gt; G[Authorize the connector]
@@ -701,7 +703,11 @@ available algorithms are described in <a class="reference internal" href="#selec
 <p class="admonition-title">Note</p>
 <p>The diagram above is simplified to show the essential flow. It omits some details, such as whether the token was
 already validated by the provider, reservation matching, the distinction between master-pass-group and
-parent-id-token stops, and authorization being withdrawn while waiting for a plug in.</p>
+parent-id-token stops, and authorization being withdrawn while waiting for a plug in. Note that master-pass-group
+stops are not affected by the <code class="docutils literal notranslate"><span class="pre">stop_transaction_on_reswipe</span></code> config option: a master pass token always stops
+ongoing transactions. If <code class="docutils literal notranslate"><span class="pre">stop_transaction_on_reswipe</span></code> is false, the <code class="docutils literal notranslate"><span class="pre">UsedToReauthorize</span></code> event published via
+the <code class="docutils literal notranslate"><span class="pre">token_validation_status</span></code> var can be used e.g. by a display application to let the user decide whether to
+stop the transaction manually.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -840,6 +846,13 @@ for further information about the Plug&amp;Charge integration in EVerest.</p>
 <div class="line">If no valid token is received within the specified connection_timeout, the authorization attempt is considered as timed out and a re-plug by the user is required to start a new authorization process.</div>
 <div class="line">This setting is particularly useful for charging stations with multiple EVSEs and a shared, non-EVSE-specific authorization interface (e.g., a single RFID reader). It prevents authorization tokens from being incorrectly associated with an EVSE where an EV is plugged in but has not been authorized, by ensuring that expired or ambiguous plug-ins are not considered for EVSE assignments for future authorization attempts.</div>
 </div>
+<div class="line"><strong>stop_transaction_on_reswipe</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Boolean value describing the behavior when a token (or a token sharing the same parent id token) that was used to start a transaction is presented again while the transaction is active.</div>
+<div class="line">If true, presenting the token again stops the ongoing transaction.</div>
+<div class="line">If false, the transaction is not stopped. Instead, the token_validation_status var reports UsedToReauthorize with the referenced EVSE in the token’s connectors field. This allows e.g. a display application to let the user decide whether to stop the transaction manually. Stopping transactions via the master pass group id is not affected by this option.</div>
+</div>
 </div>
 </section>
 <section id="provides">
@@ -973,7 +986,7 @@ for further information about the Plug&amp;Charge integration in EVerest.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=a7092e87"></script>
+</div><script src="../../../../_static/documentation_options.js?v=6728a74a"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPP - EVerest Manual main@59701c1</title>
+        <title>OCPP - EVerest Manual main@e51fa17</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@59701c1</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@e51fa17</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@59701c1</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e51fa17</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1044,10 +1044,18 @@ and optional default values (default: <code class="docutils literal notranslate"
 <li><p><strong>DeviceModelConfigMappings</strong>: optional YAML file mapping non-standard OCPP 1.6 keys to device model
 component/variable targets; only used with <strong>“device_model_with_migration”</strong>. The built-in mapping for
 standard OCPP 1.6 keys is documented in
-<a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a></p></li>
+<a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a>.
+Mappings must not target the connection configuration (<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> slots, the
+<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code> network profile selectors, or the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code> connection fallbacks <code class="docutils literal notranslate"><span class="pre">Identity</span></code>
+and <code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code>); those are managed via the standardized OCPP 1.6 keys, and a mapping file
+containing such a target is rejected at startup</p></li>
 <li><p><strong>Ocpp16NetworkConfigSlot</strong>: <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> slot number that OCPP 1.6 network connection
 details (<code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code>, <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>, <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code>, <code class="docutils literal notranslate"><span class="pre">HostName</span></code>,
-<code class="docutils literal notranslate"><span class="pre">ChargePointId</span></code>) are migrated to during the one-time migration (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>; set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to skip)</p></li>
+<code class="docutils literal notranslate"><span class="pre">ChargePointId</span></code>) are migrated to during the one-time migration (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>; set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to skip).
+The migration pins the slot’s <code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;Any&quot;</span></code> unless the component config sets an explicit
+attribute value, points <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr/ActiveNetworkProfile</span></code> at the slot, and requires a
+<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_&lt;N&gt;</span></code> component config for the slot (missing: the network part is skipped with an
+error log)</p></li>
 <li><p><strong>EnableDeviceModelFallbackToLegacyJson</strong>: if <code class="docutils literal notranslate"><span class="pre">true</span></code> and device model initialization or integrity check
 fails at startup, the module falls back to the legacy JSON backend; requires <strong>ChargePointConfigPath</strong> to
 exist (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
@@ -1335,7 +1343,7 @@ the module injects a built-in default schema for it automatically.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=3d876d69"></script>
+</div><script src="../../../../_static/documentation_options.js?v=e2bd7a95"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

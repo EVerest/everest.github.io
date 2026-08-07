@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual main@59701c1</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual main@e51fa17</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@59701c1</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@e51fa17</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@59701c1</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e51fa17</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -830,7 +830,7 @@ model is initialized from the component configs only and
 <h3>Configure the migration<a class="headerlink" href="#configure-the-migration" title="Link to this heading">¶</a></h3>
 <p>Set <code class="docutils literal notranslate"><span class="pre">EnableLegacyConfigMigration</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> and provide the following
 module configuration parameters:</p>
-<ul class="simple">
+<ul>
 <li><p><strong>ChargePointConfigPath</strong>: base OCPP 1.6 JSON configuration (migration
 source, must exist)</p></li>
 <li><p><strong>UserConfigPath</strong>: JSON overlay with persisted local and CSMS-initiated
@@ -845,8 +845,21 @@ baseline</p></li>
 <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> slot that network connection details
 (<code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code>, <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>, <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code>,
 <code class="docutils literal notranslate"><span class="pre">HostName</span></code>, <code class="docutils literal notranslate"><span class="pre">ChargePointId</span></code>) are written to during migration. Any
-existing attribute values in the target slot are overwritten. Set to <code class="docutils literal notranslate"><span class="pre">0</span></code>
-to skip migration of network connection details entirely.</p></li>
+existing attribute values in the target slot are overwritten, the slot’s
+<code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code> is pinned to <code class="docutils literal notranslate"><span class="pre">Any</span></code> unless the component config sets an
+explicit attribute <code class="docutils literal notranslate"><span class="pre">value</span></code> (a <code class="docutils literal notranslate"><span class="pre">default</span></code> does not count), and
+<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr/ActiveNetworkProfile</span></code> is pointed at the
+slot. Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to skip migration of network connection details entirely.</p>
+<p>The target slot must be defined in the component configuration at
+<code class="docutils literal notranslate"><span class="pre">DeviceModelConfigPath</span></code>: a <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_&lt;N&gt;</span></code> component config
+must exist for it; a missing component config skips the network connection
+migration with an error log. Two independent gates apply afterwards: a slot
+missing from the <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr/NetworkConfigurationPriority</span></code> <em>value</em> is
+migrated but not used for connecting, and a slot missing from that
+variable’s <code class="docutils literal notranslate"><span class="pre">valuesList</span></code> cannot be added to the priority at runtime
+(each is logged as a warning). With the shipped example configs,
+the default slot <code class="docutils literal notranslate"><span class="pre">1</span></code> satisfies all of this out of the box.</p>
+</li>
 </ul>
 <p>These parameters define the source configuration, the target database, and the
 structural baseline that receives the migrated values.</p>
@@ -985,6 +998,9 @@ so existing connections carry over:</p>
 <code class="docutils literal notranslate"><span class="pre">OCPP</span></code> module required it).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">charger_information</span></code> is supported (0..1 connections, as in <code class="docutils literal notranslate"><span class="pre">OCPP</span></code>; the
 old <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code> module did not have it).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_support</span></code> is new in OCPPmulti (optional, 0..128 connections);
+neither old module had it, so no wiring change is needed unless you want
+to use it.</p></li>
 <li><p>All other requirements (<code class="docutils literal notranslate"><span class="pre">auth</span></code>, <code class="docutils literal notranslate"><span class="pre">data_transfer</span></code>, <code class="docutils literal notranslate"><span class="pre">display_message</span></code>,
 <code class="docutils literal notranslate"><span class="pre">evse_energy_sink</span></code>, <code class="docutils literal notranslate"><span class="pre">evse_manager</span></code>, <code class="docutils literal notranslate"><span class="pre">extensions_15118</span></code>, <code class="docutils literal notranslate"><span class="pre">security</span></code>,
 <code class="docutils literal notranslate"><span class="pre">system</span></code>) are identical to both old modules.</p></li>
@@ -1080,7 +1096,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=3d876d69"></script>
+</div><script src="../_static/documentation_options.js?v=e2bd7a95"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

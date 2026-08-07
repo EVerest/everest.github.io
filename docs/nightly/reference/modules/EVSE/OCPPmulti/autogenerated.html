@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@59701c1</title>
+        <title>OCPPmulti - EVerest Manual main@e51fa17</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@59701c1</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@e51fa17</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@59701c1</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e51fa17</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -794,9 +794,52 @@ served from the device model at runtime.</p>
 combinations are documented in
 <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a>.
 <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigMappings</span></code> can point to a YAML file with custom mappings on top; it is applied both when migrating
-the legacy JSON into the device model and when serving the device-model-backed configuration at runtime. OCPP 1.6
+the legacy JSON into the device model and when serving the device-model-backed configuration at runtime. Custom
+mappings must not target the connection configuration (the <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> slots, the <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>
+network profile selectors, or the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code> connection fallbacks <code class="docutils literal notranslate"><span class="pre">Identity</span></code> and <code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code>):
+those are managed via the standardized OCPP 1.6 keys with their reboot/reconnect semantics, and a mapping file
+containing such a target is rejected at startup. OCPP 1.6
 keys without a standardized device model counterpart are kept in a dedicated <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> component, whose
 <code class="docutils literal notranslate"><span class="pre">NumberOfConnectors</span></code> value is automatically patched to the actual number of connected EVSEs.</p>
+<section id="network-connection-profiles-ocpp-1-6">
+<span id="handwritten-ocppmulti-network-profiles-ocpp16"></span><h4>Network connection profiles (OCPP 1.6)<a class="headerlink" href="#network-connection-profiles-ocpp-1-6" title="Link to this heading">¶</a></h4>
+<p>In device-model-backed configuration, OCPP 1.6 sources its network connection profiles from the same per-slot
+<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_&lt;N&gt;</span></code> components as OCPP 2.x rather than from the single-URL legacy keys. The slot model,
+the failover behavior, the runtime reconfiguration workflow and the few points where the two protocol versions
+behave differently are described once in
+<a class="reference internal" href="#handwritten-ocppmulti-network-connection-configuration"><span class="std std-ref">Network connection configuration</span></a>; what follows
+here is only what is specific to OCPP 1.6.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Ocpp16NetworkConfigSlot</span></code> selects the slot the legacy migration writes into (default <code class="docutils literal notranslate"><span class="pre">1</span></code>). It populates that one
+slot (<code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code> → <code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code>, <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> → <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>, <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code> →
+<code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code>, <code class="docutils literal notranslate"><span class="pre">HostName</span></code> → <code class="docutils literal notranslate"><span class="pre">HostName</span></code>, <code class="docutils literal notranslate"><span class="pre">ChargePointId</span></code> → <code class="docutils literal notranslate"><span class="pre">Identity</span></code>), sets that slot’s
+<code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;Any&quot;</span></code> unless the component config sets an explicit attribute <code class="docutils literal notranslate"><span class="pre">value</span></code> (a <code class="docutils literal notranslate"><span class="pre">default</span></code>,
+like slot 1’s <code class="docutils literal notranslate"><span class="pre">&quot;Wired0&quot;</span></code>, does not count and applies only when the slot is not migrated into), and points
+<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr/ActiveNetworkProfile</span></code> at the slot. The target slot must be defined by the component configuration:
+when no <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_&lt;N&gt;</span></code> component config exists for it, the network connection migration is skipped
+with an error log, and when the slot is missing from <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> (or its <code class="docutils literal notranslate"><span class="pre">valuesList</span></code>), a
+warning is logged and the migrated profile is not used until the priority is configured accordingly. The shipped
+example configs cover the default slot <code class="docutils literal notranslate"><span class="pre">1</span></code>, so a migrated legacy deployment connects as before with a single
+profile on interface <code class="docutils literal notranslate"><span class="pre">&quot;Any&quot;</span></code>; for any other slot, ship the matching component config and priority.</p>
+<p>The migration also initializes the <em>confirmed</em> security profile (<code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>) from the
+legacy config’s <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>. Setups configured purely through the device model (no migration) that use
+security profile <code class="docutils literal notranslate"><span class="pre">0</span></code> must set <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code> in their component config, since the
+shipped default is <code class="docutils literal notranslate"><span class="pre">1</span></code> and every profile below the confirmed one is pruned from the failover list.</p>
+<p>A slot whose <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_&lt;N&gt;.OcppVersion</span></code> names any version other than <code class="docutils literal notranslate"><span class="pre">&quot;OCPP16&quot;</span></code> is ignored in OCPP
+1.6 mode; leaving <code class="docutils literal notranslate"><span class="pre">OcppVersion</span></code> unset or setting it to <code class="docutils literal notranslate"><span class="pre">&quot;OCPP16&quot;</span></code> makes the slot usable. Runtime writes of
+<code class="docutils literal notranslate"><span class="pre">OcppVersion</span></code> are validated against the variable’s <code class="docutils literal notranslate"><span class="pre">valuesList</span></code>, so a custom component config must list
+<code class="docutils literal notranslate"><span class="pre">OCPP16</span></code> there for such a write to be accepted (the shipped slot configs do). The <em>active</em> slot is exempt from
+this filter: when every listed slot is version-filtered (typically because the device model database was
+previously used with OCPP 2.x, which writes back the negotiated version; OCPP 1.6 itself never writes
+<code class="docutils literal notranslate"><span class="pre">OcppVersion</span></code>), the active slot still connects using the legacy single-profile connection settings instead of
+leaving the charge point unable to connect. The same fallback applies when the active slot’s profile is
+incomplete; in OCPP 2.x an incomplete slot is simply skipped.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">interface_address</span></code> returned by the <code class="docutils literal notranslate"><span class="pre">system</span></code> provider’s <strong>configure_network</strong> <em>replaces</em> the static
+<code class="docutils literal notranslate"><span class="pre">Internal</span></code>/<code class="docutils literal notranslate"><span class="pre">IFace</span></code> configuration key when binding the websocket - including clearing it when the provider
+answers <code class="docutils literal notranslate"><span class="pre">Ready</span></code> or <code class="docutils literal notranslate"><span class="pre">NotSupported</span></code> without an address. Since this module always performs the configure_network
+round-trip, <code class="docutils literal notranslate"><span class="pre">IFace</span></code> is effectively not used on successful attempts.</p>
+<p>The legacy JSON configuration backend (OCPP 1.6 without a device model, as used by the <code class="docutils literal notranslate"><span class="pre">OCPP</span></code> module) is
+unaffected by this and keeps the previous single-profile behavior.</p>
+</section>
 </section>
 <section id="ocpp-device-model-vs-everest-device-model">
 <h3>OCPP device model vs. EVerest device model<a class="headerlink" href="#ocpp-device-model-vs-everest-device-model" title="Link to this heading">¶</a></h3>
@@ -858,6 +901,24 @@ module via the interfaces it provides and requires.</p>
 <p>📌 <strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">ocpp_1_6_charge_point</span></code> interface (<code class="docutils literal notranslate"><span class="pre">main</span></code> implementation) of the deprecated
 <a class="reference internal" href="../OCPP/autogenerated.html#everest-modules-ocpp"><span class="std std-ref">OCPP</span></a> module is NOT provided by this module. The <code class="docutils literal notranslate"><span class="pre">ocpp_generic</span></code> interface
 covers the same functionality.</p>
+<section id="control-from-outside-everest">
+<span id="handwritten-ocppmulti-control-from-outside-everest"></span><h4>Control from outside EVerest<a class="headerlink" href="#control-from-outside-everest" title="Link to this heading">¶</a></h4>
+<p>The interfaces below are EVerest-internal: they are consumed by other modules
+in the same EVerest configuration. To drive OCPPmulti from outside EVerest -
+a web interface, a commissioning tool, a factory test rig, a vendor cloud
+agent - add the <a class="reference internal" href="../../API/EVerestAPI/ocpp_consumer_API/autogenerated.html#everest-modules-handwritten-ocpp-consumer-api"><span class="std std-ref">ocpp_consumer_API</span></a> module to the configuration.
+It requires OCPPmulti’s <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface and republishes it on the EVerest
+API MQTT surface, so the OCPP stack is controllable without writing an EVerest
+module: device model access (and with it the whole configuration surface
+described under <a class="reference internal" href="#configuration-access">Configuration access</a>), DataTransfer, and the stack state
+OCPPmulti publishes. Its documentation and the generated API reference it
+links to are authoritative for the exact commands, variables and payloads.</p>
+<p>The API is a trusted local integrator channel and is not rate-limited or
+authenticated by OCPPmulti; expose it accordingly. Its writes are subject to
+the same validation as any other EVerest-side write, including the in-use
+network configuration protection described under
+<a class="reference internal" href="#handwritten-ocppmulti-network-connection-configuration"><span class="std std-ref">Network connection configuration</span></a>.</p>
+</section>
 <section id="provides-auth-validator">
 <h4>Provides: auth_validator<a class="headerlink" href="#provides-auth-validator" title="Link to this heading">¶</a></h4>
 <p><strong>Interface</strong>: <a class="reference internal" href="../../../interfaces/auth_token_validator.html#everest-interfaces-auth-token-validator"><span class="std std-ref">auth_token_validator</span></a></p>
@@ -1010,9 +1071,13 @@ for production use without modification). Used to execute and control system-wid
 <li><p><strong>is_reset_allowed</strong> and <strong>reset</strong> for reset requests</p></li>
 <li><p><strong>set_system_time</strong> to apply the time communicated by the CSMS</p></li>
 <li><p><strong>get_boot_reason</strong> for the boot notification at startup</p></li>
+<li><p><strong>configure_network</strong> to prepare the network for a connection attempt on a network profile slot (see
+<a class="reference internal" href="#handwritten-ocppmulti-network-connection-configuration"><span class="std std-ref">Network connection configuration</span></a>); a provider
+without special network handling answers <code class="docutils literal notranslate"><span class="pre">NotSupported</span></code></p></li>
 </ul>
 <p>The <strong>log_status</strong> and <strong>firmware_update_status</strong> variables are received to report the corresponding status
-notifications to the CSMS.</p>
+notifications to the CSMS, and <strong>configure_network_status</strong> reports the asynchronous outcome of
+<strong>configure_network</strong> requests.</p>
 </section>
 </section>
 <section id="error-reporting">
@@ -1105,15 +1170,22 @@ handshake with EVs. An update is attempted at every startup and then on the peri
 <li><p><strong>EVerest modules</strong>: require the <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface and call
 <code class="docutils literal notranslate"><span class="pre">call_get_variables</span></code> / <code class="docutils literal notranslate"><span class="pre">call_set_variables</span></code> / <code class="docutils literal notranslate"><span class="pre">call_monitor_variables</span></code>;
 subscribe <code class="docutils literal notranslate"><span class="pre">event_data</span></code> for monitor notifications.</p></li>
-<li><p><strong>External integrations</strong> (web interface, configuration tools): the
-<code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code>; see its own documentation for transport and message
-details.</p></li>
+<li><p><strong>External integrations</strong> (web interface, configuration tools, vendor cloud
+agents): the <a class="reference internal" href="../../API/EVerestAPI/ocpp_consumer_API/autogenerated.html#everest-modules-handwritten-ocpp-consumer-api"><span class="std std-ref">ocpp_consumer_API</span></a> module, which republishes
+OCPPmulti’s <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface on the EVerest API MQTT surface. Every
+<code class="docutils literal notranslate"><span class="pre">get_variables</span></code> / <code class="docutils literal notranslate"><span class="pre">set_variables</span></code> / <code class="docutils literal notranslate"><span class="pre">monitor_variables</span></code> example in this
+section applies verbatim there; the payloads shown <em>are</em> the API payloads.
+Configuration access is only part of what it exposes; see
+<a class="reference internal" href="#handwritten-ocppmulti-control-from-outside-everest"><span class="std std-ref">Control from outside EVerest</span></a>, and its own
+documentation for the full surface and the transport details.</p></li>
 </ul>
 <p>On the two EVerest-side channels, addressing and semantics are identical,
 regardless of whether OCPP 1.6 or 2.x is active. The CSMS channel
 uses whatever the active protocol version prescribes (configuration keys in
 1.6, component/variable in 2.x); the rest of this section covers the
 EVerest-side channels.</p>
+<section id="reading-and-writing-canonical-form">
+<h4>Reading and writing (canonical form)<a class="headerlink" href="#reading-and-writing-canonical-form" title="Link to this heading">¶</a></h4>
 <p>Read (<code class="docutils literal notranslate"><span class="pre">get_variables</span></code>):</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OCPPCommCtrlr&quot;</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HeartbeatInterval&quot;</span><span class="p">}}}</span>
@@ -1129,9 +1201,13 @@ EVerest-side channels.</p>
 </div>
 <p>Results echo the requested <code class="docutils literal notranslate"><span class="pre">component_variable</span></code> and carry a status:
 <code class="docutils literal notranslate"><span class="pre">Accepted</span></code>, <code class="docutils literal notranslate"><span class="pre">RebootRequired</span></code> (writes only; persisted; takes effect on next
-(re)connect or reboot), <code class="docutils literal notranslate"><span class="pre">Rejected</span></code> (with <code class="docutils literal notranslate"><span class="pre">statusInfo</span></code> explaining why and, where
-applicable, what to use instead), <code class="docutils literal notranslate"><span class="pre">UnknownComponent</span></code> / <code class="docutils literal notranslate"><span class="pre">UnknownVariable</span></code>,
+(re)connect or reboot), <code class="docutils literal notranslate"><span class="pre">Rejected</span></code>, <code class="docutils literal notranslate"><span class="pre">UnknownComponent</span></code> / <code class="docutils literal notranslate"><span class="pre">UnknownVariable</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">NotSupportedAttributeType</span></code>.</p>
+<p>The status is the whole answer: the reason codes the stack computes internally
+(<code class="docutils literal notranslate"><span class="pre">PriorityNetworkConf</span></code>, <code class="docutils literal notranslate"><span class="pre">NoSecurityDowngrade</span></code>, <code class="docutils literal notranslate"><span class="pre">InvalidNetworkConf</span></code>, …)
+are <strong>currently not</strong> carried on this interface; its result has no <code class="docutils literal notranslate"><span class="pre">statusInfo</span></code> field,
+in either protocol mode. A rejected write therefore has to be diagnosed from the
+module log, which names the reason code and the offending component/variable.</p>
 <p>Addressing rules:</p>
 <ul class="simple">
 <li><p>Standard OCPP 2.x variables: their standard component (<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>,
@@ -1142,10 +1218,35 @@ from the mapping file.</p></li>
 <li><p>The deprecation warning emitted for legacy requests names the canonical
 address for each key in use — the simplest migration discovery mechanism.</p></li>
 </ul>
-<p>Connection settings live in network profile <strong>slots</strong>, addressed as component
-<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> with the slot number as component <code class="docutils literal notranslate"><span class="pre">instance</span></code>. Both
-protocol stacks read this same representation (shared connectivity manager),
-so the workflow below is identical for OCPP 1.6 and 2.x.</p>
+</section>
+<section id="network-connection-configuration">
+<span id="handwritten-ocppmulti-network-connection-configuration"></span><h4>Network connection configuration<a class="headerlink" href="#network-connection-configuration" title="Link to this heading">¶</a></h4>
+<p>Connection settings live in network profile <strong>slots</strong>: one
+<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> component per slot, addressed with the slot number as
+component <code class="docutils literal notranslate"><span class="pre">instance</span></code>, plus
+<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> - a comma-separated, ordered
+list of the slots to try. Slots are set up in the component configuration and can be changed at runtime through this API. Both
+protocol versions read this same representation, so everything below applies to
+OCPP 1.6 and 2.x alike; the handful of behavioral differences is collected at
+the end of this section.</p>
+<section id="setting-up-slots">
+<h5>Setting up slots<a class="headerlink" href="#setting-up-slots" title="Link to this heading">¶</a></h5>
+<p>Which slots exist is decided by the component configuration: ship one
+<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_&lt;N&gt;.json</span></code> per slot and list every usable slot in
+<code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> - both in its value (or default) and in its
+<code class="docutils literal notranslate"><span class="pre">valuesList</span></code>, which gates runtime priority writes. The shipped configuration
+contains two slots as an example; provide as many as your setup needs. A
+typical setup is slot 1 on a cellular modem (<code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;Wireless0&quot;</span></code>
+plus APN settings) with slot 2 as a wired fallback (<code class="docutils literal notranslate"><span class="pre">&quot;Wired0&quot;</span></code>).</p>
+<p>A slot is only usable once its profile is complete: <code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code>, <code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code>, <code class="docutils literal notranslate"><span class="pre">OcppTransport</span></code> and <code class="docutils literal notranslate"><span class="pre">MessageTimeout</span></code>
+are all mandatory, and a slot missing any of them is skipped. The example
+<code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_1.json</span></code> carries defaults for everything except the URL
+(<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;Wired0&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">OcppTransport</span></code>
+<code class="docutils literal notranslate"><span class="pre">&quot;JSON&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">MessageTimeout</span></code> <code class="docutils literal notranslate"><span class="pre">30</span></code>), so slot 1 only needs an
+<code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code>; <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration_2.json</span></code> deliberately carries no
+defaults for the mandatory fields, so each of them must be set explicitly - in
+the component config or at runtime.</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
@@ -1159,9 +1260,17 @@ so the workflow below is identical for OCPP 1.6 and 2.x.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> / instance <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Security profile (1–3)</p></td>
+<tr class="row-odd"><td><p>Security profile (0–3)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> / instance <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Network interface</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> / instance <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OcppInterface</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Transport and message timeout</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> / instance <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OcppTransport</span></code>, <code class="docutils literal notranslate"><span class="pre">MessageTimeout</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Basic-auth password (AuthorizationKey)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> / instance <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code></p></td>
@@ -1186,7 +1295,42 @@ so the workflow below is identical for OCPP 1.6 and 2.x.</p>
 </tbody>
 </table>
 </div>
-<p>Workflow — prepare a profile (here: slot 2):</p>
+</section>
+<section id="failover-between-slots">
+<h5>Failover between slots<a class="headerlink" href="#failover-between-slots" title="Link to this heading">¶</a></h5>
+<p>Slots are tried in priority order, and the list wraps around. A slot is skipped
+when the <code class="docutils literal notranslate"><span class="pre">system</span></code> provider’s <strong>configure_network</strong> answers
+<code class="docutils literal notranslate"><span class="pre">Failed</span></code>/<code class="docutils literal notranslate"><span class="pre">Rejected</span></code> (or does not respond within
+<code class="docutils literal notranslate"><span class="pre">InternalCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">NetworkConfigTimeout</span></code> seconds, default 60), when the
+resulting profile is invalid, or when the websocket connection fails
+<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">NetworkProfileConnectionAttempts</span></code> times in a row. Setting
+<code class="docutils literal notranslate"><span class="pre">NetworkProfileConnectionAttempts</span></code> to <code class="docutils literal notranslate"><span class="pre">-1</span></code> means retry-forever and thereby
+disables the websocket-failure-driven part of the failover; only do that
+deliberately. There is no automatic fall-back to a higher-priority slot while a
+lower-priority one is connected. The address the <code class="docutils literal notranslate"><span class="pre">system</span></code> provider returns
+from <strong>configure_network</strong> is what the websocket is bound to for that attempt.</p>
+<p>Profiles with a <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> below the <em>confirmed</em> security profile -
+the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> value, which is raised only after a
+successful connect - are pruned from the failover list, so security profile
+upgrades are one-way. Failed attempts on a higher-security-profile slot do not
+prune anything.</p>
+</section>
+<section id="changing-connection-details-at-runtime">
+<h5>Changing connection details at runtime<a class="headerlink" href="#changing-connection-details-at-runtime" title="Link to this heading">¶</a></h5>
+<p>The whole reconfiguration below is doable from outside EVerest: the
+<a class="reference internal" href="../../API/EVerestAPI/ocpp_consumer_API/autogenerated.html#everest-modules-handwritten-ocpp-consumer-api"><span class="std std-ref">ocpp_consumer_API</span></a>
+module exposes <code class="docutils literal notranslate"><span class="pre">get_variables</span></code> / <code class="docutils literal notranslate"><span class="pre">set_variables</span></code> / <code class="docutils literal notranslate"><span class="pre">monitor_variables</span></code>
+on the EVerest API MQTT surface, and the payloads in this section are exactly
+what that API takes. A web interface or commissioning tool can therefore
+repoint the charging station at a different CSMS, rotate credentials or switch
+to a fallback interface without an EVerest module and without CSMS
+involvement. The same API is the natural way to <em>observe</em> the result; monitor
+<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">ActiveNetworkProfile</span></code> for the slot actually in use. It
+controls the OCPP stack well beyond network configuration; see
+<a class="reference internal" href="#handwritten-ocppmulti-control-from-outside-everest"><span class="std std-ref">Control from outside EVerest</span></a>.</p>
+<p>Workflow - fully populate a spare profile slot (here: slot 2, which ships
+without defaults, so every field has to be written; an incomplete slot cannot
+be put into the priority):</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;variables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
 <span class="w">                          </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OcppCsmsUrl&quot;</span><span class="p">}},</span>
@@ -1194,6 +1338,15 @@ so the workflow below is identical for OCPP 1.6 and 2.x.</p>
 <span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
 <span class="w">                          </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SecurityProfile&quot;</span><span class="p">}},</span>
 <span class="w">   </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
+<span class="w">                          </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OcppInterface&quot;</span><span class="p">}},</span>
+<span class="w">   </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Any&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
+<span class="w">                          </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OcppTransport&quot;</span><span class="p">}},</span>
+<span class="w">   </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JSON&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
+<span class="w">                          </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MessageTimeout&quot;</span><span class="p">}},</span>
+<span class="w">   </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30&quot;</span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span><span class="nt">&quot;component_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;component&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NetworkConfiguration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;instance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">},</span>
 <span class="w">                          </span><span class="nt">&quot;variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BasicAuthPassword&quot;</span><span class="p">}},</span>
 <span class="w">   </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0123456789abcdef&quot;</span><span class="p">}</span>
@@ -1207,15 +1360,85 @@ so the workflow below is identical for OCPP 1.6 and 2.x.</p>
 <span class="p">]},</span><span class="w"> </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webinterface&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Each of these returns <code class="docutils literal notranslate"><span class="pre">RebootRequired</span></code>: the values are validated and
-persisted immediately and take effect on the next (re)connect or reboot.
-Editing the currently active slot in place is equally allowed (same
-<code class="docutils literal notranslate"><span class="pre">RebootRequired</span></code> semantics). <code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code> is write-only — reads do
-not return it. <code class="docutils literal notranslate"><span class="pre">ActiveNetworkProfile</span></code> reports which slot is in use and is
-ReadOnly (per OCPP 2.x); writes to it are rejected by mutability in both
-modes. In v16 mode this workflow is semantically equivalent to the legacy
-<code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code> / <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> / <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code> key writes,
-which remain available (deprecated) and operate on the active slot.</p>
+<p>Keeping slot 1 in the list retains it as a fallback, but with only the two
+shipped slots it also means no slot is left that can be rewritten (see the
+protection rules below). Write <code class="docutils literal notranslate"><span class="pre">&quot;2&quot;</span></code> instead if you want to keep slot 1 free
+for the next reconfiguration, or ship a third slot to rotate through.</p>
+<p>Committed writes persist immediately, are picked up right away and take effect
+on the next (re)connect; an already-established connection is not interrupted.
+The status returned for a connection-config write differs between the protocol
+versions (see below), but in neither case is a reboot actually required.</p>
+<p>The in-use configuration is protected (B09.FR.21/22), which is why the workflow
+above prepares a spare slot first:</p>
+<ul class="simple">
+<li><p>Writes targeting the currently <em>active</em> slot, or any slot listed in
+<code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code>, are rejected with <code class="docutils literal notranslate"><span class="pre">PriorityNetworkConf</span></code>.
+Keep at least one slot out of the priority list so there is always a slot you
+can rewrite.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> write naming a slot without a complete
+profile is rejected with <code class="docutils literal notranslate"><span class="pre">InvalidNetworkConf</span></code>, as is a change that would
+make a slot’s URL scheme inconsistent with its security profile (<code class="docutils literal notranslate"><span class="pre">ws://</span></code>
+needs profile &lt; 2, <code class="docutils literal notranslate"><span class="pre">wss://</span></code> needs &gt;= 2).</p></li>
+<li><p>Lowering a slot’s <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> below the confirmed one is rejected
+with <code class="docutils literal notranslate"><span class="pre">NoSecurityDowngrade</span></code>.</p></li>
+</ul>
+<p>Because the active slot is always protected, credentials for the running
+connection cannot be rotated per slot. Write the <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code> globals
+instead: a committed write to <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">Identity</span></code> or
+<code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code> clears the corresponding per-slot
+override on the active slot (B09.FR.26/27), so the new global value is what the
+next connection attempt uses - even when a legacy migration had populated the
+per-slot value. <code class="docutils literal notranslate"><span class="pre">BasicAuthPassword</span></code> is write-only; reads do not return it.</p>
+<p><code class="docutils literal notranslate"><span class="pre">set_variables</span></code> on this API may write ReadOnly variables: it is a trusted
+local integrator channel, and ReadOnly mutability models the CSMS-facing
+contract, not this API (the protection above still applies regardless of
+mutability). Some cells are nevertheless stack-owned runtime state, written on
+every successful connect; writing them here desyncs the device model from the
+connection logic. Do not write:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">ActiveNetworkProfile</span></code> - reports which slot is in use;
+a manual write is corrected only on the next successful connect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> - the <em>confirmed</em> security profile,
+raised after a successful connect and used to permanently prune slots below
+it from the failover list; raising it by hand can leave no attemptable slot.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code>/<code class="docutils literal notranslate"><span class="pre">OcppVersion</span></code> - written back with the negotiated
+version on 2.x connects; a value other than <code class="docutils literal notranslate"><span class="pre">&quot;OCPP16&quot;</span></code> removes the slot
+from the usable set in OCPP 1.6 mode.</p></li>
+</ul>
+</section>
+<section id="where-the-protocol-versions-differ">
+<h5>Where the protocol versions differ<a class="headerlink" href="#where-the-protocol-versions-differ" title="Link to this heading">¶</a></h5>
+<ul class="simple">
+<li><p><strong>Status of a committed write.</strong> OCPP 1.6 answers connection-config writes
+with <code class="docutils literal notranslate"><span class="pre">RebootRequired</span></code>, OCPP 2.x with <code class="docutils literal notranslate"><span class="pre">Accepted</span></code>. The persisted value and
+the moment it takes effect are the same.</p></li>
+<li><p><strong>Priority changes.</strong> In OCPP 1.6 a <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> write is
+picked up immediately and is effective on the next (re)connect. In OCPP 2.x
+it is persisted but only taken into account after a reboot; plan one when
+switching slots this way.</p></li>
+<li><p><strong>Unusable slots.</strong> OCPP 1.6 additionally ignores slots whose <code class="docutils literal notranslate"><span class="pre">OcppVersion</span></code>
+names another version, and falls back to the legacy single-profile settings
+when the <em>active</em> slot is filtered out or incomplete; OCPP 2.x uses every
+listed slot and simply skips incomplete ones. See
+<a class="reference internal" href="#handwritten-ocppmulti-network-profiles-ocpp16"><span class="std std-ref">Network connection profiles (OCPP 1.6)</span></a>
+for the details.</p></li>
+<li><p><strong>Deprecated key-only writes.</strong> Only in OCPP 1.6 mode, the legacy
+<code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> and <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code> keys can still be written
+(empty component name); they act on the active slot and bypass the validation
+above, and the profile used for <strong>configure_network</strong> and for
+security-profile pruning keeps its previous contents until a canonical write,
+a security-profile switch or a restart. <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> is not a quiet
+write either: it triggers the 1.6 security-profile switch, which reconnects
+immediately and falls back to the previous profile if the new one does not
+connect within <code class="docutils literal notranslate"><span class="pre">SwitchSecurityProfileConnectionTimeout</span></code>.
+<code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code> is <em>not</em> writable this way; it is read-only in the key
+path, so the canonical <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code> addressing is the only way to
+change a CSMS URL.</p></li>
+</ul>
+</section>
+</section>
+<section id="monitoring-configuration-changes">
+<h4>Monitoring configuration changes<a class="headerlink" href="#monitoring-configuration-changes" title="Link to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">monitor_variables</span></code> with canonical addresses; changes are published on
 <code class="docutils literal notranslate"><span class="pre">event_data</span></code> with the same <code class="docutils literal notranslate"><span class="pre">component_variable</span></code> used at registration:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -1225,6 +1448,7 @@ which remain available (deprecated) and operate on the active slot.</p>
 </div>
 <p>Legacy-form registrations (empty component name) receive legacy-shaped events.
 Registrations are additive across calls.</p>
+</section>
 </section>
 <section id="migration-from-ocpp-1-6-key-addressing">
 <h3>Migration from OCPP 1.6 key addressing<a class="headerlink" href="#migration-from-ocpp-1-6-key-addressing" title="Link to this heading">¶</a></h3>
@@ -1240,6 +1464,8 @@ address. This form is not accepted when OCPP 2.x is active (returns
 <code class="docutils literal notranslate"><span class="pre">UnknownComponent</span></code>) and will be removed per the deprecation policy, it is strongly recommended to migrate
 to canonical addressing. Requests with a non-empty component name are never
 reinterpreted as configuration keys.</p>
+<section id="behavioral-difference-to-the-legacy-ocpp-module">
+<h4>Behavioral difference to the legacy OCPP module<a class="headerlink" href="#behavioral-difference-to-the-legacy-ocpp-module" title="Link to this heading">¶</a></h4>
 <p>The legacy <code class="docutils literal notranslate"><span class="pre">OCPP</span></code> module ignores <code class="docutils literal notranslate"><span class="pre">component.name</span></code> entirely and always
 treats <code class="docutils literal notranslate"><span class="pre">variable.name</span></code> as a configuration key. OCPPmulti resolves the
 component: a request whose non-empty component name is not a known address
@@ -1248,6 +1474,7 @@ returns <code class="docutils literal notranslate"><span class="pre">UnknownComp
 Integrations that pass placeholder component names must migrate to the
 canonical address (or, transitionally, the deprecated empty-component form)
 when switching to this module.</p>
+</section>
 </section>
 </section>
 <section id="auto-generated-reference">
@@ -1350,7 +1577,7 @@ when switching to this module.</p>
 <div class="line"><strong>Ocpp16NetworkConfigSlot</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 1</em></div>
 <div class="line-block">
-<div class="line">OCPP 1.6 NetworkConfiguration slot number that OCPP 1.6 connection details (CentralSystemURI, SecurityProfile, AuthorizationKey, HostName, ChargePointId) are migrated to during the one-time device model migration. Any existing attribute values in the target slot are overwritten. Set to 0 to skip migration of network connection details entirely.</div>
+<div class="line">OCPP 1.6 NetworkConfiguration slot number that OCPP 1.6 connection details (CentralSystemURI, SecurityProfile, AuthorizationKey, HostName, ChargePointId) are migrated to during the one-time device model migration. Any existing attribute values in the target slot are overwritten, the slot’s OcppInterface is set to “Any” unless the component config sets an explicit attribute value (a “default” does not count), and OCPPCommCtrlr/ActiveNetworkProfile is pointed at the slot. The target slot must be defined in the component configuration: a NetworkConfiguration_&lt;N&gt; component config must exist for it (otherwise the migration of network connection details is skipped with an error log). The slot must also be listed in the OCPPCommCtrlr/NetworkConfigurationPriority value for the profile to be used, and in that variable’s valuesList for runtime priority writes naming the slot to be accepted (a warning is logged when either is missing). The shipped example configs cover the default slot 1. Set to 0 to skip migration of network connection details; the confirmed security profile (SecurityCtrlr/SecurityProfile) is still initialized from the legacy config’s SecurityProfile in that case.</div>
 </div>
 <div class="line"><strong>RequestCompositeScheduleDurationS</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 600</em></div>
@@ -1503,9 +1730,13 @@ when switching to this module.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#device-model-configuration-via-component-configs">Device model configuration via component configs</a></li>
-<li><a class="reference internal" href="#ocpp-1-6-configuration-two-supported-paths">OCPP 1.6 configuration: two supported paths</a></li>
+<li><a class="reference internal" href="#ocpp-1-6-configuration-two-supported-paths">OCPP 1.6 configuration: two supported paths</a><ul>
+<li><a class="reference internal" href="#network-connection-profiles-ocpp-1-6">Network connection profiles (OCPP 1.6)</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#ocpp-device-model-vs-everest-device-model">OCPP device model vs. EVerest device model</a></li>
 <li><a class="reference internal" href="#integration-in-everest">Integration in EVerest</a><ul>
+<li><a class="reference internal" href="#control-from-outside-everest">Control from outside EVerest</a></li>
 <li><a class="reference internal" href="#provides-auth-validator">Provides: auth_validator</a></li>
 <li><a class="reference internal" href="#provides-auth-provider">Provides: auth_provider</a></li>
 <li><a class="reference internal" href="#provides-data-transfer">Provides: data_transfer</a></li>
@@ -1531,8 +1762,22 @@ when switching to this module.</p>
 </li>
 <li><a class="reference internal" href="#energy-management-and-smart-charging">Energy management and smart charging</a></li>
 <li><a class="reference internal" href="#certificate-management">Certificate management</a></li>
-<li><a class="reference internal" href="#configuration-access">Configuration access</a></li>
-<li><a class="reference internal" href="#migration-from-ocpp-1-6-key-addressing">Migration from OCPP 1.6 key addressing</a></li>
+<li><a class="reference internal" href="#configuration-access">Configuration access</a><ul>
+<li><a class="reference internal" href="#reading-and-writing-canonical-form">Reading and writing (canonical form)</a></li>
+<li><a class="reference internal" href="#network-connection-configuration">Network connection configuration</a><ul>
+<li><a class="reference internal" href="#setting-up-slots">Setting up slots</a></li>
+<li><a class="reference internal" href="#failover-between-slots">Failover between slots</a></li>
+<li><a class="reference internal" href="#changing-connection-details-at-runtime">Changing connection details at runtime</a></li>
+<li><a class="reference internal" href="#where-the-protocol-versions-differ">Where the protocol versions differ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#monitoring-configuration-changes">Monitoring configuration changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#migration-from-ocpp-1-6-key-addressing">Migration from OCPP 1.6 key addressing</a><ul>
+<li><a class="reference internal" href="#behavioral-difference-to-the-legacy-ocpp-module">Behavioral difference to the legacy OCPP module</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
@@ -1557,7 +1802,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=3d876d69"></script>
+</div><script src="../../../../_static/documentation_options.js?v=e2bd7a95"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

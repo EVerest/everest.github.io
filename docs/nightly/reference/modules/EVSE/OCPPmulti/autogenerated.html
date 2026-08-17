@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@3852a50</title>
+        <title>OCPPmulti - EVerest Manual main@062a285</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3852a50</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@062a285</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3852a50</span>
+  <span class="sidebar-brand-text">EVerest Manual main@062a285</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -856,6 +856,18 @@ runtime, e.g. from power meter values and EV information reported by the connect
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">ComposedDeviceModelStorage</span></code> routes each variable access to its owning storage by the variable’s <code class="docutils literal notranslate"><span class="pre">source</span></code>
 field, which defaults to <code class="docutils literal notranslate"><span class="pre">OCPP</span></code>.</p>
+<p>The composed storage backs <strong>both</strong> protocol paths: in OCPP 2.x it is the device model of the libocpp
+<code class="docutils literal notranslate"><span class="pre">ChargePoint</span></code>, and in OCPP 1.6 it backs the device-model-based charge point configuration. Variables of both
+sources are therefore visible and settable through the EVerest <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface (<code class="docutils literal notranslate"><span class="pre">get_variables</span></code> /
+<code class="docutils literal notranslate"><span class="pre">set_variables</span></code>, e.g. via the <code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code> module) regardless of the active protocol version. Note that
+an OCPP 1.6 <strong>CSMS</strong> still cannot address EVerest device model variables directly: <code class="docutils literal notranslate"><span class="pre">GetConfiguration</span></code> /
+<code class="docutils literal notranslate"><span class="pre">ChangeConfiguration</span></code> are key-based, and only keys with a device model mapping (built-in or via
+<code class="docutils literal notranslate"><span class="pre">DeviceModelConfigMappings</span></code>) reach the device model. Also note that variables of source <code class="docutils literal notranslate"><span class="pre">EVEREST</span></code> are updated
+by the module at runtime directly in the <code class="docutils literal notranslate"><span class="pre">EverestDeviceModelStorage</span></code>; such updates do not trigger
+<code class="docutils literal notranslate"><span class="pre">monitor_variables</span></code> events on the <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface (in either protocol version) — only writes performed through
+the OCPP stack or the <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface do. If a component/variable is defined in both storages, the EVerest
+device model takes precedence for that variable and a warning is logged at startup; the integrator is
+responsible for avoiding such overlaps.</p>
 <pre  class="mermaid">
         classDiagram
     class DeviceModel
@@ -1831,7 +1843,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=2ec63b78"></script>
+</div><script src="../../../../_static/documentation_options.js?v=e0ac831d"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -36,6 +36,12 @@ Module Configuration
 | **ac_nominal_frequency**: *number* <optional>
 | *default: 50.0*
 |  Nominal AC grid frequency in Hertz, reported per phase by the simulated power meter
+| **max_current_A_import**: *number* <optional>
+| *default: 32.0*
+|  Maximum import current in amps reported as a hardware capability. The default matches a 32 A AC wallbox. DC configurations must raise this, since the energy manager derives the available power from max_current_A_import * max_phase_count_import * nominal_voltage_V and would otherwise cap a high-power DC supply at the AC-side figure.
+| **min_current_A_import**: *number* <optional>
+| *default: 6.0*
+|  Minimum import current in amps reported as a hardware capability
 
 Provides
 ========

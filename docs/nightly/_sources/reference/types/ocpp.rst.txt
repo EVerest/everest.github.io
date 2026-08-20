@@ -542,3 +542,25 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    OCPP message direction
 |   **version**: *string* <optional>
 |    OCPP version of the serialized message
+
+.. _ocpp-ConnectionStatus:
+
+| **ConnectionStatus**: *object* 
+|  Status of the connection of the chargepoint to the CSMS, including the details of the connection the status refers to. While connected, the details describe the active connection; while disconnected, they describe the connection that has just been lost or whose connection attempt has just failed. Details that are not available for the active OCPP version are omitted.
+|  properties:
+|   **connected**: *boolean* <required>
+|    Indicates if the chargepoint is connected to the CSMS
+|   **csms_url**: *string* <optional>
+|    CSMS endpoint URL of the connection. OCPP2.x reports ocppCsmsUrl of the network connection profile, OCPP1.6 the CentralSystemURI configuration key.
+|   **identity**: *string* <optional>
+|    Identity the chargepoint uses towards the CSMS. OCPP2.x reports identity of the network connection profile, OCPP1.6 the ChargePointId.
+|   **security_profile**: *integer* <optional>
+|    OCPP security profile of the connection. OCPP2.x reports securityProfile of the network connection profile, OCPP1.6 the SecurityProfile configuration key.
+|   **configuration_slot**: *integer* <optional>
+|    Configuration slot of the network connection profile the connection uses.
+|   **ocpp_interface**: *string* <optional>
+|    Network interface of the network connection profile the connection uses
+|   **ocpp_transport**: *string* <optional>
+|    Transport of the network connection profile the connection uses
+|   **ocpp_version**: *string* <optional>
+|    OCPP protocol version in use on the connection (e.g. ocpp1.6, ocpp2.0.1 or ocpp2.1)

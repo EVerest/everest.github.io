@@ -22,6 +22,8 @@ Variables
 |  Object that contains OCPP charging schedules of all connectors. The object contains one composite charging schedule for each connector id starting from connector 0. Connector 0 contains a schedule for the whole charging station.
 | **connection_status**: *object*  (:ref:`ocpp-ConnectionStatus <ocpp-ConnectionStatus>`)
 |  Indicates if the chargepoint is connected to the CSMS and carries the details of the connection the status refers to. Published on every connect and disconnect. Replaces the removed is_connected var: the connected property carries the same information, the details are best effort and are omitted where the active OCPP version does not provide them.
+| **ready**: *boolean* 
+|  Indicates whether the OCPP service has finished its startup and accepts commands on this interface. Published as true once the module is operational. Unrelated to CSMS connectivity (see connection_status).
 | **security_event**: *object*  (:ref:`ocpp-SecurityEvent <ocpp-SecurityEvent>`)
 |  Published when an internal security event occurred
 | **event_data**: *object*  (:ref:`ocpp-EventData <ocpp-EventData>`)

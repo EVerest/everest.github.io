@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>LemDCBM400600 - EVerest Manual main@3060715</title>
+        <title>LemDCBM400600 - EVerest Manual main@7678dbb</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@3060715</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@7678dbb</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3060715</span>
+  <span class="sidebar-brand-text">EVerest Manual main@7678dbb</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -690,8 +690,23 @@ during the module’s “ready” thread loop), cf. also the notes on time synch
 </section>
 <section id="variable-powermeter">
 <h4>Variable Powermeter<a class="headerlink" href="#variable-powermeter" title="Link to this heading">¶</a></h4>
-<p>Publication of the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> var is done with approx. frequency 1/second. This fetches the current <code class="docutils literal notranslate"><span class="pre">livemeasure</span></code>
+<p>Publication of the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> var is done with an approx. frequency of 1/second by default; the interval is
+configurable via the <code class="docutils literal notranslate"><span class="pre">poll_interval_ms</span></code> config option. This fetches the current <code class="docutils literal notranslate"><span class="pre">livemeasure</span></code>
 values from the device’s <code class="docutils literal notranslate"><span class="pre">/v1/livemeasure</span></code> endpoint and injects the meter id as determined at initialization.</p>
+<p>The poll loop runs at a fixed rate: the time spent performing the requests is subtracted from the wait before the
+next poll, so the interval between two publications stays at <code class="docutils literal notranslate"><span class="pre">poll_interval_ms</span></code> instead of growing with the
+latency of the device. This matters because consumers watch this stream for gaps - EvseManager, for instance, aborts
+a DC cable check if it sees no power supply measurement for two seconds. If a gap of more than 1.5 times the
+configured interval does occur, a warning is logged with the measured gap and the duration of the live measurement
+request, so a slow device or network can be identified from the logs.</p>
+<p>While a transaction is active, the current OCMF record is additionally fetched as a fallback so that a signed meter
+value is available even if the device becomes unreachable at transaction stop. This fetch is performed <em>after</em> the
+live measurements have been published, so that its round trip is not added to the gap between two publications. By
+default it happens on every poll; it can be throttled with the <code class="docutils literal notranslate"><span class="pre">transaction_ocmf_fetch_interval_s</span></code> config option.
+Throttling applies to attempts rather than successes, so a failing OCMF endpoint cannot cause a request on every
+single poll.</p>
+<p>By default, HTTP(S) connections to the device are kept alive and reused across requests. Set <code class="docutils literal notranslate"><span class="pre">http_connection_reuse</span></code>
+to <code class="docutils literal notranslate"><span class="pre">false</span></code> to restore the previous behavior of one fresh connection per request.</p>
 </section>
 <section id="command-start-transaction">
 <h4>Command start_transaction<a class="headerlink" href="#command-start-transaction" title="Link to this heading">¶</a></h4>
@@ -827,6 +842,11 @@ in general is considered vulnerable.</p>
 <div class="line-block">
 <div class="line">The DCBM’s HTTPS certificate, in PEM format. If provided, HTTPS will be used. If left empty, regular HTTP will be used. Note that this does not affect the default port - specify a port explicitly if you wish to use a port other than 80.</div>
 </div>
+<div class="line"><strong>http_connection_reuse</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Reuse HTTP(S) connections to the power meter across requests. This avoids a TCP connect (and, with TLS, a full TLS handshake) for every poll. Disable to restore the previous behavior of one fresh connection per request, e.g. if the device misbehaves with keep-alive connections.</div>
+</div>
 <div class="line"><strong>ntp_server_1_ip_addr</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “”</em></div>
 <div class="line-block">
@@ -932,6 +952,16 @@ in general is considered vulnerable.</p>
 <div class="line"><em>default: 5000</em></div>
 <div class="line-block">
 <div class="line">The timeout in milliseconds for a HTTP command to the LEM power meter.</div>
+</div>
+<div class="line"><strong>poll_interval_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1000</em></div>
+<div class="line-block">
+<div class="line">The interval in milliseconds between polls of the live measurements (publish rate of the powermeter var).</div>
+</div>
+<div class="line"><strong>transaction_ocmf_fetch_interval_s</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">While a transaction is active, the current OCMF record is periodically fetched from the device as a fallback, so a signed meter value is available even if the device becomes unreachable at transaction stop. This option throttles that fetch to at most once every N seconds. The default of 0 fetches on every poll (previous behavior).</div>
 </div>
 </div>
 </section>
@@ -1065,7 +1095,7 @@ in general is considered vulnerable.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=70f39f6c"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=178a21c7"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

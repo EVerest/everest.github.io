@@ -265,6 +265,13 @@ Module Configuration
 | **enable_nodered_interface**: *boolean* <optional>
 | *default: False*
 |  Enable the external MQTT interface to the Node-RED debug UI (topics below everest_external/nodered/<connector_id>/). This publishes powermeter and state updates and subscribes to UI commands (enable/disable/pause/resume/phase switch). Only needed when the Node-RED simulation/debug UI is used.
+| **phase_rotation_grid_side**: *string* <optional>
+| *default: "RST"*
+|  Corrects for a physical L1/L2/L3 wiring rotation at the grid side powermeter by remapping its per-phase voltage/current/power/energy/VAR values before they are used in energy_flow_request.energy_usage_root. RST means no rotation, i.e. reported L1/L2/L3 already matches grid L1/L2/L3. STR means reported L1 is grid L2, reported L2 is grid L3, reported L3 is grid L1. TRS means reported L1 is grid L3, reported L2 is grid L1, reported L3 is grid L2.
+|  enum:
+|    - RST
+|    - STR
+|    - TRS
 
 Provides
 ========

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@a8f033e</title>
+        <title>EvseManager - EVerest Manual main@257b841</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@a8f033e</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@257b841</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@a8f033e</span>
+  <span class="sidebar-brand-text">EVerest Manual main@257b841</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1223,6 +1223,27 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line-block">
 <div class="line">Special mode that switches between AC and DC charging to get SoC percentage with AC charging</div>
 </div>
+<div class="line"><strong>reinit_duration_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3000</em></div>
+<div class="line-block">
+<div class="line">Duration in milliseconds of the reinit state before going back to normal operation</div>
+</div>
+<div class="line"><strong>reinit_method</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “CPStateF”</em></div>
+<div class="line-block">
+<div class="line">Configures the control pilot behaviour during reinitialization of the connection to the EV. Reinitialization may be used to recover from an unsuccessful PLC link setup, wake up the EV, or switch between HLC and basic AC charging in AC with SoC mode.</div>
+<div class="line-block">
+<div class="line">CPStateE: set CP to state E (0 V) to simulate an unplug. This requires BSP support for CP state E.</div>
+<div class="line">CPStateF: set CP to state F (-12 V) to signal a temporary unavailability.</div>
+<div class="line">CPStateX1: keep CP powered with 100% duty cycle to signal that no energy is available.</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- CPStateE</div>
+<div class="line">- CPStateF</div>
+<div class="line">- CPStateX1</div>
+</div>
+</div>
 <div class="line"><strong>internal_over_voltage_duration_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 400</em></div>
 <div class="line-block">
@@ -1400,6 +1421,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line">enum:</div>
 <div class="line-block">
 <div class="line">- X1</div>
+<div class="line">- E</div>
 <div class="line">- F</div>
 </div>
 </div>
@@ -1719,7 +1741,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=0f874884"></script>
+</div><script src="../../../../_static/documentation_options.js?v=ccc9da30"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -80,6 +80,19 @@ Module Configuration
 | **ac_with_soc**: *boolean* <optional>
 | *default: False*
 |  Special mode that switches between AC and DC charging to get SoC percentage with AC charging
+| **reinit_duration_ms**: *integer* <optional>
+| *default: 3000*
+|  Duration in milliseconds of the reinit state before going back to normal operation
+| **reinit_method**: *string* <optional>
+| *default: "CPStateF"*
+|  Configures the control pilot behaviour during reinitialization of the connection to the EV. Reinitialization may be used to recover from an unsuccessful PLC link setup, wake up the EV, or switch between HLC and basic AC charging in AC with SoC mode.
+|    CPStateE: set CP to state E (0 V) to simulate an unplug. This requires BSP support for CP state E.
+|    CPStateF: set CP to state F (-12 V) to signal a temporary unavailability.
+|    CPStateX1: keep CP powered with 100% duty cycle to signal that no energy is available.
+|  enum:
+|    - CPStateE
+|    - CPStateF
+|    - CPStateX1
 | **internal_over_voltage_duration_ms**: *integer* <optional>
 | *default: 400*
 |  Time in milliseconds the internal software over voltage monitor waits before raising MREC5 once the measured voltage exceeds the negotiated limit.
@@ -185,6 +198,7 @@ Module Configuration
 |  CP state to use for switching. WARNING: Some EVs may be permanently destroyed when switching from 1ph to 3ph. It is the responsibiltiy of the evse_board_support implementation to ensure the EV is capable of performing the switch. If it is not, the capabilities must set the supports_changing_phases_during_charging to false. Phase switching is only possible in basic charging mode.
 |  enum:
 |    - X1
+|    - E
 |    - F
 | **soft_over_current_timeout_ms**: *integer* <optional>
 | *default: 7000*

@@ -22,16 +22,16 @@ Auto-Generated Reference
 Module Configuration
 ====================
 | **connector_id**: *integer* <required>
-|  Connector id of this evse manager
+|  ID of this EVSE within the charging station, according to the 3-tier model of OCPP (charging station > EVSE > connector). The parameter is named connector_id for backwards compatibility reasons only; it does not identify a connector.
 | **connector_type**: *string* <optional>
 | *default: "Unknown"*
 |  The connector type of this evse manager (/evse_manager#/ConnectorTypeEnum)
 | **evse_id**: *string* <optional>
 | *default: "DE*PNX*E1234567*1"*
-|  EVSE ID
+|  EVSE ID that uniquely identifies this EVSE, e.g. DE*PNX*E1234567*1. It has a special format that includes the country code, the operator id and a power outlet id (eMI3 format, normatively specified in ISO 15118-2 Annex H) and is sent as the EVSEID field in ISO 15118 messages.
 | **evse_id_din**: *string* <optional>
 | *default: "49A80737A45678"*
-|  EVSE ID DIN after DIN SPEC 91286
+|  EVSE ID used for DIN 70121 sessions (format according to DIN SPEC 91286, hexBinary-encoded), e.g. 49A80737A45678
 | **payment_enable_eim**: *boolean* <optional>
 | *default: True*
 |  Set to true to enable EIM (e.g. RFID card or mobile app) authorization

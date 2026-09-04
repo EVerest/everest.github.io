@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPP201 - EVerest Manual main@6f26fb5</title>
+        <title>OCPP201 - EVerest Manual main@76c5817</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@6f26fb5</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@76c5817</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@6f26fb5</span>
+  <span class="sidebar-brand-text">EVerest Manual main@76c5817</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -926,6 +926,18 @@ A <strong>StatusNotification.req</strong> with status <strong>Faulted</strong> w
 This indicates that the EVSE is inoperative (not ready for energy transfer).</p>
 <p>In OCPP2 errors can be reported using the <strong>NotifyEventRequest.req</strong>. This message is used to report all other errros received.</p>
 </section>
+<section id="notifyevent">
+<h4>NotifyEvent<a class="headerlink" href="#notifyevent" title="Link to this heading">¶</a></h4>
+<p>The <strong>eventData</strong> property of the <strong>NotifyEvent.req</strong> carries the details of the reported error:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">techCode</span></code> is set to the MREC techCode if the EVerest error type has an MREC mapping, and to the EVerest error
+type itself otherwise.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">techInfo</span></code> is set to the message of the EVerest error, truncated to 500 characters. If the error was raised
+without a message, the description of the error type is sent instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">actualValue</span></code> is <code class="docutils literal notranslate"><span class="pre">&quot;true&quot;</span></code> when the error is raised and <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code> when it is cleared. The <code class="docutils literal notranslate"><span class="pre">cleared</span></code>
+property is set accordingly.</p></li>
+</ul>
+</section>
 <section id="current-limitation">
 <h4>Current Limitation<a class="headerlink" href="#current-limitation" title="Link to this heading">¶</a></h4>
 <p>In OCPP2 errors can be reported using the <strong>NotifyEventRequest</strong>
@@ -1291,6 +1303,7 @@ Today <cite>OCPP</cite> is the only supported source for internally managed vari
 </li>
 <li><a class="reference internal" href="#error-handling">Error Handling</a><ul>
 <li><a class="reference internal" href="#statusnotification">StatusNotification</a></li>
+<li><a class="reference internal" href="#notifyevent">NotifyEvent</a></li>
 <li><a class="reference internal" href="#current-limitation">Current Limitation</a></li>
 </ul>
 </li>
@@ -1328,7 +1341,7 @@ Today <cite>OCPP</cite> is the only supported source for internally managed vari
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=7954ad5c"></script>
+</div><script src="../../../../_static/documentation_options.js?v=386664dc"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

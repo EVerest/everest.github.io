@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Manager Lifecycle State Machine - EVerest Manual main@07cc2e3</title>
+        <title>Manager Lifecycle State Machine - EVerest Manual main@6f26fb5</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@07cc2e3</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@6f26fb5</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@07cc2e3</span>
+  <span class="sidebar-brand-text">EVerest Manual main@6f26fb5</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -995,6 +995,11 @@ restart: the manager goes to <code class="docutils literal notranslate"><span cl
 <code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code> was passed, in which case it settles into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and
 reports <em>FailedToStart</em> (load a corrected configuration and request another
 restart).</p></li>
+<li><p>Exception: a restart requested via the Lifecycle API while the manager is
+already <code class="docutils literal notranslate"><span class="pre">Idle</span></code> settles back into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and reports <em>FailedToStart</em>
+<strong>regardless of</strong> <code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code> — nothing was running, and exiting
+would take the API away from the very client that must push a corrected
+configuration.</p></li>
 </ul>
 </section>
 <section id="shutdown-timeout-and-forced-kill">
@@ -1146,7 +1151,7 @@ failure after shutdown (or stays idle with <code class="docutils literal notrans
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=ef87ea0a"></script>
+</div><script src="../_static/documentation_options.js?v=7954ad5c"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

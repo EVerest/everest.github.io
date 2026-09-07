@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Active Deprecation Index - EVerest Manual main@66c594f</title>
+        <title>Active Deprecation Index - EVerest Manual main@f043cd3</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@66c594f</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@f043cd3</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@66c594f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@f043cd3</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -721,6 +721,57 @@ command</p></td>
 <td><p>Use the <cite>get_evse</cite> command, which provides both the eMI3-format EVSE ID
 (ISO 15118-2 Annex H) and the DIN 70121 EVSE ID (DIN SPEC 91286)</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">manager</span> <span class="pre">--conf</span></code>, alias of <code class="docutils literal notranslate"><span class="pre">--config</span></code>
+(see <a class="reference internal" href="../../reference/manager-cli.html#reference-manager-cli"><span class="std std-ref">Manager Command Line Options</span></a>)</p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Replace <code class="docutils literal notranslate"><span class="pre">--conf</span> <span class="pre">&lt;path&gt;</span></code> with <code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">&lt;path&gt;</span></code> in start scripts and
+service units. Passing both is rejected; using <code class="docutils literal notranslate"><span class="pre">--conf</span></code> logs a warning
+at startup.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">manager</span> <span class="pre">--db-init</span></code>, now a no-op
+(see <a class="reference internal" href="../../reference/manager-cli.html#reference-manager-cli"><span class="std std-ref">Manager Command Line Options</span></a>)</p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Drop the flag. Seeding the database from the YAML config when it holds no
+valid configuration is the default with <code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">--db</span></code>. Use the
+experimental <code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> to force re-seeding.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code>: <code class="docutils literal notranslate"><span class="pre">is_connected</span></code> variable and its
+<code class="docutils literal notranslate"><span class="pre">get_is_connected</span></code> request/reply (operations <code class="docutils literal notranslate"><span class="pre">receive_is_connected</span></code>,
+<code class="docutils literal notranslate"><span class="pre">send_request_get_is_connected</span></code>, <code class="docutils literal notranslate"><span class="pre">receive_reply_get_is_connected</span></code>,
+schema <code class="docutils literal notranslate"><span class="pre">ConnectedStatus</span></code>), superseded by <code class="docutils literal notranslate"><span class="pre">connection_status</span></code></p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Subscribe to <code class="docutils literal notranslate"><span class="pre">receive_connection_status</span></code> (or request it via
+<code class="docutils literal notranslate"><span class="pre">send_request_get_connection_status</span></code>) and read its <code class="docutils literal notranslate"><span class="pre">connected</span></code>
+property; the message also carries the details of the connection the
+status refers to.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code> and <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface: OCPP 1.6 key-only variable
+addressing (empty <code class="docutils literal notranslate"><span class="pre">component.name</span></code>, <code class="docutils literal notranslate"><span class="pre">variable.name</span></code> = configuration
+key) in <code class="docutils literal notranslate"><span class="pre">get_variables</span></code>, <code class="docutils literal notranslate"><span class="pre">set_variables</span></code> and <code class="docutils literal notranslate"><span class="pre">monitor_variables</span></code>,
+superseded by canonical component/variable addressing</p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p><a class="reference internal" href="../../reference/modules/EVSE/OCPPmulti/autogenerated.html#handwritten-ocppmulti-migration-from-ocpp16-key-addressing"><span class="std std-ref">Migration from OCPP 1.6 key addressing</span></a>. OCPPmulti
+logs a warning naming the canonical address on the first use of each
+legacy key.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../reference/modules/EVSE/EvseManager/autogenerated.html#everest-modules-evsemanager"><span class="std std-ref">EvseManager</span></a> configuration option
+<code class="docutils literal notranslate"><span class="pre">lock_connector_in_state_b:</span> <span class="pre">false</span></code></p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Remove the option and set <code class="docutils literal notranslate"><span class="pre">unlock_when_deauthorized:</span> <span class="pre">true</span></code> instead.
+The connector then stays unlocked in CP state B until the session is
+authorized, which covers the original use case (no lock on plug-in
+before authorization). Unlike the deprecated option it keeps the
+connector locked while an authorized session is paused in state B and
+does not lock in state C/D without authorization or closed relays.
+Both options violate IEC 61851-1:2019 D.6.5 Table D.9 line 4 and must
+not be used in public environments; the module logs a warning at
+startup for either.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -775,7 +826,7 @@ command</p></td>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=51c1fd60"></script>
+</div><script src="../../_static/documentation_options.js?v=b14e4b2c"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

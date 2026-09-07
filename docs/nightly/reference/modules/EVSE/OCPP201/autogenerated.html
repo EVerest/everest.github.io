@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPP201 - EVerest Manual main@88d1e3b</title>
+        <title>OCPP201 - EVerest Manual main@66c594f</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@88d1e3b</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@66c594f</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@88d1e3b</span>
+  <span class="sidebar-brand-text">EVerest Manual main@66c594f</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -714,6 +714,13 @@ variables and values, need to be in line with the physical setup of the charging
 <p>Each device model component is represented by a JSON component config file. This config specifies the component and all its variables,
 characteristics, attributes, and monitors. Please see <a class="reference external" href="https://github.com/EVerest/libocpp/blob/main/doc/v2/ocpp_201_device_model_initialization.md">the documentation for the device model initialization</a> for further information on how it is set up.</p>
 <p>To add a custom component, you can simply add another JSON configuration file for it, and it will automatically be applied and reported.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> component (<code class="docutils literal notranslate"><span class="pre">standardized/OCPP16LegacyCtrlr.json</span></code>) is always required, also for pure OCPP 2.x
+operation. The device model is shared between all supported OCPP versions so that a station can switch between OCPP 1.6 and
+OCPP 2.x seamlessly, and this requires the full set of components for every version to be present. If the component is absent
+from <strong>DeviceModelConfigPath</strong> (for example in a directory copied from a release before this component existed), the module
+injects a built-in default schema for it automatically.
+<code class="docutils literal notranslate"><span class="pre">InternalCtrlr/NumberOfConnectors</span></code> and <code class="docutils literal notranslate"><span class="pre">InternalCtrlr/ChargePointId</span></code> are no longer part of the device model; leftover entries
+in custom component configs are tolerated but not used.</p>
 </section>
 <section id="configuring-the-ocpp2-version">
 <h3>Configuring the OCPP2 version<a class="headerlink" href="#configuring-the-ocpp2-version" title="Link to this heading">¶</a></h3>
@@ -1341,7 +1348,7 @@ Today <cite>OCPP</cite> is the only supported source for internally managed vari
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=e6523d95"></script>
+</div><script src="../../../../_static/documentation_options.js?v=51c1fd60"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

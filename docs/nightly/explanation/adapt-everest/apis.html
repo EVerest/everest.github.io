@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Energy Management in EVerest" href="../energymanagement/index.html"><link rel="prev" title="Sub-systems" href="sub-systems.html">
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Management APIs" href="management_apis.html"><link rel="prev" title="Sub-systems" href="sub-systems.html">
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EVerest APIs - EVerest Manual main@4fc3ca4</title>
+        <title>EVerest APIs - EVerest Manual main@30150a8</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@4fc3ca4</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@30150a8</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@4fc3ca4</span>
+  <span class="sidebar-brand-text">EVerest Manual main@30150a8</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/management_apis.html">Management APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/setup-devcontainer/index.html">EVerest devcontainer</a><input aria-label="Toggle navigation of EVerest devcontainer" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/devrd.html">Managed by devrd CLI</a></li>
@@ -265,11 +266,13 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Adapt EVerest</a><input aria-label="Toggle navigation of Adapt EVerest" checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sub-systems.html">Sub-systems</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">EVerest APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="management_apis.html">Management APIs</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../energymanagement/index.html">Energy Management in EVerest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools/edm.html">edm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev-tools/ev-cli.html">ev-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools/management-api-cli.html">everest-management-api-cli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pnc-process.html">The Plug&amp;Charge Process in EVerest</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../linux-yocto/index.html">Linux / Yocto</a><input aria-label="Toggle navigation of Linux / Yocto" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../linux-yocto/setting-up-linux-os.html">Setting up the Linux operating system</a></li>
@@ -673,7 +676,25 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="everest-apis">
-<h1>EVerest APIs<a class="headerlink" href="#everest-apis" title="Link to this heading">¶</a></h1>
+<span id="id1"></span><h1>EVerest APIs<a class="headerlink" href="#everest-apis" title="Link to this heading">¶</a></h1>
+<section id="preface">
+<h2>Preface<a class="headerlink" href="#preface" title="Link to this heading">¶</a></h2>
+<p>There are different APIs available in EVerest, which can be used for different purposes.
+This page describes the stable EVerest API which consists of a number of API modules.</p>
+<p>Other APIs that are available, but not described here:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../reference/modules/API/API/autogenerated.html#everest-modules-api"><span class="std std-ref">API module</span></a></p></li>
+<li><p><a class="reference internal" href="../../reference/modules/API/RpcApi/autogenerated.html#everest-modules-rpcapi"><span class="std std-ref">RpcApi module</span></a></p></li>
+<li><p><a class="reference internal" href="../../reference/modules/API/EvAPI/autogenerated.html#everest-modules-evapi"><span class="std std-ref">EvAPI</span></a></p></li>
+</ul>
+<p>Part of the EVerest APIs described here are the management APIs, which are a special case
+and are described on a separate page:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="management_apis.html#exp-management-apis"><span class="std std-ref">management APIs</span></a></p></li>
+</ul>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>You can find the API reference documentation here:
@@ -693,6 +714,7 @@ strongly recommend to use the EVerest APIs for this purpose, since these
 interfaces are the ones that are supposed to be kept stable and maintained.
 over time.</p>
 </div>
+</section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>The EVerest API is the interface for hardware integration,
@@ -713,6 +735,16 @@ API module implements one or more of EVerest’s internal interfaces.
 There are two distinct versions of API modules, either to implement
 an interface (e.g. a driver for a DC power supply) or to consume it
 (e.g. to check for the validation status of a token).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <a class="reference internal" href="management_apis.html#exp-management-apis"><span class="std std-ref">management APIs</span></a> are a special case of
+EVerest APIs, since they are not intended for hardware integration or
+custom extensions, but rather for remote management of EVerest itself.
+They are implemented as part of the central manager process and not
+as separate modules. They are disabled by default and need to be enabled
+explicitly by adding the respective command line argument to the EVerest
+startup command.</p>
+</div>
 <p>They can be included in the configuration file just like any other
 module. E.g. - in this example -, a EVerest API module was loaded to
 fulfill the power meter requirement of the EvseManager. The actual code
@@ -905,12 +937,12 @@ surveillance of managed hardware, e.g. a DC power supply.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../energymanagement/index.html">
+          <a class="next-page" href="management_apis.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Energy Management in EVerest</div>
+                <div class="title">Management APIs</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -956,6 +988,8 @@ surveillance of managed hardware, e.g. a DC power supply.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">EVerest APIs</a><ul>
+<li><a class="reference internal" href="#preface">Preface</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#asyncapi">AsyncAPI</a></li>
 <li><a class="reference internal" href="#using-the-everest-api">Using the EVerest API</a></li>
@@ -970,7 +1004,7 @@ surveillance of managed hardware, e.g. a DC power supply.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=a75a7252"></script>
+</div><script src="../../_static/documentation_options.js?v=e6a5c2e3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

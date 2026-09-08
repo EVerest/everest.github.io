@@ -1,0 +1,1449 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Experimental Bazel Support" href="bazel.html"><link rel="prev" title="Plug&amp;Charge with EVerest Software in the Loop" href="plug-and-charge.html">
+        <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
+        <title>Management APIs - EVerest Manual main@30150a8</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">EVerest Manual main@30150a8</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">EVerest Manual main@30150a8</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-to-guides/getting-started/get-started-sw.html">Get started in Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to-guides/getting-started/get-started-hw.html">Get started with Hardware</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp-combined.html">OCPP 1.6 and 2.x with the Combined Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Management APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bazel.html">Experimental Bazel Support</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="setup-devcontainer/index.html">EVerest devcontainer</a><input aria-label="Toggle navigation of EVerest devcontainer" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup-devcontainer/devrd.html">Managed by devrd CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup-devcontainer/vscode.html">Managed by VSCode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup-devcontainer/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="everest_api.html">Using the EVerestAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../how-to-guides/documenting-everest/index.html">Documenting EVerest</a><input aria-label="Toggle navigation of Documenting EVerest" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/documenting-everest/extending-everest-documentation.html">Extending the EVerest Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/documenting-everest/change-documentation-quickstart.html">Documenting Quickstart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/documenting-everest/sphinx-style-guide.html">Sphinx Style Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../how-to-guides/getting-started/index.html">Getting Started with EVerest</a><input aria-label="Toggle navigation of Getting Started with EVerest" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/getting-started/get-started-sw.html">Get started in Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/getting-started/get-started-hw.html">Get started with Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/error-framework-howto.html">Using the Error Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/configure-pnc.html">Configure Plug&amp;Charge in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/debug-iso15118.html">Debug ISO 15118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/debug-modules.html">Debug EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/yocto-cross-compilation.html">Cross-compilation of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/eichrecht.html">Eichrecht</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/uk-smart-charging-regulations.html">UK Smart Charging Regulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/renesas-mpu/index.html">How to for Renesas MPU (RZ/G2L family)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/security-best-practices.html">Security Best Practices</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../how-to-guides/bringup/index.html">BringUp &amp; Qualification</a><input aria-label="Toggle navigation of BringUp &amp; Qualification" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/bringup/basic.html">Basic BringUp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/bringup/powermeter.html">BringUp Powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/bringup/ac.html">AC BringUp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../how-to-guides/bringup/dc.html">DC BringUp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/choosing-version-and-upgrading.html">Choosing an EVerest Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/pionix-belay-box.html">Pionix BelayBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/integrate-tariff-and-cost.html">Integrate Tariff and Cost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/devcontainer-usage/index.html">Use the EVerest Development Container (devrd managed)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/ocpp-storage-migration.html">Migrate to the Combined OCPP Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/high-level-overview.html">High-Level Overview of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/error-framework.html">Error Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/detail-module-concept.html">EVerest Modules in Detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/manager-lifecycle.html">Manager Lifecycle State Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/configuration-service.html">EVerest Configuration Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/tier-module-mappings.html">3-tier Module Mappings</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../explanation/adapt-everest/index.html">Adapt EVerest</a><input aria-label="Toggle navigation of Adapt EVerest" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/adapt-everest/sub-systems.html">Sub-systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/adapt-everest/apis.html">EVerest APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/adapt-everest/management_apis.html">Management APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/energymanagement/index.html">Energy Management in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/dev-tools/edm.html">edm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/dev-tools/ev-cli.html">ev-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/dev-tools/management-api-cli.html">everest-management-api-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/pnc-process.html">The Plug&amp;Charge Process in EVerest</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../explanation/linux-yocto/index.html">Linux / Yocto</a><input aria-label="Toggle navigation of Linux / Yocto" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/linux-yocto/setting-up-linux-os.html">Setting up the Linux operating system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/linux-yocto/building-yocto.html">Building Yocto for your custom hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/linux-yocto/ota-updates.html">Over-the-air-updates (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/linux-yocto/partitioning-schemes-for-rauc-ota.html">Partitioning schemes for RAUC OTA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/hardware-architecture.html">Hardware Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/hardware-drivers.html">Hardware Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/the-everest-documentation.html">The EVerest Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/powermeter-ocmf.html">Powermeter OCMF Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/devcontainer-internal/index.html">Internals of the EVerest Development Container</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">Reference</a><input aria-label="Toggle navigation of Reference" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/manager-cli.html">Manager Command Line Options</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/modules/index.html">Modules</a><input aria-label="Toggle navigation of Modules" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/API/autogenerated.html">API</a><input aria-label="Toggle navigation of API" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/API/API/autogenerated.html">API</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/API/EVerestAPI/autogenerated.html">EVerestAPI</a><input aria-label="Toggle navigation of EVerestAPI" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/auth_consumer_API/autogenerated.html">auth_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/auth_token_provider_API/autogenerated.html">auth_token_provider_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/auth_token_validator_API/autogenerated.html">auth_token_validator_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/dc_external_derate_consumer_API/autogenerated.html">dc_external_derate_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/display_message_API/autogenerated.html">display_message_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/error_history_consumer_API/autogenerated.html">error_history_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/ev_board_support_API/autogenerated.html">ev_board_support_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/evse_board_support_API/autogenerated.html">evse_board_support_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/evse_manager_consumer_API/autogenerated.html">evse_manager_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/evse_security_consumer_API/autogenerated.html">evse_security_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/external_energy_limits_consumer_API/autogenerated.html">external_energy_limits_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/generic_error_raiser_API/autogenerated.html">generic_error_raiser_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/isolation_monitor_API/autogenerated.html">isolation_monitor_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/ocpp_consumer_API/autogenerated.html">ocpp_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/over_voltage_monitor_API/autogenerated.html">over_voltage_monitor_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/power_supply_DC_API/autogenerated.html">power_supply_DC_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/powermeter_API/autogenerated.html">powermeter_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/session_cost_API/autogenerated.html">session_cost_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/session_cost_consumer_API/autogenerated.html">session_cost_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/slac_API/autogenerated.html">slac_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/API/EVerestAPI/system_API/autogenerated.html">system_API</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/API/EvAPI/autogenerated.html">EvAPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/API/RpcApi/autogenerated.html">RpcApi</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/BringUp/autogenerated.html">BringUp</a><input aria-label="Toggle navigation of BringUp" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUDCExternalDerate/autogenerated.html">BUDCExternalDerate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUDisplayMessage/autogenerated.html">BUDisplayMessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUEvseBoardSupport/autogenerated.html">BUEvseBoardSupport</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUIsolationMonitor/autogenerated.html">BUIsolationMonitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUOcppConsumer/autogenerated.html">BUOcppConsumer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUOverVoltageMonitor/autogenerated.html">BUOverVoltageMonitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUPowerSupplyDC/autogenerated.html">BUPowerSupplyDC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUPowermeter/autogenerated.html">BUPowermeter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUSlac/autogenerated.html">BUSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUSystem/autogenerated.html">BUSystem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/BringUp/BUTokenProvider/autogenerated.html">BUTokenProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/EV/autogenerated.html">EV</a><input aria-label="Toggle navigation of EV" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EV/EvManager/autogenerated.html">EvManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EV/EvSlac/autogenerated.html">EvSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EV/PyEvJosev/autogenerated.html">PyEvJosev</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/EVSE/autogenerated.html">EVSE</a><input aria-label="Toggle navigation of EVSE" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/Auth/autogenerated.html">Auth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/Evse15118D20/autogenerated.html">Evse15118D20</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/EvseManager/autogenerated.html">EvseManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/EvseSecurity/autogenerated.html">EvseSecurity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/EvseSlac/autogenerated.html">EvseSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/EvseV2G/autogenerated.html">EvseV2G</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/Iso15118InternetVas/autogenerated.html">Iso15118InternetVas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/IsoMux/autogenerated.html">IsoMux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/OCPP/autogenerated.html">OCPP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/OCPP201/autogenerated.html">OCPP201</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/OCPPmulti/autogenerated.html">OCPPmulti</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EVSE/StaticISO15118VASProvider/autogenerated.html">StaticISO15118VASProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/EnergyManagement/autogenerated.html">EnergyManagement</a><input aria-label="Toggle navigation of EnergyManagement" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EnergyManagement/AcTemperatureDerating/autogenerated.html">AcTemperatureDerating</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EnergyManagement/EEBUS/autogenerated.html">EEBUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EnergyManagement/EnergyManager/autogenerated.html">EnergyManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/EnergyManagement/EnergyNode/autogenerated.html">EnergyNode</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/Examples/autogenerated.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/Examples/CppExamples/autogenerated.html">CppExamples</a><input aria-label="Toggle navigation of CppExamples" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/CppExamples/Example/autogenerated.html">Example</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/CppExamples/ExampleUser/autogenerated.html">ExampleUser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/CppExamples/OCPPExtensionExample/autogenerated.html">OCPPExtensionExample</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/CppExamples/TerminalCostAndPriceMessage/autogenerated.html">TerminalCostAndPriceMessage</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/CppExamples/TerminalDisplayMessage/autogenerated.html">TerminalDisplayMessage</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/Examples/error-framework/autogenerated.html">error-framework</a><input aria-label="Toggle navigation of error-framework" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/error-framework/ExampleErrorGlobalSubscriber/autogenerated.html">ExampleErrorGlobalSubscriber</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/error-framework/ExampleErrorRaiser/autogenerated.html">ExampleErrorRaiser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/error-framework/ExampleErrorSubscriber/autogenerated.html">ExampleErrorSubscriber</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/error-framework/PyExampleErrorRaiser/autogenerated.html">PyExampleErrorRaiser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/Examples/error-framework/PyExampleErrorSubscriber/autogenerated.html">PyExampleErrorSubscriber</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/autogenerated.html">HardwareDrivers</a><input aria-label="Toggle navigation of HardwareDrivers" class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/EV/autogenerated.html">EV</a><input aria-label="Toggle navigation of EV" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/EV/YetiEvDriver/autogenerated.html">YetiEvDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/EVSE/autogenerated.html">EVSE</a><input aria-label="Toggle navigation of EVSE" class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/EVSE/AdAcEvse22KwzKitBSP/autogenerated.html">AdAcEvse22KwzKitBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/EVSE/MicroMegaWattBSP/autogenerated.html">MicroMegaWattBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/EVSE/PhyVersoBSP/autogenerated.html">PhyVersoBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/EVSE/TIDA010939/autogenerated.html">TIDA010939</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/EVSE/YetiDriver/autogenerated.html">YetiDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/IsolationMonitors/autogenerated.html">IsolationMonitors</a><input aria-label="Toggle navigation of IsolationMonitors" class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/IsolationMonitors/Bender_isoCHA425HV/autogenerated.html">Bender_isoCHA425HV</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/IsolationMonitors/DoldRN5893/autogenerated.html">DoldRN5893</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/NfcReaders/autogenerated.html">NfcReaders</a><input aria-label="Toggle navigation of NfcReaders" class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/NfcReaders/NxpNfcFrontendTokenProvider/autogenerated.html">NxpNfcFrontendTokenProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/NfcReaders/PN532TokenProvider/autogenerated.html">PN532TokenProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/NfcReaders/PN7160TokenProvider/autogenerated.html">PN7160TokenProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/autogenerated.html">PowerMeters</a><input aria-label="Toggle navigation of PowerMeters" class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/AST_DC650/autogenerated.html">AST_DC650</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/Acrel_DJSF1352_RN/autogenerated.html">Acrel_DJSF1352_RN</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/CarloGavazzi_EM580/autogenerated.html">CarloGavazzi_EM580</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/DZG_GSH01/autogenerated.html">DZG_GSH01</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/GenericPowermeter/autogenerated.html">GenericPowermeter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/IsabellenhuetteIemDcr/autogenerated.html">IsabellenhuetteIemDcr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerMeters/LemDCBM400600/autogenerated.html">LemDCBM400600</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/autogenerated.html">PowerSupplies</a><input aria-label="Toggle navigation of PowerSupplies" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/DPM1000/autogenerated.html">DPM1000</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/Huawei_R100040Gx/autogenerated.html">Huawei_R100040Gx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/autogenerated.html">Huawei_V100R023C10</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/InfyPower/autogenerated.html">InfyPower</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/InfyPower_BEG1K075G/autogenerated.html">InfyPower_BEG1K075G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/UUGreenPower_UR1000X0/autogenerated.html">UUGreenPower_UR1000X0</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../reference/modules/HardwareDrivers/PowerSupplies/Winline/autogenerated.html">Winline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/Misc/autogenerated.html">Misc</a><input aria-label="Toggle navigation of Misc" class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/ChargerInfo/autogenerated.html">ChargerInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/ErrorHistory/autogenerated.html">ErrorHistory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/Linux_Systemd_Rauc/autogenerated.html">Linux_Systemd_Rauc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/LocalAllowlistTokenValidator/autogenerated.html">LocalAllowlistTokenValidator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/PacketSniffer/autogenerated.html">PacketSniffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/PersistentStore/autogenerated.html">PersistentStore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/SerialCommHub/autogenerated.html">SerialCommHub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/Setup/autogenerated.html">Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/Store/autogenerated.html">Store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/System/autogenerated.html">System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Misc/YamlStore/autogenerated.html">YamlStore</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/Simulation/autogenerated.html">Simulation</a><input aria-label="Toggle navigation of Simulation" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/DCSupplySimulator/autogenerated.html">DCSupplySimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/EvseManagerSimulator/autogenerated.html">EvseManagerSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/IMDSimulator/autogenerated.html">IMDSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/ManagerLifecycleSimulator/autogenerated.html">ManagerLifecycleSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/OVMSimulator/autogenerated.html">OVMSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/SlacSimulator/autogenerated.html">SlacSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/TemperatureSensorSimulator/autogenerated.html">TemperatureSensorSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Simulation/YetiSimulator/autogenerated.html">YetiSimulator</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/modules/Testing/autogenerated.html">Testing</a><input aria-label="Toggle navigation of Testing" class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Testing/DummyBankSessionTokenProvider/autogenerated.html">DummyBankSessionTokenProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Testing/DummySessionCostProvider/autogenerated.html">DummySessionCostProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Testing/DummyTokenProvider/autogenerated.html">DummyTokenProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Testing/DummyTokenProviderManual/autogenerated.html">DummyTokenProviderManual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Testing/DummyTokenValidator/autogenerated.html">DummyTokenValidator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/modules/Testing/DummyV2G/autogenerated.html">DummyV2G</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/interfaces_index.html">EVerest Interfaces</a><input aria-label="Toggle navigation of EVerest Interfaces" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ISO15118_charger.html">ISO15118_charger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ISO15118_ev.html">ISO15118_ev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ISO15118_vas.html">ISO15118_vas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ac_rcd.html">ac_rcd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/auth.html">auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/auth_token_provider.html">auth_token_provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/auth_token_validator.html">auth_token_validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/bank_session_token_provider.html">bank_session_token_provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/car_simulator.html">car_simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/charger_information.html">charger_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/connector_lock.html">connector_lock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/dc_external_derate.html">dc_external_derate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/debug_json.html">debug_json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/display_message.html">display_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/empty.html">empty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/energy.html">energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/energy_manager.html">energy_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/energy_price_information.html">energy_price_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/error_history.html">error_history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ev_board_support.html">ev_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ev_manager.html">ev_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ev_slac.html">ev_slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/evse_board_support.html">evse_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/evse_manager.html">evse_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/example.html">example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/example_error_framework.html">example_error_framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/example_user.html">example_user</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/external_energy_limits.html">external_energy_limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/generic_error.html">generic_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/grid_support.html">grid_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/iso15118_extensions.html">iso15118_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/isolation_monitor.html">isolation_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/kvs.html">kvs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ocpp.html">ocpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ocpp_1_6_charge_point.html">ocpp_1_6_charge_point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/ocpp_data_transfer.html">ocpp_data_transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/over_voltage_monitor.html">over_voltage_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/payment_terminal.html">payment_terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/power.html">power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/power_supply_DC.html">power_supply_DC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/powermeter.html">powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/reservation.html">reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/serial_communication_hub.html">serial_communication_hub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/slac.html">slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/solar_forecast.html">solar_forecast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/system.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/temperature_sensor.html">temperature_sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/test_control.html">test_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/tibber_price_forecast.html">tibber_price_forecast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/interfaces/uk_random_delay.html">uk_random_delay</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/types_index.html">EVerest Types</a><input aria-label="Toggle navigation of EVerest Types" class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/authorization.html">authorization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/board_support_common.html">board_support_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/charger_information.html">charger_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/dc_external_derate.html">dc_external_derate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/display_message.html">display_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/energy.html">energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/energy_price_information.html">energy_price_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/error_history.html">error_history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/ev_board_support.html">ev_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/evse_board_support.html">evse_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/evse_manager.html">evse_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/grid_support.html">grid_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/iso15118.html">iso15118</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/iso15118_vas.html">iso15118_vas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/isolation_monitor.html">isolation_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/money.html">money</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/network.html">network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/ocpp.html">ocpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/payment_terminal.html">payment_terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/power_supply_DC.html">power_supply_DC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/powermeter.html">powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/reservation.html">reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/serial_comm_hub_requests.html">serial_comm_hub_requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/slac.html">slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/system.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/text_message.html">text_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/uk_random_delay.html">uk_random_delay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/units.html">units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/types/units_signed.html">units_signed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api/autogenerated_api_index.html">EVerest API Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/snapshot.html">Dependencies Snapshot</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Help</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../qa/index.html">Q &amp; A</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../project/index.html">Project &amp; Community</a><input aria-label="Toggle navigation of Project &amp; Community" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../project/community.html">Meet the EVerest Community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/contributing.html">Contributing to EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/governance/governance.html">EVerest project governance policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/governance/code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/governance/security.html">Security Policy</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../project/governance/tsc/index.html">Technical Steering Committee (TSC)</a><input aria-label="Toggle navigation of Technical Steering Committee (TSC)" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../project/governance/tsc/meetings/index.html">EVerest TSC Meeting notes</a><input aria-label="Toggle navigation of EVerest TSC Meeting notes" class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-07-23.html">EVerest TSC Meeting - 23 July 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-07-02.html">EVerest TSC Meeting - 26 March 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-05-28.html">EVerest TSC Meeting - 28 May 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-04-23.html">EVerest TSC Meeting - 24 April 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-03-26.html">EVerest TSC Meeting - 26 March 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-02-26.html">EVerest TSC Meeting - 26 February 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-01-22.html">EVerest TSC Meeting - 22 January 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-12-18.html">EVerest TSC Meeting - 18 December 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-11-27.html">EVerest TSC Meeting - 27 November 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-10-23.html">EVerest TSC Meeting - 23 October 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-09-25.html">EVerest TSC Meeting - 25 September 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-08-28.html">EVerest TSC Meeting - 28 August 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-07-24.html">EVerest TSC Meeting - 24 July 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-06-26.html">EVerest TSC Meeting - 26 June 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-05-22.html">EVerest TSC Meeting - 22 May 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-04-24.html">EVerest TSC Meeting - 24 April 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-03-27.html">EVerest TSC Meeting - 27 March 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-02-27.html">EVerest TSC Meeting - 27 February 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2025-01-23.html">EVerest TSC Meeting - 23 January 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-12-19.html">EVerest TSC Meeting - 19 December 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-11-28.html">EVerest TSC Meeting - 28 November 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-10-24.html">EVerest TSC Meeting - 24 October 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-09-26.html">EVerest TSC Meeting - 26 September 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-08-22.html">EVerest TSC Meeting - 22 August 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-07-25.html">EVerest TSC Meeting - 25 July 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-06-27.html">EVerest TSC Meeting - 27 June 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-05-23.html">EVerest TSC Meeting - 23rd May 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-04-25.html">EVerest TSC Meeting - 25th April 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-03-28.html">EVerest TSC Meeting - 28th March 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-02-22.html">EVerest TSC Meeting - 22nd February 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2024-01-25.html">EVerest TSC Meeting - 25th January 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-12-20.html">EVerest TSC Meeting - 20th December 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-11-23.html">EVerest TSC Meeting - 23rd November 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-10-26.html">EVerest TSC Meeting - 26th October 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-09-28.html">EVerest TSC Meeting - 28th September 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-08-24.html">EVerest TSC Meeting - 24th August 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-07-27.html">EVerest TSC Meeting - 27nd July 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-06-22.html">EVerest TSC Meeting - 22nd June 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-05-25.html">EVerest TSC Meeting - 25nd May 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-04-27.html">EVerest TSC Meeting - 27th April 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-03-23.html">EVerest TSC Meeting - 23rd March 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-02-23.html">EVerest TSC Meeting - 23rd February 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2023-01-26.html">EVerest TSC Meeting - 26th January 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-12-22.html">EVerest TSC Meeting - 22nd December 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-11-24.html">EVerest TSC Meeting - 24th November 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-10-27.html">EVerest TSC Meeting - 27th October 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-09-22.html">EVerest TSC Meeting - 22nd September 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-08-25.html">EVerest TSC Meeting - 25th August 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-07-28.html">EVerest TSC Meeting - 28th July 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-06-23.html">EVerest TSC Meeting - 23nd June 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-06-02.html">EVerest TSC Meeting - 2nd June 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-04-28.html">EVerest TSC Meeting - [28th April 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-03-24.html">EVerest TSC Meeting - [24th March 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-02-24.html">EVerest TSC Meeting - [24th Feb 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2022-01-27.html">EVerest TSC Meeting - [27th Jan 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2021-11-30.html">EVerest TSC Meeting - [30th Nov 2021]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../project/releases/releases-and-versioning.html">Releases and Versioning of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/releases/breaking-changes.html">Breaking Changes Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/releases/deprecation-policy.html">Deprecation Policy for EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/releases/deprecation-index.html">Active Deprecation Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/releases/experimental-index.html">Experimental Feature Index</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tutorials/management_apis.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="management-apis">
+<span id="tutorial-management-apis"></span><h1>Management APIs<a class="headerlink" href="#management-apis" title="Link to this heading">¶</a></h1>
+<p>This tutorial demonstrates the basic usage of the management APIs in a hands-on fashion.
+For a more in-depth explanation read the <a class="reference internal" href="../explanation/adapt-everest/management_apis.html#exp-management-apis"><span class="std std-ref">explanation section</span></a>.</p>
+<p>The management APIs consist of the <cite>lifecycle API</cite> and the <cite>configuration API</cite>.
+Both are implemented as part of the central manager process, but are disabled by default.</p>
+<section id="short-configuration-introduction">
+<h2>Short Configuration Introduction<a class="headerlink" href="#short-configuration-introduction" title="Link to this heading">¶</a></h2>
+<p>There is some knowledge of the concept of the EVerest configuration required to understand what is
+happening in this tutorial.</p>
+<p>EVerest has different types of configuration. For this tutorial you need to know, there are
+a so-called <em>manager settings</em> and the actual <em>module configuration</em>.</p>
+<section id="manager-settings">
+<h3>Manager Settings<a class="headerlink" href="#manager-settings" title="Link to this heading">¶</a></h3>
+<p>These settings are required to start the manager process. They include paths to different components
+(e.g. where the configuration database should be stored, where the module executables are stored, …),
+the MQTT settings (e.g. host and port or socket, etc.) and similar settings.</p>
+<p>Starting the manager process can be done using defaults, or requires a YAML file which contains custom
+settings.</p>
+</section>
+<section id="module-configuration">
+<h3>Module Configuration<a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h3>
+<p>The <em>module configuration</em> is a list of modules which should be loaded, how they are connected and
+their individual configuration parameters. Module configurations are stored in a database
+which is maintained by the manager process. Multiple sets of module configurations can be prepared
+and stored in the database alongside each other. Only one of them can be active at a time.
+Switching between these so-called <em>slots</em> requires the modules to be stopped and started again (no
+hot-swapping or dynamic loading of additional modules possible). To bootstrap the database the
+<em>module configuration</em> can be provided in the same YAML file as the manager settings.</p>
+<p>While switching <em>slots</em> (i.e. which modules are loaded and how they are connected) requires restarting
+the modules, changes to configuration parameters of individual modules can be done anytime. If the
+change is directed to a <em>slot</em> which is not active, then it modifies the configuration stored in the
+database. If it is directed to the <em>slot</em> which holds the active <em>module configuration</em>, then the
+changes are first sent to the modules, and if they accepted them then written to the database.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Without the <code class="docutils literal notranslate"><span class="pre">--db</span></code> command line option the manager keeps the configuration database in
+memory only: it is seeded from the YAML file on every start and everything you change through
+the API is lost when the manager exits. Pass <code class="docutils literal notranslate"><span class="pre">--db</span> <span class="pre">&lt;path&gt;</span></code> to persist the database in a file.
+Once the file holds a valid configuration, the database wins over the YAML file on the next
+start (<code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> discards it and re-seeds from the YAML file).</p>
+</div>
+</section>
+</section>
+<section id="the-cli-client">
+<h2>The CLI client<a class="headerlink" href="#the-cli-client" title="Link to this heading">¶</a></h2>
+<p>This tutorial uses <code class="docutils literal notranslate"><span class="pre">everest-management-api-cli</span></code>, the command line client for both management
+APIs that is part of EVerest (see <a class="reference internal" href="../explanation/dev-tools/management-api-cli.html#exp-dev-tools-management-api-cli"><span class="std std-ref">its description</span></a>).
+Building EVerest with <code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=ON</span></code> installs it into the Python venv of the build
+directory. Open a second terminal
+next to the one you will start EVerest in, change into the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder, activate the venv and
+start the client’s interactive shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+$<span class="w"> </span>everest-management-api-cli<span class="w"> </span>shell
+EVerest<span class="w"> </span>management<span class="w"> </span>API<span class="w"> </span>shell.<span class="w"> </span>Type<span class="w"> </span><span class="s1">&#39;help&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>commands,<span class="w"> </span><span class="s1">&#39;quit&#39;</span><span class="w"> </span>to<span class="w"> </span>leave.
+Connected<span class="w"> </span>to<span class="w"> </span><span class="m">127</span>.0.0.1:1883<span class="p">;</span><span class="w"> </span>watching<span class="w"> </span>everest_api/1/lifecycle/e2m/status,
+everest_api/1/configuration/e2m/active_slot<span class="w"> </span>and<span class="w"> </span>everest_api/1/configuration/e2m/config_updates.
+Status<span class="w"> </span>updates<span class="w"> </span>and<span class="w"> </span>notices<span class="w"> </span>are<span class="w"> </span>printed<span class="w"> </span>as<span class="w"> </span>they<span class="w"> </span>arrive.
+everest-api&gt;
+</pre></div>
+</div>
+<p>The shell keeps one connection to the MQTT broker (<code class="docutils literal notranslate"><span class="pre">localhost:1883</span></code> by default, see
+<code class="docutils literal notranslate"><span class="pre">--host</span></code> and <code class="docutils literal notranslate"><span class="pre">--port</span></code>). Every command typed at the <code class="docutils literal notranslate"><span class="pre">everest-api&gt;</span></code> prompt sends one request
+and prints the reply as JSON. In addition, the shell subscribes to the topics on which the manager
+publishes on its own and prints those messages the moment they arrive, prefixed with the name of
+the topic: <code class="docutils literal notranslate"><span class="pre">[status]</span></code> for the lifecycle status, <code class="docutils literal notranslate"><span class="pre">[active_slot]</span></code> and <code class="docutils literal notranslate"><span class="pre">[config_updates]</span></code> for
+the notices of the configuration API. All of the output shown below is from this single shell
+session, so keep it running throughout the tutorial. <code class="docutils literal notranslate"><span class="pre">help</span></code> lists the commands, <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">&lt;command&gt;</span></code>
+the options of one of them.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every command is also available as a one-shot invocation for scripts, e.g.
+<code class="docutils literal notranslate"><span class="pre">everest-management-api-cli</span> <span class="pre">slots</span></code>, and <code class="docutils literal notranslate"><span class="pre">everest-management-api-cli</span> <span class="pre">watch</span></code> prints only the
+<code class="docutils literal notranslate"><span class="pre">[status]</span></code> and notice lines, without a prompt.</p>
+</div>
+<p>Don’t forget to run <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--install</span> <span class="pre">.</span></code> in the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder before starting EVerest.</p>
+</section>
+<section id="using-the-configuration-api">
+<h2>Using the configuration API<a class="headerlink" href="#using-the-configuration-api" title="Link to this heading">¶</a></h2>
+<p>The management APIs are always part of a build, but they need to be activated when starting EVerest.</p>
+<section id="read-only-usage">
+<h3>Read-Only Usage<a class="headerlink" href="#read-only-usage" title="Link to this heading">¶</a></h3>
+<p>In order to activate the configuration API, append the <em>manager</em> command line options as shown below
+(the generated run-scripts pass additional arguments on to the manager):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./run-scripts/run-example.sh<span class="w"> </span>--configuration-api<span class="o">=</span>ro
+
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:23:38.988075<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Starting<span class="w"> </span>ConfigurationAPI<span class="w"> </span><span class="k">in</span><span class="w"> </span>read-only<span class="w"> </span>mode
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:23:39.578363<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Config<span class="w"> </span>log<span class="w"> </span><span class="s2">&quot;actual [original value]&quot;</span>:<span class="w"> </span><span class="nv">log_interval</span><span class="o">=</span><span class="m">10</span><span class="w"> </span><span class="o">[</span><span class="m">10</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;one&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">current</span><span class="o">=</span><span class="m">42</span>.000000<span class="w"> </span><span class="o">[</span><span class="m">42</span>.000000<span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;one&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test2</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;2&quot;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>Observe the manager logging that the configuration API has been started.
+Also note, that the Example module is periodically logging its current configuration.</p>
+<p>For now we started the API in read-only mode. Switch to the shell and query the API for the list of
+configuration slots and the currently active slot:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; slots
+{
+  &quot;slots&quot;: [
+    {
+      &quot;config_file_path&quot;: &quot;/home/user/workspace/everest-core/config/config-example.yaml&quot;,
+      &quot;last_updated&quot;: &quot;2026-09-02T17:23:38.974Z&quot;,
+      &quot;slot_id&quot;: 0
+    }
+  ]
+}
+everest-api&gt; active
+{
+  &quot;active_slot_id&quot;: 0,
+  &quot;next_boot_slot_id&quot;: 0
+}
+</pre></div>
+</div>
+<p>We find, there is only a single slot existing (0) and it is used as the <em>active slot</em>
+(the one which is in use <em>if</em> the modules are running right now) and also as the one to be
+used for the next restart of the manager process or the next restart of the modules. The slot
+list also carries the metadata of each slot: an optional description, the time of the last
+update and, for a slot seeded from a YAML file, the path of that file.</p>
+<p>The full configuration stored in a slot can be retrieved:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; config 0
+{
+  &quot;module_configurations&quot;: [
+    {
+      &quot;config_access&quot;: null,
+      &quot;connections&quot;: [
+        {
+          &quot;fulfillments&quot;: [
+            {
+              &quot;implementation_id&quot;: &quot;main&quot;,
+              &quot;index&quot;: 0,
+              &quot;module_id&quot;: &quot;store&quot;
+            }
+          ],
+          &quot;requirement_id&quot;: &quot;kvs&quot;
+        }
+      ],
+      &quot;implementation_configuration_parameters&quot;: [
+        {
+          &quot;configuration_parameters&quot;: [
+            {
+              &quot;characteristics&quot;: {
+                &quot;datatype&quot;: &quot;Decimal&quot;,
+                &quot;mutability&quot;: &quot;ReadWrite&quot;
+              },
+              &quot;name&quot;: &quot;current&quot;,
+              &quot;value&quot;: &quot;42.000000&quot;
+            },
+...
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Only the module configuration is stored and retrievable. Thus, in general it’s not
+possible to reconstruct the yaml file which may have been used to initially load this
+module configuration into the database, as it also contains the manager settings.</p>
+</div>
+<p>In read-only mode every modifying request is answered, but refused:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; setp 0 example log_interval 5
+{
+  &quot;results&quot;: [
+    &quot;Rejected&quot;
+  ]
+}
+</pre></div>
+</div>
+<p>The configuration API also announces changes of the active slot. Stop EVerest with <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code> in
+its terminal and start it again with the same command; the shell prints the <code class="docutils literal notranslate"><span class="pre">[active_slot]</span></code>
+notices as they arrive:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt;
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 0, &quot;status&quot;: &quot;Stopping&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:23:52.774Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 0, &quot;status&quot;: &quot;Stopped&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:23:54.409Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 0, &quot;status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:23:54.410Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 0, &quot;status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:23:54.879Z&quot;}
+everest-api&gt;
+</pre></div>
+</div>
+<p>These notices are not retained by the broker, so they are only seen by clients that are
+subscribed at the moment the manager publishes them. Once the lifecycle API is enabled as
+well (see below), its <code class="docutils literal notranslate"><span class="pre">[status]</span></code> messages show up in the shell, too.</p>
+</section>
+<section id="read-write-usage">
+<h3>Read-write Usage<a class="headerlink" href="#read-write-usage" title="Link to this heading">¶</a></h3>
+<p>Starting the manager with <code class="docutils literal notranslate"><span class="pre">rw</span></code> enables write access to the configuration API. Since we are
+going to create slots that should survive a restart of the manager, we also give it a database file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./run-scripts/run-example.sh<span class="w"> </span>--configuration-api<span class="o">=</span>rw<span class="w"> </span>--db<span class="w"> </span>/tmp/everest-tutorial.db
+
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:01.961149<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Starting<span class="w"> </span>ConfigurationAPI<span class="w"> </span><span class="k">in</span><span class="w"> </span>read-write<span class="w"> </span>mode
+...
+</pre></div>
+</div>
+<p>Now we can load module configurations from a YAML file and subsequently make sure a new slot has been created:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; load --description &quot;SIL setup&quot; &lt;your-EVerest-dir&gt;/config/config-sil.yaml
+{
+  &quot;error_message&quot;: &quot;&quot;,
+  &quot;slot_id&quot;: 1,
+  &quot;success&quot;: true
+}
+everest-api&gt; slots
+{
+  &quot;slots&quot;: [
+    {
+      &quot;config_file_path&quot;: &quot;/home/user/workspace/everest-core/config/config-example.yaml&quot;,
+      &quot;last_updated&quot;: &quot;2026-09-02T17:24:01.941Z&quot;,
+      &quot;slot_id&quot;: 0
+    },
+    {
+      &quot;description&quot;: &quot;SIL setup&quot;,
+      &quot;last_updated&quot;: &quot;2026-09-02T17:24:07.670Z&quot;,
+      &quot;slot_id&quot;: 1
+    }
+  ]
+}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">config-sil.yaml</span></code> is a complete EVerest configuration file, i.e. it also contains manager
+settings. The client only sends its <code class="docutils literal notranslate"><span class="pre">active_modules</span></code> section, as a slot holds module
+configuration only.</p>
+</div>
+<p>To reboot from this slot the next time the modules start:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; mark 1
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 1, &quot;status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:10.937Z&quot;}
+{
+  &quot;result&quot;: &quot;Success&quot;
+}
+everest-api&gt; active
+{
+  &quot;active_slot_id&quot;: 0,
+  &quot;next_boot_slot_id&quot;: 1
+}
+</pre></div>
+</div>
+<p>The manager announces the new choice on the <code class="docutils literal notranslate"><span class="pre">active_slot</span></code> topic before it answers the request,
+which is why the shell prints the notice ahead of the reply. As you can see, the <code class="docutils literal notranslate"><span class="pre">active</span></code> command
+now returns separate results for the currently active slot and the one that would be used if a
+reboot would happen now. Thanks to <code class="docutils literal notranslate"><span class="pre">--db</span></code> this choice is persisted: if you stop the manager
+process and start it again with the same <code class="docutils literal notranslate"><span class="pre">--db</span></code> option, it boots the SIL configuration from
+slot 1 instead of the YAML file.</p>
+<p>A different way to populate a new slot is to duplicate an existing one:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; dup 1 --description &quot;Created as duplicate of slot 1&quot;
+{
+  &quot;slot_id&quot;: 2,
+  &quot;success&quot;: true
+}
+everest-api&gt; slots
+{
+  &quot;slots&quot;: [
+    {
+      &quot;config_file_path&quot;: &quot;/home/user/workspace/everest-core/config/config-example.yaml&quot;,
+      &quot;last_updated&quot;: &quot;2026-09-02T17:24:01.941Z&quot;,
+      &quot;slot_id&quot;: 0
+    },
+    {
+      &quot;description&quot;: &quot;SIL setup&quot;,
+      &quot;last_updated&quot;: &quot;2026-09-02T17:24:07.670Z&quot;,
+      &quot;slot_id&quot;: 1
+    },
+    {
+      &quot;description&quot;: &quot;Created as duplicate of slot 1&quot;,
+      &quot;last_updated&quot;: &quot;2026-09-02T17:24:14.219Z&quot;,
+      &quot;slot_id&quot;: 2
+    }
+  ]
+}
+</pre></div>
+</div>
+<p>Deleting an unused slot is possible as well, but not for the active slot. A slot that is marked
+for the next boot counts as active here, too:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; delete 2
+{
+  &quot;result&quot;: &quot;Success&quot;
+}
+everest-api&gt; delete 1
+{
+  &quot;result&quot;: &quot;CannotDeleteActiveSlot&quot;
+}
+</pre></div>
+</div>
+<p>Modification of configuration parameters via the CLI client is possible by providing
+it with a file similar to a configuration YAML but reduced to the configuration parameters
+which have actual changes. E.g. the following example file <code class="docutils literal notranslate"><span class="pre">cfg_update_to.yaml</span></code> can be
+used to change the <cite>log_interval</cite> parameter of the <cite>example</cite> module to the value <cite>3</cite>,
+<cite>enum_test</cite> to <cite>“two”</cite> and for the <cite>example</cite> implementation: <cite>current</cite> to <cite>40</cite>,
+<cite>enum_test</cite> to <cite>“two”</cite> and <cite>enum_test2</cite> to <cite>1</cite>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">example</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config_module</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">log_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">enum_test</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;two&quot;</span>
+<span class="w">    </span><span class="nt">config_implementation</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">example</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+<span class="w">        </span><span class="nt">enum_test</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;two&quot;</span>
+<span class="w">        </span><span class="nt">enum_test2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A single parameter can also be changed without a file:
+<code class="docutils literal notranslate"><span class="pre">setp</span> <span class="pre">0</span> <span class="pre">example</span> <span class="pre">log_interval</span> <span class="pre">3</span></code> for a module-level parameter, or with <code class="docutils literal notranslate"><span class="pre">--impl</span> <span class="pre">example</span></code>
+for a parameter of the <code class="docutils literal notranslate"><span class="pre">example</span></code> implementation.</p>
+</div>
+<p>To test this, first mark slot 0 for booting again and delete the other slot:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; mark 0
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 0, &quot;status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:20.815Z&quot;}
+{
+  &quot;result&quot;: &quot;Success&quot;
+}
+everest-api&gt; delete 1
+{
+  &quot;result&quot;: &quot;Success&quot;
+}
+</pre></div>
+</div>
+<p>Now create a duplicate from the existing slot <cite>0</cite> and modify the newly created configuration.
+The file is looked up relative to the directory the shell was started in:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; dup 0 --description &quot;Created as duplicate of slot 0&quot;
+{
+  &quot;slot_id&quot;: 1,
+  &quot;success&quot;: true
+}
+everest-api&gt; setp 1 --file cfg_update_to.yaml
+[config_updates] {&quot;origin&quot;: {&quot;external&quot;: true}, &quot;slot_id&quot;: 1, &quot;tstamp&quot;: &quot;2026-09-02T17:24:25.745Z&quot;, &quot;update_results&quot;: [...]}
+{
+  &quot;results&quot;: [
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;
+  ]
+}
+</pre></div>
+</div>
+<p>The API reports one result per requested parameter, in the order of the request (which is the
+order of the file). All changes will only become active on the next restart. This is because
+slot <cite>1</cite> is not active. (The <code class="docutils literal notranslate"><span class="pre">[config_updates]</span></code> notice is shortened here; it is explained below.)</p>
+<p>Requesting the same changes to the active slot gives different results:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; setp 0 --file cfg_update_to.yaml
+[config_updates] {&quot;origin&quot;: {&quot;external&quot;: true}, &quot;slot_id&quot;: 0, &quot;tstamp&quot;: &quot;2026-09-02T17:24:27.393Z&quot;, &quot;update_results&quot;: [...]}
+{
+  &quot;results&quot;: [
+    &quot;Applied&quot;,
+    &quot;Applied&quot;,
+    &quot;Applied&quot;,
+    &quot;Applied&quot;,
+    &quot;WillApplyOnRestart&quot;
+  ]
+}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every accepted change is persisted to the slot <em>before</em> it is forwarded to the running
+module. A module may still reject the runtime change (the Example module always rejects
+runtime changes of <cite>enum_test2</cite>). In that case the parameter keeps its current value at
+runtime and the change is reported as <cite>WillApplyOnRestart</cite>: it becomes effective the next
+time the modules are restarted.</p>
+</div>
+<p>Changes to module configuration parameters are announced on the <code class="docutils literal notranslate"><span class="pre">config_updates</span></code> topic, so
+every <code class="docutils literal notranslate"><span class="pre">setp</span></code> is accompanied by a <code class="docutils literal notranslate"><span class="pre">[config_updates]</span></code> notice in the shell. The shell prints
+it on a single line; reformatted for readability, the notice of the last command reads:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[config_updates] {
+  &quot;origin&quot;: {&quot;external&quot;: true},
+  &quot;slot_id&quot;: 0,
+  &quot;tstamp&quot;: &quot;2026-09-02T17:24:27.393Z&quot;,
+  &quot;update_results&quot;: [
+    {&quot;result&quot;: &quot;Applied&quot;, &quot;update&quot;: {&quot;cfg_param_id&quot;: {&quot;implementation_id&quot;: &quot;!module&quot;, &quot;module_id&quot;: &quot;example&quot;, &quot;parameter_name&quot;: &quot;log_interval&quot;}, &quot;value&quot;: &quot;3&quot;}},
+    {&quot;result&quot;: &quot;Applied&quot;, &quot;update&quot;: {&quot;cfg_param_id&quot;: {&quot;implementation_id&quot;: &quot;!module&quot;, &quot;module_id&quot;: &quot;example&quot;, &quot;parameter_name&quot;: &quot;enum_test&quot;}, &quot;value&quot;: &quot;two&quot;}},
+    {&quot;result&quot;: &quot;Applied&quot;, &quot;update&quot;: {&quot;cfg_param_id&quot;: {&quot;implementation_id&quot;: &quot;example&quot;, &quot;module_id&quot;: &quot;example&quot;, &quot;parameter_name&quot;: &quot;current&quot;}, &quot;value&quot;: &quot;40&quot;}},
+    {&quot;result&quot;: &quot;Applied&quot;, &quot;update&quot;: {&quot;cfg_param_id&quot;: {&quot;implementation_id&quot;: &quot;example&quot;, &quot;module_id&quot;: &quot;example&quot;, &quot;parameter_name&quot;: &quot;enum_test&quot;}, &quot;value&quot;: &quot;two&quot;}},
+    {&quot;result&quot;: &quot;WillApplyOnRestart&quot;, &quot;update&quot;: {&quot;cfg_param_id&quot;: {&quot;implementation_id&quot;: &quot;example&quot;, &quot;module_id&quot;: &quot;example&quot;, &quot;parameter_name&quot;: &quot;enum_test2&quot;}, &quot;value&quot;: &quot;1&quot;}}
+  ]
+}
+</pre></div>
+</div>
+<p>Module-level parameters show up with the pseudo implementation id <code class="docutils literal notranslate"><span class="pre">!module</span></code> in these notices.</p>
+<p>You will also be able to observe this in the EVerest logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>...
+Config<span class="w"> </span>log<span class="w"> </span><span class="s2">&quot;actual [original value]&quot;</span>:<span class="w"> </span><span class="nv">log_interval</span><span class="o">=</span><span class="m">10</span><span class="w"> </span><span class="o">[</span><span class="m">10</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;one&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">current</span><span class="o">=</span><span class="m">42</span>.000000<span class="w"> </span><span class="o">[</span><span class="m">42</span>.000000<span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;one&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test2</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;2&quot;</span><span class="o">]</span>
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:27.405091<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Cfg<span class="w"> </span>Update<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;log_interval&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">old</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;10&#39;</span>,<span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w"> </span>accepted
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:27.489306<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Cfg<span class="w"> </span>Update<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;enum_test&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">old</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;one&#39;</span>,<span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;two&#39;</span><span class="w"> </span>accepted
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:27.574780<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Cfg<span class="w"> </span>Update<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;current&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">old</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;42.000000&#39;</span>,<span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;40.000000&#39;</span><span class="w"> </span>accepted
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:27.618743<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Cfg<span class="w"> </span>Update<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;enum_test&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">old</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;one&#39;</span>,<span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;two&#39;</span><span class="w"> </span>accepted
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:27.703004<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Cfg<span class="w"> </span>Update<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;enum_test2&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">old</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;2&#39;</span>,<span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span>rejected,<span class="w"> </span>as<span class="w"> </span>always-rejects
+...
+Config<span class="w"> </span>log<span class="w"> </span><span class="s2">&quot;actual [original value]&quot;</span>:<span class="w"> </span><span class="nv">log_interval</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="o">[</span><span class="m">10</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">current</span><span class="o">=</span><span class="m">40</span>.000000<span class="w"> </span><span class="o">[</span><span class="m">42</span>.000000<span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;one&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test2</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;2&quot;</span><span class="o">]</span>
+...
+</pre></div>
+</div>
+<p>This output is generated by the Example module and therefore not available with other modules.
+Note how <cite>enum_test2</cite> still reports its old value <cite>2</cite> at runtime: the module rejected the
+runtime change, so the new value <cite>1</cite> only becomes visible after the modules are restarted.</p>
+<p>To query a specific set of configuration parameter values use <code class="docutils literal notranslate"><span class="pre">getp</span></code> with the same file
+(its values are ignored, only the parameter names matter):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; getp 0 --file cfg_update_to.yaml
+{
+  &quot;parameter_values&quot;: [
+    {
+      &quot;parameter&quot;: {
+        &quot;characteristics&quot;: {
+          &quot;datatype&quot;: &quot;Integer&quot;,
+          &quot;mutability&quot;: &quot;ReadWrite&quot;
+        },
+        &quot;name&quot;: &quot;log_interval&quot;,
+        &quot;value&quot;: &quot;3&quot;
+      },
+      &quot;status&quot;: &quot;OK&quot;
+    },
+    ...
+    {
+      &quot;parameter&quot;: {
+        &quot;characteristics&quot;: {
+          &quot;datatype&quot;: &quot;Integer&quot;,
+          &quot;mutability&quot;: &quot;ReadWrite&quot;
+        },
+        &quot;name&quot;: &quot;enum_test2&quot;,
+        &quot;value&quot;: &quot;2&quot;
+      },
+      &quot;status&quot;: &quot;OK&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;Success&quot;
+}
+</pre></div>
+</div>
+<p>To query a configuration parameter value that will only become active after a restart, add
+<code class="docutils literal notranslate"><span class="pre">--db</span></code>, which sets <code class="docutils literal notranslate"><span class="pre">force_read_from_db</span></code> in the request:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; getp 0 --file cfg_update_to.yaml --db
+{
+  &quot;parameter_values&quot;: [
+    ...
+    {
+      &quot;parameter&quot;: {
+        &quot;characteristics&quot;: {
+          &quot;datatype&quot;: &quot;Integer&quot;,
+          &quot;mutability&quot;: &quot;ReadWrite&quot;
+        },
+        &quot;name&quot;: &quot;enum_test2&quot;,
+        &quot;value&quot;: &quot;1&quot;
+      },
+      &quot;status&quot;: &quot;OK&quot;
+    }
+  ],
+  &quot;status&quot;: &quot;Success&quot;
+}
+</pre></div>
+</div>
+<p>(Notice the different value for <cite>enum_test2</cite>.)</p>
+</section>
+</section>
+<section id="using-the-lifecycle-api">
+<h2>Using the lifecycle API<a class="headerlink" href="#using-the-lifecycle-api" title="Link to this heading">¶</a></h2>
+<section id="id1">
+<h3>Read-Only Usage<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>The lifecycle API has fewer commands: <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code> and <code class="docutils literal notranslate"><span class="pre">start</span></code>.</p>
+<p>Stop EVerest, keep the shell running and start EVerest again with the lifecycle API activated:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./run-scripts/run-example.sh<span class="w"> </span>--lifecycle-api<span class="o">=</span>ro
+
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:38.973503<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Starting<span class="w"> </span>LifecycleAPI<span class="w"> </span><span class="k">in</span><span class="w"> </span>read-only<span class="w"> </span>mode
+...
+</pre></div>
+</div>
+<p>The shell prints the following lines as the modules start running. The configuration
+API is reported as not available, since it has not been activated:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt;
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: true, &quot;module_status&quot;: &quot;NotRunning&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:38.973Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: true, &quot;module_status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:38.973Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: true, &quot;module_status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:39.478Z&quot;}
+everest-api&gt;
+</pre></div>
+</div>
+<p>If you add <code class="docutils literal notranslate"><span class="pre">--configuration-api=ro</span></code> or <code class="docutils literal notranslate"><span class="pre">--configuration-api=rw</span></code> when calling the run script,
+<code class="docutils literal notranslate"><span class="pre">configuration_api_available</span></code> changes accordingly.</p>
+<p>The status topic is retained by the broker, so the latest status is also available to a client
+that connects later. <code class="docutils literal notranslate"><span class="pre">status</span></code> shows it:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; status
+{
+  &quot;configuration_api_available&quot;: &quot;N_A&quot;,
+  &quot;everest_running&quot;: true,
+  &quot;lifecycle_api_ro&quot;: true,
+  &quot;module_status&quot;: &quot;Running&quot;,
+  &quot;tstamp&quot;: &quot;2026-09-02T17:24:39.478Z&quot;
+}
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Read-Write Usage<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Stop the manager with <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code> and watch the shell output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt;
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: true, &quot;module_status&quot;: &quot;Stopping&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:47.151Z&quot;}
+[status] {&quot;everest_running&quot;: false}
+everest-api&gt;
+</pre></div>
+</div>
+<p>When the manager shuts down it publishes this <code class="docutils literal notranslate"><span class="pre">&quot;everest_running&quot;:</span> <span class="pre">false</span></code> status itself, right before
+disconnecting from the broker. Should it die without getting that far, the broker publishes the very
+same payload as the manager’s MQTT LWT (Last Will and Testament), so the two cases are
+indistinguishable to a client. As the messages on this topic are retained, <code class="docutils literal notranslate"><span class="pre">status</span></code> reports it
+as well until the next manager start:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; status
+{
+  &quot;everest_running&quot;: false
+}
+</pre></div>
+</div>
+<p>Start the manager with the <code class="docutils literal notranslate"><span class="pre">--lifecycle-api=rw</span></code> option set:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./run-scripts/run-example.sh<span class="w"> </span>--lifecycle-api<span class="o">=</span>rw
+
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:24:50.390991<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Starting<span class="w"> </span>LifecycleAPI<span class="w"> </span><span class="k">in</span><span class="w"> </span>read-write<span class="w"> </span>mode
+...
+</pre></div>
+</div>
+<p>Now use the shell to stop the modules:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; stop
+{
+  &quot;status&quot;: &quot;Stopping&quot;
+}
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Stopping&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:56.969Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;NotRunning&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:24:57.021Z&quot;}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reply to the <code class="docutils literal notranslate"><span class="pre">stop</span></code> command only reports that the command has been accepted and the
+modules are going to stop; the completion is not part of the reply. A client that needs this
+information has to subscribe to the status topic, as the shell does: the two <code class="docutils literal notranslate"><span class="pre">[status]</span></code>
+lines following the reply report the progress. The retained status can be queried as well
+once the modules have stopped:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; status
+{
+  &quot;configuration_api_available&quot;: &quot;N_A&quot;,
+  &quot;everest_running&quot;: true,
+  &quot;lifecycle_api_ro&quot;: false,
+  &quot;module_status&quot;: &quot;NotRunning&quot;,
+  &quot;tstamp&quot;: &quot;2026-09-02T17:24:57.021Z&quot;
+}
+</pre></div>
+</div>
+</div>
+<p>Starting the modules again:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; start
+{
+  &quot;status&quot;: &quot;Starting&quot;
+}
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:04.643Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;N_A&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:05.151Z&quot;}
+</pre></div>
+</div>
+</section>
+</section>
+<section id="complete-workflow-example">
+<h2>Complete Workflow Example<a class="headerlink" href="#complete-workflow-example" title="Link to this heading">¶</a></h2>
+<p>This section shows an example workflow which starts in idle, proceeds with starting the modules after
+selecting a slot and later selects a different slot and restarts the modules using that one.</p>
+<p>Start the manager from the empty configuration with both management APIs, a fresh database file and
+without trying to start the modules (<code class="docutils literal notranslate"><span class="pre">--into-idle</span></code> option):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>/tmp/everest-workflow.db
+$<span class="w"> </span>./run-scripts/run-empty.sh<span class="w"> </span>--configuration-api<span class="o">=</span>rw<span class="w"> </span>--lifecycle-api<span class="o">=</span>rw<span class="w"> </span>--db<span class="w"> </span>/tmp/everest-workflow.db<span class="w"> </span>--into-idle
+
+...
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:25:11.228496<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Starting<span class="w"> </span>ConfigurationAPI<span class="w"> </span><span class="k">in</span><span class="w"> </span>read-write<span class="w"> </span>mode
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:25:11.228592<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Starting<span class="w"> </span>LifecycleAPI<span class="w"> </span><span class="k">in</span><span class="w"> </span>read-write<span class="w"> </span>mode
+<span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:25:11.228632<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>manager<span class="w">          </span>::<span class="w"> </span>Manager<span class="w"> </span>state<span class="w"> </span>transition:<span class="w"> </span>Initializing<span class="w"> </span>-&gt;<span class="w"> </span>Idle
+...
+</pre></div>
+</div>
+<p>The lifecycle API confirms that nothing is running yet:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt;
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;NotRunning&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:11.228Z&quot;}
+everest-api&gt; status
+{
+  &quot;configuration_api_available&quot;: &quot;RW&quot;,
+  &quot;everest_running&quot;: true,
+  &quot;lifecycle_api_ro&quot;: false,
+  &quot;module_status&quot;: &quot;NotRunning&quot;,
+  &quot;tstamp&quot;: &quot;2026-09-02T17:25:11.228Z&quot;
+}
+</pre></div>
+</div>
+<p>The given configuration only contains an empty set of <cite>module configurations</cite>. We start by loading from
+a YAML file, modifying it, marking the newly created slot to be used for the start and finally starting
+the modules:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; load --description &quot;Example&quot; &lt;your-EVerest-dir&gt;/config/config-example.yaml
+{
+  &quot;error_message&quot;: &quot;&quot;,
+  &quot;slot_id&quot;: 1,
+  &quot;success&quot;: true
+}
+everest-api&gt; setp 1 --file cfg_update_to.yaml
+[config_updates] {&quot;origin&quot;: {&quot;external&quot;: true}, &quot;slot_id&quot;: 1, &quot;tstamp&quot;: &quot;2026-09-02T17:25:20.154Z&quot;, &quot;update_results&quot;: [...]}
+{
+  &quot;results&quot;: [
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;,
+    &quot;WillApplyOnRestart&quot;
+  ]
+}
+everest-api&gt; mark 1
+[active_slot] {&quot;active_slot_id&quot;: 0, &quot;next_boot_slot_id&quot;: 1, &quot;status&quot;: &quot;Stopped&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:21.801Z&quot;}
+{
+  &quot;result&quot;: &quot;Success&quot;
+}
+everest-api&gt; start
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 1, &quot;status&quot;: &quot;Stopped&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:23.450Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 1, &quot;status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:23.454Z&quot;}
+{
+  &quot;status&quot;: &quot;Starting&quot;
+}
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:23.454Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 1, &quot;status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:23.965Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:23.965Z&quot;}
+</pre></div>
+</div>
+<p>The notices show the slot being taken into use: <code class="docutils literal notranslate"><span class="pre">active_slot_id</span></code> switches to 1 as the modules
+start, and both APIs report the modules as running half a second later.</p>
+<p>Watch the EVerest log to see the 3 modules of the example configuration being started; the Example
+module already logs the modified values, as the slot was changed before it was ever started:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2026</span>-09-02<span class="w"> </span><span class="m">19</span>:25:24.046729<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>example:Example<span class="w">  </span>::<span class="w"> </span>Config<span class="w"> </span>log<span class="w"> </span><span class="s2">&quot;actual [original value]&quot;</span>:<span class="w"> </span><span class="nv">log_interval</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;two&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">current</span><span class="o">=</span><span class="m">40</span>.000000<span class="w"> </span><span class="o">[</span><span class="m">40</span>.000000<span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;two&quot;</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>example<span class="p">|</span><span class="nv">enum_test2</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;1&quot;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>Continue with loading into a different slot and switching to it:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; load --description &quot;SIL&quot; &lt;your-EVerest-dir&gt;/config/config-sil.yaml
+{
+  &quot;error_message&quot;: &quot;&quot;,
+  &quot;slot_id&quot;: 2,
+  &quot;success&quot;: true
+}
+everest-api&gt; mark 2
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:33.314Z&quot;}
+{
+  &quot;result&quot;: &quot;Success&quot;
+}
+everest-api&gt; active
+{
+  &quot;active_slot_id&quot;: 1,
+  &quot;next_boot_slot_id&quot;: 2
+}
+everest-api&gt; stop
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Stopping&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:36.592Z&quot;}
+{
+  &quot;status&quot;: &quot;Stopping&quot;
+}
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Stopping&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:36.592Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Stopping&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:36.642Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 1, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Stopped&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:36.644Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;NotRunning&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:36.644Z&quot;}
+everest-api&gt; start
+[active_slot] {&quot;active_slot_id&quot;: 2, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Stopped&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:44.717Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 2, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:44.737Z&quot;}
+{
+  &quot;status&quot;: &quot;Starting&quot;
+}
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Starting&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:44.737Z&quot;}
+[active_slot] {&quot;active_slot_id&quot;: 2, &quot;next_boot_slot_id&quot;: 2, &quot;status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:46.825Z&quot;}
+[status] {&quot;configuration_api_available&quot;: &quot;RW&quot;, &quot;everest_running&quot;: true, &quot;lifecycle_api_ro&quot;: false, &quot;module_status&quot;: &quot;Running&quot;, &quot;tstamp&quot;: &quot;2026-09-02T17:25:46.825Z&quot;}
+everest-api&gt; active
+{
+  &quot;active_slot_id&quot;: 2,
+  &quot;next_boot_slot_id&quot;: 2
+}
+</pre></div>
+</div>
+<p>Wait for the <code class="docutils literal notranslate"><span class="pre">NotRunning</span></code> status after <code class="docutils literal notranslate"><span class="pre">stop</span></code> before issuing <code class="docutils literal notranslate"><span class="pre">start</span></code>. Now the 17 module SIL
+configuration is active. Alternatively <code class="docutils literal notranslate"><span class="pre">start</span></code> can be used directly, without calling <code class="docutils literal notranslate"><span class="pre">stop</span></code>
+first; the reply is then <code class="docutils literal notranslate"><span class="pre">&quot;Restarting&quot;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&quot;Starting&quot;</span></code>.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="bazel.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Experimental Bazel Support</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="plug-and-charge.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Plug&amp;Charge with EVerest Software in the Loop</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021-2026, EVerest community
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Management APIs</a><ul>
+<li><a class="reference internal" href="#short-configuration-introduction">Short Configuration Introduction</a><ul>
+<li><a class="reference internal" href="#manager-settings">Manager Settings</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-cli-client">The CLI client</a></li>
+<li><a class="reference internal" href="#using-the-configuration-api">Using the configuration API</a><ul>
+<li><a class="reference internal" href="#read-only-usage">Read-Only Usage</a></li>
+<li><a class="reference internal" href="#read-write-usage">Read-write Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-lifecycle-api">Using the lifecycle API</a><ul>
+<li><a class="reference internal" href="#id1">Read-Only Usage</a></li>
+<li><a class="reference internal" href="#id2">Read-Write Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#complete-workflow-example">Complete Workflow Example</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=e6a5c2e3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/version-switcher.js?v=b5bc7450"></script>
+    </body>
+</html>

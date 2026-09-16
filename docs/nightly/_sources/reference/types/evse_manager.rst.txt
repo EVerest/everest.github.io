@@ -426,6 +426,18 @@ EVSE manager types
 |    Id of the connector. Connectors should be numbered starting with 1 counting upwards
 |   **type**: *string* <optional> (:ref:`evse_manager-ConnectorTypeEnum <evse_manager-ConnectorTypeEnum>`)
 |    Type of the connector
+|   **charge_mode**: *string* <required> (:ref:`evse_manager-ChargeMode <evse_manager-ChargeMode>`)
+|    AC or DC power topology of this connector's power path. A static property of the plug and its power electronics, configured rather than negotiated or measured, and settled before any session. Not the charging state machine's current mode, which an EVSE running ac_with_soc switches between AC and DC within a session.
+|   **hlc_capable**: *boolean* <required>
+|    Whether an ISO 15118 high level communication session can ever occur on this connector. True only when an SECC and a SLAC provider are both wired and the configuration permits HLC, so it is false on a connector whose SECC is wired but whose HLC is switched off. Resolved once at startup; not a statement about the current session.
+
+.. _evse_manager-ChargeMode:
+
+| **ChargeMode**: *string* 
+|  AC or DC power topology of a connector's power path
+|  enum:
+|    - AC
+|    - DC
 
 .. _evse_manager-ConnectorTypeEnum:
 

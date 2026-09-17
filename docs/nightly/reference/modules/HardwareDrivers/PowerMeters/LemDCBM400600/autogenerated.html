@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>LemDCBM400600 - EVerest Manual main@54a9c05</title>
+        <title>LemDCBM400600 - EVerest Manual main@8490d71</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@54a9c05</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@8490d71</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@54a9c05</span>
+  <span class="sidebar-brand-text">EVerest Manual main@8490d71</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -720,6 +720,16 @@ single poll.</p>
 <p>By default, HTTP(S) connections to the device are kept alive and reused across requests. Set <code class="docutils literal notranslate"><span class="pre">http_connection_reuse</span></code>
 to <code class="docutils literal notranslate"><span class="pre">false</span></code> to restore the previous behavior of one fresh connection per request.</p>
 </section>
+<section id="variable-capabilities">
+<h4>Variable Capabilities<a class="headerlink" href="#variable-capabilities" title="Link to this heading">¶</a></h4>
+<p>If <code class="docutils literal notranslate"><span class="pre">min_import_current_A</span></code> and/or <code class="docutils literal notranslate"><span class="pre">min_export_current_A</span></code> are configured to a value greater than 0, the module
+publishes the <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> var once on startup. These values describe the minimum current above which the meter
+measures within its accuracy class (e.g. required by the German Calibration Law)</p>
+<p>The direction convention follows the DCBM’s metering convention: <code class="docutils literal notranslate"><span class="pre">min_import_current_A</span></code> refers to the charging
+direction, which the DCBM accumulates in its <code class="docutils literal notranslate"><span class="pre">energyImportTotal</span></code> register.
+<code class="docutils literal notranslate"><span class="pre">min_export_current_A</span></code> refers to the discharge direction (<code class="docutils literal notranslate"><span class="pre">energyExportTotal</span></code>). The values
+cannot be read from the device. Take them from the device datasheet.</p>
+</section>
 <section id="command-start-transaction">
 <h4>Command start_transaction<a class="headerlink" href="#command-start-transaction" title="Link to this heading">¶</a></h4>
 <p>A <code class="docutils literal notranslate"><span class="pre">start_transaction</span></code> command is directly forwarded via a <code class="docutils literal notranslate"><span class="pre">POST</span></code>  to the <code class="docutils literal notranslate"><span class="pre">/v1/legal</span></code> endpoint with a copy of the transaction request
@@ -975,6 +985,16 @@ in general is considered vulnerable.</p>
 <div class="line-block">
 <div class="line">While a transaction is active, the current OCMF record is periodically fetched from the device as a fallback, so a signed meter value is available even if the device becomes unreachable at transaction stop. This option throttles that fetch to at most once every N seconds. The default of 0 fetches on every poll (previous behavior).</div>
 </div>
+<div class="line"><strong>min_import_current_A</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Minimum current in Ampere in import direction (charging, the direction accumulated in the DCBM’s energyImportTotal register) the meter can measure within its accuracy class. Take this value from the device datasheet. Published via the capabilities var of the powermeter interface. A value of 0 means no restriction.</div>
+</div>
+<div class="line"><strong>min_export_current_A</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 0</em></div>
+<div class="line-block">
+<div class="line">Minimum current in Ampere in export direction (discharging, the direction accumulated in the DCBM’s energyExportTotal register) the meter can measure within its accuracy class. Take this value from the device datasheet. Published via the capabilities var of the powermeter interface. A value of 0 means no restriction.</div>
+</div>
 </div>
 </section>
 <section id="provides">
@@ -1065,6 +1085,7 @@ in general is considered vulnerable.</p>
 <li><a class="reference internal" href="#description">Description</a><ul>
 <li><a class="reference internal" href="#initialization">Initialization</a></li>
 <li><a class="reference internal" href="#variable-powermeter">Variable Powermeter</a></li>
+<li><a class="reference internal" href="#variable-capabilities">Variable Capabilities</a></li>
 <li><a class="reference internal" href="#command-start-transaction">Command start_transaction</a></li>
 <li><a class="reference internal" href="#command-stop-transaction">Command stop_transaction</a></li>
 </ul>
@@ -1107,7 +1128,7 @@ in general is considered vulnerable.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=357b4453"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=4d7676d0"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

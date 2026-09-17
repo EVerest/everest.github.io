@@ -105,6 +105,12 @@ Module Configuration
 | **transaction_ocmf_fetch_interval_s**: *integer* <optional>
 | *default: 0*
 |  While a transaction is active, the current OCMF record is periodically fetched from the device as a fallback, so a signed meter value is available even if the device becomes unreachable at transaction stop. This option throttles that fetch to at most once every N seconds. The default of 0 fetches on every poll (previous behavior).
+| **min_import_current_A**: *number* <optional>
+| *default: 0*
+|  Minimum current in Ampere in import direction (charging, the direction accumulated in the DCBM's energyImportTotal register) the meter can measure within its accuracy class. Take this value from the device datasheet. Published via the capabilities var of the powermeter interface. A value of 0 means no restriction.
+| **min_export_current_A**: *number* <optional>
+| *default: 0*
+|  Minimum current in Ampere in export direction (discharging, the direction accumulated in the DCBM's energyExportTotal register) the meter can measure within its accuracy class. Take this value from the device datasheet. Published via the capabilities var of the powermeter interface. A value of 0 means no restriction.
 
 Provides
 ========

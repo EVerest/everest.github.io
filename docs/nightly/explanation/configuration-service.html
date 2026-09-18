@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EVerest Configuration Service - EVerest Manual main@42bba28</title>
+        <title>EVerest Configuration Service - EVerest Manual main@b550f0b</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@42bba28</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@b550f0b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@42bba28</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b550f0b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -757,7 +757,7 @@ For those, see <a class="reference internal" href="../tutorials/ocpp2.html#tutor
 <h2>Boot Sources and the Configuration Database<a class="headerlink" href="#boot-sources-and-the-configuration-database" title="Link to this heading">¶</a></h2>
 <p>Which configuration the manager boots from is resolved from the command line
 options. There are three cases.</p>
-<dl class="simple">
+<dl>
 <dt><strong>No</strong> <code class="docutils literal notranslate"><span class="pre">--db</span></code> <strong>(with</strong> <code class="docutils literal notranslate"><span class="pre">--config</span></code> <strong>or the default config lookup)</strong></dt><dd><p>The YAML config is authoritative. It is parsed, including the
 <code class="docutils literal notranslate"><span class="pre">user-config/&lt;config-name&gt;.yaml</span></code> merge, and seeded into a process-private
 <strong>in-memory</strong> database on every start. Nothing is persisted to disk except
@@ -768,8 +768,23 @@ empty configuration on built-in defaults (and exits with no modules unless
 <code class="docutils literal notranslate"><span class="pre">--into-idle</span></code> or <code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code> is given). Runtime writes are then
 kept in memory only.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">--db</span></code> <strong>only</strong></dt><dd><p>The database file is the only configuration source; manager settings come from
-built-in defaults.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">--db</span></code> <strong>only</strong></dt><dd><p>The database file is the only configuration source for module
+configurations. The database never holds the manager <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block, so
+the settings come from built-in defaults: installation paths (<code class="docutils literal notranslate"><span class="pre">prefix</span></code>,
+<code class="docutils literal notranslate"><span class="pre">modules_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">interfaces_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">types_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">errors_dir</span></code>,
+<code class="docutils literal notranslate"><span class="pre">schemas_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">configs_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">www_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">logging_config_file</span></code>), MQTT
+broker and prefixes (<code class="docutils literal notranslate"><span class="pre">mqtt_broker_host</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_broker_port</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mqtt_broker_socket_path</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_everest_prefix</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mqtt_external_prefix</span></code>), <code class="docutils literal notranslate"><span class="pre">controller_port</span></code>,
+<code class="docutils literal notranslate"><span class="pre">controller_rpc_timeout_ms</span></code>, <code class="docutils literal notranslate"><span class="pre">run_as_user</span></code>, <code class="docutils literal notranslate"><span class="pre">telemetry_enabled</span></code>,
+<code class="docutils literal notranslate"><span class="pre">telemetry_prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">validate_schema</span></code> and <code class="docutils literal notranslate"><span class="pre">forward_exceptions</span></code>.
+Deployments that need any non-default setting pass <code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside
+<code class="docutils literal notranslate"><span class="pre">--db</span></code>.</p>
+<p>Databases created before the multi-configuration schema stored these
+settings in a <code class="docutils literal notranslate"><span class="pre">SETTING</span></code> table. Schema migration 4 drops that table without
+carrying the values over; a database upgraded from such a release therefore
+needs <code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside <code class="docutils literal notranslate"><span class="pre">--db</span></code> to keep a non-default broker, prefix or
+user.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--config</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">--db</span></code></dt><dd><p>The database wins when it holds a valid boot slot, and the YAML is then
 ignored. Otherwise the database is seeded from the YAML config.</p>
@@ -1206,7 +1221,7 @@ example the module’s runtime veto.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=61dda55a"></script>
+</div><script src="../_static/documentation_options.js?v=11383acd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

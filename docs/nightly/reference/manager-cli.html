@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Manager Command Line Options - EVerest Manual main@42bba28</title>
+        <title>Manager Command Line Options - EVerest Manual main@b550f0b</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@42bba28</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@b550f0b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@42bba28</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b550f0b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -705,7 +705,10 @@ warning at startup naming any experimental option it was given.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--help</span></code>, <code class="docutils literal notranslate"><span class="pre">-h</span></code></dt><dd><p>Produce the help message.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">--check</span></code></dt><dd><p>Check and validate all config files and exit. Exit code <code class="docutils literal notranslate"><span class="pre">0</span></code> means success.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">--check</span></code></dt><dd><p>Validate the YAML config given via <code class="docutils literal notranslate"><span class="pre">--config</span></code> and exit. Exit code <code class="docutils literal notranslate"><span class="pre">0</span></code>
+means success. Requires <code class="docutils literal notranslate"><span class="pre">--config</span></code>: without it the manager exits with an
+error instead of validating the default config. The check needs no MQTT
+broker and neither reads nor seeds the configuration database.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--prefix</span> <span class="pre">&lt;path&gt;</span></code></dt><dd><p>Prefix path of the EVerest installation.</p>
 </dd>
@@ -713,12 +716,13 @@ warning at startup naming any experimental option it was given.</p>
 </section>
 <section id="configuration-and-storage">
 <h2>Configuration and Storage<a class="headerlink" href="#configuration-and-storage" title="Link to this heading">¶</a></h2>
-<dl class="simple">
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">&lt;path&gt;</span></code></dt><dd><p>Full path to a config file. If the file does not exist and has no extension,
 it is looked up in the default config directory. Optional: defaults to the
 default config file in the default config directory. Without <code class="docutils literal notranslate"><span class="pre">--db</span></code>, the
 config is loaded from YAML on every start and runtime configuration changes
-are persisted to <code class="docutils literal notranslate"><span class="pre">user-config/&lt;config-name&gt;.yaml</span></code>.</p>
+are persisted to <code class="docutils literal notranslate"><span class="pre">user-config/&lt;config-name&gt;.yaml</span></code>. Only YAML is accepted;
+configuration files in JSON format are not loaded.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--conf</span> <span class="pre">&lt;path&gt;</span></code></dt><dd><p><strong>Deprecated.</strong> Same as <code class="docutils literal notranslate"><span class="pre">--config</span></code>. Do not use both — passing both is
 rejected as ambiguous, and using <code class="docutils literal notranslate"><span class="pre">--conf</span></code> logs a deprecation warning.</p>
@@ -727,6 +731,12 @@ rejected as ambiguous, and using <code class="docutils literal notranslate"><spa
 in-memory database is used and the YAML config is authoritative on every
 start. With <code class="docutils literal notranslate"><span class="pre">--db</span></code> and <code class="docutils literal notranslate"><span class="pre">--config</span></code>, the database wins when it holds a valid
 configuration; otherwise it is seeded from the YAML config.</p>
+<p>The database holds module configurations only, never the manager
+<code class="docutils literal notranslate"><span class="pre">settings:</span></code> block. With <code class="docutils literal notranslate"><span class="pre">--db</span></code> alone, the settings (installation paths,
+MQTT broker and prefixes, controller port, <code class="docutils literal notranslate"><span class="pre">run_as_user</span></code>, telemetry, schema
+validation) are the compiled-in defaults. Pass <code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside
+<code class="docutils literal notranslate"><span class="pre">--db</span></code> whenever the deployment relies on non-default settings; the YAML
+<code class="docutils literal notranslate"><span class="pre">settings:</span></code> block is then applied on every start.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code></dt><dd><p><strong>Experimental.</strong> Discard the existing database slot and re-seed from the YAML
 config file. Intended for development use when you want to reset to a known
@@ -864,7 +874,7 @@ parallel.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=61dda55a"></script>
+</div><script src="../_static/documentation_options.js?v=11383acd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

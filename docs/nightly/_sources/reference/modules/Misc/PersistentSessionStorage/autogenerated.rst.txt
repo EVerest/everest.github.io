@@ -1,0 +1,54 @@
+
+
+.. _everest_modules_PersistentSessionStorage:
+
+########################
+PersistentSessionStorage
+########################
+| Persists a session record for every charging session of the connected EvseManagers in a SQLite database and provides read and clear access to the stored records. Records survive restarts and power cycles, so they can be read out after the fact, for example by an EVerest API client.
+
+
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
+
+************************
+Auto-Generated Reference
+************************
+
+
+Module Configuration
+====================
+| **database_path**: *string* <required>
+|  Path to the SQLite database file that holds the session records. Must point to persistent storage, since the records are meant to survive restarts and power cycles. The parent directory must exist and be writable. There is no default, every deployment has to choose its persistent location explicitly.
+| **max_sessions**: *integer* <optional>
+| *default: 10000*
+|  Maximum number of session records to keep. When a new record is stored while the limit is already reached, the oldest records are deleted first, regardless of their state.
+| **store_signed_meter_values**: *boolean* <optional>
+| *default: False*
+|  Store the signed meter values (e.g. OCMF records) of transaction start and stop in the dedicated signed_meter_value_start/signed_meter_value_stop fields of the transaction. Disabled by default because signed data typically embeds the raw id token in its OCMF ID field, so enabling this persists raw id tokens.
+
+Provides
+========
+| **main**: :ref:`session_storage <everest_interfaces_session_storage>`
+|  Read and clear access to the stored session records
+
+Requirements
+============
+| **evse_manager**: :ref:`evse_manager <everest_interfaces_evse_manager>` 1..128
+| **ocpp**: :ref:`ocpp <everest_interfaces_ocpp>` 0..1
+| **session_cost**: :ref:`session_cost <everest_interfaces_session_cost>` 0..1
+
+********
+Metadata
+********
+Authors
+=======
+| Piet Gömpel
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

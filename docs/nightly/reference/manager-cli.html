@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Manager Command Line Options - EVerest Manual main@a76665d</title>
+        <title>Manager Command Line Options - EVerest Manual main@19c39bf</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@a76665d</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@19c39bf</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@a76665d</span>
+  <span class="sidebar-brand-text">EVerest Manual main@19c39bf</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -579,6 +579,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../project/governance/security.html">Security Policy</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../project/governance/tsc/index.html">Technical Steering Committee (TSC)</a><input aria-label="Toggle navigation of Technical Steering Committee (TSC)" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../project/governance/tsc/meetings/index.html">EVerest TSC Meeting notes</a><input aria-label="Toggle navigation of EVerest TSC Meeting notes" class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-09-25.html">EVerest TSC Meeting - 24 September 2026</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-08-27.html">EVerest TSC Meeting - 27 August 2026</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-07-23.html">EVerest TSC Meeting - 23 July 2026</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../project/governance/tsc/meetings/2026-07-02.html">EVerest TSC Meeting - 26 March 2026</a></li>
@@ -753,6 +754,24 @@ valid configuration is now the default. Ignored unless both <code class="docutil
 </dd>
 </dl>
 </section>
+<section id="management-apis">
+<h2>Management APIs<a class="headerlink" href="#management-apis" title="Link to this heading">¶</a></h2>
+<p>Both options start a <a class="reference internal" href="../explanation/adapt-everest/management_apis.html#exp-management-apis"><span class="std std-ref">management API</span></a> inside the
+manager process, so it stays reachable while no modules are running. Each takes
+an optional value: <code class="docutils literal notranslate"><span class="pre">ro</span></code> (the default when the option is given without a
+value) or <code class="docutils literal notranslate"><span class="pre">rw</span></code>, as in <code class="docutils literal notranslate"><span class="pre">--configuration-api=rw</span></code>. Any other value is rejected
+and the manager exits with an error.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--configuration-api[=ro|rw]</span></code></dt><dd><p><strong>Experimental.</strong> Start the configuration_API. In <code class="docutils literal notranslate"><span class="pre">ro</span></code> mode only queries are
+served; <code class="docutils literal notranslate"><span class="pre">rw</span></code> also enables managing configuration slots, loading YAML and
+changing configuration parameters.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--lifecycle-api[=ro|rw]</span></code></dt><dd><p><strong>Experimental.</strong> Start the lifecycle_API. In <code class="docutils literal notranslate"><span class="pre">ro</span></code> mode only the module
+status and version queries are served; <code class="docutils literal notranslate"><span class="pre">rw</span></code> also enables requests to start
+and stop the modules.</p>
+</dd>
+</dl>
+</section>
 <section id="module-lifecycle">
 <h2>Module Lifecycle<a class="headerlink" href="#module-lifecycle" title="Link to this heading">¶</a></h2>
 <dl class="simple">
@@ -866,6 +885,7 @@ parallel.</p>
 <li><a class="reference internal" href="#">Manager Command Line Options</a><ul>
 <li><a class="reference internal" href="#general">General</a></li>
 <li><a class="reference internal" href="#configuration-and-storage">Configuration and Storage</a></li>
+<li><a class="reference internal" href="#management-apis">Management APIs</a></li>
 <li><a class="reference internal" href="#module-lifecycle">Module Lifecycle</a></li>
 <li><a class="reference internal" href="#diagnostics-and-debugging">Diagnostics and Debugging</a></li>
 </ul>
@@ -879,7 +899,7 @@ parallel.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5ca55879"></script>
+</div><script src="../_static/documentation_options.js?v=21c8110e"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

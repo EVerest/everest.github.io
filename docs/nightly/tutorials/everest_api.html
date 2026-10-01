@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Using the EVerestAPI - EVerest Manual main@fe88e44</title>
+        <title>Using the EVerestAPI - EVerest Manual main@9389ccb</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@fe88e44</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@9389ccb</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@fe88e44</span>
+  <span class="sidebar-brand-text">EVerest Manual main@9389ccb</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -739,11 +739,10 @@ if such a value exists (if nothing was published yet, and no value is available,
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">config/bringup/config-bringup-EVerestAPI-entrypoint.yaml</span></code> configuration file demonstrates the API in action.
 It does not implement internal functionality, but provides several API and BringUp modules for manual interaction.</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>It is advisable to set the access specification in the configuration to <code class="docutils literal notranslate"><span class="pre">allow_global_read:</span> <span class="pre">true</span></code> for EVerestAPI modules.
-This allows the modules to determine if multiple EVerestAPI modules are active, preventing the initial <code class="docutils literal notranslate"><span class="pre">ready_beacon</span></code>
-from being sent multiple times.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set the access specification <code class="docutils literal notranslate"><span class="pre">allow_global_read:</span> <span class="pre">true</span></code> for every EVerestAPI module.
+Without it, the <code class="docutils literal notranslate"><span class="pre">ready_beacon</span></code> gives no guarantee, see <a class="reference internal" href="#tutorial-everest-api-ready-beacon"><span class="std std-ref">ready_beacon</span></a>.</p>
 </div>
 </section>
 <section id="example">
@@ -754,7 +753,7 @@ from being sent multiple times.</p>
 </pre></div>
 </div>
 <p>You will see the EVerest log alongside two panes showing power supply control UIs.</p>
-<p>A <code class="docutils literal notranslate"><span class="pre">everest_api/ready_beacon</span></code> with an empty JSON payload indicates that an EVerestAPI is available.
+<p>A <code class="docutils literal notranslate"><span class="pre">everest_api/ready_beacon</span></code> with an empty JSON payload indicates that the entrypoint API can be queried.
 Following this, messages will be periodically published to topics such as:
 <code class="docutils literal notranslate"><span class="pre">everest_api/1/power_supply_DC/ps_dc_1/e2m/heartbeat</span></code>.</p>
 <div class="admonition note">
@@ -848,10 +847,45 @@ To execute a command, the caller writes a message to the topic defined in the AP
 </section>
 <section id="entrypoint-api">
 <h2>entrypoint_API<a class="headerlink" href="#entrypoint-api" title="Link to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The entrypoint_API is currently <strong>experimental</strong>: its channels, operations and message
+payloads may change without further notice. It is exempt from the stability guarantees
+and the deprecation period of the EVerest public API until promoted to stable (see
+<a class="reference internal" href="../project/releases/deprecation-policy.html#project-experimental-components"><span class="std std-ref">Experimental Components</span></a>).</p>
+</div>
 <p>The <strong>entrypoint_API</strong> allows clients to discover available API endpoints dynamically.</p>
 <section id="ready-beacon">
-<h3>ready_beacon<a class="headerlink" href="#ready-beacon" title="Link to this heading">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">everest_api/ready_beacon</span></code> mentioned earlier is part of this discovery system.</p>
+<span id="tutorial-everest-api-ready-beacon"></span><h3>ready_beacon<a class="headerlink" href="#ready-beacon" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">everest_api/ready_beacon</span></code> mentioned earlier is part of this discovery system.
+Its payload is an empty JSON object and it is not retained.</p>
+<p>Each EVerestAPI module (any module whose type ends in <code class="docutils literal notranslate"><span class="pre">_API</span></code>) reads the module configurations it has access to.
+The module with the alphabetically lowest module id among the API modules it can see sends the beacon once,
+at the end of its <code class="docutils literal notranslate"><span class="pre">ready()</span></code>. A module can always read its own configuration, but reading the others requires
+<code class="docutils literal notranslate"><span class="pre">allow_global_read:</span> <span class="pre">true</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dm_1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">display_message_API</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allow_global_read</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">ps_dc_1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">power_supply_DC_API</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allow_global_read</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Without this setting, each API module sees only itself and sends its own beacon.</p>
+<p>Clients must follow these rules:</p>
+<ul class="simple">
+<li><p>Be prepared to receive the beacon more than once.</p></li>
+<li><p>If every API module has <code class="docutils literal notranslate"><span class="pre">allow_global_read:</span> <span class="pre">true</span></code>, the beacon guarantees that the entrypoint_API is ready:
+<code class="docutils literal notranslate"><span class="pre">discover</span></code> and <code class="docutils literal notranslate"><span class="pre">query-modules/{api_type}</span></code> requests are answered. Without that setting it guarantees nothing.</p></li>
+<li><p>The beacon never means that the API modules themselves are ready. Use each API’s own mechanisms, such as
+<code class="docutils literal notranslate"><span class="pre">heartbeat</span></code>, to determine that (see <a class="reference internal" href="#communication-monitoring">Communication Monitoring</a>).</p></li>
+<li><p>The beacon is not retained. A client connecting after it was sent should send a <code class="docutils literal notranslate"><span class="pre">discover</span></code> request on its own.</p></li>
+</ul>
 </section>
 <section id="discovering-the-api">
 <h3>Discovering the API<a class="headerlink" href="#discovering-the-api" title="Link to this heading">¶</a></h3>
@@ -992,7 +1026,7 @@ and version to construct topics as described in the MQTT Topic Structure section
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5b858fd9"></script>
+</div><script src="../_static/documentation_options.js?v=9a32f197"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

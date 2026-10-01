@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseSecurity - EVerest Manual main@565200c</title>
+        <title>EvseSecurity - EVerest Manual main@db1f80d</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@565200c</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@db1f80d</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@565200c</span>
+  <span class="sidebar-brand-text">EVerest Manual main@db1f80d</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -799,6 +799,24 @@ electric vehicle as part of the ISO 15118 Plug &amp; Charge process.</p></li>
 <p>New root certificates can be installed in the specified domain using the
 <code class="docutils literal notranslate"><span class="pre">install_ca_certificate</span></code> command.</p>
 </section>
+<section id="storage-limits-and-garbage-collection">
+<h4>Storage Limits and Garbage Collection<a class="headerlink" href="#storage-limits-and-garbage-collection" title="Link to this heading">¶</a></h4>
+<p>Every <code class="docutils literal notranslate"><span class="pre">garbage_collect_time_s</span></code> seconds, the module checks whether the
+certificates and keys in the configured bundles and directories exceed
+<code class="docutils literal notranslate"><span class="pre">max_fs_certificate_store_entries</span></code> files or <code class="docutils literal notranslate"><span class="pre">max_fs_usage_bytes</span></code> bytes.
+Only if one of the limits is exceeded, it deletes:</p>
+<ul class="simple">
+<li><p>expired leaf certificates and their keys, always keeping the newest ten
+certificate chains per leaf directory,</p></li>
+<li><p>keys without a matching certificate,</p></li>
+<li><p>keys of CSRs that did not receive a signed certificate within
+<code class="docutils literal notranslate"><span class="pre">csr_expiry_s</span></code> seconds.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">max_fs_certificate_store_entries</span></code> also limits the installation of CA
+certificates: <code class="docutils literal notranslate"><span class="pre">install_ca_certificate</span></code> with the V2G or MO domain is rejected
+with <code class="docutils literal notranslate"><span class="pre">CertificateStoreMaxLengthExceeded</span></code> if the V2G and MO bundles together
+already hold more certificates than this value.</p>
+</section>
 </section>
 </section>
 <section id="auto-generated-reference">
@@ -850,6 +868,26 @@ electric vehicle as part of the ISO 15118 Plug &amp; Charge process.</p></li>
 <div class="line"><em>default: “”</em></div>
 <div class="line-block">
 <div class="line">Password for encrypted private keys.</div>
+</div>
+<div class="line"><strong>max_fs_usage_bytes</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 52428800</em></div>
+<div class="line-block">
+<div class="line">Maximum filesystem usage in bytes of all certificates and keys in the configured bundles and directories. While exceeded, the periodic garbage collection deletes expired leaf certificates, keys without a matching certificate and expired CSR keys.</div>
+</div>
+<div class="line"><strong>max_fs_certificate_store_entries</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 2000</em></div>
+<div class="line-block">
+<div class="line">Maximum number of certificate and key files in the configured bundles and directories. While exceeded, the periodic garbage collection deletes expired leaf certificates, keys without a matching certificate and expired CSR keys. Installing a V2G or MO CA certificate is rejected if the V2G and MO CA bundles together already hold more certificates than this value.</div>
+</div>
+<div class="line"><strong>csr_expiry_s</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 3600</em></div>
+<div class="line-block">
+<div class="line">Time in seconds after which the private key of a CSR without a signed certificate counts as expired. Expired CSR keys are deleted by the garbage collection, which only acts while max_fs_usage_bytes or max_fs_certificate_store_entries is exceeded.</div>
+</div>
+<div class="line"><strong>garbage_collect_time_s</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1200</em></div>
+<div class="line-block">
+<div class="line">Interval in seconds in which the garbage collection checks max_fs_usage_bytes and max_fs_certificate_store_entries and cleans up if either is exceeded.</div>
 </div>
 </div>
 </section>
@@ -943,6 +981,7 @@ electric vehicle as part of the ISO 15118 Plug &amp; Charge process.</p></li>
 <li><a class="reference internal" href="#configuration-for-iso-15118">Configuration for ISO 15118</a></li>
 <li><a class="reference internal" href="#private-key-password">Private Key Password</a></li>
 <li><a class="reference internal" href="#more-about-csms-v2g-mo-and-mf-bundles">More about CSMS, V2G, MO and MF Bundles</a></li>
+<li><a class="reference internal" href="#storage-limits-and-garbage-collection">Storage Limits and Garbage Collection</a></li>
 </ul>
 </li>
 </ul>
@@ -968,7 +1007,7 @@ electric vehicle as part of the ISO 15118 Plug &amp; Charge process.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=18c688d0"></script>
+</div><script src="../../../../_static/documentation_options.js?v=fb91b1dd"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

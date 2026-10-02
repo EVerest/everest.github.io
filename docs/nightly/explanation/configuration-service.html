@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EVerest Configuration Service - EVerest Manual main@a7f78c3</title>
+        <title>EVerest Configuration Service - EVerest Manual main@cf1e579</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@a7f78c3</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@cf1e579</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@a7f78c3</span>
+  <span class="sidebar-brand-text">EVerest Manual main@cf1e579</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -792,17 +792,26 @@ carrying the values over; a database upgraded from such a release therefore
 needs <code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside <code class="docutils literal notranslate"><span class="pre">--db</span></code> to keep a non-default broker, prefix or
 user.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">--config</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">--db</span></code></dt><dd><p>The database wins when it holds a valid boot slot, and the YAML is then
-ignored. Otherwise the database is seeded from the YAML config.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">--config</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">--db</span></code></dt><dd><p>The database wins when its boot slot holds at least one module, and the YAML
+is then ignored. Otherwise (no boot slot yet, or a boot slot without modules)
+the boot slot is seeded from the YAML config. If the YAML fails to load or
+validate, the boot slot is still written, as an empty placeholder: its
+<code class="docutils literal notranslate"><span class="pre">config_file_path</span></code> points at the YAML and its <code class="docutils literal notranslate"><span class="pre">description</span></code> records the
+error. The manager then behaves as for a configuration without modules (exit,
+or <code class="docutils literal notranslate"><span class="pre">Idle</span></code> with <code class="docutils literal notranslate"><span class="pre">--into-idle</span></code>/<code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code>), and the next start
+re-seeds the slot once the YAML is fixed.</p>
 </dd>
 </dl>
+<p>In every case the boot slot exists after the bootstrap, so the slot reported as
+active by the Configuration API is always present in the database.</p>
 <p>Related options:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> (experimental) discards the existing database slot and
-re-seeds from the YAML config file. Intended for development use, when you
+<li><p><code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> (experimental) replaces the contents of the boot slot
+from the YAML config file, even if it holds modules; with an invalid YAML it
+aborts without touching the database. Intended for development use, when you
 want to reset to a known YAML state. Requires <code class="docutils literal notranslate"><span class="pre">--config</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--db-init</span></code> is deprecated and has no effect. Seeding the database from YAML
-when it holds no valid configuration is now the default; use
+when its boot slot holds no modules is now the default; use
 <code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> to force re-seeding.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--conf</span></code> is a deprecated alias for <code class="docutils literal notranslate"><span class="pre">--config</span></code>. Passing both at once is
 rejected as ambiguous.</p></li>
@@ -956,7 +965,7 @@ management. Systemd only ensures the manager itself starts on boot.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># YAML is authoritative; in-memory database, re-seeded on every start</span>
 ./manager<span class="w"> </span>--config<span class="w"> </span>my_config.yaml
 
-<span class="c1"># Database-backed: used once it holds a valid configuration,</span>
+<span class="c1"># Database-backed: used once its boot slot holds modules,</span>
 <span class="c1"># seeded from YAML otherwise</span>
 ./manager<span class="w"> </span>--config<span class="w"> </span>my_config.yaml<span class="w"> </span>--db<span class="w"> </span>everest.db
 
@@ -1227,7 +1236,7 @@ example the module’s runtime veto.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=d84ab911"></script>
+</div><script src="../_static/documentation_options.js?v=e66a5e0f"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

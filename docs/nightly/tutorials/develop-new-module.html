@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Develop New Modules - EVerest Manual main@cf1e579</title>
+        <title>Develop New Modules - EVerest Manual main@fcda6b7</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@cf1e579</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@fcda6b7</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@cf1e579</span>
+  <span class="sidebar-brand-text">EVerest Manual main@fcda6b7</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -705,12 +705,13 @@ point for understanding the central concepts of modules.</p>
 <p>In this tutorial, we will keep everything as simple as possible. You will
 learn the following:</p>
 <ol class="arabic simple">
-<li><p>Create an EVerest module that implements an interface.</p></li>
-<li><p>Define an interface containing a simple command with parameter and return
-value.</p></li>
+<li><p>Define an interface containing a simple command with parameter and return value.</p></li>
+<li><p>Create a module that implements the interface.</p></li>
 <li><p>Define a configuration parameter for the new module.</p></li>
 <li><p>Configure required dependencies of the EVerest framework and modules.</p></li>
 <li><p>Build and run.</p></li>
+<li><p>Connect the module to the system by requiring another module.</p></li>
+<li><p>Implement the new requirement in Python.</p></li>
 </ol>
 </section>
 <section id="install-prerequisites">
@@ -719,11 +720,14 @@ value.</p></li>
 all prerequisites into your environment.</p>
 <p>After that, you should in particular have:</p>
 <ul class="simple">
-<li><p><em>optional:</em> The EVerest dependency manager (check via <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>)</p></li>
+<li><p>The EVerest dependency manager (check via <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>)</p></li>
 <li><p>The EVerest cli utility (check via <code class="docutils literal notranslate"><span class="pre">ev-cli</span> <span class="pre">--version</span></code>)</p></li>
 <li><p>A running MQTT broker (e.g. started as container as described in the setup
 guide; per default expected on localhost on port 1883)</p></li>
 </ul>
+<p>It is not necessary to compile and install EVerest. During this tutorial, it
+will be included as a dependency and compiled as part of the build process
+anyway.</p>
 </section>
 <section id="workspace-setup">
 <h2>Workspace Setup<a class="headerlink" href="#workspace-setup" title="Link to this heading">¶</a></h2>
@@ -771,7 +775,7 @@ This includes configuration files and the auto-generation of source files.</p>
 <p>First, create an empty folder that is to contain your module. In the
 following, we assume the environment variable <code class="docutils literal notranslate"><span class="pre">EVEREST_TUTORIAL_DIR</span></code> to hold
 this directory, for example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export EVEREST_TUTORIAL_DIR=~/everest-tutorial-module
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export EVEREST_TUTORIAL_DIR=${EVEREST_WORKSPACE}/everest-tutorial-module
 git clone https://github.com/EVerest/everest-template.git $EVEREST_TUTORIAL_DIR
 </pre></div>
 </div>
@@ -872,12 +876,17 @@ configuration:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli module create --everest-dir . --schemas-dir $EVEREST_WORKSPACE/EVerest/lib/everest/framework/schemas TutorialModule --licenses $EVEREST_WORKSPACE/EVerest/applications/utils/ev-dev-tools/src/ev_cli/licenses
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> prints <code class="docutils literal notranslate"><span class="pre">Could</span> <span class="pre">not</span> <span class="pre">detect</span> <span class="pre">EVerest</span> <span class="pre">path</span> <span class="pre">in</span> <span class="pre">--everest-dir</span></code> at
+this point, because the project has not been configured with CMake yet.
+This message can be ignored, the files are generated nevertheless.</p>
+</div>
 <p>After that, you should have the following file structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
 ├── build
 │        └── generated
 │            (...)
-├── config
 ├── interfaces
 │        └── interface_tutorial_module.yaml
 └── modules
@@ -885,7 +894,6 @@ configuration:</p>
         ├── CMakeLists.txt
         ├── TutorialModule.cpp
         ├── TutorialModule.hpp
-        ├── doc.rst
         ├── docs
         │        └── index.rst
         ├── interface_impl_tutorial_module
@@ -1030,6 +1038,14 @@ make -j &lt;number of parallel jobs&gt;
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span> <span class="o">-</span><span class="n">j</span> <span class="o">&lt;</span><span class="n">number</span> <span class="n">of</span> <span class="n">parallel</span> <span class="n">jobs</span><span class="o">&gt;</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">EVerest</span></code> is included as a dependency, the first build
+compiles all of EVerest and installs all of its modules and run scripts
+alongside your own into <code class="docutils literal notranslate"><span class="pre">dist/</span></code> and <code class="docutils literal notranslate"><span class="pre">build/run-scripts/</span></code>. Expect this
+to take a while (e.g. about 20 minutes with 6 parallel jobs). Subsequent
+builds only recompile what changed.</p>
+</div>
 <p>If everything worked smoothly so far, your modules are installed and ready to
 run.</p>
 </section>
@@ -1097,13 +1113,14 @@ our example it was only used to generate the run script, not to build the
 project!).</p>
 <p>Executing <code class="docutils literal notranslate"><span class="pre">run-modules-tutorial.sh</span></code> then should start EVerest, and provide
 an output similar to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">12.500139</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">manager</span>          <span class="p">::</span> <span class="mi">8</span><span class="o">&lt;</span> <span class="mi">8</span><span class="o">&lt;</span> <span class="mi">8</span><span class="o">&lt;</span> <span class="o">------------------------------------------------------------------------------</span> <span class="mi">8</span><span class="o">&lt;</span> <span class="mi">8</span><span class="o">&lt;</span> <span class="mi">8</span><span class="o">&lt;</span>
-<span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">12.500327</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">manager</span>          <span class="p">::</span> <span class="n">EVerest</span> <span class="n">manager</span> <span class="n">starting</span> <span class="n">using</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">everest</span><span class="o">/</span><span class="n">everest</span><span class="o">-</span><span class="n">module</span><span class="o">-</span><span class="n">tutorial</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">tutorial</span><span class="o">.</span><span class="n">yaml</span>
-<span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">12.500354</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">manager</span>          <span class="p">::</span> <span class="n">EVerest</span> <span class="n">using</span> <span class="n">MQTT</span> <span class="n">broker</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">1883</span>
-<span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">12.799618</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">everest_ctrl</span>     <span class="p">::</span> <span class="n">everest</span> <span class="n">controller</span> <span class="n">process</span> <span class="n">started</span> <span class="o">...</span>
-<span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">12.799822</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">everest_ctrl</span>     <span class="p">::</span> <span class="n">Launching</span> <span class="n">controller</span> <span class="n">service</span> <span class="n">on</span> <span class="n">port</span> <span class="mi">8849</span>
-<span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">13.120267</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">tutorial_module</span>  <span class="p">::</span> <span class="n">Module</span> <span class="n">tutorial_module_instance</span> <span class="n">initialized</span><span class="o">.</span>
-<span class="n">YYYY</span><span class="o">-</span><span class="n">MM</span><span class="o">-</span><span class="n">DD</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">13.149934</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">manager</span>          <span class="p">::</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">All</span> <span class="n">modules</span> <span class="n">are</span> <span class="n">initialized</span><span class="o">.</span> <span class="n">EVerest</span> <span class="n">up</span> <span class="ow">and</span> <span class="n">running</span> <span class="o">&lt;&lt;&lt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YYYY-MM-DD 00:00:12.012386 [INFO] manager          :: Manager state transition: Idle -&gt; Initializing
+(...)
+YYYY-MM-DD 00:00:12.016459 [INFO] manager          :: Using MQTT broker localhost:1883
+(...)
+YYYY-MM-DD 00:00:12.085100 [INFO] manager          :: Starting 1 modules
+YYYY-MM-DD 00:00:12.421989 [INFO] tutorial_module  :: Module tutorial_module_instance initialized [325ms]
+YYYY-MM-DD 00:00:12.422833 [INFO] manager          :: 🚙🚙🚙 All modules are initialized. EVerest up and running [337ms] 🚙🚙🚙
+YYYY-MM-DD 00:00:12.422879 [INFO] manager          :: Manager state transition: StartingModules -&gt; Running
 </pre></div>
 </div>
 <p>If your socket can’t be connected, make sure that your MQTT brocker is running.</p>
@@ -1138,10 +1155,8 @@ notice an <cite>everest</cite> topic popping up.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Our module should return with a “everest” response (you may have to reselect
-the <code class="docutils literal notranslate"><span class="pre">everest/tutorial_module_instance/interface_impl_tutorial_module/cmd</span></code>
-on the left to refresh this view.</p>
-<p>The response should be on topic:</p>
+<p>Our module should return a response including “everest” as <code class="docutils literal notranslate"><span class="pre">retval</span></code> on the
+topic (the last segment is the <code class="docutils literal notranslate"><span class="pre">origin</span></code> from the request):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">everest</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">tutorial_module_instance</span><span class="o">/</span><span class="n">impl</span><span class="o">/</span><span class="n">interface_impl_tutorial_module</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span><span class="n">command_tutorial</span><span class="o">/</span><span class="n">response</span><span class="o">/</span><span class="n">manual_test</span>
 </pre></div>
 </div>
@@ -1159,6 +1174,8 @@ CMAKE_PREFIX_PATH=$EVEREST_WORKSPACE cmake --install-prefix $EVEREST_TUTORIAL_DI
 make -j &lt;number of parallel jobs&gt;
 </pre></div>
 </div>
+<p>Note that changing the build type rebuilds everything, including all of
+<code class="docutils literal notranslate"><span class="pre">EVerest</span></code>, so this takes about as long as the first build.</p>
 <p><em>2) Start EVerest with your module with your module marked as “standalone”</em></p>
 <p>With EVerest built as described before, but with the additonal option
 <code class="docutils literal notranslate"><span class="pre">--standalone</span> <span class="pre">tutorial_module_instance</span></code>:</p>
@@ -1193,30 +1210,223 @@ We then run the program (you might need to adjust the line number):</p>
 modules have now started. You may now again use MQTT Explorer as before and
 send a command call via MQTT, this should hit your set breakpoint with a
 output similar to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Thread</span> <span class="mi">4</span> <span class="s2">&quot;tutorial_module&quot;</span> <span class="n">hit</span> <span class="n">Breakpoint</span> <span class="mi">1</span><span class="p">,</span> <span class="n">module</span><span class="p">::</span><span class="n">interface_impl_tutorial_module</span><span class="p">::</span><span class="n">interface_tutorial_moduleImpl</span><span class="p">::</span><span class="n">handle_command_tutorial</span> <span class="p">(</span><span class="n">this</span><span class="o">=</span><span class="mh">0xaaaaaad24fc0</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="s2">&quot;mock_transaction_id&quot;</span><span class="p">)</span> <span class="n">at</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">everest</span><span class="o">-</span><span class="n">tutorial</span><span class="o">-</span><span class="n">verify</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">TutorialModule</span><span class="o">/</span><span class="n">interface_impl_tutorial_module</span><span class="o">/</span><span class="n">interface_tutorial_moduleImpl</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="mi">17</span>
-<span class="mi">17</span>      <span class="k">return</span> <span class="s2">&quot;everest&quot;</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Thread 4 &quot;tutorial_module&quot; hit Breakpoint 1, module::interface_impl_tutorial_module::interface_tutorial_moduleImpl::handle_command_tutorial (this=0xaaaaaad24fc0, payload=&quot;Hello World!&quot;) at $EVEREST_TUTORIAL_DIR/modules/TutorialModule/interface_impl_tutorial_module/interface_tutorial_moduleImpl.cpp:17
+17      return &quot;everest&quot;;
 </pre></div>
 </div>
 <p>Of course, you might setup your favorite IDE in a similar way for a nicer
 debugging experience.</p>
 </section>
 </section>
-<section id="exemplary-module-customizations">
-<h2>Exemplary Module Customizations<a class="headerlink" href="#exemplary-module-customizations" title="Link to this heading">¶</a></h2>
-<p>Having prepared a buildable and runnable module, we can now extend the logic
-of our implementation:</p>
-<ul class="simple">
-<li><p>Add a variable to your interface, and publish it;</p></li>
-<li><p>Add a second module which requires the <code class="docutils literal notranslate"><span class="pre">interface_tutorial_module</span></code> interface and sends commands or subscribes to variables.</p></li>
-<li><p>…</p></li>
-</ul>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>This section is yet to come. Want to help us with that? Feel free and create
-a suggestion for this.</p>
+<section id="extending-the-module">
+<h2>Extending the Module<a class="headerlink" href="#extending-the-module" title="Link to this heading">¶</a></h2>
+<p>Having prepared a buildable and runnable module, we can now extend our implementation
+to interact with the rest of the system.</p>
+<p>One way to connect a module to other modules is by requiring interfaces. First, create
+a new interface in <code class="docutils literal notranslate"><span class="pre">interfaces/countdown_interface.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Countdown interface</span>
+<span class="nt">cmds</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">start</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Start the countdown</span>
+<span class="w">    </span><span class="nt">arguments</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">start_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Start value of the countdown</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">result</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Whether the countdown has started</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">value</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current countdown value</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+</pre></div>
 </div>
+<p>Next, require that interface in the tutorial module by adding a requirements block
+to <code class="docutils literal notranslate"><span class="pre">modules/TutorialModule/manifest.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="nt">requires</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">countdown</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">countdown_interface</span>
+</pre></div>
+</div>
+<p>Adding a new requirement necessitates regenerating some of our source code. The <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> tool
+can help with that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; ev-cli module update --force --everest-dir . --schemas-dir $EVEREST_WORKSPACE/EVerest/lib/everest/framework/schemas TutorialModule --licenses $EVEREST_WORKSPACE/EVerest/applications/utils/ev-dev-tools/src/ev_cli/licenses
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--force</span></code> flag makes sure that the tool doesn’t skip existing files, but still overwrites what’s
+necessary to reflect changes in the manifest.</p>
+<p>Now we can implement our interaction with the timer in <code class="docutils literal notranslate"><span class="pre">interface_tutorial_moduleImpl.cpp</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;interface_tutorial_moduleImpl.hpp&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;everest/logging.hpp&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">module</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">interface_impl_tutorial_module</span><span class="w"> </span><span class="p">{</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">interface_tutorial_moduleImpl::init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">mod</span><span class="o">-&gt;</span><span class="n">r_countdown</span><span class="o">-&gt;</span><span class="n">subscribe_value</span><span class="p">([](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">EVLOG_info</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Countdown: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">EVLOG_info</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Countdown complete&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="n">EVLOG_info</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Tutorial module implementation initialized&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">interface_tutorial_moduleImpl::ready</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">EVLOG_info</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Tutorial module implementation ready&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">interface_tutorial_moduleImpl::handle_command_tutorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">payload</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mod</span><span class="o">-&gt;</span><span class="n">r_countdown</span><span class="o">-&gt;</span><span class="n">call_start</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">EVLOG_info</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Started countdown&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">EVLOG_warning</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Countdown failed&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;everest&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace interface_impl_tutorial_module</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace module</span>
+</pre></div>
+</div>
+<p>Note that the framework has used the countdown interface definition and the module requirements to
+define <code class="docutils literal notranslate"><span class="pre">r_countdown</span></code> and its methods, <code class="docutils literal notranslate"><span class="pre">call_start</span></code> and <code class="docutils literal notranslate"><span class="pre">subscribe_value</span></code>.</p>
+<section id="implementing-a-module-in-python">
+<h3>Implementing a Module in Python<a class="headerlink" href="#implementing-a-module-in-python" title="Link to this heading">¶</a></h3>
+<p>Now let’s define an implementation of the countdown interface in Python. EVerest doesn’t
+provide the same code-generation for Python as it does for C++, so module authors have to
+write the module implementation themselves.</p>
+<p>First, create a folder for our module called <code class="docutils literal notranslate"><span class="pre">PyCountdown</span></code> and create the necessary files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $EVEREST_TUTORIAL_DIR &amp;&amp; mkdir modules/PyCountdown &amp;&amp; touch modules/PyCountdown/{CMakeLists.txt,manifest.yaml,module.py}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Modules implemented in Python must have their names prefixed with “Py” so the EVerest build
+system knows how to handle them.</p>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">modules/PyCountdown/manifest.yaml</span></code>, add the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A countdown module</span>
+<span class="nt">provides</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">countdown</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">countdown_interface</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Countdown implementation</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://opensource.org/licenses/Apache-2.0</span>
+<span class="w">  </span><span class="nt">authors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Your Name&gt;, &lt;Your Organization&gt;</span>
+</pre></div>
+</div>
+<p>Finally, implement the module in <code class="docutils literal notranslate"><span class="pre">modules/PyCountdown/module.py</span></code>:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
+
+<span class="kn">from</span> <span class="nn">everest.framework</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">RuntimeSession</span><span class="p">,</span> <span class="n">log</span>
+
+
+<span class="k">class</span> <span class="nc">PyCountdown</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Set up the module.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">Module</span><span class="p">(</span><span class="n">RuntimeSession</span><span class="p">())</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">update_process_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">say_hello</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Map interface commands to handler functions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_command_handlers</span><span class="p">()</span>
+
+        <span class="c1"># Let EVerest know that initialization is complete.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">init_done</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">publish_variable</span><span class="p">(</span><span class="s2">&quot;countdown&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">handle_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;start_value&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">setup_command_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">implementations</span><span class="p">[</span><span class="s2">&quot;countdown&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">commands</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">implement_command</span><span class="p">(</span><span class="s2">&quot;countdown&quot;</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;handle_</span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+
+
+<span class="n">module</span> <span class="o">=</span> <span class="n">PyCountdown</span><span class="p">()</span>
+<span class="n">module</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that along with the boilerplate, module authors must also implement
+some kind of run loop so that the process won’t exit immediately. The
+<code class="docutils literal notranslate"><span class="pre">ready</span></code> event is cleared after waking up, so that the loop blocks again
+once a countdown has finished instead of spinning.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file for the PyCountdown module remains empty, but is still
+required to let the <code class="docutils literal notranslate"><span class="pre">ev_add_module(PyCountdown)</span></code> call in the higher-level
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> succeed.</p>
+</div>
+<p>Don’t forget to add the new module to the build system in <code class="docutils literal notranslate"><span class="pre">modules/CMakeLists.txt</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ev_add_module</span><span class="p">(</span><span class="n">TutorialModule</span><span class="p">)</span>
+<span class="n">ev_add_module</span><span class="p">(</span><span class="n">PyCountdown</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="connecting-the-modules-at-runtime">
+<h3>Connecting the Modules At Runtime<a class="headerlink" href="#connecting-the-modules-at-runtime" title="Link to this heading">¶</a></h3>
+<p>Our tutorial module requires an implementation of the countdown interface, so let’s add
+the new module to the config in <code class="docutils literal notranslate"><span class="pre">$EVEREST_TUTORIAL_DIR/config/config-modules-tutorial.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tutorial_module_instance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TutorialModule</span>
+<span class="w">    </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">countdown</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">countdown</span>
+<span class="w">          </span><span class="nt">implementation_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">countdown</span>
+<span class="w">  </span><span class="nt">countdown</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PyCountdown</span>
+</pre></div>
+</div>
+<p>After building the project and running the script, try sending the <code class="docutils literal notranslate"><span class="pre">command_tutorial</span></code> command
+as before. If the payload is a number string, PyCountdown will count down from that number until
+it reaches zero. If the payload is not a valid number, the tutorial module will log that the
+countdown was unsuccessful.</p>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
+<p>With the basics covered, you’re ready to start exploring more advanced usages of EVerest, like:</p>
+<ul class="simple">
+<li><p>Requiring more than one implementation of an interface</p></li>
+<li><p>Writing modules in Rust</p></li>
+<li><p>Implementing board support interfaces</p></li>
+<li><p>EVerest APIs</p></li>
+<li><p>Much more!</p></li>
+</ul>
+<p>Please reach out on the mailing list or Zulip if you have questions, and happy charging!</p>
 <hr class="docutils" />
-<p><strong>Authors</strong>: Valentin Dimov, Manuel Ziegler, Andreas Heinrich, Lukas Mertens, Martin Litre, Piet Gömpel, Christoph Burandt</p>
+<p><strong>Authors</strong>: Valentin Dimov, Manuel Ziegler, Andreas Heinrich, Lukas Mertens, Martin Litre, Piet Gömpel, Christoph Burandt, Andy Bond</p>
 </section>
 </section>
 
@@ -1306,7 +1516,12 @@ a suggestion for this.</p>
 <li><a class="reference internal" href="#debugging">Debugging</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#exemplary-module-customizations">Exemplary Module Customizations</a></li>
+<li><a class="reference internal" href="#extending-the-module">Extending the Module</a><ul>
+<li><a class="reference internal" href="#implementing-a-module-in-python">Implementing a Module in Python</a></li>
+<li><a class="reference internal" href="#connecting-the-modules-at-runtime">Connecting the Modules At Runtime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
@@ -1318,7 +1533,7 @@ a suggestion for this.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=e66a5e0f"></script>
+</div><script src="../_static/documentation_options.js?v=a44faec5"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

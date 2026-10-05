@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@d2b710f</title>
+        <title>OCPPmulti - EVerest Manual main@07c7803</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@d2b710f</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@07c7803</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@d2b710f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@07c7803</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1483,10 +1483,16 @@ above prepares a spare slot first:</p>
 <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code>, are rejected with <code class="docutils literal notranslate"><span class="pre">PriorityNetworkConf</span></code>.
 Keep at least one slot out of the priority list so there is always a slot you
 can rewrite.</p></li>
-<li><p>A <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> write naming a slot without a complete
-profile is rejected with <code class="docutils literal notranslate"><span class="pre">InvalidNetworkConf</span></code>, as is a change that would
-make a slot’s URL scheme inconsistent with its security profile (<code class="docutils literal notranslate"><span class="pre">ws://</span></code>
-needs profile &lt; 2, <code class="docutils literal notranslate"><span class="pre">wss://</span></code> needs &gt;= 2).</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> write that adds a slot without a complete
+profile, or whose URL scheme does not match its security profile (<code class="docutils literal notranslate"><span class="pre">ws://</span></code>
+needs profile &lt; 2, <code class="docutils literal notranslate"><span class="pre">wss://</span></code> needs &gt;= 2), is rejected with
+<code class="docutils literal notranslate"><span class="pre">InvalidNetworkConf</span></code>. OCPP 1.6 also rejects a single-variable write that
+would make a complete slot inconsistent, see below.</p></li>
+<li><p>In OCPP 2.x, a <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code> write is also rejected with
+<code class="docutils literal notranslate"><span class="pre">InvalidNetworkConf</span></code> if a listed slot has a security profile above the
+confirmed one and the certificates it needs are missing: a CSMS root
+certificate for profile 2 or 3, a ChargingStationCertificate for profile 3.
+In OCPP 2.1, a write that only removes slots is always accepted (B09.FR.20).</p></li>
 <li><p>Lowering a slot’s <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> below the confirmed one is rejected
 with <code class="docutils literal notranslate"><span class="pre">NoSecurityDowngrade</span></code>.</p></li>
 </ul>
@@ -1530,6 +1536,11 @@ when the <em>active</em> slot is filtered out or incomplete; OCPP 2.x uses every
 listed slot and simply skips incomplete ones. See
 <a class="reference internal" href="#handwritten-ocppmulti-network-profiles-ocpp16"><span class="std std-ref">Network connection profiles (OCPP 1.6)</span></a>
 for the details.</p></li>
+<li><p><strong>Slot consistency.</strong> OCPP 1.6 checks URL scheme against security profile on
+every single-variable write to a complete slot, so the variables must be
+written in an order that keeps the slot consistent. OCPP 2.x stores writes
+to a slot outside the priority list as they are (B09.FR.23) and checks the
+slot when it is added to <code class="docutils literal notranslate"><span class="pre">NetworkConfigurationPriority</span></code>.</p></li>
 <li><p><strong>Deprecated key-only writes.</strong> Only in OCPP 1.6 mode, the legacy
 <code class="docutils literal notranslate"><span class="pre">SecurityProfile</span></code> and <code class="docutils literal notranslate"><span class="pre">AuthorizationKey</span></code> keys can still be written
 (empty component name); they act on the active slot and bypass the validation
@@ -1931,7 +1942,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=dc622699"></script>
+</div><script src="../../../../_static/documentation_options.js?v=6bcde8fb"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

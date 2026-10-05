@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>ISO15118_charger - EVerest Manual main@97ed328</title>
+        <title>ISO15118_charger - EVerest Manual main@53c0215</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@97ed328</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@53c0215</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@97ed328</span>
+  <span class="sidebar-brand-text">EVerest Manual main@53c0215</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -832,6 +832,10 @@
 <div class="line-block">
 <div class="line">Published by the HLC module whenever an HLC session failure is detected, immediately when it occurs. Provides a protocol-agnostic reason for the failure independently of the EvseManager state machine transitions.</div>
 </div>
+<div class="line"><strong>session_stop_res_sent</strong>: <em>string</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-sessionstopaction"><span class="std std-ref">iso15118-SessionStopAction</span></a>)</div>
+<div class="line-block">
+<div class="line">Published immediately after a session-ending response has been written to the wire. For a positive SessionStopRes it carries the stop action requested by the EVCC (Terminate/Pause): per DIN 70121 [V2G-DC-968] the SECC keeps the CP oscillator (5% PWM) on for V2G_SECC_CPOscillator_Retain_Time (1.5s) after this event and then switches to X1. For a session-ending FAILED_* response it carries FailedTermination: per [V2G-DC-942] the oscillator is switched off without delay. This event does NOT imply data link teardown: dlink_terminate/dlink_pause still follow after the TCP connection is closed.</div>
+</div>
 <div class="line"><strong>dlink_terminate</strong>: <em>null</em></div>
 <div class="line-block">
 <div class="line">Terminate the data link and become UNMATCHED.</div>
@@ -967,6 +971,14 @@
 <div class="line"><strong>status</strong>: <em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Set to true when contactor is closed, false when contactor is open</div>
+</div>
+</div>
+<div class="line"><strong>cp_state_changed</strong>: <em>void</em></div>
+<div class="line-block">
+<div class="line">Informs the HLC stack about the currently measured IEC 61851-1 CP state. Needed for SECC-side CP checks tied to the message sequence, e.g. DIN 70121 [V2G-DC-988]/[V2G-DC-556]: CP State B must be detected within V2G_SECC_CPState_Detection_Timeout (1.5s) after the request following PowerDelivery(off), otherwise the SECC responds FAILED, switches the CP oscillator off and closes the TCP connection.</div>
+<div class="line"><strong>cp_state</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-cpstate"><span class="std std-ref">iso15118-CpState</span></a>)</div>
+<div class="line-block">
+<div class="line">The newly measured CP state</div>
 </div>
 </div>
 <div class="line"><strong>dlink_ready</strong>: <em>void</em></div>
@@ -1226,7 +1238,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=46209697"></script>
+</div><script src="../../_static/documentation_options.js?v=868bd188"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

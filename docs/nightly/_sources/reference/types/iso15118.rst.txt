@@ -87,6 +87,27 @@ ISO15118 charger types
 |    - Error_Malfunction
 |    - Error_EmergencyShutdown
 
+.. _iso15118-SessionStopAction:
+
+| **SessionStopAction**: *string* 
+|  How the V2G session ended on the wire. Terminate/Pause map to the ChargingSession requested by the EVCC in SessionStopReq (DIN 70121 has no ChargingSession parameter; DIN sessions always map to Terminate). FailedTermination means the SECC ended the session with a FAILED_* response (sequence error, unknown session): per DIN 70121 [V2G-DC-942] the CP oscillator must then be switched off without delay.
+|  enum:
+|    - Terminate
+|    - Pause
+|    - FailedTermination
+
+.. _iso15118-CpState:
+
+| **CpState**: *string* 
+|  IEC 61851-1 control pilot state as measured by the EVSE. Forwarded to the HLC stack for the SECC-side CP checks tied to the message sequence, e.g. DIN 70121 [V2G-DC-988]/[V2G-DC-556] (CP State B required within V2G_SECC_CPState_Detection_Timeout after the request following PowerDelivery(off)).
+|  enum:
+|    - A
+|    - B
+|    - C
+|    - D
+|    - E
+|    - F
+
 .. _iso15118-V2gMessageId:
 
 | **V2gMessageId**: *string* 

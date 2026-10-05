@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Evse15118D20 - EVerest Manual main@97ed328</title>
+        <title>Evse15118D20 - EVerest Manual main@53c0215</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@97ed328</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@53c0215</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@97ed328</span>
+  <span class="sidebar-brand-text">EVerest Manual main@53c0215</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -739,7 +739,7 @@ power so the advertised pair never violates V2G20-3229.</p>
 <div class="line"><strong>tls_negotiation_strategy</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “ACCEPT_CLIENT_OFFER”</em></div>
 <div class="line-block">
-<div class="line">Select strategy on how to negotiate connection encryption</div>
+<div class="line">Select strategy on how to negotiate connection encryption. TLS needs a V2G leaf certificate from the security module; when none is installed the SECC still starts and offers unsecured sessions only (ISO 15118-2 with EIM, DIN SPEC 70121), except with ENFORCE_TLS, which then refuses to start.</div>
 <div class="line">enum:</div>
 <div class="line-block">
 <div class="line">- ACCEPT_CLIENT_OFFER</div>
@@ -750,7 +750,32 @@ power so the advertised pair never violates V2G20-3229.</p>
 <div class="line"><strong>enforce_tls_1_3</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Enforcing tls version 1.3. Only applies if tls_negotiation_strategy is ENFORCE_TLS. Multi-chain selection works on both TLS 1.2 (driven by the trusted_ca_keys extension) and TLS 1.3 (driven by the native certificate_authorities extension), so multiple V2G leaf chains can be installed concurrently regardless of this flag.</div>
+<div class="line">Enforcing tls version 1.3. Applies whenever a TLS connection is established, independently of tls_negotiation_strategy: it pins the min/max protocol version, the cipher list and the client_hello certificate-verify elevation. Set to true for ISO 15118-20 (mandates TLS 1.3 mTLS). Set to false to offer TLS 1.2 (cipher ECDHE-ECDSA-AES128-SHA256, no client-certificate request), which is required for ISO 15118-2 / DIN SPEC 70121. Multi-chain selection works on both TLS 1.2 (driven by the trusted_ca_keys extension) and TLS 1.3 (driven by the native certificate_authorities extension), so multiple V2G leaf chains can be installed concurrently regardless of this flag.</div>
+</div>
+<div class="line"><strong>supported_DIN70121</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Offer DIN SPEC 70121 (DC only) in the SupportedAppProtocol handshake. Negotiated with the lowest priority (after ISO 15118-20 and ISO 15118-2).</div>
+</div>
+<div class="line"><strong>supported_ISO15118_2</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Offer ISO 15118-2 (AC and DC) in the SupportedAppProtocol handshake. Negotiated with a lower priority than ISO 15118-20 but higher than DIN SPEC 70121.</div>
+</div>
+<div class="line"><strong>supported_ISO15118_20</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Offer ISO 15118-20 (AC and DC) in the SupportedAppProtocol handshake. Negotiated with the highest priority. At least one of supported_ISO15118_20, supported_ISO15118_2 and supported_DIN70121 must be enabled. ISO 15118-20 is TLS-only ([V2G20-2677]), so it is silently dropped from the offer when no V2G leaf certificate is available; ISO 15118-2 and DIN SPEC 70121 keep running unsecured in that case. When a certificate IS available, -20 stays in the offer even on unsecured connections (ENFORCE_NO_TLS, or an EV requesting no transport security): such a session works but is not standard-conformant, and is logged as a warning. Set this to false to offer only ISO 15118-2 / DIN SPEC 70121 on unsecured deployments.</div>
+</div>
+<div class="line"><strong>auth_timeout_eim</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 300</em></div>
+<div class="line-block">
+<div class="line">Defines how many seconds the EVSE should wait for authorization in EIM (External Payment) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for EIM authorization. Applies to ISO 15118-2 and DIN SPEC 70121; ISO 15118-20 uses a fixed 3 min window.</div>
+</div>
+<div class="line"><strong>auth_timeout_pnc</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 55</em></div>
+<div class="line-block">
+<div class="line">Defines how many seconds the EVSE should wait for authorization in PnC (Contract) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for PnC authorization. Applies to ISO 15118-2 only: DIN SPEC 70121 has no Plug-and-Charge and ISO 15118-20 uses a fixed 3 min window. The default is the 55 s V2G_SECC_Ongoing_Performance_Time of [V2G2-712/713].</div>
 </div>
 <div class="line"><strong>enable_ssl_logging</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
@@ -929,7 +954,7 @@ power so the advertised pair never violates V2G20-3229.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=46209697"></script>
+</div><script src="../../../../_static/documentation_options.js?v=868bd188"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>edm - EVerest Manual main@48f495c</title>
+        <title>edm - EVerest Manual main@97ed328</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@48f495c</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@97ed328</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@48f495c</span>
+  <span class="sidebar-brand-text">EVerest Manual main@97ed328</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -967,9 +967,23 @@ time.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">latency</span></code></p></td>
-<td><p>Selects the policy. Supported values are <code class="docutils literal notranslate"><span class="pre">latency</span></code>, <code class="docutils literal notranslate"><span class="pre">greedy</span></code>,
+<td><p><code class="docutils literal notranslate"><span class="pre">greedy</span></code></p></td>
+<td><p>Selects the policy. Supported values are <code class="docutils literal notranslate"><span class="pre">greedy</span></code>, <code class="docutils literal notranslate"><span class="pre">latency</span></code>,
 <code class="docutils literal notranslate"><span class="pre">conservative</span></code>, <code class="docutils literal notranslate"><span class="pre">fixed_size</span></code> and <code class="docutils literal notranslate"><span class="pre">custom</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_MIN_THREAD_COUNT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Minimum worker count of the pool. These workers are always running.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_MAX_THREAD_COUNT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<td><p>Maximum worker count of the pool, independent of the CPU core count.
+The pool grows so that a handler blocked waiting for another message
+still lets that message be handled; such threads do not run in
+parallel, so the core count is not the right bound. Must not be below
+the minimum. It must exceed the number of handlers that may block on
+each other at the same time; a maximum equal to the minimum disables
+growth, so any such handler waits forever.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_THRESHOLD_MS</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">50</span></code></p></td>
@@ -978,7 +992,10 @@ policy adds another worker.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_TICK_MS</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
-<td><p>Supervisor tick, in milliseconds, for the <code class="docutils literal notranslate"><span class="pre">latency</span></code> policy.</p></td>
+<td><p>Back-off, in milliseconds, before the <code class="docutils literal notranslate"><span class="pre">latency</span></code> policy’s supervisor
+re-evaluates a queued task it just added a worker for or decided not to
+add one for. It is not a periodic tick: an idle pool causes no
+supervisor wakeups.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_FRAMEWORK_THREAD_POOL_SCALING_FIXED_SIZE_THRESHOLD</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
@@ -1000,6 +1017,11 @@ worker.</p></td>
 </tbody>
 </table>
 </div>
+<p>Two conditions the pool cannot resolve itself are logged by the module as
+warnings: a handler thread that cannot be started (the pool keeps retrying;
+after five seconds of failures the module exits like a crash), and a message
+that has waited more than a second with every handler thread busy, which means
+the maximum is too low for the handlers that wait for each other.</p>
 <p>The built-in policies are:</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
@@ -1009,12 +1031,17 @@ worker.</p></td>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">latency</span></code></p></td>
-<td><p>Default. Adds workers when queued work has waited longer than the
-framework latency threshold.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">greedy</span></code></p></td>
+<td><p>Default. Adds a worker whenever a submitted task would otherwise wait
+for a busy worker, so below the maximum no task is ever left queued
+behind blocked workers. No supervisor thread; the pool size follows the
+number of outstanding handlers and surplus workers retire after the
+idle timeout.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">greedy</span></code></p></td>
-<td><p>Adds workers as soon as backlog is detected.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">latency</span></code></p></td>
+<td><p>Adds workers when queued work has waited longer than the framework
+latency threshold, checked by a supervisor thread that sleeps while the
+pool is idle.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conservative</span></code></p></td>
 <td><p>Adds workers only when the queue depth significantly exceeds the current
@@ -1027,7 +1054,7 @@ worker count.</p></td>
 </tbody>
 </table>
 </div>
-<p><strong>Example: selecting a built-in policy for a full EVerest build</strong></p>
+<p><strong>Example: selecting the latency policy for a full EVerest build</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY<span class="o">=</span>latency<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-DEVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_THRESHOLD_MS<span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
@@ -1063,6 +1090,23 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build
 <span class="p">};</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">should_grow</span></code> is evaluated on a submission below the thread limit only if the
+submitted task may wait, that is, if the queue is now longer than the number of
+workers waiting at it or about to; a task that an idle worker takes at once
+never grows the pool, so <code class="docutils literal notranslate"><span class="pre">queue_size</span></code> is at least 1 whenever the policy is
+asked. A policy with a <code class="docutils literal notranslate"><span class="pre">supervisor_tick</span></code> additionally gets a supervisor thread
+that re-evaluates <code class="docutils literal notranslate"><span class="pre">should_grow</span></code> for tasks that queue behind busy workers,
+backing off one tick after each evaluation. It sleeps while the queue is empty
+and, at the thread limit, until a worker retires. If the policy also provides</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="o">::</span><span class="n">time_point</span><span class="w"> </span><span class="nf">next_check</span><span class="p">(</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="o">::</span><span class="n">time_point</span><span class="w"> </span><span class="n">oldest_arrival</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>the supervisor sleeps until that time instead of waking every tick.
+<code class="docutils literal notranslate"><span class="pre">next_check</span></code> must return a time no later than the first time <code class="docutils literal notranslate"><span class="pre">should_grow</span></code>
+can become true for a queue whose oldest task arrived at <code class="docutils literal notranslate"><span class="pre">oldest_arrival</span></code>
+(an earlier time is harmless: the supervisor then retries every tick), and it
+must be non-decreasing in <code class="docutils literal notranslate"><span class="pre">oldest_arrival</span></code>. <code class="docutils literal notranslate"><span class="pre">LatencyScaling</span></code> provides it.</p>
 </section>
 <section id="create-a-workspace-config-from-an-existing-directory-tree">
 <h2>Create a workspace config from an existing directory tree<a class="headerlink" href="#create-a-workspace-config-from-an-existing-directory-tree" title="Link to this heading">¶</a></h2>
@@ -1198,7 +1242,7 @@ the following command:</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=3546f648"></script>
+</div><script src="../../_static/documentation_options.js?v=46209697"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

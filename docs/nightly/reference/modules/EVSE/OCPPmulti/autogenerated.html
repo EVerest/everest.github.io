@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@07c7803</title>
+        <title>OCPPmulti - EVerest Manual main@f6ee5b7</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@07c7803</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@f6ee5b7</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@07c7803</span>
+  <span class="sidebar-brand-text">EVerest Manual main@f6ee5b7</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1088,14 +1088,20 @@ current active directives filtered to the declared control types. If the device 
 module rolls back to the last accepted capability; an EVSE whose very first capability is rejected is unregistered.</p>
 <p>The CSMS may write the <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> variable (<code class="docutils literal notranslate"><span class="pre">ReadWrite</span></code>). Writing <code class="docutils literal notranslate"><span class="pre">Enabled=&quot;false&quot;</span></code> makes the module push an empty
 directive replacement set to that EVSE, so the device clears the EV’s curves; writing <code class="docutils literal notranslate"><span class="pre">Enabled=&quot;true&quot;</span></code> republishes the
-filtered active set for that EVSE. A CSMS-written <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> persists across reboots and is restored at boot.</p>
+filtered active set for that EVSE. A CSMS-written <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> persists across reboots and is restored at boot. The
+curve-clearing effect applies to an EVSE configured for the ISO 15118-20 <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> annex: the push itself always
+happens, but the device’s directive relay maps IEC control functions only, so nothing reaches a session running the
+<code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code> annex.</p>
 <p>The device reports grid event faults through the <code class="docutils literal notranslate"><span class="pre">alarm</span></code> variable, forwarded to the CSMS as a <strong>NotifyDERAlarm.req</strong>.
 Alarms raised before the backend has accepted a capability for any EVSE are buffered and delivered once the first
 capability is accepted; if no capability is ever accepted, the buffered alarms are dropped. Capability and alarm updates
 received before the charge point is initialized are queued and replayed once the charge point is ready.</p>
 <p>In addition to enabling the DER device-model component, the module asserts DER availability to the matching EvseManager
-via its <strong>set_der_available</strong> command, so that EvseManager can advertise the corresponding ISO 15118-20 DER energy
-transfer modes. If the device model rejects the capability, DER availability is withdrawn instead.</p>
+via its <strong>set_der_available</strong> command, so that EvseManager can advertise an ISO 15118-20 AC DER energy transfer mode.
+Which annex is advertised (<code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> or <code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code>, or neither) is EvseManager’s own
+<code class="docutils literal notranslate"><span class="pre">iso15118_der_flavor</span></code> config choice, not something OCPP selects; it defaults to <code class="docutils literal notranslate"><span class="pre">NONE</span></code>, so asserting
+availability alone does not advertise a DER service. If the device model rejects the capability, DER availability is
+withdrawn instead.</p>
 <p>The configuration parameter <strong>GridSupportHeartbeatS</strong> sets the interval (in seconds) at which the current active
 directive set is re-sent for every registered EVSE. A value of <code class="docutils literal notranslate"><span class="pre">0</span></code> disables the heartbeat; the set is then sent only
 when it changes.</p>
@@ -1942,7 +1948,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=6bcde8fb"></script>
+</div><script src="../../../../_static/documentation_options.js?v=9f029d6c"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

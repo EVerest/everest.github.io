@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@07c7803</title>
+        <title>EvseManager - EVerest Manual main@f6ee5b7</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@07c7803</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@f6ee5b7</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@07c7803</span>
+  <span class="sidebar-brand-text">EVerest Manual main@f6ee5b7</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1037,13 +1037,38 @@ number of switching cycles per charging session.</p>
 (a <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> provider) is wired for that EVSE. This is a boot-time fact asserted by whichever module
 provides the <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> connection (the OCPP module is one such provider, asserting it from the presence
 of a <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> connection); the EV’s runtime DER capability is never sent here.</p>
-<p>When DER is available and the EVSE is export-capable (its hardware capabilities report a non-zero export
-current and at least one export phase), EvseManager folds the ISO 15118-20 <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> energy transfer mode
-into the set it advertises, alongside <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code> (advertised whenever <code class="docutils literal notranslate"><span class="pre">supported_iso_ac_bpt</span></code> is set and the
-EVSE is export-capable). ISO 15118-20 has no combined <code class="docutils literal notranslate"><span class="pre">AC_BPT_DER</span></code> service category, so “AC_BPT_DER supported”
-is conveyed by advertising both <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code> and <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> as separate energy transfer modes; the EV selects
-one per session.</p>
+<p>Whether DER is available and which ISO 15118-20 AC DER annex the EVSE speaks are separate axes. The annex is a
+static per-EVSE choice made with the <code class="docutils literal notranslate"><span class="pre">iso15118_der_flavor</span></code> config option: <code class="docutils literal notranslate"><span class="pre">NONE</span></code> (the default, no AC DER
+advertised), <code class="docutils literal notranslate"><span class="pre">IEC</span></code> (Annex L, <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code>) or <code class="docutils literal notranslate"><span class="pre">SAE</span></code> (Annex M, <code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code>). The two annexes are
+mutually exclusive per EVSE, so AC DER is opt-in even where DER availability is asserted.</p>
+<p>When DER is available, the EVSE is export-capable (its hardware capabilities report a non-zero export current
+and at least one export phase) and a flavor is configured, EvseManager folds that one AC DER energy transfer
+mode into the set it advertises, never both. This is in addition to <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code> (advertised whenever
+<code class="docutils literal notranslate"><span class="pre">supported_iso_ac_bpt</span></code> is set and the EVSE is export-capable). ISO 15118-20 has no combined <code class="docutils literal notranslate"><span class="pre">AC_BPT_DER</span></code>
+service category, so “AC_BPT_DER supported” is conveyed by advertising both <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code> and the configured AC
+DER mode as separate energy transfer modes; the EV selects one per session.</p>
+<p>The flavor is matched exactly. An unrecognized value advertises no AC DER and logs a warning naming it, a
+branch normally unreachable because the manifest enum is validated at config load.</p>
+<p>Configuring <code class="docutils literal notranslate"><span class="pre">SAE</span></code> is necessary but not sufficient. The <a class="reference internal" href="../Evse15118D20/autogenerated.html#everest-modules-evse15118d20"><span class="std std-ref">Evse15118D20</span></a>
+module withholds the SAE DER limits until AC parameters carrying a positive nominal frequency and a positive
+nominal voltage arrive, and the library then strips <code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code> from the advertised services. Neither value
+has a fallback. It is self-correcting, since the limits are derived again on every change to the energy
+services, the AC limits or the AC parameters, so an operator configuring <code class="docutils literal notranslate"><span class="pre">SAE</span></code> may briefly see no DER
+service advertised.</p>
 <p>The command returns <code class="docutils literal notranslate"><span class="pre">NoHlc</span></code> when no HLC is enabled for the EVSE (and does nothing), and <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> otherwise.</p>
+<section id="nominal-grid-frequency">
+<h4>Nominal grid frequency<a class="headerlink" href="#nominal-grid-frequency" title="Link to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">ac_nominal_frequency</span></code> (default <code class="docutils literal notranslate"><span class="pre">50</span></code>) is passed to the HLC stack on every AC parameters update.
+Informational for plain AC and <code class="docutils literal notranslate"><span class="pre">AC_BPT</span></code>. For AC DER it is advertised at ChargeParameterDiscovery as the
+mandatory <code class="docutils literal notranslate"><span class="pre">GridNominalFrequency</span></code> the EV adopts as the frequency of the grid it is connecting to, so it must
+match the installation.</p>
+<p>It is not a denormalization base. The frequency-trip curves and the enter-service band are in absolute Hz and
+are not scaled by it, unlike the voltage curves, which are a percentage of the nominal voltage. Changing it
+from <code class="docutils literal notranslate"><span class="pre">50</span></code> to <code class="docutils literal notranslate"><span class="pre">60</span></code> moves no frequency threshold; the default grid code carries 50 Hz-family constants, so a
+60 Hz operator supplying a real setup config must supply 60 Hz curve values with it.</p>
+<p>It is also load-bearing: the SAE DER limits are only derived once a positive nominal frequency and a positive
+nominal voltage have arrived, as described above.</p>
+</section>
 </section>
 <section id="error-handling">
 <h3>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">¶</a></h3>
@@ -1172,6 +1197,11 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line-block">
 <div class="line">Nominal AC voltage between phase and neutral in Volt</div>
 </div>
+<div class="line"><strong>ac_nominal_frequency</strong>: <em>number</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 50</em></div>
+<div class="line-block">
+<div class="line">Nominal AC grid frequency in Hz, normally 50 or 60. Advertised for ISO 15118-20 AC DER as the GridNominalFrequency the EV adopts, so it must match the installation. It does not scale the grid code frequency-trip curves, which are in absolute Hz.</div>
+</div>
 <div class="line"><strong>ac_max_reactive_power</strong>: <em>number</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 0</em></div>
 <div class="line-block">
@@ -1216,6 +1246,17 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
 <div class="line">Set to true if ISO15118-20 AC BPT is supported and should be offered to the EV</div>
+</div>
+<div class="line"><strong>iso15118_der_flavor</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “NONE”</em></div>
+<div class="line-block">
+<div class="line">Which ISO 15118-20 Amendment 1 AC DER annex to advertise: IEC is Annex L, SAE is Annex M, NONE advertises neither. The two annexes are mutually exclusive per EVSE, so at most one AC DER energy transfer mode is ever advertised. Takes effect only when DER availability has been asserted for this EVSE and the EVSE is export-capable; SAE additionally needs the AC parameters. grid_support DER directives reach the IEC control functions only, so a SAE EVSE runs the inert default grid code.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- NONE</div>
+<div class="line">- IEC</div>
+<div class="line">- SAE</div>
+</div>
 </div>
 <div class="line"><strong>ac_hlc_enabled</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
@@ -1720,7 +1761,10 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 </li>
 <li><a class="reference internal" href="#energy-management">Energy Management</a></li>
 <li><a class="reference internal" href="#energy-management-1ph-3ph-switching">Energy Management: 1ph/3ph switching</a></li>
-<li><a class="reference internal" href="#der-grid-support-advertising">DER (grid support) advertising</a></li>
+<li><a class="reference internal" href="#der-grid-support-advertising">DER (grid support) advertising</a><ul>
+<li><a class="reference internal" href="#nominal-grid-frequency">Nominal grid frequency</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#error-handling">Error Handling</a><ul>
 <li><a class="reference internal" href="#evse-manager">evse_manager</a></li>
 <li><a class="reference internal" href="#evse-board-support">evse_board_support</a></li>
@@ -1755,7 +1799,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=6bcde8fb"></script>
+</div><script src="../../../../_static/documentation_options.js?v=9f029d6c"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

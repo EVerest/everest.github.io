@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Building Yocto for your custom hardware - EVerest Manual main@de977af</title>
+        <title>Building Yocto for your custom hardware - EVerest Manual main@83b6da2</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@de977af</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@83b6da2</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -175,7 +175,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@de977af</span>
+  <span class="sidebar-brand-text">EVerest Manual main@83b6da2</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -681,7 +681,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
@@ -757,8 +757,32 @@ ethtool
 <p>The locale should be set to UTF-8 (otherwise BringUp &amp; Qualification tools
 will look weird).</p>
 </div>
+<section id="rust-modules">
+<h2>Rust modules<a class="headerlink" href="#rust-modules" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">everest-core</span></code> builds its Rust modules (<code class="docutils literal notranslate"><span class="pre">RsPaymentTerminal</span></code>, <code class="docutils literal notranslate"><span class="pre">RsIskraMeter</span></code>
+and the Rust examples) when its <code class="docutils literal notranslate"><span class="pre">PACKAGECONFIG</span></code> contains <code class="docutils literal notranslate"><span class="pre">rust</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PACKAGECONFIG:append:pn-everest-core<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot; rust&quot;</span>
+</pre></div>
+</div>
+<p>The crates need Rust 1.82 or newer, while scarthgap ships 1.75. The Yocto
+Project’s <a class="reference external" href="https://git.yoctoproject.org/meta-lts-mixins/">meta-lts-mixins</a>
+repository has a <code class="docutils literal notranslate"><span class="pre">scarthgap/rust</span></code> branch that backports a current toolchain
+under the standard recipe names, so it replaces poky’s Rust for the whole
+build. Clone that branch and add the layer to your <code class="docutils literal notranslate"><span class="pre">bblayers.conf</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>scarthgap/rust<span class="w"> </span>https://git.yoctoproject.org/meta-lts-mixins
+</pre></div>
+</div>
+<p>If the Rust in the build is too old, <code class="docutils literal notranslate"><span class="pre">everest-core</span></code> and <code class="docutils literal notranslate"><span class="pre">cxxbridge-cmd-native</span></code>
+skip themselves with a message saying so.</p>
+<p>The build runs without network access. The recipe fetches every crate of
+<code class="docutils literal notranslate"><span class="pre">modules/Cargo.lock</span></code> up front (listed in <code class="docutils literal notranslate"><span class="pre">everest-core-crates.inc</span></code>) and the
+git dependency of <code class="docutils literal notranslate"><span class="pre">RsPaymentTerminal</span></code> at the revision its <code class="docutils literal notranslate"><span class="pre">Cargo.toml</span></code>
+names. After changing a Rust module’s dependencies, update <code class="docutils literal notranslate"><span class="pre">modules/Cargo.lock</span></code>,
+regenerate the crate list with <code class="docutils literal notranslate"><span class="pre">bitbake</span> <span class="pre">-c</span> <span class="pre">update_crates</span> <span class="pre">everest-core</span></code> and,
+for a new zvt revision, <code class="docutils literal notranslate"><span class="pre">SRCREV</span></code> in <code class="docutils literal notranslate"><span class="pre">everest-core-rust.inc</span></code>.</p>
 <hr class="docutils" />
 <p><strong>Authors</strong>: Cornelius Claussen, Manuel Ziegler</p>
+</section>
 </section>
 
         </article>
@@ -804,13 +828,32 @@ will look weird).</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Building Yocto for your custom hardware</a><ul>
+<li><a class="reference internal" href="#rust-modules">Rust modules</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=7c505370"></script>
+</div><script src="../../_static/documentation_options.js?v=3e396358"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

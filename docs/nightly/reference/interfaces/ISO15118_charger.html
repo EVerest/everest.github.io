@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>ISO15118_charger - EVerest Manual main@3bc48cd</title>
+        <title>ISO15118_charger - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -726,6 +726,10 @@
 <div class="line-block">
 <div class="line">The contactor should be opened</div>
 </div>
+<div class="line"><strong>dc_renegotiation_started</strong>: <em>null</em></div>
+<div class="line-block">
+<div class="line">The EV sent PowerDeliveryReq with ChargeProgress Renegotiate in DC. The charger disables the DC output and keeps the session: the EV opens its contactor and changes to CP state B, then the session continues with ChargeParameterDiscovery and a new cable check (IEC 61851-23:2023 CC.3.6).</div>
+</div>
 <div class="line"><strong>v2g_setup_finished</strong>: <em>null</em></div>
 <div class="line-block">
 <div class="line">v2g_setup_finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop</div>
@@ -847,6 +851,10 @@
 <div class="line"><strong>dlink_pause</strong>: <em>null</em></div>
 <div class="line-block">
 <div class="line">Request power saving mode, while staying MATCHED.</div>
+</div>
+<div class="line"><strong>pause_notified</strong>: <em>null</em></div>
+<div class="line-block">
+<div class="line">ISO 15118-20 only: the pause requested with pause_charging has been notified to the EV (EVSENotification set to Pause). In scheduled control mode the notification is held back until the applied EVPowerProfileEntry is 0 kW, so this may follow the request much later, or not at all.</div>
 </div>
 <div class="line"><strong>ev_app_protocol</strong>: <em>object</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-appprotocols"><span class="std std-ref">iso15118-AppProtocols</span></a>)</div>
 <div class="line-block">
@@ -1238,7 +1246,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

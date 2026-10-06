@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>evse_security - EVerest Manual main@3bc48cd</title>
+        <title>evse_security - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -716,13 +716,14 @@
 <div class="line-block" id="evse-security-leafcertificatetype">
 <div class="line"><strong>LeafCertificateType</strong>: <em>string</em></div>
 <div class="line-block">
-<div class="line">Enum specifies the type of a leaf certificate</div>
+<div class="line">Enum specifies the type of a leaf certificate. V2G is the ISO 15118-2 SECC leaf (TLS 1.2, prime256v1), V2G20 the ISO 15118-20 SECC leaf (TLS 1.3, secp521r1 / Ed448); both live in the SECC leaf store and are told apart by key algorithm.</div>
 <div class="line">enum:</div>
 <div class="line-block">
 <div class="line">- CSMS</div>
 <div class="line">- V2G</div>
 <div class="line">- MF</div>
 <div class="line">- MO</div>
+<div class="line">- V2G20</div>
 </div>
 </div>
 </div>
@@ -880,6 +881,10 @@
 <div class="line">Contains the hash data of the child’s certificates</div>
 <div class="line"><strong>array_item</strong>: <em>object</em>  (<a class="reference internal" href="#evse-security-certificatehashdata"><span class="std std-ref">evse_security-CertificateHashData</span></a>)</div>
 </div>
+<div class="line"><strong>public_key_algorithm</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Key algorithm of the certificate described by certificate_hash_data, as an OpenSSL group or key type name (e.g. prime256v1, secp521r1, ED448)</div>
+</div>
 </div>
 </div>
 </div>
@@ -1000,6 +1005,10 @@
 <div class="line-block">
 <div class="line">Certificate related OCSP data, if requested</div>
 <div class="line"><strong>array_item</strong>: <em>object</em>  (<a class="reference internal" href="#evse-security-certificateocsp"><span class="std std-ref">evse_security-CertificateOCSP</span></a>)</div>
+</div>
+<div class="line"><strong>public_key_algorithm</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Public key algorithm of the leaf: the named EC curve for EC keys (prime256v1, secp384r1, secp521r1, …), otherwise the key type (ED448, RSA, …). ISO 15118-2 mandates prime256v1 for the SECC leaf and ISO 15118-20 mandates secp521r1 or ED448, so this tells the two apart when both are installed.</div>
 </div>
 </div>
 </div>
@@ -1122,7 +1131,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

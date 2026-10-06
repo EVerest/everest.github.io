@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>grid_support - EVerest Manual main@3bc48cd</title>
+        <title>grid_support - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -791,11 +791,11 @@
 <div class="line-block">
 <div class="line"><strong>x</strong>: <em>number</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">X-axis value; unit follows the curve’s independent variable (e.g. volts, hertz, or percent) per directive_type.</div>
+<div class="line">X-axis value, the curve’s independent variable per directive_type: for HVMustTrip, HVMayTrip, HVMomCess, LVMustTrip, LVMayTrip, LVMomCess the voltage as percent of nominal; for HFMustTrip, HFMayTrip, LFMustTrip the frequency in Hz; for VoltVar and VoltWatt the voltage as percent of nominal; for WattVar the active power as percent of maximum. Curve types not listed here (FreqWatt, WattPF, PowerMonitoringMustTrip, OvervoltageFaultRideThrough, UndervoltageFaultRideThrough) are not currently relayed to Annex M. Same orientation as OCPP 2.1 DERCurvePoints.x; the Annex M relay transposes trip curves to duration-first.</div>
 </div>
 <div class="line"><strong>y</strong>: <em>number</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Y-axis value, in the unit given by the curve’s y_unit.</div>
+<div class="line">Y-axis value in y_unit. For the trip directive types (HV*/LV*/HF*/LF*) y is the duration in seconds; the relay does not read y_unit there and sets the Annex M units from directive_type, so producers send Not_Applicable.</div>
 </div>
 </div>
 </div>
@@ -963,7 +963,7 @@
 <div class="line-block">
 <div class="line"><strong>setpoint</strong>: <em>number</em> &lt;required&gt;</div>
 <div class="line-block">
-<div class="line">Reactive power setpoint, expressed in the unit given by the unit field.</div>
+<div class="line">Reactive power setpoint, expressed in the unit given by the unit field. Negative = charging (absorbing reactive power), positive = discharging (injecting), per OCPP 2.1 FixedVarType.setpoint; the Annex M relay inverts the sign for ConstantVar.VarSetpoint (Table M.25).</div>
 </div>
 <div class="line"><strong>unit</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="#grid-support-derunit"><span class="std std-ref">grid_support-DERUnit</span></a>)</div>
 <div class="line-block">
@@ -1466,7 +1466,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

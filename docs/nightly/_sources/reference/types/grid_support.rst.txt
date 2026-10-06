@@ -101,9 +101,9 @@ Grid support / DER control types
 |  A single point on a DER curve.
 |  properties:
 |   **x**: *number* <required>
-|    X-axis value; unit follows the curve's independent variable (e.g. volts, hertz, or percent) per directive_type.
+|    X-axis value, the curve's independent variable per directive_type: for HVMustTrip, HVMayTrip, HVMomCess, LVMustTrip, LVMayTrip, LVMomCess the voltage as percent of nominal; for HFMustTrip, HFMayTrip, LFMustTrip the frequency in Hz; for VoltVar and VoltWatt the voltage as percent of nominal; for WattVar the active power as percent of maximum. Curve types not listed here (FreqWatt, WattPF, PowerMonitoringMustTrip, OvervoltageFaultRideThrough, UndervoltageFaultRideThrough) are not currently relayed to Annex M. Same orientation as OCPP 2.1 DERCurvePoints.x; the Annex M relay transposes trip curves to duration-first.
 |   **y**: *number* <required>
-|    Y-axis value, in the unit given by the curve's y_unit.
+|    Y-axis value in y_unit. For the trip directive types (HV*/LV*/HF*/LF*) y is the duration in seconds; the relay does not read y_unit there and sets the Annex M units from directive_type, so producers send Not_Applicable.
 
 .. _grid_support-Hysteresis:
 
@@ -198,7 +198,7 @@ Grid support / DER control types
 |  Fixed reactive-power (var) parameters. Scheduling and priority are carried by the enclosing Directive.
 |  properties:
 |   **setpoint**: *number* <required>
-|    Reactive power setpoint, expressed in the unit given by the unit field.
+|    Reactive power setpoint, expressed in the unit given by the unit field. Negative = charging (absorbing reactive power), positive = discharging (injecting), per OCPP 2.1 FixedVarType.setpoint; the Annex M relay inverts the sign for ConstantVar.VarSetpoint (Table M.25).
 |   **unit**: *string* <required> (:ref:`grid_support-DERUnit <grid_support-DERUnit>`)
 |    Unit of the setpoint value.
 

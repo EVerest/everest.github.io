@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Evse15118D20 - EVerest Manual main@3bc48cd</title>
+        <title>Evse15118D20 - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -696,26 +696,163 @@
 <span class="target" id="everest-modules-handwritten-evse15118d20"></span><p>This module implements the SECC side of ISO 15118-20 charging, including both AC
 DER services of ISO 15118-20 Amendment 1, <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> (Annex L) and
 <code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code> (Annex M), and a <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> provider that accepts active DER
-directives and raises grid alarms from EV-reported grid-event conditions.</p>
+directives and raises grid alarms from EV-reported grid-event conditions.
+It also offers ISO 15118-2 and DIN SPEC 70121 (see <code class="docutils literal notranslate"><span class="pre">supported_ISO15118_2</span></code>
+and <code class="docutils literal notranslate"><span class="pre">supported_DIN70121</span></code>). DIN SPEC 70121 sends the EVSEID from EvseManager’s
+<code class="docutils literal notranslate"><span class="pre">evse_id_din</span></code> (DIN SPEC 91286 as hexBinary, e.g. <code class="docutils literal notranslate"><span class="pre">49A80737A45678</span></code>); when that
+is empty the eMI3 <code class="docutils literal notranslate"><span class="pre">evse_id</span></code> is packed instead, which only works for ids made of
+digits and <code class="docutils literal notranslate"><span class="pre">*</span></code>, so an eMI3 id like <code class="docutils literal notranslate"><span class="pre">DE*PNX*E12345*1</span></code> is sent as <code class="docutils literal notranslate"><span class="pre">0x00</span></code>.</p>
+<section id="tls-and-secc-leaf-certificates">
+<h3>TLS and SECC leaf certificates<a class="headerlink" href="#tls-and-secc-leaf-certificates" title="Link to this heading">¶</a></h3>
+<p>ISO 15118-2 and ISO 15118-20 prescribe different TLS profiles that cannot be
+served by one certificate:</p>
+<ul class="simple">
+<li><p>ISO 15118-2: TLS 1.2, <code class="docutils literal notranslate"><span class="pre">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</span></code>, SECC leaf
+on <code class="docutils literal notranslate"><span class="pre">secp256r1</span></code> (<code class="docutils literal notranslate"><span class="pre">prime256v1</span></code>), no client certificate.</p></li>
+<li><p>ISO 15118-20: TLS 1.3, <code class="docutils literal notranslate"><span class="pre">TLS_AES_256_GCM_SHA384</span></code> /
+<code class="docutils literal notranslate"><span class="pre">TLS_CHACHA20_POLY1305_SHA256</span></code>, SECC leaf on <code class="docutils literal notranslate"><span class="pre">secp521r1</span></code> or <code class="docutils literal notranslate"><span class="pre">Ed448</span></code>,
+mutual TLS with the vehicle certificate.</p></li>
+</ul>
+<p>The TLS version and cipher follow whatever the EV offers in its ClientHello
+(unless <code class="docutils literal notranslate"><span class="pre">enforce_tls_1_3</span></code> pins TLS 1.3). To also present the right leaf,
+install both SECC leaf certificates (with their keys) in the <code class="docutils literal notranslate"><span class="pre">EvseSecurity</span></code>
+SECC leaf directory – or let OCPP provision them (<code class="docutils literal notranslate"><span class="pre">V2GCertificate</span></code> and, on
+OCPP 2.1, <code class="docutils literal notranslate"><span class="pre">V2G20Certificate</span></code>; see the OCPP module documentation). The two
+are the <code class="docutils literal notranslate"><span class="pre">EvseSecurity</span></code> leaf types <code class="docutils literal notranslate"><span class="pre">V2G</span></code> (ISO 15118-2 profile) and <code class="docutils literal notranslate"><span class="pre">V2G20</span></code>
+(ISO 15118-20 profile, <code class="docutils literal notranslate"><span class="pre">secp521r1</span></code> / <code class="docutils literal notranslate"><span class="pre">Ed448</span></code> key). The module fetches every
+valid leaf of both types – newest per issuing root – and tags each chain by
+its key: <code class="docutils literal notranslate"><span class="pre">prime256v1</span></code> leaves are presented on TLS 1.2 connections,
+<code class="docutils literal notranslate"><span class="pre">secp521r1</span></code> / <code class="docutils literal notranslate"><span class="pre">Ed448</span></code> leaves on TLS 1.3 connections, anything else on both.
+Within a version the EV’s advertised CA list (<code class="docutils literal notranslate"><span class="pre">certificate_authorities</span></code> on
+TLS 1.3, <code class="docutils literal notranslate"><span class="pre">trusted_ca_keys</span></code> on TLS 1.2) picks among the chains, so the two
+leaves may chain to different sub-CAs or roots. When only one leaf is installed
+it is presented on every connection as before; a warning is logged at startup
+if a protocol is offered without a leaf on its mandated curve. The chain list
+is rebuilt on every <code class="docutils literal notranslate"><span class="pre">certificate_store_update</span></code> event, so a renewed leaf of
+either type is served from the next connection on without a restart.</p>
 <p>The two DER flavors are mutually exclusive per EVSE, so at most one is ever
 advertised. EvseManager enforces that when it builds the energy transfer mode
 set; see “DER flavor selection” below.</p>
+</section>
+<section id="plug-and-charge">
+<h3>Plug and Charge<a class="headerlink" href="#plug-and-charge" title="Link to this heading">¶</a></h3>
+<p>Contract-certificate authorization is offered whenever EvseManager passes
+<code class="docutils literal notranslate"><span class="pre">Contract</span></code> in <code class="docutils literal notranslate"><span class="pre">session_setup</span></code> (<code class="docutils literal notranslate"><span class="pre">payment_enable_contract</span></code>). For ISO
+15118-2 this is the <code class="docutils literal notranslate"><span class="pre">Contract</span></code> payment option; for ISO 15118-20 the SECC lists
+<code class="docutils literal notranslate"><span class="pre">PnC</span></code> next to <code class="docutils literal notranslate"><span class="pre">EIM</span></code> in <code class="docutils literal notranslate"><span class="pre">AuthorizationSetupRes</span></code> and issues the 128 bit
+<code class="docutils literal notranslate"><span class="pre">GenChallenge</span></code> ([V2G20-697]). The <code class="docutils literal notranslate"><span class="pre">CertificateInstallationService</span></code> flag
+follows <code class="docutils literal notranslate"><span class="pre">supported_certificate_service</span></code>.</p>
+<p>An ISO 15118-20 <code class="docutils literal notranslate"><span class="pre">AuthorizationReq</span></code> with <code class="docutils literal notranslate"><span class="pre">PnC</span></code> is checked in this order:
+session id, offered service ([V2G20-2209]), <code class="docutils literal notranslate"><span class="pre">GenChallenge</span></code> match
+([V2G20-2565], <code class="docutils literal notranslate"><span class="pre">WARNING_ChallengeInvalid</span></code>), header signature over
+<code class="docutils literal notranslate"><span class="pre">PnC_AReqAuthorizationMode</span></code> with the contract leaf key ([V2G20-1063];
+<code class="docutils literal notranslate"><span class="pre">ecdsa-sha512</span></code> with SHA-512 digests or Ed448 with SHAKE256 digests, r||s per
+[V2G20-1000]; a failure is <code class="docutils literal notranslate"><span class="pre">FAILED_SignatureError</span></code> and ends the session), then
+the contract chain. The chain is validated locally against the MO and V2G root
+bundles of <code class="docutils literal notranslate"><span class="pre">EvseSecurity</span></code> (<code class="docutils literal notranslate"><span class="pre">get_verify_file</span></code>): validity window of every
+element (<code class="docutils literal notranslate"><span class="pre">WARNING_CertificateExpired</span></code> / <code class="docutils literal notranslate"><span class="pre">WARNING_CertificateNotYetValid</span></code>),
+the Annex B profile (secp521r1 or Ed448 keys, <code class="docutils literal notranslate"><span class="pre">ecdsa-with-SHA512</span></code> or Ed448
+signatures, critical <code class="docutils literal notranslate"><span class="pre">KeyUsage</span></code> and <code class="docutils literal notranslate"><span class="pre">BasicConstraints</span></code>, no
+<code class="docutils literal notranslate"><span class="pre">ExtendedKeyUsage</span></code>, no extension outside Table B.9/B.10, <code class="docutils literal notranslate"><span class="pre">CN</span></code> = EMAID and
+<code class="docutils literal notranslate"><span class="pre">O</span></code> in the subject, CRL or OCSP pointer; <code class="docutils literal notranslate"><span class="pre">WARNING_CertificateValidationError</span></code>)
+and the trust chain. Annex B marks the key identifiers and the revocation
+pointers critical where IETF RFC 5280 does not, so those extensions are decoded
+and accepted; any other unknown critical extension still fails the chain. A
+chain whose eMSP root is not installed is <code class="docutils literal notranslate"><span class="pre">WARNING_eMSPUnknown</span></code> unless
+<code class="docutils literal notranslate"><span class="pre">central_contract_validation_allowed</span></code> is set, in which case it is still handed
+to the backend.</p>
+<p>An accepted chain is published as <code class="docutils literal notranslate"><span class="pre">require_auth_pnc</span></code> (eMAID plus the PEM
+chain) and answered <code class="docutils literal notranslate"><span class="pre">OK</span></code> / <code class="docutils literal notranslate"><span class="pre">Ongoing</span></code> until <code class="docutils literal notranslate"><span class="pre">authorization_response</span></code>
+arrives. While that poll is open the EV repeats the request unaltered apart from
+the header timestamp ([V2G20-1582]) and a freshly computed header signature,
+which is verified on every repetition; a changed request is a sequence error,
+so a pending result can never be consumed by a different contract. The wait is
+bounded by <code class="docutils literal notranslate"><span class="pre">auth_timeout_pnc</span></code> ([V2G20-2102]); an <code class="docutils literal notranslate"><span class="pre">EIM</span></code> authorization left
+<code class="docutils literal notranslate"><span class="pre">Ongoing</span></code> stops the session after the 55 s <code class="docutils literal notranslate"><span class="pre">V2G_SECC_Ongoing_Performance_Time</span></code>
+(the next repetition is answered <code class="docutils literal notranslate"><span class="pre">FAILED</span></code>, [V2G20-2102]). <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> gives
+<code class="docutils literal notranslate"><span class="pre">OK</span></code>, or <code class="docutils literal notranslate"><span class="pre">OK_CertificateExpiresSoon</span></code> when the leaf expires within 14 days
+([V2G20-2218]), which keeps <code class="docutils literal notranslate"><span class="pre">CertificateInstallationReq</span></code> available so the EV
+can install a fresh contract ([V2G20-2232]); a rejection maps the <code class="docutils literal notranslate"><span class="pre">CertificateStatus</span></code> onto
+<code class="docutils literal notranslate"><span class="pre">WARNING_CertificateExpired</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING_CertificateRevoked</span></code>,
+<code class="docutils literal notranslate"><span class="pre">WARNING_CertificateValidationError</span></code> (chain, signature, no certificate) or
+<code class="docutils literal notranslate"><span class="pre">WARNING_GeneralPnCAuthorizationError</span></code> (everything else, including
+<code class="docutils literal notranslate"><span class="pre">ContractCancelled</span></code>, which has no code of its own in the -20 schema), and an
+<code class="docutils literal notranslate"><span class="pre">AuthorizationStatus</span></code> of <code class="docutils literal notranslate"><span class="pre">Unknown</span></code> onto <code class="docutils literal notranslate"><span class="pre">WARNING_eMSPUnknown</span></code>. After a
+<code class="docutils literal notranslate"><span class="pre">WARNING</span></code> the EV may retry with another chain, switch to <code class="docutils literal notranslate"><span class="pre">EIM</span></code> or send a
+<code class="docutils literal notranslate"><span class="pre">CertificateInstallationReq</span></code> ([V2G20-1583]). Once authorized the eMAID and
+contract certificate are fixed for the session ([V2G20-2702]) and survive a
+pause ([V2G20-1844]).</p>
+<p><code class="docutils literal notranslate"><span class="pre">CertificateInstallationReq</span></code> is accepted when the service was offered. The
+SECC checks the validity period of every OEM provisioning chain element
+(<code class="docutils literal notranslate"><span class="pre">WARNING_CertificateExpired</span></code> / <code class="docutils literal notranslate"><span class="pre">WARNING_CertificateNotYetValid</span></code>,
+[V2G20-2203], [V2G20-2204]), verifies the header signature over
+<code class="docutils literal notranslate"><span class="pre">OEMProvisioningCertificateChain</span></code> against the OEM provisioning leaf
+([V2G20-1548], <code class="docutils literal notranslate"><span class="pre">FAILED_SignatureError</span></code>) and relays the raw request over
+<code class="docutils literal notranslate"><span class="pre">iso15118_extensions</span></code> with
+<code class="docutils literal notranslate"><span class="pre">iso15118_schema_version</span></code> <code class="docutils literal notranslate"><span class="pre">urn:iso:std:iso:15118:-20:CommonMessages</span></code>. Until
+<code class="docutils literal notranslate"><span class="pre">set_get_certificate_response</span></code> arrives every repetition is answered <code class="docutils literal notranslate"><span class="pre">OK</span></code> /
+<code class="docutils literal notranslate"><span class="pre">Ongoing</span></code> ([V2G20-1972]); the backend’s complete, CPS-signed
+<code class="docutils literal notranslate"><span class="pre">CertificateInstallationRes</span></code> then goes out verbatim, and its
+<code class="docutils literal notranslate"><span class="pre">RemainingContractCertificateChains</span></code> decides whether another
+<code class="docutils literal notranslate"><span class="pre">CertificateInstallationReq</span></code> is allowed ([V2G20-1973], [V2G20-1975]), while a
+relayed <code class="docutils literal notranslate"><span class="pre">WARNING_eMSPUnknown</span></code> allows a further attempt ([V2G20-2224]). A
+backend failure, timeout, or a response that is not a <code class="docutils literal notranslate"><span class="pre">CertificateInstallationRes</span></code>
+for this session is <code class="docutils literal notranslate"><span class="pre">WARNING_NoCertificateAvailable</span></code> ([V2G20-2207],
+[V2G20-2225]). Algorithm profile and trust of the OEM provisioning chain are
+the certificate provisioning service’s job ([V2G20-1548] NOTE 2).</p>
+<p>Not implemented: <code class="docutils literal notranslate"><span class="pre">SupportedProviders</span></code> in <code class="docutils literal notranslate"><span class="pre">AuthorizationSetupRes</span></code> (optional,
+omitted), <code class="docutils literal notranslate"><span class="pre">MeteringConfirmationReq</span></code> on the multiplexed side stream, and the
+OCPP 2.1 <code class="docutils literal notranslate"><span class="pre">maximumContractCertificateChains</span></code> / <code class="docutils literal notranslate"><span class="pre">prioritizedEMAIDs</span></code> /
+<code class="docutils literal notranslate"><span class="pre">remainingContracts</span></code> pass-through (the <code class="docutils literal notranslate"><span class="pre">RemainingContractCertificateChains</span></code>
+the EV sees is whatever the backend encoded).</p>
+</section>
 <section id="der-grid-support">
 <h3>DER grid support<a class="headerlink" href="#der-grid-support" title="Link to this heading">¶</a></h3>
-<p>This section describes the <code class="docutils literal notranslate"><span class="pre">AC_DER_IEC</span></code> path. <code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code> is covered in
-“AC_DER_SAE grid code” below.</p>
+<p>This section describes both directive relays. The SAE negotiation, the default
+grid code and the mid-session path are covered in “AC_DER_SAE grid code” below.</p>
 <p>Active DER directives received via <code class="docutils literal notranslate"><span class="pre">grid_support::set_active_directives</span></code> are
-stored and relayed to the EV as AC_DER_IEC control functions. Only the curve
-family is mapped: <code class="docutils literal notranslate"><span class="pre">VoltVar</span></code> to <code class="docutils literal notranslate"><span class="pre">VoltVarMode</span></code>, <code class="docutils literal notranslate"><span class="pre">WattVar</span></code> to <code class="docutils literal notranslate"><span class="pre">WattVarMode</span></code>,
-<code class="docutils literal notranslate"><span class="pre">WattPF</span></code> to <code class="docutils literal notranslate"><span class="pre">WattCosPhiMode</span></code>, each as an absolute-unit control curve. Non-curve
-directives (frequency, volt-watt, setpoint, ride-through) have no counterpart
-here and are logged and skipped.</p>
-<p>The relay is IEC-only. On a SAE station the stored directives reach nothing:
-<code class="docutils literal notranslate"><span class="pre">apply_active_der_directives</span></code> logs a warning and leaves the SAE grid code
-unchanged, so the station runs the inert default until a SAE relay lands.</p>
-<p>Application is next-session-dynamic: a directive arriving mid-session takes
-effect at the next V2G session. The DER transfer limits advertised at each
-session’s charge parameter discovery derive from <code class="docutils literal notranslate"><span class="pre">ac_limits</span></code>.</p>
+stored and relayed to the EV per annex.</p>
+<p>The IEC relay maps three curve families, <code class="docutils literal notranslate"><span class="pre">VoltVar</span></code> to <code class="docutils literal notranslate"><span class="pre">VoltVarMode</span></code>,
+<code class="docutils literal notranslate"><span class="pre">WattVar</span></code> to <code class="docutils literal notranslate"><span class="pre">WattVarMode</span></code> and <code class="docutils literal notranslate"><span class="pre">WattPF</span></code> to <code class="docutils literal notranslate"><span class="pre">WattCosPhiMode</span></code>, each as an
+absolute-unit control curve; a type that appears twice is last-wins. Non-curve
+directives (frequency, volt-watt, setpoint, ride-through) have no counterpart here
+and are logged and skipped. Application is next-session-dynamic: a directive
+arriving mid-session takes effect at the next V2G session. The DER transfer limits
+advertised at each session’s charge parameter discovery derive from <code class="docutils literal notranslate"><span class="pre">ac_limits</span></code>.</p>
+<p>The SAE relay maps the directive table onto the inert default grid code, so a
+directive that leaves the set falls back to the shipped default rather than
+lingering: <code class="docutils literal notranslate"><span class="pre">HVMustTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">HVMayTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">HVMomCess</span></code>, <code class="docutils literal notranslate"><span class="pre">LVMustTrip</span></code>,
+<code class="docutils literal notranslate"><span class="pre">LVMayTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">LVMomCess</span></code>, <code class="docutils literal notranslate"><span class="pre">HFMustTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">HFMayTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">LFMustTrip</span></code>,
+<code class="docutils literal notranslate"><span class="pre">VoltVar</span></code>, <code class="docutils literal notranslate"><span class="pre">WattVar</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedVar</span></code>, <code class="docutils literal notranslate"><span class="pre">VoltWatt</span></code>, <code class="docutils literal notranslate"><span class="pre">FreqDroop</span></code>,
+<code class="docutils literal notranslate"><span class="pre">LimitMaxDischarge</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedPFAbsorb</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedPFInject</span></code> and <code class="docutils literal notranslate"><span class="pre">EnterService</span></code>.
+<code class="docutils literal notranslate"><span class="pre">FixedPFAbsorb</span></code> and <code class="docutils literal notranslate"><span class="pre">FixedPFInject</span></code> share the single <code class="docutils literal notranslate"><span class="pre">ConstantPowerFactor</span></code>
+element, so one wins and the other is shadowed. Each Annex M element takes one
+writer: the lowest priority wins, array order breaks ties, and shadowed
+directives are logged by id (unlike the IEC relay, which ignores priority). A
+winner that fails validation frees its element for the next candidate. Only the
+single-phase fields are written. <code class="docutils literal notranslate"><span class="pre">LimitMaxDischarge</span></code> is an approximation: the
+percentage is clamped to 0..100 and rounded, not rescaled against the EV’s
+maximum discharge power. The mapped grid code reaches the next session and, after
+validation, the running one; see “Mid-session updates” below.</p>
+<p>The relay owns every unit and orientation conversion, so the library below it
+knows nothing about OCPP:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_support</span></code> trip curves arrive in OCPP orientation, threshold on <code class="docutils literal notranslate"><span class="pre">x</span></code> and
+seconds on <code class="docutils literal notranslate"><span class="pre">y</span></code>. The relay swaps them into the Annex M duration-first form
+(<code class="docutils literal notranslate"><span class="pre">x</span></code> the duration in seconds, <code class="docutils literal notranslate"><span class="pre">y</span></code> the threshold) and sorts by duration per
+M.2.2.1.10 and M.2.2.1.11; two points sharing a duration reject the directive.
+HV/LV thresholds stay percentages of nominal (<code class="docutils literal notranslate"><span class="pre">PercentageV</span></code>) and HF/LF stay
+Hz, so no volt conversion happens.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EnterService</span></code> voltage bands and the VoltVar <code class="docutils literal notranslate"><span class="pre">ReferenceVoltage</span></code> pass through
+in volts, because AMD1 Table 1 gives them in volts and so does <code class="docutils literal notranslate"><span class="pre">grid_support</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FixedVar</span></code> setpoint sign is inverted into <code class="docutils literal notranslate"><span class="pre">VarSetpoint</span></code>. The two sign
+conventions are opposed and [V2G20-3183] mandates the conversion.</p></li>
+<li><p>The directive <code class="docutils literal notranslate"><span class="pre">priority</span></code> is forwarded into every written element that carries
+one; <code class="docutils literal notranslate"><span class="pre">EnterService</span></code> has none. A value outside the Annex M <code class="docutils literal notranslate"><span class="pre">uint16</span></code> range is
+omitted with a warning rather than wrapped.</p></li>
+<li><p>A curve with more than ten data points is rejected, never truncated: dropping
+points would silently reshape the grid code the operator asked for.</p></li>
+</ul>
 <p>This module does not publish DER <code class="docutils literal notranslate"><span class="pre">capability</span></code>; an empty one is expected for
 AC_DER_IEC.</p>
 <p>The DER control functions the EV supports are surfaced in
@@ -763,10 +900,10 @@ per-function gating sit relative to the response carrying them.</p>
     EV-&gt;&gt;SECC: DER_SAE_AC_ChargeParameterDiscoveryReq&lt;br/&gt;SupportedModes, EnabledModes, EV limits
     Note over SECC: declare: SupportedModes AND 0x05FFFDFB&lt;br/&gt;bits 2, 9, 25 and 27 to 31 are unused and ignored&lt;br/&gt;EnabledModes in the request is not consumed
     SECC-&gt;&gt;SECC: session.set_ev_supported_sae_functions(masked)
-    Config--&gt;&gt;SECC: der_control, required_der_operating_mode,&lt;br/&gt;grid_connection_mode, der_control_update_time
+    Config--&gt;&gt;SECC: der_control, required_der_operating_mode,&lt;br/&gt;grid_connection_mode, revision,&lt;br/&gt;der_control_update_time (UpdateTime on the wire only)
     Note over SECC: enable: gate_enables_by_supported_modes clears&lt;br/&gt;every Enable whose function the EV did not declare.&lt;br/&gt;There is no SECC-side mode bitmap.
     SECC--&gt;&gt;EV: DER_SAE_AC_ChargeParameterDiscoveryRes&lt;br/&gt;DERControlCPDRes with per-function Enable,&lt;br/&gt;SAE transfer limits, UpdateTime
-    SECC-&gt;&gt;SECC: session.record_der_control_sent(der_control_update_time)
+    SECC-&gt;&gt;SECC: session.record_der_control_sent(revision)
     end
 
     rect rgb(240, 248, 240)
@@ -774,37 +911,127 @@ per-function gating sit relative to the response carrying them.</p>
     loop every DER_SAE_AC_ChargeLoopReq
         EV-&gt;&gt;SECC: DER_SAE_AC_ChargeLoopReq&lt;br/&gt;EnabledModes, DERAlarmStatus
         Note over SECC: acknowledge: EnabledModes, masked with&lt;br/&gt;SAE_ENABLED_MODE_MASK, is compared against the modes&lt;br/&gt;the SECC enabled. A mismatch is one latched warning, not an error.
-        alt der_control_update_time changed since discovery
+        alt revision changed since discovery
             SECC--&gt;&gt;EV: DERControlCLRes: EnterServiceCLRes plus voltage_trip,&lt;br/&gt;frequency_trip, reactive_power_support_cl_res,&lt;br/&gt;active_power_support_cl_res
-            SECC-&gt;&gt;SECC: session.record_der_control_sent(der_control_update_time)
+            SECC-&gt;&gt;SECC: session.record_der_control_sent(revision)
         else unchanged
             SECC--&gt;&gt;EV: DERControlCLRes: EnterServiceCLRes.permit_service only
         end
+        Note over SECC: each mode field is checked on its own,&lt;br/&gt;[V2G20-3358] to [V2G20-3361], an unchanged field is left unset
+        opt RequiredDEROperatingMode differs from the last sent
+            SECC--&gt;&gt;EV: RequiredDEROperatingMode re-sent in the response
+        end
+        opt GridConnectionMode differs from the last sent
+            SECC--&gt;&gt;EV: GridConnectionMode re-sent in the response
+        end
+        SECC-&gt;&gt;SECC: session.record_der_modes_sent(operating mode, connection mode)
     end
     end
 
     </pre></section>
 <section id="default-grid-code">
 <h4>Default grid code<a class="headerlink" href="#default-grid-code" title="Link to this heading">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">get_default_sae_der_control()</span></code> returns a complete but functionally inactive
-configuration: every <code class="docutils literal notranslate"><span class="pre">enable</span></code> and <code class="docutils literal notranslate"><span class="pre">permit_service</span></code> is false. <code class="docutils literal notranslate"><span class="pre">DERControlCPDRes</span></code>
-and all its sub-elements are mandatory, so a SAE SECC must emit a full grid code at
-charge parameter discovery or not offer the service at all. An inert one keeps a
-station that was never given a grid code from claiming one.</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_default_sae_der_control(nominal_voltage_v)</span></code> returns a complete but
+functionally inactive configuration: every <code class="docutils literal notranslate"><span class="pre">enable</span></code> and <code class="docutils literal notranslate"><span class="pre">permit_service</span></code> is
+false. <code class="docutils literal notranslate"><span class="pre">DERControlCPDRes</span></code> and all its sub-elements are mandatory, so a SAE SECC
+must emit a full grid code at charge parameter discovery or not offer the service
+at all. An inert one keeps a station that was never given a grid code from
+claiming one.</p>
+<p>The volt-valued fields are derived from the nominal voltage passed in: the
+enter-service window is 1.05 and 0.917 of nominal (AMD1 Table 1 gives both bands
+in volts) and the volt-var <code class="docutils literal notranslate"><span class="pre">ReferenceVoltage</span></code> is the nominal itself. A
+<code class="docutils literal notranslate"><span class="pre">FrequencyDroop</span></code> carrying a zeroed over-frequency branch is present but
+disabled, because Table M.33 obliges <code class="docutils literal notranslate"><span class="pre">UnderFrequencyDroop</span></code> whenever
+<code class="docutils literal notranslate"><span class="pre">OverFrequencyDroop</span></code> is absent, and that holds regardless of <code class="docutils literal notranslate"><span class="pre">enable</span></code>. The
+frequency bands remain the shipped 50 Hz-family values and do not follow the
+nominal frequency.</p>
 <p>The values are structurally valid, and the two mandatory curves per trip family
 carry the schema minimum of two data points, so a SAE station is conformant
 without any DSO directive.</p>
 </section>
 <section id="mid-session-updates">
 <h4>Mid-session updates<a class="headerlink" href="#mid-session-updates" title="Link to this heading">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">DERControlCLRes</span></code> updates parameters already sent in <code class="docutils literal notranslate"><span class="pre">DERControlCPDRes</span></code>. Only
-<code class="docutils literal notranslate"><span class="pre">EnterServiceCLRes</span></code> is mandatory inside it, and only <code class="docutils literal notranslate"><span class="pre">permit_service</span></code> inside
-that. The other four blocks (<code class="docutils literal notranslate"><span class="pre">voltage_trip</span></code>, <code class="docutils literal notranslate"><span class="pre">frequency_trip</span></code>,
-<code class="docutils literal notranslate"><span class="pre">reactive_power_support_cl_res</span></code>, <code class="docutils literal notranslate"><span class="pre">active_power_support_cl_res</span></code>) are emitted
-only when the DER control changed since charge parameter discovery, keyed on
-<code class="docutils literal notranslate"><span class="pre">DerSaeSetupConfig::der_control_update_time</span></code>. Sending a conditional element
-unconditionally is itself non-conformant, so the unchanged path clears them.</p>
-</section>
+<p><code class="docutils literal notranslate"><span class="pre">DERControlCLRes</span></code> updates parameters already sent in <code class="docutils literal notranslate"><span class="pre">DERControlCPDRes</span></code>
+([V2G20-3236]). Only <code class="docutils literal notranslate"><span class="pre">EnterServiceCLRes</span></code> is mandatory inside it, and only
+<code class="docutils literal notranslate"><span class="pre">permit_service</span></code> inside that. The other four blocks (<code class="docutils literal notranslate"><span class="pre">voltage_trip</span></code>,
+<code class="docutils literal notranslate"><span class="pre">frequency_trip</span></code>, <code class="docutils literal notranslate"><span class="pre">reactive_power_support_cl_res</span></code>,
+<code class="docutils literal notranslate"><span class="pre">active_power_support_cl_res</span></code>) are emitted only when the grid code changed
+since charge parameter discovery. Sending a conditional element unconditionally
+is itself non-conformant, so the unchanged path clears them.</p>
+<p>Change detection is keyed on <code class="docutils literal notranslate"><span class="pre">DerSaeSetupConfig::revision</span></code>, a producer-owned
+counter this module bumps only when the relay input changes: the
+sorted directive ids with their <code class="docutils literal notranslate"><span class="pre">received_at</span></code> stamps, plus the nominal voltage
+and frequency the mapping converts against. The session records the revision it
+sent at charge parameter discovery and after each re-send, and compares that
+against the installed config. <code class="docutils literal notranslate"><span class="pre">der_control_update_time</span></code> is the wall clock
+<code class="docutils literal notranslate"><span class="pre">UpdateTime</span></code> on the wire and nothing else; it is never compared, because a
+timestamp changes on every construction while the counter changes only with the
+content. A re-apply of an unchanged directive set, or an AC-limit re-derivation,
+therefore does not re-dictate the grid code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">RequiredDEROperatingMode</span></code> and <code class="docutils literal notranslate"><span class="pre">GridConnectionMode</span></code> are handled per field and
+independently of the revision: each is re-sent in the charge loop response only
+when it differs from the value last sent to this EV and is left unset otherwise
+([V2G20-3358] to [V2G20-3361]).</p>
+<p>The path from a directive to the wire runs once <code class="docutils literal notranslate"><span class="pre">AC_DER_SAE</span></code> is advertised and
+its limits are derived; otherwise <code class="docutils literal notranslate"><span class="pre">apply_active_der_directives</span></code> logs at info and
+leaves the revision untouched. <code class="docutils literal notranslate"><span class="pre">relay_sae_grid_code</span></code> compares the relay input,
+maps the set with <code class="docutils literal notranslate"><span class="pre">map_active_directives_to_sae_der_control</span></code>, validates the
+result with <code class="docutils literal notranslate"><span class="pre">validate_sae_der_setup</span></code> against the SAE DER limits and AC limits
+held at that moment, stores it as the next-session setup and hands it to
+<code class="docutils literal notranslate"><span class="pre">TbdController::update_der_sae_limits</span></code>. The controller pushes it into the
+running session as a control event, where <code class="docutils literal notranslate"><span class="pre">install_der_sae_setup_config</span></code>
+validates it once more against the session’s own limits before installing it. The
+next <code class="docutils literal notranslate"><span class="pre">DERControlCLRes</span></code> then carries the four blocks, gated by the EV’s declared
+<code class="docutils literal notranslate"><span class="pre">SupportedModes</span></code> like the discovery response, and the <code class="docutils literal notranslate"><span class="pre">EnabledModes</span></code> mismatch
+warning re-arms. An invalid grid code is rejected with a warning at either stage.
+A module-stage rejection leaves the previous revision dictated. A session-stage
+rejection keeps the running session on its old grid code; the new revision is
+still the next-session setup. The controller also guards a caller passing no
+setup config: that withdrawal is logged once per withdrawal and does not reach
+the running session, which keeps its grid code until it ends. This module never
+withdraws; an empty directive set produces a new inert revision instead. The
+relayed setup config outlives AC-limit re-derivations: the derivation seeds it
+only while none is held or the held one is still the seed (revision 0).</p>
+<pre  class="mermaid">
+        sequenceDiagram
+    participant CSMS
+    participant OCPP as OCPP module
+    participant Module as Evse15118D20
+    participant Ctrl as TbdController
+    participant Session as running Session
+    participant EV
+
+    CSMS-&gt;&gt;OCPP: SetDERControl
+    OCPP-&gt;&gt;Module: grid_support set_active_directives
+    Module-&gt;&gt;Module: apply_active_der_directives
+    opt AC_DER_SAE not advertised or its limits not derived yet
+        Note over Module: info log, revision untouched, stop here
+    end
+    Module-&gt;&gt;Module: relay_sae_grid_code
+    Module-&gt;&gt;Module: sae_relay_input&lt;br/&gt;sorted (id, received_at) plus nominal voltage and frequency
+    alt relay input unchanged
+        Note over Module: revision stays in effect, nothing pushed
+    else relay input changed
+        Module-&gt;&gt;Module: map_active_directives_to_sae_der_control&lt;br/&gt;default grid code plus winners per Annex M element,&lt;br/&gt;trip curves transposed to duration-first
+        Module-&gt;&gt;Module: validate_sae_der_setup against SAE DER limits and AC limits
+        alt violation
+            Note over Module: warning, previous revision remains dictated
+        else valid
+            Module-&gt;&gt;Module: revision + 1, store as next-session setup
+            Module-&gt;&gt;Ctrl: update_der_sae_limits(limits, setup config)
+            Ctrl-&gt;&gt;Session: push_control_event(DerSaeSetupConfig)
+            Session-&gt;&gt;Session: install_der_sae_setup_config&lt;br/&gt;validate_sae_der_setup against the session's own limits
+            alt violation
+                Note over Session: warning, the running session keeps its old grid code,&lt;br/&gt;the new revision is still the next-session setup
+            else installed
+                EV-&gt;&gt;Session: DER_SAE_AC_ChargeLoopReq
+                Session--&gt;&gt;EV: DERControlCLRes: EnterServiceCLRes plus voltage_trip,&lt;br/&gt;frequency_trip, reactive_power_support_cl_res,&lt;br/&gt;active_power_support_cl_res
+                Session-&gt;&gt;Session: record_der_control_sent(revision),&lt;br/&gt;EnabledModes warning re-armed
+            end
+        end
+    end
+
+    </pre></section>
 <section id="transfer-limits-and-the-voltage-window">
 <h4>Transfer limits and the voltage window<a class="headerlink" href="#transfer-limits-and-the-voltage-window" title="Link to this heading">¶</a></h4>
 <p>Unlike the IEC limits, the SAE limits do not derive from <code class="docutils literal notranslate"><span class="pre">ac_limits</span></code> alone. They
@@ -818,6 +1045,10 @@ under-voltage must-trip curves (110 % and 88 %): those curves carry duration on 
 and <code class="docutils literal notranslate"><span class="pre">PercentageV</span></code> on y, and the EV denormalizes the percentage against the base
 voltage for the function, usually the nominal voltage advertised here. Changing
 one side alone silently moves the EV’s trip thresholds.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PercentageV</span></code> does not carry its base voltage on the wire. For trip thresholds,
+the relay assumes the EV uses the advertised nominal as its base voltage; an EV
+using a different function-specific base would interpret the same percentage
+differently.</p>
 </section>
 <section id="service-withdrawal">
 <h4>Service withdrawal<a class="headerlink" href="#service-withdrawal" title="Link to this heading">¶</a></h4>
@@ -849,28 +1080,30 @@ zero EVSE capability yields explicit zeros rather than omitted elements.</p>
 <section id="known-gaps">
 <h4>Known gaps<a class="headerlink" href="#known-gaps" title="Link to this heading">¶</a></h4>
 <ul class="simple">
-<li><p>No SAE <code class="docutils literal notranslate"><span class="pre">der_relay</span></code> exists, so <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> directives cannot reach a SAE
-session. In practice nothing changes the configuration mid-session, so the four
-optional <code class="docutils literal notranslate"><span class="pre">DERControlCLRes</span></code> blocks are not currently emitted.</p></li>
 <li><p>A SAE session’s <code class="docutils literal notranslate"><span class="pre">ChargingNeeds</span></code> omits the reactive-power limits. SAE var
 absorption and injection do not map onto the IEC charge and discharge reactive
 fields of <code class="docutils literal notranslate"><span class="pre">types::iso15118::DERChargingParameters</span></code>, so those are left unset.
 The supported-modes bitmap, the four excitation fields and the optional session
 total discharge energy available do pass through.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">required_der_operating_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">grid_connection_mode</span></code> are dictated at the
-charge parameter discovery only. [V2G20-3358] to [V2G20-3361] require the SECC to
-re-send each one in the charge loop when it changes; that is not implemented, and
-both are left unset on every SAE charge loop response.</p></li>
-<li><p>The grid code itself can be re-dictated mid-session through <code class="docutils literal notranslate"><span class="pre">DERControlCLRes</span></code>
-([V2G20-3236]) and the library does build it: the four optional sub-structs are
-emitted whenever the setup config’s <code class="docutils literal notranslate"><span class="pre">der_control_update_time</span></code> differs from the
-value already sent, and the steady-state payload carries only the mandatory
-<code class="docutils literal notranslate"><span class="pre">EnterServiceCLRes.PermitService</span></code>. Nothing can trigger it in a running session
-yet. <code class="docutils literal notranslate"><span class="pre">TbdController::update_der_sae_limits</span></code> writes only the next-session setup
-and <code class="docutils literal notranslate"><span class="pre">SessionConfig</span></code> copies the grid code at construction, so
-<code class="docutils literal notranslate"><span class="pre">der_control_update_time</span></code> cannot change within a session. Reaching a running
-session needs a control event arm like the one <code class="docutils literal notranslate"><span class="pre">ac_limits</span></code> has, plus the SAE
-<code class="docutils literal notranslate"><span class="pre">der_relay</span></code> above to produce the change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">required_der_operating_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">grid_connection_mode</span></code> are re-sent per
+field in the charge loop response when they differ from the value last sent
+([V2G20-3358] to [V2G20-3361]). Nothing in this module changes them after boot;
+the relay carries the current values through, so in practice both are dictated
+at charge parameter discovery only.</p></li>
+<li><p>Directive types with no Annex M target are logged once per applied set and
+skipped: <code class="docutils literal notranslate"><span class="pre">FreqWatt</span></code>, <code class="docutils literal notranslate"><span class="pre">WattPF</span></code>, <code class="docutils literal notranslate"><span class="pre">ZeroCurrent</span></code>,
+<code class="docutils literal notranslate"><span class="pre">OvervoltageFaultRideThrough</span></code>, <code class="docutils literal notranslate"><span class="pre">UndervoltageFaultRideThrough</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MaximumLevelDCInjection</span></code>, <code class="docutils literal notranslate"><span class="pre">DSOQSetpoint</span></code>, <code class="docutils literal notranslate"><span class="pre">DSOCosPhiSetpoint</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PowerMonitoringMustTrip</span></code> and <code class="docutils literal notranslate"><span class="pre">Gradients</span></code> exist in Annex L or in OCPP only.</p></li>
+<li><p>The SAE relay writes the single-phase fields only; every <code class="docutils literal notranslate"><span class="pre">_L2</span></code> and <code class="docutils literal notranslate"><span class="pre">_L3</span></code>
+counterpart stays unset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LimitMaxDischarge</span></code> is approximated: <code class="docutils literal notranslate"><span class="pre">pct_max_discharge_power</span></code> lands in
+<code class="docutils literal notranslate"><span class="pre">PercentageValue</span></code> clamped to 0..100 and rounded, not rescaled against the
+EV’s maximum discharge power.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_support</span></code> <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> (%/s) is copied into <code class="docutils literal notranslate"><span class="pre">EnterServiceRampTime</span></code>
+(s) unconverted, by decision, and needs a follow-up. It reaches
+<code class="docutils literal notranslate"><span class="pre">EnterServiceRampTime</span></code> only when paired with <code class="docutils literal notranslate"><span class="pre">delay</span></code>; alone it is dropped at
+debug, and <code class="docutils literal notranslate"><span class="pre">delay</span></code> without <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> rejects the directive.</p></li>
 </ul>
 </section>
 </section>
@@ -921,6 +1154,22 @@ control back to <code class="docutils literal notranslate"><span class="pre">Ser
 grid code restarts service selection.</p>
 <p>Terminations that any state performs on a <code class="docutils literal notranslate"><span class="pre">SessionStopReq</span></code> or a sequence error
 are omitted, since they end the session rather than move it to another state.</p>
+<p>On a DC <code class="docutils literal notranslate"><span class="pre">PowerDeliveryReq</span></code> with <code class="docutils literal notranslate"><span class="pre">Stop</span></code>, or any <code class="docutils literal notranslate"><span class="pre">PowerDeliveryReq</span></code> while a
+shutdown is requested, <code class="docutils literal notranslate"><span class="pre">current_demand_finished</span></code> and <code class="docutils literal notranslate"><span class="pre">dc_open_contactor</span></code> are
+published before the response, and the response is held
+until <code class="docutils literal notranslate"><span class="pre">ac_contactor_closed(false)</span></code> reports the power path off, for at most 500 ms.
+The EV leaves state C as soon as it has the response, so this withdraws the power
+permissive first (IEC 61851-23-3 Table CC.111, t103 before t105). An MCS board
+support treats a C exit under a standing permissive as an emergency shutdown
+(CC.4.3).</p>
+<p>A pause requested with <code class="docutils literal notranslate"><span class="pre">pause_charging</span></code> is sent as <code class="docutils literal notranslate"><span class="pre">EVSENotification</span></code> <code class="docutils literal notranslate"><span class="pre">Pause</span></code>
+with <code class="docutils literal notranslate"><span class="pre">NotificationMaxDelay</span></code> 60 s ([V2G20-1850]). In scheduled control mode it may
+only be sent while the applied entry of the EV’s power profile, from its latest
+<code class="docutils literal notranslate"><span class="pre">PowerDeliveryReq</span></code>, is 0 kW ([V2G20-1198]): until then every charge loop response
+goes out without it and the check is repeated. <code class="docutils literal notranslate"><span class="pre">pause_notified</span></code> is published once
+the notification has gone out. In dynamic control mode the SECC has to bring the power
+to 0 kW before asking ([V2G20-2115]); EvseManager does that before it requests the
+pause.</p>
 <pre  class="mermaid">
         stateDiagram-v2
     [*] --&gt; SupportedAppProtocol
@@ -969,7 +1218,7 @@ are omitted, since they end the session rather than move it to another state.</p
     AC_ChargeLoop --&gt; SessionStop : PowerDeliveryReq Stop or shutdown
     AC_DER_IEC_ChargeLoop --&gt; SessionStop : PowerDeliveryReq Stop or shutdown
     AC_DER_SAE_ChargeLoop --&gt; SessionStop : PowerDeliveryReq Stop or shutdown
-    DC_ChargeLoop --&gt; DC_WeldingDetection : PowerDeliveryReq Stop or shutdown
+    DC_ChargeLoop --&gt; DC_WeldingDetection : PowerDeliveryReq Stop or shutdown, after power path off
     DC_WeldingDetection --&gt; SessionStop : EV Processing Finished
 
     SessionStop --&gt; [*]
@@ -1005,7 +1254,7 @@ are omitted, since they end the session rather than move it to another state.</p
 <div class="line"><strong>enforce_tls_1_3</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Enforcing tls version 1.3. Applies whenever a TLS connection is established, independently of tls_negotiation_strategy: it pins the min/max protocol version, the cipher list and the client_hello certificate-verify elevation. Set to true for ISO 15118-20 (mandates TLS 1.3 mTLS). Set to false to offer TLS 1.2 (cipher ECDHE-ECDSA-AES128-SHA256, no client-certificate request), which is required for ISO 15118-2 / DIN SPEC 70121. Multi-chain selection works on both TLS 1.2 (driven by the trusted_ca_keys extension) and TLS 1.3 (driven by the native certificate_authorities extension), so multiple V2G leaf chains can be installed concurrently regardless of this flag.</div>
+<div class="line">Enforcing tls version 1.3. Applies whenever a TLS connection is established, independently of tls_negotiation_strategy: it pins the min/max protocol version, the cipher list and the client_hello certificate-verify elevation. Set to true for ISO 15118-20 (mandates TLS 1.3 mTLS). Set to false to offer TLS 1.2 (cipher ECDHE-ECDSA-AES128-SHA256, no client-certificate request), which is required for ISO 15118-2 / DIN SPEC 70121. With it unset the TLS version follows the EV’s offer, and the SECC leaf is chosen per connection to match: a prime256v1 leaf (ISO 15118-2) is presented on TLS 1.2, a secp521r1 / Ed448 leaf (ISO 15118-20) on TLS 1.3, so install both leaves in the security module’s SECC leaf directory when offering both protocols. Multi-chain selection works on both TLS 1.2 (driven by the trusted_ca_keys extension) and TLS 1.3 (driven by the native certificate_authorities extension), so multiple V2G leaf chains can be installed concurrently regardless of this flag.</div>
 </div>
 <div class="line"><strong>supported_DIN70121</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
@@ -1025,12 +1274,12 @@ are omitted, since they end the session rather than move it to another state.</p
 <div class="line"><strong>auth_timeout_eim</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 300</em></div>
 <div class="line-block">
-<div class="line">Defines how many seconds the EVSE should wait for authorization in EIM (External Payment) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for EIM authorization. Applies to ISO 15118-2 and DIN SPEC 70121; ISO 15118-20 uses a fixed 3 min window.</div>
+<div class="line">Defines how many seconds the EVSE should wait for authorization in EIM (External Payment) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for EIM authorization. Applies to ISO 15118-2 and DIN SPEC 70121; ISO 15118-20 EIM stops the session after the 55 s V2G_SECC_Ongoing_Performance_Time ([V2G20-2102]).</div>
 </div>
 <div class="line"><strong>auth_timeout_pnc</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 55</em></div>
 <div class="line-block">
-<div class="line">Defines how many seconds the EVSE should wait for authorization in PnC (Contract) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for PnC authorization. Applies to ISO 15118-2 only: DIN SPEC 70121 has no Plug-and-Charge and ISO 15118-20 uses a fixed 3 min window. The default is the 55 s V2G_SECC_Ongoing_Performance_Time of [V2G2-712/713].</div>
+<div class="line">Defines how many seconds the EVSE should wait for authorization in PnC (Contract) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for PnC authorization. Applies to ISO 15118-2 and ISO 15118-20; DIN SPEC 70121 has no Plug-and-Charge. The default is the 55 s V2G_SECC_Ongoing_Performance_Time of [V2G2-712/713] and [V2G20-2102].</div>
 </div>
 <div class="line"><strong>enable_ssl_logging</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
@@ -1073,14 +1322,14 @@ are omitted, since they end the session rather than move it to another state.</p
 <div class="line">Providing a custom protocol namespace.</div>
 </div>
 <div class="line"><strong>negative_bidirectional_limits</strong>: <em>boolean</em> &lt;optional&gt;</div>
-<div class="line"><em>default: False</em></div>
+<div class="line"><em>default: True</em></div>
 <div class="line-block">
 <div class="line">Some cars send or expect negative discharge limits. However, it is not clear from the standard whether the discharge limits should be negative. Until this is clarified, the positive limits can be converted using this option.</div>
 </div>
 <div class="line"><strong>selecting_sap_based_on_energy_service</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Based on ISO15118-20 AMD1, selecting the SAP namespace does not imply a final selection. The final decision on which service to select is made later in the D20 service states. However, since AMD1 is relatively new, it is possible that EVs will only support certain energy services after the SAP namespace has been selected. If this is the case, this option should be set to true so that libiso15118 will select the sap namespace based on the supported energy services.</div>
+<div class="line">The SAP namespace matching the supported energy services is always preferred: a DC charger selects -20:DC (or -2 / DIN) and an AC charger -20:AC, even if the EV ranks the other -20 namespace higher. Based on ISO15118-20 AMD1, selecting the SAP namespace does not imply a final selection, so by default an EV offering only non-matching namespaces still gets one and selects its service later in the D20 service states. Set this option to true to refuse such namespaces instead (Failed_NoNegotiation).</div>
 </div>
 </div>
 </section>
@@ -1184,6 +1433,8 @@ are omitted, since they end the session rather than move it to another state.</p
             <ul>
 <li><a class="reference internal" href="#">Evse15118D20</a><ul>
 <li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
+<li><a class="reference internal" href="#tls-and-secc-leaf-certificates">TLS and SECC leaf certificates</a></li>
+<li><a class="reference internal" href="#plug-and-charge">Plug and Charge</a></li>
 <li><a class="reference internal" href="#der-grid-support">DER grid support</a></li>
 <li><a class="reference internal" href="#ac-der-sae-grid-code">AC_DER_SAE grid code</a><ul>
 <li><a class="reference internal" href="#negotiation">Negotiation</a></li>
@@ -1221,7 +1472,7 @@ are omitted, since they end the session rather than move it to another state.</p
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseSlac - EVerest Manual main@3bc48cd</title>
+        <title>EvseSlac - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -693,24 +693,266 @@
 </div>
 <section id="handwritten-documentation">
 <h2>Handwritten Documentation<a class="headerlink" href="#handwritten-documentation" title="Link to this heading">¶</a></h2>
-<span class="target" id="everest-modules-handwritten-evseslac"></span><p>This is an implementation of the ISO 15118-3 EVSE side SLAC protocol.
-The general flow of operation will be like this:</p>
+<span class="target" id="everest-modules-handwritten-evseslac"></span><p>EvseSlac is the charger-side (EVSE) implementation of the SLAC protocol
+defined in ISO 15118-3. It is the part of EVerest that pairs the powerline
+modem in your charger with the modem in the car, so that the two can talk
+high level charging protocols (ISO 15118 / DIN 70121) afterwards.</p>
+<p>This page explains what SLAC does, what features the module offers, which
+modem hardware is supported and how to configure the most common setups.</p>
+<section id="what-is-slac">
+<h3>What is SLAC?<a class="headerlink" href="#what-is-slac" title="Link to this heading">¶</a></h3>
+<p>When an electric car and a DC or smart AC charger communicate, they do so
+via powerline communication (PLC): high-frequency signals injected onto the
+Control Pilot wire of the charging cable. Both sides contain a small
+HomePlug Green PHY modem for this.</p>
+<p>Out of the box these modems do not trust each other. Before any charging
+related communication can happen, the charger has to verify that the car it
+hears is really the one plugged into <em>this</em> cable (and not a car at the
+neighbouring charging point, whose signal crosses over), and both modems
+have to join a private, encrypted network. The procedure that does this is
+SLAC — <em>Signal Level Attenuation Characterization</em>: the car sends a series
+of test signals (“sounds”), the charger measures how strongly they arrive,
+and if the signal is strong enough the two pair up using a fresh network
+key.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------------------+</span>                            <span class="o">+----------------------+</span>
+<span class="o">|</span>     <span class="n">EV</span> <span class="p">(</span><span class="n">car</span><span class="p">)</span>     <span class="o">|</span>      <span class="n">charging</span> <span class="n">cable</span>        <span class="o">|</span>    <span class="n">EVSE</span> <span class="p">(</span><span class="n">charger</span><span class="p">)</span>    <span class="o">|</span>
+<span class="o">|</span>                  <span class="o">|</span>   <span class="o">======================</span>   <span class="o">|</span>                      <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------+</span>   <span class="o">|</span>     <span class="n">Control</span> <span class="n">Pilot</span> <span class="n">wire</span>     <span class="o">|</span>   <span class="o">+-----------+</span>      <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span> <span class="n">PLC</span> <span class="n">modem</span> <span class="o">|&lt;--+--&gt;</span> <span class="o">~~</span> <span class="n">HF</span> <span class="n">signals</span> <span class="o">~~</span> <span class="o">&lt;------+--&gt;|</span> <span class="n">PLC</span> <span class="n">modem</span> <span class="o">|</span>      <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------+</span>   <span class="o">|</span>   <span class="o">======================</span>   <span class="o">|</span>   <span class="o">+-----+-----+</span>      <span class="o">|</span>
+<span class="o">|</span>                  <span class="o">|</span>                            <span class="o">|</span>         <span class="o">|</span>            <span class="o">|</span>
+<span class="o">+------------------+</span>                            <span class="o">|</span>   <span class="n">EvseSlac</span>           <span class="o">|</span>
+                                                <span class="o">|</span>   <span class="n">EvseManager</span>        <span class="o">|</span>
+                                                <span class="o">|</span>   <span class="n">ISO</span> <span class="mi">15118</span> <span class="n">stack</span>    <span class="o">|</span>
+                                                <span class="o">+----------------------+</span>
+</pre></div>
+</div>
+</section>
+<section id="how-a-session-unfolds">
+<h3>How a session unfolds<a class="headerlink" href="#how-a-session-unfolds" title="Link to this heading">¶</a></h3>
+<p>EvseSlac is driven by the EvseManager module: when the car is plugged in
+(Control Pilot state changes from A/E/F to B/C/D), EvseManager calls
+<code class="docutils literal notranslate"><span class="pre">enter_bcd</span></code> and the module starts listening. From the user’s perspective
+the whole procedure takes well under a second on a good connection.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Car</span> <span class="n">plugged</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CP</span> <span class="n">state</span> <span class="n">A</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="p">)</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">EvseManager</span><span class="p">:</span> <span class="n">enter_bcd</span>  <span class="o">------------&gt;</span>  <span class="n">EvseSlac</span> <span class="n">armed</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">Car</span> <span class="n">asks</span> <span class="s2">&quot;is a charger listening?&quot;</span>     <span class="p">(</span><span class="n">CM_SLAC_PARM</span><span class="o">.</span><span class="n">REQ</span><span class="p">)</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">Sounding</span><span class="p">:</span> <span class="n">car</span> <span class="n">sends</span> <span class="n">test</span> <span class="n">signals</span><span class="p">,</span>      <span class="p">(</span><span class="n">CM_MNBC_SOUND</span><span class="o">.</span><span class="n">IND</span><span class="p">)</span>
+<span class="n">charger</span> <span class="n">measures</span> <span class="n">the</span> <span class="n">attenuation</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">Charger</span> <span class="n">reports</span> <span class="n">the</span> <span class="n">measurement</span>        <span class="p">(</span><span class="n">CM_ATTEN_CHAR</span><span class="o">.</span><span class="n">IND</span><span class="p">)</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">Car</span> <span class="n">picks</span> <span class="n">this</span> <span class="n">charger</span><span class="p">,</span> <span class="n">asks</span> <span class="n">to</span> <span class="n">pair</span>   <span class="p">(</span><span class="n">CM_SLAC_MATCH</span><span class="o">.</span><span class="n">REQ</span><span class="p">)</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">Charger</span> <span class="n">hands</span> <span class="n">out</span> <span class="n">a</span> <span class="n">fresh</span> <span class="n">network</span>      <span class="p">(</span><span class="n">CM_SLAC_MATCH</span><span class="o">.</span><span class="n">CNF</span><span class="p">)</span>
+<span class="n">key</span> <span class="p">(</span><span class="n">NMK</span><span class="p">)</span> <span class="ow">and</span> <span class="n">programs</span> <span class="n">its</span> <span class="n">own</span> <span class="n">modem</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">Both</span> <span class="n">modems</span> <span class="n">join</span> <span class="n">the</span> <span class="n">private</span> <span class="n">network</span>
+<span class="p">(</span><span class="n">AVLN</span><span class="p">),</span> <span class="n">the</span> <span class="n">PLC</span> <span class="n">link</span> <span class="n">comes</span> <span class="n">up</span>
+       <span class="o">|</span>
+       <span class="n">v</span>
+<span class="n">dlink_ready</span><span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="ow">is</span> <span class="n">published</span><span class="p">:</span>
+<span class="n">high</span> <span class="n">level</span> <span class="n">communication</span> <span class="n">starts</span>
+</pre></div>
+</div>
+<p>When the car is unplugged, EvseManager calls <code class="docutils literal notranslate"><span class="pre">leave_bcd</span></code>. From a matched or
+failed session the module leaves the logical network, generates a new key and
+re-arms itself; while still matching it just returns to idle, since no network
+was joined. Either way a failed or aborted session never gets the charger stuck.</p>
+</section>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
+<section id="robust-startup-and-recovery">
+<h4>Robust startup and recovery<a class="headerlink" href="#robust-startup-and-recovery" title="Link to this heading">¶</a></h4>
 <ul class="simple">
-<li><p>start of operation begins with a control pilot transition from state
-A, E or F to Bx, Cx or Dx. This is indicated by the EvseManager by calling
-the commands enter_bcd/leave_bcd.</p></li>
-<li><p>Once started, it waits for a CM_SLAC_PARM_REQ from the EV side to start the SLAC session.</p></li>
-<li><p>In case of success, SLAC finishes with a CM_SLAC_MATCH_RES, which sends a new NMK to the EV side.
-The EV then joins the logical network and the two modems are paired. A dlink_ready(true) is published
-to signal to the EvseManager that the low level PLC link is ready for communication.</p></li>
+<li><p>The module starts even if the PLC network interface is not (yet) present,
+and recovers automatically when the interface disappears and comes back —
+for example when the modem is reset or powered late during boot. Module
+readiness is held back until the PLC I/O is actually usable.</p></li>
+<li><p>I/O and the SLAC state machine run event driven in a single thread; there
+are no polling threads burning CPU in idle.</p></li>
+<li><p>If a PLC error interrupts an established session, <code class="docutils literal notranslate"><span class="pre">dlink_ready(false)</span></code>
+is published so the rest of the system reacts immediately instead of
+talking into a dead link.</p></li>
 </ul>
-<p>If not run as root user, this modules requires the capability CAP_NET_RAW.</p>
-<section id="todo">
-<h3>Todo<a class="headerlink" href="#todo" title="Link to this heading">¶</a></h3>
+</section>
+<section id="reliable-modem-key-setup">
+<h4>Reliable modem key setup<a class="headerlink" href="#reliable-modem-key-setup" title="Link to this heading">¶</a></h4>
+<p>Programming the network key into the local modem (CM_SET_KEY) is the step
+where real-world modems differ the most. Two behaviors are configurable:</p>
 <ul class="simple">
-<li><p>make use of the enable flag in the reset command or drop it, if not needed</p></li>
-<li><p>handle CM_VALIDATE.REQ message</p></li>
-<li><p>implement PLC chip resetting after unplug or failed SLAC sessions (especially for QCA chips)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_key_handling_mode</span></code>: one single attempt (legacy behavior), or
+retries with confirmation (<code class="docutils literal notranslate"><span class="pre">retry_confirmed</span></code>, the default) where the new
+key is only trusted after the modem has confirmed it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_key_cnf_success_mode</span></code>: which confirmation result counts as
+success. Qualcomm chips answer <code class="docutils literal notranslate"><span class="pre">0x01</span></code> (the default expectation), the
+HomePlug Green PHY standard says <code class="docutils literal notranslate"><span class="pre">0x00</span></code>, and a compatibility mode
+accepts both.</p></li>
+</ul>
+<p>Fresh network keys are generated for every session. By default only
+printable characters are used (compatible with some picky EVs in the
+field); <code class="docutils literal notranslate"><span class="pre">nmk_generation_mode:</span> <span class="pre">full_byte_range</span></code> opts into the full byte
+range for a lower collision probability.</p>
+</section>
+<section id="link-supervision">
+<h4>Link supervision<a class="headerlink" href="#link-supervision" title="Link to this heading">¶</a></h4>
+<p>With <code class="docutils literal notranslate"><span class="pre">link_status_detection</span></code> enabled the module does not simply hope that
+the PLC link comes up after pairing — it asks the modem:</p>
+<ul class="simple">
+<li><p>After a successful match it polls the modem until the link is really up,
+and only then reports <code class="docutils literal notranslate"><span class="pre">dlink_ready(true)</span></code>.</p></li>
+<li><p>While matched it keeps polling (<code class="docutils literal notranslate"><span class="pre">link_status_poll_in_matched_state_ms</span></code>,
+default 200 ms) so a lost connection — cable damage, modem reset — is
+noticed quickly and the network is left within the time ISO 15118-3
+demands.</p></li>
+<li><p>Short link dropouts, as they can occur under full DC load, can be ridden
+out with <code class="docutils literal notranslate"><span class="pre">link_status_debounce_count</span></code>: only that many <em>consecutive</em>
+negative answers tear the session down.</p></li>
+</ul>
+</section>
+<section id="ev-validation-bcb-toggle">
+<h4>EV validation (BCB toggle)<a class="headerlink" href="#ev-validation-bcb-toggle" title="Link to this heading">¶</a></h4>
+<p>If a car wants extra certainty that it is paired with the right charger, it
+can start the optional CM_VALIDATE procedure from ISO 15118-3: the car
+briefly toggles its Control Pilot state (B → C → B) a number of times and
+asks the charger how many toggles it saw. EvseSlac implements the full
+two-step exchange, including the timed observation window. The toggle count
+itself comes from EvseManager via the <code class="docutils literal notranslate"><span class="pre">count_bc</span></code> command of the slac
+interface, so this works out of the box in a standard EVerest setup.</p>
+</section>
+<section id="transmit-power-limitation-cm-amp-map">
+<h4>Transmit power limitation (CM_AMP_MAP)<a class="headerlink" href="#transmit-power-limitation-cm-amp-map" title="Link to this heading">¶</a></h4>
+<p>Some installations need to reduce the PLC transmit power on selected OFDM
+carriers, for example to meet EMC requirements. With
+<code class="docutils literal notranslate"><span class="pre">initiate_amp_map:</span> <span class="pre">true</span></code> the module sends an amplitude map to its modem
+once the network is established. The map is described in a small YAML file
+(<code class="docutils literal notranslate"><span class="pre">amp_map_file</span></code>) — see <code class="docutils literal notranslate"><span class="pre">config/slac_amp_map_example.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">carriers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1155</span><span class="w">          </span><span class="c1"># number of OFDM carriers</span>
+<span class="nt">default_amplitude</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span><span class="w">   </span><span class="c1"># 15 = full power, 0 = maximum reduction</span>
+<span class="nt">overrides</span><span class="p">:</span><span class="w">              </span><span class="c1"># optional per-carrier values</span>
+<span class="w">  </span><span class="nt">100</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">  </span><span class="nt">101</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</pre></div>
+</div>
+<p>Incoming CM_AMP_MAP requests are always answered, regardless of this
+option.</p>
+</section>
+<section id="living-next-to-other-charging-points">
+<h4>Living next to other charging points<a class="headerlink" href="#living-next-to-other-charging-points" title="Link to this heading">¶</a></h4>
+<p>On sites with several charging points the modems hear each other
+(“cross talk”). The module keeps up to <code class="docutils literal notranslate"><span class="pre">max_matching_sessions</span></code> candidate
+sessions apart and answers each car individually — the attenuation
+measurement then makes sure only the physically connected car pairs up.
+On multi-connector hardware, <code class="docutils literal notranslate"><span class="pre">startup_delay_ms</span></code> staggers the modem
+queries of multiple EvseSlac instances at boot.</p>
+</section>
+<section id="autocharge-support">
+<h4>Autocharge support<a class="headerlink" href="#autocharge-support" title="Link to this heading">¶</a></h4>
+<p>With <code class="docutils literal notranslate"><span class="pre">publish_mac_on_match_cnf</span></code> (default on) the MAC address of the
+successfully matched car is published on the <code class="docutils literal notranslate"><span class="pre">token_provider</span></code> interface.
+This can be used for autocharge — identifying a returning car by its modem
+MAC — including on AC with cars that do not do high level communication.</p>
+</section>
+<section id="compatibility-switches-for-real-world-evs">
+<h4>Compatibility switches for real-world EVs<a class="headerlink" href="#compatibility-switches-for-real-world-evs" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ac_mode_five_percent</span></code> (default on): restart failed SLAC sessions as
+ISO 15118-3 specifies for AC. The standard does not allow the retries for
+DC, but leaving this on is strongly recommended — some EVs in the field
+frequently need a second attempt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset_instead_of_fail</span></code> (default on): after an aborted session, go back
+to a ready state instead of the standard’s terminal failed state, because
+some cars immediately try again with a new CM_SLAC_PARM.REQ. Turn this
+off only for conformance testing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sounding_attenuation_adjustment</span></code>: add a dB offset to the measured
+attenuation to compensate for the coupling characteristics of your
+hardware.</p></li>
+</ul>
+</section>
+<section id="diagnostics">
+<h4>Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">print_state_transitions</span></code> logs every internal state change.</p></li>
+<li><p>With EVerest telemetry enabled, the module publishes detailed information
+about every SLAC session.</p></li>
+<li><p>Successful sessions are narrated at INFO level in the log, so a session
+can be followed without debug logging.</p></li>
+</ul>
+</section>
+</section>
+<section id="supported-hardware">
+<h3>Supported hardware<a class="headerlink" href="#supported-hardware" title="Link to this heading">¶</a></h3>
+<p>The module talks standard HomePlug Green PHY on the wire and works with any
+compliant EVSE modem. The vendor of the connected modem is detected
+automatically at startup; for the following chips vendor-specific
+extensions are used:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Modem</p></th>
+<th class="head"><p>Specialities</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Qualcomm
+QCA7000 / QCA7005
+(QCA700x family)</p></td>
+<td><p>Link status detection and supervision. Optional
+chip reset after key setup (<code class="docutils literal notranslate"><span class="pre">do_chip_reset</span></code>, via
+the RS_DEV vendor extension; Lumissil uses NSCM
+RESET_DEVICE for the same step). Note
+that these chips confirm CM_SET_KEY with result
+<code class="docutils literal notranslate"><span class="pre">0x01</span></code>; the default configuration expects this.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lumissil CG5317</p></td>
+<td><p>Link status detection and supervision (via the NSCM
+vendor extension). Default set-key timing works.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other HPGP modems</p></td>
+<td><p>Full SLAC functionality; link status detection and
+chip reset are not available and must stay disabled.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="typical-configuration">
+<h3>Typical configuration<a class="headerlink" href="#typical-configuration" title="Link to this heading">¶</a></h3>
+<p>For most chargers the defaults are sensible and only the network device
+needs to be set:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">evse_slac</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvseSlac</span>
+<span class="w">  </span><span class="nt">config_implementation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">main</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eth1</span>
+</pre></div>
+</div>
+<p>Recommended additions for hardware with a Qualcomm or Lumissil modem:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">link_status_detection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">link_status_debounce_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">   </span><span class="c1"># ride out short link flaps</span>
+</pre></div>
+</div>
+</section>
+<section id="requirements-and-notes">
+<h3>Requirements and notes<a class="headerlink" href="#requirements-and-notes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The module opens a raw ethernet socket on <code class="docutils literal notranslate"><span class="pre">device</span></code>. If EVerest does not
+run as root, the process needs the <code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> capability.</p></li>
+<li><p>The EV-side counterpart of this module is <strong>EvSlac</strong>, built on the
+same library — useful for simulators and test setups.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debug_simulate_failed_matching</span></code> and
+<code class="docutils literal notranslate"><span class="pre">hack_disable_regenerate_key_on_reset</span></code> are debugging aids and must not
+be enabled in production.</p></li>
 </ul>
 </section>
 </section>
@@ -742,7 +984,56 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <div class="line"><strong>set_key_timeout_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 1000</em></div>
 <div class="line-block">
-<div class="line">Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.</div>
+<div class="line">Timeout and retry interval for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.</div>
+</div>
+<div class="line"><strong>set_key_handling_mode</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “retry_confirmed”</em></div>
+<div class="line-block">
+<div class="line">Set-key behavior mode:</div>
+<div class="line-block">
+<div class="line">- legacy_single_attempt: send one CM_SET_KEY.REQ and only accept a valid CM_SET_KEY.CNF success result.</div>
+<div class="line">- retry_confirmed: retry on timeout/failure and only accept CM_SET_KEY.CNF result success.</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- legacy_single_attempt</div>
+<div class="line">- retry_confirmed</div>
+</div>
+</div>
+<div class="line"><strong>set_key_cnf_success_mode</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “modem_compat_0x01”</em></div>
+<div class="line-block">
+<div class="line">CM_SET_KEY.CNF success result interpretation:</div>
+<div class="line-block">
+<div class="line">- modem_compat_0x01: default QCA/practical modem behavior; only result 0x01 is accepted as success.</div>
+<div class="line">- hpgp_standard_0x00: explicit HomePlug Green PHY standard behavior; only result 0x00 is accepted.</div>
+<div class="line">- accept_0x00_or_0x01: compatibility mode accepting either standard 0x00 or modem-compatible 0x01.</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- modem_compat_0x01</div>
+<div class="line">- hpgp_standard_0x00</div>
+<div class="line">- accept_0x00_or_0x01</div>
+</div>
+</div>
+<div class="line"><strong>nmk_generation_mode</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “legacy_printable”</em></div>
+<div class="line-block">
+<div class="line">NMK generation mode for internal session NMK generation:</div>
+<div class="line-block">
+<div class="line">- legacy_printable: default compatibility mode; use legacy printable characters only (0-9A-Z).</div>
+<div class="line">- full_byte_range: explicit opt-in for the full byte range 0x00..0xFF to reduce collision probability.</div>
+</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- legacy_printable</div>
+<div class="line">- full_byte_range</div>
+</div>
+</div>
+<div class="line"><strong>set_key_max_attempts</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 10</em></div>
+<div class="line-block">
+<div class="line">Maximum CM_SET_KEY.REQ attempts before proceeding to the next reset state.</div>
 </div>
 <div class="line"><strong>sounding_attenuation_adjustment</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 0</em></div>
@@ -762,7 +1053,7 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <div class="line"><strong>do_chip_reset</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
-<div class="line">Perform a chip reset after setting NMK using the RS_DEV.REQ Vendor MME Extension (Only works on Qualcomm chips)</div>
+<div class="line">Perform a chip reset after setting the NMK (Qualcomm RS_DEV.REQ or Lumissil NSCM RESET_DEVICE vendor MME; other vendors skip the step)</div>
 </div>
 <div class="line"><strong>chip_reset_delay_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 100</em></div>
@@ -789,6 +1080,16 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <div class="line-block">
 <div class="line">Timeout for Link to come up after matching request</div>
 </div>
+<div class="line"><strong>link_status_poll_in_matched_state_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 200</em></div>
+<div class="line-block">
+<div class="line">Interval between LINK_STATUS polls while matched. Link-loss detection takes up to link_status_debounce_count consecutive polls, so keep debounce count times poll interval well below TP_match_leave (1 s) for ISO 15118-3 conformant leaving on connection loss.</div>
+</div>
+<div class="line"><strong>link_status_debounce_count</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 1</em></div>
+<div class="line-block">
+<div class="line">Consecutive negative LINK_STATUS confirmations in the matched state before the link counts as lost and the session is torn down. 1 tears down on the first negative reply; higher values ride out transient PLC link flaps (e.g. re-sync under full DC load) at the cost of one poll interval of detection latency per additional confirmation. A positive confirmation resets the count.</div>
+</div>
 <div class="line"><strong>debug_simulate_failed_matching</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
@@ -798,6 +1099,11 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <div class="line"><em>default: True</em></div>
 <div class="line-block">
 <div class="line">Go to reset state instead of failed state. This is against the ISO15118-3. But some cars directly send a CM_SLAC_PARAM.req message when the SLAC process aborts. To react to this message and restart the SLAC process, the EVSE go to the reset state here.</div>
+</div>
+<div class="line"><strong>max_matching_sessions</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 5</em></div>
+<div class="line-block">
+<div class="line">Maximum number of simultaneous CM_SLAC_PARM sessions the EVSE keeps active.</div>
 </div>
 <div class="line"><strong>startup_delay_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 0</em></div>
@@ -809,10 +1115,25 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <div class="line-block">
 <div class="line">Timeout for CM_SLAC_PARM.REQ. Values between 10000 and 20000 can be set at your own risk, as they violate ISO15118-3. Experience has shown that this should not cause any problems.</div>
 </div>
+<div class="line"><strong>print_state_transitions</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">For debugging. Print all transitions of the internal state machine.</div>
+</div>
 <div class="line"><strong>hack_disable_regenerate_key_on_reset</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
 <div class="line">Hack: Do not regenerate NMK on reset, this is not spec compliant and should only be set for debugging purposes.</div>
+</div>
+<div class="line"><strong>initiate_amp_map</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Send a CM_AMP_MAP.REQ once the AVLN is established to reduce the transmit power of selected OFDM carriers (ISO 15118-3 A.9.6 transmit-power limitation). The amplitude map is read from amp_map_file. The SECC always answers an incoming CM_AMP_MAP.REQ with CM_AMP_MAP.CNF regardless of this option.</div>
+</div>
+<div class="line"><strong>amp_map_file</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Path to a YAML file describing the CM_AMP_MAP amplitude map (keys: carriers, default_amplitude 0..15, overrides {carrier: amplitude}). Empty uses a built-in all-maximum-TX default (no reduction). See config/slac_amp_map_example.yaml. Only used when initiate_amp_map is true.</div>
 </div>
 </div>
 </div>
@@ -824,20 +1145,15 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <section id="authors">
 <h3>Authors<a class="headerlink" href="#authors" title="Link to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line"><a class="reference external" href="mailto:aw&#37;&#52;&#48;pionix&#46;de">aw<span>&#64;</span>pionix<span>&#46;</span>de</a></div>
+<div class="line">Jan Christoph Habig (Pionix GmbH)</div>
 <div class="line">Cornelius Claussen (Pionix GmbH)</div>
+<div class="line"><a class="reference external" href="mailto:aw&#37;&#52;&#48;pionix&#46;de">aw<span>&#64;</span>pionix<span>&#46;</span>de</a></div>
 </div>
 </section>
 <section id="license">
 <h3>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></div>
-</div>
-</section>
-<section id="misc">
-<h3>Misc<a class="headerlink" href="#misc" title="Link to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line">base_license:<a class="reference external" href="https://directory.fsf.org/wiki/License:BSD-3-Clause-Clear">https://directory.fsf.org/wiki/License:BSD-3-Clause-Clear</a></div>
 </div>
 </section>
 </section>
@@ -900,7 +1216,23 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
             <ul>
 <li><a class="reference internal" href="#">EvseSlac</a><ul>
 <li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
-<li><a class="reference internal" href="#todo">Todo</a></li>
+<li><a class="reference internal" href="#what-is-slac">What is SLAC?</a></li>
+<li><a class="reference internal" href="#how-a-session-unfolds">How a session unfolds</a></li>
+<li><a class="reference internal" href="#features">Features</a><ul>
+<li><a class="reference internal" href="#robust-startup-and-recovery">Robust startup and recovery</a></li>
+<li><a class="reference internal" href="#reliable-modem-key-setup">Reliable modem key setup</a></li>
+<li><a class="reference internal" href="#link-supervision">Link supervision</a></li>
+<li><a class="reference internal" href="#ev-validation-bcb-toggle">EV validation (BCB toggle)</a></li>
+<li><a class="reference internal" href="#transmit-power-limitation-cm-amp-map">Transmit power limitation (CM_AMP_MAP)</a></li>
+<li><a class="reference internal" href="#living-next-to-other-charging-points">Living next to other charging points</a></li>
+<li><a class="reference internal" href="#autocharge-support">Autocharge support</a></li>
+<li><a class="reference internal" href="#compatibility-switches-for-real-world-evs">Compatibility switches for real-world EVs</a></li>
+<li><a class="reference internal" href="#diagnostics">Diagnostics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#supported-hardware">Supported hardware</a></li>
+<li><a class="reference internal" href="#typical-configuration">Typical configuration</a></li>
+<li><a class="reference internal" href="#requirements-and-notes">Requirements and notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
@@ -910,7 +1242,6 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
 <li><a class="reference internal" href="#metadata">Metadata</a><ul>
 <li><a class="reference internal" href="#authors">Authors</a></li>
 <li><a class="reference internal" href="#license">License</a></li>
-<li><a class="reference internal" href="#misc">Misc</a></li>
 </ul>
 </li>
 </ul>
@@ -924,7 +1255,7 @@ to signal to the EvseManager that the low level PLC link is ready for communicat
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

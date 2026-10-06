@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@3bc48cd</title>
+        <title>OCPPmulti - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1248,17 +1248,49 @@ and shared.</p>
 </section>
 <section id="certificate-management">
 <h3>Certificate management<a class="headerlink" href="#certificate-management" title="Link to this heading">¶</a></h3>
-<p>Two leaf certificates are managed by the OCPP communication enabled by this module:</p>
+<p>Up to three leaf certificates are managed by the OCPP communication enabled by this module:</p>
 <ul class="simple">
 <li><p>CSMS client certificate (used for mTLS with security profile 3)</p></li>
-<li><p>SECC server certificate (server certificate for ISO 15118)</p></li>
+<li><p>SECC server certificate for ISO 15118-2 (TLS 1.2, <code class="docutils literal notranslate"><span class="pre">prime256v1</span></code> key; OCPP certificateType
+<strong>V2GCertificate</strong>)</p></li>
+<li><p>SECC server certificate for ISO 15118-20 (TLS 1.3, <code class="docutils literal notranslate"><span class="pre">secp521r1</span></code> key; OCPP 2.1 certificateType
+<strong>V2G20Certificate</strong>)</p></li>
 </ul>
+<p>The two SECC certificates are distinct: ISO 15118-2 and ISO 15118-20 mandate incompatible key algorithms, so one
+leaf cannot serve both protocol generations. Both are stored in the <code class="docutils literal notranslate"><span class="pre">EvseSecurity</span></code> SECC leaf directory and are
+told apart by their key algorithm; their sub-CA certificates arrive with the signed chain in <strong>CertificateSigned.req</strong>
+and their roots – which may or may not be the same for the two – are installed into the V2G root bundle via
+<strong>InstallCertificate.req</strong> (<code class="docutils literal notranslate"><span class="pre">V2GRootCertificate</span></code>).</p>
+<p>The subject of a SECC CSR is built from <strong>ISO15118Ctrlr.CountryName</strong> (C), <strong>ISO15118Ctrlr.OrganizationName</strong> (O)
+and <strong>ISO15118Ctrlr.SeccId</strong> (CN), plus the domain component <code class="docutils literal notranslate"><span class="pre">CPO</span></code> for the -2 leaf (ISO 15118-2 Table F.2) or
+<code class="docutils literal notranslate"><span class="pre">CSO</span></code> for the -20 leaf (ISO 15118-20 Table B.5). The requested keyUsage is critical <code class="docutils literal notranslate"><span class="pre">digitalSignature</span></code> for the -2
+leaf and critical <code class="docutils literal notranslate"><span class="pre">digitalSignature,</span> <span class="pre">keyAgreement</span></code> for the -20 leaf, as the same tables specify. ISO 15118-20 requires the -20 CN to be a SECCID per its
+Annex C.3 (country code, operator ID, <code class="docutils literal notranslate"><span class="pre">S</span></code>, controller ID, check digit; at least 39 characters); since one
+<code class="docutils literal notranslate"><span class="pre">SeccId</span></code> serves both leafs, use a SECCID for it.</p>
 <p>In OCPP 2.x, 60 seconds after the first <strong>BootNotification.req</strong> has been accepted by the CSMS, the charging station
-checks whether these certificates are missing or expired and, if so, initiates a <strong>SignCertificate.req</strong> towards the
-CSMS. For the CSMS leaf certificate this is only done when security profile 3 is used; for the SECC leaf certificate
-only when Plug&amp;Charge is enabled via <strong>ISO15118Ctrlr.V2GCertificateInstallationEnabled</strong>. Expiry is re-checked every
-12 hours. In OCPP 1.6, the equivalent functionality is provided via the OCPP 1.6 security whitepaper extension and
-the Plug&amp;Charge extension implemented via <strong>DataTransfer.req</strong> messages.</p>
+checks whether these certificates are missing or expire within 30 days and, if so, initiates a
+<strong>SignCertificate.req</strong> towards the CSMS (a missing certificate is requested the same way as an expiring one, which
+is how the initial certificate is provisioned). For the CSMS leaf certificate this is only done when security
+profile 3 is used; for the ISO 15118-2 SECC leaf only when Plug&amp;Charge is enabled via
+<strong>ISO15118Ctrlr.V2GCertificateInstallationEnabled</strong>, which per OCPP 2.1 governs use cases A02 and A03 for both SECC
+leafs; the ISO 15118-20 SECC leaf is additionally only maintained when the connection is OCPP 2.1, because a 2.0.1
+CSMS does not know <strong>V2G20Certificate</strong>. Expiry is re-checked every 12 hours
+(<code class="docutils literal notranslate"><span class="pre">V2GCertificateExpireCheckIntervalSeconds</span></code>); the two SECC leafs are checked and renewed independently, and
+because only one <strong>SignCertificate.req</strong> may be outstanding, when both are due one is requested per check,
+alternating which leaf goes first so that a leaf the CSMS never issues does not block the other. On OCPP 2.1 every
+<strong>SignCertificate.req</strong> carries a <code class="docutils literal notranslate"><span class="pre">requestId</span></code> and a
+<strong>CertificateSigned.req</strong> whose <code class="docutils literal notranslate"><span class="pre">requestId</span></code> does not belong to the outstanding request is rejected (A02.FR.24 /
+A02.FR.26); a SECC leaf request also names the V2G root it shall be issued under in <code class="docutils literal notranslate"><span class="pre">hashRootCertificate</span></code>
+(A02.FR.27). Candidates are the installed V2G roots whose key algorithm matches the requested leaf (<code class="docutils literal notranslate"><span class="pre">secp521r1</span></code> or
+<code class="docutils literal notranslate"><span class="pre">Ed448</span></code> roots for the -20 leaf, all others for the -2 leaf); among them the root of the installed leaf is named, or
+the only candidate, and the field is omitted when neither identifies one. A <strong>CertificateSigned.req</strong> that omits
+<code class="docutils literal notranslate"><span class="pre">certificateType</span></code> is installed as the type of the outstanding request (the CSMS is only recommended to echo the
+type). The CSMS can also trigger either request via <strong>TriggerMessage.req</strong> (<code class="docutils literal notranslate"><span class="pre">SignV2GCertificate</span></code> /
+<code class="docutils literal notranslate"><span class="pre">SignV2G20Certificate</span></code>). A newly installed SECC leaf is picked up by the <code class="docutils literal notranslate"><span class="pre">Evse15118D20</span></code> module without a restart
+via the <code class="docutils literal notranslate"><span class="pre">certificate_store_update</span></code> event. In OCPP 1.6, the equivalent
+functionality for the CSMS and ISO 15118-2 SECC certificates is provided via the OCPP 1.6 security whitepaper
+extension and the Plug&amp;Charge extension implemented via <strong>DataTransfer.req</strong> messages; the ISO 15118-20 SECC leaf is
+not managed over OCPP 1.6.</p>
 <p>In addition, the charging station periodically (by default every seven days) updates the OCSP responses of the sub-CA
 certificates of the V2G certificate chain. The cached OCSP response can be used as part of the ISO 15118 TLS
 handshake with EVs. An update is attempted at every startup and then on the periodic interval.</p>
@@ -1948,7 +1980,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

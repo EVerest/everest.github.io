@@ -36,7 +36,36 @@ Provides
 |    Use AC 5% mode according to ISO15118-3. This restarts SLAC sessions if they fail according to the standard. The standard only allows the retries for AC, not for DC. However, it is strongly recommended to always set this option to true, also for DC, otherwise some EVs in the field will fail to do SLAC frequently.
 |   **set_key_timeout_ms**: *integer* <optional>
 |   *default: 1000*
-|    Timeout for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.
+|    Timeout and retry interval for CM_SET_KEY.REQ. Default works for QCA7000/QCA7005/CG5317.
+|   **set_key_handling_mode**: *string* <optional>
+|   *default: "retry_confirmed"*
+|    Set-key behavior mode:
+|      - legacy_single_attempt: send one CM_SET_KEY.REQ and only accept a valid CM_SET_KEY.CNF success result.
+|      - retry_confirmed: retry on timeout/failure and only accept CM_SET_KEY.CNF result success.
+|    enum:
+|      - legacy_single_attempt
+|      - retry_confirmed
+|   **set_key_cnf_success_mode**: *string* <optional>
+|   *default: "modem_compat_0x01"*
+|    CM_SET_KEY.CNF success result interpretation:
+|      - modem_compat_0x01: default QCA/practical modem behavior; only result 0x01 is accepted as success.
+|      - hpgp_standard_0x00: explicit HomePlug Green PHY standard behavior; only result 0x00 is accepted.
+|      - accept_0x00_or_0x01: compatibility mode accepting either standard 0x00 or modem-compatible 0x01.
+|    enum:
+|      - modem_compat_0x01
+|      - hpgp_standard_0x00
+|      - accept_0x00_or_0x01
+|   **nmk_generation_mode**: *string* <optional>
+|   *default: "legacy_printable"*
+|    NMK generation mode for internal session NMK generation:
+|      - legacy_printable: default compatibility mode; use legacy printable characters only (0-9A-Z).
+|      - full_byte_range: explicit opt-in for the full byte range 0x00..0xFF to reduce collision probability.
+|    enum:
+|      - legacy_printable
+|      - full_byte_range
+|   **set_key_max_attempts**: *integer* <optional>
+|   *default: 10*
+|    Maximum CM_SET_KEY.REQ attempts before proceeding to the next reset state.
 |   **sounding_attenuation_adjustment**: *integer* <optional>
 |   *default: 0*
 |    Offset in dB that should be added to the calculated sounding attenuation
@@ -48,7 +77,7 @@ Provides
 |    Publish the EV MAC address when the first CM_SLAC_PARM.REQ. This should not be used as it is quite error prone: The MAC address might be from another car via cross talk. It is better to wait for the matching to be done.
 |   **do_chip_reset**: *boolean* <optional>
 |   *default: False*
-|    Perform a chip reset after setting NMK using the RS_DEV.REQ Vendor MME Extension (Only works on Qualcomm chips)
+|    Perform a chip reset after setting the NMK (Qualcomm RS_DEV.REQ or Lumissil NSCM RESET_DEVICE vendor MME; other vendors skip the step)
 |   **chip_reset_delay_ms**: *integer* <optional>
 |   *default: 100*
 |    Delay between SET_KEY.CNF and RS_DEV.REQ
@@ -64,21 +93,39 @@ Provides
 |   **link_status_timeout_ms**: *integer* <optional>
 |   *default: 10000*
 |    Timeout for Link to come up after matching request
+|   **link_status_poll_in_matched_state_ms**: *integer* <optional>
+|   *default: 200*
+|    Interval between LINK_STATUS polls while matched. Link-loss detection takes up to link_status_debounce_count consecutive polls, so keep debounce count times poll interval well below TP_match_leave (1 s) for ISO 15118-3 conformant leaving on connection loss.
+|   **link_status_debounce_count**: *integer* <optional>
+|   *default: 1*
+|    Consecutive negative LINK_STATUS confirmations in the matched state before the link counts as lost and the session is torn down. 1 tears down on the first negative reply; higher values ride out transient PLC link flaps (e.g. re-sync under full DC load) at the cost of one poll interval of detection latency per additional confirmation. A positive confirmation resets the count.
 |   **debug_simulate_failed_matching**: *boolean* <optional>
 |   *default: False*
 |    Only for debugging. Simulate failed matching by sending a wrong NMK to the EV.
 |   **reset_instead_of_fail**: *boolean* <optional>
 |   *default: True*
 |    Go to reset state instead of failed state. This is against the ISO15118-3. But some cars directly send a CM_SLAC_PARAM.req message when the SLAC process aborts. To react to this message and restart the SLAC process, the EVSE go to the reset state here.
+|   **max_matching_sessions**: *integer* <optional>
+|   *default: 5*
+|    Maximum number of simultaneous CM_SLAC_PARM sessions the EVSE keeps active.
 |   **startup_delay_ms**: *integer* <optional>
 |   *default: 0*
 |    Delay initialization of SLAC I/O by the given amount. On some hardware platforms with multiple EvseSlac modules loaded this can be necessary to ensure that the initial query of the device information does not happen at the same time.
 |   **slac_init_timeout_ms**: *integer* <optional>
 |   *default: 40000*
 |    Timeout for CM_SLAC_PARM.REQ. Values between 10000 and 20000 can be set at your own risk, as they violate ISO15118-3. Experience has shown that this should not cause any problems.
+|   **print_state_transitions**: *boolean* <optional>
+|   *default: False*
+|    For debugging. Print all transitions of the internal state machine.
 |   **hack_disable_regenerate_key_on_reset**: *boolean* <optional>
 |   *default: False*
 |    Hack: Do not regenerate NMK on reset, this is not spec compliant and should only be set for debugging purposes.
+|   **initiate_amp_map**: *boolean* <optional>
+|   *default: False*
+|    Send a CM_AMP_MAP.REQ once the AVLN is established to reduce the transmit power of selected OFDM carriers (ISO 15118-3 A.9.6 transmit-power limitation). The amplitude map is read from amp_map_file. The SECC always answers an incoming CM_AMP_MAP.REQ with CM_AMP_MAP.CNF regardless of this option.
+|   **amp_map_file**: *string* <optional>
+|   *default: ""*
+|    Path to a YAML file describing the CM_AMP_MAP amplitude map (keys: carriers, default_amplitude 0..15, overrides {carrier: amplitude}). Empty uses a built-in all-maximum-TX default (no reduction). See config/slac_amp_map_example.yaml. Only used when initiate_amp_map is true.
 
 
 ********
@@ -86,13 +133,11 @@ Metadata
 ********
 Authors
 =======
-| aw@pionix.de
+| Jan Christoph Habig (Pionix GmbH)
 | Cornelius Claussen (Pionix GmbH)
+| aw@pionix.de
 
 License
 =======
 | https://opensource.org/licenses/Apache-2.0
 
-Misc
-====
-|  base_license:https://directory.fsf.org/wiki/License:BSD-3-Clause-Clear

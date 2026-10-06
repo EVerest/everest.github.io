@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>McsDataLink - EVerest Manual main@3bc48cd</title>
+        <title>McsDataLink - EVerest Manual main@b44f9e9</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3bc48cd</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@b44f9e9</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3bc48cd</span>
+  <span class="sidebar-brand-text">EVerest Manual main@b44f9e9</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -855,8 +855,12 @@ budget covers both kinds of failure - link losses and <code class="docutils lite
 Refunding it would mean a link that flaps between up and lost retries forever
 and <code class="docutils literal notranslate"><span class="pre">conn_retry_max</span></code> bounds nothing. It is refilled by <code class="docutils literal notranslate"><span class="pre">leave_bcd</span></code>,
 <code class="docutils literal notranslate"><span class="pre">reset</span></code> and <code class="docutils literal notranslate"><span class="pre">dlink_terminate</span></code> - the events that end or explicitly restart
-the connection. When it is exhausted the module reports the link down and stays
-<code class="docutils literal notranslate"><span class="pre">UNMATCHED</span></code>: state B0 territory, where EvseManager decides.</p>
+the connection - and by an <code class="docutils literal notranslate"><span class="pre">enter_bcd</span></code> out of <code class="docutils literal notranslate"><span class="pre">UNMATCHED</span></code>, which is the next
+connection (a plug-in; the restart routine re-enters BCD out of its own wait
+state and keeps the budget). Without that, a budget spent on an empty wire -
+EvseManager once restarted matching on an unplug - carried over to the next EV.
+When it is exhausted the module reports the link down and stays <code class="docutils literal notranslate"><span class="pre">UNMATCHED</span></code>:
+state B0 territory, where EvseManager decides.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>V2G10-052</strong> (“a successful communication setup shall reset all the timeout
@@ -928,7 +932,7 @@ as “stop SLAC”.</p>
 is commented out (<code class="docutils literal notranslate"><span class="pre">EvseManager.cpp:409</span></code>, <code class="docutils literal notranslate"><span class="pre">:1088</span></code>, <code class="docutils literal notranslate"><span class="pre">:1097</span></code>). A module that
 treated <code class="docutils literal notranslate"><span class="pre">reset(false)</span></code> as a latch would serve exactly one EV after startup and
 then ignore every <code class="docutils literal notranslate"><span class="pre">enter_bcd</span></code> forever. <code class="docutils literal notranslate"><span class="pre">SlacSimulator</span></code> ignores the flag
-outright and <code class="docutils literal notranslate"><span class="pre">EvseSlacNeo</span></code> treats <code class="docutils literal notranslate"><span class="pre">reset(false)</span></code> as “reset the state machine”
+outright and <code class="docutils literal notranslate"><span class="pre">EvseSlac</span></code> treats <code class="docutils literal notranslate"><span class="pre">reset(false)</span></code> as “reset the state machine”
 for the same reason; only the <code class="docutils literal notranslate"><span class="pre">BUSlac</span></code> bring-up tool uses the flag as
 start/stop.</p>
 </section>
@@ -994,6 +998,13 @@ deliberately conservative, because a false positive kills a charging session:</p
 before the EV has sent anything, and also after the kernel has
 garbage-collected an idle entry - removal of the last entry is explicitly not
 a loss.</p></li>
+<li><p>An EV that has <strong>not been alive yet</strong> on this link cannot be lost. Some EVs
+ignore neighbour solicitations for seconds after link up (bench-found with an
+MCS truck: ~6 s) while already sending SDP requests; their entry goes
+<code class="docutils literal notranslate"><span class="pre">NUD_FAILED</span></code> before they ever answer. An EV that never answers is left to
+the communication setup timeout and its restart routine, not reported as a
+link loss. The neighbour table is forgotten on every carrier drop, D-LINK
+command and pause, so each link starts without a peer to lose.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">NUD_STALE</span></code>, <code class="docutils literal notranslate"><span class="pre">NUD_DELAY</span></code>, <code class="docutils literal notranslate"><span class="pre">NUD_PROBE</span></code> and <code class="docutils literal notranslate"><span class="pre">NUD_PERMANENT</span></code> all count as
 <strong>alive</strong>. The kernel only re-probes when something wants to send, so an idle
 but healthy link legitimately sits in STALE indefinitely.</p></li>
@@ -1378,7 +1389,7 @@ Table CC.110.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=308fa45e"></script>
+</div><script src="../../../../_static/documentation_options.js?v=423b876f"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

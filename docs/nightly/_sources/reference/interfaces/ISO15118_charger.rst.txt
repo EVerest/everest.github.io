@@ -30,6 +30,8 @@ Variables
 |  The charger should now start the pre charge phase
 | **dc_open_contactor**: *null* 
 |  The contactor should be opened
+| **dc_renegotiation_started**: *null* 
+|  The EV sent PowerDeliveryReq with ChargeProgress Renegotiate in DC. The charger disables the DC output and keeps the session: the EV opens its contactor and changes to CP state B, then the session continues with ChargeParameterDiscovery and a new cable check (IEC 61851-23:2023 CC.3.6).
 | **v2g_setup_finished**: *null* 
 |  v2g_setup_finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop
 | **current_demand_started**: *null* 
@@ -92,6 +94,8 @@ Variables
 |  Terminate the data link and restart the matching process.
 | **dlink_pause**: *null* 
 |  Request power saving mode, while staying MATCHED.
+| **pause_notified**: *null* 
+|  ISO 15118-20 only: the pause requested with pause_charging has been notified to the EV (EVSENotification set to Pause). In scheduled control mode the notification is held back until the applied EVPowerProfileEntry is 0 kW, so this may follow the request much later, or not at all.
 | **ev_app_protocol**: *object*  (:ref:`iso15118-AppProtocols <iso15118-AppProtocols>`)
 |  Debug_Lite - This request message provides a list of charging protocols supported by the EVCC
 | **v2g_messages**: *object*  (:ref:`iso15118-V2gMessages <iso15118-V2gMessages>`)

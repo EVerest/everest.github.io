@@ -10419,7 +10419,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_start_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction start. Updated at each new transaction.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">session_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of session end. Updated at each session end.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction end. Updated at each transaction end.</p>
-</div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div></div><div class="panel-item--right px-8"><div class="bg-gray-800 px-8 py-4 mt-4 -mx-8 2xl:mx-0 2xl:px-4 2xl:rounded examples"><h4 class="text-white text-lg">Examples</h4><div class="mt-4"><div><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="inline-block w-20 py-0.5 mr-1 text-gray-200 text-sm border text-center rounded focus:outline-none">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  fill-current text-gray-200"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button></div><div class="hidden"><div class="mt-4"><div class="prose max-w-none text-sm"><pre><code class="hljs language-json">{
+</div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">reserved</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.</p>
+</div></div><div class="text-xs">Default value:<span class="border inline-block text-orange-600 rounded ml-1 py-0 px-2">false</span></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div></div><div class="panel-item--right px-8"><div class="bg-gray-800 px-8 py-4 mt-4 -mx-8 2xl:mx-0 2xl:px-4 2xl:rounded examples"><h4 class="text-white text-lg">Examples</h4><div class="mt-4"><div><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="inline-block w-20 py-0.5 mr-1 text-gray-200 text-sm border text-center rounded focus:outline-none">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  fill-current text-gray-200"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button></div><div class="hidden"><div class="mt-4"><div class="prose max-w-none text-sm"><pre><code class="hljs language-json">{
   <span class="hljs-attr">"state"</span>: <span class="hljs-string">"Unknown"</span>,
   <span class="hljs-attr">"charged_energy_wh"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"discharged_energy_wh"</span>: <span class="hljs-number">0</span>,
@@ -10431,7 +10432,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
   <span class="hljs-attr">"session_start_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
   <span class="hljs-attr">"transaction_start_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
   <span class="hljs-attr">"session_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
-  <span class="hljs-attr">"transaction_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>
+  <span class="hljs-attr">"transaction_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
+  <span class="hljs-attr">"reserved"</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
 </div><h6 class="text-xs font-bold text-gray-600 italic mt-2">This example has been generated automatically.</h6></div></div></div></div></div></div></div></div></div></div></li><li class="mb-12" id="operation-request-send_request_get_session_info"><div><div class="panel-item--center px-8"><div class="mb-4"><h3><span class="font-mono border uppercase p-1 rounded mr-2 border-red-600 text-red-600" title="request">REQUEST</span> <span class="font-mono text-base">m2e/session_info/get</span></h3></div><div class="mt-2"><div class="prose max-w-none text-sm"><p>Request the most recently published (latched) session info. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.</p>
@@ -10469,7 +10471,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_start_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction start. Updated at each new transaction.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">session_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of session end. Updated at each session end.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction end. Updated at each transaction end.</p>
-</div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">Or to undefined:</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">null</div><div class="inline-block"></div></div></div></div></div></div></div></div></div></div><div class="panel-item--right px-8"><div class="bg-gray-800 px-8 py-4 mt-4 -mx-8 2xl:mx-0 2xl:px-4 2xl:rounded examples"><h4 class="text-white text-lg">Examples</h4><div class="mt-4"><div><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="inline-block w-20 py-0.5 mr-1 text-gray-200 text-sm border text-center rounded focus:outline-none">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  fill-current text-gray-200"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button></div><div class="hidden"><div class="mt-4"><div class="prose max-w-none text-sm"><pre><code class="hljs language-json">{
+</div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">reserved</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.</p>
+</div></div><div class="text-xs">Default value:<span class="border inline-block text-orange-600 rounded ml-1 py-0 px-2">false</span></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">Or to undefined:</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">null</div><div class="inline-block"></div></div></div></div></div></div></div></div></div></div><div class="panel-item--right px-8"><div class="bg-gray-800 px-8 py-4 mt-4 -mx-8 2xl:mx-0 2xl:px-4 2xl:rounded examples"><h4 class="text-white text-lg">Examples</h4><div class="mt-4"><div><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="inline-block w-20 py-0.5 mr-1 text-gray-200 text-sm border text-center rounded focus:outline-none">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  fill-current text-gray-200"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button></div><div class="hidden"><div class="mt-4"><div class="prose max-w-none text-sm"><pre><code class="hljs language-json">{
   <span class="hljs-attr">"state"</span>: <span class="hljs-string">"Unknown"</span>,
   <span class="hljs-attr">"charged_energy_wh"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"discharged_energy_wh"</span>: <span class="hljs-number">0</span>,
@@ -10481,7 +10484,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
   <span class="hljs-attr">"session_start_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
   <span class="hljs-attr">"transaction_start_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
   <span class="hljs-attr">"session_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
-  <span class="hljs-attr">"transaction_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>
+  <span class="hljs-attr">"transaction_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
+  <span class="hljs-attr">"reserved"</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
 </div><h6 class="text-xs font-bold text-gray-600 italic mt-2">This example has been generated automatically.</h6></div></div></div></div></div></div></div></div><div class="mt-2"></div></div> </div></div></div></div><div class="flex"><div class="w-1 h-11 bg-blue-600 mt-4"></div><div class="p-4"><h3 class="text-xs"><span class="mr-2 uppercase" title="request">REPLY address information</span></h3><div class="text-xs text-gray-700">REPLY will be sent to the address provided in:<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">$message.header#/replyTo</span></div></div></div></div></div></div></div></div></li><li class="mb-12" id="operation-receive-receive_reply_get_session_info"><div><div class="panel-item--center px-8"><div class="mb-4"><h3><span class="font-mono border uppercase p-1 rounded mr-2 border-green-600 text-green-600" title="receive">RECEIVE</span> <span class="font-mono text-base"></span></h3></div><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Operation ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_reply_get_session_info</span></div></div><div class="mt-2 text-sm"><p>Available only on servers:</p><ul class="flex flex-wrap leading-normal"><li class="inline-block mt-2 mr-2"><a href="#server-default" class="border border-solid border-blue-300 hover:bg-blue-300 hover:text-blue-600 text-blue-500 font-bold no-underline text-xs rounded px-3 py-1 cursor-pointer"><span class="underline">default</span></a></li></ul></div><div class="mt-2" id="operation-receive--security"></div><div class="mt-2"></div><div class="mt-2"></div><div class="mt-2"></div></div><div class="w-full mt-4" id="operation-receive--message"><div class="mt-2"><p class="px-8">Accepts the following message:</p><div class="mt-2"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 mr-2">Reply to get session info request</span><span class="border text-orange-600 rounded text-xs py-0 px-2">receive_reply_get_session_info</span></div><p class="text-gray-600 text-sm">The most recently published session info.</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_reply_get_session_info</span></div></div><div class="mt-2"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">oneOf</div><div class="inline-block"></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100  hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Adheres to undefined:</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Context for Session information</p>
@@ -10511,7 +10515,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_start_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction start. Updated at each new transaction.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">session_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of session end. Updated at each session end.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction end. Updated at each transaction end.</p>
-</div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">Or to undefined:</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">null</div><div class="inline-block"></div></div></div></div></div></div></div></div></div></div><div class="panel-item--right px-8"><div class="bg-gray-800 px-8 py-4 mt-4 -mx-8 2xl:mx-0 2xl:px-4 2xl:rounded examples"><h4 class="text-white text-lg">Examples</h4><div class="mt-4"><div><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="inline-block w-20 py-0.5 mr-1 text-gray-200 text-sm border text-center rounded focus:outline-none">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  fill-current text-gray-200"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button></div><div class="hidden"><div class="mt-4"><div class="prose max-w-none text-sm"><pre><code class="hljs language-json">{
+</div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">reserved</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.</p>
+</div></div><div class="text-xs">Default value:<span class="border inline-block text-orange-600 rounded ml-1 py-0 px-2">false</span></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">Or to undefined:</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">null</div><div class="inline-block"></div></div></div></div></div></div></div></div></div></div><div class="panel-item--right px-8"><div class="bg-gray-800 px-8 py-4 mt-4 -mx-8 2xl:mx-0 2xl:px-4 2xl:rounded examples"><h4 class="text-white text-lg">Examples</h4><div class="mt-4"><div><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="inline-block w-20 py-0.5 mr-1 text-gray-200 text-sm border text-center rounded focus:outline-none">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  fill-current text-gray-200"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button></div><div class="hidden"><div class="mt-4"><div class="prose max-w-none text-sm"><pre><code class="hljs language-json">{
   <span class="hljs-attr">"state"</span>: <span class="hljs-string">"Unknown"</span>,
   <span class="hljs-attr">"charged_energy_wh"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"discharged_energy_wh"</span>: <span class="hljs-number">0</span>,
@@ -10523,7 +10528,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
   <span class="hljs-attr">"session_start_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
   <span class="hljs-attr">"transaction_start_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
   <span class="hljs-attr">"session_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
-  <span class="hljs-attr">"transaction_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>
+  <span class="hljs-attr">"transaction_end_time"</span>: <span class="hljs-string">"2019-08-24T14:15:22Z"</span>,
+  <span class="hljs-attr">"reserved"</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
 </div><h6 class="text-xs font-bold text-gray-600 italic mt-2">This example has been generated automatically.</h6></div></div></div></div></div></div></div></div></div></div></li><li class="mb-12" id="operation-receive-receive_powermeter"><div><div class="panel-item--center px-8"><div class="mb-4"><h3><span class="font-mono border uppercase p-1 rounded mr-2 border-green-600 text-green-600" title="receive">RECEIVE</span> <span class="font-mono text-base">e2m/powermeter</span></h3></div><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Operation ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_powermeter</span></div></div><div class="mt-2 text-sm"><p>Available only on servers:</p><ul class="flex flex-wrap leading-normal"><li class="inline-block mt-2 mr-2"><a href="#server-default" class="border border-solid border-blue-300 hover:bg-blue-300 hover:text-blue-600 text-blue-500 font-bold no-underline text-xs rounded px-3 py-1 cursor-pointer"><span class="underline">default</span></a></li></ul></div><div class="mt-2" id="operation-receive-e2m/powermeter-security"></div><div class="mt-2"></div><div class="mt-2"></div><div class="mt-2"></div></div><div class="w-full mt-4" id="operation-receive-e2m/powermeter-message"><div class="mt-2"><p class="px-8">Accepts the following message:</p><div class="mt-2"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 mr-2">Receive powermeter</span><span class="border text-orange-600 rounded text-xs py-0 px-2">receive_powermeter</span></div><p class="text-gray-600 text-sm">Powermeter measured dataset</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_powermeter</span></div></div><div class="mt-2"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Measured dataset (AC or DC)</p>
@@ -16023,7 +16029,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_start_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction start. Updated at each new transaction.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">session_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of session end. Updated at each session end.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction end. Updated at each transaction end.</p>
-</div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div></div></div></li><li class="mb-4" id="message-send_request_get_session_info"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 font-bold mr-2">#<!-- -->23</span><span class="text-gray-700 mr-2">Request current session info</span><span class="border text-orange-600 rounded text-xs py-0 px-2">send_request_get_session_info</span></div><p class="text-gray-600 text-sm">Request the most recently published (latched) session info.</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">send_request_get_session_info</span></div></div><div class="mt-2" id="message-send_request_get_session_info-payload"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100  hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm italic">headers</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button><div class="text-red-600 text-xs">required</div></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100 bg-gray-200 hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">replyTo</span><div class="text-red-600 text-xs">required</div></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Address to send the response to.</p>
+</div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">reserved</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.</p>
+</div></div><div class="text-xs">Default value:<span class="border inline-block text-orange-600 rounded ml-1 py-0 px-2">false</span></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div></div></div></li><li class="mb-4" id="message-send_request_get_session_info"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 font-bold mr-2">#<!-- -->23</span><span class="text-gray-700 mr-2">Request current session info</span><span class="border text-orange-600 rounded text-xs py-0 px-2">send_request_get_session_info</span></div><p class="text-gray-600 text-sm">Request the most recently published (latched) session info.</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">send_request_get_session_info</span></div></div><div class="mt-2" id="message-send_request_get_session_info-payload"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100  hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm italic">headers</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button><div class="text-red-600 text-xs">required</div></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100 bg-gray-200 hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">replyTo</span><div class="text-red-600 text-xs">required</div></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Address to send the response to.</p>
 </div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div></div></div></li><li class="mb-4" id="message-receive_reply_get_session_info"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 font-bold mr-2">#<!-- -->24</span><span class="text-gray-700 mr-2">Reply to get session info request</span><span class="border text-orange-600 rounded text-xs py-0 px-2">receive_reply_get_session_info</span></div><p class="text-gray-600 text-sm">The most recently published session info.</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_reply_get_session_info</span></div></div><div class="mt-2" id="message-receive_reply_get_session_info-payload"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">oneOf</div><div class="inline-block"></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100  hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Adheres to undefined:</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Context for Session information</p>
 </div></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100 bg-gray-200 hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">state</span><div class="text-red-600 text-xs">required</div></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>State of the EVSE: </p>
 <ul>
@@ -16051,7 +16058,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_start_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction start. Updated at each new transaction.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">session_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of session end. Updated at each session end.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction end. Updated at each transaction end.</p>
-</div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">Or to undefined:</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">null</div><div class="inline-block"></div></div></div></div></div></div></div></div></div></div></div></li><li class="mb-4" id="message-receive_powermeter"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 font-bold mr-2">#<!-- -->25</span><span class="text-gray-700 mr-2">Receive powermeter</span><span class="border text-orange-600 rounded text-xs py-0 px-2">receive_powermeter</span></div><p class="text-gray-600 text-sm">Powermeter measured dataset</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_powermeter</span></div></div><div class="mt-2" id="message-receive_powermeter-payload"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Measured dataset (AC or DC)</p>
+</div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">reserved</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.</p>
+</div></div><div class="text-xs">Default value:<span class="border inline-block text-orange-600 rounded ml-1 py-0 px-2">false</span></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">Or to undefined:</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">null</div><div class="inline-block"></div></div></div></div></div></div></div></div></div></div></div></li><li class="mb-4" id="message-receive_powermeter"><div class="panel-item"><div class="panel-item--center px-8"><div class="shadow rounded bg-gray-200 p-4 border"><div><span class="text-gray-700 font-bold mr-2">#<!-- -->25</span><span class="text-gray-700 mr-2">Receive powermeter</span><span class="border text-orange-600 rounded text-xs py-0 px-2">receive_powermeter</span></div><p class="text-gray-600 text-sm">Powermeter measured dataset</p><ul class="leading-normal mt-2 mb-4 space-x-2 space-y-2"><li class="inline-block"><a href="https://www.iana.org/assignments/media-types/application/json" class="border border-solid border-orange-300 hover:bg-orange-300 hover:text-orange-600 text-orange-500 font-bold no-underline text-xs uppercase rounded px-3 py-1" target="_blank" rel="nofollow noopener noreferrer"><span>application/json</span></a></li></ul><div class="border bg-gray-100 rounded px-4 py-2 mt-2"><div class="text-sm text-gray-700">Message ID<span class="border text-orange-600 rounded text-xs ml-2 py-0 px-2">receive_powermeter</span></div></div><div class="mt-2" id="message-receive_powermeter-payload"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><button class="focus:outline-none undefined" type="button"><div class="inline-block"><span class="break-anywhere text-sm ">Payload</span></div><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" class="inline-block align-baseline cursor-pointer ml-0.5 -mb-1 w-5 h-5 transform transition-transform duration-150 ease-linear  "><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></button><button type="button" class="ml-1 text-sm text-gray-500">Expand all</button></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">object</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Measured dataset (AC or DC)</p>
 </div></div></div></div></div><div class="rounded p-4 py-2 border bg-gray-100  hidden"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">timestamp</span><div class="text-red-600 text-xs">required</div></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of measurement</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">meter_id</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>A (user defined) meter id (e.g. id printed on the case)</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">phase_seq_error</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>AC only: true for 3 phase rotation error (ccw)</p>
@@ -16978,7 +16986,8 @@ A transaction starts if an EV is plugged in and the user is  authorized. A trans
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_start_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction start. Updated at each new transaction.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">session_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of session end. Updated at each session end.</p>
 </div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">transaction_end_time</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"><span class="bg-yellow-600 font-bold no-underline text-white rounded lowercase mr-2 p-1 text-xs">format: <!-- -->date-time</span></div><div><div class="prose max-w-none text-sm"><p>Timestamp of transaction end. Updated at each transaction end.</p>
-</div></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div><div class="w-full mt-4"></div></div></li><li class="mb-4" id="schema-HlcSessionFailedReasonEnum"><div><div class="panel-item--center px-8"><div class="shadow rounded px-4 py-2 border bg-gray-200"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">HlcSessionFailedReasonEnum</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Reason for a higher-level-communication (HLC) session failure event.
+</div></div></div></div></div></div><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm italic">reserved</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">boolean</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.</p>
+</div></div><div class="text-xs">Default value:<span class="border inline-block text-orange-600 rounded ml-1 py-0 px-2">false</span></div></div></div></div></div><p class="mt-2 text-xs text-gray-700">Additional properties are allowed.</p></div></div></div></div><div class="w-full mt-4"></div></div></li><li class="mb-4" id="schema-HlcSessionFailedReasonEnum"><div><div class="panel-item--center px-8"><div class="shadow rounded px-4 py-2 border bg-gray-200"><div><div class="flex py-2"><div class="min-w-1/4 mr-2"><span class="break-anywhere text-sm ">HlcSessionFailedReasonEnum</span></div><div><div><div class="capitalize text-sm text-teal-500 font-bold inline-block mr-2">string</div><div class="inline-block"></div><div><div class="prose max-w-none text-sm"><p>Reason for a higher-level-communication (HLC) session failure event.
 Published via HlcSessionFailed whenever HLC session encounters a failure.</p>
 <ul>
 <li>ProtocolNegotiationFailed: No common communication protocol or version could be
@@ -21844,6 +21853,12 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                 "type": "string",
                 "format": "date-time",
                 "x-parser-schema-id": "<anonymous-schema-148>"
+              },
+              "reserved": {
+                "description": "Indicates whether the EVSE is currently held for a reservation (true) or not (false). Independent of state: an EVSE can stay reserved while an EV that does not match the reservation is plugged in. Reservations that are not for a specific EVSE (e.g. only for a connector type) hold an EVSE only once they use up the remaining capacity, and the EVSEs they hold can change while they are pending. Becomes false when the reservation ends or is used to start a transaction. Treated as false when omitted.",
+                "type": "boolean",
+                "default": false,
+                "x-parser-schema-id": "<anonymous-schema-149>"
               }
             },
             "x-parser-schema-id": "SessionInfo"
@@ -21876,13 +21891,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-151>"
+                    "x-parser-schema-id": "<anonymous-schema-152>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-150>"
+                "x-parser-schema-id": "<anonymous-schema-151>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-149>"
+            "x-parser-schema-id": "<anonymous-schema-150>"
           },
           "examples": [
             {
@@ -21912,10 +21927,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_session_info.messages.receive_session_info.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-153>"
+                "x-parser-schema-id": "<anonymous-schema-154>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-152>"
+            "x-parser-schema-id": "<anonymous-schema-153>"
           },
           "x-parser-unique-object-id": "receive_reply_get_session_info"
         }
@@ -21959,13 +21974,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-156>"
+                    "x-parser-schema-id": "<anonymous-schema-157>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-155>"
+                "x-parser-schema-id": "<anonymous-schema-156>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-154>"
+            "x-parser-schema-id": "<anonymous-schema-155>"
           },
           "examples": [
             {
@@ -21995,10 +22010,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_session_event.messages.receive_session_event.payload.properties.session_started.properties.meter_value",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-158>"
+                "x-parser-schema-id": "<anonymous-schema-159>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-157>"
+            "x-parser-schema-id": "<anonymous-schema-158>"
           },
           "x-parser-unique-object-id": "receive_reply_get_powermeter"
         }
@@ -22016,7 +22031,7 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
           "payload": {
             "type": "string",
             "description": "The public key as string used to sign the OCMF data",
-            "x-parser-schema-id": "<anonymous-schema-159>"
+            "x-parser-schema-id": "<anonymous-schema-160>"
           },
           "x-parser-unique-object-id": "receive_powermeter_public_key_ocmf"
         }
@@ -22046,13 +22061,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-162>"
+                    "x-parser-schema-id": "<anonymous-schema-163>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-161>"
+                "x-parser-schema-id": "<anonymous-schema-162>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-160>"
+            "x-parser-schema-id": "<anonymous-schema-161>"
           },
           "examples": [
             {
@@ -22082,10 +22097,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_powermeter_public_key_ocmf.messages.receive_powermeter_public_key_ocmf.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-164>"
+                "x-parser-schema-id": "<anonymous-schema-165>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-163>"
+            "x-parser-schema-id": "<anonymous-schema-164>"
           },
           "x-parser-unique-object-id": "receive_reply_get_powermeter_public_key_ocmf"
         }
@@ -22129,13 +22144,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-167>"
+                    "x-parser-schema-id": "<anonymous-schema-168>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-166>"
+                "x-parser-schema-id": "<anonymous-schema-167>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-165>"
+            "x-parser-schema-id": "<anonymous-schema-166>"
           },
           "examples": [
             {
@@ -22165,10 +22180,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_reply_get_evse.messages.receive_reply_get_evse.payload.properties.evse_id",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-169>"
+                "x-parser-schema-id": "<anonymous-schema-170>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-168>"
+            "x-parser-schema-id": "<anonymous-schema-169>"
           },
           "x-parser-unique-object-id": "receive_reply_get_evse_id"
         }
@@ -22203,65 +22218,65 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "max_current_A_import": {
                 "description": "Maximum current (ampere) the hardware can handle (import from grid)",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-171>"
+                "x-parser-schema-id": "<anonymous-schema-172>"
               },
               "min_current_A_import": {
                 "description": "Minimum current (ampere) the hardware can use to charge. Values below may be set but may result in pause instead.  (import from grid)",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-172>"
+                "x-parser-schema-id": "<anonymous-schema-173>"
               },
               "max_phase_count_import": {
                 "description": "Max nr of phases the hardware can use  (import from grid)",
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 3,
-                "x-parser-schema-id": "<anonymous-schema-173>"
+                "x-parser-schema-id": "<anonymous-schema-174>"
               },
               "min_phase_count_import": {
                 "description": "Minimum nr of phases the hardware can use  (import from grid)",
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 3,
-                "x-parser-schema-id": "<anonymous-schema-174>"
+                "x-parser-schema-id": "<anonymous-schema-175>"
               },
               "max_current_A_export": {
                 "description": "Maximum current (ampere) the hardware can handle (export to grid)",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-175>"
+                "x-parser-schema-id": "<anonymous-schema-176>"
               },
               "min_current_A_export": {
                 "description": "Minimum current (ampere) the hardware can use to charge. Values below may be set but may result in pause instead. (export to grid)",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-176>"
+                "x-parser-schema-id": "<anonymous-schema-177>"
               },
               "max_phase_count_export": {
                 "description": "Max nr of phases the hardware can use (export to grid)",
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 3,
-                "x-parser-schema-id": "<anonymous-schema-177>"
+                "x-parser-schema-id": "<anonymous-schema-178>"
               },
               "min_phase_count_export": {
                 "description": "Minimum nr of phases the hardware can use (export to grid)",
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 3,
-                "x-parser-schema-id": "<anonymous-schema-178>"
+                "x-parser-schema-id": "<anonymous-schema-179>"
               },
               "supports_changing_phases_during_charging": {
                 "description": "Indicates whether changing number of phases is supported during charging (true) or not (false)",
                 "type": "boolean",
-                "x-parser-schema-id": "<anonymous-schema-179>"
+                "x-parser-schema-id": "<anonymous-schema-180>"
               },
               "max_plug_temperature_C": {
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-180>"
+                "x-parser-schema-id": "<anonymous-schema-181>"
               },
               "supports_cp_state_E": {
                 "description": "Indicates whether setting Control Pilot to state E is supported (true) or not (false). Treated as false when omitted.",
                 "type": "boolean",
                 "default": false,
-                "x-parser-schema-id": "<anonymous-schema-181>"
+                "x-parser-schema-id": "<anonymous-schema-182>"
               },
               "connector_type": {
                 "description": "Type of charging connector available at this EVSE",
@@ -22270,10 +22285,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "IEC62196Type2Cable",
                   "IEC62196Type2Socket"
                 ],
-                "x-parser-schema-id": "<anonymous-schema-182>"
+                "x-parser-schema-id": "<anonymous-schema-183>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-170>"
+            "x-parser-schema-id": "<anonymous-schema-171>"
           },
           "x-parser-unique-object-id": "receive_hw_capabilities"
         }
@@ -22303,13 +22318,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-185>"
+                    "x-parser-schema-id": "<anonymous-schema-186>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-184>"
+                "x-parser-schema-id": "<anonymous-schema-185>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-183>"
+            "x-parser-schema-id": "<anonymous-schema-184>"
           },
           "examples": [
             {
@@ -22339,10 +22354,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_hw_capabilities.messages.receive_hw_capabilities.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-187>"
+                "x-parser-schema-id": "<anonymous-schema-188>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-186>"
+            "x-parser-schema-id": "<anonymous-schema-187>"
           },
           "x-parser-unique-object-id": "receive_reply_get_hw_capabilities"
         }
@@ -22371,12 +22386,12 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "uuid": {
                 "description": "UUID of node that this limit applies to",
                 "type": "string",
-                "x-parser-schema-id": "<anonymous-schema-188>"
+                "x-parser-schema-id": "<anonymous-schema-189>"
               },
               "valid_for": {
                 "description": "Limits are valid for this number of seconds. If no new update is received after valid_for seconds then power consumption must be stopped.",
                 "type": "integer",
-                "x-parser-schema-id": "<anonymous-schema-189>"
+                "x-parser-schema-id": "<anonymous-schema-190>"
               },
               "limits_root_side": {
                 "description": "Energy flow limiting object Result (Energy manager to Evses)",
@@ -22395,15 +22410,15 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                       "value": {
                         "description": "Value",
                         "type": "number",
-                        "x-parser-schema-id": "<anonymous-schema-192>"
+                        "x-parser-schema-id": "<anonymous-schema-193>"
                       },
                       "source": {
                         "description": "Source of the value",
                         "type": "string",
-                        "x-parser-schema-id": "<anonymous-schema-193>"
+                        "x-parser-schema-id": "<anonymous-schema-194>"
                       }
                     },
-                    "x-parser-schema-id": "<anonymous-schema-191>"
+                    "x-parser-schema-id": "<anonymous-schema-192>"
                   },
                   "ac_max_current_A": "$ref:$.channels.receive_enforced_limits.messages.receive_enforced_limits.payload.properties.limits_root_side.properties.total_power_W",
                   "ac_max_phase_count": {
@@ -22418,18 +22433,18 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                       "value": {
                         "description": "Value",
                         "type": "integer",
-                        "x-parser-schema-id": "<anonymous-schema-195>"
+                        "x-parser-schema-id": "<anonymous-schema-196>"
                       },
                       "source": {
                         "description": "Source of the value",
                         "type": "string",
-                        "x-parser-schema-id": "<anonymous-schema-196>"
+                        "x-parser-schema-id": "<anonymous-schema-197>"
                       }
                     },
-                    "x-parser-schema-id": "<anonymous-schema-194>"
+                    "x-parser-schema-id": "<anonymous-schema-195>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-190>"
+                "x-parser-schema-id": "<anonymous-schema-191>"
               },
               "schedule": {
                 "description": "Informative only. Do not use for actual limiting. Energy import/export limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute UTC time.",
@@ -22447,7 +22462,7 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                       "description": "Absolute timestamp for this sample in RFC3339 UTC format",
                       "type": "string",
                       "format": "date-time",
-                      "x-parser-schema-id": "<anonymous-schema-199>"
+                      "x-parser-schema-id": "<anonymous-schema-200>"
                     },
                     "limits_to_root": "$ref:$.channels.receive_enforced_limits.messages.receive_enforced_limits.payload.properties.limits_root_side",
                     "price_per_kwh": {
@@ -22464,27 +22479,27 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                           "description": "Absolute timestamp for this sample in RFC3339 UTC format",
                           "type": "string",
                           "format": "date-time",
-                          "x-parser-schema-id": "<anonymous-schema-201>"
+                          "x-parser-schema-id": "<anonymous-schema-202>"
                         },
                         "value": {
                           "description": "Price per kWh (cost)",
                           "type": "number",
-                          "x-parser-schema-id": "<anonymous-schema-202>"
+                          "x-parser-schema-id": "<anonymous-schema-203>"
                         },
                         "currency": {
                           "description": "Currency in 3 digit ISO 4217",
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 3,
-                          "x-parser-schema-id": "<anonymous-schema-203>"
+                          "x-parser-schema-id": "<anonymous-schema-204>"
                         }
                       },
-                      "x-parser-schema-id": "<anonymous-schema-200>"
+                      "x-parser-schema-id": "<anonymous-schema-201>"
                     }
                   },
-                  "x-parser-schema-id": "<anonymous-schema-198>"
+                  "x-parser-schema-id": "<anonymous-schema-199>"
                 },
-                "x-parser-schema-id": "<anonymous-schema-197>"
+                "x-parser-schema-id": "<anonymous-schema-198>"
               }
             },
             "x-parser-schema-id": "EnforcedLimits"
@@ -22517,13 +22532,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-206>"
+                    "x-parser-schema-id": "<anonymous-schema-207>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-205>"
+                "x-parser-schema-id": "<anonymous-schema-206>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-204>"
+            "x-parser-schema-id": "<anonymous-schema-205>"
           },
           "examples": [
             {
@@ -22553,10 +22568,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_enforced_limits.messages.receive_enforced_limits.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-208>"
+                "x-parser-schema-id": "<anonymous-schema-209>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-207>"
+            "x-parser-schema-id": "<anonymous-schema-208>"
           },
           "x-parser-unique-object-id": "receive_reply_get_enforced_limits"
         }
@@ -22600,13 +22615,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-211>"
+                    "x-parser-schema-id": "<anonymous-schema-212>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-210>"
+                "x-parser-schema-id": "<anonymous-schema-211>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-209>"
+            "x-parser-schema-id": "<anonymous-schema-210>"
           },
           "examples": [
             {
@@ -22636,10 +22651,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_session_info.messages.receive_session_info.payload.properties.selected_protocol",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-213>"
+                "x-parser-schema-id": "<anonymous-schema-214>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-212>"
+            "x-parser-schema-id": "<anonymous-schema-213>"
           },
           "x-parser-unique-object-id": "receive_reply_get_selected_protocol"
         }
@@ -22681,7 +22696,7 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                 "MCS",
                 "MCS_BPT"
               ],
-              "x-parser-schema-id": "<anonymous-schema-214>"
+              "x-parser-schema-id": "<anonymous-schema-215>"
             },
             "minItems": 1,
             "x-parser-schema-id": "SupportedEnergyTransferModeList"
@@ -22714,13 +22729,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-217>"
+                    "x-parser-schema-id": "<anonymous-schema-218>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-216>"
+                "x-parser-schema-id": "<anonymous-schema-217>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-215>"
+            "x-parser-schema-id": "<anonymous-schema-216>"
           },
           "examples": [
             {
@@ -22750,10 +22765,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_supported_energy_transfer_modes.messages.receive_supported_energy_transfer_modes.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-219>"
+                "x-parser-schema-id": "<anonymous-schema-220>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-218>"
+            "x-parser-schema-id": "<anonymous-schema-219>"
           },
           "x-parser-unique-object-id": "receive_reply_get_supported_energy_transfer_modes"
         }
@@ -22773,7 +22788,7 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
             "type": "integer",
             "minimum": 1,
             "maximum": 3,
-            "x-parser-schema-id": "<anonymous-schema-220>"
+            "x-parser-schema-id": "<anonymous-schema-221>"
           },
           "x-parser-unique-object-id": "receive_ac_nr_of_phases_available"
         }
@@ -22803,13 +22818,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-223>"
+                    "x-parser-schema-id": "<anonymous-schema-224>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-222>"
+                "x-parser-schema-id": "<anonymous-schema-223>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-221>"
+            "x-parser-schema-id": "<anonymous-schema-222>"
           },
           "examples": [
             {
@@ -22839,10 +22854,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_ac_nr_of_phases_available.messages.receive_ac_nr_of_phases_available.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-225>"
+                "x-parser-schema-id": "<anonymous-schema-226>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-224>"
+            "x-parser-schema-id": "<anonymous-schema-225>"
           },
           "x-parser-unique-object-id": "receive_reply_get_ac_nr_of_phases_available"
         }
@@ -22875,10 +22890,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "A_32",
                   "A_63_3ph_70_1ph"
                 ],
-                "x-parser-schema-id": "<anonymous-schema-227>"
+                "x-parser-schema-id": "<anonymous-schema-228>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-226>"
+            "x-parser-schema-id": "<anonymous-schema-227>"
           },
           "x-parser-unique-object-id": "receive_ac_pp_ampacity"
         }
@@ -22908,13 +22923,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-230>"
+                    "x-parser-schema-id": "<anonymous-schema-231>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-229>"
+                "x-parser-schema-id": "<anonymous-schema-230>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-228>"
+            "x-parser-schema-id": "<anonymous-schema-229>"
           },
           "examples": [
             {
@@ -22944,10 +22959,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_ac_pp_ampacity.messages.receive_ac_pp_ampacity.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-232>"
+                "x-parser-schema-id": "<anonymous-schema-233>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-231>"
+            "x-parser-schema-id": "<anonymous-schema-232>"
           },
           "x-parser-unique-object-id": "receive_reply_get_ac_pp_ampacity"
         }
@@ -22995,13 +23010,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-235>"
+                    "x-parser-schema-id": "<anonymous-schema-236>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-234>"
+                "x-parser-schema-id": "<anonymous-schema-235>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-233>"
+            "x-parser-schema-id": "<anonymous-schema-234>"
           },
           "examples": [
             {
@@ -23031,10 +23046,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_dlink_ready.messages.receive_dlink_ready.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-237>"
+                "x-parser-schema-id": "<anonymous-schema-238>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-236>"
+            "x-parser-schema-id": "<anonymous-schema-237>"
           },
           "x-parser-unique-object-id": "receive_reply_get_dlink_ready"
         }
@@ -23060,25 +23075,25 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "resistance_F_Ohm": {
                 "description": "Isolation resistance between DC+/DC- and protective earth in Ohm",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-239>"
+                "x-parser-schema-id": "<anonymous-schema-240>"
               },
               "voltage_V": {
                 "description": "DC voltage between positive and negative terminal in Volt",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-240>"
+                "x-parser-schema-id": "<anonymous-schema-241>"
               },
               "voltage_to_earth_l1e_V": {
                 "description": "DC voltage to earth on L1 in Volt",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-241>"
+                "x-parser-schema-id": "<anonymous-schema-242>"
               },
               "voltage_to_earth_l2e_V": {
                 "description": "DC voltage to earth on L2 in Volt",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-242>"
+                "x-parser-schema-id": "<anonymous-schema-243>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-238>"
+            "x-parser-schema-id": "<anonymous-schema-239>"
           },
           "x-parser-unique-object-id": "receive_isolation_measurement"
         }
@@ -23108,13 +23123,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-245>"
+                    "x-parser-schema-id": "<anonymous-schema-246>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-244>"
+                "x-parser-schema-id": "<anonymous-schema-245>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-243>"
+            "x-parser-schema-id": "<anonymous-schema-244>"
           },
           "examples": [
             {
@@ -23144,10 +23159,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_isolation_measurement.messages.receive_isolation_measurement.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-247>"
+                "x-parser-schema-id": "<anonymous-schema-248>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-246>"
+            "x-parser-schema-id": "<anonymous-schema-247>"
           },
           "x-parser-unique-object-id": "receive_reply_get_isolation_measurement"
         }
@@ -23173,15 +23188,15 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "voltage_V": {
                 "description": "Voltage in volt",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-249>"
+                "x-parser-schema-id": "<anonymous-schema-250>"
               },
               "current_A": {
                 "description": "Electric current in amp",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-250>"
+                "x-parser-schema-id": "<anonymous-schema-251>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-248>"
+            "x-parser-schema-id": "<anonymous-schema-249>"
           },
           "x-parser-unique-object-id": "receive_dc_voltage_current"
         }
@@ -23211,13 +23226,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-253>"
+                    "x-parser-schema-id": "<anonymous-schema-254>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-252>"
+                "x-parser-schema-id": "<anonymous-schema-253>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-251>"
+            "x-parser-schema-id": "<anonymous-schema-252>"
           },
           "examples": [
             {
@@ -23247,10 +23262,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_dc_voltage_current.messages.receive_dc_voltage_current.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-255>"
+                "x-parser-schema-id": "<anonymous-schema-256>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-254>"
+            "x-parser-schema-id": "<anonymous-schema-255>"
           },
           "x-parser-unique-object-id": "receive_reply_get_dc_voltage_current"
         }
@@ -23274,7 +23289,7 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "Import",
               "Fault"
             ],
-            "x-parser-schema-id": "<anonymous-schema-256>"
+            "x-parser-schema-id": "<anonymous-schema-257>"
           },
           "x-parser-unique-object-id": "receive_dc_mode"
         }
@@ -23304,13 +23319,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-259>"
+                    "x-parser-schema-id": "<anonymous-schema-260>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-258>"
+                "x-parser-schema-id": "<anonymous-schema-259>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-257>"
+            "x-parser-schema-id": "<anonymous-schema-258>"
           },
           "examples": [
             {
@@ -23340,10 +23355,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_dc_mode.messages.receive_dc_mode.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-261>"
+                "x-parser-schema-id": "<anonymous-schema-262>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-260>"
+            "x-parser-schema-id": "<anonymous-schema-261>"
           },
           "x-parser-unique-object-id": "receive_reply_get_dc_mode"
         }
@@ -23375,134 +23390,134 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "bidirectional": {
                 "description": "- true: support bidirectional energy flow\n- false: support only Export mode (output)\n",
                 "type": "boolean",
-                "x-parser-schema-id": "<anonymous-schema-263>"
+                "x-parser-schema-id": "<anonymous-schema-264>"
               },
               "current_regulation_tolerance_A": {
                 "description": "Absolute magnitude of the regulation tolerance. Measured in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-264>"
+                "x-parser-schema-id": "<anonymous-schema-265>"
               },
               "peak_current_ripple_A": {
                 "description": "Peak-to-peak magnitude of the current ripple measured in Ampere. This value is transmitted to the vehicle and can potentially influence the charging speed.\n",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-265>"
+                "x-parser-schema-id": "<anonymous-schema-266>"
               },
               "max_export_voltage_V": {
                 "description": "Maximum voltage that the power supply can output on the DC side. Measured in Volt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-266>"
+                "x-parser-schema-id": "<anonymous-schema-267>"
               },
               "nominal_max_export_voltage_V": {
                 "description": "Nominal maximum voltage that the power supply outputs in Volt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-267>"
+                "x-parser-schema-id": "<anonymous-schema-268>"
               },
               "min_export_voltage_V": {
                 "description": "Minimum voltage that the power supply can output on the DC side. Measured in Volt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-268>"
+                "x-parser-schema-id": "<anonymous-schema-269>"
               },
               "nominal_min_export_voltage_V": {
                 "description": "Nominal minimum voltage that the power supply outputs in Volt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-269>"
+                "x-parser-schema-id": "<anonymous-schema-270>"
               },
               "max_export_current_A": {
                 "description": "Maximum current that the power supply can output on the DC side. Measured in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-270>"
+                "x-parser-schema-id": "<anonymous-schema-271>"
               },
               "nominal_max_export_current_A": {
                 "description": "Nominal maximum current that the power supply can output in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-271>"
+                "x-parser-schema-id": "<anonymous-schema-272>"
               },
               "min_export_current_A": {
                 "description": "Minimum current limit on the DC side that the power supply can set. Measured in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-272>"
+                "x-parser-schema-id": "<anonymous-schema-273>"
               },
               "nominal_min_export_current_A": {
                 "description": "Nominal minimum current limit that the power supply can set in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-273>"
+                "x-parser-schema-id": "<anonymous-schema-274>"
               },
               "max_import_voltage_V": {
                 "description": "Maximum voltage on the DC side that the power supply supports to import energy. Measured in Volt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-274>"
+                "x-parser-schema-id": "<anonymous-schema-275>"
               },
               "nominal_max_import_voltage_V": {
                 "description": "Nominal maximum voltage on the DC side that the power supply supports to import energy. Measured in Volt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-275>"
+                "x-parser-schema-id": "<anonymous-schema-276>"
               },
               "min_import_voltage_V": {
                 "description": "Minimum voltage on the DC side that the power supply requires to import energy. Measured in Volt.\n",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-276>"
+                "x-parser-schema-id": "<anonymous-schema-277>"
               },
               "nominal_min_import_voltage_V": {
                 "description": "Nominal minimum voltage on the DC side that the power supply requires to import energy. Measured in Volt.\n",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-277>"
+                "x-parser-schema-id": "<anonymous-schema-278>"
               },
               "max_import_current_A": {
                 "description": "Maximum current that the power supply can sink on the DC side. Measuered in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-278>"
+                "x-parser-schema-id": "<anonymous-schema-279>"
               },
               "nominal_max_import_current_A": {
                 "description": "Nominal maximum current that the power supply can output in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-279>"
+                "x-parser-schema-id": "<anonymous-schema-280>"
               },
               "min_import_current_A": {
                 "description": "Minimum limit for sinking current on the DC side that the power supply can set. Measured in Ampere.\n",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-280>"
+                "x-parser-schema-id": "<anonymous-schema-281>"
               },
               "nominal_min_import_current_A": {
                 "description": "Nominal minimum current limit that the power supply can set in Ampere.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-281>"
+                "x-parser-schema-id": "<anonymous-schema-282>"
               },
               "max_export_power_W": {
                 "description": "Maximum export power on the DC side that the power supply can source. Measured in Watt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-282>"
+                "x-parser-schema-id": "<anonymous-schema-283>"
               },
               "nominal_max_export_power_W": {
                 "description": "Nominal maximum export power that the power supply can output in Watt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-283>"
+                "x-parser-schema-id": "<anonymous-schema-284>"
               },
               "max_import_power_W": {
                 "description": "Maximum import power on the DC side that the power supply can sink. Measured in Watt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-284>"
+                "x-parser-schema-id": "<anonymous-schema-285>"
               },
               "nominal_max_import_power_W": {
                 "description": "Nominal maximum import power that the power supply can sink in Watt.",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-285>"
+                "x-parser-schema-id": "<anonymous-schema-286>"
               },
               "conversion_efficiency_import": {
                 "description": "Typical import efficiency used for energy management",
                 "type": "number",
                 "minimum": 0,
                 "maximum": 1,
-                "x-parser-schema-id": "<anonymous-schema-286>"
+                "x-parser-schema-id": "<anonymous-schema-287>"
               },
               "conversion_efficiency_export": {
                 "description": "Typical export efficiency used for energy management",
                 "type": "number",
                 "minimum": 0,
                 "maximum": 1,
-                "x-parser-schema-id": "<anonymous-schema-287>"
+                "x-parser-schema-id": "<anonymous-schema-288>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-262>"
+            "x-parser-schema-id": "<anonymous-schema-263>"
           },
           "x-parser-unique-object-id": "receive_dc_capabilities"
         }
@@ -23532,13 +23547,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-290>"
+                    "x-parser-schema-id": "<anonymous-schema-291>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-289>"
+                "x-parser-schema-id": "<anonymous-schema-290>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-288>"
+            "x-parser-schema-id": "<anonymous-schema-289>"
           },
           "examples": [
             {
@@ -23568,10 +23583,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_dc_capabilities.messages.receive_dc_capabilities.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-292>"
+                "x-parser-schema-id": "<anonymous-schema-293>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-291>"
+            "x-parser-schema-id": "<anonymous-schema-292>"
           },
           "x-parser-unique-object-id": "receive_reply_get_dc_capabilities"
         }
@@ -23658,23 +23673,23 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "countdown_s": {
                 "description": "Remaining count down in seconds. It is set to zero if random delay is inactive",
                 "type": "integer",
-                "x-parser-schema-id": "<anonymous-schema-293>"
+                "x-parser-schema-id": "<anonymous-schema-294>"
               },
               "current_limit_after_delay_A": {
                 "description": "Current limit that will be used after the random delay is over",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-294>"
+                "x-parser-schema-id": "<anonymous-schema-295>"
               },
               "current_limit_during_delay_A": {
                 "description": "Current limit that is used while the delay is active",
                 "type": "number",
-                "x-parser-schema-id": "<anonymous-schema-295>"
+                "x-parser-schema-id": "<anonymous-schema-296>"
               },
               "start_time": {
                 "description": "UTC timestamp when this random delay was started",
                 "type": "string",
                 "format": "date-time",
-                "x-parser-schema-id": "<anonymous-schema-296>"
+                "x-parser-schema-id": "<anonymous-schema-297>"
               }
             },
             "x-parser-schema-id": "CountDown"
@@ -23707,13 +23722,13 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
                   "replyTo": {
                     "type": "string",
                     "description": "Address to send the response to.",
-                    "x-parser-schema-id": "<anonymous-schema-299>"
+                    "x-parser-schema-id": "<anonymous-schema-300>"
                   }
                 },
-                "x-parser-schema-id": "<anonymous-schema-298>"
+                "x-parser-schema-id": "<anonymous-schema-299>"
               }
             },
-            "x-parser-schema-id": "<anonymous-schema-297>"
+            "x-parser-schema-id": "<anonymous-schema-298>"
           },
           "examples": [
             {
@@ -23743,10 +23758,10 @@ sequence. Catch-all for unclassified EV-side terminations.</li>
               "$ref:$.channels.receive_random_delay_countdown.messages.receive_random_delay_countdown.payload",
               {
                 "type": "null",
-                "x-parser-schema-id": "<anonymous-schema-301>"
+                "x-parser-schema-id": "<anonymous-schema-302>"
               }
             ],
-            "x-parser-schema-id": "<anonymous-schema-300>"
+            "x-parser-schema-id": "<anonymous-schema-301>"
           },
           "x-parser-unique-object-id": "receive_reply_get_random_delay_countdown"
         }

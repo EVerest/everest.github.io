@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@1b92880</title>
+        <title>EvseManager - EVerest Manual main@047d5ca</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@1b92880</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@047d5ca</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@1b92880</span>
+  <span class="sidebar-brand-text">EVerest Manual main@047d5ca</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -725,6 +725,48 @@ microcontroller for improved electrical safety</p></li>
 <p>TODO: AC and DC module graphs and description</p>
 <section id="ac-configuration">
 <h4>AC Configuration<a class="headerlink" href="#ac-configuration" title="Link to this heading">¶</a></h4>
+<section id="captive-cable-mode">
+<h5>Captive cable mode<a class="headerlink" href="#captive-cable-mode" title="Link to this heading">¶</a></h5>
+<p>For AC sockets with a connector lock in fleet or private installations, the
+cable can be kept permanently locked in the socket as theft protection. Set
+<code class="docutils literal notranslate"><span class="pre">keep_cable_locked</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable this captive cable mode. It requires
+a board_support driver that publishes <code class="docutils literal notranslate"><span class="pre">ac_pp_ampacity</span></code> on every change, also
+outside of charging sessions, so that plug presence is known even in CP state A.</p>
+<p>With the option enabled:</p>
+<ul class="simple">
+<li><p>The connector locks whenever a plug is present, in every CP state including
+state A with no EV attached.</p></li>
+<li><p>The lock is latched: losing plug presence without a preceding force unlock
+(for example the Proximity Pilot contact opening while the cable is pulled
+against the lock pin) does not release it.</p></li>
+<li><p>The only way to release the cable is the <code class="docutils literal notranslate"><span class="pre">force_unlock</span></code> command (for
+example an OCPP <code class="docutils literal notranslate"><span class="pre">UnlockConnector</span></code>) or disabling the option again. After a
+force unlock the connector stays unlocked until the cable is removed; the next
+plug insertion locks it again.</p></li>
+<li><p>It takes precedence over <code class="docutils literal notranslate"><span class="pre">lock_connector_in_state_b</span></code> and
+<code class="docutils literal notranslate"><span class="pre">unlock_when_deauthorized</span></code>.</p></li>
+<li><p>The normal locking rules still apply on top. For example, after a force
+unlock with the cable left in the socket, the connector is locked again for
+the next charging session as usual, before the relays close.</p></li>
+</ul>
+<p>Captive cable mode only applies to AC charging with a socket and a connected
+connector lock. With <code class="docutils literal notranslate"><span class="pre">charge_mode</span></code> other than <code class="docutils literal notranslate"><span class="pre">AC</span></code>, without a connector
+lock, or when the board_support driver reports a fixed attached cable
+(<code class="docutils literal notranslate"><span class="pre">IEC62196Type2Cable</span></code>), the option is ignored with a warning and setting it at
+runtime is rejected. The connector type is only known once the board_support
+capabilities arrive, so the mode activates then; a runtime change made before
+that is accepted and, if the driver reports a fixed cable, ignored with a
+warning.</p>
+<p><code class="docutils literal notranslate"><span class="pre">keep_cable_locked</span></code> can be changed at runtime through the configuration
+service and is applied immediately without a restart.</p>
+<p><code class="docutils literal notranslate"><span class="pre">keep_cable_locked_lock_delay_ms</span></code> (default <code class="docutils literal notranslate"><span class="pre">500</span></code>) sets the delay in
+milliseconds between detecting a plug and engaging the lock. It gives the plug
+time to seat fully before the lock pin extends, so a lock triggered on the first
+Proximity Pilot contact cannot jam a half-inserted plug. If the plug is pulled
+back out within the delay, no lock is engaged. Set it to <code class="docutils literal notranslate"><span class="pre">0</span></code> to lock
+immediately. The timer checks every 500 ms, so the effective delay is rounded up
+to the next multiple of 500 ms.</p>
+</section>
 </section>
 <section id="dc-configuration">
 <h4>DC Configuration<a class="headerlink" href="#dc-configuration" title="Link to this heading">¶</a></h4>
@@ -1540,6 +1582,17 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line-block">
 <div class="line">Indicates if the connector lock should be locked in state B/C regardless of if a user authorized. If set to true, connector will remain unlocked in CP state B/C if the relays are open and no user is authorized. This violates IEC61851-1:2019 D.6.5 Table D.9 line 4 and should not be used in public environments!</div>
 </div>
+<div class="line"><strong>keep_cable_locked</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">Captive cable mode for AC sockets with a connector lock (fleet/private use): keep the cable locked in the socket whenever a plug is present, in every CP state - including state A with no EV attached. The only way to unlock is the force_unlock command (e.g. triggered by OCPP UnlockConnector); the connector then stays unlocked until the cable is removed, and the next plug insertion locks it again. An engaged lock is latched: losing plug presence without a preceding force_unlock (e.g. the PP contact opening while the plug is pulled against the lock pin) does not release it. Takes precedence over lock_connector_in_state_b and unlock_when_deauthorized. Can be changed at runtime via the configuration service (applied immediately, no restart required). Requires a BSP that publishes ac_pp_ampacity on every change, also outside of charging sessions, and once at startup with the current value (only needed when this option is used). Only applies to AC sockets with a connector lock: ignored with charge_mode other than AC, without a connector lock or when the BSP reports a fixed attached cable, and setting it at runtime is then rejected (a fixed cable is only known once the BSP capabilities arrived; the mode activates then). The normal locking rules still apply on top of it.</div>
+<div class="line">mutability:ReadWrite</div>
+</div>
+<div class="line"><strong>keep_cable_locked_lock_delay_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 500</em></div>
+<div class="line-block">
+<div class="line">Captive cable mode only: delay in milliseconds between detecting a plug (ac_pp_ampacity becomes non-zero) and engaging the connector lock. Gives the plug time to seat fully before the lock pin extends, so a lock triggered on the first Proximity Pilot contact cannot jam a half-inserted plug. If the plug is pulled back out again within the delay, no lock is engaged. Set to 0 to lock immediately. The effective delay is rounded up to the next multiple of 500 ms (timer resolution).</div>
+</div>
 <div class="line"><strong>state_F_after_fault_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 300</em></div>
 <div class="line-block">
@@ -1795,7 +1848,10 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <li><a class="reference internal" href="#">EvseManager</a><ul>
 <li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
 <li><a class="reference internal" href="#typical-connections">Typical connections</a><ul>
-<li><a class="reference internal" href="#ac-configuration">AC Configuration</a></li>
+<li><a class="reference internal" href="#ac-configuration">AC Configuration</a><ul>
+<li><a class="reference internal" href="#captive-cable-mode">Captive cable mode</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#dc-configuration">DC Configuration</a></li>
 </ul>
 </li>
@@ -1855,7 +1911,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=034f6d15"></script>
+</div><script src="../../../../_static/documentation_options.js?v=88763875"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@047d5ca</title>
+        <title>OCPPmulti - EVerest Manual main@dd1b0af</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@047d5ca</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@dd1b0af</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@047d5ca</span>
+  <span class="sidebar-brand-text">EVerest Manual main@dd1b0af</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1153,8 +1153,8 @@ error path. OCPP 1.6 uses a separate built-in MREC table that <code class="docut
 <p>For both protocol generations, only errors of the special type <strong>evse_manager/Inoperative</strong> are reported as faults
 (i.e. lead to a <strong>StatusNotification.req</strong> with status <strong>Faulted</strong>); this type indicates that the EVSE is not
 available for energy transfer. The EVSE/connector an error is reported for is derived from the EVerest mapping of the
-error’s origin; without a mapping, it is reported for the whole charging station (connector 0). All other errors are
-reported without changing the connector status, in a version-specific way.</p>
+error’s origin; without a mapping, or with EVSE 0, it is reported for the whole charging station (connector 0). All
+other errors are reported without changing the connector status, in a version-specific way.</p>
 <section id="ocpp-1-6">
 <h4>OCPP 1.6<a class="headerlink" href="#ocpp-1-6" title="Link to this heading">¶</a></h4>
 <p>Errors are reported via the error fields of additional <strong>StatusNotification.req</strong> messages. Each error is converted
@@ -1182,7 +1182,7 @@ message, because of the field length limits.</p>
 status <strong>Faulted</strong> for the Inoperative case above). All other errors are reported via <strong>NotifyEvent.req</strong>, whose
 <strong>eventData</strong> structure requires mapping each error to a component-variable combination:</p>
 <ul class="simple">
-<li><p><strong>ChargingStation</strong> if the error origin has no EVSE mapping</p></li>
+<li><p><strong>ChargingStation</strong>, without an EVSE, if the error origin has no mapping or is mapped to EVSE 0</p></li>
 <li><p><strong>EVSE</strong> otherwise; when a connector is also mapped, its id is carried in the component’s <code class="docutils literal notranslate"><span class="pre">connectorId</span></code> (the
 component name stays <strong>EVSE</strong>, a dedicated <strong>Connector</strong> component is not used yet)</p></li>
 </ul>
@@ -1980,7 +1980,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=88763875"></script>
+</div><script src="../../../../_static/documentation_options.js?v=2f69cd85"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

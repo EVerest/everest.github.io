@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Manager Lifecycle State Machine - EVerest Manual main@e6905f4</title>
+        <title>Manager Lifecycle State Machine - EVerest Manual main@6a4cfcb</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@e6905f4</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@6a4cfcb</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@e6905f4</span>
+  <span class="sidebar-brand-text">EVerest Manual main@6a4cfcb</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -698,7 +698,8 @@ restarts or force-kills them, and how it reports what it is doing.</p>
 machine below transitions between, and what the manager reports to the
 outside world.</p></li>
 <li><p>The <strong>shutdown reason</strong> — why a shutdown or drain was started: a normal stop,
-an administrative restart, or crash recovery. It is remembered for the whole
+a restart requested via the Lifecycle API, or crash recovery. It is
+remembered for the whole
 duration of the drain, so that once all modules are gone the manager knows
 whether to exit, to go back to idle, or to start the modules again.</p></li>
 </ul>
@@ -731,12 +732,10 @@ reported ready.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Running</span></code></dt><dd><p>All non-ignored modules are ready and the system is operational.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">ShutdownRequested</span></code></dt><dd><p>A normal stop was requested (<code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>/<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code>) and the modules are
-being drained.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">ShutdownRequested</span></code></dt><dd><p>A stop or restart was requested (<code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>/<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code> or the Lifecycle
+API) and the modules are being drained.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">CrashShutdownInProgress</span></code></dt><dd><p>A module exited unexpectedly and the remaining modules are being drained.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RestartRequested</span></code></dt><dd><p>An administrative restart was requested and the modules are being drained.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">ForceTerminating</span></code></dt><dd><p>Modules did not exit within the drain deadline and are being terminated by
 signal.</p>
@@ -750,10 +749,11 @@ reason — whether to exit, return to <code class="docutils literal notranslate"
 <p>Every state transition is reported to the
 <a class="reference internal" href="configuration-service.html#exp-configuration-service"><span class="std std-ref">Configuration API</span></a> as a module status, derived
 from the destination state alone: <code class="docutils literal notranslate"><span class="pre">StartingModules</span></code> reports <em>Starting</em>,
-<code class="docutils literal notranslate"><span class="pre">Running</span></code> reports <em>Running</em>, the three drain states and <code class="docutils literal notranslate"><span class="pre">ForceTerminating</span></code>
-report <em>Stopping</em>, <code class="docutils literal notranslate"><span class="pre">RestartRequested</span></code> reports <em>RestartTriggered</em>,
-<code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> reports <em>Stopped</em>, and <code class="docutils literal notranslate"><span class="pre">Initializing</span></code>, <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and
-<code class="docutils literal notranslate"><span class="pre">Exiting</span></code> report <em>AtRest</em>.</p>
+<code class="docutils literal notranslate"><span class="pre">Running</span></code> reports <em>Running</em>, the two drain states and <code class="docutils literal notranslate"><span class="pre">ForceTerminating</span></code>
+report <em>Stopping</em>, <code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> reports <em>Stopped</em>, and
+<code class="docutils literal notranslate"><span class="pre">Initializing</span></code>, <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and <code class="docutils literal notranslate"><span class="pre">Exiting</span></code> report <em>AtRest</em>. A restart request
+accepted via the Lifecycle API additionally reports <em>RestartTriggered</em> before
+the drain starts.</p>
 </section>
 <section id="state-machine-diagram">
 <h2>State Machine Diagram<a class="headerlink" href="#state-machine-diagram" title="Link to this heading">¶</a></h2>
@@ -774,10 +774,8 @@ stateDiagram-v2
     state &quot;Shutdown / drain&quot; as G_DRAIN {
         ShutdownRequested --&gt; ForceTerminating : drain deadline exceeded\n(immediately without --graceful-shutdown)
         CrashShutdownInProgress --&gt; ForceTerminating : drain deadline exceeded\n(immediately without --graceful-shutdown)
-        RestartRequested --&gt; ForceTerminating : drain deadline exceeded\n(immediately without --graceful-shutdown)
         ShutdownRequested --&gt; CrashShutdownInProgress : crash path
         CrashShutdownInProgress --&gt; ShutdownRequested : first SIGINT/SIGTERM during drain\n(crash reason is kept)
-        RestartRequested --&gt; ShutdownRequested : first SIGINT/SIGTERM during drain\n(restart intent is dropped)
     }
 
     state &quot;Finalize&quot; as G_END {
@@ -785,16 +783,14 @@ stateDiagram-v2
         Exiting --&gt; [*] : process exit
     }
 
-    %% Cross-region: signals and IPC while starting or running
-    Running --&gt; ShutdownRequested : first SIGINT/SIGTERM,\nnormal stop,\nMQTT shutdown published\n(--graceful-shutdown only)
+    %% Cross-region: signals and Lifecycle API requests while starting or running
+    Running --&gt; ShutdownRequested : first SIGINT/SIGTERM or\nLifecycle API stop/restart,\nMQTT shutdown published\n(--graceful-shutdown only)
     StartingModules --&gt; ShutdownRequested : first SIGINT/SIGTERM,\nnormal stop
 
     Running --&gt; CrashShutdownInProgress : unexpected module exit
     StartingModules --&gt; CrashShutdownInProgress : unexpected module exit
 
-    Running --&gt; RestartRequested : admin restart request
-    StartingModules --&gt; RestartRequested : admin restart request
-    Idle --&gt; RestartRequested : admin restart request while idle,\nnothing to drain
+    Idle --&gt; StartingModules : Lifecycle API restart while idle,\nreload config, nothing to drain
 
     Idle --&gt; Exiting : first SIGINT/SIGTERM, no modules running\n(cleanup, success, no drain)
     ShutdownRequested --&gt; Exiting : second SIGINT/SIGTERM\n(user abort, failure,\nremaining modules SIGKILLed)\nsame from any other drain state
@@ -802,11 +798,10 @@ stateDiagram-v2
     %% Drain complete → finalize
     ShutdownRequested --&gt; ShutdownFinalizing : all modules gone
     CrashShutdownInProgress --&gt; ShutdownFinalizing : all modules gone
-    RestartRequested --&gt; ShutdownFinalizing : all modules gone
     ForceTerminating --&gt; ShutdownFinalizing : all modules gone
 
     %% Finalize outcomes
-    ShutdownFinalizing --&gt; StartingModules : reload config and start again\n(admin restart, or --recover-module-crashes\nwithin the restart cap and no SIGINT)
+    ShutdownFinalizing --&gt; StartingModules : reload config and start again\n(Lifecycle API restart, or --recover-module-crashes\nwithin the restart cap and no SIGINT)
     ShutdownFinalizing --&gt; Idle : normal stop without SIGINT,\nor crash cap exceeded / failed or empty reload\n(--idle-on-failure)
     ShutdownFinalizing --&gt; Exiting : unexpected module exit, crash cap exceeded\nor failed / empty reload (default, failure)
 
@@ -835,7 +830,6 @@ stateDiagram-v2
     classDef running fill:#3730a3,color:#f8fafc
     classDef shutdownReq fill:#ca8a04,color:#f8fafc
     classDef crash fill:#ea580c,color:#f8fafc
-    classDef restart fill:#c2410c,color:#f8fafc
     classDef force fill:#9a3412,color:#f8fafc
     classDef finalize fill:#047857,color:#f8fafc
     classDef exiting fill:#dc2626,color:#f8fafc
@@ -846,7 +840,6 @@ stateDiagram-v2
     class Running running
     class ShutdownRequested shutdownReq
     class CrashShutdownInProgress crash
-    class RestartRequested restart
     class ForceTerminating force
     class ShutdownFinalizing finalize
     class Exiting exiting
@@ -886,7 +879,8 @@ module gets stuck in the first place.</p></li>
 <h2>Graceful Shutdown Is Opt-In (<code class="docutils literal notranslate"><span class="pre">--graceful-shutdown</span></code>)<a class="headerlink" href="#graceful-shutdown-is-opt-in-graceful-shutdown" title="Link to this heading">¶</a></h2>
 <p>By default the manager does <strong>not</strong> publish the MQTT shutdown signal and does
 not wait for modules to exit on their own: whenever the shutdown flow starts
-(<code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>/<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code>, unexpected module exit, admin restart), remaining
+(<code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>/<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code>, unexpected module exit, Lifecycle API stop or
+restart), remaining
 module processes are terminated immediately via <code class="docutils literal notranslate"><span class="pre">ForceTerminating</span></code>
 (<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code>, escalating to <code class="docutils literal notranslate"><span class="pre">SIGKILL</span></code> after a grace period). This matches the
 pre-lifecycle manager behavior and keeps teardown fast while most modules do not
@@ -943,8 +937,8 @@ lifecycle with no modules and the rules above apply.</p></li>
 <section id="normal-shutdown-sigint-or-sigterm">
 <span id="exp-manager-lifecycle-normal-shutdown"></span><h2>Normal Shutdown (SIGINT or SIGTERM)<a class="headerlink" href="#normal-shutdown-sigint-or-sigterm" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>First signal with no modules running (for example in <code class="docutils literal notranslate"><span class="pre">Idle</span></code>): controller
-shutdown, MQTT disconnect and → <code class="docutils literal notranslate"><span class="pre">Exiting</span></code> with success — no drain.</p></li>
+<li><p>First signal with no modules running (for example in <code class="docutils literal notranslate"><span class="pre">Idle</span></code>): MQTT
+disconnect and → <code class="docutils literal notranslate"><span class="pre">Exiting</span></code> with success — no drain.</p></li>
 <li><p>First signal with modules running: the shutdown reason becomes <em>normal stop</em>,
 the manager goes to <code class="docutils literal notranslate"><span class="pre">ShutdownRequested</span></code> and publishes the MQTT shutdown
 signal; modules run their shutdown handlers and exit (see
@@ -964,11 +958,10 @@ the process still exits with failure.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> can also settle back into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> for a <em>normal stop</em>
-that did not come from a signal: modules are down, the manager loop keeps
-running, and another <code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>/<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code> is needed to exit the process.
-No caller triggers this today; it exists for a future explicit “stop modules”
-command.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> can also settle back into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> for a stop that did
+not come from a signal, that is a <code class="docutils literal notranslate"><span class="pre">stop_modules</span></code> request via the Lifecycle
+API: modules are down, the manager loop keeps running, and another
+<code class="docutils literal notranslate"><span class="pre">SIGINT</span></code>/<code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code> is needed to exit the process.</p>
 </div>
 </section>
 <section id="unexpected-module-exit-crash-path">
@@ -992,34 +985,36 @@ Once the cap is exceeded the manager exits with failure, or stays alive in
 <section id="administrative-module-restart">
 <span id="exp-manager-lifecycle-restart"></span><h2>Administrative Module Restart<a class="headerlink" href="#administrative-module-restart" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>A restart requested over the controller IPC (only available with the admin
-panel enabled and while the controller process runs) while modules are
-running sets the shutdown reason to <em>restart</em> and goes to
-<code class="docutils literal notranslate"><span class="pre">RestartRequested</span></code>. The modules are drained; when they are all gone, the
-manager reloads the configuration in <code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> and returns to
-<code class="docutils literal notranslate"><span class="pre">StartingModules</span></code>.</p></li>
-<li><p>A restart can also be requested while the manager is <code class="docutils literal notranslate"><span class="pre">Idle</span></code> (no modules
-running, for example after <code class="docutils literal notranslate"><span class="pre">--into-idle</span></code> or a previously failed start).
-There is nothing to drain, so <code class="docutils literal notranslate"><span class="pre">Idle</span></code> → <code class="docutils literal notranslate"><span class="pre">RestartRequested</span></code> →
-<code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> → <code class="docutils literal notranslate"><span class="pre">StartingModules</span></code> happens without an actual drain.
-This is the <a class="reference internal" href="configuration-service.html#exp-configuration-service"><span class="std std-ref">Configuration API</span></a> workflow:
-load a configuration, then request a restart.</p></li>
-<li><p>A reload that fails or yields a configuration with <strong>no modules</strong> is a failed
-restart: the manager goes to <code class="docutils literal notranslate"><span class="pre">Exiting</span></code> with a failure exit code, unless
-<code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code> was passed, in which case it settles into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and
-reports <em>FailedToStart</em> (load a corrected configuration and request another
-restart).</p></li>
-<li><p>Exception: a restart requested via the Lifecycle API while the manager is
+<li><p>A <code class="docutils literal notranslate"><span class="pre">start_modules</span></code> request via the Lifecycle API while the manager is
+<code class="docutils literal notranslate"><span class="pre">Running</span></code> sets the shutdown reason to <em>restart</em>, reports <em>RestartTriggered</em>
+and goes to <code class="docutils literal notranslate"><span class="pre">ShutdownRequested</span></code>. The modules are drained; when they are all
+gone, the manager reloads the configuration in <code class="docutils literal notranslate"><span class="pre">ShutdownFinalizing</span></code> and
+returns to <code class="docutils literal notranslate"><span class="pre">StartingModules</span></code>.</p></li>
+<li><p>The same request while the manager is <code class="docutils literal notranslate"><span class="pre">Idle</span></code> (no modules running, for
+example after <code class="docutils literal notranslate"><span class="pre">--into-idle</span></code> or a previously failed start) has nothing to
+drain: the manager reloads the configuration and goes straight from <code class="docutils literal notranslate"><span class="pre">Idle</span></code>
+to <code class="docutils literal notranslate"><span class="pre">StartingModules</span></code>. This is the
+<a class="reference internal" href="configuration-service.html#exp-configuration-service"><span class="std std-ref">Configuration API</span></a> workflow: load a
+configuration, then request a restart.</p></li>
+<li><p>A reload after a drain that fails or yields a configuration with <strong>no
+modules</strong> is a failed restart: the manager goes to <code class="docutils literal notranslate"><span class="pre">Exiting</span></code> with a failure
+exit code, unless <code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code> was passed, in which case it settles
+into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and reports <em>FailedToStart</em> (load a corrected configuration and
+request another restart).</p></li>
+<li><p>Exception: a failed reload for a restart requested while the manager is
 already <code class="docutils literal notranslate"><span class="pre">Idle</span></code> settles back into <code class="docutils literal notranslate"><span class="pre">Idle</span></code> and reports <em>FailedToStart</em>
 <strong>regardless of</strong> <code class="docutils literal notranslate"><span class="pre">--idle-on-failure</span></code> — nothing was running, and exiting
 would take the API away from the very client that must push a corrected
 configuration.</p></li>
+<li><p>A request that arrives while the manager is in any other state (for example
+during a crash drain) is dropped; the running shutdown or recovery flow
+reports the actual outcome.</p></li>
 </ul>
 </section>
 <section id="shutdown-timeout-and-forced-kill">
 <span id="exp-manager-lifecycle-force-kill"></span><h2>Shutdown Timeout and Forced Kill<a class="headerlink" href="#shutdown-timeout-and-forced-kill" title="Link to this heading">¶</a></h2>
-<p>If a drain — from <code class="docutils literal notranslate"><span class="pre">ShutdownRequested</span></code>, <code class="docutils literal notranslate"><span class="pre">CrashShutdownInProgress</span></code> or
-<code class="docutils literal notranslate"><span class="pre">RestartRequested</span></code> — lasts longer than the graceful shutdown timeout, the
+<p>If a drain — from <code class="docutils literal notranslate"><span class="pre">ShutdownRequested</span></code> or <code class="docutils literal notranslate"><span class="pre">CrashShutdownInProgress</span></code> — lasts
+longer than the graceful shutdown timeout, the
 manager goes to <code class="docutils literal notranslate"><span class="pre">ForceTerminating</span></code>, sends <code class="docutils literal notranslate"><span class="pre">SIGTERM</span></code> to the remaining module
 processes and, after a short grace period, <code class="docutils literal notranslate"><span class="pre">SIGKILL</span></code> to whatever is still
 alive. Once all module processes are gone the flow continues to
@@ -1056,7 +1051,7 @@ so no duplicate line is written for them.</p>
 <p><strong>State notifications</strong> (one per state transition):</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">MANAGER_INITIALIZING</span></code>, <code class="docutils literal notranslate"><span class="pre">MANAGER_STARTING_MODULES</span></code>, <code class="docutils literal notranslate"><span class="pre">MANAGER_RUNNING</span></code>,
-<code class="docutils literal notranslate"><span class="pre">MANAGER_RESTART_REQUESTED</span></code>, <code class="docutils literal notranslate"><span class="pre">MANAGER_CRASH_SHUTDOWN_IN_PROGRESS</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MANAGER_CRASH_SHUTDOWN_IN_PROGRESS</span></code>,
 <code class="docutils literal notranslate"><span class="pre">MANAGER_SHUTDOWN_REQUESTED</span></code>, <code class="docutils literal notranslate"><span class="pre">MANAGER_FORCE_TERMINATING</span></code>,
 <code class="docutils literal notranslate"><span class="pre">MANAGER_SHUTDOWN_FINALIZING</span></code>, <code class="docutils literal notranslate"><span class="pre">MANAGER_IDLE</span></code>, <code class="docutils literal notranslate"><span class="pre">MANAGER_EXITING</span></code></p></li>
 </ul>
@@ -1165,7 +1160,7 @@ failure after shutdown (or stays idle with <code class="docutils literal notrans
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=ef8adf31"></script>
+</div><script src="../_static/documentation_options.js?v=9a256774"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

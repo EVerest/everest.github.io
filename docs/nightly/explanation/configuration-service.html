@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EVerest Configuration Service - EVerest Manual main@2167e27</title>
+        <title>EVerest Configuration Service - EVerest Manual main@c6fa385</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@2167e27</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@c6fa385</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@2167e27</span>
+  <span class="sidebar-brand-text">EVerest Manual main@c6fa385</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1025,11 +1025,12 @@ A caller granted <code class="docutils literal notranslate"><span class="pre">al
 for that caller <code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code> parameters are treated as writable, so the write
 is accepted and persisted, but it typically only takes effect after a reboot.</p></li>
 </ul>
-<p>Values are validated against the parameter’s <strong>datatype</strong> before anything is
-persisted, so a value that would fail to parse on the next boot is rejected up
-front. This is a datatype check only — no range (min/max) validation happens at
-this layer, so a badly chosen but well-typed value is accepted here and can
-still be refused by the module.</p>
+<p>Values are validated before anything is persisted, first against the
+parameter’s <strong>datatype</strong> and then against its entry in the module <strong>manifest</strong>
+(<code class="docutils literal notranslate"><span class="pre">enum</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum</span></code>, <code class="docutils literal notranslate"><span class="pre">maximum</span></code> and the other schema keywords), the same
+check a configuration file gets. A value that fails either check is rejected
+with the reason, so a slot never stores a value it could not boot with. A value
+that passes can still be refused by the module at runtime.</p>
 <section id="id1">
 <h3>By a Configuration API Client<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <p>Writes to the <strong>active</strong> slot are refused while the modules are mid-transition,
@@ -1236,7 +1237,7 @@ example the module’s runtime veto.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=377f25f6"></script>
+</div><script src="../_static/documentation_options.js?v=c92d1124"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

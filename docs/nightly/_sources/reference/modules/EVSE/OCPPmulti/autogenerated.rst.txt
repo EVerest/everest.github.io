@@ -30,9 +30,9 @@ Module Configuration
 | **CoreDatabasePath**: *string* <optional>
 | *default: "/tmp/ocpp201"*
 |  OCPP 2.0.1 Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.
-| **CustomMrecErrorMapPath**: *string* <optional>
+| **CustomErrorMappingPath**: *string* <optional>
 | *default: ""*
-|  Optional path to a JSON file mapping EVerest error types to OCPP techCodes. Entries overwrite the built-in defaults. Leave empty to use only the defaults.
+|  Optional path to a JSON file describing how EVerest errors are reported over OCPP, following lib/everest/ocpp_module_common/schemas/custom_error_mapping.schema.json. The fields an entry sets override those of the built-in mapping; all other fields and errors keep it. Leave empty to use only the built-in mapping. A relative path is resolved against the module's share directory.
 | **DatabasePath**: *string* <optional>
 | *default: "/tmp/ocpp_1_6_charge_point"*
 |  OCPP 1.6 Path to the persistent SQLite database directory. Please refer to the libocpp documentation for more information about the database and its structure.

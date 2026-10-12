@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Explanation" href="../explanation/index.html"><link rel="prev" title="C++ Coding Guidelines" href="c%2B%2B-coding-guidelines.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Customize How Errors Reach the CSMS" href="ocpp-custom-error-mapping.html"><link rel="prev" title="C++ Coding Guidelines" href="c%2B%2B-coding-guidelines.html">
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual main@da049f5</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual main@a84928d</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@da049f5</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@a84928d</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@da049f5</span>
+  <span class="sidebar-brand-text">EVerest Manual main@a84928d</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -254,6 +254,7 @@
 <li class="toctree-l2"><a class="reference internal" href="devcontainer-usage/index.html">Use the EVerest Development Container (devrd managed)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Migrate to the Combined OCPP Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocpp-custom-error-mapping.html">Customize How Errors Reach the CSMS</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -707,21 +708,27 @@ module in your EVerest configuration.</p></li>
 the module config keys as described below for the module you are coming from.</p>
 <section id="coming-from-ocpp201">
 <h3>Coming from OCPP201<a class="headerlink" href="#coming-from-ocpp201" title="Link to this heading">¶</a></h3>
-<p>All <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code> config keys exist unchanged in OCPPmulti:
+<p>These <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code> config keys exist unchanged in OCPPmulti:
 <code class="docutils literal notranslate"><span class="pre">MessageLogPath</span></code>, <code class="docutils literal notranslate"><span class="pre">CoreDatabasePath</span></code>, <code class="docutils literal notranslate"><span class="pre">DeviceModelDatabasePath</span></code>,
 <code class="docutils literal notranslate"><span class="pre">EverestDeviceModelDatabasePath</span></code>, <code class="docutils literal notranslate"><span class="pre">DeviceModelDatabaseMigrationPath</span></code>,
 <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigPath</span></code>, <code class="docutils literal notranslate"><span class="pre">EnableExternalWebsocketControl</span></code>,
 <code class="docutils literal notranslate"><span class="pre">MessageQueueResumeDelay</span></code>, <code class="docutils literal notranslate"><span class="pre">CompositeScheduleIntervalS</span></code>,
 <code class="docutils literal notranslate"><span class="pre">RequestCompositeScheduleDurationS</span></code>, <code class="docutils literal notranslate"><span class="pre">RequestCompositeScheduleUnit</span></code>,
-<code class="docutils literal notranslate"><span class="pre">DelayOcppStart</span></code>, <code class="docutils literal notranslate"><span class="pre">ResetStopDelay</span></code>, and <code class="docutils literal notranslate"><span class="pre">CustomMrecErrorMapPath</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">DelayOcppStart</span></code>, and <code class="docutils literal notranslate"><span class="pre">ResetStopDelay</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CustomMrecErrorMapPath</span></code> has no counterpart. OCPPmulti reads a custom error
+mapping file from <code class="docutils literal notranslate"><span class="pre">CustomErrorMappingPath</span></code> instead, in a different format
+that covers OCPP 1.6 and 2.x (see the error reporting section of
+<a class="reference internal" href="../reference/modules/EVSE/OCPPmulti/autogenerated.html#everest-modules-ocppmulti"><span class="std std-ref">OCPPmulti</span></a>). An <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code> techCode
+override <code class="docutils literal notranslate"><span class="pre">&quot;&lt;error</span> <span class="pre">type&gt;&quot;:</span> <span class="pre">&quot;&lt;techCode&gt;&quot;</span></code> becomes the entry
+<code class="docutils literal notranslate"><span class="pre">&quot;&lt;error</span> <span class="pre">type&gt;&quot;:</span> <span class="pre">{&quot;v2&quot;:</span> <span class="pre">{&quot;tech_code&quot;:</span> <span class="pre">&quot;&lt;techCode&gt;&quot;}}</span></code>.</p>
 <p>One new module config key is relevant: <code class="docutils literal notranslate"><span class="pre">Mode</span></code> selects the protocol
 generation. Its default <code class="docutils literal notranslate"><span class="pre">Only2</span></code> runs OCPP 2.x, matching the behavior of the
 old <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code> module, so no change is needed. Which OCPP 2.x version (2.0.1
 or 2.1) is offered to the CSMS during the websocket handshake is still
 controlled by the device model variable <code class="docutils literal notranslate"><span class="pre">SupportedOcppVersions</span></code> of the
 <code class="docutils literal notranslate"><span class="pre">InternalCtrlr</span></code> component (a comma-separated preference list, e.g.
-<code class="docutils literal notranslate"><span class="pre">ocpp2.1,ocpp2.0.1</span></code>). Everything else in an existing <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code>
-configuration carries over without changes.</p>
+<code class="docutils literal notranslate"><span class="pre">ocpp2.1,ocpp2.0.1</span></code>). Apart from the custom error mapping, everything else
+in an existing <code class="docutils literal notranslate"><span class="pre">OCPP201</span></code> configuration carries over without changes.</p>
 </section>
 <section id="coming-from-ocpp-1-6">
 <h3>Coming from OCPP (1.6)<a class="headerlink" href="#coming-from-ocpp-1-6" title="Link to this heading">¶</a></h3>
@@ -1052,12 +1059,12 @@ provided.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../explanation/index.html">
+          <a class="next-page" href="ocpp-custom-error-mapping.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Explanation</div>
+                <div class="title">Customize How Errors Reach the CSMS</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -1130,7 +1137,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=b558338a"></script>
+</div><script src="../_static/documentation_options.js?v=7c7310a2"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

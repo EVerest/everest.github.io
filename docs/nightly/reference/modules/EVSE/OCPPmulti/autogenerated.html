@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@8a7c48a</title>
+        <title>OCPPmulti - EVerest Manual main@842ce92</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@8a7c48a</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@842ce92</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@8a7c48a</span>
+  <span class="sidebar-brand-text">EVerest Manual main@842ce92</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1344,6 +1344,18 @@ or <code class="docutils literal notranslate"><span class="pre">NotSupportedAttr
 are <strong>currently not</strong> carried on this interface; its result has no <code class="docutils literal notranslate"><span class="pre">statusInfo</span></code> field,
 in either protocol mode. A rejected write therefore has to be diagnosed from the
 module log, which names the reason code and the offending component/variable.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code> mutability constrains the CSMS, not these channels: <code class="docutils literal notranslate"><span class="pre">set_variables</span></code>
+also writes <code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code> variables, e.g. <code class="docutils literal notranslate"><span class="pre">InternalCtrlr</span></code>/<code class="docutils literal notranslate"><span class="pre">ChargePointModel</span></code>,
+in both protocol modes. In OCPP 1.6 mode, keys whose value the stack computes stay
+<code class="docutils literal notranslate"><span class="pre">Rejected</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">NumberOfConnectors</span></code>, <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code> or
+<code class="docutils literal notranslate"><span class="pre">SupportedMeasurands</span></code>. <code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code> is one of them: change the CSMS URL
+through <code class="docutils literal notranslate"><span class="pre">NetworkConfiguration</span></code>/<code class="docutils literal notranslate"><span class="pre">OcppCsmsUrl</span></code> of a slot that is not in use, as in
+OCPP 2.x. Most <code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code> values are only read at boot or on (re)connect, so an
+accepted write takes effect then.</p>
+<p>The CSMS remains bound by <code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code>: a <code class="docutils literal notranslate"><span class="pre">ChangeConfiguration.req</span></code> for a
+<code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code> key is <code class="docutils literal notranslate"><span class="pre">Rejected</span></code>. <code class="docutils literal notranslate"><span class="pre">CentralSystemURI</span></code> is always <code class="docutils literal notranslate"><span class="pre">ReadOnly</span></code> in
+OCPP 1.6 mode, and OCPP 1.6 has no <code class="docutils literal notranslate"><span class="pre">SetNetworkProfile</span></code>, so a 1.6 CSMS cannot
+change the CSMS URL.</p>
 <p>Addressing rules:</p>
 <ul class="simple">
 <li><p>Standard OCPP 2.x variables: their standard component (<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>,
@@ -1980,7 +1992,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=80c4a78b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=ea43ebee"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

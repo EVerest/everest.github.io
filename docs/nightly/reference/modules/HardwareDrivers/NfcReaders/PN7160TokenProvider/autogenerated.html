@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>PN7160TokenProvider - EVerest Manual main@842ce92</title>
+        <title>PN7160TokenProvider - EVerest Manual main@ec1ab74</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@842ce92</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@ec1ab74</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@842ce92</span>
+  <span class="sidebar-brand-text">EVerest Manual main@ec1ab74</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -723,6 +723,48 @@ The module installs two configuration files:</p>
 <div class="line">Implementation of PN7160 RFID/NFC token provider</div>
 <div class="line"><strong>config:</strong></div>
 <div class="line-block">
+<div class="line"><strong>transport</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “file”</em></div>
+<div class="line-block">
+<div class="line">Defines which interface to use to access the reader, that is usually either I2C or SPI. The third option ‘file’ - which is the default - is only to provide backwards compatibity - in this case, the/a static configuration file (usually /etc/everest/libnfc_config/libnfc-nxp.conf) is used and the following hardware related config options here are not used at all.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- file</div>
+<div class="line">- i2c</div>
+<div class="line">- spi</div>
+</div>
+</div>
+<div class="line"><strong>device</strong>: <em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">This is either the I2C bus user-space device, e.g. ‘/dev/i2c-1’, or the SPI user-space device, e.g. ‘/dev/spidev0.0’.</div>
+</div>
+<div class="line"><strong>i2c_address</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 40</em></div>
+<div class="line-block">
+<div class="line">When using ‘i2c’ as transport, defines at which I2C address the reader can be found. Note that this configuration value must be given as hex string and so quoted correctly!</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- 40</div>
+<div class="line">- 41</div>
+<div class="line">- 42</div>
+<div class="line">- 43</div>
+</div>
+</div>
+<div class="line"><strong>pin_int</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">Defines which input GPIO is connected to the interrupt pin of the PN7160. This can be either an integer value when using the older number based sysfs interface, or a GPIO line name (defined for example via board’s device tree) when libnfc-nci is compiled with enabled libgpiod support. Note: When using plain GPIO sysfs numbers, then this must be properly enclosed in quotes since this configuration option must be given as string.</div>
+</div>
+<div class="line"><strong>pin_enable</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">The output GPIO which is used as enable/reset pin. This can be either an integer value when using the older number based sysfs interface, or a GPIO line name (defined for example via board’s device tree) when libnfc-nci is compiled with enabled libgpiod support. Note: When using plain GPIO sysfs numbers, then this must be properly enclosed in quotes since this configuration option must be given as string.</div>
+</div>
+<div class="line"><strong>pin_fwdnld</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “”</em></div>
+<div class="line-block">
+<div class="line">The output GPIO which is connected to the firmware download mode pin. This can be either an integer value when using the older number based sysfs interface, or a GPIO line name (defined for example via board’s device tree) when libnfc-nci is compiled with enabled libgpiod support. Note: When using plain GPIO sysfs numbers, then this must be properly enclosed in quotes since this configuration option must be given as string.</div>
+</div>
 <div class="line"><strong>token_debounce_interval_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 3000</em></div>
 <div class="line-block">
@@ -845,7 +887,7 @@ The module installs two configuration files:</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=ea43ebee"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=df55e408"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

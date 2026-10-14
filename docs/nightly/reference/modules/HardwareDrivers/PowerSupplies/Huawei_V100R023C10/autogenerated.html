@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Huawei_V100R023C10 - EVerest Manual main@efc344e</title>
+        <title>Huawei_V100R023C10 - EVerest Manual main@e6cf2a8</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@efc344e</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@e6cf2a8</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@efc344e</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e6cf2a8</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -812,23 +812,15 @@ The concrete telemetry data is published only when the data changes to reduce mq
 <p>The mock is a single executable that simulates the communication behaviour of a Huawei V100R023C10 power supply.
 It is used to test the software stack without needing the actual hardware.</p>
 <p>It opens a socket on port 8502 to accept connections from the everest module and receives and answers goose messages.</p>
-<p>The mock is built together with the everest module, but can also be build separately if needed.
+<p>The mock is built together with the everest module when <code class="docutils literal notranslate"><span class="pre">BUILD_TESTING</span></code> and <code class="docutils literal notranslate"><span class="pre">BUILD_ACCEPTANCE_TESTS</span></code> are set to
+<code class="docutils literal notranslate"><span class="pre">ON</span></code> in cmake. It uses the <code class="docutils literal notranslate"><span class="pre">everest::io</span></code> MQTT client, so a standalone build of <code class="docutils literal notranslate"><span class="pre">fusion_charger_lib</span></code> does not
+build it.
 The mock is not installed by default but can be if <code class="docutils literal notranslate"><span class="pre">INSTALL_FUSION_CHARGER_MOCK</span></code> is set to <code class="docutils literal notranslate"><span class="pre">ON</span></code> in cmake.</p>
 <p>Note that the mock uses a constant hmac key instead of generating a new one for each charge session.</p>
-<section id="build-separately-from-module">
-<h4>Build separately from module<a class="headerlink" href="#build-separately-from-module" title="Link to this heading">¶</a></h4>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/fusion_charger_lib
-mkdir<span class="w"> </span>build
-<span class="nb">cd</span><span class="w"> </span>build
-cmake<span class="w"> </span>..
-make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
-</pre></div>
-</div>
 <p>Binary is located in:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/fusion_charger_lib/build/fusion-charger-dispenser-library/power_stack_mock/fusion_charger_mock
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>build/modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/fusion_charger_lib/fusion-charger-dispenser-library/power_stack_mock/fusion_charger_mock
 </pre></div>
 </div>
-</section>
 <section id="mock-options">
 <h4>Mock options<a class="headerlink" href="#mock-options" title="Link to this heading">¶</a></h4>
 <p>The mock has a few environment variables (enable or disable by setting them to <cite>1</cite>/<cite>true</cite> or <cite>0</cite>/<cite>false</cite>):</p>
@@ -841,7 +833,8 @@ messages. This also allows to receive completely unsigned messages.</p></li>
 <code class="docutils literal notranslate"><span class="pre">veth0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_PORT</span></code>: The Modbus TCP port to listen on. Defaults to <code class="docutils literal notranslate"><span class="pre">8502</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_HOST</span></code>: MQTT broker hostname or IP address. When set together with
-<code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_PORT</span></code>, the mock will publish power request data via MQTT.</p></li>
+<code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_PORT</span></code>, the mock will publish power request data via MQTT. If the broker is not
+reachable, the mock keeps running and retries the connection every second.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_PORT</span></code>: MQTT broker port. Required together with <code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_HOST</span></code> to
 enable MQTT publishing.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FUSION_CHARGER_MOCK_MQTT_BASE_TOPIC</span></code>: Base topic for MQTT publishing. Defaults to <code class="docutils literal notranslate"><span class="pre">fusion_charger_mock/</span></code>.
@@ -1168,7 +1161,6 @@ corresponding files for the dispenser):</p>
 <li><a class="reference internal" href="#telemetry">Telemetry</a></li>
 <li><a class="reference internal" href="#bsp-errors">BSP Errors</a></li>
 <li><a class="reference internal" href="#power-supply-mock">Power Supply Mock</a><ul>
-<li><a class="reference internal" href="#build-separately-from-module">Build separately from module</a></li>
 <li><a class="reference internal" href="#mock-options">Mock options</a></li>
 <li><a class="reference internal" href="#mock-mtls">Mock mTLS</a></li>
 </ul>
@@ -1197,7 +1189,7 @@ corresponding files for the dispenser):</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=e810cfc8"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=31253b87"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

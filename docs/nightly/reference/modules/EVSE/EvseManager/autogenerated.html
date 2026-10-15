@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@30e903d</title>
+        <title>EvseManager - EVerest Manual main@836a522</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@30e903d</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@836a522</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@30e903d</span>
+  <span class="sidebar-brand-text">EVerest Manual main@836a522</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1361,6 +1361,11 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <div class="line-block">
 <div class="line">Combine with 5percent option to really enforce HLC even with EIM. ISO15118-3 forbids the usage of 5% if Auth happens before plugin, but most EVs will not perform HLC with nominal PWM. For the home use case (always authorized or auth before plugin) it may still be desirable to use HLC e.g. for better energy management. In this case you can use this option, but be aware that EVs that do not support HLC may take a long time to start (or never start) charging. This mode is not ISO15118-2/-3 compliant. Do not use for public charging stations.</div>
 </div>
+<div class="line"><strong>ac_limit_slac_init_retries</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: True</em></div>
+<div class="line-block">
+<div class="line">Limit the SLAC matching retries as required by ISO15118-3. With 5% PWM ([V2G3-M06-07], Figure 9): if no SLAC request arrives within TT_EVSE_SLAC_init, the EVSE signals E/F for T_step_EF and returns to 5% PWM at most C_sequ_retry (2) times per plug-in. At the next timeout it signals E/F once more and keeps 5% off for the rest of the session: X1 while waiting for authorization (an EIM can still start basic charging), nominal PWM once authorized, also with ac_enforce_hlc. A running HLC session is not affected. Each retry is one error routine request from the SLAC module; with its reset_instead_of_fail option one request spans two TT_EVSE_SLAC_init. With nominal PWM or X1 ([V2G3-A09-13]), a failed matching is not retried and the PWM stays as it is. If false, every failed matching is retried with E/F until the EV is unplugged, also with nominal PWM.</div>
+</div>
 <div class="line"><strong>ac_with_soc</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
@@ -1912,7 +1917,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=7564e55a"></script>
+</div><script src="../../../../_static/documentation_options.js?v=b2ad37ef"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

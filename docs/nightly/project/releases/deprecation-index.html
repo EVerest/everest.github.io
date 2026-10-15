@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Active Deprecation Index - EVerest Manual main@086f41b</title>
+        <title>Active Deprecation Index - EVerest Manual main@78b0c72</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@086f41b</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@78b0c72</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@086f41b</span>
+  <span class="sidebar-brand-text">EVerest Manual main@78b0c72</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -823,6 +823,26 @@ Stop reading <code class="docutils literal notranslate"><span class="pre">severi
 required; drop <code class="docutils literal notranslate"><span class="pre">severity_filter</span></code> from <code class="docutils literal notranslate"><span class="pre">get_errors</span></code> requests and
 filter by <code class="docutils literal notranslate"><span class="pre">type_filter</span></code>, <code class="docutils literal notranslate"><span class="pre">origin_filter</span></code> or <code class="docutils literal notranslate"><span class="pre">state_filter</span></code> instead.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">settings.run_as_user</span></code> in the EVerest config file</p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Start the manager as the unprivileged user from the service manager
+instead, e.g. <code class="docutils literal notranslate"><span class="pre">User=everest</span></code> in the systemd unit, and grant
+privileged modules file capabilities (see
+<a class="reference internal" href="../../how-to-guides/security-best-practices.html"><span class="doc">Security Best Practices</span></a>). The manager logs a
+warning at startup when the setting is used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">capabilities</span></code> key of a module entry in the EVerest config file
+(<code class="docutils literal notranslate"><span class="pre">active_modules.&lt;id&gt;.capabilities</span></code>)</p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Remove the key. Modules declare their capabilities in their
+<code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code>, and the deployment grants them as file capabilities:
+the <code class="docutils literal notranslate"><span class="pre">everest_file_capabilities</span></code> class in meta-everest, or
+<code class="docutils literal notranslate"><span class="pre">applications/utils/scripts/set_module_capabilities.py</span></code> elsewhere (see
+<a class="reference internal" href="../../how-to-guides/security-best-practices.html"><span class="doc">Security Best Practices</span></a>). The key is already
+ignored, and the manager logs a warning at startup.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -877,7 +897,7 @@ filter by <code class="docutils literal notranslate"><span class="pre">type_filt
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=4b198dd2"></script>
+</div><script src="../../_static/documentation_options.js?v=52dbe023"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -2,13 +2,13 @@
 <html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Setup the EVerest Development Container" href="setup-devcontainer/index.html"><link rel="prev" title="Management APIs" href="management_apis.html">
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
-    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Experimental Bazel Support - EVerest Manual main@a0fd369</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>Experimental Bazel Support - EVerest Manual main@2f2dd02</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@a0fd369</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@2f2dd02</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@a0fd369</span>
+  <span class="sidebar-brand-text">EVerest Manual main@2f2dd02</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -783,37 +783,37 @@ For a more realistic scenario, the module has two extra files <cite>utils.cpp</c
 <p>To build this module with Bazel, you need to create a <cite>BUILD.bazel</cite> file in the
 module directory, next to the <cite>manifest.yaml</cite> file.</p>
 <p>In the <cite>BUILD.bazel</cite>, use predefined macros to define the module:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;//modules:module.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;cc_everest_module&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">"//modules:module.bzl"</span><span class="p">,</span> <span class="s2">"cc_everest_module"</span><span class="p">)</span>
 
 <span class="n">cc_everest_module</span><span class="p">(</span>
     <span class="c1"># Name of the module, must be the same as the directory name.</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Example&quot;</span><span class="p">,</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">"Example"</span><span class="p">,</span>
     <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
         <span class="c1"># List of libraries, that module depends on.</span>
         <span class="c1"># In CMakeLists.txt these are typically added as `target_link_libraries`.</span>
         <span class="c1"># The should be listed in the `third_party/bazel/repos.bzl` file.</span>
         <span class="c1"># Note that header-only libraries should be added here as well.</span>
-        <span class="s2">&quot;@sigslot//:sigslot&quot;</span><span class="p">,</span>
+        <span class="s2">"@sigslot//:sigslot"</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="n">impls</span> <span class="o">=</span> <span class="p">[</span>
         <span class="c1"># List of implementations in the module.</span>
         <span class="c1"># This should correspond to the list of keys in the</span>
         <span class="c1"># `provides` section of the manifest.yaml file.</span>
-        <span class="s2">&quot;example&quot;</span><span class="p">,</span>
+        <span class="s2">"example"</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="c1"># List of additional source files of the module.</span>
     <span class="c1">#</span>
     <span class="c1"># Here you only have to list the files that are not autogenerated.</span>
     <span class="c1"># The mandatory module files are added automatically.</span>
     <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;utils.cpp&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;utils.hpp&quot;</span><span class="p">,</span>
+        <span class="s2">"utils.cpp"</span><span class="p">,</span>
+        <span class="s2">"utils.hpp"</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="c1"># Alternatively, you can use `glob` function to list files.</span>
     <span class="c1"># srcs = glob(</span>
     <span class="c1">#     [</span>
-    <span class="c1">#         &quot;*.cpp&quot;,</span>
-    <span class="c1">#         &quot;*.hpp&quot;,</span>
+    <span class="c1">#         "*.cpp",</span>
+    <span class="c1">#         "*.hpp",</span>
     <span class="c1">#     ],</span>
     <span class="c1"># ),</span>
 <span class="p">)</span>
@@ -825,24 +825,24 @@ module directory, next to the <cite>manifest.yaml</cite> file.</p>
 <p>To define a Rust module in EVerest, you need to create a BUILD.bazel file in
 the module directory.
 Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the moment.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@rules_rust//rust:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;rust_binary&quot;</span><span class="p">,</span> <span class="s2">&quot;rust_test&quot;</span><span class="p">)</span>
-<span class="n">load</span><span class="p">(</span><span class="s2">&quot;@everest_core_crate_index//:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;all_crate_deps&quot;</span><span class="p">)</span>
-<span class="n">load</span><span class="p">(</span><span class="s2">&quot;@rules_rust//cargo:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;cargo_build_script&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">"@rules_rust//rust:defs.bzl"</span><span class="p">,</span> <span class="s2">"rust_binary"</span><span class="p">,</span> <span class="s2">"rust_test"</span><span class="p">)</span>
+<span class="n">load</span><span class="p">(</span><span class="s2">"@everest_core_crate_index//:defs.bzl"</span><span class="p">,</span> <span class="s2">"all_crate_deps"</span><span class="p">)</span>
+<span class="n">load</span><span class="p">(</span><span class="s2">"@rules_rust//cargo:defs.bzl"</span><span class="p">,</span> <span class="s2">"cargo_build_script"</span><span class="p">)</span>
 
 <span class="c1"># cargo_build_script describes to Bazel how to run autogeneration of the code.</span>
 <span class="c1"># This should be pretty-much the same for every module</span>
 <span class="n">cargo_build_script</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;build_script&quot;</span><span class="p">,</span>
-    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;build.rs&quot;</span><span class="p">],</span>
-    <span class="n">edition</span><span class="o">=</span><span class="s2">&quot;2021&quot;</span><span class="p">,</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">"build_script"</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"build.rs"</span><span class="p">],</span>
+    <span class="n">edition</span><span class="o">=</span><span class="s2">"2021"</span><span class="p">,</span>
     <span class="n">build_script_env</span> <span class="o">=</span> <span class="p">{</span>
         <span class="c1"># This is the path relative to the module directory.</span>
-        <span class="s2">&quot;EVEREST_CORE_ROOT&quot;</span><span class="p">:</span> <span class="s2">&quot;../..&quot;</span><span class="p">,</span>
+        <span class="s2">"EVEREST_CORE_ROOT"</span><span class="p">:</span> <span class="s2">"../.."</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;manifest.yaml&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;@everest-core//interfaces&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;@everest-core//types&quot;</span><span class="p">,</span>
+        <span class="s2">"manifest.yaml"</span><span class="p">,</span>
+        <span class="s2">"@everest-core//interfaces"</span><span class="p">,</span>
+        <span class="s2">"@everest-core//types"</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="n">deps</span> <span class="o">=</span> <span class="n">all_crate_deps</span><span class="p">(</span><span class="n">build</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
@@ -850,25 +850,25 @@ Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the mome
 <span class="c1"># The module is described as a rust_binary at the moment.</span>
 <span class="n">rust_binary</span><span class="p">(</span>
     <span class="c1"># Name of the module, must be the same as the directory name.</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;RsIskraMeterBinary&quot;</span><span class="p">,</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">"RsIskraMeterBinary"</span><span class="p">,</span>
     <span class="c1"># List of source files of the module.</span>
     <span class="c1"># In most cases this glob should be enough.</span>
-    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span><span class="s2">&quot;src/*.rs&quot;</span><span class="p">]),</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span><span class="s2">"src/*.rs"</span><span class="p">]),</span>
     <span class="c1"># Rust language edition, used in this module.</span>
-    <span class="n">edition</span><span class="o">=</span><span class="s2">&quot;2021&quot;</span><span class="p">,</span>
+    <span class="n">edition</span><span class="o">=</span><span class="s2">"2021"</span><span class="p">,</span>
     <span class="c1"># Bazel makes distinctions between dependencies needed on different</span>
     <span class="c1"># stages of the build. This is the list of proc_macro dependencies.</span>
     <span class="c1"># In most cases this is enough</span>
     <span class="n">proc_macro_deps</span> <span class="o">=</span> <span class="n">all_crate_deps</span><span class="p">(</span><span class="n">proc_macro</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
-    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
-    <span class="c1"># List of &quot;normal&quot; dependencies.</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"//visibility:public"</span><span class="p">],</span>
+    <span class="c1"># List of "normal" dependencies.</span>
     <span class="c1"># all_crate_deps will add all the dependencies from the Cargo.toml file.</span>
     <span class="c1"># We need as well to add framework, bridge, and the result of the build_script.</span>
     <span class="c1"># Typically this is enough.</span>
     <span class="n">deps</span> <span class="o">=</span> <span class="n">all_crate_deps</span><span class="p">(</span><span class="n">normal</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span>
-        <span class="s2">&quot;:build_script&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;//lib/everest/framework/everestrs/everestrs:everestrs_sys&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;//lib/everest/framework/everestrs/everestrs:everestrs_bridge&quot;</span><span class="p">,</span>
+        <span class="s2">":build_script"</span><span class="p">,</span>
+        <span class="s2">"//lib/everest/framework/everestrs/everestrs:everestrs_sys"</span><span class="p">,</span>
+        <span class="s2">"//lib/everest/framework/everestrs/everestrs:everestrs_bridge"</span><span class="p">,</span>
     <span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
@@ -951,9 +951,9 @@ Generic <cite>rust_binary</cite> and <cite>rust_test</cite> are used at the mome
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=8bbb9bc7"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../_static/documentation_options.js?v=c4413dd3"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>

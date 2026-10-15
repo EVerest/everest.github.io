@@ -2,13 +2,13 @@
 <html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="edm" href="../dev-tools/edm.html"><link rel="prev" title="Management APIs" href="../adapt-everest/management_apis.html">
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
-    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Energy Management in EVerest - EVerest Manual main@a0fd369</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>Energy Management in EVerest - EVerest Manual main@2f2dd02</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@a0fd369</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@2f2dd02</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@a0fd369</span>
+  <span class="sidebar-brand-text">EVerest Manual main@2f2dd02</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -737,14 +737,17 @@ Below are examples demonstrating how energy systems can be represented in
 EVerest.</p>
 <p>The simplest energy tree consists of a single leaf node representing an EVSE
 with a physical hardware capability of 32 A on 3 phases.</p>
-<img alt="../../_images/single_node.drawio.svg" class="align-center" id="single-node-label" src="../../_images/single_node.drawio.svg" /><p>Typically, the electrical connection of charging stations is protected by a
+<img alt="../../_images/single_node.drawio.svg" class="align-center" id="single-node-label" src="../../_images/single_node.drawio.svg" />
+<p>Typically, the electrical connection of charging stations is protected by a
 circuit breaker.
 Adding this to the representation results in:</p>
-<img alt="../../_images/single_node_with_circuit_breaker.drawio.svg" class="align-center" id="single-node-with-circuit-breaker-label" src="../../_images/single_node_with_circuit_breaker.drawio.svg" /><p>In this example, the circuit breaker limits the current to 16 A, even though
+<img alt="../../_images/single_node_with_circuit_breaker.drawio.svg" class="align-center" id="single-node-with-circuit-breaker-label" src="../../_images/single_node_with_circuit_breaker.drawio.svg" />
+<p>In this example, the circuit breaker limits the current to 16 A, even though
 the EVSE supports 32 A.
 The module managing power distribution must enforce this limitation.</p>
 <p>For a more complex setup, consider the following example:</p>
-<img alt="../../_images/energy_tree.drawio.svg" class="align-center" id="energy-tree-label" src="../../_images/energy_tree.drawio.svg" /><p>Here, a top-level circuit breaker limits the line to 63 A.
+<img alt="../../_images/energy_tree.drawio.svg" class="align-center" id="energy-tree-label" src="../../_images/energy_tree.drawio.svg" />
+<p>Here, a top-level circuit breaker limits the line to 63 A.
 Two additional circuit breakers protect the lines to two EVSEs, each fused at
 32 A.
 EVSE1 can consume 16 A on three phases, while EVSE2 can consume 32 A on three
@@ -785,7 +788,8 @@ This final request serves as input for this module, which calculates the limits
 to enforce down the tree.</p>
 <p>The following diagram illustrates how energy nodes communicate requests, with
 green arrows representing energy flow requests:</p>
-<img alt="../../_images/energy_tree_request_and_distribution.drawio.svg" class="align-center" id="energy-tree-request-and-distribution-label" src="../../_images/energy_tree_request_and_distribution.drawio.svg" /></section>
+<img alt="../../_images/energy_tree_request_and_distribution.drawio.svg" class="align-center" id="energy-tree-request-and-distribution-label" src="../../_images/energy_tree_request_and_distribution.drawio.svg" />
+</section>
 <section id="enforcing-limits">
 <h3>Enforcing limits<a class="headerlink" href="#enforcing-limits" title="Link to this heading">¶</a></h3>
 <p>The <strong>enforce_limits</strong> command propagates limits down the tree.
@@ -800,7 +804,8 @@ energy node, which then propagates the limits further down the tree.</p>
 <h2>Details of the EnergyFlowRequest type<a class="headerlink" href="#details-of-the-energyflowrequest-type" title="Link to this heading">¶</a></h2>
 <p>Energy nodes may have varying types of limits.
 To understand this better, consider a zoomed-in view of an energy node:</p>
-<img alt="../../_images/zoom_in_energy_node.drawio.svg" class="align-center" id="zoom-in-energy-node-label" src="../../_images/zoom_in_energy_node.drawio.svg" /><p>In reality, an energy node may have different limits for charging (import) and
+<img alt="../../_images/zoom_in_energy_node.drawio.svg" class="align-center" id="zoom-in-energy-node-label" src="../../_images/zoom_in_energy_node.drawio.svg" />
+<p>In reality, an energy node may have different limits for charging (import) and
 discharging (export).
 The <strong>EnergyFlowRequest</strong> type accounts for this distinction:</p>
 <ul class="simple">
@@ -823,74 +828,74 @@ optimization algorithm.</p>
 <p>This is useful to understand how the result that is sent to the EvseManager is composed.</p>
 <p>Below is an example JSON representation of an <strong>EnergyFlowRequest</strong> for a leaf node:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;children&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;evse_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Charging&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;node_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Evse&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;priority_request&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;schedule_export&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"evse_state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charging"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"node_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Evse"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"priority_request"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"schedule_export"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_leaves&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_leave&quot;</span>
+<span class="w">      </span><span class="nt">"limits_to_leaves"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"ac_max_current_A"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_leave"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">16.0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_root&quot;</span>
+<span class="w">      </span><span class="nt">"limits_to_root"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"ac_max_current_A"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">16.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_root"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_phase&quot;</span>
+<span class="w">        </span><span class="nt">"ac_max_phase_count"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_phase"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_mincurrent&quot;</span>
+<span class="w">        </span><span class="nt">"ac_min_current_A"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_mincurrent"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_minphase&quot;</span>
+<span class="w">        </span><span class="nt">"ac_min_phase_count"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_minphase"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_number_of_active_phases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_supports_changing_phases_during_charging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="nt">"ac_number_of_active_phases"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ac_supports_changing_phases_during_charging"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-17T13:08:36.479Z&quot;</span>
+<span class="w">      </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-12-17T13:08:36.479Z"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;schedule_import&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"schedule_import"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_leaves&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_leave&quot;</span>
+<span class="w">      </span><span class="nt">"limits_to_leaves"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"ac_max_current_A"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_leave"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;limits_to_root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_root&quot;</span>
+<span class="w">      </span><span class="nt">"limits_to_root"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"ac_max_current_A"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">32.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_root"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_max_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_phase&quot;</span>
+<span class="w">        </span><span class="nt">"ac_max_phase_count"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_phase"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_current_A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_mincurrent&quot;</span>
+<span class="w">        </span><span class="nt">"ac_min_current_A"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_mincurrent"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_min_phase_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EVSE1_minphase&quot;</span>
+<span class="w">        </span><span class="nt">"ac_min_phase_count"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVSE1_minphase"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;ac_number_of_active_phases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;ac_supports_changing_phases_during_charging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="nt">"ac_number_of_active_phases"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"ac_supports_changing_phases_during_charging"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-12-17T13:08:36.479Z&quot;</span>
+<span class="w">      </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-12-17T13:08:36.479Z"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;schedule_setpoints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evse1&quot;</span>
+<span class="w">  </span><span class="nt">"schedule_setpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evse1"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -937,7 +942,8 @@ In order to do that we are using a complex energy tree example and implement
 this in the configuration step by step.</p>
 <p>This is the energy tree that we are going to represent in the EVerest
 configuration:</p>
-<img alt="Example of a complex energy tree" class="align-center" id="energy-tree-complex-label" src="../../_images/energy_tree_complex.drawio.svg" /><p>This energy tree represents a setup with two EVSEs.
+<img alt="Example of a complex energy tree" class="align-center" id="energy-tree-complex-label" src="../../_images/energy_tree_complex.drawio.svg" />
+<p>This energy tree represents a setup with two EVSEs.
 There are two external sources that are able to provide external energy limits:
 OCPP and the API module.</p>
 <p>OCPP is able to set external limits for each EVSE as well as for the whole
@@ -1423,9 +1429,9 @@ the assigned target value.</p></li>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=8bbb9bc7"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../../_static/documentation_options.js?v=c4413dd3"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>

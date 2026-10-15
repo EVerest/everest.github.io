@@ -2,13 +2,13 @@
 <html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Energy Management in EVerest" href="../energymanagement/index.html"><link rel="prev" title="EVerest APIs" href="apis.html">
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
-    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>Management APIs - EVerest Manual main@a0fd369</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>Management APIs - EVerest Manual main@2f2dd02</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@a0fd369</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@2f2dd02</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@a0fd369</span>
+  <span class="sidebar-brand-text">EVerest Manual main@2f2dd02</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -823,7 +823,7 @@ commands as well as from different invocations of the same command.</p>
 the topic the reply is expected on, the <code class="docutils literal notranslate"><span class="pre">payload</span></code> object carries the
 arguments of the command (an empty object for commands without arguments).
 The manager publishes the bare result object on that <code class="docutils literal notranslate"><span class="pre">replyTo</span></code> topic.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;replyTo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;manual/reply&quot;</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;slot_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"replyTo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"manual/reply"</span><span class="p">},</span><span class="w"> </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"slot_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}</span>
 </pre></div>
 </div>
 <p>Two kinds of invalid requests are treated differently:</p>
@@ -842,8 +842,8 @@ and are only seen by clients subscribed at that moment.</p>
 command line tools:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mosquitto_rr<span class="w"> </span>-q<span class="w"> </span><span class="m">2</span><span class="w"> </span>-e<span class="w"> </span>manual/reply<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-t<span class="w"> </span>everest_api/1/configuration/m2e/list_all_slots<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-m<span class="w"> </span><span class="s1">&#39;{&quot;headers&quot;:{&quot;replyTo&quot;:&quot;manual/reply&quot;},&quot;payload&quot;:{}}&#39;</span>
-mosquitto_sub<span class="w"> </span>-v<span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;everest_api/1/#&#39;</span><span class="w">     </span><span class="c1"># everything the APIs publish</span>
+<span class="w">  </span>-m<span class="w"> </span><span class="s1">'{"headers":{"replyTo":"manual/reply"},"payload":{}}'</span>
+mosquitto_sub<span class="w"> </span>-v<span class="w"> </span>-t<span class="w"> </span><span class="s1">'everest_api/1/#'</span><span class="w">     </span><span class="c1"># everything the APIs publish</span>
 </pre></div>
 </div>
 </section>
@@ -925,9 +925,9 @@ mosquitto_sub<span class="w"> </span>-v<span class="w"> </span>-t<span class="w"
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=8bbb9bc7"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../../_static/documentation_options.js?v=c4413dd3"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>

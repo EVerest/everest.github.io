@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 7.3.7 and Furo 2025.12.19 -->
-        <title>edm - EVerest Manual main@73434e7</title>
+        <title>edm - EVerest Manual main@0c88335</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@73434e7</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@0c88335</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@73434e7</span>
+  <span class="sidebar-brand-text">EVerest Manual main@0c88335</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -880,76 +880,68 @@ catch2:
 </pre></div>
 </div>
 </section>
-<section id="selective-library-consumption">
-<h2>Selective library consumption<a class="headerlink" href="#selective-library-consumption" title="Link to this heading">¶</a></h2>
-<p>If your external project only needs specific everest-core libraries (e.g.
-<code class="docutils literal notranslate"><span class="pre">liblog</span></code>, <code class="docutils literal notranslate"><span class="pre">everest-util</span></code>, <code class="docutils literal notranslate"><span class="pre">everest-io</span></code>, <code class="docutils literal notranslate"><span class="pre">libocpp</span></code>, <code class="docutils literal notranslate"><span class="pre">libiso15118</span></code>)
-without building the full module framework, you can use the
-<code class="docutils literal notranslate"><span class="pre">EVEREST_LIBS_ONLY</span></code> and <code class="docutils literal notranslate"><span class="pre">EVEREST_INCLUDE_LIBS</span></code> CMake options.</p>
-<p><strong>CMake options:</strong></p>
+<section id="selective-package-builds">
+<h2>Selective package builds<a class="headerlink" href="#selective-package-builds" title="Link to this heading">¶</a></h2>
+<p>EVerest is built and installed in five packages. <code class="docutils literal notranslate"><span class="pre">EVEREST_PACKAGES</span></code> selects the ones
+built from the tree; packages that are needed but not listed are taken from an installed
+prefix with <code class="docutils literal notranslate"><span class="pre">find_package()</span></code>.</p>
 <div class="table-wrapper docutils container">
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>Option</p></th>
-<th class="head"><p>Default</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Contents</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_LIBS_ONLY</span></code></p></td>
-<td><p>OFF</p></td>
-<td><p>Skip modules, applications, config, and code generation. Only build
-libraries under <code class="docutils literal notranslate"><span class="pre">lib/everest/</span></code>.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">base</span></code></p></td>
+<td><p>log, timer, util, sqlite, evse_security, tls</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_INCLUDE_LIBS</span></code></p></td>
-<td><p>(empty)</p></td>
-<td><p>Semicolon-separated allowlist of libraries to build. Transitive
-internal dependencies are resolved automatically. When empty, all
-libraries are built.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iso15118</span></code></p></td>
+<td><p>libiso15118 and the cbv2g EXI codec libraries</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVEREST_EXCLUDE_LIBS</span></code></p></td>
-<td><p>(empty)</p></td>
-<td><p>Semicolon-separated blocklist of libraries to skip.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp</span></code></p></td>
+<td><p>libocpp</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">core</span></code></p></td>
+<td><p>the framework libraries, code generation and the interface definitions; this is what
+out-of-tree module projects build against</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runtime</span></code></p></td>
+<td><p>the in-tree modules, applications and configurations (no CMake package)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>Example: building only liblog, everest-util, and everest-io</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DEVEREST_LIBS_ONLY<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DEVEREST_INCLUDE_LIBS<span class="o">=</span><span class="s2">&quot;log;util;io&quot;</span>
-cmake<span class="w"> </span>--build<span class="w"> </span>build
+<p>The default builds all five. Only <code class="docutils literal notranslate"><span class="pre">libocpp</span></code> and what it needs, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DEVEREST_PACKAGES<span class="o">=</span><span class="s2">&quot;base;ocpp&quot;</span>
 </pre></div>
 </div>
-<p>Transitive dependencies are resolved automatically. For example, requesting
-<code class="docutils literal notranslate"><span class="pre">io</span></code> will automatically include <code class="docutils literal notranslate"><span class="pre">util</span></code> (since <code class="docutils literal notranslate"><span class="pre">everest-io</span></code> depends on
-<code class="docutils literal notranslate"><span class="pre">everest-util</span></code>).</p>
-<p><strong>Example: building only libocpp</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DEVEREST_LIBS_ONLY<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-DEVEREST_INCLUDE_LIBS<span class="o">=</span><span class="s2">&quot;ocpp&quot;</span>
-cmake<span class="w"> </span>--build<span class="w"> </span>build
-</pre></div>
-</div>
-<p>This resolves the full dependency chain: <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">log</span></code>, <code class="docutils literal notranslate"><span class="pre">timer</span></code>,
-<code class="docutils literal notranslate"><span class="pre">evse_security</span></code>, <code class="docutils literal notranslate"><span class="pre">sqlite</span></code>, <code class="docutils literal notranslate"><span class="pre">cbv2g</span></code>.</p>
-<p><strong>Using from an external project’s dependencies.yaml:</strong></p>
+<p>From an external project’s <code class="docutils literal notranslate"><span class="pre">dependencies.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">everest-core</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">git</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/EVerest/everest-core.git</span>
-<span class="w">  </span><span class="nt">git_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2026.02.0</span>
+<span class="w">  </span><span class="nt">git</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/EVerest/EVerest.git</span>
+<span class="w">  </span><span class="nt">git_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2026.10.0</span>
 <span class="w">  </span><span class="nt">options</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;EVEREST_LIBS_ONLY</span><span class="nv"> </span><span class="s">ON&quot;</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;EVEREST_INCLUDE_LIBS</span><span class="nv"> </span><span class="s">log;util;io&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;EVEREST_PACKAGES</span><span class="nv"> </span><span class="s">base;ocpp&quot;</span>
 </pre></div>
 </div>
-<p>The internal dependency map is defined in <code class="docutils literal notranslate"><span class="pre">cmake/ev-lib-dependencies.cmake</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Libraries that depend on framework code generation (<code class="docutils literal notranslate"><span class="pre">tls</span></code>, <code class="docutils literal notranslate"><span class="pre">helpers</span></code>,
-<code class="docutils literal notranslate"><span class="pre">conversions</span></code>, <code class="docutils literal notranslate"><span class="pre">slac</span></code>, <code class="docutils literal notranslate"><span class="pre">external_energy_limits</span></code>, <code class="docutils literal notranslate"><span class="pre">everest_api_types</span></code>)
-are <strong>not available</strong> in <code class="docutils literal notranslate"><span class="pre">EVEREST_LIBS_ONLY</span></code> mode. Use
-<code class="docutils literal notranslate"><span class="pre">EVEREST_EXCLUDE_MODULES</span></code> instead if you need those libraries.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">DISABLE_EDM=ON</span></code> the packages can also be built and installed one after the other into
+the same prefix:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>b1<span class="w"> </span>-DDISABLE_EDM<span class="o">=</span>ON<span class="w"> </span>-DEVEREST_PACKAGES<span class="o">=</span>base<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/opt/everest
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>b2<span class="w"> </span>-DDISABLE_EDM<span class="o">=</span>ON<span class="w"> </span>-DEVEREST_PACKAGES<span class="o">=</span><span class="s2">&quot;iso15118;ocpp&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/opt/everest<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/opt/everest
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>b3<span class="w"> </span>-DDISABLE_EDM<span class="o">=</span>ON<span class="w"> </span>-DEVEREST_PACKAGES<span class="o">=</span>core<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/opt/everest<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/opt/everest
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>b4<span class="w"> </span>-DDISABLE_EDM<span class="o">=</span>ON<span class="w"> </span>-DEVEREST_PACKAGES<span class="o">=</span>runtime<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/opt/everest<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/opt/everest
+</pre></div>
 </div>
+<p>With EDM, <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--install</span></code> installs what is needed to run EVerest (the manager, modules,
+libraries and configurations) but no CMake packages and no development files such as the generated
+headers. To build against EVerest with <code class="docutils literal notranslate"><span class="pre">find_package()</span></code>, install it from a build with
+<code class="docutils literal notranslate"><span class="pre">DISABLE_EDM=ON</span></code>; EDM projects add EVerest as a dependency instead.</p>
+<p>Tests are built with <code class="docutils literal notranslate"><span class="pre">BUILD_TESTING=ON</span></code> for every package built from the tree.
+<code class="docutils literal notranslate"><span class="pre">EVEREST_TEST_PACKAGES</span></code> (default: all five) narrows that to selected packages, for example
+<code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=ON</span> <span class="pre">-DEVEREST_TEST_PACKAGES=&quot;core;runtime&quot;</span></code>.</p>
 </section>
 <section id="framework-thread-pool-scaling-policy">
 <h2>Framework thread pool scaling policy<a class="headerlink" href="#framework-thread-pool-scaling-policy" title="Link to this heading">¶</a></h2>
@@ -1228,7 +1220,7 @@ the following command:</p>
 </li>
 <li><a class="reference internal" href="#setting-up-and-updating-a-workspace">Setting up and updating a workspace</a></li>
 <li><a class="reference internal" href="#using-the-edm-cmake-module-and-dependencies-yaml">Using the edm CMake module and dependencies.yaml</a></li>
-<li><a class="reference internal" href="#selective-library-consumption">Selective library consumption</a></li>
+<li><a class="reference internal" href="#selective-package-builds">Selective package builds</a></li>
 <li><a class="reference internal" href="#framework-thread-pool-scaling-policy">Framework thread pool scaling policy</a></li>
 <li><a class="reference internal" href="#create-a-workspace-config-from-an-existing-directory-tree">Create a workspace config from an existing directory tree</a></li>
 <li><a class="reference internal" href="#git-information-at-a-glance">Git information at a glance</a></li>
@@ -1243,7 +1235,7 @@ the following command:</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=b1b11702"></script>
+</div><script src="../../_static/documentation_options.js?v=0d778692"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Building Yocto for your custom hardware - EVerest Manual main@60e2ddf</title>
+        <title>Building Yocto for your custom hardware - EVerest Manual main@9cb831d</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@60e2ddf</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@9cb831d</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@60e2ddf</span>
+  <span class="sidebar-brand-text">EVerest Manual main@9cb831d</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -711,7 +711,11 @@ files, EVerest config files, recipes for your own software etc. Look at
 <p><a class="reference external" href="https://docs.yoctoproject.org/dev/dev-manual/layers.html">https://docs.yoctoproject.org/dev/dev-manual/layers.html</a></p>
 <p>You can find <em>meta-everest</em> in a subdirectory of EVerest:
 <em>EVerest/yocto/&lt;yocto-release&gt;/meta-everest</em></p>
-<p>Currently this includes support for the yocto <em>scarthgap</em> and <em>kirkstone</em> releases.</p>
+<p>Currently this includes support for the yocto <em>scarthgap</em> and <em>kirkstone</em> releases, and
+experimental support for <em>wrynose</em>.
+The recipes shared by all releases live in the layer
+<em>EVerest/yocto/meta-everest-common</em>, which <em>meta-everest</em> adds by itself, so
+<em>bblayers.conf</em> only needs <em>meta-everest</em>.</p>
 <p>Then - in case you have not done it yet - create a custom image file
 for your board that installs EVerest as well as all other tools you may
 want to have on your base system. This image can be based e.g. on
@@ -772,11 +776,13 @@ and the Rust examples) when its <code class="docutils literal notranslate"><span
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PACKAGECONFIG:append:pn-everest-core<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" rust"</span>
 </pre></div>
 </div>
-<p>The crates need Rust 1.82 or newer, while scarthgap ships 1.75. The Yocto
-Project’s <a class="reference external" href="https://git.yoctoproject.org/meta-lts-mixins/">meta-lts-mixins</a>
-repository has a <code class="docutils literal notranslate"><span class="pre">scarthgap/rust</span></code> branch that backports a current toolchain
-under the standard recipe names, so it replaces poky’s Rust for the whole
-build. Clone that branch and add the layer to your <code class="docutils literal notranslate"><span class="pre">bblayers.conf</span></code>:</p>
+<p>The crates need Rust 1.86 or newer, while kirkstone ships 1.59 and scarthgap
+1.75. The Yocto Project’s
+<a class="reference external" href="https://git.yoctoproject.org/meta-lts-mixins/">meta-lts-mixins</a> repository
+has <code class="docutils literal notranslate"><span class="pre">kirkstone/rust</span></code> and <code class="docutils literal notranslate"><span class="pre">scarthgap/rust</span></code> branches that backport a current
+toolchain under the standard recipe names, so it replaces poky’s Rust for the
+whole build. Clone the branch for your release and add the layer to your
+<code class="docutils literal notranslate"><span class="pre">bblayers.conf</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>scarthgap/rust<span class="w"> </span>https://git.yoctoproject.org/meta-lts-mixins
 </pre></div>
 </div>
@@ -861,7 +867,7 @@ for a new zvt revision, <code class="docutils literal notranslate"><span class="
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=23ddbf8f"></script>
+</div><script src="../../_static/documentation_options.js?v=eb15f36c"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

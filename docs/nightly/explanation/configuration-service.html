@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EVerest Configuration Service - EVerest Manual main@2b99ccf</title>
+        <title>EVerest Configuration Service - EVerest Manual main@60e2ddf</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@2b99ccf</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@60e2ddf</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@2b99ccf</span>
+  <span class="sidebar-brand-text">EVerest Manual main@60e2ddf</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1154,6 +1154,47 @@ example the module’s runtime veto.</p>
 
     </pre></section>
 </section>
+<section id="change-notifications-for-other-modules">
+<span id="exp-configuration-service-change-notifications"></span><h2>Change Notifications for Other Modules<a class="headerlink" href="#change-notifications-for-other-modules" title="Link to this heading">¶</a></h2>
+<p>A module can follow the configuration of another module, for example to mirror
+some of its parameters. It registers a handler for that module with the
+framework’s configuration service client:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">get_config_service_client</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">register_config_update_handler</span><span class="p">(</span>
+<span class="w">    </span><span class="s">"auth"</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">Everest</span><span class="o">::</span><span class="n">config</span><span class="o">::</span><span class="n">ConfigUpdateNotification</span><span class="o">&amp;</span><span class="w"> </span><span class="n">notification</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// notification.identifier, notification.value, notification.status, notification.origin</span>
+<span class="w">    </span><span class="p">});</span>
+</pre></div>
+</div>
+<p>The manager sends a notification for every parameter change of the active slot
+that the ConfigServiceCore accepted, whether it came from a Configuration API
+Client or from an EVerest module. <code class="docutils literal notranslate"><span class="pre">status</span></code> is <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> if the target
+module applied the value at runtime, and <code class="docutils literal notranslate"><span class="pre">RebootRequired</span></code> if it applies on the
+next start. <code class="docutils literal notranslate"><span class="pre">origin</span></code> names the module that requested the change and is empty
+for changes from outside EVerest. Changes that were not persisted, and changes of
+inactive slots, are not sent.</p>
+<p>A notification reaches a module only if its access rules allow it to read the
+configuration of the changed module, through <code class="docutils literal notranslate"><span class="pre">allow_read</span></code> for that module or
+<code class="docutils literal notranslate"><span class="pre">allow_global_read</span></code>. The changed module itself is notified as well, so it can
+follow changes that others make to its own configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">active_modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ocpp</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OCPPmulti</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">modules</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">allow_read</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Registering a handler for an unknown module, or for one the access rules do not
+allow reading, fails: <code class="docutils literal notranslate"><span class="pre">register_config_update_handler</span></code> logs a warning and
+returns <code class="docutils literal notranslate"><span class="pre">std::nullopt</span></code> instead of the function that unregisters the handler.</p>
+<p>The module that requested a change is not notified about it; it receives the
+result as the reply to its write request. Notifications are not retained, so a
+module reads the current values after registering its handler. The handler runs
+on the module’s MQTT dispatch thread, and notifications for one module arrive in
+the order the changes were accepted.</p>
+</section>
 </section>
 
         </article>
@@ -1230,6 +1271,7 @@ example the module’s runtime veto.</p>
 <li><a class="reference internal" href="#id2">By an EVerest Module</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#change-notifications-for-other-modules">Change Notifications for Other Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -1241,7 +1283,7 @@ example the module’s runtime veto.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=26162193"></script>
+</div><script src="../_static/documentation_options.js?v=23ddbf8f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

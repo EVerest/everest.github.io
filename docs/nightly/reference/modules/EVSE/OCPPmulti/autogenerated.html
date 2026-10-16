@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@601d645</title>
+        <title>OCPPmulti - EVerest Manual main@392481f</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@601d645</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@392481f</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@601d645</span>
+  <span class="sidebar-brand-text">EVerest Manual main@392481f</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1437,6 +1437,13 @@ EVerest-side channels.</p>
 <code class="docutils literal notranslate"><span class="pre">Accepted</span></code>, <code class="docutils literal notranslate"><span class="pre">RebootRequired</span></code> (writes only; persisted; takes effect on next
 (re)connect or reboot), <code class="docutils literal notranslate"><span class="pre">Rejected</span></code>, <code class="docutils literal notranslate"><span class="pre">UnknownComponent</span></code> / <code class="docutils literal notranslate"><span class="pre">UnknownVariable</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">NotSupportedAttributeType</span></code>.</p>
+<p>A variable that exists but has no value reads as <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> with an empty
+<code class="docutils literal notranslate"><span class="pre">value</span></code> (OCPP 2.x B06.FR.13) and can be written, in both protocol modes. In
+OCPP 1.6 mode, a custom-mapped key without a value appears in
+<code class="docutils literal notranslate"><span class="pre">GetConfiguration.conf</span></code> without a <code class="docutils literal notranslate"><span class="pre">value</span></code>, and <code class="docutils literal notranslate"><span class="pre">ChangeConfiguration</span></code> can set it.
+<code class="docutils literal notranslate"><span class="pre">NotSupportedAttributeType</span></code> is reserved for an attribute type the variable does
+not have. A write-only variable reads as <code class="docutils literal notranslate"><span class="pre">Rejected</span></code> (B06.FR.09), whether or not
+it has a value.</p>
 <p>The status is the whole answer: the reason codes the stack computes internally
 (<code class="docutils literal notranslate"><span class="pre">PriorityNetworkConf</span></code>, <code class="docutils literal notranslate"><span class="pre">NoSecurityDowngrade</span></code>, <code class="docutils literal notranslate"><span class="pre">InvalidNetworkConf</span></code>, …)
 are <strong>currently not</strong> carried on this interface; its result has no <code class="docutils literal notranslate"><span class="pre">statusInfo</span></code> field,
@@ -2091,7 +2098,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=35960b48"></script>
+</div><script src="../../../../_static/documentation_options.js?v=c79c669b"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

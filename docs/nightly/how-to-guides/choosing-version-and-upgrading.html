@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Choosing an EVerest Version - EVerest Manual main@825555b</title>
+        <title>Choosing an EVerest Version - EVerest Manual main@e5591ee</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@825555b</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@e5591ee</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@825555b</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e5591ee</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -743,6 +743,53 @@ Always thoroughly review release notes and test upgrades in non-production envir
 <p>Different major releases may be fully backwards compatible, partially compatible, or incompatible depending on the changes introduced.
 It is recommended to review the release notes as well as versions of the public API components when upgrading across major releases.</p>
 </section>
+<section id="persisted-configuration-changes">
+<span id="htg-upgrading-persisted-config"></span><h3>Persisted Configuration Changes<a class="headerlink" href="#persisted-configuration-changes" title="Link to this heading">¶</a></h3>
+<p>EVerest module parameters can be changed at runtime through the configuration
+service, for example by a CSMS through a parameter that the OCPP 2.x module
+exposes in its device model (OCPP 1.6 does not expose module parameters). Such
+changes are persisted outside the config file:</p>
+<ul class="simple">
+<li><p>Without <code class="docutils literal notranslate"><span class="pre">--db</span></code>, in <code class="docutils literal notranslate"><span class="pre">user-config/&lt;config-name&gt;.yaml</span></code> next to the config
+file. The file is merged over the config file on every start.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">--db</span></code>, in the configuration database. The database takes precedence
+over the config file once its boot slot holds modules.</p></li>
+</ul>
+<p>See <a class="reference internal" href="../reference/manager-cli.html"><span class="doc">Manager Command Line Options</span></a> for both modes.</p>
+<p>OCPP’s own configuration is stored separately. The OCPP module keeps the
+variables a CSMS changes with <code class="docutils literal notranslate"><span class="pre">ChangeConfiguration</span></code> (OCPP 1.6) or
+<code class="docutils literal notranslate"><span class="pre">SetVariables</span></code> (OCPP 2.x) and carries them over to new EVerest versions, so
+they need no attention during an upgrade.</p>
+<p>As long as an upgrade does not change the EVerest configuration, that is no
+module is added, replaced or removed and no parameter is renamed, persisted
+changes are retained in both modes.</p>
+<p>An upgrade that changes the configuration has to take the persisted changes
+into account. As of now, EVerest does not migrate them automatically; carrying
+renamed parameters or the switch from a module to its successor over into the
+user-config or the database is the integrator’s responsibility.</p>
+<ul class="simple">
+<li><p>Without <code class="docutils literal notranslate"><span class="pre">--db</span></code>, the user-config is still merged over the changed config
+file. A parameter that the new module does not define is ignored with an
+error in the log, and an entry for a module id that is no longer in the
+config file makes the configuration invalid, so the manager does not start.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">--db</span></code>, a changed config file is not read while the boot slot holds
+modules, and <code class="docutils literal notranslate"><span class="pre">manager</span> <span class="pre">--check</span></code> validates only the file. <code class="docutils literal notranslate"><span class="pre">--dump</span> <span class="pre">&lt;dir&gt;</span></code>
+on a regular start writes the configuration that was actually booted to
+<code class="docutils literal notranslate"><span class="pre">config.json</span></code> in that directory; <code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> replaces the stored
+configuration with the config file and discards the persisted changes.</p></li>
+<li><p>Databases created by releases before 2026.10 also held the manager
+<code class="docutils literal notranslate"><span class="pre">settings</span></code> (MQTT broker and prefixes, installation paths). The schema
+migration drops them, so a deployment that ran with <code class="docutils literal notranslate"><span class="pre">--db</span></code> alone needs
+<code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside it to keep non-default settings (see
+<a class="reference internal" href="../explanation/configuration-service.html"><span class="doc">EVerest Configuration Service</span></a>).</p></li>
+</ul>
+<p>Whether persisted changes survive an update at all depends on where the
+user-config directory and the database file are placed. On storage that an
+update preserves, such as a data partition or a writable overlay, they persist
+and have to be migrated. On storage that an update replaces, such as the root
+file system of an A/B scheme, they are lost with the old release, and the new
+release starts from the config file it ships with.</p>
+</section>
 </section>
 </section>
 
@@ -807,6 +854,7 @@ It is recommended to review the release notes as well as versions of the public 
 <li><a class="reference internal" href="#upgrade-planning">Upgrade Planning</a><ul>
 <li><a class="reference internal" href="#within-stable-lines">Within Stable Lines</a></li>
 <li><a class="reference internal" href="#across-major-releases">Across Major Releases</a></li>
+<li><a class="reference internal" href="#persisted-configuration-changes">Persisted Configuration Changes</a></li>
 </ul>
 </li>
 </ul>
@@ -820,7 +868,7 @@ It is recommended to review the release notes as well as versions of the public 
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=427d0fcb"></script>
+</div><script src="../_static/documentation_options.js?v=416e896d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

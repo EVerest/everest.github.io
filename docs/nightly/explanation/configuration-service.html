@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EVerest Configuration Service - EVerest Manual main@e5591ee</title>
+        <title>EVerest Configuration Service - EVerest Manual main@cb7d386</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@e5591ee</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@cb7d386</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@e5591ee</span>
+  <span class="sidebar-brand-text">EVerest Manual main@cb7d386</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -763,7 +763,10 @@ For those, see <a class="reference internal" href="../tutorials/ocpp2.html#tutor
 <section id="boot-sources-and-the-configuration-database">
 <h2>Boot Sources and the Configuration Database<a class="headerlink" href="#boot-sources-and-the-configuration-database" title="Link to this heading">¶</a></h2>
 <p>Which configuration the manager boots from is resolved from the command line
-options. There are three cases.</p>
+options. There are three cases. They only decide where module configurations
+come from; manager settings (installation paths, MQTT broker and prefixes,
+telemetry, schema validation) come from <code class="docutils literal notranslate"><span class="pre">--settings</span></code> in all of them, see
+<a class="reference internal" href="#exp-config-service-settings"><span class="std std-ref">Manager Settings</span></a>.</p>
 <dl>
 <dt><strong>No</strong> <code class="docutils literal notranslate"><span class="pre">--db</span></code> <strong>(with</strong> <code class="docutils literal notranslate"><span class="pre">--config</span></code> <strong>or the default config lookup)</strong></dt><dd><p>The YAML config is authoritative. It is parsed, including the
 <code class="docutils literal notranslate"><span class="pre">user-config/&lt;config-name&gt;.yaml</span></code> merge, and seeded into a process-private
@@ -776,21 +779,14 @@ empty configuration on built-in defaults (and exits with no modules unless
 kept in memory only.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--db</span></code> <strong>only</strong></dt><dd><p>The database file is the only configuration source for module
-configurations. The database never holds the manager <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block, so
-the settings come from built-in defaults: installation paths (<code class="docutils literal notranslate"><span class="pre">prefix</span></code>,
-<code class="docutils literal notranslate"><span class="pre">modules_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">interfaces_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">types_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">errors_dir</span></code>,
-<code class="docutils literal notranslate"><span class="pre">schemas_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">configs_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">logging_config_file</span></code>), MQTT broker and
-prefixes (<code class="docutils literal notranslate"><span class="pre">mqtt_broker_host</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_broker_port</span></code>,
-<code class="docutils literal notranslate"><span class="pre">mqtt_broker_socket_path</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_everest_prefix</span></code>,
-<code class="docutils literal notranslate"><span class="pre">mqtt_external_prefix</span></code>), <code class="docutils literal notranslate"><span class="pre">run_as_user</span></code> (deprecated), <code class="docutils literal notranslate"><span class="pre">telemetry_enabled</span></code>,
-<code class="docutils literal notranslate"><span class="pre">telemetry_prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">validate_schema</span></code> and <code class="docutils literal notranslate"><span class="pre">forward_exceptions</span></code>.
-Deployments that need any non-default setting pass <code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside
-<code class="docutils literal notranslate"><span class="pre">--db</span></code>.</p>
+configurations. The database never holds manager settings, so they come from
+<code class="docutils literal notranslate"><span class="pre">--settings</span></code>, or from built-in defaults without it. Deployments that need
+any non-default setting pass <code class="docutils literal notranslate"><span class="pre">--settings</span></code> alongside <code class="docutils literal notranslate"><span class="pre">--db</span></code>.</p>
 <p>Databases created before the multi-configuration schema stored these
 settings in a <code class="docutils literal notranslate"><span class="pre">SETTING</span></code> table. Schema migration 4 drops that table without
 carrying the values over; a database upgraded from such a release therefore
-needs <code class="docutils literal notranslate"><span class="pre">--config</span></code> alongside <code class="docutils literal notranslate"><span class="pre">--db</span></code> to keep a non-default broker, prefix or
-user.</p>
+needs <code class="docutils literal notranslate"><span class="pre">--settings</span></code> alongside <code class="docutils literal notranslate"><span class="pre">--db</span></code> to keep a non-default broker or
+prefix.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">--config</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">--db</span></code></dt><dd><p>The database wins when its boot slot holds at least one module, and the YAML
 is then ignored. Otherwise (no boot slot yet, or a boot slot without modules)
@@ -816,10 +812,6 @@ when its boot slot holds no modules is now the default; use
 <li><p><code class="docutils literal notranslate"><span class="pre">--conf</span></code> is a deprecated alias for <code class="docutils literal notranslate"><span class="pre">--config</span></code>. Passing both at once is
 rejected as ambiguous.</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">settings:</span></code> keys <code class="docutils literal notranslate"><span class="pre">www_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">controller_port</span></code> and
-<code class="docutils literal notranslate"><span class="pre">controller_rpc_timeout_ms</span></code> belonged to the removed admin panel backend. They
-are deprecated: a config that still sets them is accepted, the values are
-ignored and the manager logs a warning for each of them at startup.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Without <code class="docutils literal notranslate"><span class="pre">--db</span></code>, the in-memory database is still a complete multi-slot
@@ -831,6 +823,31 @@ restart, and only active-slot parameter writes are persisted, through the
 user-config mirror. The <code class="docutils literal notranslate"><span class="pre">everest-config-tool</span></code> cannot inspect an in-memory
 database.</p>
 </div>
+<section id="manager-settings">
+<span id="exp-config-service-settings"></span><h3>Manager Settings<a class="headerlink" href="#manager-settings" title="Link to this heading">¶</a></h3>
+<p>Manager settings are read from a YAML file passed with <code class="docutils literal notranslate"><span class="pre">--settings</span></code>,
+validated against the schema <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;/share/everest/schemas/settings.yaml</span></code>.
+Relative paths are resolved against the installation prefix:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mqtt_broker_socket_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/mosquitto/mosquitto.sock</span>
+<span class="nt">telemetry_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>The keys are <code class="docutils literal notranslate"><span class="pre">configs_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">schemas_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">modules_dir</span></code>,
+<code class="docutils literal notranslate"><span class="pre">interfaces_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">types_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">errors_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">logging_config_file</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mqtt_broker_socket_path</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_broker_host</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_broker_port</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mqtt_everest_prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">mqtt_external_prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">telemetry_prefix</span></code>,
+<code class="docutils literal notranslate"><span class="pre">telemetry_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">validate_schema</span></code> and <code class="docutils literal notranslate"><span class="pre">forward_exceptions</span></code>. Unknown
+keys, including the deprecated ones below, are rejected. There is no default
+settings file: without <code class="docutils literal notranslate"><span class="pre">--settings</span></code>, the deprecated <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block of
+the config file applies, and built-in defaults fill in what it does not set.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block of the config file is deprecated. Without
+<code class="docutils literal notranslate"><span class="pre">--settings</span></code> it is still applied, and the manager logs a deprecation warning.
+With <code class="docutils literal notranslate"><span class="pre">--settings</span></code> it is ignored, with a warning. Its keys <code class="docutils literal notranslate"><span class="pre">www_dir</span></code>,
+<code class="docutils literal notranslate"><span class="pre">controller_port</span></code> and <code class="docutils literal notranslate"><span class="pre">controller_rpc_timeout_ms</span></code> belonged to the removed
+admin panel backend: a config that still sets them is accepted, the values are
+ignored and the manager logs a warning for each of them at startup. The
+deprecated <code class="docutils literal notranslate"><span class="pre">run_as_user</span></code> is only accepted in the config’s <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block.</p>
+</section>
 </section>
 <section id="communication-paths">
 <h2>Communication Paths<a class="headerlink" href="#communication-paths" title="Link to this heading">¶</a></h2>
@@ -1255,7 +1272,10 @@ the order the changes were accepted.</p>
 <li><a class="reference internal" href="#">EVerest Configuration Service</a><ul>
 <li><a class="reference internal" href="#terminology">Terminology</a></li>
 <li><a class="reference internal" href="#configuration-slots">Configuration Slots</a></li>
-<li><a class="reference internal" href="#boot-sources-and-the-configuration-database">Boot Sources and the Configuration Database</a></li>
+<li><a class="reference internal" href="#boot-sources-and-the-configuration-database">Boot Sources and the Configuration Database</a><ul>
+<li><a class="reference internal" href="#manager-settings">Manager Settings</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#communication-paths">Communication Paths</a></li>
 <li><a class="reference internal" href="#manager-startup">Manager Startup</a></li>
 <li><a class="reference internal" href="#module-stop-and-restart">Module Stop and Restart</a></li>
@@ -1283,7 +1303,7 @@ the order the changes were accepted.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=416e896d"></script>
+</div><script src="../_static/documentation_options.js?v=e4901283"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

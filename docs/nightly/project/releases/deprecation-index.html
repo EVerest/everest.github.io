@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Active Deprecation Index - EVerest Manual main@e5591ee</title>
+        <title>Active Deprecation Index - EVerest Manual main@cb7d386</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@e5591ee</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@cb7d386</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@e5591ee</span>
+  <span class="sidebar-brand-text">EVerest Manual main@cb7d386</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -754,7 +754,17 @@ at startup.</p></td>
 valid configuration is the default with <code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">--db</span></code>. Use the
 experimental <code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> to force re-seeding.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code>: <code class="docutils literal notranslate"><span class="pre">is_connected</span></code> variable and its
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">settings:</span></code> block in the EVerest config file
+(see <a class="reference internal" href="../../explanation/configuration-service.html#exp-config-service-settings"><span class="std std-ref">Manager Settings</span></a>)</p></td>
+<td><p>2026.10.0</p></td>
+<td><p>2027.04.0</p></td>
+<td><p>Move the keys of the block into a settings file and pass it with
+<code class="docutils literal notranslate"><span class="pre">manager</span> <span class="pre">--settings</span> <span class="pre">&lt;path&gt;</span></code>. Drop <code class="docutils literal notranslate"><span class="pre">www_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">controller_port</span></code>,
+<code class="docutils literal notranslate"><span class="pre">controller_rpc_timeout_ms</span></code> and <code class="docutils literal notranslate"><span class="pre">prefix</span></code>/<code class="docutils literal notranslate"><span class="pre">config_file</span></code>, which have
+no effect; <code class="docutils literal notranslate"><span class="pre">run_as_user</span></code> has no settings file equivalent, see its own
+entry. The manager logs a warning at startup while the block is used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code>: <code class="docutils literal notranslate"><span class="pre">is_connected</span></code> variable and its
 <code class="docutils literal notranslate"><span class="pre">get_is_connected</span></code> request/reply (operations <code class="docutils literal notranslate"><span class="pre">receive_is_connected</span></code>,
 <code class="docutils literal notranslate"><span class="pre">send_request_get_is_connected</span></code>, <code class="docutils literal notranslate"><span class="pre">receive_reply_get_is_connected</span></code>,
 schema <code class="docutils literal notranslate"><span class="pre">ConnectedStatus</span></code>), superseded by <code class="docutils literal notranslate"><span class="pre">connection_status</span></code></p></td>
@@ -765,7 +775,7 @@ schema <code class="docutils literal notranslate"><span class="pre">ConnectedSta
 property; the message also carries the details of the connection the
 status refers to.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code> and <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface: OCPP 1.6 key-only variable
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ocpp_consumer_API</span></code> and <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface: OCPP 1.6 key-only variable
 addressing (empty <code class="docutils literal notranslate"><span class="pre">component.name</span></code>, <code class="docutils literal notranslate"><span class="pre">variable.name</span></code> = configuration
 key) in <code class="docutils literal notranslate"><span class="pre">get_variables</span></code>, <code class="docutils literal notranslate"><span class="pre">set_variables</span></code> and <code class="docutils literal notranslate"><span class="pre">monitor_variables</span></code>,
 superseded by canonical component/variable addressing</p></td>
@@ -775,7 +785,7 @@ superseded by canonical component/variable addressing</p></td>
 logs a warning naming the canonical address on the first use of each
 legacy key.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../reference/modules/EVSE/EvseManager/autogenerated.html#everest-modules-evsemanager"><span class="std std-ref">EvseManager</span></a> configuration option
+<tr class="row-odd"><td><p><a class="reference internal" href="../../reference/modules/EVSE/EvseManager/autogenerated.html#everest-modules-evsemanager"><span class="std std-ref">EvseManager</span></a> configuration option
 <code class="docutils literal notranslate"><span class="pre">lock_connector_in_state_b:</span> <span class="pre">false</span></code></p></td>
 <td><p>2026.10.0</p></td>
 <td><p>2027.04.0</p></td>
@@ -789,7 +799,7 @@ Both options violate IEC 61851-1:2019 D.6.5 Table D.9 line 4 and must
 not be used in public environments; the module logs a warning at
 startup for either.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../reference/modules/API/API/autogenerated.html#everest-modules-api"><span class="std std-ref">API module</span></a> (<code class="docutils literal notranslate"><span class="pre">everest_api/&lt;connector&gt;/cmd/*</span></code> and
+<tr class="row-even"><td><p><a class="reference internal" href="../../reference/modules/API/API/autogenerated.html#everest-modules-api"><span class="std std-ref">API module</span></a> (<code class="docutils literal notranslate"><span class="pre">everest_api/&lt;connector&gt;/cmd/*</span></code> and
 <code class="docutils literal notranslate"><span class="pre">everest_api/&lt;connector&gt;/var/*</span></code> topics), superseded by the
 <a class="reference internal" href="../../explanation/adapt-everest/apis.html#everest-apis"><span class="std std-ref">EVerest API modules</span></a></p></td>
 <td><p>2026.10.0</p></td>
@@ -806,13 +816,13 @@ startup for either.</p></td>
 <code class="docutils literal notranslate"><span class="pre">errors/var/active_errors</span></code>. <code class="docutils literal notranslate"><span class="pre">info/var/info</span></code> (charger information) has
 no replacement. The module logs a deprecation warning at startup.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../reference/modules/API/EvAPI/autogenerated.html#everest-modules-evapi"><span class="std std-ref">EvAPI module</span></a> (<code class="docutils literal notranslate"><span class="pre">everest_api/ev_connectors</span></code>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../reference/modules/API/EvAPI/autogenerated.html#everest-modules-evapi"><span class="std std-ref">EvAPI module</span></a> (<code class="docutils literal notranslate"><span class="pre">everest_api/ev_connectors</span></code>
 and <code class="docutils literal notranslate"><span class="pre">everest_api/&lt;connector&gt;/var/*</span></code> topics)</p></td>
 <td><p>2026.10.0</p></td>
 <td><p>2027.04.0</p></td>
 <td><p>No replacement. The module logs a deprecation warning at startup.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">error_history_consumer_API</span></code>: <code class="docutils literal notranslate"><span class="pre">severity</span></code> property of <code class="docutils literal notranslate"><span class="pre">ErrorObject</span></code>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">error_history_consumer_API</span></code>: <code class="docutils literal notranslate"><span class="pre">severity</span></code> property of <code class="docutils literal notranslate"><span class="pre">ErrorObject</span></code>
 (all messages carrying errors: <code class="docutils literal notranslate"><span class="pre">get_errors</span></code>, <code class="docutils literal notranslate"><span class="pre">active_errors</span></code>,
 <code class="docutils literal notranslate"><span class="pre">error_raised</span></code>, <code class="docutils literal notranslate"><span class="pre">error_cleared</span></code>), the <code class="docutils literal notranslate"><span class="pre">severity_filter</span></code> argument of
 <code class="docutils literal notranslate"><span class="pre">get_errors</span></code>, and the <code class="docutils literal notranslate"><span class="pre">Severity</span></code> and <code class="docutils literal notranslate"><span class="pre">SeverityFilter</span></code> schemas</p></td>
@@ -823,7 +833,7 @@ Stop reading <code class="docutils literal notranslate"><span class="pre">severi
 required; drop <code class="docutils literal notranslate"><span class="pre">severity_filter</span></code> from <code class="docutils literal notranslate"><span class="pre">get_errors</span></code> requests and
 filter by <code class="docutils literal notranslate"><span class="pre">type_filter</span></code>, <code class="docutils literal notranslate"><span class="pre">origin_filter</span></code> or <code class="docutils literal notranslate"><span class="pre">state_filter</span></code> instead.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">settings.run_as_user</span></code> in the EVerest config file</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">settings.run_as_user</span></code> in the EVerest config file</p></td>
 <td><p>2026.10.0</p></td>
 <td><p>2027.04.0</p></td>
 <td><p>Start the manager as the unprivileged user from the service manager
@@ -832,7 +842,7 @@ privileged modules file capabilities (see
 <a class="reference internal" href="../../how-to-guides/security-best-practices.html"><span class="doc">Security Best Practices</span></a>). The manager logs a
 warning at startup when the setting is used.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">capabilities</span></code> key of a module entry in the EVerest config file
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">capabilities</span></code> key of a module entry in the EVerest config file
 (<code class="docutils literal notranslate"><span class="pre">active_modules.&lt;id&gt;.capabilities</span></code>)</p></td>
 <td><p>2026.10.0</p></td>
 <td><p>2027.04.0</p></td>
@@ -897,7 +907,7 @@ ignored, and the manager logs a warning at startup.</p></td>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=416e896d"></script>
+</div><script src="../../_static/documentation_options.js?v=e4901283"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

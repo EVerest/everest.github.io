@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Management APIs - EVerest Manual main@e5591ee</title>
+        <title>Management APIs - EVerest Manual main@cb7d386</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@e5591ee</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@cb7d386</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@e5591ee</span>
+  <span class="sidebar-brand-text">EVerest Manual main@cb7d386</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -704,8 +704,8 @@ a so-called <em>manager settings</em> and the actual <em>module configuration</e
 <p>These settings are required to start the manager process. They include paths to different components
 (e.g. where the configuration database should be stored, where the module executables are stored, …),
 the MQTT settings (e.g. host and port or socket, etc.) and similar settings.</p>
-<p>Starting the manager process can be done using defaults, or requires a YAML file which contains custom
-settings.</p>
+<p>Starting the manager process can be done using defaults, or with a settings file which contains custom
+settings, passed with <code class="docutils literal notranslate"><span class="pre">--settings</span></code>.</p>
 </section>
 <section id="module-configuration">
 <h3>Module Configuration<a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h3>
@@ -715,7 +715,7 @@ which is maintained by the manager process. Multiple sets of module configuratio
 and stored in the database alongside each other. Only one of them can be active at a time.
 Switching between these so-called <em>slots</em> requires the modules to be stopped and started again (no
 hot-swapping or dynamic loading of additional modules possible). To bootstrap the database the
-<em>module configuration</em> can be provided in the same YAML file as the manager settings.</p>
+<em>module configuration</em> can be provided in a YAML config file passed with <code class="docutils literal notranslate"><span class="pre">--config</span></code>.</p>
 <p>While switching <em>slots</em> (i.e. which modules are loaded and how they are connected) requires restarting
 the modules, changes to configuration parameters of individual modules can be done anytime. If the
 change is directed to a <em>slot</em> which is not active, then it modifies the configuration stored in the
@@ -843,7 +843,7 @@ load or validate at boot, the slot is empty and its description records the erro
 <p class="admonition-title">Important</p>
 <p>Only the module configuration is stored and retrievable. Thus, in general it’s not
 possible to reconstruct the yaml file which may have been used to initially load this
-module configuration into the database, as it also contains the manager settings.</p>
+module configuration into the database, as it may also contain a (deprecated) <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block.</p>
 </div>
 <p>In read-only mode every modifying request is answered, but refused:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>everest-api&gt; setp 0 example log_interval 5
@@ -1450,7 +1450,7 @@ first; the reply is then <code class="docutils literal notranslate"><span class=
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=416e896d"></script>
+</div><script src="../_static/documentation_options.js?v=e4901283"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

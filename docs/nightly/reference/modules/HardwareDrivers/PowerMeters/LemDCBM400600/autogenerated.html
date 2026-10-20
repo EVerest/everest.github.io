@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>LemDCBM400600 - EVerest Manual main@21e919b</title>
+        <title>LemDCBM400600 - EVerest Manual main@21d6270</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@21e919b</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@21d6270</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@21e919b</span>
+  <span class="sidebar-brand-text">EVerest Manual main@21d6270</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -796,6 +796,20 @@ In order to prevent a greater command return delay (and since the device is assu
 transactions are started), default values are considerably lower than the ones for initialization.</p></li>
 </ul>
 </section>
+<section id="transaction-body-format-optional">
+<h4>Transaction Body Format (optional)<a class="headerlink" href="#transaction-body-format-optional" title="Link to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">transaction_body_format</span></code> selects the v1 transaction format (default <code class="docutils literal notranslate"><span class="pre">LEM</span></code>). Set it to <code class="docutils literal notranslate"><span class="pre">AST</span></code> for the AST DC650
+power meter with its K220031 Ethernet display unit. That device implements the LEM DCBM API with two differences:</p>
+<ul class="simple">
+<li><p>It answers the LEM transaction start body with <code class="docutils literal notranslate"><span class="pre">400</span> <span class="pre">Bad</span> <span class="pre">Request</span></code>. It accepts <code class="docutils literal notranslate"><span class="pre">tariffId</span></code> only as a string and
+rejects any <code class="docutils literal notranslate"><span class="pre">cableId</span></code> field. Cable loss compensation is configured on the device through <code class="docutils literal notranslate"><span class="pre">/v1/settings</span></code>
+(<code class="docutils literal notranslate"><span class="pre">cableConf</span></code>).</p></li>
+<li><p>Its answer to the transaction stop carries the signed record but no <code class="docutils literal notranslate"><span class="pre">meterValue.transactionStatus</span></code>. With
+<code class="docutils literal notranslate"><span class="pre">AST</span></code> the driver confirms the stop through <code class="docutils literal notranslate"><span class="pre">/v1/status</span></code> (<code class="docutils literal notranslate"><span class="pre">transactionIsOnGoing</span></code> must be false). If that
+check fails, a retry repeats only the check, not the stop request.</p></li>
+</ul>
+<p>v2-capable devices are not affected by this option.</p>
+</section>
 </section>
 <section id="notes">
 <h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
@@ -935,6 +949,16 @@ in general is considered vulnerable.</p>
 <div class="line"><em>default: 0</em></div>
 <div class="line-block">
 <div class="line">Used for a unique transaction tariff designation</div>
+</div>
+<div class="line"><strong>transaction_body_format</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “LEM”</em></div>
+<div class="line-block">
+<div class="line">Body format of the v1 transaction start request (POST /v1/legal). LEM: as documented by LEM - tariffId as a number, cableId included. AST: for the AST DC650 with its K220031 Ethernet display unit, which implements the LEM API but answers the LEM body with 400 Bad Request. It needs tariffId as a string and no cableId field (cable loss compensation is configured on the device via /v1/settings cableConf). AST also confirms a transaction stop through /v1/status, because the device’s stop response carries no transactionStatus. Ignored for v2-capable devices.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- LEM</div>
+<div class="line">- AST</div>
+</div>
 </div>
 <div class="line"><strong>IT</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: -1</em></div>
@@ -1103,6 +1127,7 @@ in general is considered vulnerable.</p>
 <li><a class="reference internal" href="#meter-tls-certificate-optional">meter_tls_certificate (optional)</a></li>
 <li><a class="reference internal" href="#ntp-settings-optional">NTP Settings (optional)</a></li>
 <li><a class="reference internal" href="#resilience-settings-optional">Resilience Settings (optional)</a></li>
+<li><a class="reference internal" href="#transaction-body-format-optional">Transaction Body Format (optional)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#notes">Notes</a><ul>
@@ -1135,7 +1160,7 @@ in general is considered vulnerable.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=bd4439a9"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=3a2b13bd"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

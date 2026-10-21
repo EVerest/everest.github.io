@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>The Plug&amp;Charge Process in EVerest - EVerest Manual main@cb7d386</title>
+        <title>The Plug&amp;Charge Process in EVerest - EVerest Manual main@969bc70</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@cb7d386</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@969bc70</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@cb7d386</span>
+  <span class="sidebar-brand-text">EVerest Manual main@969bc70</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -255,6 +255,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../how-to-guides/c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how-to-guides/ocpp-storage-migration.html">Migrate to the Combined OCPP Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../how-to-guides/ocpp-custom-error-mapping.html">Customize How Errors Reach the CSMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to-guides/iso15118-stack-migration.html">Migrate from EvseV2G and IsoMux to Evse15118D20</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -736,15 +737,17 @@ for further information on how to do the configuration for this module.</p>
 <p>In the visualization, step (0) shows the process that represents the previously described process of
 provisioning the charger with the correct certificates, before there is a physical
 connection to the EV. The OCPP module (OCPPmulti is recommended; OCPP/OCPP201 are
-deprecated alternatives) and the EvseV2G module require a module that implements
+deprecated alternatives) and the ISO 15118 module (Evse15118D20; EvseV2G is a
+deprecated alternative) require a module that implements
 the <a class="reference internal" href="../reference/interfaces/evse_security.html"><span class="doc">evse_security interface</span></a>,
 in order to execute the following commands:</p>
 <ul class="simple">
 <li><p>install_ca_certificate (Used by OCPP to install root certificates. This process is initiated by the OCPP CSMS)</p></li>
 <li><p>update_leaf_certificate (Used to install or update SECC leaf certificates)</p></li>
 <li><p>generate_certificate_signing_request (Used to generate a CSR that is used in the SignCertificate.req of OCPP)</p></li>
-<li><p>verify_certificate (Used by EvseV2G to verify the contract certificate and by OCPP to verify new leaf certificates)</p></li>
-<li><p>get_mo_ocsp_request_data (Used by EvseV2G and OCPP to get the OCSP request data of the contract certificate (chain))</p></li>
+<li><p>verify_certificate (Used by EvseV2G to verify the contract certificate and by OCPP to verify new leaf certificates;
+Evse15118D20 validates the contract chain against the root bundles from get_verify_file instead)</p></li>
+<li><p>get_mo_ocsp_request_data (Used by the ISO 15118 module and OCPP to get the OCSP request data of the contract certificate (chain))</p></li>
 </ul>
 <p>There are more commands provided by the <a class="reference internal" href="../reference/interfaces/evse_security.html"><span class="doc">evse_security interface</span></a>,
 which are not included in the Plug&amp;Charge process.</p>
@@ -764,7 +767,7 @@ manually by the CSMS by using a <em>TriggerMessage(SignCertificate).req</em> mes
 <section id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Link to this heading">¶</a></h3>
 <p>This step is triggered by a physical connection between the EV and the charger. A TLS connection is required
-between the EV and the charger to allow Plug&amp;Charge, so the EvseV2G module retrieves the SECC leaf certificate
+between the EV and the charger to allow Plug&amp;Charge, so the ISO 15118 module retrieves the SECC leaf certificate
 chain and private key from via the evse_security.yaml interface and sets up a TLS server, to which the EV
 can connect as a TLS client.</p>
 </section>
@@ -772,7 +775,7 @@ can connect as a TLS client.</p>
 <h3>Step 2<a class="headerlink" href="#step-2" title="Link to this heading">¶</a></h3>
 <p>When charger and EV have agreed on Contract being the selected payment option, we have something going on
 that we can call a Plug&amp;Charge process. The EV sends its contract certificate chain and requests authorization
-from the charger. The EvseV2G module generates a
+from the charger. The ISO 15118 module generates a
 <a class="reference internal" href="../reference/types/authorization.html#authorization-providedidtoken"><span class="std std-ref">ProvidedIdToken</span></a>,
 which is the EVerest type that contains data about the authorization request, including the contract
 certificate and OCSP request data.</p>
@@ -800,7 +803,7 @@ that authorization is present and the charging session can be started.</p>
 </section>
 <section id="step-6">
 <h3>Step 6<a class="headerlink" href="#step-6" title="Link to this heading">¶</a></h3>
-<p>The EvseManager forwards the authorization response to the EvseV2G module, which can then send the
+<p>The EvseManager forwards the authorization response to the ISO 15118 module, which can then send the
 awaited ISO15118 response to the EV.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -892,7 +895,7 @@ but these steps cover what’s important for Plug&amp;Charge in EVerest.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=e4901283"></script>
+</div><script src="../_static/documentation_options.js?v=2ad3b86f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

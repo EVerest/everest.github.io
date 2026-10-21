@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Configure Plug&amp;Charge in EVerest - EVerest Manual main@cb7d386</title>
+        <title>Configure Plug&amp;Charge in EVerest - EVerest Manual main@969bc70</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@cb7d386</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@969bc70</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@cb7d386</span>
+  <span class="sidebar-brand-text">EVerest Manual main@969bc70</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -255,6 +255,7 @@
 <li class="toctree-l2"><a class="reference internal" href="c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ocpp-storage-migration.html">Migrate to the Combined OCPP Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ocpp-custom-error-mapping.html">Customize How Errors Reach the CSMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iso15118-stack-migration.html">Migrate from EvseV2G and IsoMux to Evse15118D20</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -708,7 +709,7 @@ OCPPmulti module, which supports OCPP 1.6 and OCPP 2.x.</p>
 <p>We need to take a closer look at the configuration of the following modules:</p>
 <ul class="simple">
 <li><p>EvseManager</p></li>
-<li><p>EvseV2G</p></li>
+<li><p>Evse15118D20</p></li>
 <li><p>Auth</p></li>
 <li><p>EvseSecurity</p></li>
 </ul>
@@ -717,14 +718,21 @@ OCPPmulti module, which supports OCPP 1.6 and OCPP 2.x.</p>
 <ul class="simple">
 <li><p>In case of AC, make sure that <cite>ac_hlc_enabled</cite> is set to <cite>true</cite> in order to allow ISO15118 communication.</p></li>
 <li><p>Make sure <cite>payment_enable_contract</cite> is set to <cite>true</cite>.</p></li>
+<li><p>Set <cite>central_contract_validation_allowed</cite> to <cite>true</cite> if the CSMS validates the contract and no MO root
+certificates are installed on the charger; otherwise install the MO root certificates (the contract
+chain is always validated locally first).</p></li>
 </ul>
 </section>
-<section id="evsev2g">
-<h3>EvseV2G<a class="headerlink" href="#evsev2g" title="Link to this heading">¶</a></h3>
+<section id="evse15118d20">
+<h3>Evse15118D20<a class="headerlink" href="#evse15118d20" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Make sure <cite>tls_security</cite> is set to <cite>allow</cite> or <cite>force</cite>.</p></li>
-<li><p>Make sure <cite>verify_contract_cert_chain</cite> is set to <cite>true</cite>.</p></li>
+<li><p>Make sure <cite>tls_negotiation_strategy</cite> is set to <cite>ACCEPT_CLIENT_OFFER</cite> or <cite>ENFORCE_TLS</cite>.</p></li>
+<li><p>Make sure <cite>supported_ISO15118_2</cite> is set to <cite>true</cite> (and <cite>supported_ISO15118_20</cite> for ISO 15118-20
+Plug&amp;Charge, which additionally needs a <cite>V2G20</cite> SECC leaf certificate).</p></li>
 </ul>
+<p>The deprecated EvseV2G module needs <cite>tls_security</cite> set to <cite>allow</cite> or <cite>force</cite> and
+<cite>verify_contract_cert_chain</cite> set to <cite>true</cite> instead; see the
+<a class="reference internal" href="iso15118-stack-migration.html#howto-iso15118-stack-migration"><span class="std std-ref">migration guide</span></a>.</p>
 </section>
 <section id="auth">
 <h3>Auth<a class="headerlink" href="#auth" title="Link to this heading">¶</a></h3>
@@ -850,7 +858,7 @@ of these configuration keys do not match the expectations of the CSMS. Contact y
 <li><a class="reference internal" href="#">Configure Plug&amp;Charge in EVerest</a><ul>
 <li><a class="reference internal" href="#module-configurations">Module Configurations</a><ul>
 <li><a class="reference internal" href="#evsemanager">EvseManager</a></li>
-<li><a class="reference internal" href="#evsev2g">EvseV2G</a></li>
+<li><a class="reference internal" href="#evse15118d20">Evse15118D20</a></li>
 <li><a class="reference internal" href="#auth">Auth</a></li>
 <li><a class="reference internal" href="#evsesecurity">EvseSecurity</a></li>
 </ul>
@@ -867,7 +875,7 @@ of these configuration keys do not match the expectations of the CSMS. Contact y
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=e4901283"></script>
+</div><script src="../_static/documentation_options.js?v=2ad3b86f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

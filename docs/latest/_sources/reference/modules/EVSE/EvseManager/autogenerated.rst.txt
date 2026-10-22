@@ -22,16 +22,16 @@ Auto-Generated Reference
 Module Configuration
 ====================
 | **connector_id**: *integer* <required>
-|  Connector id of this evse manager
+|  ID of this EVSE within the charging station, according to the 3-tier model of OCPP (charging station > EVSE > connector). The parameter is named connector_id for backwards compatibility reasons only; it does not identify a connector.
 | **connector_type**: *string* <optional>
 | *default: "Unknown"*
 |  The connector type of this evse manager (/evse_manager#/ConnectorTypeEnum)
 | **evse_id**: *string* <optional>
 | *default: "DE*PNX*E1234567*1"*
-|  EVSE ID
+|  EVSE ID that uniquely identifies this EVSE, e.g. DE*PNX*E1234567*1. It has a special format that includes the country code, the operator id and a power outlet id (eMI3 format, normatively specified in ISO 15118-2 Annex H) and is sent as the EVSEID field in ISO 15118 messages.
 | **evse_id_din**: *string* <optional>
 | *default: "49A80737A45678"*
-|  EVSE ID DIN after DIN SPEC 91286
+|  EVSE ID used for DIN 70121 sessions (format according to DIN SPEC 91286, hexBinary-encoded), e.g. 49A80737A45678
 | **payment_enable_eim**: *boolean* <optional>
 | *default: True*
 |  Set to true to enable EIM (e.g. RFID card or mobile app) authorization
@@ -41,6 +41,12 @@ Module Configuration
 | **ac_nominal_voltage**: *number* <optional>
 | *default: 230*
 |  Nominal AC voltage between phase and neutral in Volt
+| **ac_nominal_frequency**: *number* <optional>
+| *default: 50*
+|  Nominal AC grid frequency in Hz, normally 50 or 60. Advertised for ISO 15118-20 AC DER as the GridNominalFrequency the EV adopts, so it must match the installation. It does not scale the grid code frequency-trip curves, which are in absolute Hz.
+| **ac_max_reactive_power**: *number* <optional>
+| *default: 0*
+|  Maximum EVSE reactive power in var; passed to the HLC stack as the AC_DER_IEC de-normalization base. 0 means the EVSE has no reactive-power capability.
 | **ev_receipt_required**: *boolean* <optional>
 | *default: False*
 |  Unsupported: request receipt from EV with HLC
@@ -65,6 +71,13 @@ Module Configuration
 | **supported_iso_ac_bpt**: *boolean* <optional>
 | *default: False*
 |  Set to true if ISO15118-20 AC BPT is supported and should be offered to the EV
+| **iso15118_der_flavor**: *string* <optional>
+| *default: "NONE"*
+|  Which ISO 15118-20 Amendment 1 AC DER annex to advertise: IEC is Annex L, SAE is Annex M, NONE advertises neither. The two annexes are mutually exclusive per EVSE, so at most one AC DER energy transfer mode is ever advertised. Takes effect only when DER availability has been asserted for this EVSE and the EVSE is export-capable; SAE additionally needs the AC parameters. grid_support DER directives reach the IEC control functions only, so a SAE EVSE runs the inert default grid code.
+|  enum:
+|    - NONE
+|    - IEC
+|    - SAE
 | **ac_hlc_enabled**: *boolean* <optional>
 | *default: False*
 |  Enable or disable HLC (aka ISO15118) for AC mode
@@ -74,9 +87,25 @@ Module Configuration
 | **ac_enforce_hlc**: *boolean* <optional>
 | *default: False*
 |  Combine with 5percent option to really enforce HLC even with EIM. ISO15118-3 forbids the usage of 5% if Auth happens before plugin, but most EVs will not perform HLC with nominal PWM. For the home use case (always authorized or auth before plugin) it may still be desirable to use HLC e.g. for better energy management. In this case you can use this option, but be aware that EVs that do not support HLC may take a long time to start (or never start) charging. This mode is not ISO15118-2/-3 compliant. Do not use for public charging stations.
+| **ac_limit_slac_init_retries**: *boolean* <optional>
+| *default: True*
+|  Limit the SLAC matching retries as required by ISO15118-3. With 5% PWM ([V2G3-M06-07], Figure 9): if no SLAC request arrives within TT_EVSE_SLAC_init, the EVSE signals E/F for T_step_EF and returns to 5% PWM at most C_sequ_retry (2) times per plug-in. At the next timeout it signals E/F once more and keeps 5% off for the rest of the session: X1 while waiting for authorization (an EIM can still start basic charging), nominal PWM once authorized, also with ac_enforce_hlc. A running HLC session is not affected. Each retry is one error routine request from the SLAC module; with its reset_instead_of_fail option one request spans two TT_EVSE_SLAC_init. With nominal PWM or X1 ([V2G3-A09-13]), a failed matching is not retried and the PWM stays as it is. If false, every failed matching is retried with E/F until the EV is unplugged, also with nominal PWM.
 | **ac_with_soc**: *boolean* <optional>
 | *default: False*
 |  Special mode that switches between AC and DC charging to get SoC percentage with AC charging
+| **reinit_duration_ms**: *integer* <optional>
+| *default: 3000*
+|  Duration in milliseconds of the reinit state before going back to normal operation
+| **reinit_method**: *string* <optional>
+| *default: "CPStateF"*
+|  Configures the control pilot behaviour during reinitialization of the connection to the EV. Reinitialization may be used to recover from an unsuccessful PLC link setup, wake up the EV, or switch between HLC and basic AC charging in AC with SoC mode.
+|    CPStateE: set CP to state E (0 V) to simulate an unplug. This requires BSP support for CP state E.
+|    CPStateF: set CP to state F (-12 V) to signal a temporary unavailability.
+|    CPStateX1: keep CP powered with 100% duty cycle to signal that no energy is available.
+|  enum:
+|    - CPStateE
+|    - CPStateF
+|    - CPStateX1
 | **internal_over_voltage_duration_ms**: *integer* <optional>
 | *default: 400*
 |  Time in milliseconds the internal software over voltage monitor waits before raising MREC5 once the measured voltage exceeds the negotiated limit.
@@ -94,7 +123,7 @@ Module Configuration
 |  Enable self testing of IMD in cable check with the voltage calculated from ev_max_voltage and with relays closed. This is required e.g. for Bender IMDs which also perform an isolation measurement during the self test. A self test is required for IEC 61851-23 (2023) compliance.
 | **cable_check_enable_imd_self_test_relays_open**: *boolean* <optional>
 | *default: False*
-|  Enable self testing of IMD at the beginning of cable check where the relays may still be open. The voltage is set by the cable_check_relays_open_voltage_V config option and may differ from the  voltage that is later used to perform the isolation resistance sample. cable_check_wait_number_of_imd_measurements needs to be >=1 in this case as no isolation resistance checking can be performed at this stage. A self test is required for IEC 61851-23 (2023) compliance.
+|  Enable self testing of IMD at the beginning of cable check where the relays may still be open. The voltage is set by the cable_check_relays_open_voltage_V config option and may differ from the voltage that is later used to perform the isolation resistance sample. cable_check_wait_number_of_imd_measurements needs to be >=1 in this case as no isolation resistance checking can be performed at this stage. If both this option and cable_check_enable_imd_self_test are enabled, the selftest is started with relays open, but the result is captured later on, as it would be with the regular selftest sequence. In this case the powersupply will remain active and transition to the regular cable check voltage. A self test is required for IEC 61851-23 (2023) compliance.
 | **cable_check_relays_open_voltage_V**: *integer* <optional>
 | *default: 48*
 |  Voltage to set for the self test using cable_check_enable_imd_self_test_relays_open option.
@@ -158,7 +187,7 @@ Module Configuration
 |    - V2G
 | **request_zero_power_in_idle**: *boolean* <optional>
 | *default: False*
-|  "true: In Idle mode (no car connected), request 0A from energy management. In installations with many charging stations this should be set" "to allow the power to be distributed to the chargers that are connected to a car." "false: Request the normal current even if no car is connected. This speeds up the start of charging on AC BASIC charging as" "EvseManager does not need to wait for energy from the energy manager after plug in."
+|  "true: In Idle mode (no car connected) and while charging is paused by the EVSE for a user pause or an error, request 0A from" "energy management. In installations with many charging stations this should be set to allow the power to be distributed to the" "chargers that are connected to a car. A pause because of missing energy keeps requesting energy so that charging can resume." "false: Request the normal current even if no car is connected. This speeds up the start of charging on AC BASIC charging as" "EvseManager does not need to wait for energy from the energy manager after plug in."
 | **external_ready_to_start_charging**: *boolean* <optional>
 | *default: False*
 |  Enable the external ready to start charging signal that delays charging ready until it has been received
@@ -182,13 +211,27 @@ Module Configuration
 |  CP state to use for switching. WARNING: Some EVs may be permanently destroyed when switching from 1ph to 3ph. It is the responsibiltiy of the evse_board_support implementation to ensure the EV is capable of performing the switch. If it is not, the capabilities must set the supports_changing_phases_during_charging to false. Phase switching is only possible in basic charging mode.
 |  enum:
 |    - X1
+|    - E
 |    - F
 | **soft_over_current_timeout_ms**: *integer* <optional>
 | *default: 7000*
 |  Allow for over current to be present for N ms in soft over current checking during AC charging.
+| **soft_over_current_stale_data_warning_ms**: *integer* <optional>
+| *default: 5000*
+|  Diagnostics only: warn if the current measurements used for soft over current checking during AC charging have not been updated for more than N ms, which may indicate a frozen power meter or a broken communication link. The measurements are still used as-is. Increase this value for power meters with slow update intervals. Set to 0 to disable the warning.
 | **lock_connector_in_state_b**: *boolean* <optional>
 | *default: True*
-|  Indicates if the connector lock should be locked in state B. If set to false, connector will remain unlocked in CP state B and this violates IEC61851-1:2019 D.6.5 Table D.9 line 4 and should not be used in public environments!
+|  Indicates if the connector lock should be locked in state B. If set to false, connector will remain unlocked in CP state B and this violates IEC61851-1:2019 D.6.5 Table D.9 line 4 and should not be used in public environments! This feature is deprecated.
+| **unlock_when_deauthorized**: *boolean* <optional>
+| *default: False*
+|  Indicates if the connector lock should be locked in state B/C regardless of if a user authorized. If set to true, connector will remain unlocked in CP state B/C if the relays are open and no user is authorized. This violates IEC61851-1:2019 D.6.5 Table D.9 line 4 and should not be used in public environments!
+| **keep_cable_locked**: *boolean* <optional>
+| *default: False*
+|  Captive cable mode for AC sockets with a connector lock (fleet/private use): keep the cable locked in the socket whenever a plug is present, in every CP state - including state A with no EV attached. The only way to unlock is the force_unlock command (e.g. triggered by OCPP UnlockConnector); the connector then stays unlocked until the cable is removed, and the next plug insertion locks it again. An engaged lock is latched: losing plug presence without a preceding force_unlock (e.g. the PP contact opening while the plug is pulled against the lock pin) does not release it. Takes precedence over lock_connector_in_state_b and unlock_when_deauthorized. Can be changed at runtime via the configuration service (applied immediately, no restart required). Requires a BSP that publishes ac_pp_ampacity on every change, also outside of charging sessions, and once at startup with the current value (only needed when this option is used). Only applies to AC sockets with a connector lock: ignored with charge_mode other than AC, without a connector lock or when the BSP reports a fixed attached cable, and setting it at runtime is then rejected (a fixed cable is only known once the BSP capabilities arrived; the mode activates then). The normal locking rules still apply on top of it.
+|  mutability:ReadWrite
+| **keep_cable_locked_lock_delay_ms**: *integer* <optional>
+| *default: 500*
+|  Captive cable mode only: delay in milliseconds between detecting a plug (ac_pp_ampacity becomes non-zero) and engaging the connector lock. Gives the plug time to seat fully before the lock pin extends, so a lock triggered on the first Proximity Pilot contact cannot jam a half-inserted plug. If the plug is pulled back out again within the delay, no lock is engaged. Set to 0 to lock immediately. The effective delay is rounded up to the next multiple of 500 ms (timer resolution).
 | **state_F_after_fault_ms**: *integer* <optional>
 | *default: 300*
 |  Set state F after any fault that stops charging for the specified time in ms while in Charging mode (CX->F(300ms)->C1/B1). When a fault occurs in state B2, no state F is added (B2->B1 on fault). Some (especially older hybrid vehicles) may go into a permanent fault mode once they detect state F, in this case EVerest cannot recover the charging session if the fault is cleared. In this case you can set this parameter to 0, which will avoid to use state F in case of a fault and only disables PWM (C2->C1) while switching off power. This will violate IEC 61851-1:2017 however. The default is 300ms as the minimum suggested by IEC 61851-1:2017 Table A.5 (description) to be compliant. This setting is only active in BASIC charging mode.
@@ -256,6 +299,22 @@ Module Configuration
 | **dc_ramp_ampere_per_second**: *integer* <optional>
 | *default: 25*
 |  Maximum ampere per second limit for up/down ramping of current in charging loop.
+| **enable_nodered_interface**: *boolean* <optional>
+| *default: False*
+|  Enable the external MQTT interface to the Node-RED debug UI (topics below everest_external/nodered/<connector_id>/). This publishes powermeter and state updates and subscribes to UI commands (enable/disable/pause/resume/phase switch). Only needed when the Node-RED simulation/debug UI is used.
+| **phase_rotation_grid_side**: *string* <optional>
+| *default: "RST"*
+|  Corrects for a physical L1/L2/L3 wiring rotation at the grid side powermeter by remapping its per-phase voltage/current/power/energy/VAR values before they are used in energy_flow_request.energy_usage_root. RST means no rotation, i.e. reported L1/L2/L3 already matches grid L1/L2/L3. STR means reported L1 is grid L2, reported L2 is grid L3, reported L3 is grid L1. TRS means reported L1 is grid L3, reported L2 is grid L1, reported L3 is grid L2.
+|  enum:
+|    - RST
+|    - STR
+|    - TRS
+| **debug_emit_cp_state_hpav_frames**: *boolean* <optional>
+| *default: False*
+|  Debugging aid. Emit a HomePlug AV STP_CPSTATE.IND frame (ethertype 0x88E1, ST/IoTecha vendor MME) on debug_cp_state_hpav_device whenever the measured CP state or the commanded PWM duty cycle changes. Wireshark and the dsV2Gshark plugin decode these frames, so a packet capture of the PLC interface shows the CP state next to SLAC and ISO 15118 traffic. Sending raw Ethernet frames needs the CAP_NET_RAW capability for this module. Do not enable in production.
+| **debug_cp_state_hpav_device**: *string* <optional>
+| *default: ""*
+|  Network interface the CP state frames are sent on when debug_emit_cp_state_hpav_frames is true, typically the PLC modem interface also used by the SLAC module.
 
 Provides
 ========

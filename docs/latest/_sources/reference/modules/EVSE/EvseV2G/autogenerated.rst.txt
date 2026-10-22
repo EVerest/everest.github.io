@@ -5,7 +5,7 @@
 #######
 EvseV2G
 #######
-| This module includes a DIN70121 and ISO15118-2 implementation provided by chargebyte GmbH
+| This module includes a DIN70121 and ISO15118-2 implementation provided by chargebyte GmbH. DEPRECATED in 2026.10.0, earliest removal in 2027.04.0: superseded by the Evse15118D20 module, which runs DIN SPEC 70121, ISO 15118-2 and ISO 15118-20 on the C++ ISO 15118 stack. See the how-to guide "Migrate from EvseV2G and IsoMux to Evse15118D20" for the upgrade path.
 
 
 *************************
@@ -24,6 +24,12 @@ Module Configuration
 | **device**: *string* <optional>
 | *default: "eth0"*
 |  Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work
+| **tcp_port**: *integer* <optional>
+| *default: 61341*
+|  TCP port used for unencrypted ISO 15118 communication
+| **tls_port**: *integer* <optional>
+| *default: 64109*
+|  TCP port used for TLS-protected ISO 15118 communication
 | **supported_DIN70121**: *boolean* <optional>
 | *default: True*
 |  The EVSE supports the DIN SPEC
@@ -61,6 +67,9 @@ Module Configuration
 | **enable_sdp_server**: *boolean* <optional>
 | *default: True*
 |  Enable the built-in SDP server
+| **publish_telemetry_only_on_change**: *boolean* <optional>
+| *default: True*
+|  Only publish telemetry blocks when values changed.
 
 Provides
 ========

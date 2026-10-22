@@ -225,6 +225,20 @@ Energy import/export capability/limit types
 |    **array_item**: *object*  (:ref:`energy-ScheduleResEntry <energy-ScheduleResEntry>`)
 |     One entry for the time series. Values are positive for import from grid and negative for export to grid.
 
+.. _energy-CapabilityLimits:
+
+| **CapabilityLimits**: *object* 
+|  Configured/rated maximum limits of an energy node
+|  properties:
+|   **max_current_A**: *number* <required>
+|    Max current limit (per phase) in Ampere.
+|   **max_phase_count**: *integer* <required>
+|    Number of phases covered by this fuse
+|   **nominal_voltage_V**: *number* <required>
+|    Nominal AC voltage between a single phase and neutral in Volt
+|   **total_power_W**: *number* <required>
+|    Total power limit in Watt. For AC energy nodes, this usually is: nominal_voltage_V x max_current_A x max_phase_count
+
 .. _energy-ExternalLimits:
 
 | **ExternalLimits**: *object* 

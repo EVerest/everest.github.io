@@ -33,7 +33,8 @@ ISO15118 charger types
 |    - DC
 |    - AC_BPT
 |    - AC_BPT_DER
-|    - AC_DER
+|    - AC_DER_IEC
+|    - AC_DER_SAE
 |    - DC_BPT
 |    - DC_ACDP
 |    - DC_ACDP_BPT
@@ -79,12 +80,35 @@ ISO15118 charger types
 |    Error_UtilityInterruptEvent: Utility Interrupt Event, Utility or Equipment operator has requested a temporary reduction in load
 |    Error_Malfunction: A non-recoverable charger fault has occurred (Isolation Failure, ...). It is permanently faulted.
 |    Error_EmergencyShutdown: Charging System Incompatibility, Emergency Shutdown or E-Stop button pressed at charging station
+|    Error_ErrorShutdown: Error shutdown according to IEC 61851-23 Table CC.10 (e.g. isolation fault). Energy transfer is stopped by the EVSE, but the HLC session is kept alive so the shutdown cause (EVSEStatusCode, EVSEIsolationStatus) can still be reported to the EV.
 |  enum:
 |    - Error_Contactor
 |    - Error_RCD
 |    - Error_UtilityInterruptEvent
 |    - Error_Malfunction
 |    - Error_EmergencyShutdown
+|    - Error_ErrorShutdown
+
+.. _iso15118-SessionStopAction:
+
+| **SessionStopAction**: *string* 
+|  How the V2G session ended on the wire. Terminate/Pause map to the ChargingSession requested by the EVCC in SessionStopReq (DIN 70121 has no ChargingSession parameter; DIN sessions always map to Terminate). FailedTermination means the SECC ended the session with a FAILED_* response (sequence error, unknown session): per DIN 70121 [V2G-DC-942] the CP oscillator must then be switched off without delay.
+|  enum:
+|    - Terminate
+|    - Pause
+|    - FailedTermination
+
+.. _iso15118-CpState:
+
+| **CpState**: *string* 
+|  IEC 61851-1 control pilot state as measured by the EVSE. Forwarded to the HLC stack for the SECC-side CP checks tied to the message sequence, e.g. DIN 70121 [V2G-DC-988]/[V2G-DC-556] (CP State B required within V2G_SECC_CPState_Detection_Timeout after the request following PowerDelivery(off)).
+|  enum:
+|    - A
+|    - B
+|    - C
+|    - D
+|    - E
+|    - F
 
 .. _iso15118-V2gMessageId:
 
@@ -141,6 +165,14 @@ ISO15118 charger types
 |    - AcChargeLoopRes
 |    - AcChargeParameterDiscoveryReq
 |    - AcChargeParameterDiscoveryRes
+|    - AcDerChargeParameterDiscoveryReq
+|    - AcDerChargeParameterDiscoveryRes
+|    - AcDerChargeLoopReq
+|    - AcDerChargeLoopRes
+|    - AcDerSaeChargeParameterDiscoveryReq
+|    - AcDerSaeChargeParameterDiscoveryRes
+|    - AcDerSaeChargeLoopReq
+|    - AcDerSaeChargeLoopRes
 |    - DcCableCheckReq
 |    - DcCableCheckRes
 |    - DcChargeLoopReq
@@ -295,6 +327,23 @@ ISO15118 charger types
 |    [RFC3339 UTC] Estimated or calculated time until bulk charge (approx. 80% SOC) is complete
 |    format:date-time
 
+.. _iso15118-SupportedAppProtocol:
+
+| **SupportedAppProtocol**: *string* 
+|  Protocols supported by the SECC
+|  enum:
+|    - DIN70121
+|    - ISO15118D2
+|    - ISO15118D20
+
+.. _iso15118-SupportedAppProtocols:
+
+| **SupportedAppProtocols**: *object* 
+|  This message element is used by the SECC for transmitting the list of supported protocols
+|  properties:
+|   **app_protocols**: *array* <required>
+|    **array_item**: *object*  (:ref:`iso15118-SupportedAppProtocol <iso15118-SupportedAppProtocol>`)
+
 .. _iso15118-AppProtocol:
 
 | **AppProtocol**: *object* 
@@ -442,34 +491,6 @@ ISO15118 charger types
 |   **min_v2x_energy_request**: *number* <optional>
 |    Energy which needs to be charged until the PresentSOC has left the range dedicated for cycling activity.
 
-.. _iso15118-DERControl:
-
-| **DERControl**: *string* 
-|  Name of control settings to clear. Not used when _controlId_ is provided.
-|  enum:
-|    - EnterService
-|    - FreqDroop
-|    - FreqWatt
-|    - FixedPFAbsorb
-|    - FixedPFInject
-|    - FixedVar
-|    - Gradients
-|    - HFMustTrip
-|    - HFMayTrip
-|    - HVMustTrip
-|    - HVMomCess
-|    - HVMayTrip
-|    - LimitMaxDischarge
-|    - LFMustTrip
-|    - LVMustTrip
-|    - LVMomCess
-|    - LVMayTrip
-|    - PowerMonitoringMustTrip
-|    - VoltVar
-|    - VoltWatt
-|    - WattPF
-|    - WattVar
-
 .. _iso15118-ServiceCategory:
 
 | **ServiceCategory**: *string* 
@@ -484,6 +505,8 @@ ISO15118 charger types
 |    - DC_ACDP_BPT
 |    - MCS
 |    - MCS_BPT
+|    - AC_DER_IEC
+|    - AC_DER_SAE
 |    - Internet
 |    - ParkingStatus
 
@@ -704,7 +727,7 @@ ISO15118 charger types
 |  properties:
 |   **ev_supported_dercontrol**: *array* <optional>
 |    DER control functions supported by EV. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType:DERControlFunctions (bitmap)
-|    **array_item**: *string*  (:ref:`iso15118-DERControl <iso15118-DERControl>`)
+|    **array_item**: *string*  (:ref:`grid_support-DirectiveType <grid_support-DirectiveType>`)
 |   **ev_over_excited_max_discharge_power**: *number* <optional>
 |    Rated maximum injected active power by EV, at specified over-excited power factor (overExcitedPowerFactor). It can also be defined as the rated maximum discharge power at the rated minimum injected reactive power value. This means that if the EV is providing reactive power support, and it is requested to discharge at max power (e.g. to satisfy an EMS request), the EV may override the request and discharge up to overExcitedMaximumDischargePower to meet the minimum reactive power requirements. Corresponds to the WOvPF attribute in IEC 61850. ISO 15118-20: DER_BPT_AC_CPDReqEnergyTransferModeType: EVOverExcitedMaximumDischargePower
 |   **ev_over_excited_power_factor**: *number* <optional>
@@ -866,6 +889,8 @@ ISO15118 charger types
 |   **connectors**: *array* <required>
 |    Supported ac connectors from the EVSE
 |    **array_item**: *string*  (:ref:`iso15118-Connector <iso15118-Connector>`)
+|   **evse_max_reactive_power**: *number* <optional>
+|    Maximum reactive power the EVSE supports in var; de-normalization base for AC_DER_IEC percentage control curves
 
 .. _iso15118-AcEvseMaximumPower:
 

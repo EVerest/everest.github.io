@@ -426,6 +426,18 @@ EVSE manager types
 |    Id of the connector. Connectors should be numbered starting with 1 counting upwards
 |   **type**: *string* <optional> (:ref:`evse_manager-ConnectorTypeEnum <evse_manager-ConnectorTypeEnum>`)
 |    Type of the connector
+|   **charge_mode**: *string* <required> (:ref:`evse_manager-ChargeMode <evse_manager-ChargeMode>`)
+|    AC or DC power topology of this connector's power path. A static property of the plug and its power electronics, configured rather than negotiated or measured, and settled before any session. Not the charging state machine's current mode, which an EVSE running ac_with_soc switches between AC and DC within a session.
+|   **hlc_capable**: *boolean* <required>
+|    Whether an ISO 15118 high level communication session can ever occur on this connector. True only when an SECC and a SLAC provider are both wired and the configuration permits HLC, so it is false on a connector whose SECC is wired but whose HLC is switched off. Resolved once at startup; not a statement about the current session.
+
+.. _evse_manager-ChargeMode:
+
+| **ChargeMode**: *string* 
+|  AC or DC power topology of a connector's power path
+|  enum:
+|    - AC
+|    - DC
 
 .. _evse_manager-ConnectorTypeEnum:
 
@@ -464,11 +476,15 @@ EVSE manager types
 |  Type that defines properties of an EVSE including its connectors
 |  properties:
 |   **id**: *integer* <required>
-|    ID of the EVSE
+|    ID of this EVSE within the charging station, according to the 3-tier model of OCPP (charging station > EVSE > connector)
 |   **connectors**: *array* <required>
 |    List of connectors of this EVSE
 |    **array_item**: *object*  (:ref:`evse_manager-Connector <evse_manager-Connector>`)
 |     A single connector
+|   **evse_id**: *string* <optional>
+|    EVSE ID that uniquely identifies this EVSE, e.g. DE*PNX*E123456*1. It has a special format that includes the country code, the operator id and a power outlet id (eMI3 format, normatively specified in ISO 15118-2 Annex H) and is sent as the EVSEID field in ISO 15118 messages. Not to be confused with the numeric id, which identifies this EVSE within the charging station according to the 3-tier model of OCPP.
+|   **evse_id_din**: *string* <optional>
+|    EVSE ID used for DIN 70121 sessions (format according to DIN SPEC 91286, hexBinary-encoded), e.g. 49A80737A45678
 
 .. _evse_manager-PlugAndChargeConfiguration:
 
@@ -490,4 +506,12 @@ EVSE manager types
 |    - Accepted
 |    - IncompatibleEnergyTransfer
 |    - ServiceRenegotiationFailed
+|    - NoHlc
+
+.. _evse_manager-SetDerAvailableResult:
+
+| **SetDerAvailableResult**: *string* 
+|  Outcome of a set_der_available command.
+|  enum:
+|    - Accepted
 |    - NoHlc

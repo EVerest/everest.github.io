@@ -31,12 +31,13 @@ Types for evse security
 .. _evse_security-LeafCertificateType:
 
 | **LeafCertificateType**: *string* 
-|  Enum specifies the type of a leaf certificate
+|  Enum specifies the type of a leaf certificate. V2G is the ISO 15118-2 SECC leaf (TLS 1.2, prime256v1), V2G20 the ISO 15118-20 SECC leaf (TLS 1.3, secp521r1 / Ed448); both live in the SECC leaf store and are told apart by key algorithm.
 |  enum:
 |    - CSMS
 |    - V2G
 |    - MF
 |    - MO
+|    - V2G20
 
 .. _evse_security-CertificateType:
 
@@ -150,6 +151,8 @@ Types for evse security
 |   **child_certificate_hash_data**: *array* <optional>
 |    Contains the hash data of the child's certificates
 |    **array_item**: *object*  (:ref:`evse_security-CertificateHashData <evse_security-CertificateHashData>`)
+|   **public_key_algorithm**: *string* <optional>
+|    Key algorithm of the certificate described by certificate_hash_data, as an OpenSSL group or key type name (e.g. prime256v1, secp521r1, ED448)
 
 .. _evse_security-GetInstalledCertificatesResult:
 
@@ -221,6 +224,8 @@ Types for evse security
 |   **ocsp**: *array* <optional>
 |    Certificate related OCSP data, if requested
 |    **array_item**: *object*  (:ref:`evse_security-CertificateOCSP <evse_security-CertificateOCSP>`)
+|   **public_key_algorithm**: *string* <optional>
+|    Public key algorithm of the leaf: the named EC curve for EC keys (prime256v1, secp384r1, secp521r1, ...), otherwise the key type (ED448, RSA, ...). ISO 15118-2 mandates prime256v1 for the SECC leaf and ISO 15118-20 mandates secp521r1 or ED448, so this tells the two apart when both are installed.
 
 .. _evse_security-GetCertificateInfoResult:
 

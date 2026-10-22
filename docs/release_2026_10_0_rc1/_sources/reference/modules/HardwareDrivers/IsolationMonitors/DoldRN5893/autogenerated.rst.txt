@@ -1,0 +1,125 @@
+
+
+.. _everest_modules_DoldRN5893:
+
+##########
+DoldRN5893
+##########
+| DOLD RN5893 IMD driver module
+
+
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
+
+************************
+Auto-Generated Reference
+************************
+
+
+Module Configuration
+====================
+| **device_id**: *integer* <required>
+|  Modbus device address of DOLD RN5893, set via potentiometers on device
+| **self_test_timeout_s**: *integer* <optional>
+| *default: 30*
+|  Maximum time in seconds a self-test is allowed to take
+| **keep_measurement_active**: *boolean* <optional>
+| *default: False*
+|  Normally, this module stops measurements when stop is called and restarts when start is called. 
+|  If this option is enabled, measurements will continue even if stop is called.
+|  This does not affect publishing of measurements, which is still controlled by start/stop commands and 
+|  the always_publish_measurements option.
+| **always_publish_measurements**: *boolean* <optional>
+| *default: False*
+|  Whether measurements should always be published, no matter if start/stop commands have been received.
+|  Note that this only works if keep_measurement_active is enabled.
+| **timeout_release**: *boolean* <optional>
+| *default: False*
+|  40002 - Timeout release - whether the timeout on the IMD side should be enabled. This enables writing the Timeout register every cycle
+| **timeout_s**: *number* <optional>
+| *default: 3*
+|  40003 - Timeout - the time in seconds after the device will trigger a fault if no communication is received.
+|  This should not be smaller than 2 seconds, as this module writes the register every second
+| **broken_wire_detect**: *string* <optional>
+| *default: True*
+|  42001 - Broken wire detect in measuring circuit - Whether connection to L(+)/L(-) should be monitored and if so, when
+|  enum:
+|    - True
+|    - False
+|    - ONLY_DURING_SELF_TEST
+| **storing_insulation_fault**: *boolean* <optional>
+| *default: False*
+|  42002 - Storing insulation fault message - See datasheet for details
+| **switching_mode_indicator_relay**: *string* <optional>
+| *default: "DE_ENERGIZED_ON_TRIP"*
+|  42003 - Switching mode of indicator relay K1 + K2 - Behaviour type of the indicator relays. See datasheet for details
+|  enum:
+|    - DE_ENERGIZED_ON_TRIP
+|    - ENERGIZED_ON_TRIP
+| **power_supply_type**: *string* <optional>
+| *default: "DC"*
+|  42004 - Power supply type - Type of connected power network. See datasheet for details
+|  enum:
+|    - AC
+|    - DC
+|    - 3NAC
+| **response_value_alarm_kohm**: *integer* <optional>
+| *default: 500*
+|  42006 – Response value Alarm - Alarm threshold setting in kOhm
+| **response_value_pre_alarm_kohm**: *integer* <optional>
+| *default: 500*
+|  42007 - Response value Pre-Alarm – Pre-Alarm threshold setting in kOhm
+| **coupling_device**: *string* <optional>
+| *default: "NONE"*
+|  42008 – Coupling device - Whether a coupling device is connected and which one
+|  enum:
+|    - NONE
+|    - RP5898
+| **indicator_relay_k1_function**: *string* <optional>
+| *default: "INSULATION_FAULT_ALARM_OR_DEVICE_FAULT"*
+|  42009 - Indicator relay K1 - Function of the indicator relay K1. See datasheet for details
+|  enum:
+|    - INSULATION_FAULT_ALARM
+|    - INSULATION_FAULT_PREALARM
+|    - DEVICE_FAULT
+|    - INSULATION_FAULT_ALARM_OR_DEVICE_FAULT
+|    - INSULATION_FAULT_ON_DC+
+|    - INSULATION_FAULT_ON_DC+_OR_DEVICE_FAULT
+| **indicator_relay_k2_function**: *string* <optional>
+| *default: "INSULATION_FAULT_PRE_ALARM_OR_DEVICE_FAULT"*
+|  42010 – Indicator relay K2 - Function of the indicator relay K2. See datasheet for details
+|  enum:
+|    - INSULATION_FAULT_ALARM
+|    - INSULATION_FAULT_PREALARM
+|    - DEVICE_FAULT
+|    - INSULATION_FAULT_PRE_ALARM_OR_DEVICE_FAULT
+|    - INSULATION_FAULT_ON_DC-
+|    - INSULATION_FAULT_ON_DC-_OR_DEVICE_FAULT
+| **automatic_self_test**: *boolean* <optional>
+| *default: False*
+|  42011 - Automatic self-test - Whether automatic self-test is enabled
+
+Provides
+========
+| **main**: :ref:`isolation_monitor <everest_interfaces_isolation_monitor>`
+|  IMD Interface of DOLD RN5893
+
+Requirements
+============
+| **serial_comm_hub**: :ref:`serial_communication_hub <everest_interfaces_serial_communication_hub>` 1
+
+********
+Metadata
+********
+Authors
+=======
+| Frickly Systems GmbH
+| Mark Oude Elberink
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

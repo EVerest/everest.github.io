@@ -31,7 +31,7 @@ Variables
 | **powermeter_public_key_ocmf**: *string* 
 |  Powermeter public key
 | **evse_id**: *string* 
-|  EVSE ID including the connector number, e.g. DE*PNX*E123456*1
+|  EVSE ID that uniquely identifies this EVSE, e.g. DE*PNX*E123456*1. It has a special format that includes the country code, the operator id and a power outlet id (eMI3 format, normatively specified in ISO 15118-2 Annex H). Published once on startup. Deprecated: use the get_evse command instead, which also provides the DIN 70121 EVSE ID (DIN SPEC 91286).
 | **hw_capabilities**: *object*  (:ref:`evse_board_support-HardwareCapabilities <evse_board_support-HardwareCapabilities>`)
 |  Hardware capability/limits
 | **enforced_limits**: *object*  (:ref:`energy-EnforcedLimits <energy-EnforcedLimits>`)
@@ -50,7 +50,7 @@ Variables
 Commands
 ********
 | **get_evse**: *object*
-|  Call to get information about the EVSE including its connectors
+|  Call to get information about the EVSE: its id according to the 3-tier model of OCPP, its connectors and the configured EVSE ID / DIN EVSE ID that uniquely identify it
 |  **Result**: *object*  (:ref:`evse_manager-Evse <evse_manager-Evse>`)
 |   Object that contains information of the EVSE including its connectors
 | **enable_disable**: *boolean*
@@ -112,6 +112,12 @@ Commands
 |   **array_item**: *string*  (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
 |  **Result**: *string*  (:ref:`evse_manager-UpdateAllowedEnergyTransferModesResult <evse_manager-UpdateAllowedEnergyTransferModesResult>`)
 |   Returns an enum indicating whether the update was successful or not.
+| **set_der_available**: *string*
+|  Declare whether DER directive support (a grid_support provider) is wired for this EVSE. When true and the EVSE is export-capable, EvseManager advertises the ISO 15118-20 AC_DER_IEC energy transfer mode. This is a boot-time wiring fact, not the EV's runtime DER capability. Returns NoHlc and does nothing if no HLC is present.
+|  **available**: *boolean* <required>
+|   True if DER directive support is wired for this EVSE.
+|  **Result**: *string*  (:ref:`evse_manager-SetDerAvailableResult <evse_manager-SetDerAvailableResult>`)
+|   Whether EvseManager accepted the update.
 
 ******
 Errors

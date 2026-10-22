@@ -237,79 +237,67 @@ The ``dependencies_modified.yaml`` file can contain something along these lines:
 	catch2:
 	  git_tag: v1.2.3 # select a different git tag for a build
 
-Selective library consumption
-#############################
+Selective package builds
+########################
 
-If your external project only needs specific everest-core libraries (e.g.
-``liblog``, ``everest-util``, ``everest-io``, ``libocpp``, ``libiso15118``)
-without building the full module framework, you can use the
-``EVEREST_LIBS_ONLY`` and ``EVEREST_INCLUDE_LIBS`` CMake options.
-
-**CMake options:**
+EVerest is built and installed in five packages. ``EVEREST_PACKAGES`` selects the ones
+built from the tree; packages that are needed but not listed are taken from an installed
+prefix with ``find_package()``.
 
 .. list-table::
    :header-rows: 1
 
-   * - Option
-     - Default
-     - Description
-   * - ``EVEREST_LIBS_ONLY``
-     - OFF
-     - Skip modules, applications, config, and code generation. Only build
-       libraries under ``lib/everest/``.
-   * - ``EVEREST_INCLUDE_LIBS``
-     - (empty)
-     - Semicolon-separated allowlist of libraries to build. Transitive
-       internal dependencies are resolved automatically. When empty, all
-       libraries are built.
-   * - ``EVEREST_EXCLUDE_LIBS``
-     - (empty)
-     - Semicolon-separated blocklist of libraries to skip.
+   * - Package
+     - Contents
+   * - ``base``
+     - log, timer, util, sqlite, evse_security, tls
+   * - ``iso15118``
+     - libiso15118 and the cbv2g EXI codec libraries
+   * - ``ocpp``
+     - libocpp
+   * - ``core``
+     - the framework libraries, code generation and the interface definitions; this is what
+       out-of-tree module projects build against
+   * - ``runtime``
+     - the in-tree modules, applications and configurations (no CMake package)
 
-**Example: building only liblog, everest-util, and everest-io**
+The default builds all five. Only ``libocpp`` and what it needs, for example:
 
 .. code-block:: bash
 
-  cmake -S . -B build \
-    -DEVEREST_LIBS_ONLY=ON \
-    -DEVEREST_INCLUDE_LIBS="log;util;io"
-  cmake --build build
+  cmake -S . -B build -DEVEREST_PACKAGES="base;ocpp"
 
-Transitive dependencies are resolved automatically. For example, requesting
-``io`` will automatically include ``util`` (since ``everest-io`` depends on
-``everest-util``).
-
-**Example: building only libocpp**
-
-.. code-block:: bash
-
-  cmake -S . -B build \
-    -DEVEREST_LIBS_ONLY=ON \
-    -DEVEREST_INCLUDE_LIBS="ocpp"
-  cmake --build build
-
-This resolves the full dependency chain: ``ocpp`` -> ``log``, ``timer``,
-``evse_security``, ``sqlite``, ``cbv2g``.
-
-**Using from an external project's dependencies.yaml:**
+From an external project's ``dependencies.yaml``:
 
 .. code-block:: yaml
 
   everest-core:
-    git: https://github.com/EVerest/everest-core.git
-    git_tag: 2026.02.0
+    git: https://github.com/EVerest/EVerest.git
+    git_tag: 2026.10.0
     options:
-      - "EVEREST_LIBS_ONLY ON"
-      - "EVEREST_INCLUDE_LIBS log;util;io"
+      - "EVEREST_PACKAGES base;ocpp"
 
-The internal dependency map is defined in ``cmake/ev-lib-dependencies.cmake``.
+With ``DISABLE_EDM=ON`` the packages can also be built and installed one after the other into
+the same prefix:
 
-.. note::
+.. code-block:: bash
 
-  Libraries that depend on framework code generation (``tls``, ``helpers``,
-  ``conversions``, ``slac``, ``external_energy_limits``, ``everest_api_types``)
-  are **not available** in ``EVEREST_LIBS_ONLY`` mode. Use
-  ``EVEREST_EXCLUDE_MODULES`` instead if you need those libraries.
+  cmake -S . -B b1 -DDISABLE_EDM=ON -DEVEREST_PACKAGES=base -DCMAKE_INSTALL_PREFIX=/opt/everest
+  cmake -S . -B b2 -DDISABLE_EDM=ON -DEVEREST_PACKAGES="iso15118;ocpp" \
+    -DCMAKE_PREFIX_PATH=/opt/everest -DCMAKE_INSTALL_PREFIX=/opt/everest
+  cmake -S . -B b3 -DDISABLE_EDM=ON -DEVEREST_PACKAGES=core \
+    -DCMAKE_PREFIX_PATH=/opt/everest -DCMAKE_INSTALL_PREFIX=/opt/everest
+  cmake -S . -B b4 -DDISABLE_EDM=ON -DEVEREST_PACKAGES=runtime \
+    -DCMAKE_PREFIX_PATH=/opt/everest -DCMAKE_INSTALL_PREFIX=/opt/everest
+
+With EDM, ``cmake --install`` installs what is needed to run EVerest (the manager, modules,
+libraries and configurations) but no CMake packages and no development files such as the generated
+headers. To build against EVerest with ``find_package()``, install it from a build with
+``DISABLE_EDM=ON``; EDM projects add EVerest as a dependency instead.
+
+Tests are built with ``BUILD_TESTING=ON`` for every package built from the tree.
+``EVEREST_TEST_PACKAGES`` (default: all five) narrows that to selected packages, for example
+``-DBUILD_TESTING=ON -DEVEREST_TEST_PACKAGES="core;runtime"``.
 
 Framework thread pool scaling policy
 ####################################
@@ -328,16 +316,31 @@ time.
      - Default
      - Description
    * - ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_POLICY``
-     - ``latency``
-     - Selects the policy. Supported values are ``latency``, ``greedy``,
+     - ``greedy``
+     - Selects the policy. Supported values are ``greedy``, ``latency``,
        ``conservative``, ``fixed_size`` and ``custom``.
+   * - ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_MIN_THREAD_COUNT``
+     - ``1``
+     - Minimum worker count of the pool. These workers are always running.
+   * - ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_MAX_THREAD_COUNT``
+     - ``6``
+     - Maximum worker count of the pool, independent of the CPU core count.
+       The pool grows so that a handler blocked waiting for another message
+       still lets that message be handled; such threads do not run in
+       parallel, so the core count is not the right bound. Must not be below
+       the minimum. It must exceed the number of handlers that may block on
+       each other at the same time; a maximum equal to the minimum disables
+       growth, so any such handler waits forever.
    * - ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_THRESHOLD_MS``
      - ``50``
      - Maximum queued task wait time, in milliseconds, before the ``latency``
        policy adds another worker.
    * - ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_LATENCY_TICK_MS``
      - ``5``
-     - Supervisor tick, in milliseconds, for the ``latency`` policy.
+     - Back-off, in milliseconds, before the ``latency`` policy's supervisor
+       re-evaluates a queued task it just added a worker for or decided not to
+       add one for. It is not a periodic tick: an idle pool causes no
+       supervisor wakeups.
    * - ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_FIXED_SIZE_THRESHOLD``
      - ``3``
      - Queue size threshold at which the ``fixed_size`` policy adds another
@@ -352,6 +355,12 @@ time.
      - (empty)
      - Additional include directory for the custom policy header.
 
+Two conditions the pool cannot resolve itself are logged by the module as
+warnings: a handler thread that cannot be started (the pool keeps retrying;
+after five seconds of failures the module exits like a crash), and a message
+that has waited more than a second with every handler thread busy, which means
+the maximum is too low for the handlers that wait for each other.
+
 The built-in policies are:
 
 .. list-table::
@@ -359,11 +368,16 @@ The built-in policies are:
 
    * - Policy
      - Behavior
-   * - ``latency``
-     - Default. Adds workers when queued work has waited longer than the
-       framework latency threshold.
    * - ``greedy``
-     - Adds workers as soon as backlog is detected.
+     - Default. Adds a worker whenever a submitted task would otherwise wait
+       for a busy worker, so below the maximum no task is ever left queued
+       behind blocked workers. No supervisor thread; the pool size follows the
+       number of outstanding handlers and surplus workers retire after the
+       idle timeout.
+   * - ``latency``
+     - Adds workers when queued work has waited longer than the framework
+       latency threshold, checked by a supervisor thread that sleeps while the
+       pool is idle.
    * - ``conservative``
      - Adds workers only when the queue depth significantly exceeds the current
        worker count.
@@ -371,7 +385,7 @@ The built-in policies are:
      - Adds workers once the queue size reaches the configured
        ``EVEREST_FRAMEWORK_THREAD_POOL_SCALING_FIXED_SIZE_THRESHOLD``.
 
-**Example: selecting a built-in policy for a full EVerest build**
+**Example: selecting the latency policy for a full EVerest build**
 
 .. code-block:: bash
 
@@ -414,6 +428,26 @@ A custom policy must provide the same interface as the built-in policies:
           std::size_t queue_size,
           std::optional<std::chrono::steady_clock::time_point> oldest_arrival);
   };
+
+``should_grow`` is evaluated on a submission below the thread limit only if the
+submitted task may wait, that is, if the queue is now longer than the number of
+workers waiting at it or about to; a task that an idle worker takes at once
+never grows the pool, so ``queue_size`` is at least 1 whenever the policy is
+asked. A policy with a ``supervisor_tick`` additionally gets a supervisor thread
+that re-evaluates ``should_grow`` for tasks that queue behind busy workers,
+backing off one tick after each evaluation. It sleeps while the queue is empty
+and, at the thread limit, until a worker retires. If the policy also provides
+
+.. code-block:: cpp
+
+  static std::chrono::steady_clock::time_point next_check(
+      std::chrono::steady_clock::time_point oldest_arrival);
+
+the supervisor sleeps until that time instead of waking every tick.
+``next_check`` must return a time no later than the first time ``should_grow``
+can become true for a queue whose oldest task arrived at ``oldest_arrival``
+(an earlier time is harmless: the supervisor then retries every tick), and it
+must be non-decreasing in ``oldest_arrival``. ``LatencyScaling`` provides it.
 
 Create a workspace config from an existing directory tree
 #########################################################

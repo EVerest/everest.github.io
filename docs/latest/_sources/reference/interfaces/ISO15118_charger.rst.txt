@@ -14,6 +14,8 @@ ISO15118_charger
 *********
 Variables
 *********
+| **supported_app_protocols_secc**: *object*  (:ref:`iso15118-SupportedAppProtocols <iso15118-SupportedAppProtocols>`)
+|  Supported charging protocols of the SECC. This always returns all supported protocols, even if they are restricted via cmd update_supported_app_protocols.
 | **require_auth_eim**: *null* 
 |  An EIM authorization is required
 | **require_auth_pnc**: *object*  (:ref:`authorization-ProvidedIdToken <authorization-ProvidedIdToken>`)
@@ -28,6 +30,8 @@ Variables
 |  The charger should now start the pre charge phase
 | **dc_open_contactor**: *null* 
 |  The contactor should be opened
+| **dc_renegotiation_started**: *null* 
+|  The EV sent PowerDeliveryReq with ChargeProgress Renegotiate in DC. The charger disables the DC output and keeps the session: the EV opens its contactor and changes to CP state B, then the session continues with ChargeParameterDiscovery and a new cable check (IEC 61851-23:2023 CC.3.6).
 | **v2g_setup_finished**: *null* 
 |  v2g_setup_finished from ISO15118-3. Trigger when EV sends a PowerDeliveryReq message with ChargeProgess equals Start or Stop
 | **current_demand_started**: *null* 
@@ -82,12 +86,16 @@ Variables
 |  Estimated or calculated time until bulk and full charge is complete
 | **hlc_session_failed**: *string*  (:ref:`evse_manager-HlcSessionFailedReasonEnum <evse_manager-HlcSessionFailedReasonEnum>`)
 |  Published by the HLC module whenever an HLC session failure is detected, immediately when it occurs. Provides a protocol-agnostic reason for the failure independently of the EvseManager state machine transitions.
+| **session_stop_res_sent**: *string*  (:ref:`iso15118-SessionStopAction <iso15118-SessionStopAction>`)
+|  Published immediately after a session-ending response has been written to the wire. For a positive SessionStopRes it carries the stop action requested by the EVCC (Terminate/Pause): per DIN 70121 [V2G-DC-968] the SECC keeps the CP oscillator (5% PWM) on for V2G_SECC_CPOscillator_Retain_Time (1.5s) after this event and then switches to X1. For a session-ending FAILED_* response it carries FailedTermination: per [V2G-DC-942] the oscillator is switched off without delay. This event does NOT imply data link teardown: dlink_terminate/dlink_pause still follow after the TCP connection is closed.
 | **dlink_terminate**: *null* 
 |  Terminate the data link and become UNMATCHED.
 | **dlink_error**: *null* 
 |  Terminate the data link and restart the matching process.
 | **dlink_pause**: *null* 
 |  Request power saving mode, while staying MATCHED.
+| **pause_notified**: *null* 
+|  ISO 15118-20 only: the pause requested with pause_charging has been notified to the EV (EVSENotification set to Pause). In scheduled control mode the notification is held back until the applied EVPowerProfileEntry is 0 kW, so this may follow the request much later, or not at all.
 | **ev_app_protocol**: *object*  (:ref:`iso15118-AppProtocols <iso15118-AppProtocols>`)
 |  Debug_Lite - This request message provides a list of charging protocols supported by the EVCC
 | **v2g_messages**: *object*  (:ref:`iso15118-V2gMessages <iso15118-V2gMessages>`)
@@ -132,6 +140,8 @@ Commands
 |   The charger supports the certificate installation/update service and has a connection to an SA for this purpose
 |  **central_contract_validation_allowed**: *boolean* <required>
 |   Indicates if the vehicle contract may be forwarded to and validated by a CSMS in case local validation was not successful
+|  **fake_dc_enabled**: *boolean* <required>
+|   If true, the charger will abort an active DC session after receiving the EV SOC value to allow switching to AC basic charging.
 | **bpt_setup**: *void*
 |  At startup, set the bpt setup for ISO15118-20 at least once. May be updated later on.
 |  **bpt_config**: *object* <required> (:ref:`iso15118-BptSetup <iso15118-BptSetup>`)
@@ -150,6 +160,10 @@ Commands
 |  This message is an async response to a previously published ac_close_contactor or ac_open_contactor.
 |  **status**: *boolean* <required>
 |   Set to true when contactor is closed, false when contactor is open
+| **cp_state_changed**: *void*
+|  Informs the HLC stack about the currently measured IEC 61851-1 CP state. Needed for SECC-side CP checks tied to the message sequence, e.g. DIN 70121 [V2G-DC-988]/[V2G-DC-556]: CP State B must be detected within V2G_SECC_CPState_Detection_Timeout (1.5s) after the request following PowerDelivery(off), otherwise the SECC responds FAILED, switches the CP oscillator off and closes the TCP connection.
+|  **cp_state**: *string* <required> (:ref:`iso15118-CpState <iso15118-CpState>`)
+|   The newly measured CP state
 | **dlink_ready**: *void*
 |  Signals dlink_ready from SLAC layer according to ISO15118-3
 |  **value**: *boolean* <required>
@@ -174,6 +188,12 @@ Commands
 |  Right now there is no power available for the charging process. According to IEC61851-23:2023 CC3.5.3 the charger can pause the session before or after the cable check and pre charge stage.
 |  **mode**: *string* <required> (:ref:`iso15118-NoEnergyPauseMode <iso15118-NoEnergyPauseMode>`)
 |   Set to different no energy pause modes. For PauseAfterPrecharge the charger should pause but has power for cable check and pre charge. For PauseBeforeCableCheck the charger should pause before cable check. For AllowEvToIgnorePause charger should ignore, that the ev will go to CurrentDemand instead of pausing the session, this is against IEC61851-23:2023.
+| **update_supported_app_protocols**: *boolean*
+|  Update the supported charging protocols (DIN70121, ISO15118-2, ISO15118-20). Defaults are typically configured already; if this command is not called, the module keeps its default set of supported protocols. Note: This command is intended exclusively for Fake DC, primarily to disable specific supported protocols in case of incompatibilities between EVCC and SECC.
+|  **supported_app_protocols**: *object* <required> (:ref:`iso15118-SupportedAppProtocols <iso15118-SupportedAppProtocols>`)
+|   Supported communication protocols advertised by the EVSE
+|  **Result**: *boolean* 
+|   Returns true if the supported protocols were updated successfully
 | **update_energy_transfer_modes**: *void*
 |  Update the supported energy transfer modes. Call at least once during start up. Typically for ISO15118-2 and basic charging we expect unidirectional charging modes. For ISO15118-20 the user can set what type of modes the hardware supports, may that be bidirectional, unidirectional, wireless, etc charging.
 |  **supported_energy_transfer_modes**: *array* <required>
@@ -231,3 +251,10 @@ Commands
 | **reset_error**: *void*
 |  Reset all errors
 
+******
+Errors
+******
+| **/errors/generic** :
+|  **CommunicationFault** : Communication with the underlying hardware or device has a fault
+|  **VendorError** : Vendor specific error code.
+|  **VendorWarning** : Vendor specific error code.

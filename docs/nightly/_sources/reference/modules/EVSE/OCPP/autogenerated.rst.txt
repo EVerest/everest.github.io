@@ -39,9 +39,9 @@ Module Configuration
 | **DeviceModelConfigPath**: *string* <optional>
 | *default: "component_config"*
 |  Path to the OCPP device model component config directory used as the baseline for the device model. Relative paths are resolved against this module's share path. Required when ConfigBackend is "device_model" or "device_model_with_migration".
-| **DeviceModelConfigMappings**: *string* <optional>
+| **Ocpp16KeyMappingsPath**: *string* <optional>
 | *default: ""*
-|  Optional path to a YAML file with custom OCPP1.6 to device model component-config mappings. Relative paths are resolved against this module's share path. If empty, only built-in mappings are used. Only used when ConfigBackend is "device_model_with_migration".
+|  Optional path to a YAML file that maps further OCPP 1.6 configuration keys to device model variables. Relative paths are resolved against this module's share path. If empty, only built-in mappings are used. Only used when ConfigBackend is "device_model_with_migration".
 | **ConfigBackend**: *string* <optional>
 | *default: "legacy"*
 |  Selects the configuration storage backend for OCPP 1.6: - "legacy" (default): use the legacy OCPP 1.6 JSON file. ChargePointConfigPath must exist. - "device_model": bootstrap device model from component configs. All DeviceModel* paths must be set. - "device_model_with_migration": like "device_model", but on first startup migrates OCPP 1.6 JSON

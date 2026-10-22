@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual main@b328178</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual main@a6f75c1</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@b328178</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@a6f75c1</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@b328178</span>
+  <span class="sidebar-brand-text">EVerest Manual main@a6f75c1</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -915,8 +915,12 @@ component configuration.</p>
 <p>Standard OCPP 1.6 keys are migrated through the built-in mapping table. The
 full list of built-in key mappings is documented in
 <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a>
-in the repository. Custom or vendor-specific keys that are not covered there
-need an explicit YAML mapping file.</p>
+in the repository. A machine-readable list, generated from the code at build
+time, is installed as
+<code class="docutils literal notranslate"><span class="pre">share/everest/modules/OCPP/default_ocpp-16_mappings.yaml</span></code>. That file is a
+reference only: do not point <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigMappings</span></code> at it. Custom or
+vendor-specific keys that are not covered by the built-in table need an
+explicit YAML mapping file.</p>
 <p>Example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mappings</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ocpp16_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ExampleConfigurationKey</span>
@@ -1008,7 +1012,9 @@ runtime after the initial migration. Only do this deliberately.</p>
 <li><p>Only keys with a built-in mapping or an explicit custom mapping entry are
 migrated. Unknown keys produce a warning log at startup and are otherwise
 ignored. The complete built-in mapping table is in
-<a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a>.</p></li>
+<a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a>
+and, generated from the code, in the installed
+<code class="docutils literal notranslate"><span class="pre">share/everest/modules/OCPP/default_ocpp-16_mappings.yaml</span></code>.</p></li>
 <li><p>Some OCPP 1.6 values are represented differently in the device model than in
 the JSON configuration. For example, <code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> is expanded into
 individual <code class="docutils literal notranslate"><span class="pre">MeterPublicKey[N]</span></code> variables, and
@@ -1149,7 +1155,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=df9c505f"></script>
+</div><script src="../_static/documentation_options.js?v=813118ce"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

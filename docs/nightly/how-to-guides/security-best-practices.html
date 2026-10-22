@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Security Best Practices - EVerest Manual main@8a5abc9</title>
+        <title>Security Best Practices - EVerest Manual main@6c2f23b</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@8a5abc9</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@6c2f23b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@8a5abc9</span>
+  <span class="sidebar-brand-text">EVerest Manual main@6c2f23b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -720,14 +720,22 @@ EVerest and Mosquitto.</p></li>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mqtt_broker_socket_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/mosquitto/mosquitto.sock</span>
 </pre></div>
 </div>
-<p>Access to the socket is controlled by the permissions of its directory. Use a
-directory that only the broker and the user running EVerest can access, for
-example <code class="docutils literal notranslate"><span class="pre">/run/mosquitto</span></code> owned by the broker user and a group shared with
-EVerest, mode <code class="docutils literal notranslate"><span class="pre">0750</span></code>. Do not place the socket in a world-writable directory
-such as <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>: any local user could connect to it, or create a socket there
-before the broker does.</p>
+<p>Access to the socket is controlled by the permissions of its directory and of
+the socket itself, which Mosquitto creates with mode <code class="docutils literal notranslate"><span class="pre">0770</span></code> after dropping
+privileges to the broker user. Use a directory that only the broker and the
+user running EVerest can access, for example <code class="docutils literal notranslate"><span class="pre">/run/mosquitto</span></code> owned by the
+broker user and its group, mode <code class="docutils literal notranslate"><span class="pre">0750</span></code>, with the user running EVerest as a
+member of that group. The systemd unit of Mosquitto 2.0 creates
+<code class="docutils literal notranslate"><span class="pre">/run/mosquitto</span></code> with mode <code class="docutils literal notranslate"><span class="pre">0740</span></code>, which keeps the group out. Do not place
+the socket in a world-writable directory such as <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>: any local user could
+connect to it, or create a socket there before the broker does.</p>
+<p>Files that restrict access to the broker, such as its <code class="docutils literal notranslate"><span class="pre">acl_file</span></code> or
+<code class="docutils literal notranslate"><span class="pre">password_file</span></code>, should be owned by the broker user. Mosquitto 2.1 warns
+about files with other owners and announces refusing them in a future version.</p>
 <p>The installed example <code class="docutils literal notranslate"><span class="pre">etc/everest/settings-mqtt-uds.yaml</span></code> is a complete
-settings file for this setup.</p>
+settings file for this setup. The meta-everest Yocto layers configure
+Mosquitto and <code class="docutils literal notranslate"><span class="pre">everest.service</span></code> this way, see
+<a class="reference internal" href="../explanation/linux-yocto/building-yocto.html#exp-linux-yocto-building-yocto"><span class="std std-ref">Building Yocto for your custom hardware</span></a>.</p>
 <ul class="simple">
 <li><p>If a part of an MQTT API should be exposed, e.g. to a mobile app on
 the same wireless LAN, use mutually authenticated TLS for the MQTT
@@ -980,7 +988,7 @@ passwords at all.</p></li>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=29ef1ab5"></script>
+</div><script src="../_static/documentation_options.js?v=94b11117"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

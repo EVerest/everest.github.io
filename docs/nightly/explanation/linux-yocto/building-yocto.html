@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Building Yocto for your custom hardware - EVerest Manual main@8a5abc9</title>
+        <title>Building Yocto for your custom hardware - EVerest Manual main@6c2f23b</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@8a5abc9</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@6c2f23b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@8a5abc9</span>
+  <span class="sidebar-brand-text">EVerest Manual main@6c2f23b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -782,6 +782,93 @@ ethtool
 <p>The locale should be set to UTF-8 (otherwise BringUp &amp; Qualification tools
 will look weird).</p>
 </div>
+<section id="systemd-service">
+<h2>systemd service<a class="headerlink" href="#systemd-service" title="Link to this heading">¶</a></h2>
+<p>With <code class="docutils literal notranslate"><span class="pre">systemd</span></code> in <code class="docutils literal notranslate"><span class="pre">DISTRO_FEATURES</span></code>, <code class="docutils literal notranslate"><span class="pre">everest-core</span></code> installs
+<code class="docutils literal notranslate"><span class="pre">everest.service</span></code>. It starts only if <code class="docutils literal notranslate"><span class="pre">/etc/everest/config.yaml</span></code> exists and
+is not empty, which your own layer provides, and runs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>manager<span class="w"> </span>--config<span class="w"> </span>/etc/everest/config.yaml<span class="w"> </span>--db<span class="w"> </span>/var/lib/everest/everest.db<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--settings<span class="w"> </span>/etc/everest/settings-mqtt-uds.yaml
+</pre></div>
+</div>
+<p>As long as the boot slot of the configuration database holds no modules,
+normally on the first start, it is seeded from the YAML, including
+<code class="docutils literal notranslate"><span class="pre">/etc/everest/user-config/config.yaml</span></code> if present. From then on the module
+configuration comes from the database and edits of the YAML have no effect.
+The YAML is still parsed on every start, so it has to stay valid: if it cannot
+be parsed, the manager does not start even though the database holds a
+complete configuration. See <a class="reference internal" href="../configuration-service.html#exp-configuration-service"><span class="std std-ref">EVerest Configuration Service</span></a> for the details.</p>
+<p>The database holds no manager settings (MQTT broker, paths, telemetry). They
+come from the installed example settings file <code class="docutils literal notranslate"><span class="pre">settings-mqtt-uds.yaml</span></code>, see
+<a class="reference internal" href="../configuration-service.html#exp-config-service-settings"><span class="std std-ref">Manager Settings</span></a>. A <code class="docutils literal notranslate"><span class="pre">settings:</span></code> block in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> is
+ignored.</p>
+<p>Only the user running EVerest can access <code class="docutils literal notranslate"><span class="pre">/var/lib/everest</span></code>, because module
+configurations can hold credentials. The directory has to be persistent and
+survive updates of the root file system, see
+<a class="reference internal" href="partitioning-schemes-for-rauc-ota.html#partitioning-schemes-for-rauc-ota"><span class="std std-ref">Partitioning schemes for RAUC OTA</span></a>.</p>
+<p>To apply a changed YAML, delete the database, including its SQLite journal
+files, while the service is stopped. This also deletes all other configuration
+slots, e.g. those written through the configuration API:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>everest
+rm<span class="w"> </span>-f<span class="w"> </span>/var/lib/everest/everest.db*
+systemctl<span class="w"> </span>start<span class="w"> </span>everest
+</pre></div>
+</div>
+<p>The experimental manager option <code class="docutils literal notranslate"><span class="pre">--reset-from-yaml</span></code> replaces only the boot
+slot instead, and leaves the database untouched if the YAML is invalid, see
+<a class="reference internal" href="../../reference/manager-cli.html"><span class="doc">Manager Command Line Options</span></a>.</p>
+<p>To use other settings, override the command line in a drop-in of your layer.
+Base your settings file on <code class="docutils literal notranslate"><span class="pre">settings-mqtt-uds.yaml</span></code>: the TCP listener does not
+give access to the internal topics.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/systemd/system/everest.service.d/10-settings.conf</span>
+<span class="k">[Service]</span>
+<span class="na">ExecStart</span><span class="o">=</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/manager --config /etc/everest/config.yaml --db /var/lib/everest/everest.db --settings /etc/everest/settings.yaml</span>
+</pre></div>
+</div>
+<section id="mqtt">
+<h3>MQTT<a class="headerlink" href="#mqtt" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">everest-core</span></code> recommends the package <code class="docutils literal notranslate"><span class="pre">everest-mosquitto-config</span></code>. It runs
+Mosquitto with <code class="docutils literal notranslate"><span class="pre">/etc/mosquitto/everest.conf</span></code> instead of the <code class="docutils literal notranslate"><span class="pre">mosquitto.conf</span></code>
+of the <code class="docutils literal notranslate"><span class="pre">mosquitto</span></code> package:</p>
+<ul class="simple">
+<li><p>A Unix domain socket <code class="docutils literal notranslate"><span class="pre">/run/mosquitto/mosquitto.sock</span></code> for the manager and
+the modules, as recommended in <a class="reference internal" href="../../how-to-guides/security-best-practices.html"><span class="doc">Security Best Practices</span></a>.
+It is the only way to reach the internal <code class="docutils literal notranslate"><span class="pre">everest/</span></code> topics.
+<code class="docutils literal notranslate"><span class="pre">/run/mosquitto</span></code> has mode <code class="docutils literal notranslate"><span class="pre">0750</span></code>, so only <code class="docutils literal notranslate"><span class="pre">root</span></code> and members of the
+group <code class="docutils literal notranslate"><span class="pre">mosquitto</span></code> can connect. Add the user running EVerest to that group.</p></li>
+<li><p>A TCP listener on <code class="docutils literal notranslate"><span class="pre">localhost:1883</span></code> without a password for local clients,
+e.g. clients of the EVerest APIs, or ChargeBridge, which only connects over
+TCP. <code class="docutils literal notranslate"><span class="pre">/etc/mosquitto/everest-external.acl</span></code> gives them every topic except
+the internal <code class="docutils literal notranslate"><span class="pre">everest/</span></code> topics; it assumes the default
+<code class="docutils literal notranslate"><span class="pre">mqtt_everest_prefix</span></code>.</p></li>
+</ul>
+<p>To configure Mosquitto yourself, leave the package out of your image with
+<code class="docutils literal notranslate"><span class="pre">BAD_RECOMMENDATIONS</span> <span class="pre">+=</span> <span class="pre">&quot;everest-mosquitto-config&quot;</span></code> and pass EVerest a
+matching settings file. To reach topics from the network, add a listener with
+authentication and TLS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Local clients that used the internal <code class="docutils literal notranslate"><span class="pre">everest/</span></code> topics over
+<code class="docutils literal notranslate"><span class="pre">localhost:1883</span></code>, e.g. custom tools or Node-RED flows, no longer receive
+them: Mosquitto drops subscriptions and publishes the ACL denies without an
+error. Connect them to the Unix domain socket as a member of the group
+<code class="docutils literal notranslate"><span class="pre">mosquitto</span></code>, or move them to the EVerest APIs.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The topics reachable over TCP include the management APIs of the manager,
+<code class="docutils literal notranslate"><span class="pre">everest_api/1/configuration/</span></code> and <code class="docutils literal notranslate"><span class="pre">everest_api/1/lifecycle/</span></code>. They are
+only served when the manager runs with <code class="docutils literal notranslate"><span class="pre">--configuration-api</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--lifecycle-api</span></code>, see <a class="reference internal" href="../adapt-everest/management_apis.html#exp-management-apis"><span class="std std-ref">Management APIs</span></a>. In <code class="docutils literal notranslate"><span class="pre">rw</span></code> mode, any
+local process can then change the configuration or stop and restart
+modules. To keep them from local clients, add
+<code class="docutils literal notranslate"><span class="pre">topic</span> <span class="pre">deny</span> <span class="pre">everest_api/1/configuration/#</span></code> and
+<code class="docutils literal notranslate"><span class="pre">topic</span> <span class="pre">deny</span> <span class="pre">everest_api/1/lifecycle/#</span></code> to the ACL, so they are only
+reachable over the Unix domain socket.</p>
+</div>
+</section>
+</section>
 <section id="rust-modules">
 <h2>Rust modules<a class="headerlink" href="#rust-modules" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">everest-core</span></code> builds its Rust modules (<code class="docutils literal notranslate"><span class="pre">RsPaymentTerminal</span></code>, <code class="docutils literal notranslate"><span class="pre">RsIskraMeter</span></code>
@@ -868,6 +955,10 @@ for a new zvt revision, <code class="docutils literal notranslate"><span class="
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Building Yocto for your custom hardware</a><ul>
+<li><a class="reference internal" href="#systemd-service">systemd service</a><ul>
+<li><a class="reference internal" href="#mqtt">MQTT</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#rust-modules">Rust modules</a></li>
 </ul>
 </li>
@@ -880,7 +971,7 @@ for a new zvt revision, <code class="docutils literal notranslate"><span class="
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=29ef1ab5"></script>
+</div><script src="../../_static/documentation_options.js?v=94b11117"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

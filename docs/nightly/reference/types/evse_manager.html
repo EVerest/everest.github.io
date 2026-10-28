@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>evse_manager - EVerest Manual main@54e1238</title>
+        <title>evse_manager - EVerest Manual main@546eccb</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@54e1238</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@546eccb</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@54e1238</span>
+  <span class="sidebar-brand-text">EVerest Manual main@546eccb</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -921,7 +921,7 @@
 <div class="line">ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity</div>
 <div class="line">TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.</div>
 <div class="line">SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)</div>
-<div class="line">ReservationStart: Signaled when a reservation starts</div>
+<div class="line">ReservationStart: Signaled when a reservation starts, and again when it is replaced by one with other details</div>
 <div class="line">ReservationEnd: Signaled when a reservation ends</div>
 <div class="line">PluginTimeout: Signaled when an EV has been plugged in but no authorization is present within specified ConnectionTimeout</div>
 <div class="line">SwitchingPhases: Signaled when the EVSE Manager starts switching phases</div>
@@ -1116,6 +1116,32 @@
 </div>
 </div>
 </div>
+<div class="line-block" id="evse-manager-reservationdetails">
+<div class="line"><strong>ReservationDetails</strong>: <em>object</em></div>
+<div class="line-block">
+<div class="line">Details of a reservation placed on an EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reservation_id</strong>: <em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Id of the reservation</div>
+</div>
+<div class="line"><strong>id_token</strong>: <em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Id token the reservation is made for</div>
+</div>
+<div class="line"><strong>parent_id_token</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line-block">
+<div class="line">Parent id token the reservation is made for</div>
+</div>
+<div class="line"><strong>expiry_time</strong>: <em>string</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Absolute UTC time point when the reservation expires in RFC3339 format</div>
+<div class="line">format:date-time</div>
+</div>
+</div>
+</div>
+</div>
 <div class="line-block" id="evse-manager-sessionevent">
 <div class="line"><strong>SessionEvent</strong>: <em>object</em></div>
 <div class="line-block">
@@ -1170,6 +1196,27 @@
 <div class="line"><strong>source</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-enabledisablesource"><span class="std std-ref">evse_manager-EnableDisableSource</span></a>)</div>
 <div class="line-block">
 <div class="line">Additional data for Enabled/Disabled events. Specifies the source of the command that changed the state.</div>
+</div>
+<div class="line"><strong>reservation</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-reservationdetails"><span class="std std-ref">evse_manager-ReservationDetails</span></a>)</div>
+<div class="line-block">
+<div class="line">Data for the ReservationStart event. Absent if the EVSE is reserved without a specific reservation, e.g. because of global reservations.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="evse-manager-reserverequest">
+<div class="line"><strong>ReserveRequest</strong>: <em>object</em></div>
+<div class="line-block">
+<div class="line">Request to reserve an EVSE</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>reservation_id</strong>: <em>integer</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">The reservation id (should be added to the TransactionStarted event). Set this to a negative value if there is no specific reservation id for this evse but the evse should still move to a Reserved state because of total global reservations.</div>
+</div>
+<div class="line"><strong>reservation</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#evse-manager-reservationdetails"><span class="std std-ref">evse_manager-ReservationDetails</span></a>)</div>
+<div class="line-block">
+<div class="line">Details of the reservation. Absent if reservation_id is negative, and possibly when the reservation ended while it was being placed.</div>
 </div>
 </div>
 </div>
@@ -1538,7 +1585,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=2ed48ab8"></script>
+</div><script src="../../_static/documentation_options.js?v=974499a7"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

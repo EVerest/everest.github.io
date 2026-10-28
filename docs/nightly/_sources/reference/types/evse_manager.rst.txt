@@ -169,7 +169,7 @@ EVSE manager types
 |    ChargingFinished: Charging is finished. Essentially the same as TransactionFinished, but emitted for clarity
 |    TransactionFinished: Signaled when the transaction finished. Transaction finishes at the point where one of the preconditions for charging irrevocably becomes false: When a user swipes to stop the transaction and the stop is authorized.
 |    SessionFinished: Session finishes at the point that the EVSE is available again (no cable plugged)
-|    ReservationStart: Signaled when a reservation starts
+|    ReservationStart: Signaled when a reservation starts, and again when it is replaced by one with other details
 |    ReservationEnd: Signaled when a reservation ends
 |    PluginTimeout: Signaled when an EV has been plugged in but no authorization is present within specified ConnectionTimeout
 |    SwitchingPhases: Signaled when the EVSE Manager starts switching phases
@@ -293,6 +293,21 @@ EVSE manager types
 |   **enable_priority**: *integer* <required>
 |    Priority of this entry. The highest priority is 0.
 
+.. _evse_manager-ReservationDetails:
+
+| **ReservationDetails**: *object* 
+|  Details of a reservation placed on an EVSE
+|  properties:
+|   **reservation_id**: *integer* <required>
+|    Id of the reservation
+|   **id_token**: *string* <required>
+|    Id token the reservation is made for
+|   **parent_id_token**: *string* <optional>
+|    Parent id token the reservation is made for
+|   **expiry_time**: *string* <required>
+|    Absolute UTC time point when the reservation expires in RFC3339 format
+|    format:date-time
+
 .. _evse_manager-SessionEvent:
 
 | **SessionEvent**: *object* 
@@ -323,6 +338,18 @@ EVSE manager types
 |    Data for Authorization event. Shall be set for the following SessionEventEnums: Authorized, Deauthorized
 |   **source**: *object* <optional> (:ref:`evse_manager-EnableDisableSource <evse_manager-EnableDisableSource>`)
 |    Additional data for Enabled/Disabled events. Specifies the source of the command that changed the state.
+|   **reservation**: *object* <optional> (:ref:`evse_manager-ReservationDetails <evse_manager-ReservationDetails>`)
+|    Data for the ReservationStart event. Absent if the EVSE is reserved without a specific reservation, e.g. because of global reservations.
+
+.. _evse_manager-ReserveRequest:
+
+| **ReserveRequest**: *object* 
+|  Request to reserve an EVSE
+|  properties:
+|   **reservation_id**: *integer* <required>
+|    The reservation id (should be added to the TransactionStarted event). Set this to a negative value if there is no specific reservation id for this evse but the evse should still move to a Reserved state because of total global reservations.
+|   **reservation**: *object* <optional> (:ref:`evse_manager-ReservationDetails <evse_manager-ReservationDetails>`)
+|    Details of the reservation. Absent if reservation_id is negative, and possibly when the reservation ended while it was being placed.
 
 .. _evse_manager-HlcSessionFailedEvent:
 

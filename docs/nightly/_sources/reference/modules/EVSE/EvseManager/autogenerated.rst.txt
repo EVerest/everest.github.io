@@ -130,6 +130,9 @@ Module Configuration
 | **cable_check_relays_closed_timeout_s**: *integer* <optional>
 | *default: 5*
 |  Timeout in seconds to wait for the relays to close at the beginning of cablecheck. Normally they should be closed right away, but when cable_check_enable_imd_self_test_relays_open option, the relays may close may be delayed by the self test.
+| **cable_check_measurement_timeout_s**: *integer* <optional>
+| *default: 2*
+|  Time in seconds to wait for a voltage measurement from the power supply during cablecheck before logging that the measurement stream has stalled. A gap does not fail the cablecheck by itself: waiting continues until the overall voltage timeout of 10 seconds expires, so a measurement source that goes briefly silent (e.g. a power meter polled over the network) does not abort an otherwise healthy cablecheck. Raise this if the measurement source is known to be slower than the default.
 | **cable_check_wait_below_60V_before_finish**: *boolean* <optional>
 | *default: True*
 |  Switch off power supply and wait until output voltage drops below 60V before cable check is finished. Note: There are different versions of IEC 61851-23:2023 in the wild with the same version number but slightly different content. The IEC was correcting mistakes _after_ releasing the document initially without tagging a new version number. Some early versions require to wait for the output voltage to drop below 60V in CC.4.1.2 (last sentence). Later versions do not have that requirement. The later versions are correct and should be used according to IEC. Both settings (true and false) are compliant with the correct version of IEC 61851-23:2023. Set to true when:

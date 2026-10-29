@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EVerest APIs - EVerest Manual main@5eeea02</title>
+        <title>EVerest APIs - EVerest Manual main@88256f4</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@5eeea02</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@88256f4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@5eeea02</span>
+  <span class="sidebar-brand-text">EVerest Manual main@88256f4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -852,11 +852,18 @@ As a consequence, EVerest cannot know by itself whether the client is
 available and in good working conditions. For this reason, a
 bidirectional communication check is available.</p>
 <p>EVerest APIs sends <em>heartbeat</em> messages periodically
-(<em>cfg_heartbeat_interval_ms</em> - with negative values disabling heartbeat
+(<em>cfg_heartbeat_interval_ms</em> - with values of zero or less disabling heartbeat
 messages) and on the other hand requires the clients to send
 <em>communication_check</em> messages within the timeout interval specified
-(<em>cfg_communication_check_to_s</em> - with negative values disabling the
+(<em>cfg_communication_check_to_s</em> - with values of zero or less disabling the
 requirement for these messages).</p>
+<p>If no <em>communication_check</em> arrives in time, the API module raises a
+<em>CommunicationFault</em>, which the next <em>communication_check</em> clears, whatever its
+value. Sending <em>false</em> also switches the check off until the module restarts.</p>
+<p>To clear an error raised through an API, send <em>clear_error</em> with the same type
+and sub type.</p>
+<p>Most numbers with a fractional part are handled as 32-bit floats, so they keep
+only about seven significant digits.</p>
 <p>In situations where a request/reply pattern is implemented, the timeout
 for a response can be configured (<em>cfg_request_reply_to_s</em> - these timeouts
 cannot be disabled since internal EVerest timeouts apply) . In general it
@@ -1038,7 +1045,7 @@ surveillance of managed hardware, e.g. a DC power supply.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=112b0f2e"></script>
+</div><script src="../../_static/documentation_options.js?v=6ce21ebe"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

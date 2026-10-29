@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>edm - EVerest Manual main@5eeea02</title>
+        <title>edm - EVerest Manual main@88256f4</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@5eeea02</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@88256f4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@5eeea02</span>
+  <span class="sidebar-brand-text">EVerest Manual main@88256f4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -763,7 +763,9 @@ python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </s
 <p class="admonition-title">Note</p>
 <p>Alternatively, you can also install <code class="docutils literal notranslate"><span class="pre">edm</span></code> in a python virtual environment.
 Make sure edm is available in your PATH after the installation. You can verify
-this by running <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>.</p>
+this by running <code class="docutils literal notranslate"><span class="pre">edm</span> <span class="pre">--version</span></code>. If an edm is found, the build requires it to be
+at least the version this EVerest needs and stops otherwise; without one, the build
+installs its own edm into its python virtual environment.</p>
 </div>
 <p>Next you could run</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>edm<span class="w"> </span>init<span class="w"> </span>--workspace<span class="w"> </span>~/checkout/everest-workspace
@@ -854,8 +856,8 @@ CMakeLists.txt file in the respective source repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find_package<span class="o">(</span>EDM<span class="w"> </span>REQUIRED<span class="o">)</span>
 </pre></div>
 </div>
-<p>To define dependencies you can now add a dependencies.yaml file to your source
-repository. It should look like this:</p>
+<p>To define dependencies you can now add a dependencies.yaml file to the top-level
+directory of your source repository. It should look like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---
 sigslot:
 <span class="w">  </span>git:<span class="w"> </span>https://github.com/palacaze/sigslot
@@ -881,6 +883,19 @@ do this in the following way:</p>
 <p>Here <em>cmake_condition</em> can be any string that CMake can use in an if() block.
 Please be aware that any variables you use here must be defined before a call to
 <em>evc_setup_edm()</em> is made in your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code></p>
+<p>To build a dependency from a local source tree instead of fetching it, set its
+<code class="docutils literal notranslate"><span class="pre">source_dir</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">libfoo</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">git</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/example/libfoo.git</span>
+<span class="w">  </span><span class="nt">git_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0.0</span>
+<span class="w">  </span><span class="nt">source_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../libfoo</span>
+</pre></div>
+</div>
+<p>A relative <code class="docutils literal notranslate"><span class="pre">source_dir</span></code> is resolved against the directory of the file that
+specifies it. If the directory does not exist, edm stops with an error. A
+<code class="docutils literal notranslate"><span class="pre">source_dir</span></code> is ignored for a dependency without <code class="docutils literal notranslate"><span class="pre">git</span></code>, which is looked up
+with <code class="docutils literal notranslate"><span class="pre">find_package</span></code>. Local source trees are used only when requested this way;
+a directory next to the project that is named like a dependency is not picked up.</p>
 <p>Additionally you can set the <code class="docutils literal notranslate"><span class="pre">EVEREST_MODIFY_DEPENDENCIES</span></code> environment variable
 to a file containing modifications to the projects <code class="docutils literal notranslate"><span class="pre">dependencies.yaml</span></code> files when
 running cmake:</p>
@@ -895,6 +910,8 @@ libfmt:
 <span class="w">  </span>git:<span class="w"> </span>null
 catch2:
 <span class="w">  </span>git_tag:<span class="w"> </span>v1.2.3<span class="w"> </span><span class="c1"># select a different git tag for a build</span>
+libfoo:
+<span class="w">  </span>source_dir:<span class="w"> </span>../libfoo<span class="w"> </span><span class="c1"># build from a local source tree, relative to this file</span>
 </pre></div>
 </div>
 </section>
@@ -1253,7 +1270,7 @@ the following command:</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=112b0f2e"></script>
+</div><script src="../../_static/documentation_options.js?v=6ce21ebe"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

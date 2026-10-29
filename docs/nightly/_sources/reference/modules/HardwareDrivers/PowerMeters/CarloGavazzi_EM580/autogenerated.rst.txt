@@ -45,7 +45,7 @@ Provides
 |    Delay in milliseconds between retry attempts during initialization.
 |   **timezone_offset_minutes**: *integer* <optional>
 |   *default: 0*
-|    Timezone offset from UTC in minutes (e.g., 60 for UTC+1, -300 for UTC-5). Range -1440 to +1440 minutes. Default is 0 (UTC).
+|    Timezone offset from UTC in minutes (e.g., 60 for UTC+1, -300 for UTC-5). Range -1440 to +1440 minutes. Default is 0 (UTC). Ignored when use_system_timezone is enabled.
 |   **live_measurement_interval_ms**: *integer* <optional>
 |   *default: 1000*
 |    Interval in milliseconds between live powermeter reads and publishes. Default 1000 ms (once per second). Allowed range 500-60000 ms (twice per second to once per minute).
@@ -61,6 +61,9 @@ Provides
 |   **monitor_transaction_state**: *boolean* <optional>
 |   *default: False*
 |    When enabled, reads the OCMF state at device_state_read_interval_ms while a transaction is active. If the device reports READY (transaction closed on the meter side, e.g. after a brief power loss), raises powermeter/VendorError so the charging session can be stopped when fail_on_powermeter_errors is enabled in the EvseManager module.
+|   **use_system_timezone**: *boolean* <optional>
+|   *default: False*
+|    When enabled, the timezone offset written to the device follows the time zone of the host (TZ or /etc/localtime), including daylight saving time changes, and timezone_offset_minutes is ignored. The offset is checked at device_state_read_interval_ms and a change is written right away, also during a transaction: every OCMF reading carries its own offset.
 | **temperature_sensor**: :ref:`temperature_sensor <everest_interfaces_temperature_sensor>`
 |  Internal temperature readings from the EM580 device
 

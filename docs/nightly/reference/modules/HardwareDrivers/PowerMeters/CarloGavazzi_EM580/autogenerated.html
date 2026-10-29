@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>CarloGavazzi_EM580 - EVerest Manual main@2855b62</title>
+        <title>CarloGavazzi_EM580 - EVerest Manual main@e44703d</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@2855b62</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@e44703d</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@2855b62</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e44703d</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -889,7 +889,7 @@ module only needs the hub connection plus its Modbus unit id (<code class="docut
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timezone_offset_minutes</span></code></p></td>
 <td><p>integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
-<td><p>Timezone offset from UTC (minutes)</p></td>
+<td><p>Timezone offset from UTC (minutes). Ignored when <code class="docutils literal notranslate"><span class="pre">use_system_timezone</span></code> is enabled.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">live_measurement_interval_ms</span></code></p></td>
 <td><p>integer</p></td>
@@ -911,6 +911,12 @@ module only needs the hub connection plus its Modbus unit id (<code class="docut
 <td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
 <td><p>While a transaction is active, read OCMF state at <code class="docutils literal notranslate"><span class="pre">device_state_read_interval_ms</span></code> and raise <code class="docutils literal notranslate"><span class="pre">powermeter/VendorError</span></code> if the device reports READY (e.g. after a brief power loss). Useful when <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is enabled in EvseManager.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">use_system_timezone</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Follow the time zone of the host (<code class="docutils literal notranslate"><span class="pre">TZ</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/localtime</span></code>) instead of <code class="docutils literal notranslate"><span class="pre">timezone_offset_minutes</span></code>, see
+below.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -931,6 +937,20 @@ module only needs the hub connection plus its Modbus unit id (<code class="docut
 <li><p><code class="docutils literal notranslate"><span class="pre">communication_retry_delay_ms</span></code> has a <strong>minimum of 10 ms</strong> (see <code class="docutils literal notranslate"><span class="pre">manifest.yaml</span></code>).</p></li>
 <li><p>At startup the driver warns if retry settings can defer <code class="docutils literal notranslate"><span class="pre">CommunicationFault</span></code> for too long relative to a typical
 meter reboot (see implementation in <code class="docutils literal notranslate"><span class="pre">powermeterImpl.cpp</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>``timezone_offset_minutes`` / ``use_system_timezone``</strong>:</p>
+<ul>
+<li><p>The device signs OCMF records with its local time, which is UTC plus the offset written by the driver.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timezone_offset_minutes</span></code> is a fixed offset; it does not follow daylight saving time.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">use_system_timezone:</span> <span class="pre">true</span></code> the offset is taken from the host’s time zone, including a zone changed while
+EVerest runs, and checked at <code class="docutils literal notranslate"><span class="pre">device_state_read_interval_ms</span></code> (meters with OCMF transactions only). A change,
+e.g. the switch to or from daylight saving time, is written right away, also during a transaction. Every OCMF
+reading carries the offset it was taken with (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;TM&quot;:&quot;2026-10-28T17:06:28,000+0200</span> <span class="pre">S&quot;</span></code>). In a session
+that spans the switch, the local end time minus the local start time is one hour more or less than the duration;
+the duration computed from the UTC times stays exact. The time zone name and offset of the host are logged when
+they change.</p></li>
+<li><p>A host without <code class="docutils literal notranslate"><span class="pre">TZ</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/localtime</span></code> (e.g. a minimal container) is in UTC, so the offset is 0.</p></li>
 </ul>
 </li>
 <li><p><strong>``communication_error_pause_delay_s``</strong>:</p>
@@ -1141,7 +1161,7 @@ report must reach the CSMS.</p></li>
 <div class="line"><strong>timezone_offset_minutes</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 0</em></div>
 <div class="line-block">
-<div class="line">Timezone offset from UTC in minutes (e.g., 60 for UTC+1, -300 for UTC-5). Range -1440 to +1440 minutes. Default is 0 (UTC).</div>
+<div class="line">Timezone offset from UTC in minutes (e.g., 60 for UTC+1, -300 for UTC-5). Range -1440 to +1440 minutes. Default is 0 (UTC). Ignored when use_system_timezone is enabled.</div>
 </div>
 <div class="line"><strong>live_measurement_interval_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 1000</em></div>
@@ -1167,6 +1187,11 @@ report must reach the CSMS.</p></li>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
 <div class="line">When enabled, reads the OCMF state at device_state_read_interval_ms while a transaction is active. If the device reports READY (transaction closed on the meter side, e.g. after a brief power loss), raises powermeter/VendorError so the charging session can be stopped when fail_on_powermeter_errors is enabled in the EvseManager module.</div>
+</div>
+<div class="line"><strong>use_system_timezone</strong>: <em>boolean</em> &lt;optional&gt;</div>
+<div class="line"><em>default: False</em></div>
+<div class="line-block">
+<div class="line">When enabled, the timezone offset written to the device follows the time zone of the host (TZ or /etc/localtime), including daylight saving time changes, and timezone_offset_minutes is ignored. The offset is checked at device_state_read_interval_ms and a change is written right away, also during a transaction: every OCMF reading carries its own offset.</div>
 </div>
 </div>
 </div>
@@ -1319,7 +1344,7 @@ report must reach the CSMS.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=ee7e17a4"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=2a0f1837"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

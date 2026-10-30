@@ -1,0 +1,36 @@
+:orphan:
+
+
+.. _everest_interfaces_session_storage:
+
+
+###############
+session_storage
+###############
+
+| Read and clear access to persistently stored session records. Records are created when a session starts and completed when it finishes, so a record that is still open lacks the fields that are only known at the end of a session.
+
+
+
+********
+Commands
+********
+| **get_sessions**: *object*
+|  Returns one page of stored session records, in the order they were stored, oldest first. Iterate by passing the continuation_token of a reply into the next call until a reply carries no token.
+|  **request**: *object* <required> (:ref:`session_storage-GetSessionsRequest <session_storage-GetSessionsRequest>`)
+|   Page request. Pass an empty object to start from the oldest record with the default page size.
+|  **Result**: *object*  (:ref:`session_storage-SessionList <session_storage-SessionList>`)
+|   One page of stored session records
+| **get_session**: *object*
+|  Returns the stored session record matching the given identifier, which is either a session id or an OCPP transaction id
+|  **identifier**: *object* <required> (:ref:`session_storage-SessionIdentifier <session_storage-SessionIdentifier>`)
+|   Identifies the session record. Exactly one of its members must be set.
+|  **Result**: *object*  (:ref:`session_storage-SessionResult <session_storage-SessionResult>`)
+|   Wrapper carrying the matching session record. Its session member is absent if no stored record matches the identifier.
+| **clear_sessions**: *object*
+|  Deletes stored session records, including records that are still open. This cannot be undone. When a deleted open session finishes later, the finish is dropped and the record does not reappear.
+|  **request**: *object* <required> (:ref:`session_storage-ClearSessionsRequest <session_storage-ClearSessionsRequest>`)
+|   Selects the records to delete. Pass an empty object to delete every stored record, or set up_to_session_id to delete only the records up to and including that one, keeping every session that started after it.
+|  **Result**: *object*  (:ref:`session_storage-ClearSessionsResult <session_storage-ClearSessionsResult>`)
+|   Number of session records that were deleted
+

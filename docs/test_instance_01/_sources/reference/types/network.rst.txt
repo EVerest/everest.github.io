@@ -1,0 +1,132 @@
+:orphan:
+
+
+.. _everest_types_network:
+
+
+#######
+network
+#######
+
+Protocol-agnostic network configuration types for system-level interface preparation
+
+.. _network-InterfaceClass:
+
+| **InterfaceClass**: *string* 
+|  Network interface class a connection is bound to. Maps 1:1 to OCPP 2.x OCPPInterfaceEnum but is protocol-neutral.
+|  enum:
+|    - Wired0
+|    - Wired1
+|    - Wired2
+|    - Wired3
+|    - Wireless0
+|    - Wireless1
+|    - Wireless2
+|    - Wireless3
+|    - Any
+
+.. _network-APN:
+
+| **APN**: *object* 
+|  Access Point Name configuration for cellular interfaces
+|  properties:
+|   **apn**: *string* <required>
+|    The Access Point Name as an URL
+|   **apn_user_name**: *string* <optional>
+|    APN username
+|   **apn_password**: *string* <optional>
+|    APN password
+|   **sim_pin**: *string* <optional>
+|    SIM card pin code
+|   **preferred_network**: *string* <optional>
+|    Preferred network, written to the SIM card
+|   **use_only_preferred_network**: *boolean* <optional>
+|    Use only the preferred network
+|   **apn_authentication**: *string* <optional>
+|    Authentication method
+|    enum:
+|      - CHAP
+|      - NONE
+|      - PAP
+|      - AUTO
+
+.. _network-VPN:
+
+| **VPN**: *object* 
+|  VPN configuration
+|  properties:
+|   **server**: *string* <required>
+|    VPN server address
+|   **user**: *string* <optional>
+|    VPN username, if required by the VPN type
+|   **group**: *string* <optional>
+|    VPN group
+|   **password**: *string* <optional>
+|    VPN password, if required by the VPN type
+|   **key**: *string* <optional>
+|    VPN shared secret or key, if required by the VPN type
+|   **type**: *string* <required>
+|    Type of VPN
+|    enum:
+|      - IKEv2
+|      - IPSec
+|      - L2TP
+|      - PPTP
+|      - Other
+
+.. _network-ConfigureNetworkRequest:
+
+| **ConfigureNetworkRequest**: *object* 
+|  Request to prepare a network interface for use
+|  properties:
+|   **request_id**: *integer* <required>
+|    Caller-chosen correlation id, echoed in configure_network_status
+|   **interface**: *string* <required> (:ref:`network-InterfaceClass <network-InterfaceClass>`)
+|    Standardized interface class; the provider maps it to a concrete system interface
+|   **interface_name**: *string* <optional>
+|    Optional concrete system interface name (e.g. eth0, wwan0). If present it overrides the provider's mapping of the interface class. Providers reject unknown names (status Rejected).
+|   **apn**: *object* <optional> (:ref:`network-APN <network-APN>`)
+|    Access Point Name configuration for cellular interfaces
+|   **vpn**: *object* <optional> (:ref:`network-VPN <network-VPN>`)
+|    VPN configuration
+
+.. _network-ConfigureNetworkStatusEnum:
+
+| **ConfigureNetworkStatusEnum**: *string* 
+|  Ready: interface prepared, usable now. Processing: preparation started, final result follows on the configure_network_status var. Failed: preparation failed. Rejected: request invalid/refused (e.g. unknown interface_name or unmapped interface class). NotSupported: this provider does not implement network configuration (consumers fall back to legacy behavior).
+|  enum:
+|    - Ready
+|    - Processing
+|    - Failed
+|    - Rejected
+|    - NotSupported
+
+.. _network-ConfigureNetworkFinalStatusEnum:
+
+| **ConfigureNetworkFinalStatusEnum**: *string* 
+|  Final outcome of a network configuration that was previously answered with Processing. Ready: interface prepared, usable now. Failed: preparation failed.
+|  enum:
+|    - Ready
+|    - Failed
+
+.. _network-ConfigureNetworkResponse:
+
+| **ConfigureNetworkResponse**: *object* 
+|  Direct (synchronous) response to configure_network
+|  properties:
+|   **status**: *string* <required> (:ref:`network-ConfigureNetworkStatusEnum <network-ConfigureNetworkStatusEnum>`)
+|    Status of the configure network request
+|   **interface_address**: *string* <optional>
+|    Interface name or IP address to bind to (present when status is Ready). Passed verbatim into ConfigNetworkResult.interface_address and from there to libwebsockets' iface binding.
+
+.. _network-ConfigureNetworkStatus:
+
+| **ConfigureNetworkStatus**: *object* 
+|  Asynchronous final outcome of a request answered with Processing
+|  properties:
+|   **request_id**: *integer* <required>
+|    Correlation id echoed from the ConfigureNetworkRequest
+|   **status**: *string* <required> (:ref:`network-ConfigureNetworkFinalStatusEnum <network-ConfigureNetworkFinalStatusEnum>`)
+|    Final state — Ready or Failed
+|   **interface_address**: *string* <optional>
+|    Interface name or IP address to bind to (present when status is Ready)

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EvseSlac - EVerest Manual main@cbbd18d</title>
+        <title>EvseSlac - EVerest Manual main@8ded72d</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@cbbd18d</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@8ded72d</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@cbbd18d</span>
+  <span class="sidebar-brand-text">EVerest Manual main@8ded72d</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -851,7 +851,10 @@ negative answers tear the session down.</p></li>
 can start the optional CM_VALIDATE procedure from ISO 15118-3: the car
 briefly toggles its Control Pilot state (B → C → B) a number of times and
 asks the charger how many toggles it saw. EvseSlac implements the full
-two-step exchange, including the timed observation window. The toggle count
+two-step exchange, including the timed observation window. It answers only
+a car whose matching session has finished the attenuation measurement and
+waits for CM_SLAC_MATCH.REQ; validation requests from any other sender are
+ignored. The toggle count
 itself comes from EvseManager via the <code class="docutils literal notranslate"><span class="pre">count_bc</span></code> command of the slac
 interface, so this works out of the box in a standard EVerest setup.</p>
 </section>
@@ -1280,7 +1283,7 @@ be enabled in production.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=94d572b6"></script>
+</div><script src="../../../../_static/documentation_options.js?v=ff5a0541"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

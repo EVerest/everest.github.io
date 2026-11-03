@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Evse15118D20 - EVerest Manual main@d55cb3f</title>
+        <title>Evse15118D20 - EVerest Manual main@366456a</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@d55cb3f</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@366456a</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@d55cb3f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@366456a</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -753,6 +753,19 @@ either type is served from the next connection on without a restart.</p>
 advertised. EvseManager enforces that when it builds the energy transfer mode
 set; see “DER flavor selection” below.</p>
 </section>
+<section id="network-device">
+<h3>Network device<a class="headerlink" href="#network-device" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">device</span></code> names the interface the SECC listens on. The module watches it over
+rtnetlink, so it does not have to exist when the module starts: the SDP server
+is opened as soon as the device appears. A device that disappears (USB PLC modem
+unplugged, driver reloaded) terminates the running session with
+<code class="docutils literal notranslate"><span class="pre">DLINK_TERMINATE</span></code> (or reports <code class="docutils literal notranslate"><span class="pre">DLINK_ERROR</span></code> when the link was ready but no
+EV had connected yet) and closes the SDP server. The replacement device is
+picked up again; its SDP server stays silent until SLAC reports the data link
+ready again. With <code class="docutils literal notranslate"><span class="pre">device:</span> <span class="pre">auto</span></code> the first interface with an IPv6 link-local
+address is used once at startup, so a PLC device that is missing then is not
+waited for in that mode.</p>
+</section>
 <section id="plug-and-charge">
 <h3>Plug and Charge<a class="headerlink" href="#plug-and-charge" title="Link to this heading">¶</a></h3>
 <p>Contract-certificate authorization is offered whenever EvseManager passes
@@ -1252,7 +1265,7 @@ pause.</p>
 <div class="line"><strong>device</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “eth0”</em></div>
 <div class="line-block">
-<div class="line">Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work</div>
+<div class="line">Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work. A device that is missing at startup is waited for, and one that disappears and reappears (a replugged USB PLC modem) is picked up again; a running session is terminated when its device goes away.</div>
 </div>
 <div class="line"><strong>logging_path</strong>: <em>string</em> &lt;optional&gt;</div>
 <div class="line"><em>default: “.”</em></div>
@@ -1458,6 +1471,7 @@ pause.</p>
 <li><a class="reference internal" href="#">Evse15118D20</a><ul>
 <li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
 <li><a class="reference internal" href="#tls-and-secc-leaf-certificates">TLS and SECC leaf certificates</a></li>
+<li><a class="reference internal" href="#network-device">Network device</a></li>
 <li><a class="reference internal" href="#plug-and-charge">Plug and Charge</a></li>
 <li><a class="reference internal" href="#der-grid-support">DER grid support</a></li>
 <li><a class="reference internal" href="#ac-der-sae-grid-code">AC_DER_SAE grid code</a><ul>
@@ -1496,7 +1510,7 @@ pause.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=97527dee"></script>
+</div><script src="../../../../_static/documentation_options.js?v=b48d5975"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

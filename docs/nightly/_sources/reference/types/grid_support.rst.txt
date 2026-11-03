@@ -15,14 +15,16 @@ Grid support / DER control types
 | **DirectiveType**: *string* 
 |  Kind of DER control directive. Each value selects one DER control mode:
 |  enter-service gating, a frequency- or voltage-dependent curve, a fixed
-|  power-factor or reactive-power setpoint, ramp-rate limits, a trip /
-|  momentary-cessation / ride-through profile, or a DSO-commanded setpoint.
+|  power-factor, reactive-power or active-power setpoint, ramp-rate limits,
+|  a trip / momentary-cessation / ride-through profile, or a DSO-commanded
+|  setpoint.
 |  EnterService: Enter-service criteria (voltage/frequency window and ramp) gating reconnection after a disconnect.
 |  FreqDroop: Frequency-droop active-power response to frequency deviation.
 |  FreqWatt: Frequency-watt curve: active power as a piecewise function of frequency.
 |  FixedPFAbsorb: Fixed power factor applied while absorbing (charging) active power.
 |  FixedPFInject: Fixed power factor applied while injecting (discharging) active power.
 |  FixedVar: Fixed reactive-power setpoint.
+|  FixedWatt: Fixed active-power setpoint. EVerest-only, no OCPP 2.1 DERControl equivalent, no in-tree producer yet.
 |  Gradients: Ramp-rate / open-loop response-time limits applied to setpoint changes.
 |  HFMustTrip: High-frequency must-trip curve (mandatory disconnect thresholds).
 |  HFMayTrip: High-frequency may-trip / ride-through curve.
@@ -52,6 +54,7 @@ Grid support / DER control types
 |    - FixedPFAbsorb
 |    - FixedPFInject
 |    - FixedVar
+|    - FixedWatt
 |    - Gradients
 |    - HFMustTrip
 |    - HFMayTrip
@@ -176,11 +179,11 @@ Grid support / DER control types
 |   **low_freq**: *number* <required>
 |    Low frequency threshold, in hertz.
 |   **delay**: *number* <optional>
-|    Delay before entering service, in seconds.
+|    Delay before entering service, in seconds, >= 0 (AMD1 Table 1).
 |   **random_delay**: *number* <optional>
-|    Additional randomized delay, in seconds.
+|    Additional randomized delay, in seconds, >= 0 (AMD1 Table 1).
 |   **ramp_rate**: *number* <optional>
-|    Ramp rate applied when entering service, as percent of nameplate active power per second (%/s).
+|    Enter service ramp time, in seconds, >= 0, as OCPP 2.1 EnterServiceType.rampRate ("Enter service ramp rate in seconds") and AMD1 Table 1 EnterServiceRampTime.
 
 .. _grid_support-FixedPFParams:
 
@@ -201,6 +204,16 @@ Grid support / DER control types
 |    Reactive power setpoint, expressed in the unit given by the unit field. Negative = charging (absorbing reactive power), positive = discharging (injecting), per OCPP 2.1 FixedVarType.setpoint; the Annex M relay inverts the sign for ConstantVar.VarSetpoint (Table M.25).
 |   **unit**: *string* <required> (:ref:`grid_support-DERUnit <grid_support-DERUnit>`)
 |    Unit of the setpoint value.
+
+.. _grid_support-FixedWattParams:
+
+| **FixedWattParams**: *object* 
+|  Fixed active-power (watt) parameters. Scheduling and priority are carried by the enclosing Directive.
+|  properties:
+|   **setpoint**: *number* <required>
+|    Active power setpoint, expressed in the unit given by the unit field. Negative = charging, positive = discharging (injecting); the Annex M relay inverts the sign for ConstantWatt.WattSetpoint (Table M.26). Range -100..100 per ISO 15118-20 AMD1 Table 94.
+|   **unit**: *string* <required> (:ref:`grid_support-DERUnit <grid_support-DERUnit>`)
+|    Unit of the setpoint value: PctMaxW or PctWAvail. The Annex M relay rejects any other unit.
 
 .. _grid_support-FreqDroopParams:
 
@@ -250,6 +263,7 @@ Grid support / DER control types
 |    FreqDroop                         -> freq_droop
 |    FixedPFAbsorb, FixedPFInject      -> fixed_pf
 |    FixedVar                          -> fixed_var
+|    FixedWatt                         -> fixed_watt
 |    Gradients                         -> gradient
 |    LimitMaxDischarge                 -> limit_max_discharge
 |    FreqWatt, VoltWatt, VoltVar,      -> curve
@@ -266,6 +280,7 @@ Grid support / DER control types
 |      MaximumLevelDCInjection
 |  The 6 payload-less values (ZeroCurrent and the five below it) are ISO
 |  15118-20 AMD1 AC-DER values with no OCPP DERControl mapping in v1.
+|  FixedWatt has no OCPP DERControl mapping either; it is EVerest-only.
 |  properties:
 |   **id**: *string* <required>
 |    Unique identifier of the directive.
@@ -297,6 +312,8 @@ Grid support / DER control types
 |    Fixed power-factor payload.
 |   **fixed_var**: *object* <optional> (:ref:`grid_support-FixedVarParams <grid_support-FixedVarParams>`)
 |    Fixed reactive-power payload.
+|   **fixed_watt**: *object* <optional> (:ref:`grid_support-FixedWattParams <grid_support-FixedWattParams>`)
+|    Fixed active-power payload.
 |   **gradient**: *object* <optional> (:ref:`grid_support-GradientParams <grid_support-GradientParams>`)
 |    Gradient payload.
 |   **limit_max_discharge**: *object* <optional> (:ref:`grid_support-LimitMaxDischargeParams <grid_support-LimitMaxDischargeParams>`)

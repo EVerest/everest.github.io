@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Evse15118D20 - EVerest Manual main@8e6b05f</title>
+        <title>Evse15118D20 - EVerest Manual main@10a4934</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@8e6b05f</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@10a4934</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@8e6b05f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@10a4934</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -855,8 +855,9 @@ advertised at each session’s charge parameter discovery derive from <code clas
 directive that leaves the set falls back to the shipped default rather than
 lingering: <code class="docutils literal notranslate"><span class="pre">HVMustTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">HVMayTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">HVMomCess</span></code>, <code class="docutils literal notranslate"><span class="pre">LVMustTrip</span></code>,
 <code class="docutils literal notranslate"><span class="pre">LVMayTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">LVMomCess</span></code>, <code class="docutils literal notranslate"><span class="pre">HFMustTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">HFMayTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">LFMustTrip</span></code>,
-<code class="docutils literal notranslate"><span class="pre">VoltVar</span></code>, <code class="docutils literal notranslate"><span class="pre">WattVar</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedVar</span></code>, <code class="docutils literal notranslate"><span class="pre">VoltWatt</span></code>, <code class="docutils literal notranslate"><span class="pre">FreqDroop</span></code>,
-<code class="docutils literal notranslate"><span class="pre">LimitMaxDischarge</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedPFAbsorb</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedPFInject</span></code> and <code class="docutils literal notranslate"><span class="pre">EnterService</span></code>.
+<code class="docutils literal notranslate"><span class="pre">VoltVar</span></code>, <code class="docutils literal notranslate"><span class="pre">WattVar</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedVar</span></code>, <code class="docutils literal notranslate"><span class="pre">VoltWatt</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedWatt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">FreqDroop</span></code>, <code class="docutils literal notranslate"><span class="pre">LimitMaxDischarge</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedPFAbsorb</span></code>, <code class="docutils literal notranslate"><span class="pre">FixedPFInject</span></code> and
+<code class="docutils literal notranslate"><span class="pre">EnterService</span></code>.
 <code class="docutils literal notranslate"><span class="pre">FixedPFAbsorb</span></code> and <code class="docutils literal notranslate"><span class="pre">FixedPFInject</span></code> share the single <code class="docutils literal notranslate"><span class="pre">ConstantPowerFactor</span></code>
 element, so one wins and the other is shadowed. Each Annex M element takes one
 writer: the lowest priority wins, array order breaks ties, and shadowed
@@ -877,8 +878,20 @@ HV/LV thresholds stay percentages of nominal (<code class="docutils literal notr
 Hz, so no volt conversion happens.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">EnterService</span></code> voltage bands and the VoltVar <code class="docutils literal notranslate"><span class="pre">ReferenceVoltage</span></code> pass through
 in volts, because AMD1 Table 1 gives them in volts and so does <code class="docutils literal notranslate"><span class="pre">grid_support</span></code>.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">FixedVar</span></code> setpoint sign is inverted into <code class="docutils literal notranslate"><span class="pre">VarSetpoint</span></code>. The two sign
-conventions are opposed and [V2G20-3183] mandates the conversion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EnterService</span></code> <code class="docutils literal notranslate"><span class="pre">delay</span></code>, <code class="docutils literal notranslate"><span class="pre">random_delay</span></code> and <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> pass through in
+seconds into <code class="docutils literal notranslate"><span class="pre">EnterServiceDelay</span></code>, <code class="docutils literal notranslate"><span class="pre">EnterServiceRandomizedDelay</span></code> and
+<code class="docutils literal notranslate"><span class="pre">EnterServiceRampTime</span></code> (OCPP 2.1 <code class="docutils literal notranslate"><span class="pre">EnterServiceType.rampRate</span></code>, AMD1
+Table 1). A negative or non-finite value rejects the directive, since AMD1
+Table 1 allows only values &gt;= 0, and <code class="docutils literal notranslate"><span class="pre">delay</span></code> without <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> rejects it
+per [V2G20-3365].</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FixedVar</span></code> setpoint sign is inverted into <code class="docutils literal notranslate"><span class="pre">VarSetpoint</span></code>, and the
+<code class="docutils literal notranslate"><span class="pre">FixedWatt</span></code> setpoint sign into <code class="docutils literal notranslate"><span class="pre">WattSetpoint</span></code> (Table M.26, negative
+discharges). Each pair of sign conventions is opposed and [V2G20-3183]
+mandates the conversion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FixedWatt</span></code> accepts only the active-power units <code class="docutils literal notranslate"><span class="pre">PctMaxW</span></code> and
+<code class="docutils literal notranslate"><span class="pre">PctWAvail</span></code> and a setpoint within -100..100 (AMD1 Table 94); anything else
+rejects the directive. It is an EVerest-only directive with no OCPP 2.1
+DERControl equivalent; see “Known gaps” for who can send it.</p></li>
 <li><p>The directive <code class="docutils literal notranslate"><span class="pre">priority</span></code> is forwarded into every written element that carries
 one; <code class="docutils literal notranslate"><span class="pre">EnterService</span></code> has none. A value outside the Annex M <code class="docutils literal notranslate"><span class="pre">uint16</span></code> range is
 omitted with a warning rather than wrapped.</p></li>
@@ -892,7 +905,9 @@ AC_DER_IEC.</p>
 learns what the EV supports without the EVSE guessing. For AC_DER_IEC they come
 from what the EV negotiates during service selection; for AC_DER_SAE from the
 <code class="docutils literal notranslate"><span class="pre">SupportedModes</span></code> bitmap in the charge parameter discovery request
-([V2G20-3409]). See “Known gaps” for what a SAE session leaves out.</p>
+([V2G20-3409]). Constant watt is reported as <code class="docutils literal notranslate"><span class="pre">FixedWatt</span></code>, which has no OCPP
+counterpart and is left out of the OCPP <code class="docutils literal notranslate"><span class="pre">evSupportedDERControl</span></code>. See “Known
+gaps” for what a SAE session leaves out.</p>
 <p>Discharge power limits follow ISO 15118-20 8.3.5.2.1: negative when the
 <code class="docutils literal notranslate"><span class="pre">negative_bidirectional_limits</span></code> config key is set, with nominal discharge power
 set equal to maximum discharge power so nominal never exceeds maximum in
@@ -1127,15 +1142,20 @@ skipped: <code class="docutils literal notranslate"><span class="pre">FreqWatt</
 <code class="docutils literal notranslate"><span class="pre">OvervoltageFaultRideThrough</span></code>, <code class="docutils literal notranslate"><span class="pre">UndervoltageFaultRideThrough</span></code>,
 <code class="docutils literal notranslate"><span class="pre">MaximumLevelDCInjection</span></code>, <code class="docutils literal notranslate"><span class="pre">DSOQSetpoint</span></code>, <code class="docutils literal notranslate"><span class="pre">DSOCosPhiSetpoint</span></code>,
 <code class="docutils literal notranslate"><span class="pre">PowerMonitoringMustTrip</span></code> and <code class="docutils literal notranslate"><span class="pre">Gradients</span></code> exist in Annex L or in OCPP only.</p></li>
+<li><p>No producer in the tree sends <code class="docutils literal notranslate"><span class="pre">FixedWatt</span></code>: OCPP cannot carry it, and
+OCPPmulti is the only caller of <code class="docutils literal notranslate"><span class="pre">set_active_directives</span></code>. Each call replaces
+the whole active set, so a <code class="docutils literal notranslate"><span class="pre">FixedWatt</span></code> directive must come from the module
+that owns that set. One sent by a second module alongside OCPPmulti is
+overwritten by the next OCPP update, and <code class="docutils literal notranslate"><span class="pre">ConstantWatt</span></code> reverts to disabled.</p></li>
+<li><p>Table M.26 also allows <code class="docutils literal notranslate"><span class="pre">WattSetpoint</span></code> in percent of the EV’s maximum
+configured apparent power; <code class="docutils literal notranslate"><span class="pre">grid_support</span></code> <code class="docutils literal notranslate"><span class="pre">DERUnit</span></code> has no such unit.</p></li>
 <li><p>The SAE relay writes the single-phase fields only; every <code class="docutils literal notranslate"><span class="pre">_L2</span></code> and <code class="docutils literal notranslate"><span class="pre">_L3</span></code>
 counterpart stays unset.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LimitMaxDischarge</span></code> is approximated: <code class="docutils literal notranslate"><span class="pre">pct_max_discharge_power</span></code> lands in
 <code class="docutils literal notranslate"><span class="pre">PercentageValue</span></code> clamped to 0..100 and rounded, not rescaled against the
 EV’s maximum discharge power.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">grid_support</span></code> <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> (%/s) is copied into <code class="docutils literal notranslate"><span class="pre">EnterServiceRampTime</span></code>
-(s) unconverted, by decision, and needs a follow-up. It reaches
-<code class="docutils literal notranslate"><span class="pre">EnterServiceRampTime</span></code> only when paired with <code class="docutils literal notranslate"><span class="pre">delay</span></code>; alone it is dropped at
-debug, and <code class="docutils literal notranslate"><span class="pre">delay</span></code> without <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> rejects the directive.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid_support</span></code> <code class="docutils literal notranslate"><span class="pre">ramp_rate</span></code> without <code class="docutils literal notranslate"><span class="pre">delay</span></code> has no Annex M target and is
+dropped at debug.</p></li>
 </ul>
 </section>
 </section>
@@ -1510,7 +1530,7 @@ pause.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=145b5a23"></script>
+</div><script src="../../../../_static/documentation_options.js?v=1070a5ca"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

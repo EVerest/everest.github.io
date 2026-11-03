@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>grid_support - EVerest Manual main@8e6b05f</title>
+        <title>grid_support - EVerest Manual main@10a4934</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@8e6b05f</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@10a4934</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@8e6b05f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@10a4934</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -713,14 +713,16 @@
 <div class="line-block">
 <div class="line">Kind of DER control directive. Each value selects one DER control mode:</div>
 <div class="line">enter-service gating, a frequency- or voltage-dependent curve, a fixed</div>
-<div class="line">power-factor or reactive-power setpoint, ramp-rate limits, a trip /</div>
-<div class="line">momentary-cessation / ride-through profile, or a DSO-commanded setpoint.</div>
+<div class="line">power-factor, reactive-power or active-power setpoint, ramp-rate limits,</div>
+<div class="line">a trip / momentary-cessation / ride-through profile, or a DSO-commanded</div>
+<div class="line">setpoint.</div>
 <div class="line">EnterService: Enter-service criteria (voltage/frequency window and ramp) gating reconnection after a disconnect.</div>
 <div class="line">FreqDroop: Frequency-droop active-power response to frequency deviation.</div>
 <div class="line">FreqWatt: Frequency-watt curve: active power as a piecewise function of frequency.</div>
 <div class="line">FixedPFAbsorb: Fixed power factor applied while absorbing (charging) active power.</div>
 <div class="line">FixedPFInject: Fixed power factor applied while injecting (discharging) active power.</div>
 <div class="line">FixedVar: Fixed reactive-power setpoint.</div>
+<div class="line">FixedWatt: Fixed active-power setpoint. EVerest-only, no OCPP 2.1 DERControl equivalent, no in-tree producer yet.</div>
 <div class="line">Gradients: Ramp-rate / open-loop response-time limits applied to setpoint changes.</div>
 <div class="line">HFMustTrip: High-frequency must-trip curve (mandatory disconnect thresholds).</div>
 <div class="line">HFMayTrip: High-frequency may-trip / ride-through curve.</div>
@@ -751,6 +753,7 @@
 <div class="line">- FixedPFAbsorb</div>
 <div class="line">- FixedPFInject</div>
 <div class="line">- FixedVar</div>
+<div class="line">- FixedWatt</div>
 <div class="line">- Gradients</div>
 <div class="line">- HFMustTrip</div>
 <div class="line">- HFMayTrip</div>
@@ -944,15 +947,15 @@
 </div>
 <div class="line"><strong>delay</strong>: <em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
-<div class="line">Delay before entering service, in seconds.</div>
+<div class="line">Delay before entering service, in seconds, &gt;= 0 (AMD1 Table 1).</div>
 </div>
 <div class="line"><strong>random_delay</strong>: <em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
-<div class="line">Additional randomized delay, in seconds.</div>
+<div class="line">Additional randomized delay, in seconds, &gt;= 0 (AMD1 Table 1).</div>
 </div>
 <div class="line"><strong>ramp_rate</strong>: <em>number</em> &lt;optional&gt;</div>
 <div class="line-block">
-<div class="line">Ramp rate applied when entering service, as percent of nameplate active power per second (%/s).</div>
+<div class="line">Enter service ramp time, in seconds, &gt;= 0, as OCPP 2.1 EnterServiceType.rampRate (“Enter service ramp rate in seconds”) and AMD1 Table 1 EnterServiceRampTime.</div>
 </div>
 </div>
 </div>
@@ -987,6 +990,23 @@
 <div class="line"><strong>unit</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="#grid-support-derunit"><span class="std std-ref">grid_support-DERUnit</span></a>)</div>
 <div class="line-block">
 <div class="line">Unit of the setpoint value.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line-block" id="grid-support-fixedwattparams">
+<div class="line"><strong>FixedWattParams</strong>: <em>object</em></div>
+<div class="line-block">
+<div class="line">Fixed active-power (watt) parameters. Scheduling and priority are carried by the enclosing Directive.</div>
+<div class="line">properties:</div>
+<div class="line-block">
+<div class="line"><strong>setpoint</strong>: <em>number</em> &lt;required&gt;</div>
+<div class="line-block">
+<div class="line">Active power setpoint, expressed in the unit given by the unit field. Negative = charging, positive = discharging (injecting); the Annex M relay inverts the sign for ConstantWatt.WattSetpoint (Table M.26). Range -100..100 per ISO 15118-20 AMD1 Table 94.</div>
+</div>
+<div class="line"><strong>unit</strong>: <em>string</em> &lt;required&gt; (<a class="reference internal" href="#grid-support-derunit"><span class="std std-ref">grid_support-DERUnit</span></a>)</div>
+<div class="line-block">
+<div class="line">Unit of the setpoint value: PctMaxW or PctWAvail. The Annex M relay rejects any other unit.</div>
 </div>
 </div>
 </div>
@@ -1067,6 +1087,7 @@
 <div class="line">FreqDroop                         -&gt; freq_droop</div>
 <div class="line">FixedPFAbsorb, FixedPFInject      -&gt; fixed_pf</div>
 <div class="line">FixedVar                          -&gt; fixed_var</div>
+<div class="line">FixedWatt                         -&gt; fixed_watt</div>
 <div class="line">Gradients                         -&gt; gradient</div>
 <div class="line">LimitMaxDischarge                 -&gt; limit_max_discharge</div>
 <div class="line">FreqWatt, VoltWatt, VoltVar,      -&gt; curve</div>
@@ -1088,6 +1109,7 @@
 </div>
 <div class="line">The 6 payload-less values (ZeroCurrent and the five below it) are ISO</div>
 <div class="line">15118-20 AMD1 AC-DER values with no OCPP DERControl mapping in v1.</div>
+<div class="line">FixedWatt has no OCPP DERControl mapping either; it is EVerest-only.</div>
 <div class="line">properties:</div>
 <div class="line-block">
 <div class="line"><strong>id</strong>: <em>string</em> &lt;required&gt;</div>
@@ -1147,6 +1169,10 @@
 <div class="line"><strong>fixed_var</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#grid-support-fixedvarparams"><span class="std std-ref">grid_support-FixedVarParams</span></a>)</div>
 <div class="line-block">
 <div class="line">Fixed reactive-power payload.</div>
+</div>
+<div class="line"><strong>fixed_watt</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#grid-support-fixedwattparams"><span class="std std-ref">grid_support-FixedWattParams</span></a>)</div>
+<div class="line-block">
+<div class="line">Fixed active-power payload.</div>
 </div>
 <div class="line"><strong>gradient</strong>: <em>object</em> &lt;optional&gt; (<a class="reference internal" href="#grid-support-gradientparams"><span class="std std-ref">grid_support-GradientParams</span></a>)</div>
 <div class="line-block">
@@ -1485,7 +1511,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=145b5a23"></script>
+</div><script src="../../_static/documentation_options.js?v=1070a5ca"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

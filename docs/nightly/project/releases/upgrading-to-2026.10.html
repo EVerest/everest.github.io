@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Upgrading to 2026.10 - EVerest Manual main@ba830c2</title>
+        <title>Upgrading to 2026.10 - EVerest Manual main@111f864</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@ba830c2</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@111f864</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@ba830c2</span>
+  <span class="sidebar-brand-text">EVerest Manual main@111f864</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -930,6 +930,31 @@ EvseManager requests state X1 only with <code class="docutils literal notranslat
 paths already did, but a duty cycle of 100 % (for example a current limit
 below 6 A in basic AC charging) was sent as <code class="docutils literal notranslate"><span class="pre">pwm_on(100)</span></code>. <code class="docutils literal notranslate"><span class="pre">pwm_on</span></code> is
 only called with a duty cycle strictly between 0 and 100 %.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evse_board_support_API</span></code> and <code class="docutils literal notranslate"><span class="pre">system_API</span></code>: commands without arguments
+(<code class="docutils literal notranslate"><span class="pre">cp_state_X1</span></code>, <code class="docutils literal notranslate"><span class="pre">cp_state_F</span></code>, <code class="docutils literal notranslate"><span class="pre">cp_state_E</span></code>, <code class="docutils literal notranslate"><span class="pre">lock</span></code>, <code class="docutils literal notranslate"><span class="pre">unlock</span></code>,
+<code class="docutils literal notranslate"><span class="pre">self_test</span></code>, <code class="docutils literal notranslate"><span class="pre">allow_firmware_installation</span></code>) carry an empty JSON object
+<code class="docutils literal notranslate"><span class="pre">{}</span></code> as payload, like the other APIs, instead of an empty payload. Clients
+that tested for an empty payload must accept <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p></li>
+<li><p>All EVerest API modules and the configuration and lifecycle APIs: a request
+without <code class="docutils literal notranslate"><span class="pre">headers.replyTo</span></code> is executed and its reply discarded, as before,
+but without a warning. A request is now rejected without being executed if it
+is not a JSON object, if <code class="docutils literal notranslate"><span class="pre">headers</span></code> is not an object (<code class="docutils literal notranslate"><span class="pre">null</span></code> included), or
+if <code class="docutils literal notranslate"><span class="pre">replyTo</span></code> is not a string, not publishable (empty, <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">#</span></code>, NUL,
+leading <code class="docutils literal notranslate"><span class="pre">$</span></code>) or in a namespace EVerest subscribes or publishes to
+(<code class="docutils literal notranslate"><span class="pre">everest/...</span></code>, <code class="docutils literal notranslate"><span class="pre">everest_external/nodered/...</span></code>, and in <code class="docutils literal notranslate"><span class="pre">everest_api</span></code>
+everything but topics at least two levels below <code class="docutils literal notranslate"><span class="pre">e2m</span></code>). Before, such
+requests were executed and their reply was dropped, delivered as another
+request or published as if it came from EVerest. A client that replies to
+<code class="docutils literal notranslate"><span class="pre">everest_api/.../e2m/&lt;operation&gt;</span></code> without a unique level of its own below
+it must add one, e.g. <code class="docutils literal notranslate"><span class="pre">e2m/&lt;operation&gt;/&lt;uuid&gt;</span></code>. See <a class="reference internal" href="../../explanation/adapt-everest/apis.html#everest-apis"><span class="std std-ref">EVerest APIs</span></a>. In <code class="docutils literal notranslate"><span class="pre">everest_api_types</span></code>,
+<code class="docutils literal notranslate"><span class="pre">generic::RequestReply::replyTo</span></code> and the <code class="docutils literal notranslate"><span class="pre">reply_to</span></code> argument of
+<code class="docutils literal notranslate"><span class="pre">deserialize_request</span></code> are <code class="docutils literal notranslate"><span class="pre">std::optional&lt;std::string&gt;</span></code>; replies are sent
+with <code class="docutils literal notranslate"><span class="pre">MqttProviderInterface::publish_reply</span></code>, which publishes nothing when
+there is no <code class="docutils literal notranslate"><span class="pre">replyTo</span></code>.</p></li>
+<li><p>All EVerest API modules: a number that does not fit the type it is stored in
+(usually a 32-bit signed integer or a single-precision float) is rejected.
+Before, an integer such as <code class="docutils literal notranslate"><span class="pre">4294967297</span></code> wrapped (to <code class="docutils literal notranslate"><span class="pre">1</span></code> for a connector
+id) and a number beyond about 3.4e38 became infinity.</p></li>
 </ul>
 <p>The deprecated topics keep working until 2027.04.0 at the earliest. See
 <a class="reference internal" href="deprecation-index.html#project-deprecation-index"><span class="std std-ref">Active Deprecation Index</span></a> for the full list, including:</p>
@@ -1030,7 +1055,7 @@ strings are affected.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=8044e597"></script>
+</div><script src="../../_static/documentation_options.js?v=54a28cc0"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

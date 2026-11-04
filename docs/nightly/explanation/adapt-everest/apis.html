@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EVerest APIs - EVerest Manual main@ba830c2</title>
+        <title>EVerest APIs - EVerest Manual main@111f864</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@ba830c2</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@111f864</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@ba830c2</span>
+  <span class="sidebar-brand-text">EVerest Manual main@111f864</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -868,7 +868,8 @@ only about seven significant digits.</p>
 for a response can be configured (<em>cfg_request_reply_to_s</em> - these timeouts
 cannot be disabled since internal EVerest timeouts apply) . In general it
 is advisable to respond as quickly as possible in to to prevent EVerest
-from blocking internally.</p>
+from blocking internally. A reply that does not match its schema ends the
+request at once with the same default response as a timeout.</p>
 </section>
 <section id="asyncapi">
 <h2>AsyncAPI<a class="headerlink" href="#asyncapi" title="Link to this heading">¶</a></h2>
@@ -915,6 +916,17 @@ addressed via the topic as defined above. Each channel can in principle
 carry multiple messages, but concerning EVerest API, there is a
 one-to-one mapping between a message and a channel. A message carries
 content in the form of payload and possibly headers.</p>
+<p>Commands without arguments carry an empty JSON object (<code class="docutils literal notranslate"><span class="pre">{}</span></code>) as payload,
+never an empty payload. Request/reply messages without arguments consist of
+the <code class="docutils literal notranslate"><span class="pre">headers</span></code> object only; the <code class="docutils literal notranslate"><span class="pre">payload</span></code> property is omitted. EVerest
+ignores a <code class="docutils literal notranslate"><span class="pre">payload</span></code> sent with such a request.</p>
+<p>A payload whose schema is a plain number or integer has to be a JSON number of that
+kind: booleans, strings and <code class="docutils literal notranslate"><span class="pre">null</span></code> are rejected with a log warning, and an integer
+channel rejects a fraction. The same holds for number and integer properties of
+an object. A number that does not fit the type EVerest stores it in is rejected
+as well instead of being wrapped or rounded to infinity. For most integers
+that type is a 32-bit signed integer, for most numbers a single-precision float
+(up to about 3.4e38).</p>
 <p>The content type for EVerest API is always JSON. The content is
 individual for each message and defined in <em>components:schemas</em> within
 the same file or sometimes in a referenced file.</p>
@@ -933,12 +945,44 @@ reply channel and a dynamic reply address.</p>
 <p>If the client receives a request, it has to reply to the topic provided
 in the header’s <em>replyTo</em> property within <em>cfg_communication_check_to_s</em>
 seconds. If it does not, a default response is given by the API to
-EVerest and an error is raised.</p>
-<p>If the client sends a request, it has to specify the reply topic, where
-it expects the answer. This information is communicated via the
-<em>replyTo</em> property of the headers object. It is the client’s
-responsibility to ensure that the topic is unique in order to relate
-replies to requests.</p>
+EVerest and an error is raised. Requests sent by EVerest always carry
+<em>replyTo</em>.</p>
+<p>If the client sends a request, it specifies the reply topic, where it
+expects the answer, in the <em>replyTo</em> property of the headers object. It
+is the client’s responsibility to ensure that the topic is unique in
+order to relate replies to requests. A client that is not interested in
+the reply omits <em>replyTo</em>: EVerest executes the request and discards the
+reply.</p>
+<p>EVerest rejects a request without executing it if</p>
+<ul>
+<li><p>the request is not a JSON object, or its <em>headers</em> is present but not
+an object (<code class="docutils literal notranslate"><span class="pre">null</span></code> included),</p></li>
+<li><p><em>replyTo</em> is present but not a string,</p></li>
+<li><p><em>replyTo</em> is not a topic a reply can be published to: empty, longer
+than 65535 bytes, containing a NUL character or the wildcards <code class="docutils literal notranslate"><span class="pre">+</span></code> or
+<code class="docutils literal notranslate"><span class="pre">#</span></code>, or starting with <code class="docutils literal notranslate"><span class="pre">$</span></code>, which is reserved for the broker,</p></li>
+<li><p><em>replyTo</em> lies in a namespace EVerest subscribes or publishes to, where a
+reply could be taken for another request or for a message from EVerest:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">everest/...</span></code>, the framework’s internal namespace,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">everest_external/nodered/...</span></code>, the Node-RED debug interface of
+EvseManager, EvManager and the board support modules,</p></li>
+<li><p>any <code class="docutils literal notranslate"><span class="pre">everest_api/...</span></code> topic that does not have at least two levels
+below an <code class="docutils literal notranslate"><span class="pre">e2m</span></code> level, or that has an <code class="docutils literal notranslate"><span class="pre">m2e</span></code> level. This covers the
+<code class="docutils literal notranslate"><span class="pre">m2e</span></code> and <code class="docutils literal notranslate"><span class="pre">e2m/&lt;name&gt;</span></code> channels of the API modules,
+<code class="docutils literal notranslate"><span class="pre">everest_api/discover</span></code>, <code class="docutils literal notranslate"><span class="pre">everest_api/query-modules/...</span></code> and the
+<code class="docutils literal notranslate"><span class="pre">everest_api/&lt;module&gt;/cmd/...</span></code> topics of the <code class="docutils literal notranslate"><span class="pre">API</span></code>, <code class="docutils literal notranslate"><span class="pre">Setup</span></code> and
+OCPP modules and the simulators.</p></li>
+</ul>
+<p>A reply topic in <code class="docutils literal notranslate"><span class="pre">everest_api</span></code> therefore looks like
+<code class="docutils literal notranslate"><span class="pre">everest_api/1/&lt;api_type&gt;/&lt;module_id&gt;/e2m/&lt;operation&gt;/&lt;unique</span> <span class="pre">id&gt;</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">e2m</span></code> channels of the API specifications are one level deep
+(<code class="docutils literal notranslate"><span class="pre">e2m/&lt;name&gt;</span></code>), so such a topic never collides with one of them.</p>
+<p>The list covers EVerest’s own topics. It cannot cover topics that a
+module subscribes to from its configuration or that out-of-tree modules
+use, nor a <code class="docutils literal notranslate"><span class="pre">mqtt_everest_prefix</span></code> other than the default <code class="docutils literal notranslate"><span class="pre">everest</span></code>.</p>
+</li>
+</ul>
 </section>
 <section id="using-the-everest-api">
 <h2>Using the EVerest API<a class="headerlink" href="#using-the-everest-api" title="Link to this heading">¶</a></h2>
@@ -1045,7 +1089,7 @@ surveillance of managed hardware, e.g. a DC power supply.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=8044e597"></script>
+</div><script src="../../_static/documentation_options.js?v=54a28cc0"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

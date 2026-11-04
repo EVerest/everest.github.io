@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@554f857</title>
+        <title>EvseManager - EVerest Manual main@d2582d8</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@554f857</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@d2582d8</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@554f857</span>
+  <span class="sidebar-brand-text">EVerest Manual main@d2582d8</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1186,74 +1186,452 @@ warning at startup and charges normally, but no frames are sent. Grant it in the
 </section>
 <section id="error-handling">
 <h3>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">¶</a></h3>
-<p>The control flow of this module can be influenced by the error implementation of its requirements. This section documents
-the side effects that can be caused by errors raised by a requirement.</p>
-<p>This module subscribes to all errors of the following requirements:</p>
+<p>The control flow of this module is influenced by the errors of its requirements and by its own errors. An error that blocks
+charging stops a running charging session and prevents new sessions from being started. While at least one blocking error is
+active, the EvseManager is Inoperative and raises <code class="docutils literal notranslate"><span class="pre">evse_manager/Inoperative</span></code>. Charging is possible again, and
+<code class="docutils literal notranslate"><span class="pre">evse_manager/Inoperative</span></code> is cleared, when the last blocking error is cleared.</p>
+<p>The EvseManager subscribes to all errors of the following requirements and re-evaluates the Inoperative state on every raise
+and clear. It does the same whenever it raises or clears one of its own <code class="docutils literal notranslate"><span class="pre">evse_manager/*</span></code> errors.</p>
 <ul class="simple">
-<li><p>evse_manager</p></li>
-<li><p>evse_board_support</p></li>
-<li><p>connector_lock</p></li>
-<li><p>ac_rcd</p></li>
-<li><p>isolation_monitor</p></li>
-<li><p>power_supply_DC</p></li>
-<li><p>powermeter (if the config option fail_on_powermeter_errors is set true)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bsp</span></code> (<code class="docutils literal notranslate"><span class="pre">evse_board_support</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hlc</span></code> (<code class="docutils literal notranslate"><span class="pre">ISO15118_charger</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connector_lock</span></code> (<code class="docutils literal notranslate"><span class="pre">connector_lock</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ac_rcd</span></code> (<code class="docutils literal notranslate"><span class="pre">ac_rcd</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imd</span></code> (<code class="docutils literal notranslate"><span class="pre">isolation_monitor</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">powersupply_DC</span></code> (<code class="docutils literal notranslate"><span class="pre">power_supply_DC</span></code>)</p></li>
+<li><p>the billing powermeter (<code class="docutils literal notranslate"><span class="pre">powermeter</span></code>), only if the config option <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slac</span></code> (<code class="docutils literal notranslate"><span class="pre">slac</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor</span></code> (<code class="docutils literal notranslate"><span class="pre">over_voltage_monitor</span></code>)</p></li>
 </ul>
-<p>A raised error can cause the EvseManager to stop the charging session and become inoperative. Charging is not possible until the error is cleared.
-If no charging session is currently running, it will prevent sessions from being started. If a charging session is currently running and an error is raised
-this will interrupt the charging session.</p>
-<p>Almost all errors that are reported from the requirements of this module cause the EvseManager to become Inoperative until the error is cleared.
-The following sections provide an overview of the errors that do <strong>not</strong> cause the EvseManager to become Inoperative.</p>
+<p>Every active error from these sources blocks charging unless its type is listed as non-blocking in the tables below. The
+decision depends only on the error type: neither the severity of an error nor the combination of active errors changes it.
+The severity only selects the kind of shutdown, see below. Errors raised by modules that are not requirements of the
+EvseManager, and errors of requirements not listed above, never make the EvseManager Inoperative.</p>
+<p>The following tables list every error type each source can raise and whether it blocks charging.</p>
 <section id="evse-manager">
 <h4>evse_manager<a class="headerlink" href="#evse-manager" title="Link to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>evse_manager/Inoperative</p></li>
-<li><p>evse_manager/MREC11CableCheckFault</p></li>
-</ul>
+<p>Errors raised by the EvseManager itself.</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/Internal</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/MREC4OverCurrentFailure</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/MREC5OverVoltage</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/MREC9AuthorizationTimeout</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/PowermeterTransactionStartFailed</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/Inoperative</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/MREC22ResistanceFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/MREC11CableCheckFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_manager/VoltagePlausibilityFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">evse_manager/Inoperative</span></code> is the result of the evaluation, not a cause.</p>
 </section>
 <section id="evse-board-support">
 <h4>evse_board_support<a class="headerlink" href="#evse-board-support" title="Link to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>evse_board_support/MREC3HighTemperature</p></li>
-<li><p>evse_board_support/MREC18CableOverTempDerate</p></li>
-<li><p>evse_board_support/VendorWarning</p></li>
-</ul>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/DiodeFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/VentilationNotAvailable</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/BrownOut</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/EnergyManagement</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/PermanentFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC2GroundFailure</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC3HighTemperature</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC4OverCurrentFailure</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC5OverVoltage</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC6UnderVoltage</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC8EmergencyStop</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC10InvalidVehicleMode</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC14PilotFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC15PowerLoss</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC17EVSEContactorFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC18CableOverTempDerate</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC19CableOverTempStop</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC20PartialInsertion</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC23ProximityFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC24ConnectorVoltageHigh</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC25BrokenLatch</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/MREC26CutCable</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/TiltDetected</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/WaterIngressDetected</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/EnclosureOpen</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evse_board_support/CommunicationFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">evse_board_support</span></code> interface can also raise the <code class="docutils literal notranslate"><span class="pre">ac_rcd</span></code> error types. Raised through the <code class="docutils literal notranslate"><span class="pre">bsp</span></code> requirement, they
+block charging exactly as they do when raised through the <code class="docutils literal notranslate"><span class="pre">ac_rcd</span></code> requirement:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/Selftest</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/DC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/AC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/MREC2GroundFailure</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="connector-lock">
 <h4>connector_lock<a class="headerlink" href="#connector-lock" title="Link to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>connector_lock/VendorWarning</p></li>
-</ul>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/ConnectorLockCapNotCharged</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/ConnectorLockUnexpectedOpen</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/ConnectorLockUnexpectedClose</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/ConnectorLockFailedLock</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/ConnectorLockFailedUnlock</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/MREC1ConnectorLockFailure</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">connector_lock/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="ac-rcd">
 <h4>ac_rcd<a class="headerlink" href="#ac-rcd" title="Link to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>ac_rcd/VendorWarning</p></li>
-</ul>
+<p>Errors raised through the <code class="docutils literal notranslate"><span class="pre">ac_rcd</span></code> requirement.</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/Selftest</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/DC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/AC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/MREC2GroundFailure</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ac_rcd/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="isolation-monitor">
 <h4>isolation_monitor<a class="headerlink" href="#isolation-monitor" title="Link to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>isolation_monitor/VendorWarning</p></li>
-</ul>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">isolation_monitor/DeviceFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isolation_monitor/CommunicationFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">isolation_monitor/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isolation_monitor/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="power-supply-dc">
 <h4>power_supply_DC<a class="headerlink" href="#power-supply-dc" title="Link to this heading">¶</a></h4>
-<ul class="simple">
-<li><p>power_supply_DC/VendorWarning</p></li>
-</ul>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/CommunicationFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/HardwareFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/OverTemperature</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/UnderTemperature</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/UnderVoltageAC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/OverVoltageAC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/UnderVoltageDC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/OverVoltageDC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/OverCurrentAC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/OverCurrentDC</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_supply_DC/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="id2">
 <h4>powermeter<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
-<p>Powermeter errors cause the EvseManager to become Inoperative, if fail_on_powermeter_errors is configured to true. If it is configured to false, errors from the powermeter will not cause the EvseManager to become Inoperative.</p>
-<ul class="simple">
-<li><p>powermeter/CommunicationFault</p></li>
-<li><p>powermeter/VendorError</p></li>
-</ul>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">powermeter/VendorWarning</span></code> is explicitly ignored by the EvseManager’s inoperative logic (similar to other <code class="docutils literal notranslate"><span class="pre">VendorWarning</span></code> errors)
-and will not block charging even if <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is set to true. It should be used to signal non-fatal conditions such as
-high temperature warnings from the powermeter.</p>
+<p>Only the billing powermeter is evaluated: <code class="docutils literal notranslate"><span class="pre">powermeter_car_side</span></code> if it is connected, otherwise <code class="docutils literal notranslate"><span class="pre">powermeter_grid_side</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">powermeter/CommunicationFault</span></code> and <code class="docutils literal notranslate"><span class="pre">powermeter/VendorError</span></code> block
+charging. If it is <code class="docutils literal notranslate"><span class="pre">false</span></code>, none of them do. <code class="docutils literal notranslate"><span class="pre">powermeter/VendorWarning</span></code> never blocks charging.</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">powermeter/CommunicationFault</span></code></p></td>
+<td><p>yes, if <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">powermeter/VendorError</span></code></p></td>
+<td><p>yes, if <code class="docutils literal notranslate"><span class="pre">fail_on_powermeter_errors</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">powermeter/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="slac">
+<h4>slac<a class="headerlink" href="#slac" title="Link to this heading">¶</a></h4>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generic/CommunicationFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generic/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generic/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="iso15118-charger">
+<h4>ISO15118_charger<a class="headerlink" href="#iso15118-charger" title="Link to this heading">¶</a></h4>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generic/CommunicationFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generic/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generic/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="over-voltage-monitor">
+<h4>over_voltage_monitor<a class="headerlink" href="#over-voltage-monitor" title="Link to this heading">¶</a></h4>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error type</p></th>
+<th class="head"><p>Blocks charging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor/MREC5OverVoltage</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor/DeviceFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor/CommunicationFault</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor/VendorError</span></code></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor/VendorWarning</span></code></p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="shutdown-types">
+<h4>Shutdown types<a class="headerlink" href="#shutdown-types" title="Link to this heading">¶</a></h4>
 <p>When a charging session is stopped because of an error, the EvseManager differentiates between <strong>Emergency Shutdowns</strong> and <strong>Error Shutdowns</strong>. The severity of the
-error influences the type of the shudown. Emergency shutdowns are caused by errors with <cite>Severity::High</cite> and error shutdowns are caused by errors with <cite>Severity::Medium</cite> or <cite>Severity::Low</cite>.</p>
+error influences the type of the shutdown. Emergency shutdowns are caused by errors with <cite>Severity::High</cite> and error shutdowns are caused by errors with <cite>Severity::Medium</cite> or <cite>Severity::Low</cite>.</p>
 <p>In case of an <strong>Emergency Shutdown</strong> the EvseManager will immediately:</p>
 <ul class="simple">
 <li><p>Signal PWM state F if HLC is not active</p></li>
@@ -1927,6 +2305,10 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
 <li><a class="reference internal" href="#isolation-monitor">isolation_monitor</a></li>
 <li><a class="reference internal" href="#power-supply-dc">power_supply_DC</a></li>
 <li><a class="reference internal" href="#id2">powermeter</a></li>
+<li><a class="reference internal" href="#slac">slac</a></li>
+<li><a class="reference internal" href="#iso15118-charger">ISO15118_charger</a></li>
+<li><a class="reference internal" href="#over-voltage-monitor">over_voltage_monitor</a></li>
+<li><a class="reference internal" href="#shutdown-types">Shutdown types</a></li>
 </ul>
 </li>
 </ul>
@@ -1953,7 +2335,7 @@ error influences the type of the shudown. Emergency shutdowns are caused by erro
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=21d50329"></script>
+</div><script src="../../../../_static/documentation_options.js?v=242635c4"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

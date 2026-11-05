@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Evse15118D20 - EVerest Manual main@01f36de</title>
+        <title>Evse15118D20 - EVerest Manual main@cd75bfb</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@01f36de</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@cd75bfb</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@01f36de</span>
+  <span class="sidebar-brand-text">EVerest Manual main@cd75bfb</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1210,6 +1210,13 @@ The EV leaves state C as soon as it has the response, so this withdraws the powe
 permissive first (IEC 61851-23-3 Table CC.111, t103 before t105). An MCS board
 support treats a C exit under a standing permissive as an emergency shutdown
 (CC.4.3).</p>
+<p>In scheduled control mode, a <code class="docutils literal notranslate"><span class="pre">PowerDeliveryReq</span></code> with <code class="docutils literal notranslate"><span class="pre">Start</span></code> whose EV power
+profile asks for more charge or discharge power than the selected schedule offers
+in any slot it overlaps is answered with <code class="docutils literal notranslate"><span class="pre">FAILED_EVPowerProfileInvalid</span></code>
+([V2G20-478], [V2G20-1559]); time the schedule does not cover offers 0 W
+([V2G20-1811]). Each profile entry may overlap the neighbouring slots by 5 s, for
+an EV clock that is slightly off the SECC’s; at least one second of every entry is
+checked, so entries of 10 s or less are not exempt.</p>
 <p>A pause requested with <code class="docutils literal notranslate"><span class="pre">pause_charging</span></code> is sent as <code class="docutils literal notranslate"><span class="pre">EVSENotification</span></code> <code class="docutils literal notranslate"><span class="pre">Pause</span></code>
 with <code class="docutils literal notranslate"><span class="pre">NotificationMaxDelay</span></code> 60 s ([V2G20-1850]). In scheduled control mode it may
 only be sent while the applied entry of the EV’s power profile, from its latest
@@ -1526,7 +1533,7 @@ pause.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=aed7947d"></script>
+</div><script src="../../../../_static/documentation_options.js?v=4e8e7f14"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

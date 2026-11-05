@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EVerest APIs - EVerest Manual main@7703f9d</title>
+        <title>EVerest APIs - EVerest Manual main@a86dd80</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@7703f9d</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@a86dd80</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@7703f9d</span>
+  <span class="sidebar-brand-text">EVerest Manual main@a86dd80</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -926,6 +926,16 @@ that type is a 32-bit signed integer, for most numbers a single-precision float
 <p>The content type for EVerest API is always JSON. The content is
 individual for each message and defined in <em>components:schemas</em> within
 the same file or sometimes in a referenced file.</p>
+<p>EVerest discards a message from a client whose payload it cannot read,
+for example because a required field is missing, a field has the wrong
+type or an unknown enum value, or a field declared as
+<code class="docutils literal notranslate"><span class="pre">format:</span> <span class="pre">date-time</span></code> is no RFC 3339 date-time. It logs a warning, and a
+discarded request gets no reply. RFC 3339 requires a UTC offset, so a
+date-time in local time carries its offset, for example
+<code class="docutils literal notranslate"><span class="pre">2026-10-28T14:03:07.123+01:00</span></code>. Date-times must lie between
+<code class="docutils literal notranslate"><span class="pre">1677-09-21T00:12:43.146Z</span></code> and <code class="docutils literal notranslate"><span class="pre">2262-04-11T23:46:49.854Z</span></code>. For an
+open end, such as <code class="docutils literal notranslate"><span class="pre">timestamp_to</span></code> in an error history filter, use
+<code class="docutils literal notranslate"><span class="pre">2262-04-11T23:46:49.854Z</span></code>; <code class="docutils literal notranslate"><span class="pre">9999-12-31T23:59:59Z</span></code> is discarded.</p>
 <p>AsyncAPI finally specifies operations on channels. The operations define
 the action on a specific channel (for EVerest API always from the
 client’s point of view), which can be <em>send</em> or <em>receive</em>.</p>
@@ -1085,7 +1095,7 @@ surveillance of managed hardware, e.g. a DC power supply.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=a26da229"></script>
+</div><script src="../../_static/documentation_options.js?v=e52481b8"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

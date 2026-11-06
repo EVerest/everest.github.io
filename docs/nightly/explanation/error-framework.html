@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Error Framework - EVerest Manual main@d226223</title>
+        <title>Error Framework - EVerest Manual main@22698c2</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@d226223</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@22698c2</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@d226223</span>
+  <span class="sidebar-brand-text">EVerest Manual main@22698c2</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -734,6 +734,12 @@ required to handle the error. Data members include:</p>
 <li><p>timestamp</p></li>
 <li><p>uuid</p></li>
 <li><p>state (active, cleared, …)</p></li>
+<li><p>optional trigger value: the value that caused this occurrence of the error,
+e.g. the measurement that crossed a limit. It holds a single field
+<cite>text_repr</cite>, the text representation of the value as the raising module
+would print it, including a unit where one applies (e.g. <cite>85.3 degC</cite>). It
+is passed on as is and never parsed by the framework. Raising an error
+truncates <cite>text_repr</cite> to 2500 characters.</p></li>
 </ul>
 </section>
 <section id="raise-an-error">
@@ -788,11 +794,12 @@ to create an error object, as for example the <cite>module_id</cite>, the class
 interface, with correct default values.</p>
 <p>The <cite>ErrorFactory</cite> is used to create the initial error object.
 This error object can be raised as it is, or can be modified before raising.</p>
-<p>The ErrorFactory provides five signatures for the create_error function:</p>
+<p>The ErrorFactory provides six signatures for the create_error function:</p>
 <ul class="simple">
 <li><p><em>Default</em>: Takes no arguments and initializes with default values.</p></li>
 <li><p><em>Standard</em>: Requires <cite>ErrorType</cite>, <cite>ErrorSubType</cite>, and <cite>message</cite>.</p></li>
 <li><p><em>Contextual</em>: Extends the <em>standard</em> signature by adding either <cite>severity</cite>, <cite>state</cite>, or <em>both</em>.</p></li>
+<li><p><em>Triggered</em>: Extends the <em>standard</em> signature by adding <cite>severity</cite> and an optional <cite>TriggerValue</cite>.</p></li>
 </ul>
 </section>
 <section id="the-errorstatemonitor">
@@ -939,7 +946,7 @@ documentation (see e.g. EvseManager or OCPP).</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=7370ce76"></script>
+</div><script src="../_static/documentation_options.js?v=103ab04f"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

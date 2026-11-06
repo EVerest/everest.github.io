@@ -35,6 +35,9 @@ Module Configuration
 | **auto_exec_commands**: *string* <optional>
 | *default: ""*
 |  Simulation commands, e.g. sleep 1;iec_wait_pwr_ready;sleep 1;draw_power_regulated 16,3;sleep 30;unplug
+| **session_logging**: *boolean* <optional>
+| *default: False*
+|  Log every V2G response the EV accepted in the HLC session to the console (the ISO15118_ev provider does not report the requests it sends) -- the EV-side counterpart of the EvseManager option of the same name. Debug aid; off by default.
 | **ac_nominal_voltage**: *number* <optional>
 | *default: 230*
 |  Nominal AC voltage between phase and neutral in Volt
@@ -47,6 +50,9 @@ Module Configuration
 | **dc_max_voltage_limit**: *integer* <optional>
 | *default: 900*
 |  Maximum voltage allowed by the EV
+| **dc_min_voltage_limit**: *integer* <optional>
+| *default: 150*
+|  Minimum voltage the EV can accept. Emitted into DC_PreChargeReq and DC_ChargeLoopReq, where it is mandatory.
 | **dc_energy_capacity**: *integer* <optional>
 | *default: 60000*
 |  Energy capacity of the EV
@@ -82,7 +88,7 @@ Module Configuration
 |  Departure time in seconds after the session starts
 | **e_amount**: *integer* <optional>
 | *default: 0*
-|  Energy amount in Wh that should be charged during the session
+|  Energy amount in kWh that should be charged during the session
 | **soc**: *integer* <optional>
 | *default: 30*
 |  SoC at start of a simulated charging process

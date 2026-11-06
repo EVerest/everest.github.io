@@ -101,7 +101,7 @@ ISO15118 charger types
 .. _iso15118-CpState:
 
 | **CpState**: *string* 
-|  IEC 61851-1 control pilot state as measured by the EVSE. Forwarded to the HLC stack for the SECC-side CP checks tied to the message sequence, e.g. DIN 70121 [V2G-DC-988]/[V2G-DC-556] (CP State B required within V2G_SECC_CPState_Detection_Timeout after the request following PowerDelivery(off)).
+|  IEC 61851-1 control pilot state, as the EVSE measures it or the vehicle applies it. Forwarded to the HLC stack for the CP checks tied to the message sequence, e.g. DIN 70121 [V2G-DC-988]/[V2G-DC-556] (CP State B required within V2G_SECC_CPState_Detection_Timeout after the request following PowerDelivery(off)).
 |  enum:
 |    - A
 |    - B
@@ -1019,12 +1019,168 @@ ISO15118 charger types
 |    [W] Maximum power allowed by the EV
 |   **max_voltage_limit**: *number* <required>
 |    [V] Maximum voltage allowed by the EV
+|   **min_voltage_limit**: *number* <required>
+|    [V] Minimum voltage the EV can accept. Emitted into DC_PreChargeReq and DC_ChargeLoopReq, where it is mandatory, so leaving it unset reports zero.
 |   **energy_capacity**: *number* <required>
 |    [Wh] Energy capacity of the EV
 |   **target_current**: *number* <required>
 |    [A] Target current requested by the EV
 |   **target_voltage**: *number* <required>
 |    [V] Target voltage requested by the EV
+
+.. _iso15118-EvPresentValues:
+
+| **EvPresentValues**: *object* 
+|  Values the EV measures during a charging loop. A field absent from one update keeps its last value. Voltage and active power are mandatory on the wire, so a value never fed is transmitted as zero and reads as a measured zero at the SECC, except for AC_DER_SAE, where a voltage or frequency not fed since start_charging falls back to the inverter profile's nominal value; start_charging clears the voltage, frequency and DER alarm bitmap. Which fields apply depends on the energy transfer mode, hence all are optional: DC carries the voltage, AC the active power, and AC_DER_SAE also the voltage, the frequency and the DER alarm bitmap.
+|  properties:
+|   **present_voltage**: *number* <required>
+|    [V] Voltage the EV measures at its inlet
+|   **present_active_power**: *number* <required>
+|    [W] Active power the EV measures. Negative while discharging (BPT).
+|   **present_frequency**: *number* <required>
+|    [Hz] Grid frequency the EV measures (AC_DER_SAE)
+|   **der_alarm_status**: *integer* <required>
+|    DERAlarmStatus bitmap of the alarms the EV detects, ISO 15118-20 AMD1 Table M.9 (AC_DER_SAE)
+
+.. _iso15118-DerFlavor:
+
+| **DerFlavor**: *string* 
+|  Which DER annex of ISO 15118-20 AMD1 a session negotiated
+|  enum:
+|    - AC_DER_IEC
+|    - AC_DER_SAE
+
+.. _iso15118-DerControlSource:
+
+| **DerControlSource**: *string* 
+|  Which exchange carried a DER control block
+|  enum:
+|    - ChargeParameterDiscovery
+|    - ChargeLoop
+
+.. _iso15118-DerIecFunction:
+
+| **DerIecFunction**: *string* 
+|  An AC_DER_IEC DER control function, ISO 15118-20 AMD1 DERControlFunctions.
+|  OverFrequencyWattMode: Active power reduction as a function of over-frequency.
+|  UnderFrequencyWattMode: Active power increase as a function of under-frequency.
+|  VoltWattMode: Active power as a function of voltage.
+|  VoltVarMode: Reactive power as a function of voltage.
+|  WattVarMode: Reactive power as a function of active power.
+|  WattCosPhiMode: Power factor as a function of active power.
+|  DSOQSetpointProvision: DSO-commanded reactive power setpoint.
+|  DSOCosPhiSetpointProvision: DSO-commanded cos phi setpoint.
+|  DCInjectionRestriction: Limit on the DC current injected into the grid.
+|  ZeroCurrentMode: Zero output current during a voltage disturbance.
+|  OverVoltageFaultRideThroughMode: Overvoltage fault ride-through.
+|  UnderVoltageFaultRideThroughMode: Undervoltage fault ride-through.
+|  enum:
+|    - OverFrequencyWattMode
+|    - UnderFrequencyWattMode
+|    - VoltWattMode
+|    - VoltVarMode
+|    - WattVarMode
+|    - WattCosPhiMode
+|    - DSOQSetpointProvision
+|    - DSOCosPhiSetpointProvision
+|    - DCInjectionRestriction
+|    - ZeroCurrentMode
+|    - OverVoltageFaultRideThroughMode
+|    - UnderVoltageFaultRideThroughMode
+
+.. _iso15118-DerSaeFunction:
+
+| **DerSaeFunction**: *string* 
+|  An AC_DER_SAE DER function, one bit of the DERBitMap, ISO 15118-20 AMD1 Table M.6.
+|  ChargeFunction: Charging (active power absorption).
+|  DischargeFunction: Discharging (active power injection).
+|  EnterService: Enter-service criteria gating reconnection.
+|  ConstantPowerFactorUnderExcitedFunction: Constant power factor, under-excited.
+|  ConstantPowerFactorOverExcitedFunction: Constant power factor, over-excited.
+|  ConstantReactivePowerFunction: Constant reactive power setpoint.
+|  ConstantActivePowerFunction: Constant active power setpoint.
+|  FrequencyDroopFunction: Active power response to frequency deviation.
+|  HighFrequencyMayTripFunction: Over-frequency may-trip curve.
+|  HighFrequencyMustTripFunction: Over-frequency must-trip curve.
+|  HighVoltageMayTripFunction: Overvoltage may-trip curve.
+|  HighVoltageMomentaryCessationFunction: Overvoltage momentary cessation curve.
+|  HighVoltageMustTripFunction: Overvoltage must-trip curve.
+|  LowFrequencyMayTripFunction: Under-frequency may-trip curve.
+|  LowFrequencyMustTripFunction: Under-frequency must-trip curve.
+|  LowVoltageMayTripFunction: Undervoltage may-trip curve.
+|  LowVoltageMomentaryCessationFunction: Undervoltage momentary cessation curve.
+|  LowVoltageMustTripFunction: Undervoltage must-trip curve.
+|  LimitMaximumActiveDischargePowerFunction: Limit on the maximum discharge power.
+|  EVSETargetReactivePowerFunction: Reactive power target set by the EVSE in the charge loop.
+|  EVSETargetActivePowerFunction: Active power target set by the EVSE in the charge loop.
+|  VoltVarFunction: Reactive power as a function of voltage.
+|  VoltWattFunction: Active power as a function of voltage.
+|  WattVarFunction: Reactive power as a function of active power.
+|  enum:
+|    - ChargeFunction
+|    - DischargeFunction
+|    - EnterService
+|    - ConstantPowerFactorUnderExcitedFunction
+|    - ConstantPowerFactorOverExcitedFunction
+|    - ConstantReactivePowerFunction
+|    - ConstantActivePowerFunction
+|    - FrequencyDroopFunction
+|    - HighFrequencyMayTripFunction
+|    - HighFrequencyMustTripFunction
+|    - HighVoltageMayTripFunction
+|    - HighVoltageMomentaryCessationFunction
+|    - HighVoltageMustTripFunction
+|    - LowFrequencyMayTripFunction
+|    - LowFrequencyMustTripFunction
+|    - LowVoltageMayTripFunction
+|    - LowVoltageMomentaryCessationFunction
+|    - LowVoltageMustTripFunction
+|    - LimitMaximumActiveDischargePowerFunction
+|    - EVSETargetReactivePowerFunction
+|    - EVSETargetActivePowerFunction
+|    - VoltVarFunction
+|    - VoltWattFunction
+|    - WattVarFunction
+
+.. _iso15118-DerNegotiatedFunctions:
+
+| **DerNegotiatedFunctions**: *object* 
+|  The DER control functions negotiated for the session. For AC_DER_SAE, the functions the SECC enabled that the EV supports, as the EV echoes them. For AC_DER_IEC, the demand of the parameter set the EV selected, which in the non-strict fallback can include functions the EV does not support; published from ServiceDetail only, so a resumed session keeps the paused session's value. Exactly the array of the negotiated flavor is set.
+|  properties:
+|   **flavor**: *string* <required> (:ref:`iso15118-DerFlavor <iso15118-DerFlavor>`)
+|    Which DER annex the session negotiated
+|   **iec_functions**: *array* <optional>
+|    The negotiated DER control functions (AC_DER_IEC)
+|    **array_item**: *string*  (:ref:`iso15118-DerIecFunction <iso15118-DerIecFunction>`)
+|     One negotiated DER control function
+|   **sae_functions**: *array* <optional>
+|    The negotiated DER functions (AC_DER_SAE)
+|    **array_item**: *string*  (:ref:`iso15118-DerSaeFunction <iso15118-DerSaeFunction>`)
+|     One negotiated DER function
+
+.. _iso15118-DerControlReceived:
+
+| **DerControlReceived**: *object* 
+|  Summary of each DER control block the SECC sends
+|  properties:
+|   **flavor**: *string* <required> (:ref:`iso15118-DerFlavor <iso15118-DerFlavor>`)
+|    Which DER annex the session negotiated
+|   **source**: *string* <required> (:ref:`iso15118-DerControlSource <iso15118-DerControlSource>`)
+|    Which exchange carried the block
+|   **permit_service**: *boolean* <optional>
+|    The PermitService flag of the block (AC_DER_SAE)
+|   **enabled_functions**: *array* <optional>
+|    The enabled DER functions (AC_DER_SAE): those the EV has enabled after the block, limited to the functions it supports, which it echoes in its next request. A ChargeLoop block omits the functions it does not update, and they stay as they were. A block that stops the session reports the set the EV last held. Functions a block enables that the EV does not support are named in problems.
+|    **array_item**: *string*  (:ref:`iso15118-DerSaeFunction <iso15118-DerSaeFunction>`)
+|     One enabled DER function
+|   **problems**: *array* <optional>
+|    Structural problems found in the block, and the functions it enables that the EV does not support; absent when clean (AC_DER_SAE)
+|    **array_item**: *string* 
+|     One validation problem
+|   **dso_q_setpoint**: *number* <optional>
+|    [var] DSO reactive power setpoint (AC_DER_IEC)
+|   **dso_cos_phi_setpoint**: *number* <optional>
+|    DSO cos phi setpoint (AC_DER_IEC)
 
 .. _iso15118-DcEvBPTParameters:
 
@@ -1088,3 +1244,13 @@ ISO15118 charger types
 |    Contains the EV termination code
 |   **ev_termination_explanation**: *string* <required>
 |    Contains the EV termination explanation
+
+.. _iso15118-WeldingDetectionFailure:
+
+| **WeldingDetectionFailure**: *object* 
+|  A DC welding detection that reached its response or time limit without a safe EVSE present voltage: the reported voltage stayed unsafe, or no response was accepted
+|  properties:
+|   **cycles**: *integer* <required>
+|    Number of accepted WeldingDetection responses
+|   **last_voltage_V**: *number* <optional>
+|    [V] EVSE present voltage in the last accepted WeldingDetection response; absent when none was accepted

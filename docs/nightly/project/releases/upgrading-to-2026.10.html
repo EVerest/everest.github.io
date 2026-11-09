@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Upgrading to 2026.10 - EVerest Manual main@9609f57</title>
+        <title>Upgrading to 2026.10 - EVerest Manual main@e4d44db</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@9609f57</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@e4d44db</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@9609f57</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e4d44db</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -709,22 +709,8 @@
 the same changes together with new features and fixes.</p>
 <p>Work through the sections that apply to your deployment. Then validate the
 configuration with <code class="docutils literal notranslate"><span class="pre">manager</span> <span class="pre">--check</span> <span class="pre">--config</span> <span class="pre">&lt;yaml&gt;</span></code> before the first start.</p>
-<nav class="contents local" id="on-this-page">
-<p class="topic-title">On this page</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#manager-settings-and-the-configuration-database" id="id1">Manager settings and the configuration database</a></p></li>
-<li><p><a class="reference internal" href="#manager-command-line" id="id2">Manager command line</a></p></li>
-<li><p><a class="reference internal" href="#linux-capabilities" id="id3">Linux capabilities</a></p></li>
-<li><p><a class="reference internal" href="#module-configuration" id="id4">Module configuration</a></p></li>
-<li><p><a class="reference internal" href="#replacing-deprecated-modules" id="id5">Replacing deprecated modules</a></p></li>
-<li><p><a class="reference internal" href="#iso-15118-ev-simulation" id="id6">ISO 15118 EV simulation</a></p></li>
-<li><p><a class="reference internal" href="#ocpp-2-x-component-configuration" id="id7">OCPP 2.x component configuration</a></p></li>
-<li><p><a class="reference internal" href="#building-and-packaging" id="id8">Building and packaging</a></p></li>
-<li><p><a class="reference internal" href="#everest-apis" id="id9">EVerest APIs</a></p></li>
-</ul>
-</nav>
 <section id="manager-settings-and-the-configuration-database">
-<span id="project-upgrading-to-2026-10-manager-settings"></span><h2><a class="toc-backref" href="#id1" role="doc-backlink">Manager settings and the configuration database</a><a class="headerlink" href="#manager-settings-and-the-configuration-database" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-manager-settings"></span><h2>Manager settings and the configuration database<a class="headerlink" href="#manager-settings-and-the-configuration-database" title="Link to this heading">¶</a></h2>
 <p>Schema migration 4 of the configuration database drops the <code class="docutils literal notranslate"><span class="pre">SETTING</span></code> table.
 The database holds module configurations only; manager settings (installation
 paths, MQTT broker and prefixes, telemetry, schema validation and exception
@@ -757,7 +743,7 @@ together with the <code class="docutils literal notranslate"><span class="pre">.
 <p>See <a class="reference internal" href="../../reference/manager-cli.html#reference-manager-cli"><span class="std std-ref">Manager Command Line Options</span></a> and <a class="reference internal" href="../../explanation/configuration-service.html#exp-configuration-service"><span class="std std-ref">EVerest Configuration Service</span></a>.</p>
 </section>
 <section id="manager-command-line">
-<span id="project-upgrading-to-2026-10-manager-cli"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink">Manager command line</a><a class="headerlink" href="#manager-command-line" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-manager-cli"></span><h2>Manager command line<a class="headerlink" href="#manager-command-line" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Options must be spelled in full. Abbreviated spellings no longer parse.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--conf</span></code> is a deprecated alias of <code class="docutils literal notranslate"><span class="pre">--config</span></code> and cannot be combined
@@ -771,7 +757,7 @@ configuration.</p></li>
 </ul>
 </section>
 <section id="linux-capabilities">
-<span id="project-upgrading-to-2026-10-capabilities"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Linux capabilities</a><a class="headerlink" href="#linux-capabilities" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-capabilities"></span><h2>Linux capabilities<a class="headerlink" href="#linux-capabilities" title="Link to this heading">¶</a></h2>
 <p>The manager no longer grants Linux capabilities to modules. The
 <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> key of a module entry in the configuration file is ignored
 and logs a warning. This change did not go through a deprecation period and is
@@ -792,7 +778,7 @@ directories to 0700. Run modules that read key files, such as the OCPP and
 ISO 15118 modules, as the same user as EvseSecurity.</p>
 </section>
 <section id="module-configuration">
-<span id="project-upgrading-to-2026-10-configuration"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Module configuration</a><a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-configuration"></span><h2>Module configuration<a class="headerlink" href="#module-configuration" title="Link to this heading">¶</a></h2>
 <p>The following configuration values fail validation or change meaning:</p>
 <div class="table-wrapper colwidths-given docutils container">
 <table class="docutils align-default">
@@ -834,7 +820,7 @@ Delete it.</p></td>
 anything other than <code class="docutils literal notranslate"><span class="pre">generic/VendorWarning</span></code> makes the EVSE Inoperative.</p>
 </section>
 <section id="replacing-deprecated-modules">
-<span id="project-upgrading-to-2026-10-module-switches"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">Replacing deprecated modules</a><a class="headerlink" href="#replacing-deprecated-modules" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-module-switches"></span><h2>Replacing deprecated modules<a class="headerlink" href="#replacing-deprecated-modules" title="Link to this heading">¶</a></h2>
 <p>Two module families are deprecated in 2026.10.0 and may be removed in
 2027.04.0:</p>
 <ul class="simple">
@@ -853,7 +839,7 @@ over to the successor module. <a class="reference internal" href="../../how-to-g
 what to do for each storage mode.</p>
 </section>
 <section id="iso-15118-ev-simulation">
-<span id="project-upgrading-to-2026-10-iso15118-ev"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">ISO 15118 EV simulation</a><a class="headerlink" href="#iso-15118-ev-simulation" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-iso15118-ev"></span><h2>ISO 15118 EV simulation<a class="headerlink" href="#iso-15118-ev-simulation" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">PyEvJosev</span></code> is removed and replaced by
 <a class="reference internal" href="../../reference/modules/EV/Ev15118/autogenerated.html#everest-modules-ev15118"><span class="std std-ref">Ev15118</span></a>, the EV side of the C++ ISO 15118
 stack. Change <code class="docutils literal notranslate"><span class="pre">module:</span> <span class="pre">PyEvJosev</span></code> to <code class="docutils literal notranslate"><span class="pre">module:</span> <span class="pre">Ev15118</span></code> and map the
@@ -885,7 +871,7 @@ measures.</p></li>
 </ul>
 </section>
 <section id="ocpp-2-x-component-configuration">
-<span id="project-upgrading-to-2026-10-ocpp"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">OCPP 2.x component configuration</a><a class="headerlink" href="#ocpp-2-x-component-configuration" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-ocpp"></span><h2>OCPP 2.x component configuration<a class="headerlink" href="#ocpp-2-x-component-configuration" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">InternalCtrlr.ChargePointId</span></code> and <code class="docutils literal notranslate"><span class="pre">InternalCtrlr.NumberOfConnectors</span></code>
 are removed from the component configuration, and existing device-model
@@ -912,7 +898,7 @@ longer stored.</p></li>
 </ul>
 </section>
 <section id="building-and-packaging">
-<span id="project-upgrading-to-2026-10-build"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Building and packaging</a><a class="headerlink" href="#building-and-packaging" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-build"></span><h2>Building and packaging<a class="headerlink" href="#building-and-packaging" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>EVerest builds from the repository root only. It installs the CMake
 packages <code class="docutils literal notranslate"><span class="pre">everest-base</span></code>, <code class="docutils literal notranslate"><span class="pre">everest-iso15118</span></code>, <code class="docutils literal notranslate"><span class="pre">everest-ocpp</span></code> and
@@ -961,7 +947,7 @@ section for the service and the Mosquitto setup.</p>
 </section>
 </section>
 <section id="everest-apis">
-<span id="project-upgrading-to-2026-10-apis"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">EVerest APIs</a><a class="headerlink" href="#everest-apis" title="Link to this heading">¶</a></h2>
+<span id="project-upgrading-to-2026-10-apis"></span><h2>EVerest APIs<a class="headerlink" href="#everest-apis" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">evse_board_support</span></code> (all BSP drivers, <code class="docutils literal notranslate"><span class="pre">evse_board_support_API</span></code> included):
 EvseManager requests state X1 only with <code class="docutils literal notranslate"><span class="pre">cp_state_X1</span></code>. Until 2026.10 most
@@ -1102,7 +1088,7 @@ strings are affected.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=02c1413d"></script>
+</div><script src="../../_static/documentation_options.js?v=10f7e7e9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

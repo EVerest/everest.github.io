@@ -107,7 +107,7 @@ Module Configuration
 |  The timeout in milliseconds for a HTTP command to the LEM power meter.
 | **poll_interval_ms**: *integer* <optional>
 | *default: 1000*
-|  The interval in milliseconds between polls of the live measurements (publish rate of the powermeter var).
+|  The interval in milliseconds between polls of the live measurements. Only a poll that returns a new measurement publishes the powermeter var; the device refreshes about once per second, so a shorter interval reduces the delay until a new measurement is published, not the measurement rate.
 | **transaction_ocmf_fetch_interval_s**: *integer* <optional>
 | *default: 0*
 |  While a transaction is active, the current OCMF record is periodically fetched from the device as a fallback, so a signed meter value is available even if the device becomes unreachable at transaction stop. This option throttles that fetch to at most once every N seconds. The default of 0 fetches on every poll (previous behavior).

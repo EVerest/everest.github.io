@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>LemDCBM400600 - EVerest Manual main@79bac75</title>
+        <title>LemDCBM400600 - EVerest Manual main@a3a4c3b</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@79bac75</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@a3a4c3b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@79bac75</span>
+  <span class="sidebar-brand-text">EVerest Manual main@a3a4c3b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -723,15 +723,24 @@ during the module’s “ready” thread loop), cf. also the notes on time synch
 </section>
 <section id="variable-powermeter">
 <h4>Variable Powermeter<a class="headerlink" href="#variable-powermeter" title="Link to this heading">¶</a></h4>
-<p>Publication of the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> var is done with an approx. frequency of 1/second by default; the interval is
-configurable via the <code class="docutils literal notranslate"><span class="pre">poll_interval_ms</span></code> config option. This fetches the current <code class="docutils literal notranslate"><span class="pre">livemeasure</span></code>
-values from the device’s <code class="docutils literal notranslate"><span class="pre">/v1/livemeasure</span></code> endpoint and injects the meter id as determined at initialization.</p>
+<p>The live measurements are polled about once per second by default; the interval is configurable via the
+<code class="docutils literal notranslate"><span class="pre">poll_interval_ms</span></code> config option. Each poll fetches the current <code class="docutils literal notranslate"><span class="pre">livemeasure</span></code> values from the device’s
+<code class="docutils literal notranslate"><span class="pre">/v1/livemeasure</span></code> endpoint and injects the meter id as determined at initialization.</p>
+<p>The device refreshes its live measurements about once per second, whatever the poll interval. A poll that returns
+the same dataset as the last publication (same device timestamp and values) is not published again, so every
+publication of the <code class="docutils literal notranslate"><span class="pre">powermeter</span></code> var is a new measurement. Consumers rely on that: EvseManager confirms the DC
+output disabled after two measurements below 5 A, and the HLC stacks answer a WeldingDetectionReq with the second
+measurement received after it (IEC 61851-23:2023 CC.6.3). With a poll interval well below the refresh rate, e.g.
+200 ms, a new measurement reaches the consumers within about one poll interval of the refresh; with the default
+1000 ms it can be almost one second late. The measurement itself is still up to about one second old when the device
+refreshes it, so the meter cannot meet the 200 ms measurement-to-communication time of IEC 61851-23 CC.6.3.</p>
 <p>The poll loop runs at a fixed rate: the time spent performing the requests is subtracted from the wait before the
-next poll, so the interval between two publications stays at <code class="docutils literal notranslate"><span class="pre">poll_interval_ms</span></code> instead of growing with the
-latency of the device. This matters because consumers watch this stream for gaps - EvseManager, for instance, aborts
+next poll, so the interval between two polls stays at <code class="docutils literal notranslate"><span class="pre">poll_interval_ms</span></code> instead of growing with the latency of
+the device. This matters because consumers watch the publication stream for gaps - EvseManager, for instance, aborts
 a DC cable check if it sees no power supply measurement for two seconds. If a gap of more than 1.5 times the
-configured interval does occur, a warning is logged with the measured gap and the duration of the live measurement
-request, so a slow device or network can be identified from the logs.</p>
+configured interval does occur between two polls, a warning is logged with the measured gap and the duration of the
+live measurement request, so a slow device or network can be identified from the logs. A device that reports the
+same live measurement for more than two seconds is reported once as well.</p>
 <p>While a transaction is active, the current OCMF record is additionally fetched as a fallback so that a signed meter
 value is available even if the device becomes unreachable at transaction stop. This fetch is performed <em>after</em> the
 live measurements have been published, so that its round trip is not added to the gap between two publications. By
@@ -1023,7 +1032,7 @@ in general is considered vulnerable.</p>
 <div class="line"><strong>poll_interval_ms</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 1000</em></div>
 <div class="line-block">
-<div class="line">The interval in milliseconds between polls of the live measurements (publish rate of the powermeter var).</div>
+<div class="line">The interval in milliseconds between polls of the live measurements. Only a poll that returns a new measurement publishes the powermeter var; the device refreshes about once per second, so a shorter interval reduces the delay until a new measurement is published, not the measurement rate.</div>
 </div>
 <div class="line"><strong>transaction_ocmf_fetch_interval_s</strong>: <em>integer</em> &lt;optional&gt;</div>
 <div class="line"><em>default: 0</em></div>
@@ -1174,7 +1183,7 @@ in general is considered vulnerable.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=896d0c89"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=22f2dc0c"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

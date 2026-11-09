@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@79bac75</title>
+        <title>EvseManager - EVerest Manual main@a3a4c3b</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@79bac75</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@a3a4c3b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@79bac75</span>
+  <span class="sidebar-brand-text">EVerest Manual main@a3a4c3b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -803,6 +803,58 @@ CableCheck, PreCharge and CurrentDemand steps.</p></li>
 <code class="docutils literal notranslate"><span class="pre">internal_over_voltage_duration_ms</span></code> defines for how long the measured DC voltage
 must exceed the negotiated limit before EvseManager raises <code class="docutils literal notranslate"><span class="pre">MREC5OverVoltage</span></code>.
 Set it to <code class="docutils literal notranslate"><span class="pre">0</span></code> to trigger immediately once the threshold is crossed.</p>
+<section id="welding-detection-voltage">
+<h5>Welding detection voltage<a class="headerlink" href="#welding-detection-voltage" title="Link to this heading">¶</a></h5>
+<p>During welding detection the EV checks its contactors against the voltage the EVSE reports in
+<code class="docutils literal notranslate"><span class="pre">WeldingDetectionRes</span></code>. That has to be the side B voltage at the vehicle connector, measured with the
+EVSE contactors open, within 10 V (IEC 61851-23:2023 CC.6.3, test CC.7.6.17). A power supply measuring
+at its own output, behind the contactors, does not see it. The same holds for any meter or monitor
+wired between the power supply and the contactors: choose the source that is physically connected on
+the EV side of the EVSE output contactors, otherwise the EV is told the power supply output instead of
+the voltage at its connector.</p>
+<p>On the DC stop request the ISO module publishes <code class="docutils literal notranslate"><span class="pre">dc_open_contactor</span></code>: EvseManager switches the DC
+power supply off and withdraws the power permissive, and the board support reports the open contactor
+(<code class="docutils literal notranslate"><span class="pre">PowerOff</span></code>), which EvseManager forwards as <code class="docutils literal notranslate"><span class="pre">contactor_closed(false)</span></code>. The ISO module holds the
+PowerDeliveryRes until then, so that side B is disabled before the EV learns of it (IEC 61851-23:2023
+Table CC.9, t103 before t104), for at most 3 s on ISO 15118-2 and 1.4 s on DIN SPEC 70121 and
+ISO 15118-20; without the report it sends the response after that and logs a warning.</p>
+<p>The ISO module reports the phase with <code class="docutils literal notranslate"><span class="pre">welding_detection</span></code>: <code class="docutils literal notranslate"><span class="pre">Started</span></code> at PowerDelivery(Stop),
+<code class="docutils literal notranslate"><span class="pre">Finished</span></code> at SessionStop or session teardown. In between, EvseManager reports the voltage of the
+source selected by <code class="docutils literal notranslate"><span class="pre">welding_detection_voltage_source</span></code> instead of the power supply measurement:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermeter_car_side</span></code> (default): <code class="docutils literal notranslate"><span class="pre">voltage_V.DC</span></code> of the car side power meter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">over_voltage_monitor</span></code>: <code class="docutils literal notranslate"><span class="pre">voltage_measurement_V</span></code> of the over voltage monitor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isolation_monitor</span></code>: <code class="docutils literal notranslate"><span class="pre">voltage_V</span></code> of the isolation monitor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">power_supply</span></code>: the power supply measurement, as outside welding detection.</p></li>
+</ul>
+<p>If the selected source is not connected, the next connected one in the order <code class="docutils literal notranslate"><span class="pre">powermeter_car_side</span></code>,
+<code class="docutils literal notranslate"><span class="pre">over_voltage_monitor</span></code>, <code class="docutils literal notranslate"><span class="pre">power_supply</span></code> is used and a warning is printed at start up. The isolation
+monitor is only used when configured. The power supply is always available.</p>
+<p>The over voltage monitor and the isolation monitor are normally stopped when the power path opens.
+If one of them is the source, that stop is deferred until the welding detection phase ends, and
+isolation faults are not evaluated meanwhile. <code class="docutils literal notranslate"><span class="pre">Started</span></code> arrives on its own topic and may follow the
+power path events; if no phase has started 2 s after they deferred the stop, the source is stopped. Note that IEC 61851-23:2023 Table CC.9 t103 asks for the
+EVSE IMD to be disabled when side B is disabled, and the EV may enable its own IMD (t104): use
+<code class="docutils literal notranslate"><span class="pre">isolation_monitor</span></code> only with an IMD that can measure the voltage without its insulation test.</p>
+<p>The ISO module holds every <code class="docutils literal notranslate"><span class="pre">WeldingDetectionRes</span></code> until two samples of the selected source arrived
+after its request, for at most 1.4 s (1.5 s performance time), so that the reported voltage was
+measured after the request: the EV opens its contactors only after the PowerDeliveryRes and may switch
+them between two requests (CC.6.3, Table CC.9 t105 to t106). Two samples because the first one after
+the request can still have been taken just before it, a polled meter delivers a sample up to one poll
+interval after taking it. With one sample at the deadline the response carries it (logged as info),
+with none it carries the last present voltage (warning). Every publication of the source must be a new
+measurement, so a driver that polls a meter must not republish an unchanged sample (LemDCBM400600
+does not). The source should publish at 5 Hz or more (CC.6.3: at most 200 ms from measurement to
+communication); EvseManager warns once per session if it updates less often than every second. A
+meter that refreshes once per second, as the LEM DCBM 400/600 does whatever its poll interval, cannot
+meet that, and its value in the response can be up to about a second old. If <code class="docutils literal notranslate"><span class="pre">Finished</span></code> never
+arrives, the phase also ends on D-LINK events, a failed HLC session, the next cable check or charge
+loop, unplug, or 20 s after it started (CC.9 t104 to t107).</p>
+<p>An EVSE-initiated stop ends the powermeter transaction as soon as the contactors are open. Stopping a
+transaction blocks the LEM DCBM 400/600 for seconds while it signs the OCMF record, during which it
+publishes no voltage, so EvseManager delays the <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> until the welding detection phase
+has ended (or the EV unplugged). An EV-initiated stop keeps the transaction open until unplug anyway.</p>
+</section>
 </section>
 </section>
 <section id="published-variables">
@@ -1895,6 +1947,18 @@ error influences the type of the shutdown. Emergency shutdowns are caused by err
 <div class="line-block">
 <div class="line">Adds an offset [A] to the present current reported to the car on HLC. Set to 0 unless you really know what you are doing.</div>
 </div>
+<div class="line"><strong>welding_detection_voltage_source</strong>: <em>string</em> &lt;optional&gt;</div>
+<div class="line"><em>default: “powermeter_car_side”</em></div>
+<div class="line-block">
+<div class="line">Voltage measurement reported to the EV as EVSE present voltage during DC welding detection, from PowerDelivery(Stop) until SessionStop. It has to be the side B voltage at the vehicle connector with the EVSE contactors open (IEC 61851-23:2023 CC.7.6.17), so the selected source must measure on the EV side of the EVSE output contactors; a meter or monitor between the power supply and the contactors, like the power supply itself, sees only the power supply output once the contactors are open. If the selected source is not connected, the next connected one in the order powermeter_car_side, over_voltage_monitor, power_supply is used and a warning is printed; isolation_monitor is only used when configured. Outside welding detection the power supply measurement is always reported. The over voltage monitor and the isolation monitor keep running until welding detection ends. For the isolation monitor this deviates from IEC 61851-23:2023 Table CC.9 t103, which requires the EVSE IMD to be disabled when side B is disabled, and the EV may enable its own IMD (t104): only use it with an IMD that measures the voltage without its insulation test.</div>
+<div class="line">enum:</div>
+<div class="line-block">
+<div class="line">- powermeter_car_side</div>
+<div class="line">- over_voltage_monitor</div>
+<div class="line">- isolation_monitor</div>
+<div class="line">- power_supply</div>
+</div>
+</div>
 <div class="line"><strong>hack_pause_imd_during_precharge</strong>: <em>boolean</em> &lt;optional&gt;</div>
 <div class="line"><em>default: False</em></div>
 <div class="line-block">
@@ -2296,7 +2360,10 @@ error influences the type of the shutdown. Emergency shutdowns are caused by err
 <li><a class="reference internal" href="#captive-cable-mode">Captive cable mode</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#dc-configuration">DC Configuration</a></li>
+<li><a class="reference internal" href="#dc-configuration">DC Configuration</a><ul>
+<li><a class="reference internal" href="#welding-detection-voltage">Welding detection voltage</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#published-variables">Published variables</a><ul>
@@ -2359,7 +2426,7 @@ error influences the type of the shutdown. Emergency shutdowns are caused by err
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=896d0c89"></script>
+</div><script src="../../../../_static/documentation_options.js?v=22f2dc0c"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -38,6 +38,8 @@ Variables
 |  The charging process has started and the EV wants to be charged
 | **current_demand_finished**: *null* 
 |  The charging process was finished
+| **welding_detection**: *string*  (:ref:`iso15118-WeldingDetectionPhase <iso15118-WeldingDetectionPhase>`)
+|  DC only. Started is published when the EV switches the power path off (PowerDelivery Stop), Finished when the welding detection phase ends (SessionStop, renegotiation or session teardown). Started is published even if the EV performs no welding detection; Finished always follows.
 | **sae_bidi_mode_active**: *null* 
 |  The SAE J2847 bidi mode is active
 | **evcc_id**: *string* 
@@ -156,8 +158,8 @@ Commands
 |   Authorization status of the ID Token
 |  **certificate_status**: *string* <required> (:ref:`authorization-CertificateStatus <authorization-CertificateStatus>`)
 |   Certificate status information
-| **ac_contactor_closed**: *void*
-|  This message is an async response to a previously published ac_close_contactor or ac_open_contactor.
+| **contactor_closed**: *void*
+|  This message is an async response to a previously published ac_close_contactor, ac_open_contactor or dc_open_contactor. It reports the contactor state the board support measured. On a DC stop the HLC stack holds back the PowerDeliveryRes until the contactor is reported open, so that side B is disabled before the response [IEC 61851-23:2023 Table CC.9 t103, t104].
 |  **status**: *boolean* <required>
 |   Set to true when contactor is closed, false when contactor is open
 | **cp_state_changed**: *void*
@@ -237,7 +239,7 @@ Commands
 |  **isolation_status**: *string* <required> (:ref:`iso15118-IsolationStatus <iso15118-IsolationStatus>`)
 |   Result of the isolation monitoring
 | **update_dc_present_values**: *void*
-|  Update the present values from the DC powersupply
+|  Update the present values from the DC powersupply. Call it for every new measurement, also when the values did not change: during welding detection the HLC stack holds each WeldingDetectionRes until two values marked welding_detection arrived after the request, so that the reported voltage was measured after it [IEC 61851-23:2023 CC.6.3].
 |  **present_voltage_current**: *object* <required> (:ref:`iso15118-DcEvsePresentVoltageCurrent <iso15118-DcEvsePresentVoltageCurrent>`)
 |   Present voltage and current
 | **update_meter_info**: *void*

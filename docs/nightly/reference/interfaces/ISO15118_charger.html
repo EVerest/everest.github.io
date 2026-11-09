@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>ISO15118_charger - EVerest Manual main@79bac75</title>
+        <title>ISO15118_charger - EVerest Manual main@a3a4c3b</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@79bac75</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@a3a4c3b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@79bac75</span>
+  <span class="sidebar-brand-text">EVerest Manual main@a3a4c3b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -757,6 +757,10 @@
 <div class="line-block">
 <div class="line">The charging process was finished</div>
 </div>
+<div class="line"><strong>welding_detection</strong>: <em>string</em>  (<a class="reference internal" href="../types/iso15118.html#iso15118-weldingdetectionphase"><span class="std std-ref">iso15118-WeldingDetectionPhase</span></a>)</div>
+<div class="line-block">
+<div class="line">DC only. Started is published when the EV switches the power path off (PowerDelivery Stop), Finished when the welding detection phase ends (SessionStop, renegotiation or session teardown). Started is published even if the EV performs no welding detection; Finished always follows.</div>
+</div>
 <div class="line"><strong>sae_bidi_mode_active</strong>: <em>null</em></div>
 <div class="line-block">
 <div class="line">The SAE J2847 bidi mode is active</div>
@@ -988,9 +992,9 @@
 <div class="line">Certificate status information</div>
 </div>
 </div>
-<div class="line"><strong>ac_contactor_closed</strong>: <em>void</em></div>
+<div class="line"><strong>contactor_closed</strong>: <em>void</em></div>
 <div class="line-block">
-<div class="line">This message is an async response to a previously published ac_close_contactor or ac_open_contactor.</div>
+<div class="line">This message is an async response to a previously published ac_close_contactor, ac_open_contactor or dc_open_contactor. It reports the contactor state the board support measured. On a DC stop the HLC stack holds back the PowerDeliveryRes until the contactor is reported open, so that side B is disabled before the response [IEC 61851-23:2023 Table CC.9 t103, t104].</div>
 <div class="line"><strong>status</strong>: <em>boolean</em> &lt;required&gt;</div>
 <div class="line-block">
 <div class="line">Set to true when contactor is closed, false when contactor is open</div>
@@ -1150,7 +1154,7 @@
 </div>
 <div class="line"><strong>update_dc_present_values</strong>: <em>void</em></div>
 <div class="line-block">
-<div class="line">Update the present values from the DC powersupply</div>
+<div class="line">Update the present values from the DC powersupply. Call it for every new measurement, also when the values did not change: during welding detection the HLC stack holds each WeldingDetectionRes until two values marked welding_detection arrived after the request, so that the reported voltage was measured after it [IEC 61851-23:2023 CC.6.3].</div>
 <div class="line"><strong>present_voltage_current</strong>: <em>object</em> &lt;required&gt; (<a class="reference internal" href="../types/iso15118.html#iso15118-dcevsepresentvoltagecurrent"><span class="std std-ref">iso15118-DcEvsePresentVoltageCurrent</span></a>)</div>
 <div class="line-block">
 <div class="line">Present voltage and current</div>
@@ -1261,7 +1265,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=896d0c89"></script>
+</div><script src="../../_static/documentation_options.js?v=22f2dc0c"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

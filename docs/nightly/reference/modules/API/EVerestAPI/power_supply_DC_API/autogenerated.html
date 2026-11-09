@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>power_supply_DC_API - EVerest Manual main@e4d44db</title>
+        <title>power_supply_DC_API - EVerest Manual main@6e5cb7b</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@e4d44db</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@6e5cb7b</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@e4d44db</span>
+  <span class="sidebar-brand-text">EVerest Manual main@6e5cb7b</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -711,6 +711,16 @@
 <span class="target" id="everest-modules-handwritten-power-supply-dc-api"></span><p>The complete API specification can be found in the</p>
 <p><code class="docutils literal notranslate"><span class="pre">docs/source/reference/EVerest_API/power_supply_DC_API.yaml</span></code></p>
 <p>file in the source repository, or in the <a class="reference external" href="../../../../api/power_supply_DC_API/index.html">AsyncAPI HTML documentation</a> automatically generated from it.</p>
+<section id="setpoints-below-the-minimum-current">
+<h3>Setpoints below the minimum current<a class="headerlink" href="#setpoints-below-the-minimum-current" title="Link to this heading">¶</a></h3>
+<p>When the EV or an energy limit asks for less than the minimum current offered
+to the EV, EVerest sends a current below <code class="docutils literal notranslate"><span class="pre">min_export_current_A</span></code> or
+<code class="docutils literal notranslate"><span class="pre">min_import_current_A</span></code>, usually 0 A. This means: deliver no current (0 A,
++/- 0.15 A, IEC 61851-23:2023 CC.5.5.2). Do not raise it to the minimum. If the
+hardware cannot regulate to 0 A, switch its output off, keep the mode, and switch
+it on again when a current at or above the minimum is requested.
+During cable check and precharge, EVerest never sends less than the minimum.</p>
+</section>
 </section>
 <section id="auto-generated-reference">
 <h2>Auto-Generated Reference<a class="headerlink" href="#auto-generated-reference" title="Link to this heading">¶</a></h2>
@@ -815,7 +825,10 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">power_supply_DC_API</a><ul>
-<li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a></li>
+<li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
+<li><a class="reference internal" href="#setpoints-below-the-minimum-current">Setpoints below the minimum current</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
 <li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
 <li><a class="reference internal" href="#provides">Provides</a></li>
@@ -837,7 +850,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=10f7e7e9"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=862c137e"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

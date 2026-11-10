@@ -18,8 +18,8 @@ Let's start with the EVerest configuration file. If you haven't read
 now it's the right time to do it before you go on!
 
 It's a good idea to start with a base of a configuration file and talk about the changes required to enable
-Plug&Charge. The base config we use is the "config-sil-ocpp201.yaml", which already contains the configuration
-for OCPP2.x.
+Plug&Charge. The base config we use is the "config-sil-ocpp-multi.yaml", which uses the recommended
+OCPPmulti module, which supports OCPP 1.6 and OCPP 2.x.
 
 Module Configurations
 ---------------------
@@ -27,7 +27,7 @@ Module Configurations
 We need to take a closer look at the configuration of the following modules:
 
 * EvseManager
-* EvseV2G
+* Evse15118D20
 * Auth
 * EvseSecurity
 
@@ -36,12 +36,20 @@ EvseManager
 
 * In case of AC, make sure that `ac_hlc_enabled` is set to `true` in order to allow ISO15118 communication.
 * Make sure `payment_enable_contract` is set to `true`.
+* Set `central_contract_validation_allowed` to `true` if the CSMS validates the contract and no MO root
+  certificates are installed on the charger; otherwise install the MO root certificates (the contract
+  chain is always validated locally first).
 
-EvseV2G
-~~~~~~~~~~~
+Evse15118D20
+~~~~~~~~~~~~
 
-* Make sure `tls_security` is set to `allow` or `force`.
-* Make sure `verify_contract_cert_chain` is set to `true`.
+* Make sure `tls_negotiation_strategy` is set to `ACCEPT_CLIENT_OFFER` or `ENFORCE_TLS`.
+* Make sure `supported_ISO15118_2` is set to `true` (and `supported_ISO15118_20` for ISO 15118-20
+  Plug&Charge, which additionally needs a `V2G20` SECC leaf certificate).
+
+The deprecated EvseV2G module needs `tls_security` set to `allow` or `force` and
+`verify_contract_cert_chain` set to `true` instead; see the
+:ref:`migration guide <howto-iso15118-stack-migration>`.
 
 Auth
 ~~~~~~~~~~~
@@ -61,8 +69,11 @@ for information on the ISO15118 configuration. It describes how to configure the
 OCPP 1.6 and OCPP 2.x configuration
 -----------------------------------
 
-For a general introduction to how to configure OCPP in EVerest, please refer to :ref:`the OCPP1.6 tutorial <tutorial-ocpp16>`
-or :ref:`the OCPP2.x tutorial <tutorial-ocpp2>`.
+For a general introduction to how to configure OCPP in EVerest, please refer to
+:ref:`the combined-module tutorial <tutorial-ocpp-combined>` (recommended). For the deprecated
+single-version modules, see :ref:`the OCPP1.6 tutorial <tutorial-ocpp16>` or
+:ref:`the OCPP2.x tutorial <tutorial-ocpp2>`. The configuration keys below are
+protocol-level and apply to OCPPmulti and the deprecated modules alike.
 
 Since Plug&Charge has been backported from OCPP 2.x to OCPP 1.6, the
 configuration options to control the process are mostly identical.

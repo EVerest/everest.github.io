@@ -8,12 +8,31 @@ Example
 | Simple example module written in C++
 
 
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
 
 ************************
 Auto-Generated Reference
 ************************
 
 
+Module Configuration
+====================
+| **log_interval**: *integer* <optional>
+| *default: 10*
+|  A logging interval
+|  mutability:ReadWrite
+| **enum_test**: *string* <optional>
+| *default: "one"*
+|  A config value that tests the enum type on the module level
+|  enum:
+|    - one
+|    - two
+|    - three
+|  mutability:ReadWrite
 
 Provides
 ========
@@ -22,18 +41,25 @@ Provides
 |  **config:**
 |   **current**: *number* <required>
 |    The current the physical connector can supply
+|    mutability:ReadWrite
 |   **enum_test**: *string* <required>
 |    A config value that tests the enum type
 |    enum:
 |      - one
 |      - two
 |      - three
+|    mutability:ReadWrite
 |   **enum_test2**: *integer* <required>
 |    Another config value that tests the enum type
 |    enum:
 |      - 1
 |      - 2
 |      - 3
+|    mutability:ReadWrite
+|   **read_only**: *integer* <optional>
+|   *default: 1*
+|    A read-only config option
+|    mutability:ReadOnly
 | **store**: :ref:`kvs <everest_interfaces_kvs>`
 |  This implements the kvs interface, mostly for testing multiple interfaces in one manifest
 

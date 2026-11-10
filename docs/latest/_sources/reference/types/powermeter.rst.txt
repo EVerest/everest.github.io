@@ -41,7 +41,7 @@ Powermeter types
 |   **identification_data**: *string* <optional>
 |    OCMF Identification Data (ID): The actual identification data e.g. a hex-coded UID according to ISO 14443.
 |   **tariff_text**: *string* <optional>
-|    A textual description used to identify a unique tariff.  This field is intended for the tariff designation in "Direct Payment" use case.
+|    A textual description used to identify a unique tariff. This field is intended for the tariff designation in "Direct Payment" use case.
 
 .. _powermeter-TransactionRequestStatus:
 
@@ -67,6 +67,8 @@ Powermeter types
 |   **transaction_max_stop_time**: *string* <optional>
 |    Deadline for the transaction to be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.
 |    format:date-time
+|   **signed_meter_value**: *object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    The signed meter value report for start of transaction. Only set if the meter provides separate values for start and stop.
 
 .. _powermeter-TransactionStopResponse:
 
@@ -78,7 +80,7 @@ Powermeter types
 |   **start_signed_meter_value**: *object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
 |    The signed meter value report for start of transaction. Needs to be filled if meter provides separate values for start and stop.
 |   **signed_meter_value**: *object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
-|    The signed meter value report of the stopped transaction. Must be provided if status is OK.
+|    The signed meter value report of the stopped transaction. Must be provided if status is OK and a specific transaction was stopped; it is absent when an empty transaction id cancelled all transactions. A meter that does not sign transactions replies NOT_SUPPORTED.
 |   **error**: *string* <optional>
 |    If status is not OK, a verbose error message.
 

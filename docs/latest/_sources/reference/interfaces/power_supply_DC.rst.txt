@@ -29,6 +29,11 @@ power_supply_DC
 | 
 | 4) var voltage_current shall be published on regular intervals. The interval depends on the hardware, but it shall be at least once per second. If possible,
 |    update at e.g. 4 Hertz is recommended.
+| 
+| 5) A current below the reported minimum current (min_export_current_A / min_import_current_A) in setExportVoltageCurrent or
+|    setImportVoltageCurrent, including 0 A, requests 0 A mode as defined in IEC 61851-23:2023 CC.5.5.2: the current at the output shall be
+|    kept within -0.15 A and 0.15 A. Do not raise such a current to the minimum. If the hardware cannot regulate to 0 A, switch the
+|    converter output off while keeping the mode, and switch it back on once a current at or above the minimum is set.
 
 
 *********
@@ -55,13 +60,13 @@ Commands
 |  **voltage**: *number* <required>
 |   Output voltage in Volt
 |  **current**: *number* <required>
-|   Output current limit in Ampere
+|   Output current limit in Ampere. Below min_export_current_A, the power supply delivers no current (see implementation guideline 5).
 | **setImportVoltageCurrent**: *void*
 |  Set minimal import voltage and current limit.  Must be within reported limits.
 |  **voltage**: *number* <required>
 |   Current will be drawn if input is above this voltage (in Volt)
 |  **current**: *number* <required>
-|   Input current limit in Ampere
+|   Input current limit in Ampere. Below min_import_current_A, the power supply draws no current (see implementation guideline 5).
 
 ******
 Errors

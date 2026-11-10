@@ -1,0 +1,158 @@
+:orphan:
+
+
+.. _everest_types_session_storage:
+
+
+###############
+session_storage
+###############
+
+Types for persistently stored session records
+
+.. _session_storage-SessionState:
+
+| **SessionState**: *string* 
+|  Lifecycle state of a stored session record
+|    Open: The session is ongoing.
+|    Finished: The session finished. Sessions with a running transaction that were interrupted by a power cycle are also closed by the module during recovery on the next boot, in which case the transaction carries stop reason PowerLoss and the session stop timestamp is the time of the recovery.
+|    Stale: The session never finished and never will. A newer session was started on the same EVSE while this record was still Open, which means tracking of this one was lost, for example in a crash or a power cycle during a session without a running transaction.
+|  enum:
+|    - Open
+|    - Finished
+|    - Stale
+
+.. _session_storage-Transaction:
+
+| **Transaction**: *object* 
+|  The transaction charged within a session. It starts at the point where all preconditions for charging are met and finishes when one of them irrevocably becomes false, so the fields that are only known at the end of a transaction are absent while it is running.
+|  properties:
+|   **timestamp_start**: *string* <required>
+|    Time the transaction started, in RFC3339 format
+|    format:date-time
+|   **timestamp_stop**: *string* <optional>
+|    Time the transaction finished, in RFC3339 format. Absent while the transaction is still running.
+|    format:date-time
+|   **energy_Wh_import_start**: *number* <required>
+|    Total imported energy reading taken when the transaction started, in Wh
+|   **energy_Wh_import_stop**: *number* <optional>
+|    Total imported energy reading taken when the transaction finished, in Wh. Absent while the transaction is still running.
+|   **id_token_hash**: *string* <optional>
+|    Hash of the id token that started the transaction. The raw token is never stored as a dedicated field, but note that a stored signed meter value embeds it (OCMF ID field). Computed as the lower case hex encoded SHA256 digest of the id token type concatenated with the id token value, matching the hash the OCPP stack uses for its authorization cache, so a hash computed elsewhere in the stack can be compared to this one directly. Absent only if the digest could not be calculated.
+|   **id_token_type**: *string* <optional> (:ref:`authorization-IdTokenType <authorization-IdTokenType>`)
+|    Type of the id token that started the transaction. Part of the input to id_token_hash, so it is needed to reproduce the hash.
+|   **authorization_type**: *string* <optional> (:ref:`authorization-AuthorizationType <authorization-AuthorizationType>`)
+|    How the id token was presented, i.e. which authorization mechanism started this transaction
+|   **stop_reason**: *string* <optional> (:ref:`evse_manager-StopTransactionReason <evse_manager-StopTransactionReason>`)
+|    Why the transaction was stopped. Absent while the transaction is still running. A transaction that was interrupted by a power cycle and recovered on the next boot carries PowerLoss.
+|   **signed_meter_value_start**: *object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    Signed meter value (e.g. an OCMF record) captured when the transaction started. Only populated when the module is configured to store signed meter values via its store_signed_meter_values config option. Be aware that the signed data typically embeds the raw id token (OCMF ID field), so enabling the option persists raw tokens. May only become available when the transaction finishes, in which case it is completed at that point.
+|   **signed_meter_value_stop**: *object* <optional> (:ref:`units_signed-SignedMeterValue <units_signed-SignedMeterValue>`)
+|    Signed meter value (e.g. an OCMF record) captured when the transaction finished, with the same config gate and raw-token caveat as signed_meter_value_start. Absent while the transaction is still running.
+
+.. _session_storage-Session:
+
+| **Session**: *object* 
+|  One persistently stored session record. A record is created when the session starts and completed when it finishes, so the fields that are only known at the end of a session are absent while the record is open.
+|  properties:
+|   **session_id**: *string* <required>
+|    The EVSE generated UUID of the session. A session contains at most one transaction, so this also identifies the transaction charged within it.
+|   **evse_id**: *integer* <required>
+|    The numeric id of the EVSE this session ran on, as used across EVerest interfaces (1-based)
+|   **evse_id_string**: *string* <required>
+|    The EVSEID of the EVSE this session ran on, as configured in the EvseManager. Empty if the EvseManager does not provide one.
+|   **connector_id**: *integer* <required>
+|    The id of the connector that was used for this session
+|   **state**: *string* <required> (:ref:`session_storage-SessionState <session_storage-SessionState>`)
+|    Lifecycle state of this record
+|   **timestamp_start**: *string* <required>
+|    Time the session started, in RFC3339 format
+|    format:date-time
+|   **timestamp_stop**: *string* <optional>
+|    Time the session finished, in RFC3339 format. Absent while the record is Open, and absent on Stale records.
+|    format:date-time
+|   **start_reason**: *string* <required> (:ref:`evse_manager-StartSessionReason <evse_manager-StartSessionReason>`)
+|    Why this session was started
+|   **transaction**: *object* <optional> (:ref:`session_storage-Transaction <session_storage-Transaction>`)
+|    The transaction charged within this session. Absent if the session never reached a transaction, for example when an EV was plugged in but never authorized.
+|   **ocpp_transaction_id**: *string* <optional>
+|    The transaction id known to the CSMS, always as a string. Only present in OCPP setups: for OCPP 2.0.1 and 2.1 it is identical to session_id, for OCPP 1.6 it is the numeric id assigned by the CSMS in decimal notation, which arrives only after the transaction has already started. With early OCPP TxStartPoints an OCPP transaction can exist for a session that never reaches an EVerest transaction, so this may be present while transaction is absent.
+|   **ocpp_transaction_timestamp_start**: *string* <optional>
+|    Time the OCPP transaction started, in RFC3339 format, as reported in the transaction events of the OCPP module. It is the charging station clock at the OCPP transaction start and can differ from timestamp_start and from the timestamps of transaction, because the point at which an OCPP 2.x transaction starts is configurable via its TxStartPoint. Absent if no OCPP module is connected or the event was not received.
+|    format:date-time
+|   **ocpp_transaction_timestamp_stop**: *string* <optional>
+|    Time the OCPP transaction stopped, in RFC3339 format, as reported in the transaction events of the OCPP module. It is the charging station clock at the OCPP transaction stop and can differ from timestamp_stop and from the timestamps of transaction, because the point at which an OCPP 2.x transaction stops is configurable via its TxStopPoint. Absent if no OCPP module is connected or the event was not received.
+|    format:date-time
+|   **cost**: *object* <optional> (:ref:`session_cost-SessionCost <session_cost-SessionCost>`)
+|    Cost and tariff information reported for this session. Only present in setups where a cost source is connected, and all figures originate from the CSMS. The id_tag member is never populated, because the raw id token is not persisted.
+
+.. _session_storage-SessionFilter:
+
+| **SessionFilter**: *object* 
+|  Criteria a session record must match to be returned
+|  properties:
+|   **state**: *string* <required> (:ref:`session_storage-SessionState <session_storage-SessionState>`)
+|    Only records in this lifecycle state
+|   **evse_id**: *integer* <required>
+|    Only records of the EVSE with this numeric id
+|   **started_after**: *string* <required>
+|    Only records whose session started strictly after this point in time, in RFC3339 format. Compared as an instant, so any UTC offset may be used. Fractional seconds are compared at millisecond precision. A value that is not a timestamp is ignored.
+|    format:date-time
+
+.. _session_storage-GetSessionsRequest:
+
+| **GetSessionsRequest**: *object* 
+|  Page request for stored session records. An empty object requests the first page of all records with the default page size.
+|  properties:
+|   **limit**: *integer* <required>
+|    Maximum number of records in the reply. The module may return fewer, and clamps the value to its supported maximum.
+|   **continuation_token**: *string* <required>
+|    Opaque token from a previous reply to continue the iteration. Omit to start from the oldest record. An invalid or outdated token starts the iteration from the beginning.
+|   **filter**: *object* <required> (:ref:`session_storage-SessionFilter <session_storage-SessionFilter>`)
+|    Criteria the returned records must match
+
+.. _session_storage-SessionList:
+
+| **SessionList**: *object* 
+|  One page of stored session records
+|  properties:
+|   **sessions**: *array* <required>
+|    The records of this page, in the order they were stored, oldest first. Empty if no more records match.
+|    **array_item**: *object*  (:ref:`session_storage-Session <session_storage-Session>`)
+|     One stored session record
+|   **continuation_token**: *string* <optional>
+|    Present if more matching records follow this page. Pass it in the next request to continue the iteration; a reply without it means the iteration is complete.
+
+.. _session_storage-SessionIdentifier:
+
+| **SessionIdentifier**: *object* 
+|  Identifies a single session record. Exactly one of the members must be set. If both are set, session_id takes precedence.
+|  properties:
+|   **session_id**: *string* <required>
+|    The EVSE generated UUID of the session
+|   **ocpp_transaction_id**: *string* <required>
+|    The transaction id known to the CSMS
+
+.. _session_storage-SessionResult:
+
+| **SessionResult**: *object* 
+|  Result of a single session record lookup. The session member is absent if no stored record matches the given identifier.
+|  properties:
+|   **session**: *object* <required> (:ref:`session_storage-Session <session_storage-Session>`)
+|    The matching session record
+
+.. _session_storage-ClearSessionsRequest:
+
+| **ClearSessionsRequest**: *object* 
+|  Selects the session records to delete. An empty object deletes every stored record.
+|  properties:
+|   **up_to_session_id**: *string* <required>
+|    Session id of the newest record to delete. Deletes that record and every record stored before it, in the order get_sessions returns them, and keeps the records stored after it. A client that has read all records with get_sessions can pass the session id of the last record it received to delete exactly what it has read, without losing sessions that started in the meantime. If no record with this id exists, nothing is deleted.
+
+.. _session_storage-ClearSessionsResult:
+
+| **ClearSessionsResult**: *object* 
+|  Result of deleting stored session records
+|  properties:
+|   **cleared**: *integer* <required>
+|    Number of session records that were deleted. With up_to_session_id set, 0 means that no record with that session id exists.

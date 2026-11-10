@@ -5,7 +5,7 @@
 #######
 EvseV2G
 #######
-| This module includes a DIN70121 and ISO15118-2 implementation provided by chargebyte GmbH
+| This module includes a DIN70121 and ISO15118-2 implementation provided by chargebyte GmbH. DEPRECATED in 2026.10.0, earliest removal in 2027.04.0: superseded by the Evse15118D20 module, which runs DIN SPEC 70121, ISO 15118-2 and ISO 15118-20 on the C++ ISO 15118 stack. See the how-to guide "Migrate from EvseV2G and IsoMux to Evse15118D20" for the upgrade path.
 
 
 *************************
@@ -24,6 +24,12 @@ Module Configuration
 | **device**: *string* <optional>
 | *default: "eth0"*
 |  Ethernet device used for HLC. Any local interface that has an ipv6 link-local and a MAC addr will work
+| **tcp_port**: *integer* <optional>
+| *default: 61341*
+|  TCP port used for unencrypted ISO 15118 communication
+| **tls_port**: *integer* <optional>
+| *default: 64109*
+|  TCP port used for TLS-protected ISO 15118 communication
 | **supported_DIN70121**: *boolean* <optional>
 | *default: True*
 |  The EVSE supports the DIN SPEC
@@ -39,7 +45,7 @@ Module Configuration
 |    - force
 | **terminate_connection_on_failed_response**: *boolean* <optional>
 | *default: False*
-|  Controls how to handle a failed response code of the EVSE. If true the V2G connection is terminated immediately on a failed response code, otherwise the EV is responsible for closing of the V2G communication session with SessionStop.
+|  If true the V2G connection is terminated right after a FAILED response, as [V2G2-539] requires. If false the connection stays open so that the EV can run its own stop sequence. Independent of this setting, the connection is always terminated after FAILED_SequenceError and after a FAILED ISO 15118-2 PaymentDetailsRes or AuthorizationRes, so that a rejected identification is never followed by further requests.
 | **tls_key_logging**: *boolean* <optional>
 | *default: False*
 |  Enable/Disable the export of TLS session keys (pre-master-secret) during a TLS handshake. This log file can be used to decrypt TLS sessions. Note that this option is for testing and simulation purpose only
@@ -61,6 +67,9 @@ Module Configuration
 | **enable_sdp_server**: *boolean* <optional>
 | *default: True*
 |  Enable the built-in SDP server
+| **publish_telemetry_only_on_change**: *boolean* <optional>
+| *default: True*
+|  Only publish telemetry blocks when values changed.
 
 Provides
 ========

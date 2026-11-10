@@ -160,6 +160,15 @@ EVerest system types
 |    - InvalidSignature
 |    - SignatureVerified
 
+.. _system-FirmwareUpdateMetadata:
+
+| **FirmwareUpdateMetadata**: *object* 
+|  Type carrying metadata about a firmware update
+|  properties:
+|   **disable_connectors_during_install**: *boolean* <required>
+|   *default: True*
+|    Whether all connectors should be made unavailable (disabled) for the duration of the firmware install
+
 .. _system-FirmwareUpdateStatus:
 
 | **FirmwareUpdateStatus**: *object* 
@@ -169,6 +178,8 @@ EVerest system types
 |    State describing the current status of firmware update of the system
 |   **request_id**: *integer* <required>
 |    Id of the request
+|   **firmware_update_metadata**: *object* <optional> (:ref:`system-FirmwareUpdateMetadata <system-FirmwareUpdateMetadata>`)
+|    Metadata about the firmware update
 
 .. _system-ResetType:
 

@@ -1,0 +1,91 @@
+:orphan:
+
+
+.. _everest_interfaces_ISO15118_ev:
+
+
+###########
+ISO15118_ev
+###########
+
+| This interface defines a simple ISO15118 ev.
+
+
+*********
+Variables
+*********
+| **v2g_messages**: *object*  (:ref:`iso15118-V2gMessages <iso15118-V2gMessages>`)
+|  The id of each V2G response the EV accepted, for every protocol. Requests the EV sends are not reported, and the JSON and EXI fields are never populated. The CP B transition after PowerDelivery(Stop) is signaled by power_delivery_stopped, not by this variable.
+| **power_delivery_stopped**: *null* 
+|  The SECC confirmed PowerDelivery(Stop); the EV may open its contactor and set CP B.
+| **welding_detection_failed**: *object*  (:ref:`iso15118-WeldingDetectionFailure <iso15118-WeldingDetectionFailure>`)
+|  DC welding detection reached its response or time limit without a safe EVSE present voltage, either because the reported voltage stayed unsafe or because no response was accepted, so a welded contactor cannot be ruled out. The EV terminates the session.
+| **v2g_session_finished**: *null* 
+|  The v2g session between the charger and the car is finished
+| **ev_power_ready**: *boolean* 
+|  The car is ready for power (HLC)
+| **ac_evse_max_current**: *number* 
+|  EVSE max current per phase
+| **ac_evse_target_power**: *object*  (:ref:`iso15118-AcTargetPower <iso15118-AcTargetPower>`)
+|  Evse AC max target power
+| **dc_power_on**: *null* 
+|  The ev wants to close the dc contactors
+| **stop_from_charger**: *null* 
+|  The charger wants to stop the charging process
+| **pause_from_charger**: *null* 
+|  The charger wants to pause the session (only d20)
+| **dc_evse_present_current**: *number* 
+|  EVSE-delivered present current during DC charging (A)
+| **dc_evse_present_voltage**: *number* 
+|  EVSE-delivered present voltage during DC charging (V)
+| **der_negotiated_functions**: *object*  (:ref:`iso15118-DerNegotiatedFunctions <iso15118-DerNegotiatedFunctions>`)
+|  The DER control functions negotiated for the session, for either DER annex: the demand of the selected parameter set for AC_DER_IEC, the enabled modes the EV echoes for AC_DER_SAE. AC_DER_IEC publishes once, from ServiceDetail; AC_DER_SAE once per ChargeParameterDiscovery round and in the charge loop whenever the set changes. The functions are in iec_functions for AC_DER_IEC and in sae_functions for AC_DER_SAE.
+| **der_control_received**: *object*  (:ref:`iso15118-DerControlReceived <iso15118-DerControlReceived>`)
+|  Summary of each DER control block the SECC sends, for either DER annex, with one exception: AC_DER_IEC charge-loop blocks of the Scheduled control mode are not published. AC_DER_IEC Dynamic charge-loop blocks are published for the first of a session and then only when their setpoints change; ChargeParameterDiscovery blocks of either annex always are.
+
+********
+Commands
+********
+| **start_charging**: *boolean*
+|  Start the ev charging process
+|  **EnergyTransferMode**: *string* <required> (:ref:`iso15118-EnergyTransferMode <iso15118-EnergyTransferMode>`)
+|   Selected energy transfer mode for charging that is requested by the EVCC
+|  **SelectedPaymentOption**: *object* <required> (:ref:`iso15118-SelectedPaymentOption <iso15118-SelectedPaymentOption>`)
+|   Selected payment option
+|  **DepartureTime**: *number* <required>
+|   Seconds from this call until the EVCC wants to leave the charging station. 0 states no departure time. Must be finite and not negative.
+|  **EAmount**: *number* <required>
+|   The amount of energy that the EVCC wants to charge (in kWh). 0 states no amount. Must be finite and not negative.
+|  **Result**: *boolean* 
+|   Returns true if the evcc simulation started
+| **stop_charging**: *void*
+|  Stop the ev charging communication process
+| **pause_charging**: *void*
+|  Pause the ev charging communication process
+| **abort_charging**: *void*
+|  Terminate the V2G session immediately, without the SessionStop exchange. CP state E/F stops the session ([V2G2-737]); the connection is then torn down ([V2G2-728], [V2G2-025]).
+| **cp_state_changed**: *void*
+|  Control pilot state the vehicle applies. Gates the EVCC CP checks, e.g. C/D before CableCheckReq ([V2G2-912]). E or F during a session terminates it without SessionStop ([V2G2-737]).
+|  **cp_state**: *string* <required> (:ref:`iso15118-CpState <iso15118-CpState>`)
+|   The CP state the vehicle has applied
+| **set_fault**: *void*
+|  TODO_SL: Set the different ev faults to communicate these errors to the charging station
+| **set_dc_params**: *void*
+|  Set the target parameters for a dc charging process. They are vehicle limits that stay for later sessions until the next call; a field left out keeps its previous value.
+|  **EvParameters**: *object* <required> (:ref:`iso15118-DcEvParameters <iso15118-DcEvParameters>`)
+|   Target parameters for dc charging
+| **set_bpt_dc_params**: *void*
+|  Set the bpt parameters for dc charging. They are vehicle limits, like set_dc_params: they apply to a running bidirectional DC session and stay for later ones until the next call.
+|  **EvBPTParameters**: *object* <required> (:ref:`iso15118-DcEvBPTParameters <iso15118-DcEvBPTParameters>`)
+|   BPT parameters for dc charging
+| **enable_sae_j2847_v2g_v2h**: *void*
+|  Enable the SAE J2847 2 V2H V2G
+| **update_soc**: *void*
+|  Updating the EV SoC state
+|  **SoC**: *number* <required>
+|   The actual State of Charge from the EV
+| **update_present_values**: *void*
+|  Updating the values the EV measures. Separate from update_soc because electrical measurements and SoC have different natural update rates.
+|  **PresentValues**: *object* <required> (:ref:`iso15118-EvPresentValues <iso15118-EvPresentValues>`)
+|   The values the EV currently measures
+

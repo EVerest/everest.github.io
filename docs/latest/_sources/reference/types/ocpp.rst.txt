@@ -147,6 +147,9 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    The EVSE manager assigned session ID.
 |   **transaction_id**: *string* <optional>
 |    The CSMS assigned transaction ID. A string is used to support OCPP 2.0.1. For OCPP 1.6 the integer is converted to a string
+|   **timestamp**: *string* <required>
+|    Time of the transaction event in RFC3339 format. For OCPP 2.x this is the timestamp of the TransactionEventRequest, for OCPP 1.6 the timestamp reported in the corresponding StartTransaction.req or StopTransaction.req. For Updated events in OCPP 1.6 it is the time the StartTransaction.conf that triggers them was processed, because that message carries no timestamp of its own.
+|    format:date-time
 
 .. _ocpp-TransactionEvent:
 
@@ -393,7 +396,7 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |   **attribute_type**: *string* <optional> (:ref:`ocpp-AttributeEnum <ocpp-AttributeEnum>`)
 |    AttributeEnum for which the value was requested. When absent, actual is assumed
 |   **value**: *string* <optional>
-|    Value of the requested variable and AttributeEnum. This field can only be empty when the given status is NOT accepted
+|    Value of the requested variable and AttributeEnum. Present if and only if the status is Accepted. An empty string when the AttributeEnum is supported but has no value
 |   **component_variable**: *object* <required> (:ref:`ocpp-ComponentVariable <ocpp-ComponentVariable>`)
 |    Identifier for which the value was requested
 
@@ -522,3 +525,45 @@ OCPP types (OCPP1.6 and OCPP2.0.1). The types are based more on the type definit
 |    When Status is Accepted, this contains the heartbeat interval in seconds. If the CSMS returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request.
 |   **status_info**: *object* <optional> (:ref:`ocpp-StatusInfoType <ocpp-StatusInfoType>`)
 |    Detailed status information.
+
+.. _ocpp-MessageDirection:
+
+| **MessageDirection**: *string* 
+|  OCPP message direction
+|  enum:
+|    - CSMSToChargingStation
+|    - ChargingStationToCSMS
+
+.. _ocpp-Message:
+
+| **Message**: *object* 
+|  OCPP message with direction
+|  properties:
+|   **message**: *string* <required>
+|    Serialized OCPP-J message
+|   **direction**: *string* <required> (:ref:`ocpp-MessageDirection <ocpp-MessageDirection>`)
+|    OCPP message direction
+|   **version**: *string* <optional>
+|    OCPP version of the serialized message
+
+.. _ocpp-ConnectionStatus:
+
+| **ConnectionStatus**: *object* 
+|  Status of the connection of the chargepoint to the CSMS, including the details of the connection the status refers to. While connected, the details describe the active connection; while disconnected, they describe the connection that has just been lost or whose connection attempt has just failed. Details that are not available for the active OCPP version are omitted.
+|  properties:
+|   **connected**: *boolean* <required>
+|    Indicates if the chargepoint is connected to the CSMS
+|   **csms_url**: *string* <optional>
+|    CSMS endpoint URL of the connection. OCPP2.x reports ocppCsmsUrl of the network connection profile, OCPP1.6 the CentralSystemURI configuration key.
+|   **identity**: *string* <optional>
+|    Identity the chargepoint uses towards the CSMS. OCPP2.x reports identity of the network connection profile, OCPP1.6 the ChargePointId.
+|   **security_profile**: *integer* <optional>
+|    OCPP security profile of the connection. OCPP2.x reports securityProfile of the network connection profile, OCPP1.6 the SecurityProfile configuration key.
+|   **configuration_slot**: *integer* <optional>
+|    Configuration slot of the network connection profile the connection uses.
+|   **ocpp_interface**: *string* <optional>
+|    Network interface of the network connection profile the connection uses
+|   **ocpp_transport**: *string* <optional>
+|    Transport of the network connection profile the connection uses
+|   **ocpp_version**: *string* <optional>
+|    OCPP protocol version in use on the connection (e.g. ocpp1.6, ocpp2.0.1 or ocpp2.1)

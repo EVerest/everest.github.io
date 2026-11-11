@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EvseManager - EVerest Manual main@da56928</title>
+        <title>EvseManager - EVerest Manual main@9d7e0a4</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@da56928</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@9d7e0a4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@da56928</span>
+  <span class="sidebar-brand-text">EVerest Manual main@9d7e0a4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -954,7 +954,9 @@ iteration, whether or not the EV lowers its request to the new limits.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">WaitingForAuthentication</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">PrepareCharging</span></code>: Authorized by EIM or PnC.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">WaitingForAuthentication</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Finished</span></code>: Fatal error, stop requested (e.g. via
 <code class="docutils literal notranslate"><span class="pre">request_stop_transaction</span></code> or <code class="docutils literal notranslate"><span class="pre">disable</span></code>), or EV unplugged.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PrepareCharging</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Charging</span></code>: Contactor close allowed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PrepareCharging</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Charging</span></code>: Contactor close allowed. With a nominal duty cycle and a
+SLAC matching in progress, state C closes the contactor only once it lasted 1 s or the matching ended:
+the EV toggles B-C-B to validate the matching (CM_VALIDATE), and a toggle is no charge request.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Charging</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">StoppingCharging</span></code>: Triggered by any <strong>Stop Condition</strong> (see below).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">StoppingCharging</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Finished</span></code>: No transaction, EV unplugged, or not authorized.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Finished</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Idle</span></code>: EV unplugged.</p></li>
@@ -965,6 +967,8 @@ iteration, whether or not the EV lowers its request to the new limits.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">ChargingPausedEV</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">ChargingPausedEVSE</span></code>: No power available (AC BASIC only).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ChargingPausedEVSE</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">PrepareCharging</span></code>: Power available, no EVSE pause and errors cleared.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">StoppingCharging</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">ChargingPausedEV</span></code>: EV-initiated pause after stop sequence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ChargingPausedEV</span></code> / <code class="docutils literal notranslate"><span class="pre">ChargingPausedEVSE</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">T_step_X1</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">T_step_EF</span></code> -&gt; same pause state: an
+established data link was lost while basic AC charging at a nominal duty cycle is paused ([V2G3-M07-05]).</p></li>
 </ul>
 <p><strong>ISO 15118-20 EVSE pause</strong></p>
 <p>An EVSE pause of an ISO 15118-20 session follows the control mode the EV selected:</p>
@@ -2426,7 +2430,7 @@ error influences the type of the shutdown. Emergency shutdowns are caused by err
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=b8d81411"></script>
+</div><script src="../../../../_static/documentation_options.js?v=e4f4b7e1"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

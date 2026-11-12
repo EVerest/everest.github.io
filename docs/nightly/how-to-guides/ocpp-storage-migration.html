@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual main@9d7e0a4</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual main@f2e68b8</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@9d7e0a4</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@f2e68b8</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@9d7e0a4</span>
+  <span class="sidebar-brand-text">EVerest Manual main@f2e68b8</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -940,6 +940,63 @@ configuration at runtime.</p>
 configuration at <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigPath</span></code>. The mapping file tells the
 migration where to write the value — it does not create the target variable.</p>
 </section>
+<section id="share-an-ocpp-1-6-key-with-your-own-ocpp-2-x-variable">
+<span id="howto-ocpp-storage-migration-share-legacy-key"></span><h3>Share an OCPP 1.6 key with your own OCPP 2.x variable<a class="headerlink" href="#share-an-ocpp-1-6-key-with-your-own-ocpp-2-x-variable" title="Link to this heading">¶</a></h3>
+<p>Built-in OCPP 1.6 keys without a standard OCPP 2.x equivalent, such as
+<code class="docutils literal notranslate"><span class="pre">LightIntensity</span></code> or <code class="docutils literal notranslate"><span class="pre">Language</span></code>, are stored in the <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>
+component. If your component configuration already has an OCPP 2.x variable for
+the same setting, add an entry for the built-in key to the mapping file. The
+key is then stored in your variable instead, so OCPP 1.6 and OCPP 2.x read and
+write the same value:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mappings</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ocpp16_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LightIntensity</span>
+<span class="w">    </span><span class="nt">component</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VendorStation</span>
+<span class="w">    </span><span class="nt">variable</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LightIntensity</span>
+</pre></div>
+</div>
+<p>The entry replaces the built-in mapping everywhere: during the one-time
+migration, for <code class="docutils literal notranslate"><span class="pre">GetConfiguration</span></code> and <code class="docutils literal notranslate"><span class="pre">ChangeConfiguration</span></code>, and for the
+canonical address of the key. The module removes the <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>
+variable of the key from the device model at every startup, so an OCPP 2.x CSMS
+does not see it in reports and cannot get or set it. Your variable keeps the
+mutability of your component configuration, also for keys that are read-only in
+OCPP 1.6. The module logs every replaced mapping at startup.</p>
+<p>The module does not start when the mapping file:</p>
+<ul class="simple">
+<li><p>replaces the mapping of a built-in key that is not stored in
+<code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>. Keys with a standard OCPP 2.x or <code class="docutils literal notranslate"><span class="pre">InternalCtrlr</span></code>
+variable already share it between protocol versions.</p></li>
+<li><p>replaces the mapping of <code class="docutils literal notranslate"><span class="pre">NumberOfConnectors</span></code>, <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> or <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code>, which the OCPP 1.6 stack derives
+or expands itself.</p></li>
+<li><p>maps a built-in key to a variable that is the built-in mapping of another key
+or the target of another entry in the file. A built-in mapping stays reserved
+for its key even when the file replaces it: the freed <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>
+variable cannot be used by another entry, and two keys cannot swap variables.
+An entry may map a key to its own <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable, which has no
+effect.</p></li>
+<li><p>maps a built-in key to a variable whose value the OCPP 1.6 stack computes:
+the <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code> variable and the variables that hold the
+limit of a max-length key, for example <code class="docutils literal notranslate"><span class="pre">LocalAuthListCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">Entries</span></code>.</p></li>
+<li><p>maps a built-in key to a variable that does not exist in the component
+configuration.</p></li>
+<li><p>maps a built-in key to a variable without an <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute. The key’s
+value is stored in the <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute of the variable.</p></li>
+<li><p>maps a built-in key to a variable whose <code class="docutils literal notranslate"><span class="pre">dataType</span></code> differs from the key’s
+<code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable, for example a <code class="docutils literal notranslate"><span class="pre">boolean</span></code> variable for the
+<code class="docutils literal notranslate"><span class="pre">integer</span></code> key <code class="docutils literal notranslate"><span class="pre">LightIntensity</span></code>. The error names the key and both
+variables.</p></li>
+</ul>
+<p>The value is not carried over when a mapping is replaced after the database was
+migrated: the key then reads the current value of the new variable, and the
+<code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable is removed together with its value. To keep the
+value, read it before you add the entry and set it on the new variable, or
+delete the database to repeat the migration. When you remove the entry again,
+the <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable comes back with the value of the component
+configuration, and the value set through the key stays in your variable.</p>
+</section>
 <section id="run-the-migration">
 <h3>Run the migration<a class="headerlink" href="#run-the-migration" title="Link to this heading">¶</a></h3>
 <p>Start EVerest with the parameters above configured.</p>
@@ -1139,6 +1196,7 @@ provided.</p>
 <li><a class="reference internal" href="#storage-migration-ocpp-1-6">Storage migration (OCPP 1.6)</a><ul>
 <li><a class="reference internal" href="#configure-the-migration">Configure the migration</a></li>
 <li><a class="reference internal" href="#add-mappings-for-custom-ocpp-1-6-keys">Add mappings for custom OCPP 1.6 keys</a></li>
+<li><a class="reference internal" href="#share-an-ocpp-1-6-key-with-your-own-ocpp-2-x-variable">Share an OCPP 1.6 key with your own OCPP 2.x variable</a></li>
 <li><a class="reference internal" href="#run-the-migration">Run the migration</a></li>
 <li><a class="reference internal" href="#differences-to-the-old-ocpp-module-s-migration-path">Differences to the old OCPP module’s migration path</a></li>
 <li><a class="reference internal" href="#verify-the-result">Verify the result</a></li>
@@ -1158,7 +1216,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=e4f4b7e1"></script>
+</div><script src="../_static/documentation_options.js?v=98c9cdfa"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

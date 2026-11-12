@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>OCPPmulti - EVerest Manual main@9d7e0a4</title>
+        <title>OCPPmulti - EVerest Manual main@f2e68b8</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@9d7e0a4</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@f2e68b8</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@9d7e0a4</span>
+  <span class="sidebar-brand-text">EVerest Manual main@f2e68b8</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -842,7 +842,11 @@ network profile selectors, or the <code class="docutils literal notranslate"><sp
 those are managed via the standardized OCPP 1.6 keys with their reboot/reconnect semantics, and a mapping file
 containing such a target is rejected at startup. OCPP 1.6
 keys without a standardized device model counterpart are kept in a dedicated <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> component, whose
-<code class="docutils literal notranslate"><span class="pre">NumberOfConnectors</span></code> value is automatically patched to the actual number of connected EVSEs. This component is
+<code class="docutils literal notranslate"><span class="pre">NumberOfConnectors</span></code> value is automatically patched to the actual number of connected EVSEs. An entry in the mapping
+file for such a key, for example <code class="docutils literal notranslate"><span class="pre">LightIntensity</span></code>, replaces its <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable with a variable of
+your component configuration, so that OCPP 1.6 and OCPP 2.x share the value; see
+<a class="reference internal" href="../../../../how-to-guides/ocpp-storage-migration.html#howto-ocpp-storage-migration-share-legacy-key"><span class="std std-ref">Share an OCPP 1.6 key with your own OCPP 2.x variable</span></a> for
+the rules. This component is
 required for OCPP 2.x operation as well: the device model is shared between all supported OCPP versions so that the
 station can switch between OCPP 1.6 and OCPP 2.x seamlessly, which requires the full set of components for every
 version to be present. If <code class="docutils literal notranslate"><span class="pre">standardized/OCPP16LegacyCtrlr.json</span></code> is absent from <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigPath</span></code>, a
@@ -1484,7 +1488,8 @@ change the CSMS URL.</p>
 <ul class="simple">
 <li><p>Standard OCPP 2.x variables: their standard component (<code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code>,
 <code class="docutils literal notranslate"><span class="pre">SecurityCtrlr</span></code>, …). Works for the same datum in both protocol modes.</p></li>
-<li><p>1.6-only/vendor keys: component <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>, variable = key name.</p></li>
+<li><p>1.6-only/vendor keys: component <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>, variable = key name,
+unless the mapping file replaces the mapping of the key (see below).</p></li>
 <li><p>Custom-mapped keys (station-specific YAML): the mapped component/variable
 from the mapping file.</p></li>
 <li><p>The deprecation warning emitted for legacy requests names the canonical
@@ -2117,7 +2122,7 @@ when switching to this module.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=e4f4b7e1"></script>
+</div><script src="../../../../_static/documentation_options.js?v=98c9cdfa"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

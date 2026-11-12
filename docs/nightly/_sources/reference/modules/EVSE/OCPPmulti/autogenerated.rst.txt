@@ -41,7 +41,7 @@ Module Configuration
 |  OCPP 1.6 OCPP 2.0.1 Small delay in time (milliseconds) to start the ocpp chargepoint to allow time for the rest of everest to update the connector status. This is only used to prevent issues from passing by availlable before preparing on a restart.
 | **DelegateNetworkConfigurationToSystem**: *boolean* <optional>
 | *default: False*
-|  OCPP 1.6 OCPP 2.0.1 If true, the system provider is asked to prepare the network (configure_network) before every CSMS connection attempt and the websocket is bound to the interface address it returns. The provider must answer promptly (NotSupported is acceptable); with system_API the external client must reply to e2m/configure_network, otherwise every connection attempt blocks until the framework command timeout. If false (default), no configure_network request is sent and the connection is established like with the OCPP201 module (success, no interface address).
+|  OCPP 1.6 OCPP 2.0.1 If true, the system provider is asked to prepare the network (configure_network) before every CSMS connection attempt and the websocket is bound to the interface address it returns. The provider must answer promptly (NotSupported is acceptable); with system_API the external client must reply to e2m/configure_network, otherwise every connection attempt blocks until the framework command timeout. If false (default), no configure_network request is sent and the connection is established without an interface address.
 | **DeviceModelConfigPath**: *string* <optional>
 | *default: "component_config"*
 |  OCPP 2.0.1 Path to the device model component config directory. Libocpp defines a certain schema for these files. Please refer to the documentation of libocpp for more information about the configuration options.
@@ -62,7 +62,10 @@ Module Configuration
 |  If true websocket can be disconnected and connected externally. This parameter is for debug and testing purposes.
 | **EverestDeviceModelDatabasePath**: *string* <optional>
 | *default: "everest_device_model_storage.db"*
-|  OCPP 2.0.1 Path to the SQLite databse for the EVerest device model. This database stores components and variables like EVSE and Connector that are closely related to EVerest and therefore not owned and managed by libocpp.
+|  Deprecated. Path to the EVerest device model database of earlier versions. At the first start, the module takes it over into the database at DeviceModelDatabasePath and renames it to *.migrated. An empty path skips the takeover.
+| **FailOnDeviceModelConflicts**: *boolean* <optional>
+| *default: False*
+|  OCPP 1.6 and 2.x If true, the module does not start when the device model has conflicts: a variable that the component config (DeviceModelConfigPath) defines and EVerest or another runtime owner registers as well, or that two runtime owners register. If false (default), such a variable keeps the definition of the component config or of the owner that registered it first, and the conflicts are logged as an error at every start, so a station with an outdated component config stays reachable for the CSMS.
 | **GridSupportHeartbeatS**: *integer* <optional>
 | *default: 60*
 |  Interval (seconds) at which the current active DER directive set is republished per EVSE. 0 disables the heartbeat.

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual main@919490f</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual main@e715a07</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@919490f</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@e715a07</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@919490f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@e715a07</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -939,6 +939,22 @@ configuration at runtime.</p>
 <p>The referenced component and variable must already exist in the component
 configuration at <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigPath</span></code>. The mapping file tells the
 migration where to write the value — it does not create the target variable.</p>
+<p>An entry stores its key in the <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute of the variable, and each
+attribute stores exactly one OCPP 1.6 key. Built-in keys can share a variable
+through different attributes: <code class="docutils literal notranslate"><span class="pre">MeterValuesAlignedData</span></code> is stored in the
+<code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">AlignedDataCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">Measurands</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">MeterValuesAlignedDataMaxLength</span></code> in its <code class="docutils literal notranslate"><span class="pre">maxLimit</span></code>. The module does not
+start when two entries in the file target the same component and variable, or
+when an entry targets a variable whose <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute stores a built-in
+key, for example <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">HeartbeatInterval</span></code>. It also does not
+start when an entry targets a variable whose value the OCPP 1.6 stack
+computes: the <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code> variable and the variables that
+hold the limit of a max-length key, for example <code class="docutils literal notranslate"><span class="pre">LocalAuthListCtrlr</span></code>
+<code class="docutils literal notranslate"><span class="pre">Entries</span></code>.</p>
+<p>A built-in mapping stays reserved for its key even when the file replaces it:
+the freed <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable cannot be used by another entry, and
+two keys cannot swap variables. An entry may map a built-in key to its own
+<code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable, which has no effect.</p>
 </section>
 <section id="share-an-ocpp-1-6-key-with-your-own-ocpp-2-x-variable">
 <span id="howto-ocpp-storage-migration-share-legacy-key"></span><h3>Share an OCPP 1.6 key with your own OCPP 2.x variable<a class="headerlink" href="#share-an-ocpp-1-6-key-with-your-own-ocpp-2-x-variable" title="Link to this heading">¶</a></h3>
@@ -971,15 +987,6 @@ variable already share it between protocol versions.</p></li>
 <li><p>replaces the mapping of <code class="docutils literal notranslate"><span class="pre">NumberOfConnectors</span></code>, <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code>,
 <code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> or <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code>, which the OCPP 1.6 stack derives
 or expands itself.</p></li>
-<li><p>maps a built-in key to a variable that is the built-in mapping of another key
-or the target of another entry in the file. A built-in mapping stays reserved
-for its key even when the file replaces it: the freed <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>
-variable cannot be used by another entry, and two keys cannot swap variables.
-An entry may map a key to its own <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable, which has no
-effect.</p></li>
-<li><p>maps a built-in key to a variable whose value the OCPP 1.6 stack computes:
-the <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code> variable and the variables that hold the
-limit of a max-length key, for example <code class="docutils literal notranslate"><span class="pre">LocalAuthListCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">Entries</span></code>.</p></li>
 <li><p>maps a built-in key to a variable that does not exist in the component
 configuration.</p></li>
 <li><p>maps a built-in key to a variable without an <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute. The key’s
@@ -1216,7 +1223,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=0bb35e83"></script>
+</div><script src="../_static/documentation_options.js?v=c977156d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -52,6 +52,9 @@ Module Configuration
 | **auth_timeout_pnc**: *integer* <optional>
 | *default: 55*
 |  Defines how many seconds the EVSE should wait for authorization in PnC (Contract) case, before the charging session is aborted. Write 0 if the EVSE should wait indefinitely for PnC authorization. Applies to ISO 15118-2 and ISO 15118-20; DIN SPEC 70121 has no Plug-and-Charge. The default is the 55 s V2G_SECC_Ongoing_Performance_Time of [V2G2-712/713] and [V2G20-2102].
+| **ac_close_contactor_timeout_ms**: *integer* <optional>
+| *default: 1400*
+|  ISO 15118-20 AC only. How many milliseconds the SECC waits, after receiving PowerDeliveryReq(Start), for the AC contactor to report closed before it answers FAILED_ContactorError and stops the session ([V2G20-862]). The timer starts on receipt of the request ([V2G20-858]) and includes the EV switching to CP state C (up to 250 ms, [V2G20-847]) as well as the contactor closing. The default keeps 100 ms of the 1.5 s V2G_SECC_Msg_Performance_Time (Table 215) for sending the response, and is the highest conformant value. Larger values tolerate slow contactor hardware but are not conformant: above 1400 the response may miss the performance time, and above about 1750 a conformant EV has usually reached its 2 s message timeout before the response arrives. Values up to 10000 are accepted for EVs that wait longer than the specification requires.
 | **enable_ssl_logging**: *boolean* <optional>
 | *default: False*
 |  Verbosely log the ssl/tls connection

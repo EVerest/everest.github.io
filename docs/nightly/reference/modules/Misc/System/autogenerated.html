@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>System - EVerest Manual main@37c014f</title>
+        <title>System - EVerest Manual main@4fe2ad0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@37c014f</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@4fe2ad0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@37c014f</span>
+  <span class="sidebar-brand-text">EVerest Manual main@4fe2ad0</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -256,6 +256,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/ocpp-storage-migration.html">Migrate to the Combined OCPP Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/ocpp-custom-error-mapping.html">Customize How Errors Reach the CSMS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/iso15118-stack-migration.html">Migrate from EvseV2G and IsoMux to Evse15118D20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../how-to-guides/firmware-update-connector-availability.html">Control Connector Availability During a Firmware Update</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -731,6 +732,28 @@ With <code class="docutils literal notranslate"><span class="pre">ResetAfterUpda
 ID when the stack starts again. Without a store, it publishes only <code class="docutils literal notranslate"><span class="pre">Installed</span></code>
 before resetting. With <code class="docutils literal notranslate"><span class="pre">ResetAfterUpdate</span></code> disabled, it publishes <code class="docutils literal notranslate"><span class="pre">Installed</span></code>
 without resetting.</p>
+<p>Whether an update takes the connectors out of service is controlled per update through
+<code class="docutils literal notranslate"><span class="pre">firmware_update_metadata.disable_connectors_during_install</span></code>; the OCPP side is described in
+<a class="reference internal" href="../../../../how-to-guides/firmware-update-connector-availability.html#howto-firmware-update-connector-availability"><span class="std std-ref">Control Connector Availability During a Firmware Update</span></a>. System reads the flag from the update itself:</p>
+<ul>
+<li><p><strong>Unsigned update:</strong> append the flag as a fragment to the firmware location the CSMS sends, for example
+<code class="docutils literal notranslate"><span class="pre">https://updates.example.com/images.pnx#disable_connectors_during_install=false</span></code>. System strips the
+fragment before downloading and attaches the flag to every status of that update.</p></li>
+<li><p><strong>Signed update:</strong> put the flag in the package’s metadata block. System runs
+<code class="docutils literal notranslate"><span class="pre">signed_firmware_metadata_parser.sh</span></code> on the downloaded file, which prints the lines between
+<code class="docutils literal notranslate"><span class="pre">=====</span> <span class="pre">BEGIN</span> <span class="pre">METADATA</span> <span class="pre">=====</span></code> and <code class="docutils literal notranslate"><span class="pre">=====</span> <span class="pre">END</span> <span class="pre">METADATA</span> <span class="pre">=====</span></code>, one <code class="docutils literal notranslate"><span class="pre">key=value</span></code> per line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>===== BEGIN METADATA =====
+disable_connectors_during_install=false
+===== END METADATA =====
+</pre></div>
+</div>
+<p>The parsed flag is attached to the <code class="docutils literal notranslate"><span class="pre">SignatureVerified</span></code> status.</p>
+</li>
+</ul>
+<p>System reports <code class="docutils literal notranslate"><span class="pre">InstallScheduled</span></code> only for a signed update whose <code class="docutils literal notranslate"><span class="pre">installDateTime</span></code> lies in the future,
+without the flag, and it does not wait for <code class="docutils literal notranslate"><span class="pre">allow_firmware_installation</span></code>: its installer scripts are
+placeholders for a real update mechanism, so the module is meant for software-in-the-loop setups rather than
+production.</p>
 </section>
 </section>
 <section id="auto-generated-reference">
@@ -875,7 +898,7 @@ without resetting.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=fe442034"></script>
+</div><script src="../../../../_static/documentation_options.js?v=e475de1f"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

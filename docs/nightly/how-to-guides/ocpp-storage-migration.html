@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual main@304dd56</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual main@eb9cc42</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual main@304dd56</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual main@eb9cc42</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@304dd56</span>
+  <span class="sidebar-brand-text">EVerest Manual main@eb9cc42</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -970,18 +970,33 @@ configuration at runtime.</p>
 <p>The referenced component and variable must already exist in the component
 configuration at <code class="docutils literal notranslate"><span class="pre">DeviceModelConfigPath</span></code>. The mapping file tells the
 migration where to write the value — it does not create the target variable.</p>
+<p>A variable that is added to the device model at runtime, for example an EVerest
+module configuration value or a component that EVerest provides, is not a
+mapping target: an entry that names one is ignored with an error log. An OCPP
+2.x CSMS and the <code class="docutils literal notranslate"><span class="pre">ocpp</span></code> interface still reach such a variable by its
+component and variable.</p>
 <p>An entry stores its key in the <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute of the variable, and each
 attribute stores exactly one OCPP 1.6 key. Built-in keys can share a variable
 through different attributes: <code class="docutils literal notranslate"><span class="pre">MeterValuesAlignedData</span></code> is stored in the
 <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute of <code class="docutils literal notranslate"><span class="pre">AlignedDataCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">Measurands</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">MeterValuesAlignedDataMaxLength</span></code> in its <code class="docutils literal notranslate"><span class="pre">maxLimit</span></code>. The module does not
-start when two entries in the file target the same component and variable, or
-when an entry targets a variable whose <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute stores a built-in
-key, for example <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">HeartbeatInterval</span></code>. It also does not
-start when an entry targets a variable whose value the OCPP 1.6 stack
-computes: the <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code> variable and the variables that
-hold the limit of a max-length key, for example <code class="docutils literal notranslate"><span class="pre">LocalAuthListCtrlr</span></code>
-<code class="docutils literal notranslate"><span class="pre">Entries</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">MeterValuesAlignedDataMaxLength</span></code> in its <code class="docutils literal notranslate"><span class="pre">maxLimit</span></code>. Entries that break
+this rule are ignored with an error log, and the remaining entries still
+apply. Entries are read in file order, so of two entries for the same key or
+the same component and variable the first one is used. An entry is also
+ignored when it targets a variable whose <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute stores a
+built-in key, for example <code class="docutils literal notranslate"><span class="pre">OCPPCommCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">HeartbeatInterval</span></code>, the
+connection configuration, or a variable whose value the OCPP 1.6 stack
+computes: the <code class="docutils literal notranslate"><span class="pre">SupportedFeatureProfiles</span></code> variable and the variables that hold
+the limit of a max-length key, for example <code class="docutils literal notranslate"><span class="pre">LocalAuthListCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">Entries</span></code>.</p>
+<p>Check the log after changing the mapping file. An ignored entry for a built-in
+key leaves the key on its built-in mapping, and the migration writes its value
+to the <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable. The value of an ignored custom key is not
+migrated.</p>
+<p>A custom key whose variable is not defined in the component configuration or has
+no <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute is reported with an error log at every start and is not
+available to OCPP 1.6.</p>
+<p>A file that cannot be read or does not match the mapping file schema stops the
+module at startup.</p>
 <p>A built-in mapping stays reserved for its key even when the file replaces it:
 the freed <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable cannot be used by another entry, and
 two keys cannot swap variables. An entry may map a built-in key to its own
@@ -1010,7 +1025,8 @@ variable of the key from the device model at every startup, so an OCPP 2.x CSMS
 does not see it in reports and cannot get or set it. Your variable keeps the
 mutability of your component configuration, also for keys that are read-only in
 OCPP 1.6. The module logs every replaced mapping at startup.</p>
-<p>The module does not start when the mapping file:</p>
+<p>The module ignores the entry with an error log, and the key keeps its built-in
+mapping and its <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable, when the entry:</p>
 <ul class="simple">
 <li><p>replaces the mapping of a built-in key that is not stored in
 <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code>. Keys with a standard OCPP 2.x or <code class="docutils literal notranslate"><span class="pre">InternalCtrlr</span></code>
@@ -1019,13 +1035,15 @@ variable already share it between protocol versions.</p></li>
 <code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> or <code class="docutils literal notranslate"><span class="pre">DefaultPriceText</span></code>, which the OCPP 1.6 stack derives
 or expands itself.</p></li>
 <li><p>maps a built-in key to a variable that does not exist in the component
-configuration.</p></li>
-<li><p>maps a built-in key to a variable without an <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute. The key’s
-value is stored in the <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute of the variable.</p></li>
+configuration. The migration then writes the value to the
+<code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable of the key.</p></li>
 <li><p>maps a built-in key to a variable whose <code class="docutils literal notranslate"><span class="pre">dataType</span></code> differs from the key’s
 <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable, for example a <code class="docutils literal notranslate"><span class="pre">boolean</span></code> variable for the
-<code class="docutils literal notranslate"><span class="pre">integer</span></code> key <code class="docutils literal notranslate"><span class="pre">LightIntensity</span></code>. The error names the key and both
-variables.</p></li>
+<code class="docutils literal notranslate"><span class="pre">integer</span></code> key <code class="docutils literal notranslate"><span class="pre">LightIntensity</span></code>. The migration then writes the value to
+the <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable of the key.</p></li>
+<li><p>maps a built-in key to a variable without an <code class="docutils literal notranslate"><span class="pre">Actual</span></code> attribute, which
+stores the key’s value. The migration then writes the value to the
+<code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> variable of the key.</p></li>
 </ul>
 <p>The value is not carried over when a mapping is replaced after the database was
 migrated: the key then reads the current value of the new variable, and the
@@ -1254,7 +1272,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=03ab987b"></script>
+</div><script src="../_static/documentation_options.js?v=50aac5d3"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -1,0 +1,1974 @@
+.. _everest_api_system_API:
+
+###########
+system\_API
+###########
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">SystemAPI</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for the system module
+
+   API for EVerest API client implementing the system capabilities OTA update, log upload and network configuration. Commands without arguments carry an empty JSON object ({}) as payload.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>system_API.yaml</code> · <code>pionix:de:everest:system_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (10)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (9)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/system/{module_id}">everest_api/1/system/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_system_API_op_send_reply_update_firmware:
+
+send\_reply\_update\_firmware
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Reply to update firmware request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-system-api-op-receive-request-update-firmware">receive_request_update_firmware</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply update firmware</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_update_firmware"><code>send_reply_update_firmware</code></a></p>
+      <div class="msg-summary"><p>Reply to update firmware request.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="#schema-UpdateFirmwareResponse" title="system_API.yaml">UpdateFirmwareResponse</a></div>
+      <div class="s-desc"><p>Enum for the response of an update_firmware command</p><ul><li>Accepted: Accepted this firmware update request. This does not mean the firmware update is successful, the system will now start the firmware update process</li><li>Rejected: Firmware update request rejected</li><li>AcceptedCanceled: Accepted this firmware update request, but in doing this has cancelled an ongoing firmware update</li><li>InvalidCertificate: The certificate is invalid</li><li>RevokedCertificate: Failure end state. The Firmware Signing certificate has been revoked</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>AcceptedCanceled</code><code>InvalidCertificate</code><code>RevokedCertificate</code></div>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Update firmware</figcaption>
+      <pre data-copy-block><code>&#34;Accepted&#34;</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_reply_upload_logs:
+
+send\_reply\_upload\_logs
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request to upload logs</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-system-api-op-receive-request-upload-logs">receive_request_upload_logs</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply upload logs</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_upload_logs"><code>send_reply_upload_logs</code></a></p>
+      <div class="msg-summary"><p>Reply to upload logs request.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-UploadLogsResponse" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-UploadLogsResponse" title="system_API.yaml">UploadLogsResponse</a></summary>
+      <div class="s-desc"><p>Response to a upload logs request</p></div><p class="s-inline"><a href="#schema-UploadLogsResponse">Definition of UploadLogsResponse</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Upload logs</figcaption>
+      <pre data-copy-block><code>{
+        &#34;file_name&#34;: &#34;string&#34;,
+        &#34;upload_logs_status&#34;: &#34;Accepted&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_reply_is_reset_allowed:
+
+send\_reply\_is\_reset\_allowed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send reply for is_reset_allowed</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-system-api-op-receive-request-is-reset-allowed">receive_request_is_reset_allowed</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to is reset allowed</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_is_reset_allowed"><code>send_reply_is_reset_allowed</code></a></p>
+      <div class="msg-summary"><p>Reply to is reset allowed request.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-ResetAllowed" title="system_API.yaml">ResetAllowed</a></div>
+      <div class="s-desc"><p>true if reset is allowed</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Reset is allowed</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_reply_set_system_time:
+
+send\_reply\_set\_system\_time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send reply to set system time request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-system-api-op-receive-request-set-system-time">receive_request_set_system_time</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to set system time</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_set_system_time"><code>send_reply_set_system_time</code></a></p>
+      <div class="msg-summary"><p>Reply to set system time request.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-SystemTimeSet" title="system_API.yaml">SystemTimeSet</a></div>
+      <div class="s-desc"><p>true if reset successful</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>system time set successfully</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_reply_get_boot_reason:
+
+send\_reply\_get\_boot\_reason
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send reply to get boot reason request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-system-api-op-receive-request-get-boot-reason">receive_request_get_boot_reason</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get boot reason</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_get_boot_reason"><code>send_reply_get_boot_reason</code></a></p>
+      <div class="msg-summary"><p>Reply to get boot reason.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="#schema-BootReason" title="system_API.yaml">BootReason</a></div>
+      <div class="s-desc"><p>Enum defining the boot reason</p></div><div class="s-enum"><span class="s-label">enum</span><code>ApplicationReset</code><code>FirmwareUpdate</code><code>LocalReset</code><code>PowerUp</code><code>RemoteReset</code><code>ScheduledReset</code><code>Triggered</code><code>Unknown</code><code>Watchdog</code></div>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Get boot reason</figcaption>
+      <pre data-copy-block><code>&#34;ApplicationReset&#34;</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_reply_configure_network:
+
+send\_reply\_configure\_network
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Reply to configure network request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-system-api-op-receive-request-configure-network">receive_request_configure_network</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply configure network</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_configure_network"><code>send_reply_configure_network</code></a></p>
+      <div class="msg-summary"><p>Direct (synchronous) response to a configure network request. May answer Processing and complete later via the configure_network_status var.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ConfigureNetworkResponse" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ConfigureNetworkResponse" title="system_API.yaml">ConfigureNetworkResponse</a></summary>
+      <div class="s-desc"><p>Direct (synchronous) response to configure_network</p></div><p class="s-inline"><a href="#schema-ConfigureNetworkResponse">Definition of ConfigureNetworkResponse</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Examples</p>
+      <figure class="example">
+      <figcaption>Processing</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;Processing&#34;
+      }</code></pre>
+      </figure>
+      <figure class="example">
+      <figcaption>Ready</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;Ready&#34;,
+        &#34;interface_address&#34;: &#34;eth0&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_firmware_update_status:
+
+send\_firmware\_update\_status
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send firmware update status</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/m2e/firmware_update_status">everest_api/1/system/{module_id}/m2e/firmware_update_status</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send firmware update status</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_firmware_update_status"><code>send_firmware_update_status</code></a></p>
+      <div class="msg-summary"><p>Describes the current status of a firmware update of the system</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-FirmwareUpdateStatus" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-FirmwareUpdateStatus" title="system_API.yaml">FirmwareUpdateStatus</a></summary>
+      <div class="s-desc"><p>Type defining the status of a firmware update</p></div><p class="s-inline"><a href="#schema-FirmwareUpdateStatus">Definition of FirmwareUpdateStatus</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Firmware update status</figcaption>
+      <pre data-copy-block><code>{
+        &#34;firmware_update_status&#34;: &#34;Downloaded&#34;,
+        &#34;request_id&#34;: 0
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_log_status:
+
+send\_log\_status
+~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send log upload status</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/m2e/log_status">everest_api/1/system/{module_id}/m2e/log_status</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send log upload status</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_log_status"><code>send_log_status</code></a></p>
+      <div class="msg-summary"><p>Describes the current status of log upload of the system</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-LogStatus" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-LogStatus" title="system_API.yaml">LogStatus</a></summary>
+      <div class="s-desc"><p>Type defining the status of a log upload</p></div><p class="s-inline"><a href="#schema-LogStatus">Definition of LogStatus</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Log upload status</figcaption>
+      <pre data-copy-block><code>{
+        &#34;log_status&#34;: &#34;BadMessage&#34;,
+        &#34;request_id&#34;: 0
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_configure_network_status:
+
+send\_configure\_network\_status
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send configure network status</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/m2e/configure_network_status">everest_api/1/system/{module_id}/m2e/configure_network_status</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send configure network status</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_configure_network_status"><code>send_configure_network_status</code></a></p>
+      <div class="msg-summary"><p>Asynchronous final outcome of a configure network request that was answered with Processing</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ConfigureNetworkStatus" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ConfigureNetworkStatus" title="system_API.yaml">ConfigureNetworkStatus</a></summary>
+      <div class="s-desc"><p>Asynchronous final outcome of a request answered with Processing</p></div><p class="s-inline"><a href="#schema-ConfigureNetworkStatus">Definition of ConfigureNetworkStatus</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Configure network status</figcaption>
+      <pre data-copy-block><code>{
+        &#34;request_id&#34;: 0,
+        &#34;status&#34;: &#34;Ready&#34;,
+        &#34;interface_address&#34;: &#34;eth0&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/m2e/communication_check">everest_api/1/system/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="system_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>CommunicationCheck</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_system_API_op_receive_request_update_firmware:
+
+receive\_request\_update\_firmware
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Request to update the firmware</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/update_firmware">everest_api/1/system/{module_id}/e2m/update_firmware</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-system-api-op-send-reply-update-firmware">send_reply_update_firmware</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request update firmware</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_update_firmware"><code>receive_request_update_firmware</code></a></p>
+      <div class="msg-summary"><p>Request to update the firmware.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to. If this information is missing, the command will still be accepted, but no response will be sent.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-FirmwareUpdateRequest">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-FirmwareUpdateRequest" title="system_API.yaml">FirmwareUpdateRequest</a></summary>
+      <div class="s-desc"><p>Type defining a Firmware update request</p></div><p class="s-inline"><a href="#schema-FirmwareUpdateRequest">Definition of FirmwareUpdateRequest</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: {
+          &#34;request_id&#34;: 0,
+          &#34;location&#34;: &#34;string&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_allow_firmware_installation:
+
+receive\_allow\_firmware\_installation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Call to allow a firmware installation to proceed</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/allow_firmware_installation">everest_api/1/system/{module_id}/e2m/allow_firmware_installation</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive Allow firmware installation</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_allow_firmware_installation"><code>receive_allow_firmware_installation</code></a></p>
+      <div class="msg-summary"><p>Call to allow firmware installation to proceed</p></div><div class="msg-desc"><p>Call to allow a firmware installation to proceed. This is usually called after a firmware update has been downloaded. OCPP requires to move all EVSE to an unavailable state prior to installing new firmware. EVerest will take care of this and call this function when all EVSE are in unavailable state to signal that installation can proceed.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <p class="s-note">No payload.</p>
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_request_upload_logs:
+
+receive\_request\_upload\_logs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive request to upload logs</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/upload_logs">everest_api/1/system/{module_id}/e2m/upload_logs</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-system-api-op-send-reply-upload-logs">send_reply_upload_logs</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request upload logs</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_upload_logs"><code>receive_request_upload_logs</code></a></p>
+      <div class="msg-summary"><p>Request to upload logs.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to. If this information is missing, the command will still be accepted, but no response will be sent.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-UploadLogsRequest">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-UploadLogsRequest" title="system_API.yaml">UploadLogsRequest</a></summary>
+      <div class="s-desc"><p>Type defining an upload logs request.</p></div><p class="s-inline"><a href="#schema-UploadLogsRequest">Definition of UploadLogsRequest</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: {
+          &#34;location&#34;: &#34;string&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_request_is_reset_allowed:
+
+receive\_request\_is\_reset\_allowed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive request for is reset allowed</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/is_reset_allowed">everest_api/1/system/{module_id}/e2m/is_reset_allowed</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-system-api-op-send-reply-is-reset-allowed">send_reply_is_reset_allowed</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request if reset is allowed</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_is_reset_allowed"><code>receive_request_is_reset_allowed</code></a></p>
+      <div class="msg-summary"><p>Request if is reset allowed. This is usually called prior to a reset request.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">payload</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ResetType" title="system_API.yaml">ResetType</a></div>
+      <div class="s-desc"><p>Enum defining the type of a reset</p></div><div class="s-enum"><span class="s-label">enum</span><code>Soft</code><code>Hard</code><code>NotSpecified</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: &#34;Soft&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_reset:
+
+receive\_reset
+~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Call to reset the system immediately</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/reset">everest_api/1/system/{module_id}/e2m/reset</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive reset command</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reset"><code>receive_reset</code></a></p>
+      <div class="msg-summary"><p>Call to reset the system immediately</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ResetRequest" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ResetRequest" title="system_API.yaml">ResetRequest</a></summary>
+      <div class="s-desc"><p>request for reset</p></div><p class="s-inline"><a href="#schema-ResetRequest">Definition of ResetRequest</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;Soft&#34;,
+        &#34;scheduled&#34;: true
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_request_set_system_time:
+
+receive\_request\_set\_system\_time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive request to set the system time</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/set_system_time">everest_api/1/system/{module_id}/e2m/set_system_time</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-system-api-op-send-reply-set-system-time">send_reply_set_system_time</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive set system time request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_set_system_time"><code>receive_request_set_system_time</code></a></p>
+      <div class="msg-summary"><p>Call to set the system time</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to. If this information is missing, the command will still be accepted, but no response will be sent.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">payload</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-SystemTime" title="system_API.yaml">SystemTime</a></div>
+      <div class="s-desc"><p>system time in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: &#34;2019-08-24T14:15:22Z&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_request_get_boot_reason:
+
+receive\_request\_get\_boot\_reason
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive request to get the boot reason</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/get_boot_reason">everest_api/1/system/{module_id}/e2m/get_boot_reason</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-system-api-op-send-reply-get-boot-reason">send_reply_get_boot_reason</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive get boot reason request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_get_boot_reason"><code>receive_request_get_boot_reason</code></a></p>
+      <div class="msg-summary"><p>Call to get the boot reason</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_request_configure_network:
+
+receive\_request\_configure\_network
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Request to configure a network interface</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/configure_network">everest_api/1/system/{module_id}/e2m/configure_network</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-system-api-op-send-reply-configure-network">send_reply_configure_network</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module. A client without network-configuration support must still reply, with status NotSupported, instead of staying silent: EVerest blocks the requesting module (e.g. the OCPP connection attempt) until a reply arrives or the request times out.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request configure network</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_configure_network"><code>receive_request_configure_network</code></a></p>
+      <div class="msg-summary"><p>Request to prepare a network interface for use. Reply with status NotSupported if network configuration is not supported; do not leave the request unanswered.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to. If this information is missing, the command will still be accepted, but no response will be sent.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-ConfigureNetworkRequest">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ConfigureNetworkRequest" title="system_API.yaml">ConfigureNetworkRequest</a></summary>
+      <div class="s-desc"><p>Request to prepare a network interface for use</p></div><p class="s-inline"><a href="#schema-ConfigureNetworkRequest">Definition of ConfigureNetworkRequest</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: {
+          &#34;request_id&#34;: 0,
+          &#34;interface&#34;: &#34;Wired0&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_system_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/system/{module_id}/e2m/heartbeat">everest_api/1/system/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="system_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-receive_request_update_firmware">
+      <td><code>receive_request_update_firmware</code><br><span class="muted">Request update firmware</span></td>
+      <td><p>Request to update the firmware.</p></td>
+      <td><a href="#everest-api-system-api-op-receive-request-update-firmware">receive_request_update_firmware</a></td>
+      </tr>
+      <tr id="msg-send_reply_update_firmware">
+      <td><code>send_reply_update_firmware</code><br><span class="muted">Reply update firmware</span></td>
+      <td><p>Reply to update firmware request.</p></td>
+      <td><a href="#everest-api-system-api-op-send-reply-update-firmware">send_reply_update_firmware</a></td>
+      </tr>
+      <tr id="msg-receive_request_upload_logs">
+      <td><code>receive_request_upload_logs</code><br><span class="muted">Request upload logs</span></td>
+      <td><p>Request to upload logs.</p></td>
+      <td><a href="#everest-api-system-api-op-receive-request-upload-logs">receive_request_upload_logs</a></td>
+      </tr>
+      <tr id="msg-send_reply_upload_logs">
+      <td><code>send_reply_upload_logs</code><br><span class="muted">Reply upload logs</span></td>
+      <td><p>Reply to upload logs request.</p></td>
+      <td><a href="#everest-api-system-api-op-send-reply-upload-logs">send_reply_upload_logs</a></td>
+      </tr>
+      <tr id="msg-receive_request_is_reset_allowed">
+      <td><code>receive_request_is_reset_allowed</code><br><span class="muted">Request if reset is allowed</span></td>
+      <td><p>Request if is reset allowed. This is usually called prior to a reset request.</p></td>
+      <td><a href="#everest-api-system-api-op-receive-request-is-reset-allowed">receive_request_is_reset_allowed</a></td>
+      </tr>
+      <tr id="msg-send_reply_is_reset_allowed">
+      <td><code>send_reply_is_reset_allowed</code><br><span class="muted">Reply to is reset allowed</span></td>
+      <td><p>Reply to is reset allowed request.</p></td>
+      <td><a href="#everest-api-system-api-op-send-reply-is-reset-allowed">send_reply_is_reset_allowed</a></td>
+      </tr>
+      <tr id="msg-receive_request_set_system_time">
+      <td><code>receive_request_set_system_time</code><br><span class="muted">Receive set system time request</span></td>
+      <td><p>Call to set the system time</p></td>
+      <td><a href="#everest-api-system-api-op-receive-request-set-system-time">receive_request_set_system_time</a></td>
+      </tr>
+      <tr id="msg-send_reply_set_system_time">
+      <td><code>send_reply_set_system_time</code><br><span class="muted">Reply to set system time</span></td>
+      <td><p>Reply to set system time request.</p></td>
+      <td><a href="#everest-api-system-api-op-send-reply-set-system-time">send_reply_set_system_time</a></td>
+      </tr>
+      <tr id="msg-receive_request_get_boot_reason">
+      <td><code>receive_request_get_boot_reason</code><br><span class="muted">Receive get boot reason request</span></td>
+      <td><p>Call to get the boot reason</p></td>
+      <td><a href="#everest-api-system-api-op-receive-request-get-boot-reason">receive_request_get_boot_reason</a></td>
+      </tr>
+      <tr id="msg-send_reply_get_boot_reason">
+      <td><code>send_reply_get_boot_reason</code><br><span class="muted">Reply to get boot reason</span></td>
+      <td><p>Reply to get boot reason.</p></td>
+      <td><a href="#everest-api-system-api-op-send-reply-get-boot-reason">send_reply_get_boot_reason</a></td>
+      </tr>
+      <tr id="msg-receive_request_configure_network">
+      <td><code>receive_request_configure_network</code><br><span class="muted">Request configure network</span></td>
+      <td><p>Request to prepare a network interface for use. Reply with status NotSupported if network configuration is not supported; do not leave the request unanswered.</p></td>
+      <td><a href="#everest-api-system-api-op-receive-request-configure-network">receive_request_configure_network</a></td>
+      </tr>
+      <tr id="msg-send_reply_configure_network">
+      <td><code>send_reply_configure_network</code><br><span class="muted">Reply configure network</span></td>
+      <td><p>Direct (synchronous) response to a configure network request. May answer Processing and complete later via the configure_network_status var.</p></td>
+      <td><a href="#everest-api-system-api-op-send-reply-configure-network">send_reply_configure_network</a></td>
+      </tr>
+      <tr id="msg-receive_allow_firmware_installation">
+      <td><code>receive_allow_firmware_installation</code><br><span class="muted">Receive Allow firmware installation</span></td>
+      <td><p>Call to allow firmware installation to proceed</p></td>
+      <td><a href="#everest-api-system-api-op-receive-allow-firmware-installation">receive_allow_firmware_installation</a></td>
+      </tr>
+      <tr id="msg-receive_reset">
+      <td><code>receive_reset</code><br><span class="muted">Receive reset command</span></td>
+      <td><p>Call to reset the system immediately</p></td>
+      <td><a href="#everest-api-system-api-op-receive-reset">receive_reset</a></td>
+      </tr>
+      <tr id="msg-send_firmware_update_status">
+      <td><code>send_firmware_update_status</code><br><span class="muted">Send firmware update status</span></td>
+      <td><p>Describes the current status of a firmware update of the system</p></td>
+      <td><a href="#everest-api-system-api-op-send-firmware-update-status">send_firmware_update_status</a></td>
+      </tr>
+      <tr id="msg-send_log_status">
+      <td><code>send_log_status</code><br><span class="muted">Send log upload status</span></td>
+      <td><p>Describes the current status of log upload of the system</p></td>
+      <td><a href="#everest-api-system-api-op-send-log-status">send_log_status</a></td>
+      </tr>
+      <tr id="msg-send_configure_network_status">
+      <td><code>send_configure_network_status</code><br><span class="muted">Send configure network status</span></td>
+      <td><p>Asynchronous final outcome of a configure network request that was answered with Processing</p></td>
+      <td><a href="#everest-api-system-api-op-send-configure-network-status">send_configure_network_status</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-system-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-system-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-BootReason">
+      <summary><span class="s-name">BootReason</span> <span class="s-type">string</span><a class="anchor" href="#schema-BootReason" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum defining the boot reason</p></div><div class="s-enum"><span class="s-label">enum</span><code>ApplicationReset</code><code>FirmwareUpdate</code><code>LocalReset</code><code>PowerUp</code><code>RemoteReset</code><code>ScheduledReset</code><code>Triggered</code><code>Unknown</code><code>Watchdog</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-FirmwareUpdateRequest">
+      <summary><span class="s-name">FirmwareUpdateRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-FirmwareUpdateRequest" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type defining a Firmware update request</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">retries</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>This specifies how many times the system must try to download the firmware before giving up.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">retry_interval_s</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>The interval in seconds after which a retry may be attempted</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The Id of this request. If the originating firmware request (e.g. from the OCPP CSMS) did not include a request_id (e.g. classic UpdateFirmware.req), a request_id of -1 is used.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">location</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>URI defining the origin of the firmware</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">retrieve_timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Time when the firmware update shall be retrieved in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">install_timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Time when the firmware update shall be installed in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_certificate</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Certificate with which the firmware was signed. PEM encoded X.509 certificate</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signature</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Base64 encoded firmware signature</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-FirmwareUpdateStatus">
+      <summary><span class="s-name">FirmwareUpdateStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-FirmwareUpdateStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type defining the status of a firmware update</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">firmware_update_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-FirmwareUpdateStatusEnum" title="system_API.yaml">FirmwareUpdateStatusEnum</a></div>
+      <div class="s-desc"><p>State describing the current status of firmware update of the system</p></div><div class="s-enum"><span class="s-label">enum</span><code>Downloaded</code><code>DownloadFailed</code><code>Downloading</code><code>DownloadScheduled</code><code>DownloadPaused</code><code>Idle</code><code>InstallationFailed</code><code>Installing</code><code>Installed</code><code>InstallRebooting</code><code>InstallScheduled</code><code>InstallVerificationFailed</code><code>InvalidSignature</code><code>SignatureVerified</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Id of the request. Use the request_id from the corresponding FirmwareUpdateRequest.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-FirmwareUpdateMetadata">
+      <summary><span class="s-name">firmware_update_metadata</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-FirmwareUpdateMetadata" title="system_API.yaml">FirmwareUpdateMetadata</a></summary>
+      <div class="s-desc"><p>Metadata about the firmware update</p></div><p class="s-inline"><a href="#schema-FirmwareUpdateMetadata">Definition of FirmwareUpdateMetadata</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-FirmwareUpdateStatusEnum">
+      <summary><span class="s-name">FirmwareUpdateStatusEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-FirmwareUpdateStatusEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>State describing the current download/upload status of a firmware update of the system:</p><ul><li>Downloaded: Intermediate state. New firmware has been downloaded by System</li><li>DownloadFailed: Failure end state. System failed to download firmware</li><li>Downloading: Intermediate state. Firmware is being downloaded</li><li>DownloadScheduled: Intermediate state. Downloading of new firmware has been scheduled</li><li>DownloadPaused: Intermediate state. Downloading has been paused</li><li>Idle: System is not performing firmware update related tasks</li><li>InstallationFailed: Failure end state. Installation of new firmware has failed</li><li>Installing: Intermediate state. Firmware is being installed</li><li>Installed: Successful end state. New firmware has successfully been installed in System</li><li>InstallRebooting: Intermediate state. System is about to reboot to activate new firmware</li><li>InstallScheduled: Intermediate state. Installation of the downloaded firmware is scheduled to take place on installDateTime</li><li>InstallVerificationFailed: Failure end state. Verification of the new firmware (e.g. using a checksum or some other means) has failed and installation will not proceed. (Final failure state)</li><li>InvalidSignature: Failure end state. The firmware signature is not valid</li><li>SignatureVerified: Intermediate state. Provide signature successfully verified</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Downloaded</code><code>DownloadFailed</code><code>Downloading</code><code>DownloadScheduled</code><code>DownloadPaused</code><code>Idle</code><code>InstallationFailed</code><code>Installing</code><code>Installed</code><code>InstallRebooting</code><code>InstallScheduled</code><code>InstallVerificationFailed</code><code>InvalidSignature</code><code>SignatureVerified</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-FirmwareUpdateMetadata">
+      <summary><span class="s-name">FirmwareUpdateMetadata</span> <span class="s-type">object</span><a class="anchor" href="#schema-FirmwareUpdateMetadata" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type carrying metadata about a firmware update</p></div><ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">disable_connectors_during_install</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>Whether all connectors should be made unavailable (disabled) for the duration of the firmware install. Keep unset to use the defaults (disable connectors in the Downloaded and SignatureVerified phases for unsigned and signed updates respectively)</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-LogStatusEnum">
+      <summary><span class="s-name">LogStatusEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-LogStatusEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>State describing the current status of log upload of the system:</p><ul><li>AcceptedCanceled: Log upload request accepted, but cancelled an ongoing log upload.</li><li>BadMessage: A badly formatted packet or other protocol incompatibility was detected</li><li>Idle: The system is not uploading a log file</li><li>NotSupportedOperation: The server does not support the operation</li><li>PermissionDenied: Insufficient permissions to perform the operation</li><li>Uploaded: File has been uploaded successfully</li><li>UploadFailure: Failed to upload the requested file</li><li>Uploading: File is being uploaded</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>AcceptedCanceled</code><code>BadMessage</code><code>Idle</code><code>NotSupportedOperation</code><code>PermissionDenied</code><code>Uploaded</code><code>UploadFailure</code><code>Uploading</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-LogStatus">
+      <summary><span class="s-name">LogStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-LogStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type defining the status of a log upload</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">log_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-LogStatusEnum" title="system_API.yaml">LogStatusEnum</a></div>
+      <div class="s-desc"><p>State describing the current status of log upload of the system</p></div><div class="s-enum"><span class="s-label">enum</span><code>AcceptedCanceled</code><code>BadMessage</code><code>Idle</code><code>NotSupportedOperation</code><code>PermissionDenied</code><code>Uploaded</code><code>UploadFailure</code><code>Uploading</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Id of the request. Use the request_id from the corresponding UploadLogsRequest. If the originating log request did not include a request_id (e.g. classic GetDiagnostics), a request_id of -1 shall be used.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ResetAllowed">
+      <summary><span class="s-name">ResetAllowed</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-ResetAllowed" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>true if reset is allowed</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ResetRequest">
+      <summary><span class="s-name">ResetRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-ResetRequest" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>request for reset</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-ResetType" title="system_API.yaml">ResetType</a></div>
+      <div class="s-desc"><p>type of the reset (Soft or Hard)</p></div><div class="s-enum"><span class="s-label">enum</span><code>Soft</code><code>Hard</code><code>NotSpecified</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">scheduled</span><span class="s-type">boolean</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ResetType">
+      <summary><span class="s-name">ResetType</span> <span class="s-type">string</span><a class="anchor" href="#schema-ResetType" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum defining the type of a reset</p></div><div class="s-enum"><span class="s-label">enum</span><code>Soft</code><code>Hard</code><code>NotSpecified</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-SystemTime">
+      <summary><span class="s-name">SystemTime</span> <span class="s-type">string</span><a class="anchor" href="#schema-SystemTime" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>system time in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-SystemTimeSet">
+      <summary><span class="s-name">SystemTimeSet</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-SystemTimeSet" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>true if reset successful</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-UpdateFirmwareResponse">
+      <summary><span class="s-name">UpdateFirmwareResponse</span> <span class="s-type">string</span><a class="anchor" href="#schema-UpdateFirmwareResponse" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum for the response of an update_firmware command</p><ul><li>Accepted: Accepted this firmware update request. This does not mean the firmware update is successful, the system will now start the firmware update process</li><li>Rejected: Firmware update request rejected</li><li>AcceptedCanceled: Accepted this firmware update request, but in doing this has cancelled an ongoing firmware update</li><li>InvalidCertificate: The certificate is invalid</li><li>RevokedCertificate: Failure end state. The Firmware Signing certificate has been revoked</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>AcceptedCanceled</code><code>InvalidCertificate</code><code>RevokedCertificate</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-UploadLogsRequest">
+      <summary><span class="s-name">UploadLogsRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-UploadLogsRequest" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type defining an upload logs request.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">retries</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>This specifies how many times the system must try to upload the logs before giving up.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">retry_interval_s</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>The interval in seconds after which an upload retry may be attempted</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">oldest_timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Oldest timestamp that should be included in the log in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">latest_timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Latest timestamp that should be included in the log in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">location</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The URL of the location at the remote system where the log should be stored.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>The type of the log (e.g. in OCPP there is the SecurityLog and the DiagnosticsLog</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>The Id of this request. If the originating log request did not include a request_id (e.g. classic GetDiagnostics), the request_id is omitted.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-UploadLogsResponse">
+      <summary><span class="s-name">UploadLogsResponse</span> <span class="s-type">object</span><a class="anchor" href="#schema-UploadLogsResponse" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Response to a upload logs request</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">file_name</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>This contains the name of the log file that will be uploaded.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">upload_logs_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-UploadLogsStatus" title="system_API.yaml">UploadLogsStatus</a></div>
+      <div class="s-desc"><p>The log status enum</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>AcceptedCanceled</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-UploadLogsStatus">
+      <summary><span class="s-name">UploadLogsStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-UploadLogsStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum for the upload logs status response</p><ul><li>Accepted: Request to upload logs has been accepted</li><li>Rejected: Request to upload logs has been rejected</li><li>AcceptedCanceled: Accepted this log upload, but in doing this has cancelled an ongoing log file upload</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>AcceptedCanceled</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-InterfaceClassEnum">
+      <summary><span class="s-name">InterfaceClassEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-InterfaceClassEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Network interface class a connection is bound to. Maps 1:1 to OCPP 2.x OCPPInterfaceEnum but is protocol-neutral.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Wired0</code><code>Wired1</code><code>Wired2</code><code>Wired3</code><code>Wireless0</code><code>Wireless1</code><code>Wireless2</code><code>Wireless3</code><code>Any</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-APNAuthenticationEnum">
+      <summary><span class="s-name">APNAuthenticationEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-APNAuthenticationEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>APN authentication method</p></div><div class="s-enum"><span class="s-label">enum</span><code>CHAP</code><code>NONE</code><code>PAP</code><code>AUTO</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-APN">
+      <summary><span class="s-name">APN</span> <span class="s-type">object</span><a class="anchor" href="#schema-APN" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Access Point Name configuration for cellular interfaces</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">apn</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The Access Point Name as an URL</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">apn_user_name</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>APN username</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">apn_password</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>APN password</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">sim_pin</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>SIM card pin code</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">preferred_network</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Preferred network, written to the SIM card</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">use_only_preferred_network</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>Use only the preferred network</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">apn_authentication</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-APNAuthenticationEnum" title="system_API.yaml">APNAuthenticationEnum</a></div>
+      <div class="s-desc"><p>Authentication method</p></div><div class="s-enum"><span class="s-label">enum</span><code>CHAP</code><code>NONE</code><code>PAP</code><code>AUTO</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-VPNTypeEnum">
+      <summary><span class="s-name">VPNTypeEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-VPNTypeEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Type of VPN</p></div><div class="s-enum"><span class="s-label">enum</span><code>IKEv2</code><code>IPSec</code><code>L2TP</code><code>PPTP</code><code>Other</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-VPN">
+      <summary><span class="s-name">VPN</span> <span class="s-type">object</span><a class="anchor" href="#schema-VPN" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>VPN configuration</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">server</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>VPN server address</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">user</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>VPN username, if required by the VPN type</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">group</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>VPN group</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">password</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>VPN password, if required by the VPN type</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>VPN shared secret or key, if required by the VPN type</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-VPNTypeEnum" title="system_API.yaml">VPNTypeEnum</a></div>
+      <div class="s-desc"><p>Type of VPN</p></div><div class="s-enum"><span class="s-label">enum</span><code>IKEv2</code><code>IPSec</code><code>L2TP</code><code>PPTP</code><code>Other</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ConfigureNetworkRequest">
+      <summary><span class="s-name">ConfigureNetworkRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-ConfigureNetworkRequest" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Request to prepare a network interface for use</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Caller-chosen correlation id, echoed in configure_network_status</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">interface</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-InterfaceClassEnum" title="system_API.yaml">InterfaceClassEnum</a></div>
+      <div class="s-desc"><p>Standardized interface class; the provider maps it to a concrete system interface</p></div><div class="s-enum"><span class="s-label">enum</span><code>Wired0</code><code>Wired1</code><code>Wired2</code><code>Wired3</code><code>Wireless0</code><code>Wireless1</code><code>Wireless2</code><code>Wireless3</code><code>Any</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">interface_name</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Optional concrete system interface name (e.g. eth0, wwan0). If present it overrides the provider&#39;s mapping of the interface class. Providers reject unknown names (status Rejected).</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-APN">
+      <summary><span class="s-name">apn</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-APN" title="system_API.yaml">APN</a></summary>
+      <div class="s-desc"><p>Access Point Name configuration for cellular interfaces</p></div><p class="s-inline"><a href="#schema-APN">Definition of APN</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-VPN">
+      <summary><span class="s-name">vpn</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-VPN" title="system_API.yaml">VPN</a></summary>
+      <div class="s-desc"><p>VPN configuration</p></div><p class="s-inline"><a href="#schema-VPN">Definition of VPN</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ConfigureNetworkStatusEnum">
+      <summary><span class="s-name">ConfigureNetworkStatusEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-ConfigureNetworkStatusEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Status of a configure network request:</p><ul><li>Ready: interface prepared, usable now.</li><li>Processing: preparation started, final result follows on the configure_network_status var.</li><li>Failed: preparation failed.</li><li>Rejected: request invalid/refused (e.g. unknown interface_name or unmapped interface class).</li><li>NotSupported: this provider does not implement network configuration (consumers fall back to legacy behavior).</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Ready</code><code>Processing</code><code>Failed</code><code>Rejected</code><code>NotSupported</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ConfigureNetworkFinalStatusEnum">
+      <summary><span class="s-name">ConfigureNetworkFinalStatusEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-ConfigureNetworkFinalStatusEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Final status of a configure network request that was answered with Processing:</p><ul><li>Ready: interface prepared, usable now.</li><li>Failed: preparation failed.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Ready</code><code>Failed</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ConfigureNetworkResponse">
+      <summary><span class="s-name">ConfigureNetworkResponse</span> <span class="s-type">object</span><a class="anchor" href="#schema-ConfigureNetworkResponse" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Direct (synchronous) response to configure_network</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ConfigureNetworkStatusEnum" title="system_API.yaml">ConfigureNetworkStatusEnum</a></div>
+      <div class="s-desc"><p>Status of the configure network request</p></div><div class="s-enum"><span class="s-label">enum</span><code>Ready</code><code>Processing</code><code>Failed</code><code>Rejected</code><code>NotSupported</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">interface_address</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Interface name or IP address to bind to (present when status is Ready).</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ConfigureNetworkStatus">
+      <summary><span class="s-name">ConfigureNetworkStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-ConfigureNetworkStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Asynchronous final outcome of a request answered with Processing</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Correlation id echoed from the ConfigureNetworkRequest</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ConfigureNetworkFinalStatusEnum" title="system_API.yaml">ConfigureNetworkFinalStatusEnum</a></div>
+      <div class="s-desc"><p>Final state, Ready or Failed</p></div><div class="s-enum"><span class="s-label">enum</span><code>Ready</code><code>Failed</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">interface_address</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Interface name or IP address to bind to (present when status is Ready)</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+

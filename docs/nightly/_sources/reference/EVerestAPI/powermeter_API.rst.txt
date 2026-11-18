@@ -1,0 +1,3109 @@
+.. _everest_api_powermeter_API:
+
+###############
+powermeter\_API
+###############
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">powermeter</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for powermeters
+
+   API for EVerest API clients implementing powermeter.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>powermeter_API.yaml</code> · <code>pionix:de:everest:powermeter_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (6)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (3)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}">everest_api/1/powermeter/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_powermeter_API_op_send_reply_start_transaction:
+
+send\_reply\_start\_transaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send reply for start transaction</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-powermeter-api-op-receive-request-start-transaction">receive_request_start_transaction</a>.</dd>
+      </dl>
+
+   Request to reply.
+
+   This operation is used to handle the request to start a new transaction on the powermeter (for signed metering according to German Eichrecht).
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Start transaction reply message</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_start_transaction"><code>start_transaction_reply</code></a></p>
+      <div class="msg-summary"><p>The start transaction reply message contains the request status. It indicates whether the transaction could be started successfully or not. Further values may be added to the message depending on the value of the status.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-StartTransactionReply" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-StartTransactionReply" title="powermeter_API.yaml">StartTransactionReply</a></summary>
+      <div class="s-desc"><p>Return value when a transaction is started.</p></div><p class="s-inline"><a href="#schema-StartTransactionReply">Definition of StartTransactionReply</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;OK&#34;,
+        &#34;error&#34;: &#34;string&#34;,
+        &#34;transaction_min_stop_time&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;transaction_max_stop_time&#34;: &#34;2019-08-24T14:15:22Z&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_send_reply_stop_transaction:
+
+send\_reply\_stop\_transaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send reply for stop transaction</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-powermeter-api-op-receive-request-stop-transaction">receive_request_stop_transaction</a>.</dd>
+      </dl>
+
+   Request to reply.
+
+   This operation is used to handle the request to stop the transaction on the powermeter and ask for the signed metering information in a reply.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Stop transaction reply message</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_stop_transaction"><code>stop_transaction_reply</code></a></p>
+      <div class="msg-summary"><p>The stop transaction reply message contains the request status. It indicates whether the transaction could be stopped successfully or not. If successful the signed meter value report must be provided in this message too.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-StopTransactionReply" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-StopTransactionReply" title="powermeter_API.yaml">StopTransactionReply</a></summary>
+      <div class="s-desc"><p>Report returned when a signed transaction is requested to stop. If successful, includes the signed meter value object. In case of an error, an additional error message can be provided.</p></div><p class="s-inline"><a href="#schema-StopTransactionReply">Definition of StopTransactionReply</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;OK&#34;,
+        &#34;signed_meter_value&#34;: {
+          &#34;signed_meter_data&#34;: &#34;string&#34;,
+          &#34;signing_method&#34;: &#34;string&#34;,
+          &#34;encoding_method&#34;: &#34;string&#34;,
+          &#34;public_key&#34;: &#34;string&#34;,
+          &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;
+        },
+        &#34;error&#34;: &#34;string&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_send_powermeter_values:
+
+send\_powermeter\_values
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send powermeter values</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/m2e/powermeter_values">everest_api/1/powermeter/{module_id}/m2e/powermeter_values</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   This operation is used to send a dataset of measured values. The timestamp and the imported energy (in Wh) are required. Other values are optional.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send powermeter values</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_powermeter_values"><code>send_powermeter_values</code></a></p>
+      <div class="msg-summary"><p>The send powermeter values message contains the measured dataset. It requires a timestamp and the imported energy in Wh at least. Other values are optional.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-Powermeter" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-Powermeter" title="powermeter_API.yaml">Powermeter</a></summary>
+      <div class="s-desc"><p>Measured dataset (AC or DC)</p></div><p class="s-inline"><a href="#schema-Powermeter">Definition of Powermeter</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;current_A&#34;: {
+          &#34;L1&#34;: 0,
+          &#34;L2&#34;: 0,
+          &#34;L3&#34;: 0,
+          &#34;N&#34;: 0
+        },
+        &#34;energy_Wh_import&#34;: {
+          &#34;L1&#34;: 0,
+          &#34;L2&#34;: 0,
+          &#34;L3&#34;: 0,
+          &#34;total&#34;: 0
+        },
+        &#34;frequency_Hz&#34;: {
+          &#34;L1&#34;: 50.099517822265625,
+          &#34;L2&#34;: 50.099517822265625,
+          &#34;L3&#34;: 50.099517822265625
+        },
+        &#34;meter_id&#34;: &#34;THE_POWERMETER&#34;,
+        &#34;phase_seq_error&#34;: false,
+        &#34;power_W&#34;: {
+          &#34;L1&#34;: 0,
+          &#34;L2&#34;: 0,
+          &#34;L3&#34;: 0,
+          &#34;total&#34;: 0
+        },
+        &#34;timestamp&#34;: &#34;2024-09-27T07:21:14.127Z&#34;,
+        &#34;voltage_V&#34;: {
+          &#34;L1&#34;: 228.47914123535156,
+          &#34;L2&#34;: 228.47914123535156,
+          &#34;L3&#34;: 228.47914123535156
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_send_public_key_ocmf:
+
+send\_public\_key\_ocmf
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send the public key</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/m2e/public_key_ocmf">everest_api/1/powermeter/{module_id}/m2e/public_key_ocmf</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send the public key</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_public_key_ocmf"><code>send_public_key_ocmf</code></a></p>
+      <div class="msg-summary"><p>Provide the public key used to sign the OCMF data</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="#schema-SendPublicKeyOCMF" title="powermeter_API.yaml">SendPublicKeyOCMF</a></div>
+      <div class="s-desc"><p>The public key as string used to sign the OCMF data</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>&#34;THE_KEY&#34;</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_send_capabilities:
+
+send\_capabilities
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send power meter capabilities</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/m2e/capabilities">everest_api/1/powermeter/{module_id}/m2e/capabilities</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   This operation is used to send the capabilities of the power meter. Optional: meters without restrictions do not need to publish this. If supported, publish at least once during start up and on every change. Absence of individual fields means no restriction.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send power meter capabilities</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_capabilities"><code>send_capabilities</code></a></p>
+      <div class="msg-summary"><p>Capabilities of the power meter, e.g. the minimum current above which the meter measures within its accuracy class (required by the German Calibration Law, Eichrecht). Publish at least once during start up and on every change if supported. Absence of individual fields means no restriction.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-Capabilities" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-Capabilities" title="powermeter_API.yaml">Capabilities</a></summary>
+      <div class="s-desc"><p>Capabilities of this power meter. All fields are optional; an absent field means no restriction / not supported.</p></div><p class="s-inline"><a href="#schema-Capabilities">Definition of Capabilities</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Capabilities example</figcaption>
+      <pre data-copy-block><code>{
+        &#34;min_import_current_A&#34;: 10,
+        &#34;min_export_current_A&#34;: 10
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/m2e/communication_check">everest_api/1/powermeter/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="powermeter_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_powermeter_API_op_receive_request_start_transaction:
+
+receive\_request\_start\_transaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Request start transaction</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/e2m/start_transaction">everest_api/1/powermeter/{module_id}/e2m/start_transaction</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-powermeter-api-op-send-reply-start-transaction">send_reply_start_transaction</a>.</dd>
+      </dl>
+
+   Request to reply.
+
+   This operation is used to handle the request to start a new transaction on the powermeter (for signed metering according to German Eichrecht).
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Start transaction request message</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_start_transaction"><code>start_transaction_req</code></a></p>
+      <div class="msg-summary"><p>The start transaction request message contains the required input parameter for starting an OCMF transaction. These values will be included in the signed OCMF packet of the stop transaction reply.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The topic to which to send the reply. If this information is missing, the command will still be accepted, but no response will be sent.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-StartTransactionRequest">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-StartTransactionRequest" title="powermeter_API.yaml">StartTransactionRequest</a></summary>
+      <p class="s-inline"><a href="#schema-StartTransactionRequest">Definition of StartTransactionRequest</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: {
+          &#34;evse_id&#34;: &#34;string&#34;,
+          &#34;transaction_id&#34;: &#34;string&#34;,
+          &#34;identification_status&#34;: &#34;ASSIGNED&#34;,
+          &#34;identification_flags&#34;: [
+            &#34;RFID_NONE&#34;
+          ],
+          &#34;identification_type&#34;: &#34;NONE&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_receive_request_stop_transaction:
+
+receive\_request\_stop\_transaction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Request stop transaction</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/e2m/stop_transaction">everest_api/1/powermeter/{module_id}/e2m/stop_transaction</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-powermeter-api-op-send-reply-stop-transaction">send_reply_stop_transaction</a>.</dd>
+      </dl>
+
+   Request to reply.
+
+   This operation is used to handle the request to stop the transaction on the powermeter and ask for the signed metering information in a reply.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Stop transaction request message</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_stop_transaction"><code>stop_transaction_req</code></a></p>
+      <div class="msg-summary"><p>The stop transaction request message contains the transaction id to stop the corresponding transaction.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The topic to which to send the reply. If this information is missing, the command will still be accepted, but no response will be sent.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">payload</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The transaction id from the start transaction request, as a plain JSON string. An empty string stops all open transactions; EVerest sends it at start-up.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Examples</p>
+      <figure class="example">
+      <figcaption>Stop one transaction</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/powermeter/pm/m2e/reply/0f1e2d3c-4b5a-6978-8796-a5b4c3d2e1f0&#34;
+        },
+        &#34;payload&#34;: &#34;55f31fea-548b-4d41-9887-bfb964141a5e&#34;
+      }</code></pre>
+      </figure>
+      <figure class="example">
+      <figcaption>Stop every open transaction (start up)</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/powermeter/pm/m2e/reply/0f1e2d3c-4b5a-6978-8796-a5b4c3d2e1f0&#34;
+        },
+        &#34;payload&#34;: &#34;&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_powermeter_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/powermeter/{module_id}/e2m/heartbeat">everest_api/1/powermeter/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="powermeter_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-receive_request_start_transaction">
+      <td><code>start_transaction_req</code><br><span class="muted">Start transaction request message</span></td>
+      <td><p>The start transaction request message contains the required input parameter for starting an OCMF transaction. These values will be included in the signed OCMF packet of the stop transaction reply.</p></td>
+      <td><a href="#everest-api-powermeter-api-op-receive-request-start-transaction">receive_request_start_transaction</a></td>
+      </tr>
+      <tr id="msg-send_reply_start_transaction">
+      <td><code>start_transaction_reply</code><br><span class="muted">Start transaction reply message</span></td>
+      <td><p>The start transaction reply message contains the request status. It indicates whether the transaction could be started successfully or not. Further values may be added to the message depending on the value of the status.</p></td>
+      <td><a href="#everest-api-powermeter-api-op-send-reply-start-transaction">send_reply_start_transaction</a></td>
+      </tr>
+      <tr id="msg-receive_request_stop_transaction">
+      <td><code>stop_transaction_req</code><br><span class="muted">Stop transaction request message</span></td>
+      <td><p>The stop transaction request message contains the transaction id to stop the corresponding transaction.</p></td>
+      <td><a href="#everest-api-powermeter-api-op-receive-request-stop-transaction">receive_request_stop_transaction</a></td>
+      </tr>
+      <tr id="msg-send_reply_stop_transaction">
+      <td><code>stop_transaction_reply</code><br><span class="muted">Stop transaction reply message</span></td>
+      <td><p>The stop transaction reply message contains the request status. It indicates whether the transaction could be stopped successfully or not. If successful the signed meter value report must be provided in this message too.</p></td>
+      <td><a href="#everest-api-powermeter-api-op-send-reply-stop-transaction">send_reply_stop_transaction</a></td>
+      </tr>
+      <tr id="msg-send_powermeter_values">
+      <td><code>send_powermeter_values</code><br><span class="muted">Send powermeter values</span></td>
+      <td><p>The send powermeter values message contains the measured dataset. It requires a timestamp and the imported energy in Wh at least. Other values are optional.</p></td>
+      <td><a href="#everest-api-powermeter-api-op-send-powermeter-values">send_powermeter_values</a></td>
+      </tr>
+      <tr id="msg-send_public_key_ocmf">
+      <td><code>send_public_key_ocmf</code><br><span class="muted">Send the public key</span></td>
+      <td><p>Provide the public key used to sign the OCMF data</p></td>
+      <td><a href="#everest-api-powermeter-api-op-send-public-key-ocmf">send_public_key_ocmf</a></td>
+      </tr>
+      <tr id="msg-send_capabilities">
+      <td><code>send_capabilities</code><br><span class="muted">Send power meter capabilities</span></td>
+      <td><p>Capabilities of the power meter, e.g. the minimum current above which the meter measures within its accuracy class (required by the German Calibration Law, Eichrecht). Publish at least once during start up and on every change if supported. Absence of individual fields means no restriction.</p></td>
+      <td><a href="#everest-api-powermeter-api-op-send-capabilities">send_capabilities</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-powermeter-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-powermeter-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-Capabilities">
+      <summary><span class="s-name">Capabilities</span> <span class="s-type">object</span><a class="anchor" href="#schema-Capabilities" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Capabilities of this power meter. All fields are optional; an absent field means no restriction / not supported.</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">min_import_current_A</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>Minimum current in Ampere in import direction (charging) the meter can measure within its accuracy class (e.g. required by German Calibration Law).</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">min_export_current_A</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>Minimum current in Ampere in export direction (discharging) the meter can measure within its accuracy class.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-OCMFIdentificationFlags">
+      <summary><span class="s-name">OCMFIdentificationFlags</span> <span class="s-type">string</span><a class="anchor" href="#schema-OCMFIdentificationFlags" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><ul><li>RFID_NONE: No assignment via RFID</li><li>RFID_PLAIN: Assignment via external RFID card reader</li><li>RFID_RELATED: Assignment via protected RFID card reader</li><li>RFID_PSK: A previously known shared key (pre-shared key) was used, e.g. with a secured RFID card.</li><li>OCPP_NONE: No user assignment by OCPP</li><li>OCPP_RS: Assignment by OCPP RemoteStart method</li><li>OCPP_AUTH: Assignment by OCPP Authorize method</li><li>OCPP_RS_TLS: Assignment by OCPP RemoteStart method, obtained via a secured TLS connection.</li><li>OCPP_AUTH_TLS: Assignment by OCPP Authorize method, obtained via a secured TLS connection.</li><li>OCPP_CACHE: Assignment by authorization cache of OCPP</li><li>OCPP_WHITELIST: Assignment by whitelist from OCPP</li><li>OCPP_CERTIFIED: A certificate of the backend was used which certifies the user mapping.</li><li>ISO15118_NONE: no user assignment by ISO 15118</li><li>ISO15118_PNC: Plug &amp; Charge was used</li><li>PLMN_NONE: no user assignment</li><li>PLMN_RING: call</li><li>PLMN_SMS: short message</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>RFID_NONE</code><code>RFID_PLAIN</code><code>RFID_RELATED</code><code>RFID_PSK</code><code>OCPP_NONE</code><code>OCPP_RS</code><code>OCPP_AUTH</code><code>OCPP_RS_TLS</code><code>OCPP_AUTH_TLS</code><code>OCPP_CACHE</code><code>OCPP_WHITELIST</code><code>OCPP_CERTIFIED</code><code>ISO15118_NONE</code><code>ISO15118_PNC</code><code>PLMN_NONE</code><code>PLMN_RING</code><code>PLMN_SMS</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-OCMFIdentificationLevel">
+      <summary><span class="s-name">OCMFIdentificationLevel</span> <span class="s-type">string</span><a class="anchor" href="#schema-OCMFIdentificationLevel" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><ul><li>NONE: There is no user assignment. The other data for user assignment have no significance.</li><li>HEARSAY: The assignment is unsecured; e.g. by reading an RFID UID.</li><li>TRUSTED: The mapping can be trusted to some extent, but there is no absolute reliability. Example: Authorization by backend.</li><li>VERIFIED: The assignment has been verified by the signature component and special measures.</li><li>CERTIFIED: The assignment was verified by the signature component using a cryptographic signature that certifies the assignment.</li><li>SECURE: The mapping was established by a secure feature (e.g. secure RFID card, ISO 15118 with plug and charge, etc.).</li><li>MISMATCH: Error; UIDs do not match.</li><li>INVALID: Error; certificate not correct (check negative).</li><li>OUTDATED: Error; referenced trust certificate expired.</li><li>UNKNOWN: Certificate could not be successfully verified (no matching trust certificate found).</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>NONE</code><code>HEARSAY</code><code>TRUSTED</code><code>VERIFIED</code><code>CERTIFIED</code><code>SECURE</code><code>MISMATCH</code><code>INVALID</code><code>OUTDATED</code><code>UNKNOWN</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-OCMFIdentificationType">
+      <summary><span class="s-name">OCMFIdentificationType</span> <span class="s-type">string</span><a class="anchor" href="#schema-OCMFIdentificationType" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><ul><li>NONE: No assignment available</li><li>DENIED: Assignment currently not available (due to two-factor authorization)</li><li>UNDEFINED: Type not specified</li><li>ISO14443: UID of an RFID card according to ISO 14443. Represented as 4 or 7 bytes in hexadecimal notation.</li><li>ISO15693: UID of an RFID card according to ISO 15693. Represented as 8 bytes in hexadecimal notation.</li><li>EMAID: Electro-Mobility-Account-ID according to ISO/IEC 15118 (string with length 14 or 15)</li><li>EVCCID: ID of an electric vehicle according to ISO/IEC 15118 (maximum length 6 characters)</li><li>EVCOID: EV Contract ID according to DIN 91286.</li><li>ISO7812: Identification card format according to ISO/IEC 7812 (credit and bank cards, etc.)</li><li>CARD_TXN_NR: Card transaction number (CardTxNbr) for a payment with credit or bank card used in a terminal at the charging point.</li><li>CENTRAL: Centrally generated ID. No exact format defined, can be e.g. a UUID. (OCPP 2.0)</li><li>CENTRAL_1: Centrally generated ID, e.g. by start via SMS. No exact format defined. (until OCPP 1.6)</li><li>CENTRAL_2: Centrally generated ID, e.g. by operator start. No exact format defined. (until OCPP 1.6)</li><li>LOCAL: Locally generated ID. No exact format defined, might be e.g. a UUID. (OCPP 2.0)</li><li>LOCAL_1: Locally generated ID, e.g. ID generated internally by the charge point. No exact format defined. (until OCPP 1.6)</li><li>LOCAL_2: Locally generated ID, for other cases. No exact format defined. (until OCPP 1.6)</li><li>PHONE_NUMBER: International phone number with leading &#34;+&#34;.</li><li>KEY_CODE: User-related private key code. No exact format defined.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>NONE</code><code>DENIED</code><code>UNDEFINED</code><code>ISO14443</code><code>ISO15693</code><code>EMAID</code><code>EVCCID</code><code>EVCOID</code><code>ISO7812</code><code>CARD_TXN_NR</code><code>CENTRAL</code><code>CENTRAL_1</code><code>CENTRAL_2</code><code>LOCAL</code><code>LOCAL_1</code><code>LOCAL_2</code><code>PHONE_NUMBER</code><code>KEY_CODE</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-OCMFUserIdentificationStatus">
+      <summary><span class="s-name">OCMFUserIdentificationStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-OCMFUserIdentificationStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>General status for user assignment</p><ul><li>ASSIGNED: user successfully assigned</li><li>NOT_ASSIGNED: user not assigned</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>ASSIGNED</code><code>NOT_ASSIGNED</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-Powermeter">
+      <summary><span class="s-name">Powermeter</span> <span class="s-type">object</span><a class="anchor" href="#schema-Powermeter" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Measured dataset (AC or DC)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">meter_id</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>A (user defined) meter id (e.g. id printed on the case)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">phase_seq_error</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>AC only: true for 3 phase rotation error (ccw)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">energy_Wh_import</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Imported energy in Wh (from grid)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>DC / AC Sum value (which is relevant for billing)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L1 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L2 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L3 value only</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">energy_Wh_export</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Exported energy in Wh (to grid)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>DC / AC Sum value (which is relevant for billing)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L1 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L2 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L3 value only</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">power_W</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Instantaneous power in Watt. Negative values are exported, positive values imported Energy.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>DC / AC Sum value</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L1 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L2 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L3 value only</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">voltage_V</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Voltage in Volts</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">DC</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>DC voltage</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L1 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L2 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L3 value only</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">VAR</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Reactive power VAR</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>VAR total</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>VAR phase A</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>VAR phase B</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>VAR phase C</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">current_A</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Current in ampere</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">DC</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>DC current</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L1 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L2 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L3 value only</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">N</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC Neutral value only</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">frequency_Hz</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Grid frequency in Hertz</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L1</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>AC L1 value</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L2</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L2 value</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">L3</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>AC L3 value</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">energy_Wh_import_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Imported energy in Wh (from grid)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">total</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>DC / AC Sum value (which is relevant for billing)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L1 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L2 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L3 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">energy_Wh_export_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Exported energy in Wh (to grid)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">total</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>DC / AC Sum value (which is relevant for billing)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L1 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L2 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L3 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">power_W_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Instantaneous power in Watt. Negative values are exported, positive values imported Energy.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">total</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>DC / AC Sum value</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L1 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L2 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L3 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">voltage_V_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Voltage in Volts</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">DC</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>DC voltage</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L1 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L2 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L3 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">VAR_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Reactive power VAR</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">total</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>VAR total</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>VAR phase A</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>VAR phase B</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>VAR phase C</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">current_A_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Current in ampere</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">DC</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>DC current</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L1 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L2 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L3 value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">N</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC Neutral value only</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">frequency_Hz_signed</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Grid frequency in Hertz</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L1</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L1 value</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L2</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L2 value</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">L3</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>AC L3 value</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">signed_meter_value</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Signed collection of instantaneous meter values if supported by the meter. This is intended for meters that only support signing a collection of meter values.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">temperatures</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>An array of temperature sensors expressed in C, their definition and meaning is product specific</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-Temperature">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-Temperature" title="powermeter_API.yaml">Temperature</a></summary>
+      <div class="s-desc"><p>Temperature sensor expressed in C and a description (vendor specific) allowing to identify its purpose or meaning</p></div><p class="s-inline"><a href="#schema-Temperature">Definition of Temperature</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-SendPublicKeyOCMF">
+      <summary><span class="s-name">SendPublicKeyOCMF</span> <span class="s-type">string</span><a class="anchor" href="#schema-SendPublicKeyOCMF" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>The public key as string used to sign the OCMF data</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-StartTransactionReply">
+      <summary><span class="s-name">StartTransactionReply</span> <span class="s-type">object</span><a class="anchor" href="#schema-StartTransactionReply" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Return value when a transaction is started.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-TransactionStatus" title="powermeter_API.yaml">TransactionStatus</a></div>
+      <div class="s-desc"><p>Response status that indicates whether the transaction start request could successfully be performed.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OK</code><code>NOT_SUPPORTED</code><code>UNEXPECTED_ERROR</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">error</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>If status is not OK, a verbose error message.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">transaction_min_stop_time</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Earliest point in time the started transaction can be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">transaction_max_stop_time</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Deadline for the transaction to be stopped again (if a minimum duration is required by the meter); yields a RFC3339 timestamp.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">signed_meter_value</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>The signed meter value report for start of transaction. Only set if the meter provides separate values for start and stop.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-StartTransactionRequest">
+      <summary><span class="s-name">StartTransactionRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-StartTransactionRequest" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">evse_id</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Id of this EVSE</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">transaction_id</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>OCPP transaction UUID</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identification_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-OCMFUserIdentificationStatus" title="powermeter_API.yaml">OCMFUserIdentificationStatus</a></div>
+      <div class="s-desc"><p>OCMF Identification Status (IS): General status for user assignment</p></div><div class="s-enum"><span class="s-label">enum</span><code>ASSIGNED</code><code>NOT_ASSIGNED</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identification_level</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-OCMFIdentificationLevel" title="powermeter_API.yaml">OCMFIdentificationLevel</a></div>
+      <div class="s-desc"><p>OCMF Identification Level (IL): Encoded overall status of the user assignment</p></div><div class="s-enum"><span class="s-label">enum</span><code>NONE</code><code>HEARSAY</code><code>TRUSTED</code><code>VERIFIED</code><code>CERTIFIED</code><code>SECURE</code><code>MISMATCH</code><code>INVALID</code><code>OUTDATED</code><code>UNKNOWN</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">identification_flags</span><span class="s-type">array&lt;string&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>OCMF Identification Flags (IF): Detailed statements about the user assignment, represented by one or more identifiers</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min items</span> 0</span><span class="chip"><span class="s-label">max items</span> 4</span></div>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">items</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-OCMFIdentificationFlags" title="powermeter_API.yaml">OCMFIdentificationFlags</a></div>
+      <div class="s-desc"><ul><li>RFID_NONE: No assignment via RFID</li><li>RFID_PLAIN: Assignment via external RFID card reader</li><li>RFID_RELATED: Assignment via protected RFID card reader</li><li>RFID_PSK: A previously known shared key (pre-shared key) was used, e.g. with a secured RFID card.</li><li>OCPP_NONE: No user assignment by OCPP</li><li>OCPP_RS: Assignment by OCPP RemoteStart method</li><li>OCPP_AUTH: Assignment by OCPP Authorize method</li><li>OCPP_RS_TLS: Assignment by OCPP RemoteStart method, obtained via a secured TLS connection.</li><li>OCPP_AUTH_TLS: Assignment by OCPP Authorize method, obtained via a secured TLS connection.</li><li>OCPP_CACHE: Assignment by authorization cache of OCPP</li><li>OCPP_WHITELIST: Assignment by whitelist from OCPP</li><li>OCPP_CERTIFIED: A certificate of the backend was used which certifies the user mapping.</li><li>ISO15118_NONE: no user assignment by ISO 15118</li><li>ISO15118_PNC: Plug &amp; Charge was used</li><li>PLMN_NONE: no user assignment</li><li>PLMN_RING: call</li><li>PLMN_SMS: short message</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>RFID_NONE</code><code>RFID_PLAIN</code><code>RFID_RELATED</code><code>RFID_PSK</code><code>OCPP_NONE</code><code>OCPP_RS</code><code>OCPP_AUTH</code><code>OCPP_RS_TLS</code><code>OCPP_AUTH_TLS</code><code>OCPP_CACHE</code><code>OCPP_WHITELIST</code><code>OCPP_CERTIFIED</code><code>ISO15118_NONE</code><code>ISO15118_PNC</code><code>PLMN_NONE</code><code>PLMN_RING</code><code>PLMN_SMS</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identification_type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-OCMFIdentificationType" title="powermeter_API.yaml">OCMFIdentificationType</a></div>
+      <div class="s-desc"><p>OCMF Identification Type (IT): Type of identification data</p></div><div class="s-enum"><span class="s-label">enum</span><code>NONE</code><code>DENIED</code><code>UNDEFINED</code><code>ISO14443</code><code>ISO15693</code><code>EMAID</code><code>EVCCID</code><code>EVCOID</code><code>ISO7812</code><code>CARD_TXN_NR</code><code>CENTRAL</code><code>CENTRAL_1</code><code>CENTRAL_2</code><code>LOCAL</code><code>LOCAL_1</code><code>LOCAL_2</code><code>PHONE_NUMBER</code><code>KEY_CODE</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identification_data</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>OCMF Identification Data (ID): The actual identification data e.g. a hex-coded UID according to ISO 14443.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tariff_text</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>A textual description used to identify a unique tariff. This field is intended for the tariff designation in &#34;Direct Payment&#34; use case.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 250</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-StopTransactionReply">
+      <summary><span class="s-name">StopTransactionReply</span> <span class="s-type">object</span><a class="anchor" href="#schema-StopTransactionReply" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Report returned when a signed transaction is requested to stop. If successful, includes the signed meter value object. In case of an error, an additional error message can be provided.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-TransactionStatus" title="powermeter_API.yaml">TransactionStatus</a></div>
+      <div class="s-desc"><p>Response status that indicates whether the transaction stop request could successfully be performed.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OK</code><code>NOT_SUPPORTED</code><code>UNEXPECTED_ERROR</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">start_signed_meter_value</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>The signed meter value report for start of transaction. Needs to be filled if meter provides separate values for start and stop.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">signed_meter_value</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>The signed meter value report of the stopped transaction. Must be provided if status is OK and a specific transaction was stopped; it is absent when an empty transaction id cancelled all transactions. A meter that does not sign transactions replies NOT_SUPPORTED.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to create the signature</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">error</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>If status is not OK, a verbose error message.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-Temperature">
+      <summary><span class="s-name">Temperature</span> <span class="s-type">object</span><a class="anchor" href="#schema-Temperature" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Temperature sensor expressed in C and a description (vendor specific) allowing to identify its purpose or meaning</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">temperature</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The temperature of the sensor measured in C</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identification</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>A (vendor specific) ID if required</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">location</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Location of the measurement</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TransactionStatus">
+      <summary><span class="s-name">TransactionStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-TransactionStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Status of a start or stop transaction - used in start or stop transaction reply.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OK</code><code>NOT_SUPPORTED</code><code>UNEXPECTED_ERROR</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-units">
+      <summary><span class="s-name">units</span> <span class="s-type">any</span><a class="anchor" href="#schema-units" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">any</span></div>
+      <div class="s-desc"><p>Unit types</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-units_signed">
+      <summary><span class="s-name">units_signed</span> <span class="s-type">any</span><a class="anchor" href="#schema-units_signed" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">any</span></div>
+      <div class="s-desc"><p>Unit types signed</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+

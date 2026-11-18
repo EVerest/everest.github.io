@@ -1,0 +1,954 @@
+.. _everest_api_slac_API:
+
+#########
+slac\_API
+#########
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">slac</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for SLAC
+
+   API for EVerest API clients implementing SLAC. Commands without arguments carry an empty JSON object ({}) as payload.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>slac_API.yaml</code> · <code>pionix:de:everest:slac_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (7)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (8)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/slac/{module_id}">everest_api/1/slac/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_slac_API_op_send_state:
+
+send\_state
+~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send state</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/state">everest_api/1/slac/{module_id}/m2e/state</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">SLAC state</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_state"><code>send_state</code></a></p>
+      <div class="msg-summary"><p>Provides the state enum.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="#schema-State" title="slac_API.yaml">State</a></div>
+      <div class="s-desc"><p>Provides the state enum.</p></div><div class="s-enum"><span class="s-label">enum</span><code>UNMATCHED</code><code>MATCHING</code><code>MATCHED</code></div>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example state MATCHED</figcaption>
+      <pre data-copy-block><code>&#34;MATCHED&#34;</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_send_dlink_ready:
+
+send\_dlink\_ready
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send dlink_ready</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/dlink_ready">everest_api/1/slac/{module_id}/m2e/dlink_ready</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Dlink ready</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_dlink_ready"><code>send_dlink_ready</code></a></p>
+      <div class="msg-summary"><p>Inform higher layers about a change in data link status. Emits true if link was set up and false when the link is shut down.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-DLinkStatus" title="slac_API.yaml">DLinkStatus</a></div>
+      <div class="s-desc"><p>Inform higher layers about a change in data link status. Emits true if link was set up and false when the link is shut down.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example dlink_ready true</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_send_request_error_routine:
+
+send\_request\_error\_routine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send request_error_routine</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/request_error_routine">everest_api/1/slac/{module_id}/m2e/request_error_routine</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request error routine</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_error_routine"><code>send_request_error_routine</code></a></p>
+      <div class="msg-summary"><p>Inform the higher layer to execute the error routine for a SLAC connection retry</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">null</span></div>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>null</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_send_ev_mac_address:
+
+send\_ev\_mac\_address
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send ev_mac_address</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/ev_mac_address">everest_api/1/slac/{module_id}/m2e/ev_mac_address</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">EV MAC address</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_ev_mac_address"><code>send_ev_mac_address</code></a></p>
+      <div class="msg-summary"><p>Inform higher layers about the MAC address of the vehicle (upper case)</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="#schema-MACAddress" title="slac_API.yaml">MACAddress</a></div>
+      <div class="s-desc"><p>Inform higher layers about the MAC address of the vehicle (upper case)</p></div><div class="s-constraints"><span class="chip"><span class="s-label">pattern</span> ^[A-F0-9]{2}(:[A-F0-9]{2}){5}$</span></div>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example MAC address</figcaption>
+      <pre data-copy-block><code>&#34;AA:BB:CC:DD:EE:FF&#34;</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_send_raise_error:
+
+send\_raise\_error
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send raise error</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/raise_error">everest_api/1/slac/{module_id}/m2e/raise_error</code></dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send raise error</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_raise_error"><code>send_raise_error</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that an error happened.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-Error" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-Error" title="slac_API.yaml">Error</a></summary>
+      <div class="s-desc"><p>Error object with type, subtype and message.</p></div><p class="s-inline"><a href="#schema-Error">Definition of Error</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example error message</figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;CommunicationFault&#34;,
+        &#34;sub_type&#34;: &#34;string&#34;,
+        &#34;message&#34;: &#34;string&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_send_clear_error:
+
+send\_clear\_error
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send clear error</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/clear_error">everest_api/1/slac/{module_id}/m2e/clear_error</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send clear error</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_clear_error"><code>send_clear_error</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that an error was resolved.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-Error" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-Error" title="slac_API.yaml">Error</a></summary>
+      <div class="s-desc"><p>Error object with type, subtype and message.</p></div><p class="s-inline"><a href="#schema-Error">Definition of Error</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Signal to EVerest that a previously raised error is no longer active.</figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;CommunicationFault&#34;,
+        &#34;sub_type&#34;: &#34;string&#34;,
+        &#34;message&#34;: &#34;string&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/m2e/communication_check">everest_api/1/slac/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="slac_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_slac_API_op_receive_reset:
+
+receive\_reset
+~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive reset</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/reset">everest_api/1/slac/{module_id}/e2m/reset</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reset SLAC</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reset"><code>receive_reset</code></a></p>
+      <div class="msg-summary"><p>Reset SLAC</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-Enabled" title="slac_API.yaml">Enabled</a></div>
+      <div class="s-desc"><p>true: start SLAC after reset, false: stop SLAC</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_enter_bcd:
+
+receive\_enter\_bcd
+~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive enter_bcd</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/enter_bcd">everest_api/1/slac/{module_id}/e2m/enter_bcd</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Enter B/C/D</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_enter_bcd"><code>receive_enter_bcd</code></a></p>
+      <div class="msg-summary"><p>Signal pilot state change to B/C/D from A/E/F.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <p class="s-note">No payload.</p>
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_leave_bcd:
+
+receive\_leave\_bcd
+~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive leave_bcd</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/leave_bcd">everest_api/1/slac/{module_id}/e2m/leave_bcd</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Leave B/C/D</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_leave_bcd"><code>receive_leave_bcd</code></a></p>
+      <div class="msg-summary"><p>Signal pilot state change to A/E/F from B/C/D.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <p class="s-note">No payload.</p>
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_count_bc:
+
+receive\_count\_bc
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive count_bc</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/count_bc">everest_api/1/slac/{module_id}/e2m/count_bc</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">B/C transition count</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_count_bc"><code>receive_count_bc</code></a></p>
+      <div class="msg-summary"><p>Running count of Control-Pilot B-&gt;C transitions in the current session, pushed by EvseManager on every edge and reset to 0 at plug-in. SLAC uses the delta over the CM_VALIDATE toggle window as the number of BCB toggles the EV performed.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-BcTransitionCount" title="slac_API.yaml">BcTransitionCount</a></div>
+      <div class="s-desc"><p>Running count of Control-Pilot B-&gt;C transitions in the current session.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Second B-&gt;C edge of the session</figcaption>
+      <pre data-copy-block><code>2</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_dlink_terminate:
+
+receive\_dlink\_terminate
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive dlink_terminate</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/dlink_terminate">everest_api/1/slac/{module_id}/e2m/dlink_terminate</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Dlink terminate</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_dlink_terminate"><code>receive_dlink_terminate</code></a></p>
+      <div class="msg-summary"><p>Terminate the data link and become UNMATCHED.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <p class="s-note">No payload.</p>
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_dlink_error:
+
+receive\_dlink\_error
+~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive dlink_error</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/dlink_error">everest_api/1/slac/{module_id}/e2m/dlink_error</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Dlink error</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_dlink_error"><code>receive_dlink_error</code></a></p>
+      <div class="msg-summary"><p>Terminate the data link and restart the matching process.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <p class="s-note">No payload.</p>
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_dlink_pause:
+
+receive\_dlink\_pause
+~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive dlink_pause</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/dlink_pause">everest_api/1/slac/{module_id}/e2m/dlink_pause</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Dlink pause</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_dlink_pause"><code>receive_dlink_pause</code></a></p>
+      <div class="msg-summary"><p>Request power saving mode, while staying MATCHED.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <p class="s-note">No payload.</p>
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_slac_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/slac/{module_id}/e2m/heartbeat">everest_api/1/slac/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="slac_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-receive_reset">
+      <td><code>receive_reset</code><br><span class="muted">Reset SLAC</span></td>
+      <td><p>Reset SLAC</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-reset">receive_reset</a></td>
+      </tr>
+      <tr id="msg-receive_enter_bcd">
+      <td><code>receive_enter_bcd</code><br><span class="muted">Enter B/C/D</span></td>
+      <td><p>Signal pilot state change to B/C/D from A/E/F.</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-enter-bcd">receive_enter_bcd</a></td>
+      </tr>
+      <tr id="msg-receive_leave_bcd">
+      <td><code>receive_leave_bcd</code><br><span class="muted">Leave B/C/D</span></td>
+      <td><p>Signal pilot state change to A/E/F from B/C/D.</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-leave-bcd">receive_leave_bcd</a></td>
+      </tr>
+      <tr id="msg-receive_count_bc">
+      <td><code>receive_count_bc</code><br><span class="muted">B/C transition count</span></td>
+      <td><p>Running count of Control-Pilot B-&gt;C transitions in the current session, pushed by EvseManager on every edge and reset to 0 at plug-in. SLAC uses the delta over the CM_VALIDATE toggle window as the number of BCB toggles the EV performed.</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-count-bc">receive_count_bc</a></td>
+      </tr>
+      <tr id="msg-receive_dlink_terminate">
+      <td><code>receive_dlink_terminate</code><br><span class="muted">Dlink terminate</span></td>
+      <td><p>Terminate the data link and become UNMATCHED.</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-dlink-terminate">receive_dlink_terminate</a></td>
+      </tr>
+      <tr id="msg-receive_dlink_error">
+      <td><code>receive_dlink_error</code><br><span class="muted">Dlink error</span></td>
+      <td><p>Terminate the data link and restart the matching process.</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-dlink-error">receive_dlink_error</a></td>
+      </tr>
+      <tr id="msg-receive_dlink_pause">
+      <td><code>receive_dlink_pause</code><br><span class="muted">Dlink pause</span></td>
+      <td><p>Request power saving mode, while staying MATCHED.</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-dlink-pause">receive_dlink_pause</a></td>
+      </tr>
+      <tr id="msg-send_state">
+      <td><code>send_state</code><br><span class="muted">SLAC state</span></td>
+      <td><p>Provides the state enum.</p></td>
+      <td><a href="#everest-api-slac-api-op-send-state">send_state</a></td>
+      </tr>
+      <tr id="msg-send_dlink_ready">
+      <td><code>send_dlink_ready</code><br><span class="muted">Dlink ready</span></td>
+      <td><p>Inform higher layers about a change in data link status. Emits true if link was set up and false when the link is shut down.</p></td>
+      <td><a href="#everest-api-slac-api-op-send-dlink-ready">send_dlink_ready</a></td>
+      </tr>
+      <tr id="msg-send_request_error_routine">
+      <td><code>send_request_error_routine</code><br><span class="muted">Request error routine</span></td>
+      <td><p>Inform the higher layer to execute the error routine for a SLAC connection retry</p></td>
+      <td><a href="#everest-api-slac-api-op-send-request-error-routine">send_request_error_routine</a></td>
+      </tr>
+      <tr id="msg-send_ev_mac_address">
+      <td><code>send_ev_mac_address</code><br><span class="muted">EV MAC address</span></td>
+      <td><p>Inform higher layers about the MAC address of the vehicle (upper case)</p></td>
+      <td><a href="#everest-api-slac-api-op-send-ev-mac-address">send_ev_mac_address</a></td>
+      </tr>
+      <tr id="msg-send_raise_error">
+      <td><code>send_raise_error</code><br><span class="muted">Send raise error</span></td>
+      <td><p>Signal to EVerest that an error happened.</p></td>
+      <td><a href="#everest-api-slac-api-op-send-raise-error">send_raise_error</a></td>
+      </tr>
+      <tr id="msg-send_clear_error">
+      <td><code>send_clear_error</code><br><span class="muted">Send clear error</span></td>
+      <td><p>Signal to EVerest that an error was resolved.</p></td>
+      <td><a href="#everest-api-slac-api-op-send-clear-error">send_clear_error</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-slac-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-slac-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-BcTransitionCount">
+      <summary><span class="s-name">BcTransitionCount</span> <span class="s-type">integer</span><a class="anchor" href="#schema-BcTransitionCount" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>Running count of Control-Pilot B-&gt;C transitions in the current session.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-Enabled">
+      <summary><span class="s-name">Enabled</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-Enabled" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>true: start SLAC after reset, false: stop SLAC</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-State">
+      <summary><span class="s-name">State</span> <span class="s-type">string</span><a class="anchor" href="#schema-State" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Provides the state enum.</p></div><div class="s-enum"><span class="s-label">enum</span><code>UNMATCHED</code><code>MATCHING</code><code>MATCHED</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-DLinkStatus">
+      <summary><span class="s-name">DLinkStatus</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-DLinkStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Inform higher layers about a change in data link status. Emits true if link was set up and false when the link is shut down.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-MACAddress">
+      <summary><span class="s-name">MACAddress</span> <span class="s-type">string</span><a class="anchor" href="#schema-MACAddress" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Inform higher layers about the MAC address of the vehicle (upper case)</p></div><div class="s-constraints"><span class="chip"><span class="s-label">pattern</span> ^[A-F0-9]{2}(:[A-F0-9]{2}){5}$</span></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-Error">
+      <summary><span class="s-name">Error</span> <span class="s-type">object</span><a class="anchor" href="#schema-Error" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Error object with type, subtype and message.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ErrorEnum" title="slac_API.yaml">ErrorEnum</a></div>
+      <div class="s-desc"><p>Type of Error</p><ul><li>CommunicationFault: &#39;The communication to the hardware or underlying driver is lost or has errors.&#39;</li><li>VendorError: &#39;Vendor specific error code. Will stop charging session.&#39;</li><li>VendorWarning: &#39;Vendor specific error code. Charging may continue.&#39;</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>CommunicationFault</code><code>VendorError</code><code>VendorWarning</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">sub_type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Sub-type of the error.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">message</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Optional additional information about the error OCPP 1.6: Sets <code>info</code> on MREC errors and <code>vendorId</code> otherwise OCPP 2.x: Sets <code>techInfo</code></p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">trigger_value</span><span class="s-type">object</span>
+      </summary>
+      <div class="s-desc"><p>Optional value that caused this specific occurrence of the error, e.g. the measurement that crossed a limit.</p></div><ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">text_repr</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Text representation of the value as the raising entity would print it, including a unit where one applies, e.g. <code>85.3 degC</code>. EVerest passes it on as is and does not parse it. Longer values are truncated to 2500 characters.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 2500</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ErrorEnum">
+      <summary><span class="s-name">ErrorEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-ErrorEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Type of Error</p><ul><li>CommunicationFault: &#39;The communication to the hardware or underlying driver is lost or has errors.&#39;</li><li>VendorError: &#39;Vendor specific error code. Will stop charging session.&#39;</li><li>VendorWarning: &#39;Vendor specific error code. Charging may continue.&#39;</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>CommunicationFault</code><code>VendorError</code><code>VendorWarning</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+

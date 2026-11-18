@@ -1,0 +1,901 @@
+.. _everest_api_evse_security_consumer_API:
+
+#############################
+evse\_security\_consumer\_API
+#############################
+
+.. warning::
+
+   **Experimental API** since \2026.10.0.
+   This API is exempt from the EVerest stability guarantees and the deprecation
+   period. Its channels, operations and message payloads may change or be
+   removed in any release without notice until it is promoted to stable. See
+   the :ref:`policy on experimental components <project-experimental-components>`
+   and the :ref:`experimental feature index <project-experimental-index>`.
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="badge experimental" title="Exempt from the stability guarantees">experimental</span><span class="chip"><span class="s-label">version</span> 1.0.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">OCPP</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for evse\_security consumer
+
+   API for EVerest API clients that use the EvseSecurity module. Experimental: this API is exempt from the EVerest stability guarantees and the deprecation period; channels, operations and message payloads may change without further notice until it is promoted to stable.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>evse_security_consumer_API.yaml</code> · <code>pionix:de:everest:evse_security_consumer_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (4)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (4)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/evse_security_consumer/{module_id}">everest_api/1/evse_security_consumer/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_evse_security_consumer_API_op_send_request_is_ca_certificate_installed:
+
+send\_request\_is\_ca\_certificate\_installed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Command that indicates if the given CA certificate type is installed</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/evse_security_consumer/{module_id}/m2e/is_ca_certificate_installed">everest_api/1/evse_security_consumer/{module_id}/m2e/is_ca_certificate_installed</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-evse-security-consumer-api-op-receive-reply-is-ca-certificate-installed">receive_reply_is_ca_certificate_installed</a>.</dd>
+      </dl>
+
+   Command that indicates if the given CA certificate type is installed
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Command that indicates if the given CA certificate type is installed</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_is_ca_certificate_installed"><code>send_request_is_ca_certificate_installed</code></a></p>
+      <div class="msg-summary"><p>Command that indicates if the given CA certificate type is installed</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">payload</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-CaCertificateType" title="evse_security_consumer_API.yaml">CaCertificateType</a></div>
+      <div class="s-desc"><p>Enum specifies the type of a CA certificate</p></div><div class="s-enum"><span class="s-label">enum</span><code>V2G</code><code>MO</code><code>CSMS</code><code>MF</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Ask if certificated of type CSMS is installed</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;reply/to/address&#34;
+        },
+        &#34;payload&#34;: &#34;CSMS&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_evse_security_consumer_API_op_send_request_get_leaf_certificate_info:
+
+send\_request\_get\_leaf\_certificate\_info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Command to get the paths of the certificate and the respective key</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/evse_security_consumer/{module_id}/m2e/get_leaf_certificate_info">everest_api/1/evse_security_consumer/{module_id}/m2e/get_leaf_certificate_info</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-evse-security-consumer-api-op-receive-reply-get-leaf-certificate-info">receive_reply_get_leaf_certificate_info</a>.</dd>
+      </dl>
+
+   Command to get the paths of the certificate and the respective key
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Command to get the paths of the certificate and the respective key</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_leaf_certificate_info"><code>send_request_get_leaf_certificate_info</code></a></p>
+      <div class="msg-summary"><p>Command to get the paths of the certificate and the respective key</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-GetLeafCertificateInfoRequest">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-GetLeafCertificateInfoRequest" title="evse_security_consumer_API.yaml">GetLeafCertificateInfoRequest</a></summary>
+      <p class="s-inline"><a href="#schema-GetLeafCertificateInfoRequest">Definition of GetLeafCertificateInfoRequest</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Get information for CSMS type certificate</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;reply/to/address&#34;
+        },
+        &#34;payload&#34;: {
+          &#34;certificate_type&#34;: &#34;CSMS&#34;,
+          &#34;encoding&#34;: &#34;PEM&#34;,
+          &#34;include_ocsp&#34;: false
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_evse_security_consumer_API_op_send_request_get_verify_location:
+
+send\_request\_get\_verify\_location
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Command to get the path of the CA certificates for verification: the bundle file if the CA store is a file, otherwise the directory (c_rehash is invoked on it)</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/evse_security_consumer/{module_id}/m2e/get_verify_location">everest_api/1/evse_security_consumer/{module_id}/m2e/get_verify_location</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-evse-security-consumer-api-op-receive-reply-get-verify-location">receive_reply_get_verify_location</a>.</dd>
+      </dl>
+
+   Command to get the path of the CA certificates for verification: the bundle file if the CA store is a file, otherwise the directory (c\_rehash is invoked on it)
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Command to get the path of the CA certificates for verification: the bundle file if the CA store is a file, otherwise the directory (c_rehash is invoked on it)</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_verify_location"><code>send_request_get_verify_location</code></a></p>
+      <div class="msg-summary"><p>Command to get the path of the CA certificates for verification: the bundle file if the CA store is a file, otherwise the directory (c_rehash is invoked on it)</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">payload</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-CaCertificateType" title="evse_security_consumer_API.yaml">CaCertificateType</a></div>
+      <div class="s-desc"><p>Enum specifies the type of a CA certificate</p></div><div class="s-enum"><span class="s-label">enum</span><code>V2G</code><code>MO</code><code>CSMS</code><code>MF</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Get file path for V2G CA root directory</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;reply/to/address&#34;
+        },
+        &#34;payload&#34;: &#34;V2G&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_evse_security_consumer_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/evse_security_consumer/{module_id}/m2e/communication_check">everest_api/1/evse_security_consumer/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="evse_security_consumer_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>CommunicationCheck</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_evse_security_consumer_API_op_receive_reply_is_ca_certificate_installed:
+
+receive\_reply\_is\_ca\_certificate\_installed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to is ca certificate installed request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-evse-security-consumer-api-op-send-request-is-ca-certificate-installed">send_request_is_ca_certificate_installed</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to is ca certificate installed request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_is_ca_certificate_installed"><code>receive_reply_is_ca_certificate_installed</code></a></p>
+      <div class="msg-summary"><p>Reply to is ca certificate installed</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>True if CA certificate is installed, else false</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_evse_security_consumer_API_op_receive_reply_get_leaf_certificate_info:
+
+receive\_reply\_get\_leaf\_certificate\_info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get leaf certificate info request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-evse-security-consumer-api-op-send-request-get-leaf-certificate-info">send_request_get_leaf_certificate_info</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get leaf certificate info request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_leaf_certificate_info"><code>receive_reply_get_leaf_certificate_info</code></a></p>
+      <div class="msg-summary"><p>Reply to get leaf certificate info</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-GetCertificateInfoResult" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-GetCertificateInfoResult" title="evse_security_consumer_API.yaml">GetCertificateInfoResult</a></summary>
+      <div class="s-desc"><p>Response to the command get_leaf_certificate_info</p></div><p class="s-inline"><a href="#schema-GetCertificateInfoResult">Definition of GetCertificateInfoResult</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Reply to get information request</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;Accepted&#34;,
+        &#34;info&#34;: {
+          &#34;key&#34;: &#34;/etc/everest/certs/client/csms.key&#34;,
+          &#34;certificate_count&#34;: 1
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_evse_security_consumer_API_op_receive_reply_get_verify_location:
+
+receive\_reply\_get\_verify\_location
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get verify location request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-evse-security-consumer-api-op-send-request-get-verify-location">send_request_get_verify_location</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get verify location request</span> <code class="ctype">text/plain</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_verify_location"><code>receive_reply_get_verify_location</code></a></p>
+      <div class="msg-summary"><p>Reply to get verify location. The payload is the path as plain text, not a JSON string. It is empty if no CA certificate is found.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Path of the CA bundle file or CA directory, as plain text</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Return the CA bundle file or directory</figcaption>
+      <pre data-copy-block><code>&#34;/path/to/ca/certificates&#34;</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_evse_security_consumer_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/evse_security_consumer/{module_id}/e2m/heartbeat">everest_api/1/evse_security_consumer/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="evse_security_consumer_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-send_request_is_ca_certificate_installed">
+      <td><code>send_request_is_ca_certificate_installed</code><br><span class="muted">Command that indicates if the given CA certificate type is installed</span></td>
+      <td><p>Command that indicates if the given CA certificate type is installed</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-send-request-is-ca-certificate-installed">send_request_is_ca_certificate_installed</a></td>
+      </tr>
+      <tr id="msg-receive_reply_is_ca_certificate_installed">
+      <td><code>receive_reply_is_ca_certificate_installed</code><br><span class="muted">Reply to is ca certificate installed request</span></td>
+      <td><p>Reply to is ca certificate installed</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-receive-reply-is-ca-certificate-installed">receive_reply_is_ca_certificate_installed</a></td>
+      </tr>
+      <tr id="msg-send_request_get_leaf_certificate_info">
+      <td><code>send_request_get_leaf_certificate_info</code><br><span class="muted">Command to get the paths of the certificate and the respective key</span></td>
+      <td><p>Command to get the paths of the certificate and the respective key</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-send-request-get-leaf-certificate-info">send_request_get_leaf_certificate_info</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_leaf_certificate_info">
+      <td><code>receive_reply_get_leaf_certificate_info</code><br><span class="muted">Reply to get leaf certificate info request</span></td>
+      <td><p>Reply to get leaf certificate info</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-receive-reply-get-leaf-certificate-info">receive_reply_get_leaf_certificate_info</a></td>
+      </tr>
+      <tr id="msg-send_request_get_verify_location">
+      <td><code>send_request_get_verify_location</code><br><span class="muted">Command to get the path of the CA certificates for verification: the bundle file if the CA store is a file, otherwise the directory (c_rehash is invoked on it)</span></td>
+      <td><p>Command to get the path of the CA certificates for verification: the bundle file if the CA store is a file, otherwise the directory (c_rehash is invoked on it)</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-send-request-get-verify-location">send_request_get_verify_location</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_verify_location">
+      <td><code>receive_reply_get_verify_location</code><br><span class="muted">Reply to get verify location request</span></td>
+      <td><p>Reply to get verify location. The payload is the path as plain text, not a JSON string. It is empty if no CA certificate is found.</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-receive-reply-get-verify-location">receive_reply_get_verify_location</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-evse-security-consumer-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-CaCertificateType">
+      <summary><span class="s-name">CaCertificateType</span> <span class="s-type">string</span><a class="anchor" href="#schema-CaCertificateType" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum specifies the type of a CA certificate</p></div><div class="s-enum"><span class="s-label">enum</span><code>V2G</code><code>MO</code><code>CSMS</code><code>MF</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-LeafCertificateType">
+      <summary><span class="s-name">LeafCertificateType</span> <span class="s-type">string</span><a class="anchor" href="#schema-LeafCertificateType" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum specifies the type of a leaf certificate</p></div><div class="s-enum"><span class="s-label">enum</span><code>CSMS</code><code>V2G</code><code>MF</code><code>MO</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-EncodingFormat">
+      <summary><span class="s-name">EncodingFormat</span> <span class="s-type">string</span><a class="anchor" href="#schema-EncodingFormat" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum specifies the encoding of certificates or keys</p></div><div class="s-enum"><span class="s-label">enum</span><code>DER</code><code>PEM</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-GetLeafCertificateInfoRequest">
+      <summary><span class="s-name">GetLeafCertificateInfoRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-GetLeafCertificateInfoRequest" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-LeafCertificateType" title="evse_security_consumer_API.yaml">LeafCertificateType</a></div>
+      <div class="s-desc"><p>Enum specifies the type of a leaf certificate</p></div><div class="s-enum"><span class="s-label">enum</span><code>CSMS</code><code>V2G</code><code>MF</code><code>MO</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">encoding</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-EncodingFormat" title="evse_security_consumer_API.yaml">EncodingFormat</a></div>
+      <div class="s-desc"><p>Enum specifies the encoding of certificates or keys</p></div><div class="s-enum"><span class="s-label">enum</span><code>DER</code><code>PEM</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">include_ocsp</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Specifies whether per-certificate OCSP data is also requested</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-GetCertificateInfoStatus">
+      <summary><span class="s-name">GetCertificateInfoStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-GetCertificateInfoStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Status indicates the result of the attempt to retrieve a certificate</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>NotFound</code><code>NotFoundValid</code><code>PrivateKeyNotFound</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HashAlgorithm">
+      <summary><span class="s-name">HashAlgorithm</span> <span class="s-type">string</span><a class="anchor" href="#schema-HashAlgorithm" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Enum specifies a hash algorithm</p></div><div class="s-enum"><span class="s-label">enum</span><code>SHA256</code><code>SHA384</code><code>SHA512</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CertificateHashData">
+      <summary><span class="s-name">CertificateHashData</span> <span class="s-type">object</span><a class="anchor" href="#schema-CertificateHashData" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type specifies the hash data of a certificate</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">hash_algorithm</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-HashAlgorithm" title="evse_security_consumer_API.yaml">HashAlgorithm</a></div>
+      <div class="s-desc"><p>Algorithm used for the hashes provided</p></div><div class="s-enum"><span class="s-label">enum</span><code>SHA256</code><code>SHA384</code><code>SHA512</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">issuer_name_hash</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The hash of the issuer&#39;s distinguished name (DN), calculated over the DER encoding of the issuer&#39;s name field.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">issuer_key_hash</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The hash of the DER encoded public key: the value (excluding tag and length) of the subject public key field</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">serial_number</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The string representation of the hexadecimal value of the serial number without the prefix &#34;0x&#34; and without leading zeroes.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 40</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CertificateOCSP">
+      <summary><span class="s-name">CertificateOCSP</span> <span class="s-type">object</span><a class="anchor" href="#schema-CertificateOCSP" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>OCSP data related to requested the certificates</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-CertificateHashData">
+      <summary><span class="s-name">hash</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-CertificateHashData" title="evse_security_consumer_API.yaml">CertificateHashData</a></summary>
+      <div class="s-desc"><p>Hash of certificate linked to the provided data</p></div><p class="s-inline"><a href="#schema-CertificateHashData">Definition of CertificateHashData</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">ocsp_path</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>OCSP path of the file containing the data</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CertificateInfo">
+      <summary><span class="s-name">CertificateInfo</span> <span class="s-type">object</span><a class="anchor" href="#schema-CertificateInfo" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type that specifies the paths of a certificate and the respective private key</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">key</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The path of the PEM or DER encoded private key</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_root</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>The PEM of the root certificate that issued this leaf</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>The path of the PEM or DER encoded certificate chain</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_single</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>The path of the PEM or DER encoded single certificate</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_count</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The count of certificates in the chain</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">password</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Specifies the password for the private key if encrypted</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">ocsp</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Certificate related OCSP data, if requested</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-CertificateOCSP">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-CertificateOCSP" title="evse_security_consumer_API.yaml">CertificateOCSP</a></summary>
+      <div class="s-desc"><p>OCSP data related to requested the certificates</p></div><p class="s-inline"><a href="#schema-CertificateOCSP">Definition of CertificateOCSP</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-GetCertificateInfoResult">
+      <summary><span class="s-name">GetCertificateInfoResult</span> <span class="s-type">object</span><a class="anchor" href="#schema-GetCertificateInfoResult" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Response to the command get_leaf_certificate_info</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-GetCertificateInfoStatus" title="evse_security_consumer_API.yaml">GetCertificateInfoStatus</a></div>
+      <div class="s-desc"><p>The status of the requested command</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>NotFound</code><code>NotFoundValid</code><code>PrivateKeyNotFound</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-CertificateInfo">
+      <summary><span class="s-name">info</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-CertificateInfo" title="evse_security_consumer_API.yaml">CertificateInfo</a></summary>
+      <div class="s-desc"><p>The requested info</p></div><p class="s-inline"><a href="#schema-CertificateInfo">Definition of CertificateInfo</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+

@@ -1,0 +1,857 @@
+.. _everest_api_auth_token_validator_API:
+
+###########################
+auth\_token\_validator\_API
+###########################
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">Auth</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for auth token validator - CLIENT side (MODULE)
+
+   API for EVerest API clients implementing auth token validator.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>auth_token_validator_API.yaml</code> · <code>pionix:de:everest:auth_token_validator_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (3)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (2)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/auth_token_validator/{module_id}">everest_api/1/auth_token_validator/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_auth_token_validator_API_op_send_reply_validate_token:
+
+send\_reply\_validate\_token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send reply to validate token request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-auth-token-validator-api-op-receive-request-validate-token">receive_request_validate_token</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply validate token</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_reply_validate_token"><code>send_reply_validate_token</code></a></p>
+      <div class="msg-summary"><p>Reply to validate token.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ValidationResult" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ValidationResult" title="auth_token_validator_API.yaml">ValidationResult</a></summary>
+      <div class="s-desc"><p>Result object containing authorization status enum value and an optional parentIdTag</p></div><p class="s-inline"><a href="#schema-ValidationResult">Definition of ValidationResult</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Reply validate token.</figcaption>
+      <pre data-copy-block><code>{
+        &#34;authorization_status&#34;: &#34;Accepted&#34;,
+        &#34;tariff_messages&#34;: [],
+        &#34;evse_ids&#34;: [
+          1
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_auth_token_validator_API_op_send_validate_result_update:
+
+send\_validate\_result\_update
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send validate result update</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/auth_token_validator/{module_id}/m2e/validate_result_update">everest_api/1/auth_token_validator/{module_id}/m2e/validate_result_update</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send validate result update</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_validate_result_update"><code>send_validate_result_update</code></a></p>
+      <div class="msg-summary"><p>Updated validation result for a given token due to some changes. These can be triggered by TransactionEvent messages or StartTransaction.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ValidationResultUpdate" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ValidationResultUpdate" title="auth_token_validator_API.yaml">ValidationResultUpdate</a></summary>
+      <div class="s-desc"><p>Result object containing an updated validation result for a given token. This is needed since certain information can be updated at a later time.</p></div><p class="s-inline"><a href="#schema-ValidationResultUpdate">Definition of ValidationResultUpdate</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>ValidationResultUpdate</figcaption>
+      <pre data-copy-block><code>{
+        &#34;connector_id&#34;: 1,
+        &#34;validation_result&#34;: {
+          &#34;authorization_status&#34;: &#34;Accepted&#34;,
+          &#34;certificate_status&#34;: &#34;Accepted&#34;,
+          &#34;tariff_messages&#34;: [],
+          &#34;expiry_time&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+          &#34;parent_id_token&#34;: {
+            &#34;value&#34;: &#34;string&#34;,
+            &#34;type&#34;: &#34;Central&#34;
+          }
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_auth_token_validator_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/auth_token_validator/{module_id}/m2e/communication_check">everest_api/1/auth_token_validator/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="auth_token_validator_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>CommunicationCheck</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_auth_token_validator_API_op_receive_request_validate_token:
+
+receive\_request\_validate\_token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Request validate token</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/auth_token_validator/{module_id}/e2m/validate_token">everest_api/1/auth_token_validator/{module_id}/e2m/validate_token</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-auth-token-validator-api-op-send-reply-validate-token">send_reply_validate_token</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request validate token</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_request_validate_token"><code>receive_request_validate_token</code></a></p>
+      <div class="msg-summary"><p>Request to validate token.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Address to send the response to.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-ProvidedIdToken">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-ProvidedIdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">ProvidedIdToken ↗</a></summary>
+      <div class="s-desc"><p>Type for IdToken provided by auth token providers. Contains additional information about the IdToken like the source and purpose</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-ProvidedIdToken">Definition of ProvidedIdToken</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;string&#34;
+        },
+        &#34;payload&#34;: {
+          &#34;id_token&#34;: {
+            &#34;value&#34;: &#34;string&#34;,
+            &#34;type&#34;: &#34;Central&#34;
+          },
+          &#34;authorization_type&#34;: &#34;OCPP&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_auth_token_validator_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/auth_token_validator/{module_id}/e2m/heartbeat">everest_api/1/auth_token_validator/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="auth_token_validator_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-receive_request_validate_token">
+      <td><code>receive_request_validate_token</code><br><span class="muted">Request validate token</span></td>
+      <td><p>Request to validate token.</p></td>
+      <td><a href="#everest-api-auth-token-validator-api-op-receive-request-validate-token">receive_request_validate_token</a></td>
+      </tr>
+      <tr id="msg-send_reply_validate_token">
+      <td><code>send_reply_validate_token</code><br><span class="muted">Reply validate token</span></td>
+      <td><p>Reply to validate token.</p></td>
+      <td><a href="#everest-api-auth-token-validator-api-op-send-reply-validate-token">send_reply_validate_token</a></td>
+      </tr>
+      <tr id="msg-send_validate_result_update">
+      <td><code>send_validate_result_update</code><br><span class="muted">Send validate result update</span></td>
+      <td><p>Updated validation result for a given token due to some changes. These can be triggered by TransactionEvent messages or StartTransaction.</p></td>
+      <td><a href="#everest-api-auth-token-validator-api-op-send-validate-result-update">send_validate_result_update</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-auth-token-validator-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-auth-token-validator-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-AuthorizationStatus">
+      <summary><span class="s-name">AuthorizationStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-AuthorizationStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Authorization Status enum</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Blocked</code><code>ConcurrentTx</code><code>Expired</code><code>Invalid</code><code>NoCredit</code><code>NotAllowedTypeEVSE</code><code>NotAtThisLocation</code><code>NotAtThisTime</code><code>Unknown</code><code>PinRequired</code><code>Timeout</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CertificateStatus">
+      <summary><span class="s-name">CertificateStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-CertificateStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Certificate status information</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>SignatureError</code><code>CertificateExpired</code><code>CertificateRevoked</code><code>NoCertificateAvailable</code><code>CertChainError</code><code>ContractCancelled</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-EnergyTransferMode">
+      <summary><span class="s-name">EnergyTransferMode</span> <span class="s-type">string</span><a class="anchor" href="#schema-EnergyTransferMode" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Possible energy transfer modes. The modes AC_single_phase_core to DC_unique apply to DIN70121 and ISO15118-2. The other modes DC to MCS_BPT apply to ISO15118-20 (and amendment). AC_DER is treated the same as AC_DER_IEC.</p></div><div class="s-enum"><span class="s-label">enum</span><code>AC_single_phase_core</code><code>AC_two_phase</code><code>AC_three_phase_core</code><code>DC_core</code><code>DC_extended</code><code>DC_combo_core</code><code>DC_unique</code><code>DC</code><code>AC_BPT</code><code>AC_BPT_DER</code><code>AC_DER</code><code>AC_DER_IEC</code><code>AC_DER_SAE</code><code>DC_BPT</code><code>DC_ACDP</code><code>DC_ACDP_BPT</code><code>WPT</code><code>MCS</code><code>MCS_BPT</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ValidationResult">
+      <summary><span class="s-name">ValidationResult</span> <span class="s-type">object</span><a class="anchor" href="#schema-ValidationResult" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Result object containing authorization status enum value and an optional parentIdTag</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">authorization_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-AuthorizationStatus" title="auth_token_validator_API.yaml">AuthorizationStatus</a></div>
+      <div class="s-desc"><p>Authorization Status enum</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Blocked</code><code>ConcurrentTx</code><code>Expired</code><code>Invalid</code><code>NoCredit</code><code>NotAllowedTypeEVSE</code><code>NotAtThisLocation</code><code>NotAtThisTime</code><code>Unknown</code><code>PinRequired</code><code>Timeout</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_status</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-CertificateStatus" title="auth_token_validator_API.yaml">CertificateStatus</a></div>
+      <div class="s-desc"><p>Certificate status information</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>SignatureError</code><code>CertificateExpired</code><code>CertificateRevoked</code><code>NoCertificateAvailable</code><code>CertChainError</code><code>ContractCancelled</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">tariff_messages</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Messages that can contain session price information to show the user. The array can contain multiple messages in different languages. The first message in this array shall be used to start the transaction at the powermeter (for OCMF).  Empty if no messages are available.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-display_message_API-MessageContent">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API" title="display_message_API.yaml">MessageContent ↗</a></summary>
+      <div class="s-desc"><p>Message with pricing information in a specific language</p></div><p class="s-inline"><a href="#ext-display_message_API-MessageContent">Definition of MessageContent</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">expiry_time</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Absolute time point when reservation expires in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">parent_id_token</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+      <div class="s-desc"><p>Parent Id Tag of the validated token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">evse_ids</span><span class="s-type">array&lt;integer&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Only used when the id token is valid for one or more specific evses, not for the whole charging station. Indicates for which evse ids the provided token is valid</p></div><ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">items</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">reservation_id</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>The reservation id that is used with this validated token.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">allowed_energy_transfer_modes</span><span class="s-type">array&lt;string&gt;</span>
+      </summary>
+      <div class="s-desc"><p>This is only used when we want to specify which energy transfer modes are allowed for the respective authorization request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min items</span> 1</span></div>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">items</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-EnergyTransferMode" title="auth_token_validator_API.yaml">EnergyTransferMode</a></div>
+      <div class="s-desc"><p>Possible energy transfer modes. The modes AC_single_phase_core to DC_unique apply to DIN70121 and ISO15118-2. The other modes DC to MCS_BPT apply to ISO15118-20 (and amendment). AC_DER is treated the same as AC_DER_IEC.</p></div><div class="s-enum"><span class="s-label">enum</span><code>AC_single_phase_core</code><code>AC_two_phase</code><code>AC_three_phase_core</code><code>DC_core</code><code>DC_extended</code><code>DC_combo_core</code><code>DC_unique</code><code>DC</code><code>AC_BPT</code><code>AC_BPT_DER</code><code>AC_DER</code><code>AC_DER_IEC</code><code>AC_DER_SAE</code><code>DC_BPT</code><code>DC_ACDP</code><code>DC_ACDP_BPT</code><code>WPT</code><code>MCS</code><code>MCS_BPT</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ValidationResultUpdate">
+      <summary><span class="s-name">ValidationResultUpdate</span> <span class="s-type">object</span><a class="anchor" href="#schema-ValidationResultUpdate" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Result object containing an updated validation result for a given token. This is needed since certain information can be updated at a later time.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ValidationResult">
+      <summary><span class="s-name">validation_result</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ValidationResult" title="auth_token_validator_API.yaml">ValidationResult</a></summary>
+      <div class="s-desc"><p>Result object containing authorization status enum value and an optional parentIdTag</p></div><p class="s-inline"><a href="#schema-ValidationResult">Definition of ValidationResult</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">connector_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Id of the connector on which the id token information has been updated.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+
+Schemas from other APIs
+-----------------------
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="ext-auth_consumer_API-CertificateHashDataInfo">
+      <summary><span class="s-name">CertificateHashDataInfo</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-CertificateHashDataInfo" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-CertificateHashDataInfo" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Contains the certificate information</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">hashAlgorithm</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Used algorithms for the hashes provided</p></div><div class="s-enum"><span class="s-label">enum</span><code>SHA256</code><code>SHA384</code><code>SHA512</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">issuerNameHash</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Hashed value of the Issuer Distinguished Name</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">issuerKeyHash</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Hashed value of the issuers public key</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">serialNumber</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The serial number of the certificate</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 40</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">responderURL</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>This contains the responder URL</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 512</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-auth_consumer_API-CustomIdToken">
+      <summary><span class="s-name">CustomIdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-CustomIdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-CustomIdToken" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type for a custom id token with a free-form type</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Arbitrary value of the IdToken</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 36</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Custom type of the token</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">IdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-IdToken" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type for an id token</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Arbitrary value of the IdToken: This has to be printable case insensitive ascii</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 36</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-IdTokenType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdTokenType ↗</a></div>
+      <div class="s-desc"><p>Type of the token</p></div><div class="s-enum"><span class="s-label">enum</span><code>Central</code><code>eMAID</code><code>MacAddress</code><code>ISO14443</code><code>ISO15693</code><code>KeyCode</code><code>Local</code><code>NoAuthorization</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">additional_info</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>A list of additional custom id tokens than can be used for providing additional information for validation</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-CustomIdToken">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-CustomIdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">CustomIdToken ↗</a></summary>
+      <div class="s-desc"><p>Type for a custom id token with a free-form type</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-CustomIdToken">Definition of CustomIdToken</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-auth_consumer_API-ProvidedIdToken">
+      <summary><span class="s-name">ProvidedIdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-ProvidedIdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-ProvidedIdToken" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type for IdToken provided by auth token providers. Contains additional information about the IdToken like the source and purpose</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">id_token</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+      <div class="s-desc"><p>IdToken of the provided token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">parent_id_token</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+      <div class="s-desc"><p>Parent IdToken of the provided token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">authorization_type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-AuthorizationType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">AuthorizationType ↗</a></div>
+      <div class="s-desc"><p>Authorization type of the token.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OCPP</code><code>RFID</code><code>Autocharge</code><code>PlugAndCharge</code><code>BankCard</code></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span><span class="chip"><span class="s-label">max length</span> 32</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">connectors</span><span class="s-type">array&lt;integer&gt;</span>
+      </summary>
+      <div class="s-desc"><p>A list of connector ids to which the authorization can be assigned</p></div><ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">items</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">prevalidated</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>Indicates that the id token is already validated by the provider</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>The X.509 certificated presented by EV and encoded in PEM format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 5500</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">iso15118CertificateHashData</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Contains the information needed to verify the EV Contract Certificate via OCSP</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min items</span> 1</span><span class="chip"><span class="s-label">max items</span> 4</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-CertificateHashDataInfo">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-CertificateHashDataInfo" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">CertificateHashDataInfo ↗</a></summary>
+      <div class="s-desc"><p>An array of contract certificate infos</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-CertificateHashDataInfo">Definition of CertificateHashDataInfo</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-display_message_API-MessageContent">
+      <summary><span class="s-name">MessageContent</span> <span class="s-type">object</span> <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API">defined in display_message_API.yaml ↗</a><a class="anchor" href="#ext-display_message_API-MessageContent" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Contains message details</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">format</span><span class="s-type">string</span>
+      <a class="s-ref" href="display_message_API.html#schema-MessageFormat" data-api-page="display_message_API" title="display_message_API.yaml">MessageFormat ↗</a></div>
+      <div class="s-desc"><p>Format of the message to be displayed</p></div><div class="s-enum"><span class="s-label">enum</span><code>ASCII</code><code>HTML</code><code>URI</code><code>UTF8</code><code>QRCODE</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">language</span><span class="s-type">string</span>
+      </div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">content</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+

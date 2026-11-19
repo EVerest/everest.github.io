@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>CarloGavazzi_EM580 - EVerest Manual main@ba06dab</title>
+        <title>CarloGavazzi_EM580 - EVerest Manual main@02e5de0</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@ba06dab</div></a>
+      <a href="../../../../../index.html"><div class="brand">EVerest Manual main@02e5de0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@ba06dab</span>
+  <span class="sidebar-brand-text">EVerest Manual main@02e5de0</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -944,6 +944,12 @@ module only needs the hub connection plus its Modbus unit id (<code class="docut
 <td><p>Follow the time zone of the host (<code class="docutils literal notranslate"><span class="pre">TZ</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/localtime</span></code>) instead of <code class="docutils literal notranslate"><span class="pre">timezone_offset_minutes</span></code>, see
 below.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">startup_transaction_state_timeout_s</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">30</span></code></p></td>
+<td><p>Maximum wait of the first transaction request for the device to be configured at start up (0 to 100 s, 0
+disables it), see <a class="reference internal" href="#start-up">Start up</a>.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1001,9 +1007,16 @@ they change.</p></li>
 <h4>Start transaction<a class="headerlink" href="#start-transaction" title="Link to this heading">¶</a></h4>
 <p>High-level flow:</p>
 <ol class="arabic simple">
-<li><p>Read OCMF state. If it is not <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">READY</span></code> with an unread OCMF file after a communication outage),
-log a warning, run cleanup via <code class="docutils literal notranslate"><span class="pre">clear_transaction_states()</span></code> (for <code class="docutils literal notranslate"><span class="pre">READY</span></code>: read and confirm the file on the
-device), then continue with the new transaction below.</p></li>
+<li><p>Read OCMF state. If it is not <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code>, log a warning, run cleanup via <code class="docutils literal notranslate"><span class="pre">clear_transaction_states()</span></code>, then
+continue with the new transaction below. The cleanup handles two states:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>: a transaction was left open on the device, e.g. because EVerest restarted during a session (crash,
+service restart, power loss of the host only). Write the end command (<code class="docutils literal notranslate"><span class="pre">'E'</span></code>) and wait for <code class="docutils literal notranslate"><span class="pre">READY</span></code>. The start
+fails if the device does not reach <code class="docutils literal notranslate"><span class="pre">READY</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">READY</span></code>: an unread OCMF file, e.g. after a communication outage. Read the file and confirm it on the device. The
+file is lost; a warning names its transaction id.</p></li>
+</ul>
+</li>
 <li><p>Write OCMF transaction registers:</p>
 <ul class="simple">
 <li><p>Identification status/level/flags/type</p></li>
@@ -1030,6 +1043,21 @@ unread file is acceptable.</p>
 <li><p>Confirm file read by writing <code class="docutils literal notranslate"><span class="pre">NOT_READY</span></code> to OCMF state.</p></li>
 <li><p>Return OCMF report in <code class="docutils literal notranslate"><span class="pre">signed_meter_value</span></code> (with <code class="docutils literal notranslate"><span class="pre">public_key</span></code> attached).</p></li>
 </ol>
+</section>
+<section id="start-up">
+<h4>Start up<a class="headerlink" href="#start-up" title="Link to this heading">¶</a></h4>
+<p>At start up EvseManager stops the transaction of its previous session with the last known transaction id, if it
+has one, then requests a cleanup with an empty transaction id. The driver learns the transaction state of the device (a <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>
+transaction with its id taken from the tariff text, or a closed one with an unread OCMF file) only once the device
+is configured, which can take longer than EvseManager waits for the first meter value. The first <code class="docutils literal notranslate"><span class="pre">start_transaction</span></code>
+or <code class="docutils literal notranslate"><span class="pre">stop_transaction</span></code> request therefore waits up to <code class="docutils literal notranslate"><span class="pre">startup_transaction_state_timeout_s</span></code> (default 30 s) for the
+device to be configured, so that a stop with the previous session id finds that transaction and returns its OCMF
+file. The wait happens once only: once the device has been configured, or the wait has timed out, requests are
+handled immediately, also during a later communication outage.</p>
+<p>The cleanup with an empty transaction id runs <code class="docutils literal notranslate"><span class="pre">clear_transaction_states()</span></code> based on the OCMF state read from the
+device. A transaction still <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> at that point could not be matched to a session, e.g. without a persistent
+store in EvseManager: it is ended and its OCMF file is confirmed instead of being returned. The file is lost; a
+warning names its transaction id.</p>
 </section>
 <section id="device-identification-code-register-300012-000bh">
 <h4>Device identification code (register <code class="docutils literal notranslate"><span class="pre">300012</span></code> / <code class="docutils literal notranslate"><span class="pre">000Bh</span></code>)<a class="headerlink" href="#device-identification-code-register-300012-000bh" title="Link to this heading">¶</a></h4>
@@ -1220,6 +1248,11 @@ report must reach the CSMS.</p></li>
 <div class="line-block">
 <div class="line">When enabled, the timezone offset written to the device follows the time zone of the host (TZ or /etc/localtime), including daylight saving time changes, and timezone_offset_minutes is ignored. The offset is checked at device_state_read_interval_ms and a change is written right away, also during a transaction: every OCMF reading carries its own offset.</div>
 </div>
+<div class="line"><strong>startup_transaction_state_timeout_s</strong>: <em>integer</em> &lt;optional&gt;</div>
+<div class="line"><em>default: 30</em></div>
+<div class="line-block">
+<div class="line">Maximum time in seconds a start or stop transaction request waits at start up until the device is configured and its transaction state (a running or closed transaction and its id) is known. EvseManager stops the transaction of the previous session at start up, possibly before that; without the wait such a stop does not find the transaction and its OCMF file is not returned. Waited for once only. The default of 30 s covers a device that answers but is slow to configure, including a few retries; a device that does not answer is not configured within any reasonable wait. 0 disables the wait.</div>
+</div>
 </div>
 </div>
 <div class="line"><strong>temperature_sensor</strong>: <a class="reference internal" href="../../../../interfaces/temperature_sensor.html#everest-interfaces-temperature-sensor"><span class="std std-ref">temperature_sensor</span></a></div>
@@ -1333,6 +1366,7 @@ report must reach the CSMS.</p></li>
 <li><a class="reference internal" href="#transaction-flow-ocmf">Transaction flow (OCMF)</a><ul>
 <li><a class="reference internal" href="#start-transaction">Start transaction</a></li>
 <li><a class="reference internal" href="#stop-transaction">Stop transaction</a></li>
+<li><a class="reference internal" href="#start-up">Start up</a></li>
 <li><a class="reference internal" href="#device-identification-code-register-300012-000bh">Device identification code (register <code class="docutils literal notranslate"><span class="pre">300012</span></code> / <code class="docutils literal notranslate"><span class="pre">000Bh</span></code>)</a></li>
 </ul>
 </li>
@@ -1371,7 +1405,7 @@ report must reach the CSMS.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=6309f5de"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=50158aaf"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>

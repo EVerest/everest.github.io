@@ -1,0 +1,1214 @@
+.. _everest_api_error_history_consumer_API:
+
+#############################
+error\_history\_consumer\_API
+#############################
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">ErrorHistory</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for error history (consumer)
+
+   API for EVerest API clients for error status and history.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>error_history_consumer_API.yaml</code> · <code>pionix:de:everest:error_history_consumer_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (5)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (7)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}">everest_api/1/error_history_consumer/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_error_history_consumer_API_op_send_request_get_errors:
+
+send\_request\_get\_errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send request with a list of filters to get a list of filtered errors</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/m2e/get_errors">everest_api/1/error_history_consumer/{module_id}/m2e/get_errors</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-error-history-consumer-api-op-receive-reply-get-errors">receive_reply_get_errors</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request the list of filtered errors</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_errors"><code>send_request_get_errors</code></a></p>
+      <div class="msg-summary"><p>Request the list of filtered errors.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-FilterArguments">
+      <summary><span class="s-name">payload</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-FilterArguments" title="error_history_consumer_API.yaml">FilterArguments</a></summary>
+      <div class="s-desc"><p>Arguments for the get_errors command</p></div><p class="s-inline"><a href="#schema-FilterArguments">Definition of FilterArguments</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;payload&#34;: {}
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_send_request_active_errors:
+
+send\_request\_active\_errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send request to transmit the list of currently active errors</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/m2e/active_errors">everest_api/1/error_history_consumer/{module_id}/m2e/active_errors</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-error-history-consumer-api-op-receive-reply-active-errors">receive_reply_active_errors</a>.</dd>
+      </dl>
+
+   Direction: Module to EVerest
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request the list of active errors</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_active_errors"><code>send_request_active_errors</code></a></p>
+      <div class="msg-summary"><p>Request the list of active errors.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Request active errors</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_send_request_get_error_raised:
+
+send\_request\_get\_error\_raised
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request raised errors</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/m2e/error_raised/get">everest_api/1/error_history_consumer/{module_id}/m2e/error_raised/get</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-error-history-consumer-api-op-receive-reply-get-error-raised">receive_reply_get_error_raised</a>.</dd>
+      </dl>
+
+   Request the most recently published (latched) error raised. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request current raised errors</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_error_raised"><code>send_request_get_error_raised</code></a></p>
+      <div class="msg-summary"><p>Request the most recently published (latched) raised errors.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_send_request_get_error_cleared:
+
+send\_request\_get\_error\_cleared
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request cleared errors</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/m2e/error_cleared/get">everest_api/1/error_history_consumer/{module_id}/m2e/error_cleared/get</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-error-history-consumer-api-op-receive-reply-get-error-cleared">receive_reply_get_error_cleared</a>.</dd>
+      </dl>
+
+   Request the most recently published (latched) error cleared. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request current cleared errors</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_error_cleared"><code>send_request_get_error_raised</code></a></p>
+      <div class="msg-summary"><p>Request the most recently published (latched) cleared errors.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/m2e/communication_check">everest_api/1/error_history_consumer/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="error_history_consumer_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>CommunicationCheck</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_error_history_consumer_API_op_receive_reply_get_errors:
+
+receive\_reply\_get\_errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive reply with a list of filtered errors</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-error-history-consumer-api-op-send-request-get-errors">send_request_get_errors</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">List of filtered errors</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_errors"><code>receive_reply_get_errors</code></a></p>
+      <div class="msg-summary"><p>Reply to the request to send the list of filtered errors</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ErrorList" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ErrorList" title="error_history_consumer_API.yaml">ErrorList</a></summary>
+      <div class="s-desc"><p>A list of ErrorObjects</p></div><p class="s-inline"><a href="#schema-ErrorList">Definition of ErrorList</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;errors&#34;: [
+          {
+            &#34;type&#34;: &#34;string&#34;,
+            &#34;description&#34;: &#34;string&#34;,
+            &#34;message&#34;: &#34;string&#34;,
+            &#34;severity&#34;: &#34;High&#34;,
+            &#34;origin&#34;: {
+              &#34;module_id&#34;: &#34;string&#34;,
+              &#34;implementation_id&#34;: &#34;string&#34;
+            },
+            &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+            &#34;uuid&#34;: &#34;string&#34;,
+            &#34;state&#34;: &#34;Active&#34;
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_receive_reply_active_errors:
+
+receive\_reply\_active\_errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive reply to transmit the list of currently active errors</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-error-history-consumer-api-op-send-request-active-errors">send_request_active_errors</a>.</dd>
+      </dl>
+
+   Direction: EVerest to Module
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">The list of active errors</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_active_errors"><code>receive_reply_active_errors</code></a></p>
+      <div class="msg-summary"><p>Reply to the request to send the list of active errors</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ErrorList" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ErrorList" title="error_history_consumer_API.yaml">ErrorList</a></summary>
+      <div class="s-desc"><p>A list of ErrorObjects</p></div><p class="s-inline"><a href="#schema-ErrorList">Definition of ErrorList</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;errors&#34;: [
+          {
+            &#34;type&#34;: &#34;string&#34;,
+            &#34;description&#34;: &#34;string&#34;,
+            &#34;message&#34;: &#34;string&#34;,
+            &#34;severity&#34;: &#34;High&#34;,
+            &#34;origin&#34;: {
+              &#34;module_id&#34;: &#34;string&#34;,
+              &#34;implementation_id&#34;: &#34;string&#34;
+            },
+            &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+            &#34;uuid&#34;: &#34;string&#34;,
+            &#34;state&#34;: &#34;Active&#34;
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_receive_error_raised:
+
+receive\_error\_raised
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive newly raised error</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/e2m/error_raised">everest_api/1/error_history_consumer/{module_id}/e2m/error_raised</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive newly raised error</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_error_raised"><code>receive_error_raised</code></a></p>
+      <div class="msg-summary"><p>Notifies on every raised error</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ErrorObject" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ErrorObject" title="error_history_consumer_API.yaml">ErrorObject</a></summary>
+      <div class="s-desc"><p>Represents an error</p></div><p class="s-inline"><a href="#schema-ErrorObject">Definition of ErrorObject</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;string&#34;,
+        &#34;description&#34;: &#34;string&#34;,
+        &#34;message&#34;: &#34;string&#34;,
+        &#34;severity&#34;: &#34;High&#34;,
+        &#34;origin&#34;: {
+          &#34;module_id&#34;: &#34;string&#34;,
+          &#34;implementation_id&#34;: &#34;string&#34;
+        },
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;uuid&#34;: &#34;string&#34;,
+        &#34;state&#34;: &#34;Active&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_receive_reply_get_error_raised:
+
+receive\_reply\_get\_error\_raised
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get error raised request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-error-history-consumer-api-op-send-request-get-error-raised">send_request_get_error_raised</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get raised error request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_error_raised"><code>receive_reply_get_error_raised</code></a></p>
+      <div class="msg-summary"><p>The most recently published raised errors.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">oneOf</span></div>
+      <p class="s-note">Exactly one of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ErrorObject">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ErrorObject" title="error_history_consumer_API.yaml">ErrorObject</a></summary>
+      <div class="s-desc"><p>Represents an error</p></div><p class="s-inline"><a href="#schema-ErrorObject">Definition of ErrorObject</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;string&#34;,
+        &#34;description&#34;: &#34;string&#34;,
+        &#34;message&#34;: &#34;string&#34;,
+        &#34;severity&#34;: &#34;High&#34;,
+        &#34;origin&#34;: {
+          &#34;module_id&#34;: &#34;string&#34;,
+          &#34;implementation_id&#34;: &#34;string&#34;
+        },
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;uuid&#34;: &#34;string&#34;,
+        &#34;state&#34;: &#34;Active&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_receive_error_cleared:
+
+receive\_error\_cleared
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive newly cleared error</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/e2m/error_cleared">everest_api/1/error_history_consumer/{module_id}/e2m/error_cleared</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive cleared error</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_error_cleared"><code>receive_error_cleared</code></a></p>
+      <div class="msg-summary"><p>Notifies when an error is cleared</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ErrorObject" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ErrorObject" title="error_history_consumer_API.yaml">ErrorObject</a></summary>
+      <div class="s-desc"><p>Represents an error</p></div><p class="s-inline"><a href="#schema-ErrorObject">Definition of ErrorObject</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;string&#34;,
+        &#34;description&#34;: &#34;string&#34;,
+        &#34;message&#34;: &#34;string&#34;,
+        &#34;severity&#34;: &#34;High&#34;,
+        &#34;origin&#34;: {
+          &#34;module_id&#34;: &#34;string&#34;,
+          &#34;implementation_id&#34;: &#34;string&#34;
+        },
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;uuid&#34;: &#34;string&#34;,
+        &#34;state&#34;: &#34;Active&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_receive_reply_get_error_cleared:
+
+receive\_reply\_get\_error\_cleared
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get error cleared request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-error-history-consumer-api-op-send-request-get-error-cleared">send_request_get_error_cleared</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get cleared error request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_error_cleared"><code>receive_reply_get_error_cleared</code></a></p>
+      <div class="msg-summary"><p>The most recently published cleared errors.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">oneOf</span></div>
+      <p class="s-note">Exactly one of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ErrorObject">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ErrorObject" title="error_history_consumer_API.yaml">ErrorObject</a></summary>
+      <div class="s-desc"><p>Represents an error</p></div><p class="s-inline"><a href="#schema-ErrorObject">Definition of ErrorObject</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;type&#34;: &#34;string&#34;,
+        &#34;description&#34;: &#34;string&#34;,
+        &#34;message&#34;: &#34;string&#34;,
+        &#34;severity&#34;: &#34;High&#34;,
+        &#34;origin&#34;: {
+          &#34;module_id&#34;: &#34;string&#34;,
+          &#34;implementation_id&#34;: &#34;string&#34;
+        },
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;uuid&#34;: &#34;string&#34;,
+        &#34;state&#34;: &#34;Active&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_error_history_consumer_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/error_history_consumer/{module_id}/e2m/heartbeat">everest_api/1/error_history_consumer/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="error_history_consumer_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-send_request_get_errors">
+      <td><code>send_request_get_errors</code><br><span class="muted">Request the list of filtered errors</span></td>
+      <td><p>Request the list of filtered errors.</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-send-request-get-errors">send_request_get_errors</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_errors">
+      <td><code>receive_reply_get_errors</code><br><span class="muted">List of filtered errors</span></td>
+      <td><p>Reply to the request to send the list of filtered errors</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-reply-get-errors">receive_reply_get_errors</a></td>
+      </tr>
+      <tr id="msg-send_request_active_errors">
+      <td><code>send_request_active_errors</code><br><span class="muted">Request the list of active errors</span></td>
+      <td><p>Request the list of active errors.</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-send-request-active-errors">send_request_active_errors</a></td>
+      </tr>
+      <tr id="msg-receive_reply_active_errors">
+      <td><code>receive_reply_active_errors</code><br><span class="muted">The list of active errors</span></td>
+      <td><p>Reply to the request to send the list of active errors</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-reply-active-errors">receive_reply_active_errors</a></td>
+      </tr>
+      <tr id="msg-receive_error_raised">
+      <td><code>receive_error_raised</code><br><span class="muted">Receive newly raised error</span></td>
+      <td><p>Notifies on every raised error</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-error-raised">receive_error_raised</a></td>
+      </tr>
+      <tr id="msg-send_request_get_error_raised">
+      <td><code>send_request_get_error_raised</code><br><span class="muted">Request current raised errors</span></td>
+      <td><p>Request the most recently published (latched) raised errors.</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-send-request-get-error-raised">send_request_get_error_raised</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_error_raised">
+      <td><code>receive_reply_get_error_raised</code><br><span class="muted">Reply to get raised error request</span></td>
+      <td><p>The most recently published raised errors.</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-reply-get-error-raised">receive_reply_get_error_raised</a></td>
+      </tr>
+      <tr id="msg-receive_error_cleared">
+      <td><code>receive_error_cleared</code><br><span class="muted">Receive cleared error</span></td>
+      <td><p>Notifies when an error is cleared</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-error-cleared">receive_error_cleared</a></td>
+      </tr>
+      <tr id="msg-send_request_get_error_cleared">
+      <td><code>send_request_get_error_raised</code><br><span class="muted">Request current cleared errors</span></td>
+      <td><p>Request the most recently published (latched) cleared errors.</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-send-request-get-error-cleared">send_request_get_error_cleared</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_error_cleared">
+      <td><code>receive_reply_get_error_cleared</code><br><span class="muted">Reply to get cleared error request</span></td>
+      <td><p>The most recently published cleared errors.</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-reply-get-error-cleared">receive_reply_get_error_cleared</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-error-history-consumer-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-ErrorList">
+      <summary><span class="s-name">ErrorList</span> <span class="s-type">object</span><a class="anchor" href="#schema-ErrorList" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>A list of ErrorObjects</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">errors</span><span class="s-type">array</span>
+      <span class="s-req">required</span></summary>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ErrorObject">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ErrorObject" title="error_history_consumer_API.yaml">ErrorObject</a></summary>
+      <div class="s-desc"><p>Represents an error</p></div><p class="s-inline"><a href="#schema-ErrorObject">Definition of ErrorObject</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ErrorObject">
+      <summary><span class="s-name">ErrorObject</span> <span class="s-type">object</span><a class="anchor" href="#schema-ErrorObject" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Represents an error</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">sub_type</span><span class="s-type">string</span>
+      </div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">description</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Description of the error type from its definition in the errors YAML files.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">message</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Free text chosen by the raiser of the error; empty if it gave none.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">severity</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-Severity" title="error_history_consumer_API.yaml">Severity</a></div>
+      <div class="s-desc"><p>Deprecated: will be removed in 2027.04.0. EVerest defines no clear semantics for error severity.</p></div><div class="s-enum"><span class="s-label">enum</span><code>High</code><code>Medium</code><code>Low</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-ImplementationIdentifier">
+      <summary><span class="s-name">origin</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ImplementationIdentifier" title="error_history_consumer_API.yaml">ImplementationIdentifier</a></summary>
+      <div class="s-desc"><p>Identifier of an implementation</p></div><p class="s-inline"><a href="#schema-ImplementationIdentifier">Definition of ImplementationIdentifier</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Time the error was raised in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">uuid</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">state</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-State" title="error_history_consumer_API.yaml">State</a></div>
+      <div class="s-desc"><p>State of an error</p></div><div class="s-enum"><span class="s-label">enum</span><code>Active</code><code>ClearedByModule</code><code>ClearedByReboot</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-FilterArguments">
+      <summary><span class="s-name">FilterArguments</span> <span class="s-type">object</span><a class="anchor" href="#schema-FilterArguments" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Arguments for the get_errors command</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">state_filter</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-State" title="error_history_consumer_API.yaml">State</a></div>
+      <div class="s-desc"><p>State of an error</p></div><div class="s-enum"><span class="s-label">enum</span><code>Active</code><code>ClearedByModule</code><code>ClearedByReboot</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-ImplementationIdentifier">
+      <summary><span class="s-name">origin_filter</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ImplementationIdentifier" title="error_history_consumer_API.yaml">ImplementationIdentifier</a></summary>
+      <div class="s-desc"><p>Identifier of an implementation</p></div><p class="s-inline"><a href="#schema-ImplementationIdentifier">Definition of ImplementationIdentifier</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type_filter</span><span class="s-type">string</span>
+      </div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">severity_filter</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-SeverityFilter" title="error_history_consumer_API.yaml">SeverityFilter</a></div>
+      <div class="s-desc"><p>Deprecated: will be removed in 2027.04.0. EVerest defines no clear semantics for error severity.</p></div><div class="s-enum"><span class="s-label">enum</span><code>HIGH_GE</code><code>MEDIUM_GE</code><code>LOW_GE</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-TimeperiodFilter">
+      <summary><span class="s-name">timeperiod_filter</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TimeperiodFilter" title="error_history_consumer_API.yaml">TimeperiodFilter</a></summary>
+      <div class="s-desc"><p>Timeperiod filter for errors</p></div><p class="s-inline"><a href="#schema-TimeperiodFilter">Definition of TimeperiodFilter</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">handle_filter</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Handle of an error</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ImplementationIdentifier">
+      <summary><span class="s-name">ImplementationIdentifier</span> <span class="s-type">object</span><a class="anchor" href="#schema-ImplementationIdentifier" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Identifier of an implementation</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">module_id</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">implementation_id</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-Severity">
+      <summary><span class="s-name">Severity</span> <span class="s-type">string</span><a class="anchor" href="#schema-Severity" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Severity of an error. Deprecated: will be removed in 2027.04.0.</p></div><div class="s-enum"><span class="s-label">enum</span><code>High</code><code>Medium</code><code>Low</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-SeverityFilter">
+      <summary><span class="s-name">SeverityFilter</span> <span class="s-type">string</span><a class="anchor" href="#schema-SeverityFilter" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Severity filter for errors. Deprecated: will be removed in 2027.04.0.</p></div><div class="s-enum"><span class="s-label">enum</span><code>HIGH_GE</code><code>MEDIUM_GE</code><code>LOW_GE</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-State">
+      <summary><span class="s-name">State</span> <span class="s-type">string</span><a class="anchor" href="#schema-State" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>State of an error</p></div><div class="s-enum"><span class="s-label">enum</span><code>Active</code><code>ClearedByModule</code><code>ClearedByReboot</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TimeperiodFilter">
+      <summary><span class="s-name">TimeperiodFilter</span> <span class="s-type">object</span><a class="anchor" href="#schema-TimeperiodFilter" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Timeperiod filter for errors</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp_from</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Start of the time period in RFC3339 format, inclusive</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp_to</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>End of the time period in RFC3339 format, inclusive</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+

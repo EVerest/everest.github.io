@@ -1,0 +1,1563 @@
+.. _everest_api_session_cost_consumer_API:
+
+############################
+session\_cost\_consumer\_API
+############################
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">SessionCost</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for session cost consumer
+
+   API for EVerest API clients that consume session cost and tariff information from the ``session_cost`` interface. See the Integrate Tariff and Cost how-to guide for OCPP-specific configuration and message flow details.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>session_cost_consumer_API.yaml</code> · <code>pionix:de:everest:session_cost_consumer_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (4)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (7)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}">everest_api/1/session_cost_consumer/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_session_cost_consumer_API_op_send_request_get_default_price:
+
+send\_request\_get\_default\_price
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request current Default Price</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/m2e/default_price/get">everest_api/1/session_cost_consumer/{module_id}/m2e/default_price/get</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-session-cost-consumer-api-op-receive-reply-get-default-price">receive_reply_get_default_price</a>.</dd>
+      </dl>
+
+   Request the most recently published (latched) Default Price. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request current Default Price</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_default_price"><code>send_request_get_default_price</code></a></p>
+      <div class="msg-summary"><p>Request the most recently published (latched) Default Price.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_send_request_get_tariff_message:
+
+send\_request\_get\_tariff\_message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request current Tariff Message</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/m2e/tariff_message/get">everest_api/1/session_cost_consumer/{module_id}/m2e/tariff_message/get</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-session-cost-consumer-api-op-receive-reply-get-tariff-message">receive_reply_get_tariff_message</a>.</dd>
+      </dl>
+
+   Request the most recently published (latched) Tariff Message. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request current Tariff Message</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_tariff_message"><code>send_request_get_tariff_message</code></a></p>
+      <div class="msg-summary"><p>Request the most recently published (latched) Tariff Message.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_send_request_get_session_cost:
+
+send\_request\_get\_session\_cost
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request current Session Cost</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/m2e/session_cost/get">everest_api/1/session_cost_consumer/{module_id}/m2e/session_cost/get</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-session-cost-consumer-api-op-receive-reply-get-session-cost">receive_reply_get_session_cost</a>.</dd>
+      </dl>
+
+   Request the most recently published (latched) Session Cost. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request current Session Cost</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_session_cost"><code>send_request_get_session_cost</code></a></p>
+      <div class="msg-summary"><p>Request the most recently published (latched) Session Cost.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/m2e/communication_check">everest_api/1/session_cost_consumer/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="session_cost_consumer_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>CommunicationCheck</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_session_cost_consumer_API_op_receive_default_price:
+
+receive\_default\_price
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive default price</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/e2m/default_price">everest_api/1/session_cost_consumer/{module_id}/e2m/default_price</code></dd>
+      </dl>
+
+   Published once on startup and again whenever the applicable default price changes (e.g. after a connectivity state change or a configuration update). Contains human-readable price text in one or more languages. Absent if no default price is configured.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive default price</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_default_price"><code>receive_default_price</code></a></p>
+      <div class="msg-summary"><p>Currently applicable default pricing text for this charger</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-DefaultPrice" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-DefaultPrice" title="session_cost_consumer_API.yaml">DefaultPrice</a></summary>
+      <div class="s-desc"><p>The currently applicable default pricing text for this charger, independent of any active session. Contains human-readable text only — no computed cost amounts are included. Published once on startup and again whenever the applicable price changes (e.g. after a connectivity state change or a configuration update).</p></div><p class="s-inline"><a href="#schema-DefaultPrice">Definition of DefaultPrice</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;messages&#34;: [
+          {
+            &#34;content&#34;: &#34;string&#34;
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_receive_tariff_message:
+
+receive\_tariff\_message
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive tariff message</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/e2m/tariff_message">everest_api/1/session_cost_consumer/{module_id}/e2m/tariff_message</code></dd>
+      </dl>
+
+   Published at authorization time and whenever the CSMS sends updated pricing during a session. Contains human-readable price text in one or more languages.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive tariff message</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_tariff_message"><code>receive_tariff_message</code></a></p>
+      <div class="msg-summary"><p>Tariff and pricing information for a charging session</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="ext-session_cost_API-TariffMessage" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-TariffMessage" data-api-page="session_cost_API" title="session_cost_API.yaml">TariffMessage ↗</a></summary>
+      <div class="s-desc"><p>Message containing cost information</p></div><p class="s-inline"><a href="#ext-session_cost_API-TariffMessage">Definition of TariffMessage</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;messages&#34;: [
+          {
+            &#34;content&#34;: &#34;string&#34;
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_receive_session_cost:
+
+receive\_session\_cost
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive session cost</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/e2m/session_cost">everest_api/1/session_cost_consumer/{module_id}/e2m/session_cost</code></dd>
+      </dl>
+
+   Published periodically during a session and once when it ends. Contains session cost broken down into chunks, current and upcoming pricing, and optional display messages.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive session cost</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_session_cost"><code>receive_session_cost</code></a></p>
+      <div class="msg-summary"><p>Running or final cost of a charging session</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="ext-session_cost_API-SessionCost" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-SessionCost" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionCost ↗</a></summary>
+      <div class="s-desc"><p>Session cost object containing the total cost of the session and a list of chunks</p></div><p class="s-inline"><a href="#ext-session_cost_API-SessionCost">Definition of SessionCost</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;session_id&#34;: &#34;string&#34;,
+        &#34;currency&#34;: {
+          &#34;code&#34;: &#34;AED&#34;,
+          &#34;decimals&#34;: 0
+        },
+        &#34;status&#34;: &#34;Running&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_receive_reply_get_default_price:
+
+receive\_reply\_get\_default\_price
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get Default Price request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-session-cost-consumer-api-op-send-request-get-default-price">send_request_get_default_price</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get Default Price request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_default_price"><code>receive_reply_get_default_price</code></a></p>
+      <div class="msg-summary"><p>The most recently published Default Price.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">oneOf</span></div>
+      <p class="s-note">Exactly one of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-DefaultPrice">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-DefaultPrice" title="session_cost_consumer_API.yaml">DefaultPrice</a></summary>
+      <div class="s-desc"><p>The currently applicable default pricing text for this charger, independent of any active session. Contains human-readable text only — no computed cost amounts are included. Published once on startup and again whenever the applicable price changes (e.g. after a connectivity state change or a configuration update).</p></div><p class="s-inline"><a href="#schema-DefaultPrice">Definition of DefaultPrice</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;messages&#34;: [
+          {
+            &#34;content&#34;: &#34;string&#34;
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_receive_reply_get_tariff_message:
+
+receive\_reply\_get\_tariff\_message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get Tariff Message request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-session-cost-consumer-api-op-send-request-get-tariff-message">send_request_get_tariff_message</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get Tariff Message request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_tariff_message"><code>receive_reply_get_tariff_message</code></a></p>
+      <div class="msg-summary"><p>The most recently published Tariff Message.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">oneOf</span></div>
+      <p class="s-note">Exactly one of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-TariffMessage">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-TariffMessage" data-api-page="session_cost_API" title="session_cost_API.yaml">TariffMessage ↗</a></summary>
+      <div class="s-desc"><p>Message containing cost information</p></div><p class="s-inline"><a href="#ext-session_cost_API-TariffMessage">Definition of TariffMessage</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;messages&#34;: [
+          {
+            &#34;content&#34;: &#34;string&#34;
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_receive_reply_get_session_cost:
+
+receive\_reply\_get\_session\_cost
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get Session Cost request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-session-cost-consumer-api-op-send-request-get-session-cost">send_request_get_session_cost</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get Session Cost request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_session_cost"><code>receive_reply_get_session_cost</code></a></p>
+      <div class="msg-summary"><p>The most recently published Session Cost.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">oneOf</span></div>
+      <p class="s-note">Exactly one of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-SessionCost">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-SessionCost" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionCost ↗</a></summary>
+      <div class="s-desc"><p>Session cost object containing the total cost of the session and a list of chunks</p></div><p class="s-inline"><a href="#ext-session_cost_API-SessionCost">Definition of SessionCost</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;session_id&#34;: &#34;string&#34;,
+        &#34;currency&#34;: {
+          &#34;code&#34;: &#34;AED&#34;,
+          &#34;decimals&#34;: 0
+        },
+        &#34;status&#34;: &#34;Running&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_session_cost_consumer_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/session_cost_consumer/{module_id}/e2m/heartbeat">everest_api/1/session_cost_consumer/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="session_cost_consumer_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-receive_default_price">
+      <td><code>receive_default_price</code><br><span class="muted">Receive default price</span></td>
+      <td><p>Currently applicable default pricing text for this charger</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-default-price">receive_default_price</a></td>
+      </tr>
+      <tr id="msg-receive_tariff_message">
+      <td><code>receive_tariff_message</code><br><span class="muted">Receive tariff message</span></td>
+      <td><p>Tariff and pricing information for a charging session</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-tariff-message">receive_tariff_message</a></td>
+      </tr>
+      <tr id="msg-receive_session_cost">
+      <td><code>receive_session_cost</code><br><span class="muted">Receive session cost</span></td>
+      <td><p>Running or final cost of a charging session</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-session-cost">receive_session_cost</a></td>
+      </tr>
+      <tr id="msg-send_request_get_default_price">
+      <td><code>send_request_get_default_price</code><br><span class="muted">Request current Default Price</span></td>
+      <td><p>Request the most recently published (latched) Default Price.</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-send-request-get-default-price">send_request_get_default_price</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_default_price">
+      <td><code>receive_reply_get_default_price</code><br><span class="muted">Reply to get Default Price request</span></td>
+      <td><p>The most recently published Default Price.</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-reply-get-default-price">receive_reply_get_default_price</a></td>
+      </tr>
+      <tr id="msg-send_request_get_tariff_message">
+      <td><code>send_request_get_tariff_message</code><br><span class="muted">Request current Tariff Message</span></td>
+      <td><p>Request the most recently published (latched) Tariff Message.</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-send-request-get-tariff-message">send_request_get_tariff_message</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_tariff_message">
+      <td><code>receive_reply_get_tariff_message</code><br><span class="muted">Reply to get Tariff Message request</span></td>
+      <td><p>The most recently published Tariff Message.</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-reply-get-tariff-message">receive_reply_get_tariff_message</a></td>
+      </tr>
+      <tr id="msg-send_request_get_session_cost">
+      <td><code>send_request_get_session_cost</code><br><span class="muted">Request current Session Cost</span></td>
+      <td><p>Request the most recently published (latched) Session Cost.</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-send-request-get-session-cost">send_request_get_session_cost</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_session_cost">
+      <td><code>receive_reply_get_session_cost</code><br><span class="muted">Reply to get Session Cost request</span></td>
+      <td><p>The most recently published Session Cost.</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-reply-get-session-cost">receive_reply_get_session_cost</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-session-cost-consumer-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-DefaultPrice">
+      <summary><span class="s-name">DefaultPrice</span> <span class="s-type">object</span><a class="anchor" href="#schema-DefaultPrice" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>The currently applicable default pricing text for this charger, independent of any active session. Contains human-readable text only — no computed cost amounts are included. Published once on startup and again whenever the applicable price changes (e.g. after a connectivity state change or a configuration update).</p></div><p class="s-note">Additional properties forbidden.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">messages</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Price text in one or more languages. The first entry uses the configured default language.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-display_message_API-MessageContent">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API" title="display_message_API.yaml">MessageContent ↗</a></summary>
+      <div class="s-desc"><p>Price text in a specific language</p></div><p class="s-inline"><a href="#ext-display_message_API-MessageContent">Definition of MessageContent</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+
+Schemas from other APIs
+-----------------------
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="ext-auth_consumer_API-CertificateHashDataInfo">
+      <summary><span class="s-name">CertificateHashDataInfo</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-CertificateHashDataInfo" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-CertificateHashDataInfo" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Contains the certificate information</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">hashAlgorithm</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Used algorithms for the hashes provided</p></div><div class="s-enum"><span class="s-label">enum</span><code>SHA256</code><code>SHA384</code><code>SHA512</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">issuerNameHash</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Hashed value of the Issuer Distinguished Name</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">issuerKeyHash</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Hashed value of the issuers public key</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">serialNumber</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The serial number of the certificate</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 40</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">responderURL</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>This contains the responder URL</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 512</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-auth_consumer_API-CustomIdToken">
+      <summary><span class="s-name">CustomIdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-CustomIdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-CustomIdToken" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type for a custom id token with a free-form type</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Arbitrary value of the IdToken</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 36</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Custom type of the token</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">IdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-IdToken" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type for an id token</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Arbitrary value of the IdToken: This has to be printable case insensitive ascii</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 36</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-IdTokenType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdTokenType ↗</a></div>
+      <div class="s-desc"><p>Type of the token</p></div><div class="s-enum"><span class="s-label">enum</span><code>Central</code><code>eMAID</code><code>MacAddress</code><code>ISO14443</code><code>ISO15693</code><code>KeyCode</code><code>Local</code><code>NoAuthorization</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">additional_info</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>A list of additional custom id tokens than can be used for providing additional information for validation</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-CustomIdToken">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-CustomIdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">CustomIdToken ↗</a></summary>
+      <div class="s-desc"><p>Type for a custom id token with a free-form type</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-CustomIdToken">Definition of CustomIdToken</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-auth_consumer_API-ProvidedIdToken">
+      <summary><span class="s-name">ProvidedIdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-ProvidedIdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-ProvidedIdToken" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Type for IdToken provided by auth token providers. Contains additional information about the IdToken like the source and purpose</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">id_token</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+      <div class="s-desc"><p>IdToken of the provided token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+      <summary><span class="s-name">parent_id_token</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+      <div class="s-desc"><p>Parent IdToken of the provided token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">authorization_type</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-AuthorizationType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">AuthorizationType ↗</a></div>
+      <div class="s-desc"><p>Authorization type of the token.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OCPP</code><code>RFID</code><code>Autocharge</code><code>PlugAndCharge</code><code>BankCard</code></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span><span class="chip"><span class="s-label">max length</span> 32</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">connectors</span><span class="s-type">array&lt;integer&gt;</span>
+      </summary>
+      <div class="s-desc"><p>A list of connector ids to which the authorization can be assigned</p></div><ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">items</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">prevalidated</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>Indicates that the id token is already validated by the provider</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>The X.509 certificated presented by EV and encoded in PEM format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 5500</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">iso15118CertificateHashData</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Contains the information needed to verify the EV Contract Certificate via OCSP</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min items</span> 1</span><span class="chip"><span class="s-label">max items</span> 4</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-CertificateHashDataInfo">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-CertificateHashDataInfo" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">CertificateHashDataInfo ↗</a></summary>
+      <div class="s-desc"><p>An array of contract certificate infos</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-CertificateHashDataInfo">Definition of CertificateHashDataInfo</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-display_message_API-MessageContent">
+      <summary><span class="s-name">MessageContent</span> <span class="s-type">object</span> <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API">defined in display_message_API.yaml ↗</a><a class="anchor" href="#ext-display_message_API-MessageContent" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Contains message details</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">format</span><span class="s-type">string</span>
+      <a class="s-ref" href="display_message_API.html#schema-MessageFormat" data-api-page="display_message_API" title="display_message_API.yaml">MessageFormat ↗</a></div>
+      <div class="s-desc"><p>Format of the message to be displayed</p></div><div class="s-enum"><span class="s-label">enum</span><code>ASCII</code><code>HTML</code><code>URI</code><code>UTF8</code><code>QRCODE</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">language</span><span class="s-type">string</span>
+      </div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">content</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-ChargingPriceComponent">
+      <summary><span class="s-name">ChargingPriceComponent</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-ChargingPriceComponent" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-ChargingPriceComponent" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Charging price for a category</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">category</span><span class="s-type">string</span>
+      <a class="s-ref" href="session_cost_API.html#schema-CostCategory" data-api-page="session_cost_API" title="session_cost_API.yaml">CostCategory ↗</a></div>
+      <div class="s-desc"><p>Component type for this charging price</p></div><div class="s-enum"><span class="s-label">enum</span><code>Energy</code><code>Time</code><code>FlatFee</code><code>Other</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-Price">
+      <summary><span class="s-name">price</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-Price" data-api-page="session_cost_API" title="session_cost_API.yaml">Price ↗</a></summary>
+      <div class="s-desc"><p>Price for this component</p></div><p class="s-inline"><a href="#ext-session_cost_API-Price">Definition of Price</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-Currency">
+      <summary><span class="s-name">Currency</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-Currency" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-Currency" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Currency object containing the currency code and the accuracy of the minor unit according to ISO 4217.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">code</span><span class="s-type">string</span>
+      <a class="s-ref" href="session_cost_API.html#schema-CurrencyCode" data-api-page="session_cost_API" title="session_cost_API.yaml">CurrencyCode ↗</a></div>
+      <div class="s-desc"><p>Currency code.</p></div><div class="s-enum"><span class="s-label">enum</span><code>AED</code><code>AFN</code><code>ALL</code><code>AMD</code><code>ANG</code><code>AOA</code><code>ARS</code><code>AUD</code><code>AWG</code><code>AZN</code><code>BAM</code><code>BBD</code><code>BDT</code><code>BGN</code><code>BHD</code><code>BIF</code><code>BMD</code><code>BND</code><code>BOB</code><code>BOV</code><code>BRL</code><code>BSD</code><code>BTN</code><code>BWP</code><code>BYN</code><code>BZD</code><code>CAD</code><code>CDF</code><code>CHE</code><code>CHF</code><code>CHW</code><code>CLF</code><code>CLP</code><code>CNY</code><code>COP</code><code>COU</code><code>CRC</code><code>CUC</code><code>CUP</code><code>CVE</code><code>CZK</code><code>DJF</code><code>DKK</code><code>DOP</code><code>DZD</code><code>EGP</code><code>ERN</code><code>ETB</code><code>EUR</code><code>FJD</code><code>FKP</code><code>GBP</code><code>GEL</code><code>GHS</code><code>GIP</code><code>GMD</code><code>GNF</code><code>GTQ</code><code>GYD</code><code>HKD</code><code>HNL</code><code>HTG</code><code>HUF</code><code>IDR</code><code>ILS</code><code>INR</code><code>IQD</code><code>IRR</code><code>ISK</code><code>JMD</code><code>JOD</code><code>JPY</code><code>KES</code><code>KGS</code><code>KHR</code><code>KMF</code><code>KPW</code><code>KRW</code><code>KWD</code><code>KYD</code><code>KZT</code><code>LAK</code><code>LBP</code><code>LKR</code><code>LRD</code><code>LSL</code><code>LYD</code><code>MAD</code><code>MDL</code><code>MGA</code><code>MKD</code><code>MMK</code><code>MNT</code><code>MOP</code><code>MRU</code><code>MUR</code><code>MVR</code><code>MWK</code><code>MXN</code><code>MXV</code><code>MYR</code><code>MZN</code><code>NAD</code><code>NGN</code><code>NIO</code><code>NOK</code><code>NPR</code><code>NZD</code><code>OMR</code><code>PAB</code><code>PEN</code><code>PGK</code><code>PHP</code><code>PKR</code><code>PLN</code><code>PYG</code><code>QAR</code><code>RON</code><code>RSD</code><code>RUB</code><code>RWF</code><code>SAR</code><code>SBD</code><code>SCR</code><code>SDG</code><code>SEK</code><code>SGD</code><code>SHP</code><code>SLE</code><code>SLL</code><code>SOS</code><code>SRD</code><code>SSP</code><code>STN</code><code>SVC</code><code>SYP</code><code>SZL</code><code>THB</code><code>TJS</code><code>TMT</code><code>TND</code><code>TOP</code><code>TRY</code><code>TTD</code><code>TWD</code><code>TZS</code><code>UAH</code><code>UGX</code><code>USD</code><code>USN</code><code>UYI</code><code>UYU</code><code>UYW</code><code>UZS</code><code>VED</code><code>VES</code><code>VND</code><code>VUV</code><code>WST</code><code>XAF</code><code>XCD</code><code>XDR</code><code>XOF</code><code>XPF</code><code>XSU</code><code>XUA</code><code>YER</code><code>ZAR</code><code>ZMW</code><code>ZWL</code></div>
+      <div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 3</span><span class="chip"><span class="s-label">max length</span> 3</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">decimals</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>The number of digits after the decimal separator, that are expressed by the minor units of the currency. For example for Euro, Euro cents express 2 digits after the decimal separator. In other words, the price in the main currency units would be the <code>value * 10^(-decimals)</code>.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-IdlePrice">
+      <summary><span class="s-name">IdlePrice</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-IdlePrice" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-IdlePrice" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Price components when idle</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">grace_minutes</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>Grace period in minutes before idle time is charged. Grace minutes start counting from the timestamp of the message in which state changed from &#34;Charging&#34; to &#34;Idle&#34;.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-Price">
+      <summary><span class="s-name">hour_price</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-Price" data-api-page="session_cost_API" title="session_cost_API.yaml">Price ↗</a></summary>
+      <div class="s-desc"><p>Price per hour while idle</p></div><p class="s-inline"><a href="#ext-session_cost_API-Price">Definition of Price</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-MoneyAmount">
+      <summary><span class="s-name">MoneyAmount</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-MoneyAmount" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-MoneyAmount" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>&#39;Money amount is expressed as an amount of minor units of the currency. Example price of 1.23 EUR is expressed as { value: 123 }&#39;</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The amount of minor units of the currency.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-NextPeriodPrice">
+      <summary><span class="s-name">NextPeriodPrice</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-NextPeriodPrice" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-NextPeriodPrice" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Pricing for the next period</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp_from</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Time when these prices become active, in RFC3339 format.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">charging_price</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Price components while charging</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-ChargingPriceComponent">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-ChargingPriceComponent" data-api-page="session_cost_API" title="session_cost_API.yaml">ChargingPriceComponent ↗</a></summary>
+      <div class="s-desc"><p>Charging price for a category</p></div><p class="s-inline"><a href="#ext-session_cost_API-ChargingPriceComponent">Definition of ChargingPriceComponent</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-IdlePrice">
+      <summary><span class="s-name">idle_price</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-IdlePrice" data-api-page="session_cost_API" title="session_cost_API.yaml">IdlePrice ↗</a></summary>
+      <div class="s-desc"><p>Price components while idle. Optional if no idle fee charged.</p></div><p class="s-inline"><a href="#ext-session_cost_API-IdlePrice">Definition of IdlePrice</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-Price">
+      <summary><span class="s-name">Price</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-Price" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-Price" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Price object containing the currency and the value of money.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-Currency">
+      <summary><span class="s-name">currency</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-Currency" data-api-page="session_cost_API" title="session_cost_API.yaml">Currency ↗</a></summary>
+      <div class="s-desc"><p>Currency of the price.</p></div><p class="s-inline"><a href="#ext-session_cost_API-Currency">Definition of Currency</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-MoneyAmount">
+      <summary><span class="s-name">value</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-MoneyAmount" data-api-page="session_cost_API" title="session_cost_API.yaml">MoneyAmount ↗</a></summary>
+      <div class="s-desc"><p>Value in the minor units of the currency.</p></div><p class="s-inline"><a href="#ext-session_cost_API-MoneyAmount">Definition of MoneyAmount</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-SessionCost">
+      <summary><span class="s-name">SessionCost</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-SessionCost" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-SessionCost" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Session cost object containing the total cost of the session and a list of chunks</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-auth_consumer_API-ProvidedIdToken">
+      <summary><span class="s-name">id_tag</span><span class="s-type">object</span>
+      <a class="s-ref" href="auth_consumer_API.html#schema-ProvidedIdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">ProvidedIdToken ↗</a></summary>
+      <div class="s-desc"><p>The id tag assigned to this transaction</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-ProvidedIdToken">Definition of ProvidedIdToken</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">session_id</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The session id</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-Currency">
+      <summary><span class="s-name">currency</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-Currency" data-api-page="session_cost_API" title="session_cost_API.yaml">Currency ↗</a></summary>
+      <div class="s-desc"><p>Currency of the session cost. It applies to all chunks.</p></div><p class="s-inline"><a href="#ext-session_cost_API-Currency">Definition of Currency</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">cost_chunks</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>List of cost chunks. The total cost of the session is the sum of all chunks.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-SessionCostChunk">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-SessionCostChunk" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionCostChunk ↗</a></summary>
+      <div class="s-desc"><p>One chunk of the session cost</p></div><p class="s-inline"><a href="#ext-session_cost_API-SessionCostChunk">Definition of SessionCostChunk</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-IdlePrice">
+      <summary><span class="s-name">idle_price</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-IdlePrice" data-api-page="session_cost_API" title="session_cost_API.yaml">IdlePrice ↗</a></summary>
+      <div class="s-desc"><p>Prices for when the EV is idle.</p></div><p class="s-inline"><a href="#ext-session_cost_API-IdlePrice">Definition of IdlePrice</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">charging_price</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Charging prices.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-ChargingPriceComponent">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-ChargingPriceComponent" data-api-page="session_cost_API" title="session_cost_API.yaml">ChargingPriceComponent ↗</a></summary>
+      <div class="s-desc"><p>Charging price per type</p></div><p class="s-inline"><a href="#ext-session_cost_API-ChargingPriceComponent">Definition of ChargingPriceComponent</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-NextPeriodPrice">
+      <summary><span class="s-name">next_period</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-NextPeriodPrice" data-api-page="session_cost_API" title="session_cost_API.yaml">NextPeriodPrice ↗</a></summary>
+      <div class="s-desc"><p>Charging prices for the next period, starting from the given date/time</p></div><p class="s-inline"><a href="#ext-session_cost_API-NextPeriodPrice">Definition of NextPeriodPrice</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-SessionStatus" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionStatus ↗</a></div>
+      <div class="s-desc"><p>Session status. Session can be running or finished. Costs of the running session are not final and can change. Only after the session is finished, the session cost can be committed to bank and/or backend.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Running</code><code>Idle</code><code>Finished</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">message</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Message to show to the user containing information about the price</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-display_message_API-MessageContent">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API" title="display_message_API.yaml">MessageContent ↗</a></summary>
+      <div class="s-desc"><p>Message with pricing information in a specific language</p></div><p class="s-inline"><a href="#ext-display_message_API-MessageContent">Definition of MessageContent</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">qr_code</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>QR Code with more information. For example when the charging is finished, to download the invoice from</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-SessionCostChunk">
+      <summary><span class="s-name">SessionCostChunk</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-SessionCostChunk" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-SessionCostChunk" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>A chunk of the session cost. The total cost of the session is the sum of all chunks.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp_from</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Absolute timestamp for the start of this chunk in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp_to</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Absolute timestamp for the end of this chunk in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">metervalue_from</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>Metervalue (energy Wh import) for the start of this chunk</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">metervalue_to</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>Metervalue (energy Wh import) for the end of this chunk</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="ext-session_cost_API-MoneyAmount">
+      <summary><span class="s-name">cost</span><span class="s-type">object</span>
+      <a class="s-ref" href="session_cost_API.html#schema-MoneyAmount" data-api-page="session_cost_API" title="session_cost_API.yaml">MoneyAmount ↗</a></summary>
+      <div class="s-desc"><p>Cost of the energy (or other things like time, base price, ...)  consumed during this chunk in the currency specified in the session price</p></div><p class="s-inline"><a href="#ext-session_cost_API-MoneyAmount">Definition of MoneyAmount</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">category</span><span class="s-type">string</span>
+      <a class="s-ref" href="session_cost_API.html#schema-CostCategory" data-api-page="session_cost_API" title="session_cost_API.yaml">CostCategory ↗</a></div>
+      <div class="s-desc"><p>Cost category. Typically this is energy, time or a flat fee.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Energy</code><code>Time</code><code>FlatFee</code><code>Other</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="ext-session_cost_API-TariffMessage">
+      <summary><span class="s-name">TariffMessage</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-TariffMessage" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-TariffMessage" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Message containing cost information</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">ocpp_transaction_id</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Transaction id of ocpp.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identifier_id</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>To which token this message is bound.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">identifier_type</span><span class="s-type">string</span>
+      <a class="s-ref" href="display_message_API.html#schema-IdentifierType" data-api-page="display_message_API" title="display_message_API.yaml">IdentifierType ↗</a></div>
+      <div class="s-desc"><p>The type of &#39;identifier_id&#39;. If omitted, type will be session id.</p></div><div class="s-enum"><span class="s-label">enum</span><code>IdToken</code><code>SessionId</code><code>TransactionId</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">messages</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Message with session price information to show the user.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="ext-display_message_API-MessageContent">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API" title="display_message_API.yaml">MessageContent ↗</a></summary>
+      <div class="s-desc"><p>Message with pricing information in a specific language</p></div><p class="s-inline"><a href="#ext-display_message_API-MessageContent">Definition of MessageContent</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+

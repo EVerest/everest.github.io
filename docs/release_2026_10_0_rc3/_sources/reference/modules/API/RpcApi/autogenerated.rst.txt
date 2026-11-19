@@ -1,0 +1,60 @@
+
+
+.. _everest_modules_RpcApi:
+
+######
+RpcApi
+######
+| The RpcApi module provides a JSON-RPC API for external applications. The main focus is to provide data for displaying the charging parameters and setting charging parameters during charging.
+
+
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
+
+************************
+Auto-Generated Reference
+************************
+
+
+Module Configuration
+====================
+| **websocket_enabled**: *boolean* <optional>
+| *default: True*
+|  Enable the websocket server.
+| **websocket_port**: *integer* <optional>
+| *default: 8080*
+|  Port for the websocket server to listen on.
+| **websocket_interface**: *string* <optional>
+| *default: "lo"*
+|  Network interface/device for the websocket server to listen on, e.g. 'lo' or 'eth1'. Listen on all interfaces if "all".
+| **websocket_tls_enabled**: *boolean* <optional>
+| *default: False*
+|  Enable TLS for the websocket server. Currently not implemented.
+| **authentication_required**: *boolean* <optional>
+| *default: False*
+|  Require authentication for API requests. Currently not implemented.
+| **max_decimal_places_other**: *integer* <optional>
+| *default: 2*
+|  Maximum number of decimal places for all floating point values. Ignored if value is 0.
+
+
+Requirements
+============
+| **evse_manager**: :ref:`evse_manager <everest_interfaces_evse_manager>` 1..128
+| **evse_energy_sink**: :ref:`external_energy_limits <everest_interfaces_external_energy_limits>` 0..128
+| **charger_information**: :ref:`charger_information <everest_interfaces_charger_information>` 0..1
+
+********
+Metadata
+********
+Authors
+=======
+| chargebyte GmbH
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

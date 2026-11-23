@@ -87,7 +87,7 @@ Variables
 | **dc_ev_remaining_time**: *object*  (:ref:`iso15118-DcEvRemainingTime <iso15118-DcEvRemainingTime>`)
 |  Estimated or calculated time until bulk and full charge is complete
 | **hlc_session_failed**: *string*  (:ref:`evse_manager-HlcSessionFailedReasonEnum <evse_manager-HlcSessionFailedReasonEnum>`)
-|  Published by the HLC module whenever an HLC session failure is detected, immediately when it occurs. Provides a protocol-agnostic reason for the failure independently of the EvseManager state machine transitions.
+|  Published by the HLC module when the connection of an HLC session closes and the session's end counts as a failure. Provides a protocol-agnostic reason that names the phase in which the session ended, independently of the EvseManager state machine transitions. See HlcSessionFailedReasonEnum for which session ends are reported.
 | **session_stop_res_sent**: *string*  (:ref:`iso15118-SessionStopAction <iso15118-SessionStopAction>`)
 |  Published immediately after a session-ending response has been written to the wire. For a positive SessionStopRes it carries the stop action requested by the EVCC (Terminate/Pause): per DIN 70121 [V2G-DC-968] the SECC keeps the CP oscillator (5% PWM) on for V2G_SECC_CPOscillator_Retain_Time (1.5s) after this event and then switches to X1. For a session-ending FAILED_* response it carries FailedTermination: per [V2G-DC-942] the oscillator is switched off without delay. This event does NOT imply data link teardown: dlink_terminate/dlink_pause still follow after the TCP connection is closed.
 | **dlink_terminate**: *null* 

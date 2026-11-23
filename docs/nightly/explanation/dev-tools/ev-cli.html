@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>ev-cli - EVerest Manual main@e14e97c</title>
+        <title>ev-cli - EVerest Manual main@147e272</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@e14e97c</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@147e272</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@e14e97c</span>
+  <span class="sidebar-brand-text">EVerest Manual main@147e272</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -788,13 +788,15 @@ auto generation of C++ header files for types</p></li>
 common:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--work-dir</span></code>:
-work directory which also contains the manifest definitions (default: <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p></li>
+work directory which also contains the manifest definitions (default: <code class="docutils literal notranslate"><span class="pre">.</span></code>).
+It must exist.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--everest-dir</span></code>:
 root directory of EVerest core or any directory containing interface
-and module definitions (default: <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p></li>
+and module definitions (default: <code class="docutils literal notranslate"><span class="pre">.</span></code>).  Several may be given, and each
+one must exist.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--schemas-dir</span></code>:
 schemas directory of the EVerest framework, containing the schema
-definitions (default: <code class="docutils literal notranslate"><span class="pre">../everest-framework/schemas</span></code>)</p></li>
+definitions (default: <code class="docutils literal notranslate"><span class="pre">./lib/everest/framework/schemas</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--clang-format-file</span></code>:
 if C++ output should be formatted, set this to the path of the
 <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> file</p></li>
@@ -920,9 +922,39 @@ changed the corresponding interface a lot.  To get a list of possible files, you
 <p>would update only the module header file <code class="docutils literal notranslate"><span class="pre">Example.hpp</span></code>.</p>
 </li>
 </ol>
+</section>
+</section>
+<section id="selecting-a-target">
+<h2>Selecting a target<a class="headerlink" href="#selecting-a-target" title="Link to this heading">¶</a></h2>
+<p>The generating commands accept <code class="docutils literal notranslate"><span class="pre">--backend</span></code>.  <code class="docutils literal notranslate"><span class="pre">cpp</span></code> is the default and
+produces the C++ headers EVerest compiles against.  <code class="docutils literal notranslate"><span class="pre">ir-dump</span></code> writes out
+<code class="docutils literal notranslate"><span class="pre">ev-cli</span></code>’s intermediate representation of the definitions as JSON instead,
+which is useful when working out what the generator made of a definition:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli<span class="w"> </span>types<span class="w"> </span>generate-headers<span class="w"> </span>--backend<span class="w"> </span>ir-dump<span class="w"> </span>--output-dir<span class="w"> </span>/tmp/ir
+</pre></div>
+</div>
+</section>
+<section id="checking-the-schema-dialect">
+<h2>Checking the schema dialect<a class="headerlink" href="#checking-the-schema-dialect" title="Link to this heading">¶</a></h2>
+<p>EVerest’s definitions are JSON Schema, but cross-type references are written
+<code class="docutils literal notranslate"><span class="pre">/units#/Power</span></code>, which only <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> and the framework know how to resolve,
+and most references carry sibling keywords that draft-07 ignores but JSON
+Schema 2020-12 – and therefore OpenAPI 3.1 – would apply.  <code class="docutils literal notranslate"><span class="pre">ev-cli</span></code> accepts
+all of this and can report it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ev-cli<span class="w"> </span>conformance-report
+ev-cli<span class="w"> </span>conformance-report<span class="w"> </span>--verbose<span class="w">         </span><span class="c1"># every site, with a suggestion</span>
+</pre></div>
+</div>
+<p>Each entry says how the same thing would be written conformantly.  Two
+categories deserve attention rather than only a count: a sibling <code class="docutils literal notranslate"><span class="pre">type</span></code> that
+contradicts the type it references, and <code class="docutils literal notranslate"><span class="pre">additionalProperties:</span> <span class="pre">false</span></code> beside
+a reference to an object.  Both have no effect today and would change meaning
+if the definitions were read with OpenAPI semantics.</p>
+<p>The conformant spelling is already accepted – <code class="docutils literal notranslate"><span class="pre">#/types/Power</span></code> within a file
+and <code class="docutils literal notranslate"><span class="pre">units.yaml#/types/Power</span></code> across files – so definitions can be migrated
+one file at a time without anything downstream noticing.</p>
 <hr class="docutils" />
 <p><strong>Authors</strong>: Kai-Uwe Hermann, Andreas Heinrich, Manuel Ziegler, Christoph Burandt</p>
-</section>
 </section>
 </section>
 
@@ -992,6 +1024,8 @@ changed the corresponding interface a lot.  To get a list of possible files, you
 <li><a class="reference internal" href="#creating-and-updating-auto-generated-files-for-modules-c-only">Creating and updating auto generated files for modules (C++ only)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#selecting-a-target">Selecting a target</a></li>
+<li><a class="reference internal" href="#checking-the-schema-dialect">Checking the schema dialect</a></li>
 </ul>
 </li>
 </ul>
@@ -1003,7 +1037,7 @@ changed the corresponding interface a lot.  To get a list of possible files, you
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=d7b9bb5a"></script>
+</div><script src="../../_static/documentation_options.js?v=5e5c83e0"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

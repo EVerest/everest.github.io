@@ -1,0 +1,2223 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="over_voltage_monitor_API" href="over_voltage_monitor_API.html"><link rel="prev" title="ocpp_consumer_API" href="ocpp_consumer_API.html">
+        <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
+
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>ocpp_device_model_API - EVerest Manual main@89c8948</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=6a604523" />
+    <link rel="stylesheet" type="text/css" href="../../_static/everest-api/everest-api.css?v=81ca801c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">EVerest Manual main@89c8948</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">EVerest Manual main@89c8948</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-sw.html">Get started in Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-hw.html">Get started with Hardware</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp-combined.html">OCPP 1.6 and 2.x with the Combined Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/management_apis.html">Management APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/setup-devcontainer/index.html">EVerest devcontainer</a><input aria-label="Toggle navigation of EVerest devcontainer" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/devrd.html">Managed by devrd CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/vscode.html">Managed by VSCode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/everest_api.html">Using the EVerestAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how-to-guides/documenting-everest/index.html">Documenting EVerest</a><input aria-label="Toggle navigation of Documenting EVerest" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/documenting-everest/extending-everest-documentation.html">Extending the EVerest Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/documenting-everest/change-documentation-quickstart.html">Documenting Quickstart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/documenting-everest/sphinx-style-guide.html">Sphinx Style Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how-to-guides/getting-started/index.html">Getting Started with EVerest</a><input aria-label="Toggle navigation of Getting Started with EVerest" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-sw.html">Get started in Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-hw.html">Get started with Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/error-framework-howto.html">Using the Error Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/configure-pnc.html">Configure Plug&amp;Charge in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/debug-iso15118.html">Debug ISO 15118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/debug-modules.html">Debug EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/yocto-cross-compilation.html">Cross-compilation of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/eichrecht.html">Eichrecht</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/uk-smart-charging-regulations.html">UK Smart Charging Regulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/renesas-mpu/index.html">How to for Renesas MPU (RZ/G2L family)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/security-best-practices.html">Security Best Practices</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how-to-guides/bringup/index.html">BringUp &amp; Qualification</a><input aria-label="Toggle navigation of BringUp &amp; Qualification" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/basic.html">Basic BringUp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/powermeter.html">BringUp Powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/ac.html">AC BringUp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/dc.html">DC BringUp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/choosing-version-and-upgrading.html">Choosing an EVerest Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/pionix-belay-box.html">Pionix BelayBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/integrate-tariff-and-cost.html">Integrate Tariff and Cost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/devcontainer-usage/index.html">Use the EVerest Development Container (devrd managed)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/ocpp-storage-migration.html">Migrate to the Combined OCPP Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/ocpp-custom-error-mapping.html">Customize How Errors Reach the CSMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/ocpp-device-model-external-owners.html">Add Components to the OCPP Device Model from an External Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/iso15118-stack-migration.html">Migrate from EvseV2G and IsoMux to Evse15118D20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/firmware-update-connector-availability.html">Control Connector Availability During a Firmware Update</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/high-level-overview.html">High-Level Overview of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/error-framework.html">Error Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/detail-module-concept.html">EVerest Modules in Detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/manager-lifecycle.html">Manager Lifecycle State Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/configuration-service.html">EVerest Configuration Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/tier-module-mappings.html">3-tier Module Mappings</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../explanation/adapt-everest/index.html">Adapt EVerest</a><input aria-label="Toggle navigation of Adapt EVerest" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/adapt-everest/sub-systems.html">Sub-systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/adapt-everest/apis.html">EVerest APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/adapt-everest/management_apis.html">Management APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/energymanagement/index.html">Energy Management in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/dev-tools/edm.html">edm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/dev-tools/ev-cli.html">ev-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/dev-tools/management-api-cli.html">everest-management-api-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/pnc-process.html">The Plug&amp;Charge Process in EVerest</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../explanation/linux-yocto/index.html">Linux / Yocto</a><input aria-label="Toggle navigation of Linux / Yocto" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/setting-up-linux-os.html">Setting up the Linux operating system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/building-yocto.html">Building Yocto for your custom hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/ota-updates.html">Over-the-air-updates (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/partitioning-schemes-for-rauc-ota.html">Partitioning schemes for RAUC OTA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/hardware-architecture.html">Hardware Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/hardware-drivers.html">Hardware Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/the-everest-documentation.html">The EVerest Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/powermeter-ocmf.html">Powermeter OCMF Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/devcontainer-internal/index.html">Internals of the EVerest Development Container</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference</a><input aria-label="Toggle navigation of Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../manager-cli.html">Manager Command Line Options</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/index.html">Modules</a><input aria-label="Toggle navigation of Modules" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/API/autogenerated.html">API</a><input aria-label="Toggle navigation of API" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/API/API/autogenerated.html">API</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/API/EVerestAPI/autogenerated.html">EVerestAPI</a><input aria-label="Toggle navigation of EVerestAPI" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/auth_consumer_API/autogenerated.html">auth_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/auth_token_provider_API/autogenerated.html">auth_token_provider_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/auth_token_validator_API/autogenerated.html">auth_token_validator_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/charger_information_API/autogenerated.html">charger_information_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/dc_external_derate_consumer_API/autogenerated.html">dc_external_derate_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/display_message_API/autogenerated.html">display_message_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/error_history_consumer_API/autogenerated.html">error_history_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/ev_board_support_API/autogenerated.html">ev_board_support_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/evse_board_support_API/autogenerated.html">evse_board_support_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/evse_manager_consumer_API/autogenerated.html">evse_manager_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/evse_security_consumer_API/autogenerated.html">evse_security_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/external_energy_limits_consumer_API/autogenerated.html">external_energy_limits_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/generic_error_raiser_API/autogenerated.html">generic_error_raiser_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/isolation_monitor_API/autogenerated.html">isolation_monitor_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/ocpp_consumer_API/autogenerated.html">ocpp_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/ocpp_device_model_API/autogenerated.html">ocpp_device_model_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/over_voltage_monitor_API/autogenerated.html">over_voltage_monitor_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/power_supply_DC_API/autogenerated.html">power_supply_DC_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/powermeter_API/autogenerated.html">powermeter_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/session_cost_API/autogenerated.html">session_cost_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/session_cost_consumer_API/autogenerated.html">session_cost_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/session_storage_consumer_API/autogenerated.html">session_storage_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/slac_API/autogenerated.html">slac_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/system_API/autogenerated.html">system_API</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/API/EvAPI/autogenerated.html">EvAPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/API/RpcApi/autogenerated.html">RpcApi</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/BringUp/autogenerated.html">BringUp</a><input aria-label="Toggle navigation of BringUp" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUDCExternalDerate/autogenerated.html">BUDCExternalDerate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUDisplayMessage/autogenerated.html">BUDisplayMessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUEvBoardSupport/autogenerated.html">BUEvBoardSupport</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUEvseBoardSupport/autogenerated.html">BUEvseBoardSupport</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUIsolationMonitor/autogenerated.html">BUIsolationMonitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUOcppConsumer/autogenerated.html">BUOcppConsumer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUOverVoltageMonitor/autogenerated.html">BUOverVoltageMonitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUPowerSupplyDC/autogenerated.html">BUPowerSupplyDC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUPowermeter/autogenerated.html">BUPowermeter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUSlac/autogenerated.html">BUSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUSystem/autogenerated.html">BUSystem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUTokenProvider/autogenerated.html">BUTokenProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/EV/autogenerated.html">EV</a><input aria-label="Toggle navigation of EV" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/Ev15118/autogenerated.html">Ev15118</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/EvManager/autogenerated.html">EvManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/EvSlac/autogenerated.html">EvSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/McsEvDataLink/autogenerated.html">McsEvDataLink</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/EVSE/autogenerated.html">EVSE</a><input aria-label="Toggle navigation of EVSE" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/Auth/autogenerated.html">Auth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/Evse15118D20/autogenerated.html">Evse15118D20</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseManager/autogenerated.html">EvseManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseSecurity/autogenerated.html">EvseSecurity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseSlac/autogenerated.html">EvseSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseV2G/autogenerated.html">EvseV2G</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/Iso15118InternetVas/autogenerated.html">Iso15118InternetVas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/IsoMux/autogenerated.html">IsoMux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/McsDataLink/autogenerated.html">McsDataLink</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/EVSE/OCPPmulti/autogenerated.html">OCPPmulti</a><input aria-label="Toggle navigation of OCPPmulti" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/EVSE/OCPPmulti/device_model.html">How the device model is composed</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/StaticISO15118VASProvider/autogenerated.html">StaticISO15118VASProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/EnergyManagement/autogenerated.html">EnergyManagement</a><input aria-label="Toggle navigation of EnergyManagement" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/AcTemperatureDerating/autogenerated.html">AcTemperatureDerating</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/EEBUS/autogenerated.html">EEBUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/EnergyManager/autogenerated.html">EnergyManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/EnergyNode/autogenerated.html">EnergyNode</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Examples/autogenerated.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/Examples/CppExamples/autogenerated.html">CppExamples</a><input aria-label="Toggle navigation of CppExamples" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/Example/autogenerated.html">Example</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/ExampleUser/autogenerated.html">ExampleUser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/OCPPExtensionExample/autogenerated.html">OCPPExtensionExample</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/TerminalCostAndPriceMessage/autogenerated.html">TerminalCostAndPriceMessage</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/TerminalDisplayMessage/autogenerated.html">TerminalDisplayMessage</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/Examples/RustExamples/autogenerated.html">RustExamples</a><input aria-label="Toggle navigation of RustExamples" class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/RustExamples/RsExample/autogenerated.html">RsExample</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/RustExamples/RsExampleUser/autogenerated.html">RsExampleUser</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/Examples/error-framework/autogenerated.html">error-framework</a><input aria-label="Toggle navigation of error-framework" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/ExampleErrorGlobalSubscriber/autogenerated.html">ExampleErrorGlobalSubscriber</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/ExampleErrorRaiser/autogenerated.html">ExampleErrorRaiser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/ExampleErrorSubscriber/autogenerated.html">ExampleErrorSubscriber</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/PyExampleErrorRaiser/autogenerated.html">PyExampleErrorRaiser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/PyExampleErrorSubscriber/autogenerated.html">PyExampleErrorSubscriber</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/HardwareDrivers/autogenerated.html">HardwareDrivers</a><input aria-label="Toggle navigation of HardwareDrivers" class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/EV/autogenerated.html">EV</a><input aria-label="Toggle navigation of EV" class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EV/YetiEvDriver/autogenerated.html">YetiEvDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/autogenerated.html">EVSE</a><input aria-label="Toggle navigation of EVSE" class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/AdAcEvse22KwzKitBSP/autogenerated.html">AdAcEvse22KwzKitBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/MicroMegaWattBSP/autogenerated.html">MicroMegaWattBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/PhyVersoBSP/autogenerated.html">PhyVersoBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/TIDA010939/autogenerated.html">TIDA010939</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/YetiDriver/autogenerated.html">YetiDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/IsolationMonitors/autogenerated.html">IsolationMonitors</a><input aria-label="Toggle navigation of IsolationMonitors" class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/IsolationMonitors/Bender_isoCHA425HV/autogenerated.html">Bender_isoCHA425HV</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/IsolationMonitors/DoldRN5893/autogenerated.html">DoldRN5893</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/autogenerated.html">NfcReaders</a><input aria-label="Toggle navigation of NfcReaders" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/NxpNfcFrontendTokenProvider/autogenerated.html">NxpNfcFrontendTokenProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/PN532TokenProvider/autogenerated.html">PN532TokenProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/PN7160TokenProvider/autogenerated.html">PN7160TokenProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/Payment/autogenerated.html">Payment</a><input aria-label="Toggle navigation of Payment" class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/Payment/RsPaymentTerminal/autogenerated.html">RsPaymentTerminal</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/autogenerated.html">PowerMeters</a><input aria-label="Toggle navigation of PowerMeters" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/AST_DC650/autogenerated.html">AST_DC650</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/Acrel_DJSF1352_RN/autogenerated.html">Acrel_DJSF1352_RN</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/CarloGavazzi_EM580/autogenerated.html">CarloGavazzi_EM580</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/DZG_GSH01/autogenerated.html">DZG_GSH01</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/GenericPowermeter/autogenerated.html">GenericPowermeter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/IsabellenhuetteIemDcr/autogenerated.html">IsabellenhuetteIemDcr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/LemDCBM400600/autogenerated.html">LemDCBM400600</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/RsIskraMeter/autogenerated.html">RsIskraMeter</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/autogenerated.html">PowerSupplies</a><input aria-label="Toggle navigation of PowerSupplies" class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/DPM1000/autogenerated.html">DPM1000</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/Huawei_R100040Gx/autogenerated.html">Huawei_R100040Gx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/autogenerated.html">Huawei_V100R023C10</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/InfyPower/autogenerated.html">InfyPower</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/InfyPower_BEG1K075G/autogenerated.html">InfyPower_BEG1K075G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/UUGreenPower_UR1000X0/autogenerated.html">UUGreenPower_UR1000X0</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/Winline/autogenerated.html">Winline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Misc/autogenerated.html">Misc</a><input aria-label="Toggle navigation of Misc" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/ChargerInfo/autogenerated.html">ChargerInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/ErrorHistory/autogenerated.html">ErrorHistory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/Linux_Systemd_Rauc/autogenerated.html">Linux_Systemd_Rauc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/LocalAllowlistTokenValidator/autogenerated.html">LocalAllowlistTokenValidator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/PacketSniffer/autogenerated.html">PacketSniffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/PersistentSessionStorage/autogenerated.html">PersistentSessionStorage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/PersistentStore/autogenerated.html">PersistentStore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/SerialCommHub/autogenerated.html">SerialCommHub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/Setup/autogenerated.html">Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/Store/autogenerated.html">Store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/System/autogenerated.html">System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/YamlStore/autogenerated.html">YamlStore</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Simulation/autogenerated.html">Simulation</a><input aria-label="Toggle navigation of Simulation" class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/DCSupplySimulator/autogenerated.html">DCSupplySimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/EvseManagerSimulator/autogenerated.html">EvseManagerSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/IMDSimulator/autogenerated.html">IMDSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/ManagerLifecycleSimulator/autogenerated.html">ManagerLifecycleSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/OVMSimulator/autogenerated.html">OVMSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/SlacSimulator/autogenerated.html">SlacSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/TemperatureSensorSimulator/autogenerated.html">TemperatureSensorSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/YetiSimulator/autogenerated.html">YetiSimulator</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Testing/autogenerated.html">Testing</a><input aria-label="Toggle navigation of Testing" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyBankSessionTokenProvider/autogenerated.html">DummyBankSessionTokenProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummySessionCostProvider/autogenerated.html">DummySessionCostProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyTokenProvider/autogenerated.html">DummyTokenProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyTokenProviderManual/autogenerated.html">DummyTokenProviderManual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyTokenValidator/autogenerated.html">DummyTokenValidator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyV2G/autogenerated.html">DummyV2G</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../interfaces_index.html">EVerest Interfaces</a><input aria-label="Toggle navigation of EVerest Interfaces" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ISO15118_charger.html">ISO15118_charger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ISO15118_ev.html">ISO15118_ev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ISO15118_vas.html">ISO15118_vas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ac_rcd.html">ac_rcd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/auth.html">auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/auth_token_provider.html">auth_token_provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/auth_token_validator.html">auth_token_validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/bank_session_token_provider.html">bank_session_token_provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/car_simulator.html">car_simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/charger_information.html">charger_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/connector_lock.html">connector_lock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/dc_external_derate.html">dc_external_derate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/debug_json.html">debug_json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/display_message.html">display_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/empty.html">empty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/energy.html">energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/energy_manager.html">energy_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/energy_price_information.html">energy_price_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/error_history.html">error_history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ev_board_support.html">ev_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ev_manager.html">ev_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ev_slac.html">ev_slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/evse_board_support.html">evse_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/evse_manager.html">evse_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/example.html">example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/example_error_framework.html">example_error_framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/example_user.html">example_user</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/external_energy_limits.html">external_energy_limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/generic_error.html">generic_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/grid_support.html">grid_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/iso15118_extensions.html">iso15118_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/isolation_monitor.html">isolation_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/kvs.html">kvs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp.html">ocpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp_1_6_charge_point.html">ocpp_1_6_charge_point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp_data_transfer.html">ocpp_data_transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp_device_model.html">ocpp_device_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/over_voltage_monitor.html">over_voltage_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/payment_terminal.html">payment_terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/power.html">power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/power_supply_DC.html">power_supply_DC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/powermeter.html">powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/reservation.html">reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/serial_communication_hub.html">serial_communication_hub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/session_storage.html">session_storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/slac.html">slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/solar_forecast.html">solar_forecast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/system.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/temperature_sensor.html">temperature_sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/test_control.html">test_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/tibber_price_forecast.html">tibber_price_forecast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/uk_random_delay.html">uk_random_delay</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../types_index.html">EVerest Types</a><input aria-label="Toggle navigation of EVerest Types" class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../types/authorization.html">authorization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/board_support_common.html">board_support_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/charger_information.html">charger_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/dc_external_derate.html">dc_external_derate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/display_message.html">display_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/energy.html">energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/energy_price_information.html">energy_price_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/error_history.html">error_history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/ev_board_support.html">ev_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/evse_board_support.html">evse_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/evse_manager.html">evse_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/grid_support.html">grid_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/iso15118.html">iso15118</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/iso15118_vas.html">iso15118_vas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/isolation_monitor.html">isolation_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/money.html">money</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/network.html">network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/ocpp.html">ocpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/ocpp_device_model.html">ocpp_device_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/payment_terminal.html">payment_terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/power_supply_DC.html">power_supply_DC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/powermeter.html">powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/reservation.html">reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/serial_comm_hub_requests.html">serial_comm_hub_requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/session_storage.html">session_storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/slac.html">slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/system.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/text_message.html">text_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/uk_random_delay.html">uk_random_delay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/units.html">units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/units_signed.html">units_signed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="autogenerated_api_index.html">EVerest API Specification</a><input aria-label="Toggle navigation of EVerest API Specification" checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="auth_consumer_API.html">auth_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth_token_provider_API.html">auth_token_provider_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth_token_validator_API.html">auth_token_validator_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="charger_information_API.html">charger_information_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_API.html">configuration_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dc_external_derate_consumer_API.html">dc_external_derate_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="display_message_API.html">display_message_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entrypoint_API.html">entrypoint_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="error_history_consumer_API.html">error_history_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ev_board_support_API.html">ev_board_support_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evse_board_support_API.html">evse_board_support_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evse_manager_consumer_API.html">evse_manager_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evse_security_consumer_API.html">evse_security_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="external_energy_limits_consumer_API.html">external_energy_limits_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generic_error_raiser_API.html">generic_error_raiser_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="isolation_monitor_API.html">isolation_monitor_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lifecycle_API.html">lifecycle_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ocpp_consumer_API.html">ocpp_consumer_API</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">ocpp_device_model_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="over_voltage_monitor_API.html">over_voltage_monitor_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_supply_DC_API.html">power_supply_DC_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermeter_API.html">powermeter_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="session_cost_API.html">session_cost_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="session_cost_consumer_API.html">session_cost_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="session_storage_consumer_API.html">session_storage_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slac_API.html">slac_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_API.html">system_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="telemetry.html">telemetry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../snapshot.html">Dependencies Snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ocpp-device-model-glossary.html">OCPP Device Model Glossary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Help</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qa/index.html">Q &amp; A</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../project/index.html">Project &amp; Community</a><input aria-label="Toggle navigation of Project &amp; Community" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../project/community.html">Meet the EVerest Community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/contributing.html">Contributing to EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/roadmap.html">EVerest Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/governance/governance.html">EVerest project governance policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/governance/code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/governance/security.html">Security Policy</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../project/governance/tsc/index.html">Technical Steering Committee (TSC)</a><input aria-label="Toggle navigation of Technical Steering Committee (TSC)" class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../project/governance/tsc/meetings/index.html">EVerest TSC Meeting notes</a><input aria-label="Toggle navigation of EVerest TSC Meeting notes" class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-10-22.html">EVerest TSC Meeting - 22 October 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-09-25.html">EVerest TSC Meeting - 24 September 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-08-27.html">EVerest TSC Meeting - 27 August 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-07-23.html">EVerest TSC Meeting - 23 July 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-07-02.html">EVerest TSC Meeting - 26 March 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-05-28.html">EVerest TSC Meeting - 28 May 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-04-23.html">EVerest TSC Meeting - 24 April 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-03-26.html">EVerest TSC Meeting - 26 March 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-02-26.html">EVerest TSC Meeting - 26 February 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-01-22.html">EVerest TSC Meeting - 22 January 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-12-18.html">EVerest TSC Meeting - 18 December 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-11-27.html">EVerest TSC Meeting - 27 November 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-10-23.html">EVerest TSC Meeting - 23 October 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-09-25.html">EVerest TSC Meeting - 25 September 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-08-28.html">EVerest TSC Meeting - 28 August 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-07-24.html">EVerest TSC Meeting - 24 July 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-06-26.html">EVerest TSC Meeting - 26 June 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-05-22.html">EVerest TSC Meeting - 22 May 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-04-24.html">EVerest TSC Meeting - 24 April 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-03-27.html">EVerest TSC Meeting - 27 March 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-02-27.html">EVerest TSC Meeting - 27 February 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-01-23.html">EVerest TSC Meeting - 23 January 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-12-19.html">EVerest TSC Meeting - 19 December 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-11-28.html">EVerest TSC Meeting - 28 November 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-10-24.html">EVerest TSC Meeting - 24 October 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-09-26.html">EVerest TSC Meeting - 26 September 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-08-22.html">EVerest TSC Meeting - 22 August 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-07-25.html">EVerest TSC Meeting - 25 July 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-06-27.html">EVerest TSC Meeting - 27 June 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-05-23.html">EVerest TSC Meeting - 23rd May 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-04-25.html">EVerest TSC Meeting - 25th April 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-03-28.html">EVerest TSC Meeting - 28th March 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-02-22.html">EVerest TSC Meeting - 22nd February 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-01-25.html">EVerest TSC Meeting - 25th January 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-12-20.html">EVerest TSC Meeting - 20th December 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-11-23.html">EVerest TSC Meeting - 23rd November 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-10-26.html">EVerest TSC Meeting - 26th October 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-09-28.html">EVerest TSC Meeting - 28th September 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-08-24.html">EVerest TSC Meeting - 24th August 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-07-27.html">EVerest TSC Meeting - 27nd July 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-06-22.html">EVerest TSC Meeting - 22nd June 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-05-25.html">EVerest TSC Meeting - 25nd May 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-04-27.html">EVerest TSC Meeting - 27th April 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-03-23.html">EVerest TSC Meeting - 23rd March 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-02-23.html">EVerest TSC Meeting - 23rd February 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-01-26.html">EVerest TSC Meeting - 26th January 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-12-22.html">EVerest TSC Meeting - 22nd December 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-11-24.html">EVerest TSC Meeting - 24th November 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-10-27.html">EVerest TSC Meeting - 27th October 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-09-22.html">EVerest TSC Meeting - 22nd September 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-08-25.html">EVerest TSC Meeting - 25th August 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-07-28.html">EVerest TSC Meeting - 28th July 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-06-23.html">EVerest TSC Meeting - 23nd June 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-06-02.html">EVerest TSC Meeting - 2nd June 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-04-28.html">EVerest TSC Meeting - [28th April 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-03-24.html">EVerest TSC Meeting - [24th March 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-02-24.html">EVerest TSC Meeting - [24th Feb 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-01-27.html">EVerest TSC Meeting - [27th Jan 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2021-11-30.html">EVerest TSC Meeting - [30th Nov 2021]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/releases-and-versioning.html">Releases and Versioning of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/release-notes.html">Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/upgrading-to-2026.10.html">Upgrading to 2026.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/breaking-changes.html">Breaking Changes Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/deprecation-policy.html">Deprecation Policy for EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/deprecation-index.html">Active Deprecation Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/experimental-index.html">Experimental Feature Index</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/reference/EVerestAPI/ocpp_device_model_API.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="ocpp-device-model-api">
+<span id="everest-api-ocpp-device-model-api"></span><h1>ocpp_device_model_API<a class="headerlink" href="#ocpp-device-model-api" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Experimental API</strong> since 2027.04.0.
+This API is exempt from the EVerest stability guarantees and the deprecation
+period. Its channels, operations and message payloads may change or be
+removed in any release without notice until it is promoted to stable. See
+the <a class="reference internal" href="../../project/releases/deprecation-policy.html#project-experimental-components"><span class="std std-ref">policy on experimental components</span></a>
+and the <a class="reference internal" href="../../project/releases/experimental-index.html#project-experimental-index"><span class="std std-ref">experimental feature index</span></a>.</p>
+</div>
+<div class="everest-api overview docutils container">
+<div class="facts">
+<span class="badge experimental" title="Exempt from the stability guarantees">experimental</span><span class="chip"><span class="s-label">version</span> 1.0.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+<span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">OCPP</span></div><div class="lead docutils container">
+<p>EVerest API definition for OCPP device model owners - CLIENT side (MODULE)</p>
+</div>
+<p>API for EVerest API clients that add components and variables to the device model of an OCPP service at runtime, next to those of the JSON component config. The client acts for one or more owners. Each variable has one owner, which keeps its value current, receives the writes to it and keeps its persistent attributes across restarts.</p>
+<p>Startup: the client publishes one registration per owner on m2e/registration. Until the OCPP service has asked for the registrations, the module only collects them, keeping the latest one per owner. When the OCPP service asks, the module publishes e2m/get_registrations so that clients that are already running send their registrations again, and then waits. If cfg_expected_owners lists owners, it waits until each of them has registered, at most cfg_expected_owners_timeout_s seconds; at the deadline it logs the owners still missing. If the list is empty, it waits cfg_registration_timeout_s seconds. It then hands every collected registration to the OCPP service, which starts. The OCPP service does not start before then. After startup, every registration the client publishes is passed on at once, so an owner that missed the deadline can still register, without the monitors of earlier boots.</p>
+<p>The OCPP service answers every registration with e2m/set_registration_result, forwards writes to registered variables with a request on e2m/set_value, and takes the value changes the client reports on m2e/value_changed. Experimental: this API is exempt from the EVerest stability guarantees and the deprecation period; channels, operations and message payloads may change without further notice until it is promoted to stable.</p>
+<p>Configuration: the cfg_ settings named in this specification are configuration keys of the ocpp_device_model_API module, set in the EVerest configuration of the module instance the client talks to. cfg_expected_owners is a comma separated list of the owners the client registers, empty by default; list every owner, also those whose devices are not always available. cfg_expected_owners_timeout_s, 60 seconds by default, bounds the wait for them. cfg_registration_timeout_s, 10 seconds by default, is the collection time when no owners are listed. cfg_request_reply_to_s, 10 seconds by default, is the time the client has to answer one write; the variables of one SetVariables.req are written one after the other, so their number times this timeout has to stay below the message timeout of the CSMS. The module documentation of ocpp_device_model_API and the how-to guide “Add Components to the OCPP Device Model from an External Application” describe these settings in full.</p>
+<p class="spec-file">Specification: <code>ocpp_device_model_API.yaml</code> · <code>pionix:de:everest:ocpp_device_model_API</code></p>
+<div class="legend">
+<span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+ the client publishes, EVerest consumes (4)</span>
+<span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+ EVerest publishes, the client consumes (4)</span>
+</div></div>
+<section id="servers">
+<h2>Servers<a class="headerlink" href="#servers" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<div class="card server" id="server-default">
+<p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+<div><p>default local MQTT</p></div><dl class="op-facts">
+<dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}">everest_api/1/ocpp_device_model/{module_id}</code></dd>
+<dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+</dl>
+</div></div>
+</section>
+<section id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<div class="js-only toolbar">
+<button type="button" data-expand="all">Expand all</button>
+<button type="button" data-expand="none">Collapse all</button>
+</div></div>
+<section id="client-to-everest">
+<h3>Client to EVerest<a class="headerlink" href="#client-to-everest" title="Link to this heading">¶</a></h3>
+<section id="send-reply-set-value">
+<span id="everest-api-ocpp-device-model-api-op-send-reply-set-value"></span><h4>send_reply_set_value<a class="headerlink" href="#send-reply-set-value" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send reply to a set value request</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+Answers <a href="#everest-api-ocpp-device-model-api-op-receive-request-set-value">receive_request_set_value</a>.</dd>
+</dl><p>Direction: Module to EVerest</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Reply to a set value request</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_reply_set_value"><code>send_reply_set_value</code></a></p>
+<div class="msg-summary"><p>Accepted: the owner applied exactly the written value; the OCPP service stores it, so the client does not report it on m2e/value_changed. RebootRequired: the owner kept exactly the written value and applies it at the next start; the OCPP service keeps the current value, and the client registers the new value at the next start. Rejected: the owner did not apply the value, also when it would apply another one, a clamped one for example. UnknownComponent, UnknownVariable and NotSupportedAttributeType are returned to the CSMS as they are.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="#schema-SetVariableStatus" title="ocpp_device_model_API.yaml">SetVariableStatus</a></div>
+<div class="s-desc"><p>Outcome of a write</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>UnknownComponent</code><code>UnknownVariable</code><code>NotSupportedAttributeType</code><code>RebootRequired</code></div>
+
+</div>
+
+</div>
+<div>
+<p class="msg-section">Examples</p>
+<figure class="example">
+<figcaption>Write applied</figcaption>
+<pre data-copy-block><code>&#34;Accepted&#34;</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Write kept, applied at the next start</figcaption>
+<pre data-copy-block><code>&#34;RebootRequired&#34;</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="send-registration">
+<span id="everest-api-ocpp-device-model-api-op-send-registration"></span><h4>send_registration<a class="headerlink" href="#send-registration" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send a registration</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/m2e/registration">everest_api/1/ocpp_device_model/{module_id}/m2e/registration</code></dd>
+</dl><p>Direction: Module to EVerest</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Registration of one owner</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_registration"><code>send_registration</code></a></p>
+<div class="msg-summary"><p>Adds an owner, or replaces everything an owner registered before; the registrations of the other owners stay. Before the OCPP service has asked for the registrations, the module collects them. After that, each one is passed on at once, and is answered on e2m/set_registration_result. An empty components list removes everything the owner registered and releases the owner name. A registration passed on at once is not ordered against the answer to the request for registrations, and may reach the OCPP service before it. To replace or release an owner registered at startup, wait for its e2m/set_registration_result first: it follows the answer. A registration that does not fit the schema, a string beyond its maximum length for example, is not passed on and is logged. It is answered with Invalid on e2m/set_registration_result, for the owner it names, or for the module id when it names none or its owner cannot be read. An earlier registration of the owner stays in place.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<details class="s-node s-top" data-inline="schema-Registration" open>
+<summary><span class="s-type">object</span> <a class="s-ref" href="#schema-Registration" title="ocpp_device_model_API.yaml">Registration</a></summary>
+<div class="s-desc"><p>Everything one owner adds to the device model. It replaces what the same owner registered before.</p></div><p class="s-inline"><a href="#schema-Registration">Definition of Registration</a></p>
+</details>
+
+</div>
+<div>
+<p class="msg-section">Examples</p>
+<figure class="example">
+<figcaption>A meter with a current limit and a monitored temperature</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_1&#34;,
+  &#34;components&#34;: [
+    {
+      &#34;component&#34;: {
+        &#34;name&#34;: &#34;Powermeter&#34;,
+        &#34;evse&#34;: {
+          &#34;id&#34;: 1
+        }
+      },
+      &#34;variables&#34;: [
+        {
+          &#34;variable&#34;: {
+            &#34;name&#34;: &#34;CurrentLimit&#34;
+          },
+          &#34;characteristics&#34;: {
+            &#34;data_type&#34;: &#34;decimal&#34;,
+            &#34;supports_monitoring&#34;: false,
+            &#34;unit&#34;: &#34;A&#34;,
+            &#34;min_limit&#34;: 6,
+            &#34;max_limit&#34;: 32
+          },
+          &#34;attributes&#34;: [
+            {
+              &#34;type&#34;: &#34;Actual&#34;,
+              &#34;value&#34;: &#34;32&#34;,
+              &#34;mutability&#34;: &#34;ReadOnly&#34;
+            },
+            {
+              &#34;type&#34;: &#34;Target&#34;,
+              &#34;value&#34;: &#34;32&#34;,
+              &#34;mutability&#34;: &#34;ReadWrite&#34;,
+              &#34;persistent&#34;: true
+            }
+          ]
+        },
+        {
+          &#34;variable&#34;: {
+            &#34;name&#34;: &#34;Temperature&#34;
+          },
+          &#34;characteristics&#34;: {
+            &#34;data_type&#34;: &#34;decimal&#34;,
+            &#34;supports_monitoring&#34;: true,
+            &#34;unit&#34;: &#34;Celsius&#34;
+          },
+          &#34;attributes&#34;: [
+            {
+              &#34;type&#34;: &#34;Actual&#34;,
+              &#34;value&#34;: &#34;24.5&#34;,
+              &#34;mutability&#34;: &#34;ReadOnly&#34;
+            }
+          ],
+          &#34;monitors&#34;: [
+            {
+              &#34;type&#34;: &#34;UpperThreshold&#34;,
+              &#34;value&#34;: 85,
+              &#34;severity&#34;: 2,
+              &#34;monitor_type&#34;: &#34;HardWiredMonitor&#34;
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>A fan speed limit that an OCPP 1.6 CSMS reads and writes as configuration key CoolingFanSpeedLimit</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;cooling_unit&#34;,
+  &#34;components&#34;: [
+    {
+      &#34;component&#34;: {
+        &#34;name&#34;: &#34;CoolingUnit&#34;,
+        &#34;instance&#34;: &#34;1&#34;
+      },
+      &#34;variables&#34;: [
+        {
+          &#34;variable&#34;: {
+            &#34;name&#34;: &#34;FanSpeedLimit&#34;
+          },
+          &#34;characteristics&#34;: {
+            &#34;data_type&#34;: &#34;integer&#34;,
+            &#34;supports_monitoring&#34;: false,
+            &#34;unit&#34;: &#34;Percent&#34;,
+            &#34;min_limit&#34;: 0,
+            &#34;max_limit&#34;: 100
+          },
+          &#34;attributes&#34;: [
+            {
+              &#34;type&#34;: &#34;Actual&#34;,
+              &#34;value&#34;: &#34;80&#34;,
+              &#34;mutability&#34;: &#34;ReadWrite&#34;,
+              &#34;persistent&#34;: true
+            }
+          ],
+          &#34;ocpp16_key&#34;: &#34;CoolingFanSpeedLimit&#34;
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Release an owner</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_2&#34;,
+  &#34;components&#34;: []
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="send-value-changed">
+<span id="everest-api-ocpp-device-model-api-op-send-value-changed"></span><h4>send_value_changed<a class="headerlink" href="#send-value-changed" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send a value change</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/m2e/value_changed">everest_api/1/ocpp_device_model/{module_id}/m2e/value_changed</code></dd>
+</dl><p>Direction: Module to EVerest</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Value change of a registered variable</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_value_changed"><code>send_value_changed</code></a></p>
+<div class="msg-summary"><p>Published when the owner changed a value itself. Report every change: the OCPP service holds the values in memory and serves reads from there. A report published right after a registration is applied once the registration is; it is dropped when the registration is refused or releases the owner. At most 64 reports for owners that are not registered are kept, the oldest is dropped beyond that. A report that does not fit the variable, or for an owner that another module instance holds or that is never registered, is ignored and logged.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<details class="s-node s-top" data-inline="schema-ValueChange" open>
+<summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ValueChange" title="ocpp_device_model_API.yaml">ValueChange</a></summary>
+<div class="s-desc"><p>A value of a registered variable that its owner changed itself</p></div><p class="s-inline"><a href="#schema-ValueChange">Definition of ValueChange</a></p>
+</details>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Temperature changed</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_1&#34;,
+  &#34;component&#34;: {
+    &#34;name&#34;: &#34;Powermeter&#34;,
+    &#34;evse&#34;: {
+      &#34;id&#34;: 1
+    }
+  },
+  &#34;variable&#34;: {
+    &#34;name&#34;: &#34;Temperature&#34;
+  },
+  &#34;value&#34;: &#34;26.0&#34;
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="send-communication-check">
+<span id="everest-api-ocpp-device-model-api-op-send-communication-check"></span><h4>send_communication_check<a class="headerlink" href="#send-communication-check" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send communication check</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/m2e/communication_check">everest_api/1/ocpp_device_model/{module_id}/m2e/communication_check</code></dd>
+</dl><details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+<div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="ocpp_device_model_API.yaml">CommunicationCheck</a></div>
+<div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>CommunicationCheck</figcaption>
+<pre data-copy-block><code>true</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+</section>
+<section id="everest-to-client">
+<h3>EVerest to client<a class="headerlink" href="#everest-to-client" title="Link to this heading">¶</a></h3>
+<section id="receive-get-registrations">
+<span id="everest-api-ocpp-device-model-api-op-receive-get-registrations"></span><h4>receive_get_registrations<a class="headerlink" href="#receive-get-registrations" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive the request for registrations</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/e2m/get_registrations">everest_api/1/ocpp_device_model/{module_id}/e2m/get_registrations</code></dd>
+</dl><p>Direction: EVerest to Module</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Request for registrations</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_get_registrations"><code>receive_get_registrations</code></a></p>
+<div class="msg-summary"><p>Published each time the OCPP service asks for the registrations, normally once at startup. The client publishes the registration of every owner it acts for on m2e/registration, also the ones it published before. No reply is expected on this topic.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<details class="s-node s-top" data-inline="schema-GetRegistrations" open>
+<summary><span class="s-type">object</span> <a class="s-ref" href="#schema-GetRegistrations" title="ocpp_device_model_API.yaml">GetRegistrations</a></summary>
+<div class="s-desc"><p>Request for the registrations of all owners the client acts for</p></div><p class="s-inline"><a href="#schema-GetRegistrations">Definition of GetRegistrations</a></p>
+</details>
+
+</div>
+<div>
+<p class="msg-section">Examples</p>
+<figure class="example">
+<figcaption>Two owners expected</figcaption>
+<pre data-copy-block><code>{
+  &#34;expected_owners&#34;: [
+    &#34;meter_1&#34;,
+    &#34;meter_2&#34;
+  ]
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>No owners expected, collection ends after cfg_registration_timeout_s</figcaption>
+<pre data-copy-block><code>{
+  &#34;expected_owners&#34;: []
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="receive-set-registration-result">
+<span id="everest-api-ocpp-device-model-api-op-receive-set-registration-result"></span><h4>receive_set_registration_result<a class="headerlink" href="#receive-set-registration-result" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive the result of a registration</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/e2m/set_registration_result">everest_api/1/ocpp_device_model/{module_id}/e2m/set_registration_result</code></dd>
+</dl><p>Direction: EVerest to Module</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Result of a registration</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_set_registration_result"><code>receive_set_registration_result</code></a></p>
+<div class="msg-summary"><p>The outcome of one registration, published once for every registration the OCPP service applied, at startup and at runtime. A registration replaced by a newer one of the same owner before it was applied, at startup or before the OCPP service started, is answered only through the newer one. A registration the device model fails to apply is answered with Rejected, and its owner is dropped. No reply is expected. A registration that does not match the schema is answered with Invalid by this module, for its owner, or for the module id when it names none or its owner cannot be read, because it is not a JSON object or its owner is not a non-empty string. Every client of the module receives every result, so a client picks its own by owner; an Invalid for an owner the client holds may come from another client&#39;s malformed registration naming it, which changes nothing.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<details class="s-node s-top" data-inline="schema-RegistrationResult" open>
+<summary><span class="s-type">object</span> <a class="s-ref" href="#schema-RegistrationResult" title="ocpp_device_model_API.yaml">RegistrationResult</a></summary>
+<div class="s-desc"><p>The outcome of the registration of one owner</p></div><p class="s-inline"><a href="#schema-RegistrationResult">Definition of RegistrationResult</a></p>
+</details>
+
+</div>
+<div>
+<p class="msg-section">Examples</p>
+<figure class="example">
+<figcaption>Accepted, one variable defined by the component config already</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_1&#34;,
+  &#34;status&#34;: &#34;Accepted&#34;,
+  &#34;rejected&#34;: [
+    {
+      &#34;component&#34;: {
+        &#34;name&#34;: &#34;Powermeter&#34;,
+        &#34;evse&#34;: {
+          &#34;id&#34;: 1
+        }
+      },
+      &#34;variable&#34;: {
+        &#34;name&#34;: &#34;Enabled&#34;
+      },
+      &#34;reason&#34;: &#34;AlreadyDefined&#34;,
+      &#34;defined_by&#34;: &#34;COMPONENT_CONFIG&#34;
+    }
+  ]
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Accepted under OCPP 1.6, the OCPP 1.6 key of one variable taken by the key mapping file</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;cooling_unit&#34;,
+  &#34;status&#34;: &#34;Accepted&#34;,
+  &#34;rejected&#34;: [
+    {
+      &#34;component&#34;: {
+        &#34;name&#34;: &#34;CoolingUnit&#34;,
+        &#34;instance&#34;: &#34;1&#34;
+      },
+      &#34;variable&#34;: {
+        &#34;name&#34;: &#34;FanSpeedLimit&#34;
+      },
+      &#34;reason&#34;: &#34;Ocpp16KeyInUse&#34;
+    }
+  ]
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Owner name used by another module</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_2&#34;,
+  &#34;status&#34;: &#34;OwnerInUse&#34;,
+  &#34;rejected&#34;: []
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Registration that does not match the schema</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_3&#34;,
+  &#34;status&#34;: &#34;Invalid&#34;,
+  &#34;rejected&#34;: []
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Registration the device model failed to apply; the owner is dropped and may register again</figcaption>
+<pre data-copy-block><code>{
+  &#34;owner&#34;: &#34;meter_4&#34;,
+  &#34;status&#34;: &#34;Rejected&#34;,
+  &#34;rejected&#34;: []
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="receive-request-set-value">
+<span id="everest-api-ocpp-device-model-api-op-receive-request-set-value"></span><h4>receive_request_set_value<a class="headerlink" href="#receive-request-set-value" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Request to set a value</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/e2m/set_value">everest_api/1/ocpp_device_model/{module_id}/e2m/set_value</code></dd>
+<dt>Reply</dt>
+<dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-ocpp-device-model-api-op-send-reply-set-value">send_reply_set_value</a>.</dd>
+</dl><p>Direction: EVerest to Module</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Request to set a value</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_request_set_value"><code>receive_request_set_value</code></a></p>
+<div class="msg-summary"><p>A write to an attribute of a registered variable, from the CSMS or from the OCPP service itself. The OCPP service checked the value against the characteristics and the mutability of the variable already. Writes to WriteOnly attributes are forwarded the same way. Requests are delivered one at a time. Reply within cfg_request_reply_to_s, 10 seconds by default: without a reply in time, the write is answered Rejected, and until then each unanswered write holds up the following ones by cfg_request_reply_to_s.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<ul class="s-tree">
+<li>
+<details class="s-node">
+<summary><span class="s-name">headers</span><span class="s-type">object</span>
+<span class="s-req">required</span></summary>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Address to send the response to.</p></div>
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-WriteRequest">
+<summary><span class="s-name">payload</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-WriteRequest" title="ocpp_device_model_API.yaml">WriteRequest</a></summary>
+<div class="s-desc"><p>A write to an attribute of a registered variable</p></div><p class="s-inline"><a href="#schema-WriteRequest">Definition of WriteRequest</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>CSMS sets the current limit of a meter</figcaption>
+<pre data-copy-block><code>{
+  &#34;headers&#34;: {
+    &#34;replyTo&#34;: &#34;everest_api/1/ocpp_device_model/device_model_api/m2e/reply/2b0e6a41-8c1f-4f57-9d0e-5f3c1a7b9e10&#34;
+  },
+  &#34;payload&#34;: {
+    &#34;owner&#34;: &#34;meter_1&#34;,
+    &#34;component&#34;: {
+      &#34;name&#34;: &#34;Powermeter&#34;,
+      &#34;evse&#34;: {
+        &#34;id&#34;: 1
+      }
+    },
+    &#34;variable&#34;: {
+      &#34;name&#34;: &#34;CurrentLimit&#34;
+    },
+    &#34;attribute_type&#34;: &#34;Target&#34;,
+    &#34;value&#34;: &#34;16&#34;,
+    &#34;source&#34;: &#34;csms&#34;
+  }
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="receive-heartbeat">
+<span id="everest-api-ocpp-device-model-api-op-receive-heartbeat"></span><h4>receive_heartbeat<a class="headerlink" href="#receive-heartbeat" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive heartbeat</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/ocpp_device_model/{module_id}/e2m/heartbeat">everest_api/1/ocpp_device_model/{module_id}/e2m/heartbeat</code></dd>
+</dl><details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+<div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="ocpp_device_model_API.yaml">HeartBeatId</a></div>
+<div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Heartbeat</figcaption>
+<pre data-copy-block><code>42</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+</section>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<div class="table-wrap">
+<table class="messages">
+<thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+<tbody>
+<tr id="msg-receive_get_registrations">
+<td><code>receive_get_registrations</code><br><span class="muted">Request for registrations</span></td>
+<td><p>Published each time the OCPP service asks for the registrations, normally once at startup. The client publishes the registration of every owner it acts for on m2e/registration, also the ones it published before. No reply is expected on this topic.</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-receive-get-registrations">receive_get_registrations</a></td>
+</tr>
+<tr id="msg-receive_set_registration_result">
+<td><code>receive_set_registration_result</code><br><span class="muted">Result of a registration</span></td>
+<td><p>The outcome of one registration, published once for every registration the OCPP service applied, at startup and at runtime. A registration replaced by a newer one of the same owner before it was applied, at startup or before the OCPP service started, is answered only through the newer one. A registration the device model fails to apply is answered with Rejected, and its owner is dropped. No reply is expected. A registration that does not match the schema is answered with Invalid by this module, for its owner, or for the module id when it names none or its owner cannot be read, because it is not a JSON object or its owner is not a non-empty string. Every client of the module receives every result, so a client picks its own by owner; an Invalid for an owner the client holds may come from another client&#39;s malformed registration naming it, which changes nothing.</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-receive-set-registration-result">receive_set_registration_result</a></td>
+</tr>
+<tr id="msg-receive_request_set_value">
+<td><code>receive_request_set_value</code><br><span class="muted">Request to set a value</span></td>
+<td><p>A write to an attribute of a registered variable, from the CSMS or from the OCPP service itself. The OCPP service checked the value against the characteristics and the mutability of the variable already. Writes to WriteOnly attributes are forwarded the same way. Requests are delivered one at a time. Reply within cfg_request_reply_to_s, 10 seconds by default: without a reply in time, the write is answered Rejected, and until then each unanswered write holds up the following ones by cfg_request_reply_to_s.</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-receive-request-set-value">receive_request_set_value</a></td>
+</tr>
+<tr id="msg-send_reply_set_value">
+<td><code>send_reply_set_value</code><br><span class="muted">Reply to a set value request</span></td>
+<td><p>Accepted: the owner applied exactly the written value; the OCPP service stores it, so the client does not report it on m2e/value_changed. RebootRequired: the owner kept exactly the written value and applies it at the next start; the OCPP service keeps the current value, and the client registers the new value at the next start. Rejected: the owner did not apply the value, also when it would apply another one, a clamped one for example. UnknownComponent, UnknownVariable and NotSupportedAttributeType are returned to the CSMS as they are.</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-send-reply-set-value">send_reply_set_value</a></td>
+</tr>
+<tr id="msg-send_registration">
+<td><code>send_registration</code><br><span class="muted">Registration of one owner</span></td>
+<td><p>Adds an owner, or replaces everything an owner registered before; the registrations of the other owners stay. Before the OCPP service has asked for the registrations, the module collects them. After that, each one is passed on at once, and is answered on e2m/set_registration_result. An empty components list removes everything the owner registered and releases the owner name. A registration passed on at once is not ordered against the answer to the request for registrations, and may reach the OCPP service before it. To replace or release an owner registered at startup, wait for its e2m/set_registration_result first: it follows the answer. A registration that does not fit the schema, a string beyond its maximum length for example, is not passed on and is logged. It is answered with Invalid on e2m/set_registration_result, for the owner it names, or for the module id when it names none or its owner cannot be read. An earlier registration of the owner stays in place.</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-send-registration">send_registration</a></td>
+</tr>
+<tr id="msg-send_value_changed">
+<td><code>send_value_changed</code><br><span class="muted">Value change of a registered variable</span></td>
+<td><p>Published when the owner changed a value itself. Report every change: the OCPP service holds the values in memory and serves reads from there. A report published right after a registration is applied once the registration is; it is dropped when the registration is refused or releases the owner. At most 64 reports for owners that are not registered are kept, the oldest is dropped beyond that. A report that does not fit the variable, or for an owner that another module instance holds or that is never registered, is ignored and logged.</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-send-value-changed">send_value_changed</a></td>
+</tr>
+<tr id="msg-receive_heartbeat">
+<td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+<td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-receive-heartbeat">receive_heartbeat</a></td>
+</tr>
+<tr id="msg-send_communication_check">
+<td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+<td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+<td><a href="#everest-api-ocpp-device-model-api-op-send-communication-check">send_communication_check</a></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="schemas">
+<h2>Schemas<a class="headerlink" href="#schemas" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<details class="schema" id="schema-GetRegistrations">
+<summary><span class="s-name">GetRegistrations</span> <span class="s-type">object</span><a class="anchor" href="#schema-GetRegistrations" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Request for the registrations of all owners the client acts for</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node">
+<summary><span class="s-name">expected_owners</span><span class="s-type">array&lt;string&gt;</span>
+<span class="s-req">required</span></summary>
+<div class="s-desc"><p>The owners the module waits for, from cfg_expected_owners, at most cfg_expected_owners_timeout_s seconds. When empty, the module waits cfg_registration_timeout_s seconds instead.</p></div><ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">items</span><span class="s-type">string</span>
+</div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-DataEnum">
+<summary><span class="s-name">DataEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-DataEnum" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Data type of a variable, as DataEnumType of OCPP 2.x - string: A string of at most max_elements characters - decimal: A decimal number - integer: An integer number - dateTime: An RFC 3339 date and time - boolean: true or false - OptionList: One of the comma separated values of values_list - SequenceList: An ordered comma separated list of values from values_list - MemberList: An unordered comma separated list of values from values_list</p></div><div class="s-enum"><span class="s-label">enum</span><code>string</code><code>decimal</code><code>integer</code><code>dateTime</code><code>boolean</code><code>OptionList</code><code>SequenceList</code><code>MemberList</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-MutabilityEnum">
+<summary><span class="s-name">MutabilityEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-MutabilityEnum" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Whether the CSMS may read and write an attribute, as MutabilityEnumType of OCPP 2.x</p></div><div class="s-enum"><span class="s-label">enum</span><code>ReadOnly</code><code>WriteOnly</code><code>ReadWrite</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-MonitorEnum">
+<summary><span class="s-name">MonitorEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-MonitorEnum" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Type of a monitor, as MonitorEnumType of OCPP 2.x. TargetDelta and TargetDeltaRelative exist in OCPP 2.1 only.</p></div><div class="s-enum"><span class="s-label">enum</span><code>UpperThreshold</code><code>LowerThreshold</code><code>Delta</code><code>Periodic</code><code>PeriodicClockAligned</code><code>TargetDelta</code><code>TargetDeltaRelative</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegisteredMonitorType">
+<summary><span class="s-name">RegisteredMonitorType</span> <span class="s-type">string</span><a class="anchor" href="#schema-RegisteredMonitorType" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Kind of a monitor that an owner declares with a variable. The CSMS cannot clear either kind. - HardWiredMonitor: Built in by the manufacturer. The CSMS cannot change it, and it stays active under every monitoring base.</p><ul><li>PreconfiguredMonitor: Preconfigured by the manufacturer. The CSMS may change it; it keeps its id but becomes a custom monitor, which the CSMS can clear and which is kept when the owner registers the variable again with the same type and severity. It is not active under the monitoring base HardWiredOnly.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>HardWiredMonitor</code><code>PreconfiguredMonitor</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-VariableCharacteristics">
+<summary><span class="s-name">VariableCharacteristics</span> <span class="s-type">object</span><a class="anchor" href="#schema-VariableCharacteristics" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Fixed properties of a variable, as VariableCharacteristicsType of OCPP 2.x. The OCPP service checks every write against them before it reaches the client.</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">data_type</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-DataEnum" title="ocpp_device_model_API.yaml">DataEnum</a></div>
+<div class="s-desc"><p>Data type of a variable, as DataEnumType of OCPP 2.x - string: A string of at most max_elements characters - decimal: A decimal number - integer: An integer number - dateTime: An RFC 3339 date and time - boolean: true or false - OptionList: One of the comma separated values of values_list - SequenceList: An ordered comma separated list of values from values_list - MemberList: An unordered comma separated list of values from values_list</p></div><div class="s-enum"><span class="s-label">enum</span><code>string</code><code>decimal</code><code>integer</code><code>dateTime</code><code>boolean</code><code>OptionList</code><code>SequenceList</code><code>MemberList</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">supports_monitoring</span><span class="s-type">boolean</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Whether the CSMS may set monitors on the variable</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">unit</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Unit of the variable, for example A, W or Celsius</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 16</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">min_limit</span><span class="s-type">number</span>
+</div>
+<div class="s-desc"><p>Lowest value the CSMS may write to a numeric variable. Reported values are not checked.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">max_limit</span><span class="s-type">number</span>
+</div>
+<div class="s-desc"><p>Highest value the CSMS may write to a numeric variable. Reported values are not checked.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">max_elements</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Maximum number of characters of a string, or of elements of a SequenceList or MemberList</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">values_list</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Comma separated list of the allowed values of an OptionList, SequenceList or MemberList, or of a string</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 1000</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-VariableAttribute">
+<summary><span class="s-name">VariableAttribute</span> <span class="s-type">object</span><a class="anchor" href="#schema-VariableAttribute" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>An attribute of a variable with its initial value, as VariableAttributeType of OCPP 2.x</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+<a class="s-ref" href="ocpp_consumer_API.html#schema-AttributeEnum" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">AttributeEnum ↗</a></div>
+<div class="s-desc"><p>Attribute type. When absent, Actual is assumed.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Actual</code><code>Target</code><code>MinSet</code><code>MaxSet</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Initial value of the attribute. When absent, the attribute has no value.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 2500</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">mutability</span><span class="s-type">string</span>
+<a class="s-ref" href="#schema-MutabilityEnum" title="ocpp_device_model_API.yaml">MutabilityEnum</a></div>
+<div class="s-desc"><p>Mutability of the attribute. When absent, the attribute is ReadOnly.</p></div><div class="s-enum"><span class="s-label">enum</span><code>ReadOnly</code><code>WriteOnly</code><code>ReadWrite</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">persistent</span><span class="s-type">boolean</span>
+</div>
+<div class="s-desc"><p>Whether the value is kept across restarts. When absent, the attribute is not persistent. The owner keeps a persistent value itself and registers it at the next start.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">constant</span><span class="s-type">boolean</span>
+</div>
+<div class="s-desc"><p>Whether the value never changes. When absent, the value is not constant.</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegisteredMonitor">
+<summary><span class="s-name">RegisteredMonitor</span> <span class="s-type">object</span><a class="anchor" href="#schema-RegisteredMonitor" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A hardwired or preconfigured monitor of a registered variable. A monitor of the same type and severity stored in an earlier boot is kept with its id and the changes the CSMS made to it.</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-MonitorEnum" title="ocpp_device_model_API.yaml">MonitorEnum</a></div>
+<div class="s-desc"><p>Type of a monitor, as MonitorEnumType of OCPP 2.x. TargetDelta and TargetDeltaRelative exist in OCPP 2.1 only.</p></div><div class="s-enum"><span class="s-label">enum</span><code>UpperThreshold</code><code>LowerThreshold</code><code>Delta</code><code>Periodic</code><code>PeriodicClockAligned</code><code>TargetDelta</code><code>TargetDeltaRelative</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">number</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Threshold, delta or interval in seconds of the monitor, depending on its type</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">severity</span><span class="s-type">integer</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Severity of the events of the monitor, 0 (Danger) to 9 (Debug)</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span><span class="chip"><span class="s-label">max</span> 9</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">transaction</span><span class="s-type">boolean</span>
+</div>
+<div class="s-desc"><p>Whether the monitor is active only during a transaction. When absent, it is always active.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">monitor_type</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-RegisteredMonitorType" title="ocpp_device_model_API.yaml">RegisteredMonitorType</a></div>
+<div class="s-desc"><p>Kind of a monitor that an owner declares with a variable. The CSMS cannot clear either kind. - HardWiredMonitor: Built in by the manufacturer. The CSMS cannot change it, and it stays active under every monitoring base.</p><ul><li>PreconfiguredMonitor: Preconfigured by the manufacturer. The CSMS may change it; it keeps its id but becomes a custom monitor, which the CSMS can clear and which is kept when the owner registers the variable again with the same type and severity. It is not active under the monitoring base HardWiredOnly.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>HardWiredMonitor</code><code>PreconfiguredMonitor</code></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegisteredVariable">
+<summary><span class="s-name">RegisteredVariable</span> <span class="s-type">object</span><a class="anchor" href="#schema-RegisteredVariable" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A variable that an owner adds to a component of the device model</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Variable">
+<summary><span class="s-name">variable</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Variable" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Variable ↗</a></summary>
+<div class="s-desc"><p>Name and instance of the variable. An instance must be absent or not empty.</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Variable">Definition of Variable</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-VariableCharacteristics">
+<summary><span class="s-name">characteristics</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-VariableCharacteristics" title="ocpp_device_model_API.yaml">VariableCharacteristics</a></summary>
+<div class="s-desc"><p>Fixed properties of a variable, as VariableCharacteristicsType of OCPP 2.x. The OCPP service checks every write against them before it reaches the client.</p></div><p class="s-inline"><a href="#schema-VariableCharacteristics">Definition of VariableCharacteristics</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">attributes</span><span class="s-type">array</span>
+<span class="s-req">required</span></summary>
+<div class="s-desc"><p>The attributes of the variable with their initial values, at most one of each type</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-VariableAttribute">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-VariableAttribute" title="ocpp_device_model_API.yaml">VariableAttribute</a></summary>
+<div class="s-desc"><p>An attribute of a variable with its initial value, as VariableAttributeType of OCPP 2.x</p></div><p class="s-inline"><a href="#schema-VariableAttribute">Definition of VariableAttribute</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">monitors</span><span class="s-type">array</span>
+</summary>
+<div class="s-desc"><p>Hardwired and preconfigured monitors of the variable. When absent, the variable has none.</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-RegisteredMonitor">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-RegisteredMonitor" title="ocpp_device_model_API.yaml">RegisteredMonitor</a></summary>
+<div class="s-desc"><p>A hardwired or preconfigured monitor of a registered variable. A monitor of the same type and severity stored in an earlier boot is kept with its id and the changes the CSMS made to it.</p></div><p class="s-inline"><a href="#schema-RegisteredMonitor">Definition of RegisteredMonitor</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">ocpp16_key</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>OCPP 1.6 configuration key that serves the Actual attribute of the variable while the registration lasts, when the OCPP service runs OCPP 1.6; ignored with OCPP 2.x. Either a key that OCPP 1.6 does not define, or a built-in key stored in OCPP16LegacyCtrlr, LightIntensity for example, which the variable then holds instead. The key mapping file of the OCPP service reserves every key and variable it names; declaring the key the file maps to the same variable leaves the key to the file, or maps it to the variable until the next start when the file&#39;s entry was dropped at startup. A variable whose key is taken is rejected with Ocpp16KeyInUse, one whose key cannot be mapped to it with Ocpp16KeyInvalid.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegisteredComponent">
+<summary><span class="s-name">RegisteredComponent</span> <span class="s-type">object</span><a class="anchor" href="#schema-RegisteredComponent" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A component with the variables that an owner adds to it</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Component">
+<summary><span class="s-name">component</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Component" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Component ↗</a></summary>
+<div class="s-desc"><p>Name, instance and EVSE of the component. An instance must be absent or not empty, and an EVSE id or connector id must not be 0. A component of the component config may be extended by variables it does not define.</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Component">Definition of Component</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">variables</span><span class="s-type">array</span>
+<span class="s-req">required</span></summary>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-RegisteredVariable">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-RegisteredVariable" title="ocpp_device_model_API.yaml">RegisteredVariable</a></summary>
+<div class="s-desc"><p>A variable that an owner adds to a component of the device model</p></div><p class="s-inline"><a href="#schema-RegisteredVariable">Definition of RegisteredVariable</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-Registration">
+<summary><span class="s-name">Registration</span> <span class="s-type">object</span><a class="anchor" href="#schema-Registration" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Everything one owner adds to the device model. It replaces what the same owner registered before.</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">owner</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Name of the owner. When absent, the owner is named by the module id of this module. A client that acts for several owners, a gateway for example, names each of them. COMPONENT_CONFIG is reserved.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">components</span><span class="s-type">array</span>
+<span class="s-req">required</span></summary>
+<div class="s-desc"><p>The components with the variables of the owner. An empty list removes everything the owner registered and releases the owner name.</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-RegisteredComponent">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-RegisteredComponent" title="ocpp_device_model_API.yaml">RegisteredComponent</a></summary>
+<div class="s-desc"><p>A component with the variables that an owner adds to it</p></div><p class="s-inline"><a href="#schema-RegisteredComponent">Definition of RegisteredComponent</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegistrationStatus">
+<summary><span class="s-name">RegistrationStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-RegistrationStatus" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Whether a registration was passed on to the device model - Accepted: Passed on; single variables may still be rejected - OwnerInUse: Another module uses the owner name already. Nothing of the registration was passed on. - Invalid: The registration does not match this schema, a name longer than 50 characters or an unknown property for example. This module answers it itself; nothing was passed on, and an earlier registration of the owner stays in place.</p><ul><li>Rejected: The OCPP service failed to apply the registration, because its storage failed for example. The owner is dropped: neither this registration nor an earlier one of the owner stays in the device model, and the owner name is free. The client may register the owner again.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>OwnerInUse</code><code>Invalid</code><code>Rejected</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegistrationRejectionReason">
+<summary><span class="s-name">RegistrationRejectionReason</span> <span class="s-type">string</span><a class="anchor" href="#schema-RegistrationRejectionReason" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Why a variable of a registration was rejected - AlreadyDefined: The component config or another owner defines the variable already, or the registration defines it twice</p><ul><li>NoAttributes: The variable has no attributes - ReservedOwner: The owner is COMPONENT_CONFIG - InvalidNameKey: The component or the variable has an empty instance, or the component an EVSE or connector id of 0. A name or value beyond its length is answered with the status Invalid instead.</li><li>ReservedVariable: Only the component config may define the variable, as the OCPP service writes it from its own state</li><li>Ocpp16KeyInUse: OCPP 1.6 only. The ocpp16_key of the variable, or the variable itself, belongs to another key: a built-in key, an entry of the key mapping file or the key of another owner&#39;s variable</li><li>Ocpp16KeyInvalid: OCPP 1.6 only. The ocpp16_key cannot be mapped to the variable: a built-in key that cannot be overridden, a variable that holds connection configuration or that OCPP 1.6 computes, a variable without an Actual attribute or, for a built-in key, with another data type than its built-in variable</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>AlreadyDefined</code><code>NoAttributes</code><code>ReservedOwner</code><code>InvalidNameKey</code><code>ReservedVariable</code><code>Ocpp16KeyInUse</code><code>Ocpp16KeyInvalid</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RejectedVariable">
+<summary><span class="s-name">RejectedVariable</span> <span class="s-type">object</span><a class="anchor" href="#schema-RejectedVariable" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A variable of a registration that the device model rejected</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Component">
+<summary><span class="s-name">component</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Component" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Component ↗</a></summary>
+<div class="s-desc"><p>Type for a component with name, optional instance and optional evse For OCPP1.6: A definition of a Component doesn&#39;t exist in OCPP1.6; In the context of OCPP1.6 this type may not be relevant or used. For OCPP2.0.1: All properties of the Component can be used</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Component">Definition of Component</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Variable">
+<summary><span class="s-name">variable</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Variable" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Variable ↗</a></summary>
+<div class="s-desc"><p>Type for a variable with a name and an optional instance For OCPP1.6: A Variable should only contain a name. The name identifies the configuration key. For OCPP2.0.1: All properties of the Variable can be used</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Variable">Definition of Variable</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">reason</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-RegistrationRejectionReason" title="ocpp_device_model_API.yaml">RegistrationRejectionReason</a></div>
+<div class="s-desc"><p>Why a variable of a registration was rejected - AlreadyDefined: The component config or another owner defines the variable already, or the registration defines it twice</p><ul><li>NoAttributes: The variable has no attributes - ReservedOwner: The owner is COMPONENT_CONFIG - InvalidNameKey: The component or the variable has an empty instance, or the component an EVSE or connector id of 0. A name or value beyond its length is answered with the status Invalid instead.</li><li>ReservedVariable: Only the component config may define the variable, as the OCPP service writes it from its own state</li><li>Ocpp16KeyInUse: OCPP 1.6 only. The ocpp16_key of the variable, or the variable itself, belongs to another key: a built-in key, an entry of the key mapping file or the key of another owner&#39;s variable</li><li>Ocpp16KeyInvalid: OCPP 1.6 only. The ocpp16_key cannot be mapped to the variable: a built-in key that cannot be overridden, a variable that holds connection configuration or that OCPP 1.6 computes, a variable without an Actual attribute or, for a built-in key, with another data type than its built-in variable</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>AlreadyDefined</code><code>NoAttributes</code><code>ReservedOwner</code><code>InvalidNameKey</code><code>ReservedVariable</code><code>Ocpp16KeyInUse</code><code>Ocpp16KeyInvalid</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">defined_by</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>For AlreadyDefined: the owner that defines the variable, COMPONENT_CONFIG for the component config, or the registering owner itself for a variable it defines twice</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-RegistrationResult">
+<summary><span class="s-name">RegistrationResult</span> <span class="s-type">object</span><a class="anchor" href="#schema-RegistrationResult" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>The outcome of the registration of one owner</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">owner</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Name of the owner, the module id when the registration named none</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-RegistrationStatus" title="ocpp_device_model_API.yaml">RegistrationStatus</a></div>
+<div class="s-desc"><p>Whether a registration was passed on to the device model - Accepted: Passed on; single variables may still be rejected - OwnerInUse: Another module uses the owner name already. Nothing of the registration was passed on. - Invalid: The registration does not match this schema, a name longer than 50 characters or an unknown property for example. This module answers it itself; nothing was passed on, and an earlier registration of the owner stays in place.</p><ul><li>Rejected: The OCPP service failed to apply the registration, because its storage failed for example. The owner is dropped: neither this registration nor an earlier one of the owner stays in the device model, and the owner name is free. The client may register the owner again.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>OwnerInUse</code><code>Invalid</code><code>Rejected</code></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">rejected</span><span class="s-type">array</span>
+<span class="s-req">required</span></summary>
+<div class="s-desc"><p>The rejected variables, empty when all were accepted. The owner receives no writes to a rejected variable and does not report its values.</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-RejectedVariable">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-RejectedVariable" title="ocpp_device_model_API.yaml">RejectedVariable</a></summary>
+<div class="s-desc"><p>A variable of a registration that the device model rejected</p></div><p class="s-inline"><a href="#schema-RejectedVariable">Definition of RejectedVariable</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-WriteRequest">
+<summary><span class="s-name">WriteRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-WriteRequest" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A write to an attribute of a registered variable</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">owner</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Name of the owner of the variable, the module id for a registration that named no owner</p></div>
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Component">
+<summary><span class="s-name">component</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Component" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Component ↗</a></summary>
+<div class="s-desc"><p>Type for a component with name, optional instance and optional evse For OCPP1.6: A definition of a Component doesn&#39;t exist in OCPP1.6; In the context of OCPP1.6 this type may not be relevant or used. For OCPP2.0.1: All properties of the Component can be used</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Component">Definition of Component</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Variable">
+<summary><span class="s-name">variable</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Variable" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Variable ↗</a></summary>
+<div class="s-desc"><p>Type for a variable with a name and an optional instance For OCPP1.6: A Variable should only contain a name. The name identifies the configuration key. For OCPP2.0.1: All properties of the Variable can be used</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Variable">Definition of Variable</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">attribute_type</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-AttributeEnum" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">AttributeEnum ↗</a></div>
+<div class="s-desc"><p>Attribute enum</p><ul><li>Actual: The actual value of a variable</li><li>Target: The target value of a variable</li><li>MinSet: The minimal allowed value of a variable</li><li>MaxSet: The maximum allowed value of a variable</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Actual</code><code>Target</code><code>MinSet</code><code>MaxSet</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The value to apply</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 2500</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">source</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Source of the write, csms for a SetVariables.req, OCPP 1.6 for a ChangeConfiguration.req, otherwise the source named by the local caller</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-SetVariableStatus">
+<summary><span class="s-name">SetVariableStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-SetVariableStatus" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span> <a class="s-ref" href="ocpp_consumer_API.html#schema-SetVariableStatusEnumType" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">SetVariableStatusEnumType ↗</a></div>
+<div class="s-desc"><p>Outcome of a write</p></div><div class="s-enum"><span class="s-label">enum</span><code>Accepted</code><code>Rejected</code><code>UnknownComponent</code><code>UnknownVariable</code><code>NotSupportedAttributeType</code><code>RebootRequired</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-ValueChange">
+<summary><span class="s-name">ValueChange</span> <span class="s-type">object</span><a class="anchor" href="#schema-ValueChange" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A value of a registered variable that its owner changed itself</p></div><p class="s-note">Additional properties forbidden.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">owner</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Name of the owner of the variable. When absent, the owner is named by the module id.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Component">
+<summary><span class="s-name">component</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Component" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Component ↗</a></summary>
+<div class="s-desc"><p>Type for a component with name, optional instance and optional evse For OCPP1.6: A definition of a Component doesn&#39;t exist in OCPP1.6; In the context of OCPP1.6 this type may not be relevant or used. For OCPP2.0.1: All properties of the Component can be used</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Component">Definition of Component</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-Variable">
+<summary><span class="s-name">variable</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="ocpp_consumer_API.html#schema-Variable" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">Variable ↗</a></summary>
+<div class="s-desc"><p>Type for a variable with a name and an optional instance For OCPP1.6: A Variable should only contain a name. The name identifies the configuration key. For OCPP2.0.1: All properties of the Variable can be used</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-Variable">Definition of Variable</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">attribute_type</span><span class="s-type">string</span>
+<a class="s-ref" href="ocpp_consumer_API.html#schema-AttributeEnum" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">AttributeEnum ↗</a></div>
+<div class="s-desc"><p>The changed attribute. When absent, Actual is assumed.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Actual</code><code>Target</code><code>MinSet</code><code>MaxSet</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The value of the attribute. It must fit the data type and the values_list of the variable.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 2500</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-CommunicationCheck">
+<summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">boolean</span></div>
+<div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+</div>
+
+</details>
+<details class="schema" id="schema-HeartBeatId">
+<summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">integer</span></div>
+<div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+</div>
+
+</details></div>
+<section id="schemas-from-other-apis">
+<h3>Schemas from other APIs<a class="headerlink" href="#schemas-from-other-apis" title="Link to this heading">¶</a></h3>
+<div class="everest-api docutils container">
+<details class="schema" id="ext-ocpp_consumer_API-Component">
+<summary><span class="s-name">Component</span> <span class="s-type">object</span> <a class="s-ref" href="ocpp_consumer_API.html#schema-Component" data-api-page="ocpp_consumer_API">defined in ocpp_consumer_API.yaml ↗</a><a class="anchor" href="#ext-ocpp_consumer_API-Component" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Type for a component with name, optional instance and optional evse For OCPP1.6: A definition of a Component doesn&#39;t exist in OCPP1.6; In the context of OCPP1.6 this type may not be relevant or used. For OCPP2.0.1: All properties of the Component can be used</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">name</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Name of a component</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">instance</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Name of instance in case the component exists as multiple instances</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-ocpp_consumer_API-EVSE">
+<summary><span class="s-name">evse</span><span class="s-type">object</span>
+<a class="s-ref" href="ocpp_consumer_API.html#schema-EVSE" data-api-page="ocpp_consumer_API" title="ocpp_consumer_API.yaml">EVSE ↗</a></summary>
+<div class="s-desc"><p>Specifies the EVSE when component is located at EVSE level, also specifies the connector when component is located at Connector level</p></div><p class="s-inline"><a href="#ext-ocpp_consumer_API-EVSE">Definition of EVSE</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-ocpp_consumer_API-EVSE">
+<summary><span class="s-name">EVSE</span> <span class="s-type">object</span> <a class="s-ref" href="ocpp_consumer_API.html#schema-EVSE" data-api-page="ocpp_consumer_API">defined in ocpp_consumer_API.yaml ↗</a><a class="anchor" href="#ext-ocpp_consumer_API-EVSE" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Type of an EVSE. If only the id is present, this type identifies an EVSE. If also a connector_id is given, this type identifies a Connector of the EVSE</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">id</span><span class="s-type">integer</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Id of the EVSE</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">connector_id</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>An id to designate a specific connector (on an EVSE) by connector index number</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-ocpp_consumer_API-Variable">
+<summary><span class="s-name">Variable</span> <span class="s-type">object</span> <a class="s-ref" href="ocpp_consumer_API.html#schema-Variable" data-api-page="ocpp_consumer_API">defined in ocpp_consumer_API.yaml ↗</a><a class="anchor" href="#ext-ocpp_consumer_API-Variable" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Type for a variable with a name and an optional instance For OCPP1.6: A Variable should only contain a name. The name identifies the configuration key. For OCPP2.0.1: All properties of the Variable can be used</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">name</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Name of a variable</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">instance</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Name of instance in case the variable exists as multiple instances</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details></div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="over_voltage_monitor_API.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">over_voltage_monitor_API</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="ocpp_consumer_API.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">ocpp_consumer_API</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021-2026, EVerest community
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">ocpp_device_model_API</a><ul>
+<li><a class="reference internal" href="#servers">Servers</a></li>
+<li><a class="reference internal" href="#operations">Operations</a><ul>
+<li><a class="reference internal" href="#client-to-everest">Client to EVerest</a><ul>
+<li><a class="reference internal" href="#send-reply-set-value">send_reply_set_value</a></li>
+<li><a class="reference internal" href="#send-registration">send_registration</a></li>
+<li><a class="reference internal" href="#send-value-changed">send_value_changed</a></li>
+<li><a class="reference internal" href="#send-communication-check">send_communication_check</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#everest-to-client">EVerest to client</a><ul>
+<li><a class="reference internal" href="#receive-get-registrations">receive_get_registrations</a></li>
+<li><a class="reference internal" href="#receive-set-registration-result">receive_set_registration_result</a></li>
+<li><a class="reference internal" href="#receive-request-set-value">receive_request_set_value</a></li>
+<li><a class="reference internal" href="#receive-heartbeat">receive_heartbeat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#messages">Messages</a></li>
+<li><a class="reference internal" href="#schemas">Schemas</a><ul>
+<li><a class="reference internal" href="#schemas-from-other-apis">Schemas from other APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=fa2808f8"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script src="../../_static/everest-api/everest-api.js?v=6c16f528"></script>
+    <script src="../../_static/version-switcher.js?v=b5bc7450"></script>
+    </body>
+</html>

@@ -1,0 +1,267 @@
+:orphan:
+
+
+.. _everest_types_ocpp_device_model:
+
+
+#################
+ocpp_device_model
+#################
+
+Types of the ocpp_device_model interface, with which modules add components and variables to the device model of an OCPP service at runtime. They follow the device model types of OCPP 2.x. Component, Variable and AttributeEnum are those of the ocpp types.
+
+.. _ocpp_device_model-DataEnum:
+
+| **DataEnum**: *string* 
+|  Data type of a variable, as DataEnumType of OCPP 2.x string: A string of at most max_elements characters decimal: A decimal number integer: An integer number dateTime: An RFC 3339 date and time boolean: true or false OptionList: One of the comma separated values of values_list SequenceList: An ordered comma separated list of values from values_list MemberList: An unordered comma separated list of values from values_list
+|  enum:
+|    - string
+|    - decimal
+|    - integer
+|    - dateTime
+|    - boolean
+|    - OptionList
+|    - SequenceList
+|    - MemberList
+
+.. _ocpp_device_model-MutabilityEnum:
+
+| **MutabilityEnum**: *string* 
+|  Whether the CSMS may read and write an attribute of a variable, as MutabilityEnumType of OCPP 2.x ReadOnly: The CSMS may only read the attribute WriteOnly: The CSMS may only write the attribute ReadWrite: The CSMS may read and write the attribute
+|  enum:
+|    - ReadOnly
+|    - WriteOnly
+|    - ReadWrite
+
+.. _ocpp_device_model-MonitorEnum:
+
+| **MonitorEnum**: *string* 
+|  Type of a monitor, as MonitorEnumType of OCPP 2.x. TargetDelta and TargetDeltaRelative exist in OCPP 2.1 only. UpperThreshold: Triggers when the value rises above the monitor value LowerThreshold: Triggers when the value falls below the monitor value Delta: Triggers when the value changes by more than the monitor value Periodic: Triggers every monitor value seconds PeriodicClockAligned: Triggers every monitor value seconds, aligned to midnight TargetDelta: Triggers when the Actual value differs from the Target value by more than the monitor value TargetDeltaRelative: As TargetDelta, with the monitor value as a percentage of the Target value
+|  enum:
+|    - UpperThreshold
+|    - LowerThreshold
+|    - Delta
+|    - Periodic
+|    - PeriodicClockAligned
+|    - TargetDelta
+|    - TargetDeltaRelative
+
+.. _ocpp_device_model-RegisteredMonitorType:
+
+| **RegisteredMonitorType**: *string* 
+|  Kind of a monitor that an owner declares with a variable. The CSMS sets custom monitors itself. The CSMS cannot clear a monitor of either kind with ClearVariableMonitoring. HardWiredMonitor: A monitor that the manufacturer built in. The CSMS cannot change it: a SetVariableMonitoring
+|    with its id is rejected. It stays active under every monitoring base, and its events are reported as
+|    HardWiredMonitor.
+|  PreconfiguredMonitor: A monitor that the manufacturer preconfigured. The CSMS may change it with a
+|    SetVariableMonitoring with its id; it keeps its id but becomes a custom monitor (N04.FR.15), which the CSMS
+|    can clear and SetMonitoringBase FactoryDefault or HardWiredOnly deletes. A registration matches stored
+|    monitors by type and severity and keeps a matched custom monitor, so a changed value or transaction flag is
+|    kept when the owner registers the variable again, but a changed severity is not. It stays active under the monitoring bases All and FactoryDefault but
+|    not HardWiredOnly, and its events are reported as PreconfiguredMonitor.
+|  enum:
+|    - HardWiredMonitor
+|    - PreconfiguredMonitor
+
+.. _ocpp_device_model-VariableCharacteristics:
+
+| **VariableCharacteristics**: *object* 
+|  Fixed properties of a variable, as VariableCharacteristicsType of OCPP 2.x. The OCPP service checks every write against them before it reaches the owner.
+|  properties:
+|   **data_type**: *string* <required> (:ref:`ocpp_device_model-DataEnum <ocpp_device_model-DataEnum>`)
+|    Data type of the variable
+|   **supports_monitoring**: *boolean* <required>
+|    Whether the CSMS may set monitors on the variable
+|   **unit**: *string* <optional>
+|    Unit of the variable, for example A, W or Celsius
+|   **min_limit**: *number* <optional>
+|    Lowest value the CSMS may write to a numeric variable. Values the owner reports are not checked.
+|   **max_limit**: *number* <optional>
+|    Highest value the CSMS may write to a numeric variable. Values the owner reports are not checked.
+|   **max_elements**: *integer* <optional>
+|    Maximum number of characters of a string, or of elements of a SequenceList or MemberList
+|   **values_list**: *string* <optional>
+|    Comma separated list of the allowed values of an OptionList, SequenceList or MemberList, or the allowed values of a string
+
+.. _ocpp_device_model-VariableAttribute:
+
+| **VariableAttribute**: *object* 
+|  An attribute of a variable with its initial value, as VariableAttributeType of OCPP 2.x
+|  properties:
+|   **type**: *string* <required> (:ref:`ocpp-AttributeEnum <ocpp-AttributeEnum>`)
+|    Attribute type. When absent, Actual is assumed.
+|   **value**: *string* <required>
+|    Initial value of the attribute. When absent, the attribute has no value.
+|   **mutability**: *string* <required> (:ref:`ocpp_device_model-MutabilityEnum <ocpp_device_model-MutabilityEnum>`)
+|    Mutability of the attribute. When absent, the attribute is ReadOnly.
+|   **persistent**: *boolean* <required>
+|    Whether the value is kept across restarts. When absent, the attribute is not persistent. The owner keeps a persistent value itself: the OCPP service reports the attribute as persistent but does not store its value.
+|   **constant**: *boolean* <required>
+|    Whether the value never changes. When absent, the value is not constant.
+
+.. _ocpp_device_model-RegisteredMonitor:
+
+| **RegisteredMonitor**: *object* 
+|  A hardwired or preconfigured monitor of a registered variable. A monitor of the same type and severity that the OCPP service stored in an earlier boot (OCPP 2.x N04.FR.10), a custom monitor of the CSMS included, is kept with its id and the changes the CSMS made to it instead.
+|  properties:
+|   **type**: *string* <required> (:ref:`ocpp_device_model-MonitorEnum <ocpp_device_model-MonitorEnum>`)
+|    Type of the monitor
+|   **value**: *number* <required>
+|    Threshold, delta or interval in seconds of the monitor, depending on its type
+|   **severity**: *integer* <required>
+|    Severity of the events of the monitor, 0 (Danger) to 9 (Debug)
+|   **transaction**: *boolean* <optional>
+|    Whether the monitor is active only during a transaction. When absent, the monitor is always active.
+|   **monitor_type**: *string* <required> (:ref:`ocpp_device_model-RegisteredMonitorType <ocpp_device_model-RegisteredMonitorType>`)
+|    Kind of the monitor
+
+.. _ocpp_device_model-RegisteredVariable:
+
+| **RegisteredVariable**: *object* 
+|  A variable that an owner adds to a component of the device model
+|  properties:
+|   **variable**: *object* <required> (:ref:`ocpp-Variable <ocpp-Variable>`)
+|    Name and instance of the variable. An instance must be absent or not empty: a variable with an empty instance is rejected with InvalidNameKey.
+|   **characteristics**: *object* <required> (:ref:`ocpp_device_model-VariableCharacteristics <ocpp_device_model-VariableCharacteristics>`)
+|    Fixed properties of the variable
+|   **attributes**: *array* <required>
+|    The attributes of the variable with their initial values, at most one of each type. A variable without attributes is rejected with NoAttributes.
+|    **array_item**: *object*  (:ref:`ocpp_device_model-VariableAttribute <ocpp_device_model-VariableAttribute>`)
+|   **monitors**: *array* <optional>
+|    Hardwired and preconfigured monitors of the variable. When absent, the variable has none.
+|    **array_item**: *object*  (:ref:`ocpp_device_model-RegisteredMonitor <ocpp_device_model-RegisteredMonitor>`)
+|   **ocpp16_key**: *string* <optional>
+|    OCPP 1.6 configuration key that serves the Actual attribute of the variable while the registration lasts, in OCPP 1.6 mode only; ignored in OCPP 2.x mode. Either a key that the OCPP 1.6 stack does not know, or a built-in key stored in OCPP16LegacyCtrlr, which the variable then holds instead. The key mapping file of the OCPP service reserves every key and every variable it names: a variable whose key it names for another variable, or that it maps to another key, is rejected with Ocpp16KeyInUse. So is a variable whose key another owner holds. A variable whose key cannot be mapped to it is rejected with Ocpp16KeyInvalid.
+
+.. _ocpp_device_model-RegisteredComponent:
+
+| **RegisteredComponent**: *object* 
+|  A component with the variables that an owner adds to it
+|  properties:
+|   **component**: *object* <required> (:ref:`ocpp-Component <ocpp-Component>`)
+|    Name, instance and EVSE of the component. An instance must be absent or not empty, and an EVSE id or connector id must not be 0: the variables of such a component are rejected with InvalidNameKey. A component that the component config defines already may be extended by variables it does not define.
+|   **variables**: *array* <required>
+|    The variables that the owner adds to the component
+|    **array_item**: *object*  (:ref:`ocpp_device_model-RegisteredVariable <ocpp_device_model-RegisteredVariable>`)
+
+.. _ocpp_device_model-Registration:
+
+| **Registration**: *object* 
+|  Everything that one owner adds to the device model. A registration replaces what the same owner registered before.
+|  properties:
+|   **owner**: *string* <optional>
+|    Name of the owner. When absent, the owner is the module that provides the interface, named by its module id. A module that acts on behalf of other owners, a gateway for devices without a module of their own for example, names each of them. COMPONENT_CONFIG is reserved for the OCPP service.
+|   **components**: *array* <required>
+|    The components with the variables of the owner. An empty list removes everything the owner registered and releases the owner name.
+|    **array_item**: *object*  (:ref:`ocpp_device_model-RegisteredComponent <ocpp_device_model-RegisteredComponent>`)
+
+.. _ocpp_device_model-Registrations:
+
+| **Registrations**: *object* 
+|  The registrations of all owners that a module acts for
+|  properties:
+|   **registrations**: *array* <required>
+|    One registration per owner. Two registrations for the same owner are rejected with OwnerInUse.
+|    **array_item**: *object*  (:ref:`ocpp_device_model-Registration <ocpp_device_model-Registration>`)
+
+.. _ocpp_device_model-RegistrationStatus:
+
+| **RegistrationStatus**: *string* 
+|  Whether a registration was passed on to the device model Accepted: The registration was passed on; single variables may still be rejected OwnerInUse: Another module, or another registration of the same call, uses the owner name already. Nothing of
+|    the registration was passed on.
+|  Invalid: The registration does not match the schema of the API, a name longer than 50 characters for example.
+|    Sent by the API module that received it, and by the OCPP service, when EVerest does not validate the schema,
+|    for a registration with a variable that does not fit the OCPP types, which it lists with InvalidNameKey.
+|    Nothing of the registration was passed on, and an earlier registration of the owner stays in place.
+|  Rejected: The device model failed to apply the registration, because its storage failed for example. The owner
+|    is dropped: neither this registration nor an earlier one of the owner stays in the device model, and the owner
+|    name is free. The owner may register again.
+|  enum:
+|    - Accepted
+|    - OwnerInUse
+|    - Invalid
+|    - Rejected
+
+.. _ocpp_device_model-RegistrationRejectionReason:
+
+| **RegistrationRejectionReason**: *string* 
+|  Why a variable of a registration was rejected AlreadyDefined: The component config or another owner defines the variable already, or the registration defines
+|    it twice
+|  NoAttributes: The variable has no attributes ReservedOwner: The owner is COMPONENT_CONFIG, which is reserved for the OCPP service InvalidNameKey: The component or the variable has an empty instance, the component an EVSE or connector id of
+|    0, or, when EVerest does not validate the schema, a name or value of the variable does not fit the OCPP
+|    types, by its length for example, which makes the whole registration Invalid
+|  ReservedVariable: The OCPP service writes the variable from its own state, AuthCacheCtrlr.Storage or the
+|    variables of a NetworkConfiguration slot for example, so only the component config defines it
+|  Ocpp16KeyInUse: In OCPP 1.6 mode, the ocpp16_key of the variable, or the variable itself, belongs to another
+|    key: a built-in key, an entry of the key mapping file or the key of another owner's variable
+|  Ocpp16KeyInvalid: In OCPP 1.6 mode, the ocpp16_key cannot be mapped to the variable: a built-in key that cannot
+|    be overridden, a variable the OCPP 1.6 stack computes or that holds connection configuration, a variable
+|    without an Actual attribute or, for a built-in key, with another data type than the key's built-in variable
+|  enum:
+|    - AlreadyDefined
+|    - NoAttributes
+|    - ReservedOwner
+|    - InvalidNameKey
+|    - ReservedVariable
+|    - Ocpp16KeyInUse
+|    - Ocpp16KeyInvalid
+
+.. _ocpp_device_model-RejectedVariable:
+
+| **RejectedVariable**: *object* 
+|  A variable of a registration that the device model rejected
+|  properties:
+|   **component**: *object* <required> (:ref:`ocpp-Component <ocpp-Component>`)
+|    Component of the rejected variable
+|   **variable**: *object* <required> (:ref:`ocpp-Variable <ocpp-Variable>`)
+|    The rejected variable
+|   **reason**: *string* <required> (:ref:`ocpp_device_model-RegistrationRejectionReason <ocpp_device_model-RegistrationRejectionReason>`)
+|    Why the variable was rejected
+|   **defined_by**: *string* <optional>
+|    For AlreadyDefined: the owner that defines the variable, COMPONENT_CONFIG for the component config, or the registering owner itself for a variable it defines twice
+
+.. _ocpp_device_model-RegistrationResult:
+
+| **RegistrationResult**: *object* 
+|  The outcome of a registration of one owner
+|  properties:
+|   **owner**: *string* <required>
+|    Name of the owner, the module id when the registration named none
+|   **status**: *string* <required> (:ref:`ocpp_device_model-RegistrationStatus <ocpp_device_model-RegistrationStatus>`)
+|    Whether the registration was passed on to the device model
+|   **rejected**: *array* <required>
+|    The variables that the device model rejected, empty when all are Accepted. The owner receives no writes to a rejected variable and does not report its values.
+|    **array_item**: *object*  (:ref:`ocpp_device_model-RejectedVariable <ocpp_device_model-RejectedVariable>`)
+
+.. _ocpp_device_model-WriteRequest:
+
+| **WriteRequest**: *object* 
+|  A write to an attribute of a registered variable, from the CSMS or from the OCPP service itself. The OCPP service checked the value against the characteristics and the mutability of the variable already.
+|  properties:
+|   **owner**: *string* <required>
+|    Name of the owner of the variable, the module id for a registration that named no owner
+|   **component**: *object* <required> (:ref:`ocpp-Component <ocpp-Component>`)
+|    Component of the variable
+|   **variable**: *object* <required> (:ref:`ocpp-Variable <ocpp-Variable>`)
+|    The variable
+|   **attribute_type**: *string* <required> (:ref:`ocpp-AttributeEnum <ocpp-AttributeEnum>`)
+|    The attribute to write
+|   **value**: *string* <required>
+|    The value to apply
+|   **source**: *string* <required>
+|    Source of the write, csms for a SetVariables.req, OCPP 1.6 for a ChangeConfiguration.req, otherwise the source named by the local caller
+
+.. _ocpp_device_model-ValueChange:
+
+| **ValueChange**: *object* 
+|  A value of a registered variable that its owner changed itself
+|  properties:
+|   **owner**: *string* <optional>
+|    Name of the owner of the variable. When absent, the owner is the module that provides the interface.
+|   **component**: *object* <required> (:ref:`ocpp-Component <ocpp-Component>`)
+|    Component of the variable
+|   **variable**: *object* <required> (:ref:`ocpp-Variable <ocpp-Variable>`)
+|    The variable
+|   **attribute_type**: *string* <optional> (:ref:`ocpp-AttributeEnum <ocpp-AttributeEnum>`)
+|    The changed attribute. When absent, Actual is assumed.
+|   **value**: *string* <required>
+|    The value of the attribute. It must fit the data type and the values_list of the variable; min_limit and max_limit are not checked.

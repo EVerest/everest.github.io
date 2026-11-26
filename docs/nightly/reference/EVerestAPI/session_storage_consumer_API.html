@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>session_storage_consumer_API - EVerest Manual main@c077c25</title>
+        <title>session_storage_consumer_API - EVerest Manual main@4fa0fa2</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">EVerest Manual main@c077c25</div></a>
+      <a href="../../index.html"><div class="brand">EVerest Manual main@4fa0fa2</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
     <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@c077c25</span>
+  <span class="sidebar-brand-text">EVerest Manual main@4fa0fa2</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -758,7 +758,7 @@ and the <a class="reference internal" href="../../project/releases/experimental-
 </div>
 <p>API for EVerest API clients to read and clear persistently stored session records.</p>
 <p><strong>Experimental.</strong> This API is exempt from the EVerest stability guarantees and the deprecation period; channels, operations and message payloads may change without further notice until it is promoted to stable.</p>
-<p><strong>Pagination.</strong> get_sessions returns records oldest first, one page per request. A reply carries a continuation_token if more matching records follow; pass it in the next request and iterate until a reply has no token. A page can hold fewer records than requested, in rare cases none, while still carrying a token. An invalid or outdated token starts the iteration from the beginning. The request payload is optional: an empty object requests the first page with the default page size. The started_after filter is compared at millisecond precision.</p>
+<p><strong>Pagination.</strong> get_sessions returns records oldest first, one page per request. A reply carries a continuation_token if more matching records follow; pass it in the next request and iterate until a reply has no token. A page can hold fewer records than requested, in rare cases none, while still carrying a token. An invalid or outdated token starts the iteration from the beginning. The request payload is optional: an empty object requests the first page with the default page size. The started_after filter is compared with fractional seconds truncated to milliseconds.</p>
 <p><strong>Deleting records.</strong> clear_sessions cannot be undone and also deletes records that are still open; when such a session finishes later, the finish is dropped. The payload is optional: an empty object deletes every stored record. To delete exactly the records already read, pass the session id of the last record received from get_sessions as up_to_session_id; that record and every older one are deleted, sessions that started in the meantime are kept.</p>
 <p><strong>Concurrent clients.</strong> Neither the bridge nor the store keeps per-client state, so several clients may use the API at the same time. A clear_sessions issued by one client while another is paging removes records from that iteration; the other client’s token stays valid and resumes at the oldest surviving record. Clients sharing one store should coordinate clearing, or clear only what they have read via up_to_session_id.</p>
 <p><strong>Missing records.</strong> get_session replies with the JSON literal null when no stored record matches the identifier.</p>
@@ -2550,7 +2550,7 @@ Answers <a href="#everest-api-session-storage-consumer-api-op-send-request-clear
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=3c4cafa7"></script>
+</div><script src="../../_static/documentation_options.js?v=b3813f19"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

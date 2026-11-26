@@ -96,7 +96,7 @@ Types for persistently stored session records
 |   **evse_id**: *integer* <required>
 |    Only records of the EVSE with this numeric id
 |   **started_after**: *string* <required>
-|    Only records whose session started strictly after this point in time, in RFC3339 format. Compared as an instant, so any UTC offset may be used. Fractional seconds are compared at millisecond precision. A value that is not a timestamp is ignored.
+|    Only records whose session started strictly after this point in time, in RFC3339 format. Compared as an instant, so any UTC offset may be used. Fractional seconds are truncated to milliseconds before comparing. A value that is not a timestamp is ignored.
 |    format:date-time
 
 .. _session_storage-GetSessionsRequest:

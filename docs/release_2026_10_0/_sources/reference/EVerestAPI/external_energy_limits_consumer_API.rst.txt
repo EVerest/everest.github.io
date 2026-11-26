@@ -1,0 +1,1085 @@
+.. _everest_api_external_energy_limits_consumer_API:
+
+#######################################
+external\_energy\_limits\_consumer\_API
+#######################################
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.1.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">external energy limits</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for external energy limits
+
+   API to allow EVerest API clients to set energy limits.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>external_energy_limits_consumer_API.yaml</code> · <code>pionix:de:everest:external_energy_limits_consumer_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (3)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (2)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/external_energy_limits_consumer/{module_id}">everest_api/1/external_energy_limits_consumer/{module_id}</code></dd>
+      <dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_external_energy_limits_consumer_API_op_send_set_external_limits:
+
+send\_set\_external\_limits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send external energy limits</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/external_energy_limits_consumer/{module_id}/m2e/set_external_limits">everest_api/1/external_energy_limits_consumer/{module_id}/m2e/set_external_limits</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send external energy limits</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_set_external_limits"><code>send_set_external_limits</code></a></p>
+      <div class="msg-summary"><p>External energy limits</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ExternalLimits" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ExternalLimits" title="external_energy_limits_consumer_API.yaml">ExternalLimits</a></summary>
+      <div class="s-desc"><p>External Limits data type</p></div><p class="s-inline"><a href="#schema-ExternalLimits">Definition of ExternalLimits</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Set enforced limits</figcaption>
+      <pre data-copy-block><code>{
+        &#34;schedule_import&#34;: [
+          {
+            &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+            &#34;limits_to_root&#34;: {
+              &#34;total_power_W&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_supports_changing_phases_during_charging&#34;: true,
+              &#34;ac_number_of_active_phases&#34;: 1
+            },
+            &#34;limits_to_leaves&#34;: {
+              &#34;total_power_W&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_supports_changing_phases_during_charging&#34;: true,
+              &#34;ac_number_of_active_phases&#34;: 1
+            },
+            &#34;conversion_efficiency&#34;: 1,
+            &#34;price_per_kwh&#34;: {
+              &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+              &#34;value&#34;: 0,
+              &#34;currency&#34;: &#34;str&#34;
+            }
+          }
+        ],
+        &#34;schedule_export&#34;: [
+          {
+            &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+            &#34;limits_to_root&#34;: {
+              &#34;total_power_W&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_supports_changing_phases_during_charging&#34;: true,
+              &#34;ac_number_of_active_phases&#34;: 1
+            },
+            &#34;limits_to_leaves&#34;: {
+              &#34;total_power_W&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_current_A&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_max_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_min_phase_count&#34;: {
+                &#34;value&#34;: 0,
+                &#34;source&#34;: &#34;string&#34;
+              },
+              &#34;ac_supports_changing_phases_during_charging&#34;: true,
+              &#34;ac_number_of_active_phases&#34;: 1
+            },
+            &#34;conversion_efficiency&#34;: 1,
+            &#34;price_per_kwh&#34;: {
+              &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+              &#34;value&#34;: 0,
+              &#34;currency&#34;: &#34;str&#34;
+            }
+          }
+        ],
+        &#34;schedule_setpoints&#34;: [
+          {
+            &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+            &#34;setpoint&#34;: {
+              &#34;ac_current_A&#34;: 0,
+              &#34;total_power_W&#34;: 0,
+              &#34;frequency_table&#34;: [
+                {
+                  &#34;frequency_Hz&#34;: 0,
+                  &#34;total_power_W&#34;: 0
+                }
+              ],
+              &#34;priority&#34;: 1000,
+              &#34;source&#34;: &#34;string&#34;
+            }
+          }
+        ]
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_external_energy_limits_consumer_API_op_send_request_get_capabilities:
+
+send\_request\_get\_capabilities
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request current Capabilities</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/external_energy_limits_consumer/{module_id}/m2e/capabilities/get">everest_api/1/external_energy_limits_consumer/{module_id}/m2e/capabilities/get</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-external-energy-limits-consumer-api-op-receive-reply-get-capabilities">receive_reply_get_capabilities</a>.</dd>
+      </dl>
+
+   Request the most recently published (latched) Capabilities. The reply will be sent to the replyTo address specified in the message headers. If no latched value is available yet, a null payload will be sent.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Request current Capabilities</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_capabilities"><code>send_request_get_capabilities</code></a></p>
+      <div class="msg-summary"><p>Request the most recently published (latched) Capabilities.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_external_energy_limits_consumer_API_op_send_communication_check:
+
+send\_communication\_check
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Send communication check</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/external_energy_limits_consumer/{module_id}/m2e/communication_check">everest_api/1/external_energy_limits_consumer/{module_id}/m2e/communication_check</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+      <div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="external_energy_limits_consumer_API.yaml">CommunicationCheck</a></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>CommunicationCheck</figcaption>
+      <pre data-copy-block><code>true</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_external_energy_limits_consumer_API_op_receive_reply_get_capabilities:
+
+receive\_reply\_get\_capabilities
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get Capabilities request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-external-energy-limits-consumer-api-op-send-request-get-capabilities">send_request_get_capabilities</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Reply to get Capabilities request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_capabilities"><code>receive_reply_get_capabilities</code></a></p>
+      <div class="msg-summary"><p>The most recently published Capabilities.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">oneOf</span></div>
+      <p class="s-note">Exactly one of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-CapabilityLimits">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-CapabilityLimits" title="external_energy_limits_consumer_API.yaml">CapabilityLimits</a></summary>
+      <div class="s-desc"><p>Configured/rated maximum limits of an energy node</p></div><p class="s-inline"><a href="#schema-CapabilityLimits">Definition of CapabilityLimits</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+      </div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;max_current_A&#34;: 0,
+        &#34;max_phase_count&#34;: 0,
+        &#34;nominal_voltage_V&#34;: 1,
+        &#34;total_power_W&#34;: 0
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_external_energy_limits_consumer_API_op_receive_heartbeat:
+
+receive\_heartbeat
+~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive heartbeat</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/external_energy_limits_consumer/{module_id}/e2m/heartbeat">everest_api/1/external_energy_limits_consumer/{module_id}/e2m/heartbeat</code></dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+      <div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="external_energy_limits_consumer_API.yaml">HeartBeatId</a></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Heartbeat</figcaption>
+      <pre data-copy-block><code>42</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-send_set_external_limits">
+      <td><code>send_set_external_limits</code><br><span class="muted">Send external energy limits</span></td>
+      <td><p>External energy limits</p></td>
+      <td><a href="#everest-api-external-energy-limits-consumer-api-op-send-set-external-limits">send_set_external_limits</a></td>
+      </tr>
+      <tr id="msg-receive_capabilities">
+      <td><code>receive_capabilities</code><br><span class="muted">Receive energy node capabilities</span></td>
+      <td><p>Capabilities of the energy node</p></td>
+      <td><span class="muted">not used by an operation</span></td>
+      </tr>
+      <tr id="msg-send_request_get_capabilities">
+      <td><code>send_request_get_capabilities</code><br><span class="muted">Request current Capabilities</span></td>
+      <td><p>Request the most recently published (latched) Capabilities.</p></td>
+      <td><a href="#everest-api-external-energy-limits-consumer-api-op-send-request-get-capabilities">send_request_get_capabilities</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_capabilities">
+      <td><code>receive_reply_get_capabilities</code><br><span class="muted">Reply to get Capabilities request</span></td>
+      <td><p>The most recently published Capabilities.</p></td>
+      <td><a href="#everest-api-external-energy-limits-consumer-api-op-receive-reply-get-capabilities">receive_reply_get_capabilities</a></td>
+      </tr>
+      <tr id="msg-receive_heartbeat">
+      <td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+      <td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+      <td><a href="#everest-api-external-energy-limits-consumer-api-op-receive-heartbeat">receive_heartbeat</a></td>
+      </tr>
+      <tr id="msg-send_communication_check">
+      <td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+      <td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+      <td><a href="#everest-api-external-energy-limits-consumer-api-op-send-communication-check">send_communication_check</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+      <details class="msg" id="msg-detail-receive_capabilities">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Receive energy node capabilities</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body"><p class="msg-ref">Message <a href="#msg-receive_capabilities"><code>receive_capabilities</code></a></p>
+      <div class="msg-summary"><p>Capabilities of the energy node</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-CapabilityLimits" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-CapabilityLimits" title="external_energy_limits_consumer_API.yaml">CapabilityLimits</a></summary>
+      <div class="s-desc"><p>Configured/rated maximum limits of an energy node</p></div><p class="s-inline"><a href="#schema-CapabilityLimits">Definition of CapabilityLimits</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Example 1</figcaption>
+      <pre data-copy-block><code>{
+        &#34;max_current_A&#34;: 16,
+        &#34;max_phase_count&#34;: 3,
+        &#34;nominal_voltage_V&#34;: 230,
+        &#34;total_power_W&#34;: 11040
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+      </div>
+      </details>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-ExternalLimits">
+      <summary><span class="s-name">ExternalLimits</span> <span class="s-type">object</span><a class="anchor" href="#schema-ExternalLimits" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>External Limits data type</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">schedule_import</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Energy import/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute points in time. The last entry is valid for any time after the schedule ends.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ScheduleReqEntry">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ScheduleReqEntry" title="external_energy_limits_consumer_API.yaml">ScheduleReqEntry</a></summary>
+      <div class="s-desc"><p>One entry for the time series</p></div><p class="s-inline"><a href="#schema-ScheduleReqEntry">Definition of ScheduleReqEntry</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">schedule_export</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Energy export/limits time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute points in time. The last entry is valid for any time after the schedule ends.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ScheduleReqEntry">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ScheduleReqEntry" title="external_energy_limits_consumer_API.yaml">ScheduleReqEntry</a></summary>
+      <div class="s-desc"><p>One entry for the time series</p></div><p class="s-inline"><a href="#schema-ScheduleReqEntry">Definition of ScheduleReqEntry</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">schedule_setpoints</span><span class="s-type">array&lt;object&gt;</span>
+      <span class="s-req">required</span></summary>
+      <div class="s-desc"><p>Setpoints time series. The first entry is special as it will be active already now even if the timestamp is in the future, so it is good practice to set the first entry to current time. The time series can have arbitrary time difference between entries and all timestamps are absolute points in time.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-ScheduleSetpointEntry">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-ScheduleSetpointEntry" title="external_energy_limits_consumer_API.yaml">ScheduleSetpointEntry</a></summary>
+      <div class="s-desc"><p>One entry for the time series.</p></div><p class="s-inline"><a href="#schema-ScheduleSetpointEntry">Definition of ScheduleSetpointEntry</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-FrequencyWattPoint">
+      <summary><span class="s-name">FrequencyWattPoint</span> <span class="s-type">object</span><a class="anchor" href="#schema-FrequencyWattPoint" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>A point of a frequency-watt curve</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">frequency_Hz</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The frequency in Hz</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total_power_W</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>The total power in W</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-IntegerWithSource">
+      <summary><span class="s-name">IntegerWithSource</span> <span class="s-type">object</span><a class="anchor" href="#schema-IntegerWithSource" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Simple number type with source information</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Value</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">source</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Source of the value</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-LimitsReq">
+      <summary><span class="s-name">LimitsReq</span> <span class="s-type">object</span><a class="anchor" href="#schema-LimitsReq" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Energy flow limiting object request (Evses to EnergyManager)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-NumberWithSource">
+      <summary><span class="s-name">total_power_W</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-NumberWithSource" title="external_energy_limits_consumer_API.yaml">NumberWithSource</a></summary>
+      <div class="s-desc"><p>Total power limit in Watt. Can be used for DC or as additional limit for AC.</p></div><p class="s-inline"><a href="#schema-NumberWithSource">Definition of NumberWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-NumberWithSource">
+      <summary><span class="s-name">ac_max_current_A</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-NumberWithSource" title="external_energy_limits_consumer_API.yaml">NumberWithSource</a></summary>
+      <div class="s-desc"><p>Max current limit (per phase) in Ampere. AC only.</p></div><p class="s-inline"><a href="#schema-NumberWithSource">Definition of NumberWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-NumberWithSource">
+      <summary><span class="s-name">ac_min_current_A</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-NumberWithSource" title="external_energy_limits_consumer_API.yaml">NumberWithSource</a></summary>
+      <div class="s-desc"><p>Min AC current limit per phase in Ampere. Values below that value indicate the device will not work properly, i.e. it will not charge below 6 amps. AC only.</p></div><p class="s-inline"><a href="#schema-NumberWithSource">Definition of NumberWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-IntegerWithSource">
+      <summary><span class="s-name">ac_max_phase_count</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-IntegerWithSource" title="external_energy_limits_consumer_API.yaml">IntegerWithSource</a></summary>
+      <div class="s-desc"><p>Limit to number of phases. Omit if number of phases are not limited.</p></div><p class="s-inline"><a href="#schema-IntegerWithSource">Definition of IntegerWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-IntegerWithSource">
+      <summary><span class="s-name">ac_min_phase_count</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-IntegerWithSource" title="external_energy_limits_consumer_API.yaml">IntegerWithSource</a></summary>
+      <div class="s-desc"><p>Minimal number of phases. Omit if number of phases are not limited.</p></div><p class="s-inline"><a href="#schema-IntegerWithSource">Definition of IntegerWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">ac_supports_changing_phases_during_charging</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>Indicate whether phase switching is allowed during charging or not</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">ac_number_of_active_phases</span><span class="s-type">integer</span>
+      </div>
+      <div class="s-desc"><p>Number of phases currently offered to the vehicle (1ph or 3ph mode)</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span><span class="chip"><span class="s-label">max</span> 3</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-LimitsRes">
+      <summary><span class="s-name">LimitsRes</span> <span class="s-type">object</span><a class="anchor" href="#schema-LimitsRes" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Energy flow limiting object Result (Energy manager to Evses)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-NumberWithSource">
+      <summary><span class="s-name">total_power_W</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-NumberWithSource" title="external_energy_limits_consumer_API.yaml">NumberWithSource</a></summary>
+      <div class="s-desc"><p>Total power limit in Watt. Can be used for DC or as additional limit for AC. Negative numbers mean export to grid direction.</p></div><p class="s-inline"><a href="#schema-NumberWithSource">Definition of NumberWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-NumberWithSource">
+      <summary><span class="s-name">ac_max_current_A</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-NumberWithSource" title="external_energy_limits_consumer_API.yaml">NumberWithSource</a></summary>
+      <div class="s-desc"><p>Max current limit (per phase) in Ampere. AC only. Negative numbers mean export to grid direction.</p></div><p class="s-inline"><a href="#schema-NumberWithSource">Definition of NumberWithSource</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-IntegerWithSource">
+      <summary><span class="s-name">ac_max_phase_count</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-IntegerWithSource" title="external_energy_limits_consumer_API.yaml">IntegerWithSource</a></summary>
+      <div class="s-desc"><p>Limit to number of phases. Omit if number of phases are not limited.</p></div><p class="s-inline"><a href="#schema-IntegerWithSource">Definition of IntegerWithSource</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-NumberWithSource">
+      <summary><span class="s-name">NumberWithSource</span> <span class="s-type">object</span><a class="anchor" href="#schema-NumberWithSource" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Simple number type with source information</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Value</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">source</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Source of the value</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-PricePerkWh">
+      <summary><span class="s-name">PricePerkWh</span> <span class="s-type">object</span><a class="anchor" href="#schema-PricePerkWh" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Price information for this timepoint</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Absolute timestamp for this sample in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">value</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Price per kWh (cost)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">currency</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Currency in 3 digit ISO 4217</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 3</span><span class="chip"><span class="s-label">max length</span> 3</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ScheduleReqEntry">
+      <summary><span class="s-name">ScheduleReqEntry</span> <span class="s-type">object</span><a class="anchor" href="#schema-ScheduleReqEntry" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>One entry for the time series (request)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Absolute timestamp for this sample in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-LimitsReq">
+      <summary><span class="s-name">limits_to_root</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-LimitsReq" title="external_energy_limits_consumer_API.yaml">LimitsReq</a></summary>
+      <div class="s-desc"><p>Limit for this timestamp, for the root facing side</p></div><p class="s-inline"><a href="#schema-LimitsReq">Definition of LimitsReq</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-LimitsReq">
+      <summary><span class="s-name">limits_to_leaves</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-LimitsReq" title="external_energy_limits_consumer_API.yaml">LimitsReq</a></summary>
+      <div class="s-desc"><p>Limit for this timestamp, for the leaves facing side</p></div><p class="s-inline"><a href="#schema-LimitsReq">Definition of LimitsReq</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">conversion_efficiency</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>Conversion efficiency from root to leaves side (e.g. AC/DC efficiency). Defaults to one if not specified.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span><span class="chip"><span class="s-label">max</span> 1</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-PricePerkWh">
+      <summary><span class="s-name">price_per_kwh</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-PricePerkWh" title="external_energy_limits_consumer_API.yaml">PricePerkWh</a></summary>
+      <div class="s-desc"><p>Price information for this timepoint</p></div><p class="s-inline"><a href="#schema-PricePerkWh">Definition of PricePerkWh</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ScheduleResEntry">
+      <summary><span class="s-name">ScheduleResEntry</span> <span class="s-type">object</span><a class="anchor" href="#schema-ScheduleResEntry" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>One entry for the time series (result)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Absolute timestamp for this sample in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-LimitsRes">
+      <summary><span class="s-name">limits_to_root</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-LimitsRes" title="external_energy_limits_consumer_API.yaml">LimitsRes</a></summary>
+      <div class="s-desc"><p>Limit for this timestamp, for the root facing side</p></div><p class="s-inline"><a href="#schema-LimitsRes">Definition of LimitsRes</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-PricePerkWh">
+      <summary><span class="s-name">price_per_kwh</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-PricePerkWh" title="external_energy_limits_consumer_API.yaml">PricePerkWh</a></summary>
+      <div class="s-desc"><p>Price information for this timepoint</p></div><p class="s-inline"><a href="#schema-PricePerkWh">Definition of PricePerkWh</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ScheduleSetpointEntry">
+      <summary><span class="s-name">ScheduleSetpointEntry</span> <span class="s-type">object</span><a class="anchor" href="#schema-ScheduleSetpointEntry" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>One entry for the time series (setpoint request)</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Absolute timestamp for this sample in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-SetpointType">
+      <summary><span class="s-name">setpoint</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-SetpointType" title="external_energy_limits_consumer_API.yaml">SetpointType</a></summary>
+      <div class="s-desc"><p>Setpoint for this timestamp</p></div><p class="s-inline"><a href="#schema-SetpointType">Definition of SetpointType</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-SetpointType">
+      <summary><span class="s-name">SetpointType</span> <span class="s-type">object</span><a class="anchor" href="#schema-SetpointType" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Defines a setpoint</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">ac_current_A</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>The target value in amps per phase for either charging or discharging depending on the sign. Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total_power_W</span><span class="s-type">number</span>
+      </div>
+      <div class="s-desc"><p>The target value for the total power for either charging or discharging depending on the sign. Positive values indicate charging, while negative values indicate discharging. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">frequency_table</span><span class="s-type">array&lt;object&gt;</span>
+      </summary>
+      <div class="s-desc"><p>Frequency table for the setpoint. When used it must contain at least two coordinates to specify a power-frequency table to use during this period. If the array is empty, no frequency setpoint is set. Do not set ac_current_A, total_power_W and frequency_table properties simultaneously.</p></div><ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-FrequencyWattPoint">
+      <summary><span class="s-name">items</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-FrequencyWattPoint" title="external_energy_limits_consumer_API.yaml">FrequencyWattPoint</a></summary>
+      <div class="s-desc"><p>One entry for the frequency table</p></div><p class="s-inline"><a href="#schema-FrequencyWattPoint">Definition of FrequencyWattPoint</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">priority</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>If multiple conflicting setpoints are specified in the tree, the priority selects which one is used. Highest priority is 0, lowest priority is 1000.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span><span class="chip"><span class="s-label">max</span> 1000</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">source</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Source of the setpoint</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CapabilityLimits">
+      <summary><span class="s-name">CapabilityLimits</span> <span class="s-type">object</span><a class="anchor" href="#schema-CapabilityLimits" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Configured/rated maximum limits of an energy node</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">max_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Max current limit (per phase) in Ampere.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">max_phase_count</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Number of phases covered by this fuse</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span><span class="chip"><span class="s-label">max</span> 3</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">nominal_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Nominal AC voltage between a single phase and neutral in Volt</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">total_power_W</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Total power limit in Watt. For AC energy nodes, this usually is: nominal_voltage_V x max_current_A x max_phase_count</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CommunicationCheck">
+      <summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">boolean</span></div>
+      <div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+      </div>
+
+      </details>
+      <details class="schema" id="schema-HeartBeatId">
+      <summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">integer</span></div>
+      <div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+      </div>
+
+      </details>
+

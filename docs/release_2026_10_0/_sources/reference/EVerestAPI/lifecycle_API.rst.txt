@@ -1,0 +1,721 @@
+.. _everest_api_lifecycle_API:
+
+##############
+lifecycle\_API
+##############
+
+.. warning::
+
+   **Experimental API** since \2026.10.0.
+   This API is exempt from the EVerest stability guarantees and the deprecation
+   period. Its channels, operations and message payloads may change or be
+   removed in any release without notice until it is promoted to stable. See
+   the :ref:`policy on experimental components <project-experimental-components>`
+   and the :ref:`experimental feature index <project-experimental-index>`.
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="badge experimental" title="Exempt from the stability guarantees">experimental</span><span class="chip"><span class="s-label">version</span> 1.0.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">Lifecycle</span></div>
+
+   .. container:: lead
+
+      EVerest API definition for lifecycle control
+
+   API for EVerest modules and clients to control the modules lifecycle. Provides facilities to (re)start and stop modules and monitor their status. **Experimental.** This API is exempt from the EVerest stability guarantees and the deprecation period; channels, operations and message payloads may change without further notice until it is promoted to stable.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>lifecycle_API.yaml</code> · <code>pionix:de:everest:lifecycle_API</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (3)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (4)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/lifecycle">everest_api/1/lifecycle</code></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+Client to EVerest
+-----------------
+
+.. _everest_api_lifecycle_API_op_send_request_stop_modules:
+
+send\_request\_stop\_modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Stop modules</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/lifecycle/m2e/stop_modules">everest_api/1/lifecycle/m2e/stop_modules</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-lifecycle-api-op-receive-reply-stop-modules">receive_reply_stop_modules</a>.</dd>
+      </dl>
+
+   Request EVerest to stop all currently running modules.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Stop modules request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_stop_modules"><code>send_request_stop_modules</code></a></p>
+      <div class="msg-summary"><p>Request EVerest to stop all currently running modules.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Request to stop all modules</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;arbitrary/reply/topic&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_lifecycle_API_op_send_request_get_everest_version:
+
+send\_request\_get\_everest\_version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Request EVerest version</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/lifecycle/m2e/get_everest_version">everest_api/1/lifecycle/m2e/get_everest_version</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-lifecycle-api-op-receive-reply-get-everest-version">receive_reply_get_everest_version</a>.</dd>
+      </dl>
+
+   Request EVerest to send its version.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Get EVerest version request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_get_everest_version"><code>send_request_get_everest_version</code></a></p>
+      <div class="msg-summary"><p>Request EVerest to send its version.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Request EVerest version</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;arbitrary/reply/topic&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_lifecycle_API_op_send_request_start_modules:
+
+send\_request\_start\_modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op send
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+      <span class="op-title">Start modules</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/lifecycle/m2e/start_modules">everest_api/1/lifecycle/m2e/start_modules</code></dd>
+      <dt>Reply</dt>
+      <dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-lifecycle-api-op-receive-reply-start-modules">receive_reply_start_modules</a>.</dd>
+      </dl>
+
+   Request EVerest to start modules.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Start modules request</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-send_request_start_modules"><code>send_request_start_modules</code></a></p>
+      <div class="msg-summary"><p>Request EVerest to start modules.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">headers</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Request to start modules</figcaption>
+      <pre data-copy-block><code>{
+        &#34;headers&#34;: {
+          &#34;replyTo&#34;: &#34;arbitrary/reply/topic&#34;
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+EVerest to client
+-----------------
+
+.. _everest_api_lifecycle_API_op_receive_reply_stop_modules:
+
+receive\_reply\_stop\_modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to stop_modules request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-lifecycle-api-op-send-request-stop-modules">send_request_stop_modules</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Stop modules reply</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_stop_modules"><code>receive_reply_stop_modules</code></a></p>
+      <div class="msg-summary"><p>Reply indicating the result of stopping modules.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-StopModulesResult" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-StopModulesResult" title="lifecycle_API.yaml">StopModulesResult</a></summary>
+      <div class="s-desc"><p>Result when requesting to stop the modules</p></div><p class="s-inline"><a href="#schema-StopModulesResult">Definition of StopModulesResult</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>No modules to stop</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;NoModulesToStop&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_lifecycle_API_op_receive_reply_get_everest_version:
+
+receive\_reply\_get\_everest\_version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to get EVerest version request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-lifecycle-api-op-send-request-get-everest-version">send_request_get_everest_version</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">EVerest version reply</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_get_everest_version"><code>receive_reply_get_everest_version</code></a></p>
+      <div class="msg-summary"><p>Reply to get EVerest version request.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-EVerestVersion" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-EVerestVersion" title="lifecycle_API.yaml">EVerestVersion</a></summary>
+      <div class="s-desc"><p>Version designators of the running EVerest instance</p></div><p class="s-inline"><a href="#schema-EVerestVersion">Definition of EVerestVersion</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>EVerest Version report</figcaption>
+      <pre data-copy-block><code>{
+        &#34;name&#34;: &#34;everest-core&#34;,
+        &#34;version&#34;: &#34;2026.02.0&#34;,
+        &#34;git_version&#34;: &#34;a1b2c3d4e5f6g7h8i9j0&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_lifecycle_API_op_receive_reply_start_modules:
+
+receive\_reply\_start\_modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Reply to start_modules request</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+      Answers <a href="#everest-api-lifecycle-api-op-send-request-start-modules">send_request_start_modules</a>.</dd>
+      </dl>
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Start modules reply</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_reply_start_modules"><code>receive_reply_start_modules</code></a></p>
+      <div class="msg-summary"><p>Reply indicating the result of starting modules.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-StartModulesResult" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-StartModulesResult" title="lifecycle_API.yaml">StartModulesResult</a></summary>
+      <div class="s-desc"><p>Result when requesting to start the modules</p></div><p class="s-inline"><a href="#schema-StartModulesResult">Definition of StartModulesResult</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Modules starting</figcaption>
+      <pre data-copy-block><code>{
+        &#34;status&#34;: &#34;Starting&#34;
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_lifecycle_API_op_receive_status:
+
+receive\_status
+~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive execution status</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest_api/1/lifecycle/e2m/status">everest_api/1/lifecycle/e2m/status</code></dd>
+      </dl>
+
+   Published when EVerest execution status changes.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Execution status update</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_status"><code>receive_status</code></a></p>
+      <div class="msg-summary"><p>Published when EVerest execution status changes.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-ExecutionStatusUpdateNotice" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ExecutionStatusUpdateNotice" title="lifecycle_API.yaml">ExecutionStatusUpdateNotice</a></summary>
+      <div class="s-desc"><p>Execution status summary. Will include all the optional fields, if everest_running is true. A false everest_running carries no other field: the manager publishes exactly this payload when it shuts down, and registers it as its MQTT last will for the case where it dies before getting that far.</p></div><p class="s-inline"><a href="#schema-ExecutionStatusUpdateNotice">Definition of ExecutionStatusUpdateNotice</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Examples</p>
+      <figure class="example">
+      <figcaption>Modules stopped, configuration service available</figcaption>
+      <pre data-copy-block><code>{
+        &#34;tstamp&#34;: &#34;2026-03-30T17:45:00Z&#34;,
+        &#34;everest_running&#34;: true,
+        &#34;module_status&#34;: &#34;NotRunning&#34;,
+        &#34;configuration_api_available&#34;: &#34;RW&#34;,
+        &#34;lifecycle_api_ro&#34;: false
+      }</code></pre>
+      </figure>
+      <figure class="example">
+      <figcaption>EVerest not running (manager shutdown, or last will on an unclean death)</figcaption>
+      <pre data-copy-block><code>{
+        &#34;everest_running&#34;: false
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-send_request_stop_modules">
+      <td><code>send_request_stop_modules</code><br><span class="muted">Stop modules request</span></td>
+      <td><p>Request EVerest to stop all currently running modules.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-send-request-stop-modules">send_request_stop_modules</a></td>
+      </tr>
+      <tr id="msg-receive_reply_stop_modules">
+      <td><code>receive_reply_stop_modules</code><br><span class="muted">Stop modules reply</span></td>
+      <td><p>Reply indicating the result of stopping modules.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-receive-reply-stop-modules">receive_reply_stop_modules</a></td>
+      </tr>
+      <tr id="msg-send_request_get_everest_version">
+      <td><code>send_request_get_everest_version</code><br><span class="muted">Get EVerest version request</span></td>
+      <td><p>Request EVerest to send its version.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-send-request-get-everest-version">send_request_get_everest_version</a></td>
+      </tr>
+      <tr id="msg-receive_reply_get_everest_version">
+      <td><code>receive_reply_get_everest_version</code><br><span class="muted">EVerest version reply</span></td>
+      <td><p>Reply to get EVerest version request.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-receive-reply-get-everest-version">receive_reply_get_everest_version</a></td>
+      </tr>
+      <tr id="msg-send_request_start_modules">
+      <td><code>send_request_start_modules</code><br><span class="muted">Start modules request</span></td>
+      <td><p>Request EVerest to start modules.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-send-request-start-modules">send_request_start_modules</a></td>
+      </tr>
+      <tr id="msg-receive_reply_start_modules">
+      <td><code>receive_reply_start_modules</code><br><span class="muted">Start modules reply</span></td>
+      <td><p>Reply indicating the result of starting modules.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-receive-reply-start-modules">receive_reply_start_modules</a></td>
+      </tr>
+      <tr id="msg-receive_status">
+      <td><code>receive_status</code><br><span class="muted">Execution status update</span></td>
+      <td><p>Published when EVerest execution status changes.</p></td>
+      <td><a href="#everest-api-lifecycle-api-op-receive-status">receive_status</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-StopModulesResultEnum">
+      <summary><span class="s-name">StopModulesResultEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-StopModulesResultEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Possible results for stop module requests</p><ul><li>Stopping: Accepted and modules are commanded to stop but haven&#39;t done so yet</li><li>NoModulesToStop: Accepted, but a no-op since there were no modules running</li><li>Rejected: Rejected, for some reason (e.g. not allowed)</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Stopping</code><code>NoModulesToStop</code><code>Rejected</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-StartModulesResultEnum">
+      <summary><span class="s-name">StartModulesResultEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-StartModulesResultEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Possible results for start module requests</p><ul><li>Starting: Accepted and modules are commanded to start but haven&#39;t done so yet</li><li>Restarting: Modules are commanded to stop and will be commanded to start once they have stopped</li><li>NoConfigToStart: Accepted, but there is no configuration slot marked to boot from</li><li>Rejected: Rejected, for some reason (e.g. not allowed)</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Starting</code><code>Restarting</code><code>NoConfigToStart</code><code>Rejected</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ModuleExecutionStatusEnum">
+      <summary><span class="s-name">ModuleExecutionStatusEnum</span> <span class="s-type">string</span><a class="anchor" href="#schema-ModuleExecutionStatusEnum" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>State of the modules</p><ul><li>Running: Modules are running</li><li>NotRunning: Modules are not running</li><li>Starting: Transitional state Stopped-&gt;Running</li><li>Stopping: Transitional state Running-&gt;Stopped</li><li>FailedToStart: A start/restart was accepted but the configuration failed to validate, so the modules stayed stopped</li><li>RestartTriggered: Indicates immediately if a restart is intended</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Running</code><code>NotRunning</code><code>Starting</code><code>Stopping</code><code>FailedToStart</code><code>RestartTriggered</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-StopModulesResult">
+      <summary><span class="s-name">StopModulesResult</span> <span class="s-type">object</span><a class="anchor" href="#schema-StopModulesResult" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Result when requesting to stop the modules</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-StopModulesResultEnum" title="lifecycle_API.yaml">StopModulesResultEnum</a></div>
+      <div class="s-desc"><p>Possible results for stop module requests</p><ul><li>Stopping: Accepted and modules are commanded to stop but haven&#39;t done so yet</li><li>NoModulesToStop: Accepted, but a no-op since there were no modules running</li><li>Rejected: Rejected, for some reason (e.g. not allowed)</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Stopping</code><code>NoModulesToStop</code><code>Rejected</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-StartModulesResult">
+      <summary><span class="s-name">StartModulesResult</span> <span class="s-type">object</span><a class="anchor" href="#schema-StartModulesResult" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Result when requesting to start the modules</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-StartModulesResultEnum" title="lifecycle_API.yaml">StartModulesResultEnum</a></div>
+      <div class="s-desc"><p>Possible results for start module requests</p><ul><li>Starting: Accepted and modules are commanded to start but haven&#39;t done so yet</li><li>Restarting: Modules are commanded to stop and will be commanded to start once they have stopped</li><li>NoConfigToStart: Accepted, but there is no configuration slot marked to boot from</li><li>Rejected: Rejected, for some reason (e.g. not allowed)</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Starting</code><code>Restarting</code><code>NoConfigToStart</code><code>Rejected</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ConfigurationApiAvailability">
+      <summary><span class="s-name">ConfigurationApiAvailability</span> <span class="s-type">string</span><a class="anchor" href="#schema-ConfigurationApiAvailability" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Availability of the configuration_API</p><ul><li>N_A: Not available</li><li>RO: Available, read-only</li><li>RW: Available, read-write</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>N_A</code><code>RO</code><code>RW</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ExecutionStatusUpdateNotice">
+      <summary><span class="s-name">ExecutionStatusUpdateNotice</span> <span class="s-type">object</span><a class="anchor" href="#schema-ExecutionStatusUpdateNotice" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Execution status summary. Will include all the optional fields, if everest_running is true. A false everest_running carries no other field: the manager publishes exactly this payload when it shuts down, and registers it as its MQTT last will for the case where it dies before getting that far.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tstamp</span><span class="s-type">string</span>
+      </div>
+      <div class="s-desc"><p>Timestamp of the status update in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">everest_running</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">module_status</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-ModuleExecutionStatusEnum" title="lifecycle_API.yaml">ModuleExecutionStatusEnum</a></div>
+      <div class="s-desc"><p>State of the modules</p><ul><li>Running: Modules are running</li><li>NotRunning: Modules are not running</li><li>Starting: Transitional state Stopped-&gt;Running</li><li>Stopping: Transitional state Running-&gt;Stopped</li><li>FailedToStart: A start/restart was accepted but the configuration failed to validate, so the modules stayed stopped</li><li>RestartTriggered: Indicates immediately if a restart is intended</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Running</code><code>NotRunning</code><code>Starting</code><code>Stopping</code><code>FailedToStart</code><code>RestartTriggered</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">configuration_api_available</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-ConfigurationApiAvailability" title="lifecycle_API.yaml">ConfigurationApiAvailability</a></div>
+      <div class="s-desc"><p>Availability of the configuration_API</p><ul><li>N_A: Not available</li><li>RO: Available, read-only</li><li>RW: Available, read-write</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>N_A</code><code>RO</code><code>RW</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">lifecycle_api_ro</span><span class="s-type">boolean</span>
+      </div>
+      <div class="s-desc"><p>Indicates whether the lifecycle_API itself is in read-only mode</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-EVerestVersion">
+      <summary><span class="s-name">EVerestVersion</span> <span class="s-type">object</span><a class="anchor" href="#schema-EVerestVersion" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Version designators of the running EVerest instance</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">name</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Arbitrary name (like &#34;everest-core&#34;)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">version</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Underlying release (like 2026.02.0)</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">git_version</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Exact git revision</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+

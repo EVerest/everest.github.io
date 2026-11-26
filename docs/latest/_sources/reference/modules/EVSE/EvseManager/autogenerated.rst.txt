@@ -58,7 +58,10 @@ Module Configuration
 |  Output directory for session log files
 | **session_logging_xml**: *boolean* <optional>
 | *default: True*
-|  Log full XML messages for HLC
+|  Include full XML messages for HLC in the console output of the session log. The session log files always contain the full messages.
+| **session_logging_console**: *boolean* <optional>
+| *default: True*
+|  Also write session log entries to the EVerest log (console). If disabled, session log entries are only written to the session log files and published via MQTT.
 | **has_ventilation**: *boolean* <optional>
 | *default: True*
 |  Allow ventilated charging or not
@@ -149,7 +152,7 @@ Module Configuration
 | **hack_present_current_offset**: *integer* <optional>
 | *default: 0*
 |  Adds an offset [A] to the present current reported to the car on HLC. Set to 0 unless you really know what you are doing.
-| **welding_detection_voltage_source**: *string* <optional>
+| **ev_side_voltage_source**: *string* <optional>
 | *default: "powermeter_car_side"*
 |  Voltage measurement reported to the EV as EVSE present voltage during DC welding detection, from PowerDelivery(Stop) until SessionStop. It has to be the side B voltage at the vehicle connector with the EVSE contactors open (IEC 61851-23:2023 CC.7.6.17), so the selected source must measure on the EV side of the EVSE output contactors; a meter or monitor between the power supply and the contactors, like the power supply itself, sees only the power supply output once the contactors are open. If the selected source is not connected, the next connected one in the order powermeter_car_side, over_voltage_monitor, power_supply is used and a warning is printed; isolation_monitor is only used when configured. Outside welding detection the power supply measurement is always reported. The over voltage monitor and the isolation monitor keep running until welding detection ends. For the isolation monitor this deviates from IEC 61851-23:2023 Table CC.9 t103, which requires the EVSE IMD to be disabled when side B is disabled, and the EV may enable its own IMD (t104): only use it with an IMD that measures the voltage without its insulation test.
 |  enum:

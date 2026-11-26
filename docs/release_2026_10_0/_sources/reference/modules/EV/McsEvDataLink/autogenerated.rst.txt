@@ -1,0 +1,55 @@
+
+
+.. _everest_modules_McsEvDataLink:
+
+#############
+McsEvDataLink
+#############
+| MCS (Megawatt Charging System) data link supervision for the EV side, ISO 15118-10:2025. Single-pair ethernet (10BASE-T1S) replaces HomePlug PLC, so there is no SLAC matching procedure; the D-LINK service primitives of ISO 15118-3 are reused, which is why this module provides the existing `ev_slac` interface and EvManager needs no modification. The link lifecycle is supervised through the network device carrier (rtnetlink IFF_LOWER_UP).
+
+
+*************************
+Handwritten Documentation
+*************************
+
+.. include:: index.inc
+
+************************
+Auto-Generated Reference
+************************
+
+
+
+Provides
+========
+| **main**: :ref:`ev_slac <everest_interfaces_ev_slac>`
+|  EV-side D-LINK primitives for the MCS data link. Despite the interface name no SLAC is performed - MATCHING means "waiting for the SPE link to come up".
+|  **config:**
+|   **device**: *string* <optional>
+|   *default: "cb_plc"*
+|    Network device carrying the MCS single-pair ethernet link. Any netdev works: a Chargebridge TAP configured with `plc.carrier: firmware`, or a real SPE netdev. The device does not have to exist at startup; the module waits for it to appear.
+|   **link_detect_timeout_ms**: *integer* <optional>
+|   *default: 4000*
+|    The EV's communication setup deadline. ISO 15118-10 bounds it twice with the same 4000 ms: TT_EV_link_detect (Table 8) for detecting a valid link, and T_conn_resume (V2G10-035) for finishing communication setup after B/B_AUX was detected. On expiry the communication initialization has FAILED (V2G10-054) and the state returns to UNMATCHED. Unlike the EVSE side there is no retry loop: V2G10-039 has the EV wait for the EVSE's restart indication, which reaches this module as another trigger_matching.
+|   **neighbor_liveness**: *boolean* <optional>
+|   *default: True*
+|    Additionally supervise the link through the kernel neighbour table (NUD) of the configured device. A neighbour going NUD_FAILED with no other reachable neighbour left counts as a detected link loss (V2G10-036), which the carrier alone cannot see when the local PHY reports itself operational but the peer is gone.
+|   **liveness_grace_ms**: *integer* <optional>
+|   *default: 1000*
+|    Debounce for neighbor_liveness. After the last neighbour of the device has gone NUD_FAILED the link only counts as lost if no neighbour has become reachable again within this time. Keeps a single failed probe of an address that re-resolves from tearing down a healthy session. 0 acts immediately.
+|   **publish_connector_mac**: *boolean* <optional>
+|   *default: True*
+|    Publish the peer's MAC address once a neighbour of the configured device becomes reachable. On the EV side the peer is the SECC, so this is the charging connector's MAC address that the `ev_mac_address` variable is documented to carry.
+
+
+********
+Metadata
+********
+Authors
+=======
+| Jan Christoph Habig (Pionix GmbH)
+
+License
+=======
+| https://opensource.org/licenses/Apache-2.0
+

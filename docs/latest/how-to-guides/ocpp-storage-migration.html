@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Migrate to the Combined OCPP Module - EVerest Manual 2026.10.0-rc3</title>
+        <title>Migrate to the Combined OCPP Module - EVerest Manual 2026.10.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual 2026.10.0-rc3</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual 2026.10.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual 2026.10.0-rc3</span>
+  <span class="sidebar-brand-text">EVerest Manual 2026.10.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -943,7 +943,17 @@ Values present in the OCPP 1.6 JSON take precedence over defaults in the
 component configuration.</p>
 </section>
 <section id="add-mappings-for-custom-ocpp-1-6-keys">
-<h3>Add mappings for custom OCPP 1.6 keys<a class="headerlink" href="#add-mappings-for-custom-ocpp-1-6-keys" title="Link to this heading">¶</a></h3>
+<span id="howto-ocpp-storage-migration-custom-key-mappings"></span><h3>Add mappings for custom OCPP 1.6 keys<a class="headerlink" href="#add-mappings-for-custom-ocpp-1-6-keys" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Ocpp16KeyMappingsPath</span></code> configuration key and the mapping file are
+currently <strong>experimental</strong>: the file format and its behavior, including
+which entries are accepted, may change without further notice. They are
+exempt from the stability guarantees and the deprecation period of the
+EVerest public API until promoted to stable (see
+<a class="reference internal" href="../project/releases/deprecation-policy.html#project-experimental-components"><span class="std std-ref">Experimental Components</span></a>). The built-in mappings are not
+experimental.</p>
+</div>
 <p>Standard OCPP 1.6 keys are migrated through the built-in mapping table. The
 full list of built-in key mappings is documented in
 <a class="reference external" href="https://github.com/EVerest/everest-core/blob/main/lib/everest/ocpp/config/v16_to_v2_mapping.md">lib/everest/ocpp/config/v16_to_v2_mapping.md</a>
@@ -1112,8 +1122,9 @@ ignored. The complete built-in mapping table is in
 and, generated from the code, in the installed
 <code class="docutils literal notranslate"><span class="pre">share/everest/modules/OCPP/default_ocpp-16_mappings.yaml</span></code>.</p></li>
 <li><p>Some OCPP 1.6 values are represented differently in the device model than in
-the JSON configuration. For example, <code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> is expanded into
-individual <code class="docutils literal notranslate"><span class="pre">MeterPublicKey[N]</span></code> variables, and
+the JSON configuration. For example, the <code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> array is stored
+as one comma-separated <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> <code class="docutils literal notranslate"><span class="pre">MeterPublicKeys</span></code> value, which
+<code class="docutils literal notranslate"><span class="pre">GetConfiguration</span></code> reports as one <code class="docutils literal notranslate"><span class="pre">MeterPublicKey&lt;N&gt;</span></code> key per connector, and
 <code class="docutils literal notranslate"><span class="pre">ChargingScheduleAllowedChargingRateUnit</span></code> values <code class="docutils literal notranslate"><span class="pre">Current</span></code>/<code class="docutils literal notranslate"><span class="pre">Power</span></code> are
 converted to <code class="docutils literal notranslate"><span class="pre">A</span></code>/<code class="docutils literal notranslate"><span class="pre">W</span></code>.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">OCPP16LegacyCtrlr</span></code> component configuration is always required, for
@@ -1252,7 +1263,7 @@ provided.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=587283a2"></script>
+</div><script src="../_static/documentation_options.js?v=c1b729fb"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

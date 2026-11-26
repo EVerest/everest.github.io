@@ -1,0 +1,1610 @@
+.. _everest_api_telemetry:
+
+#########
+telemetry
+#########
+
+.. container:: everest-api overview
+
+   .. raw:: html
+
+      <div class="facts">
+      <span class="chip"><span class="s-label">version</span> 1.0.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+      <span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">telemetry</span></div>
+
+   .. container:: lead
+
+      EVerest telemetry
+
+   Typed telemetry payloads and topics emitted by the EVerest framework and EVSE modules.
+
+   .. raw:: html
+
+      <p class="spec-file">Specification: <code>telemetry.yaml</code> · <code>pionix:de:everest:telemetry</code></p>
+      <div class="legend">
+      <span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+       the client publishes, EVerest consumes (0)</span>
+      <span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+       EVerest publishes, the client consumes (6)</span>
+      </div>
+
+Servers
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="card server" id="server-default">
+      <p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+      <div><p>default local MQTT</p></div><dl class="op-facts">
+      <dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest-telemetry">everest-telemetry</code></dd>
+      </dl>
+      </div>
+
+Operations
+==========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="js-only toolbar">
+      <button type="button" data-expand="all">Expand all</button>
+      <button type="button" data-expand="none">Collapse all</button>
+      </div>
+
+EVerest to client
+-----------------
+
+.. _everest_api_telemetry_op_receive_cert_status:
+
+receive\_cert\_status
+~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive cert status telemetry</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest-telemetry/Cert/{telemetry_id}/status">everest-telemetry/Cert/{telemetry_id}/status</code></dd>
+      </dl>
+
+   Direction: EVerest to telemetry consumer
+
+   The topic payload contains the framework fields ``timestamp``\ , ``connector_id``\ , and ``type`` plus the ``CertTelemetry`` struct for the ``status`` subcategory.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">Cert status telemetry</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_cert_status"><code>cert_status</code></a></p>
+      <div class="msg-summary"><p>Certificate chain telemetry.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-TelemetryCertStatus" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-TelemetryCertStatus" title="telemetry.yaml">TelemetryCertStatus</a></summary>
+      <div class="s-desc"><p>Cert status payload (<code>Cert/{telemetry_id}/status</code>) with framework fields.</p></div><p class="s-inline"><a href="#schema-TelemetryCertStatus">Definition of TelemetryCertStatus</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;connector_id&#34;: 0,
+        &#34;type&#34;: &#34;status&#34;,
+        &#34;config_complete&#34;: true,
+        &#34;sync_complete&#34;: true,
+        &#34;secc_chain&#34;: {
+          &#34;configured&#34;: true,
+          &#34;synced&#34;: true,
+          &#34;num_files&#34;: 0,
+          &#34;num_useful_files&#34;: 0
+        },
+        &#34;mo_root&#34;: {
+          &#34;configured&#34;: true,
+          &#34;synced&#34;: true,
+          &#34;num_files&#34;: 0,
+          &#34;num_useful_files&#34;: 0
+        }
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_telemetry_op_receive_evse_control:
+
+receive\_evse\_control
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive EVSE control telemetry</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest-telemetry/Evse/{telemetry_id}/control">everest-telemetry/Evse/{telemetry_id}/control</code></dd>
+      </dl>
+
+   Direction: EVerest to telemetry consumer
+
+   The topic payload contains the framework fields ``timestamp``\ , ``connector_id``\ , and ``type`` plus the ``EvseControlStatus`` struct for the ``control`` subcategory.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">EVSE control telemetry</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_evse_control"><code>evse_control</code></a></p>
+      <div class="msg-summary"><p>EVSE control-state telemetry.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-TelemetryEvseControl" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-TelemetryEvseControl" title="telemetry.yaml">TelemetryEvseControl</a></summary>
+      <div class="s-desc"><p>EVSE control payload (<code>Evse/{telemetry_id}/control</code>) with framework fields.</p></div><p class="s-inline"><a href="#schema-TelemetryEvseControl">Definition of TelemetryEvseControl</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;connector_id&#34;: 0,
+        &#34;type&#34;: &#34;control&#34;,
+        &#34;authorisation_finished&#34;: true,
+        &#34;emergency_stop&#34;: true,
+        &#34;error_stop&#34;: true,
+        &#34;normal_stop&#34;: true,
+        &#34;contract_payment_enabled&#34;: true,
+        &#34;free_charging_enabled&#34;: true
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_telemetry_op_receive_v2g_transport:
+
+receive\_v2g\_transport
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive V2G transport telemetry</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest-telemetry/V2G/{telemetry_id}/transport">everest-telemetry/V2G/{telemetry_id}/transport</code></dd>
+      </dl>
+
+   Direction: EVerest to telemetry consumer
+
+   The topic payload contains the framework fields ``timestamp``\ , ``connector_id``\ , and ``type`` plus the ``V2gTransport`` struct for the ``transport`` subcategory.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">V2G transport telemetry</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_v2g_transport"><code>v2g_transport</code></a></p>
+      <div class="msg-summary"><p>V2G transport telemetry.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-TelemetryV2gTransport" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-TelemetryV2gTransport" title="telemetry.yaml">TelemetryV2gTransport</a></summary>
+      <div class="s-desc"><p>V2G transport payload (<code>V2G/{telemetry_id}/transport</code>) with framework fields.</p></div><p class="s-inline"><a href="#schema-TelemetryV2gTransport">Definition of TelemetryV2gTransport</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;connector_id&#34;: 0,
+        &#34;type&#34;: &#34;transport&#34;,
+        &#34;comm_state&#34;: {
+          &#34;din70121&#34;: &#34;WaitForSessionSetup&#34;,
+          &#34;iso15118_ac&#34;: &#34;WaitForSessionSetup&#34;,
+          &#34;iso15118_dc&#34;: &#34;WaitForSessionSetup&#34;
+        },
+        &#34;message_state&#34;: &#34;SupportedAppProtocol&#34;,
+        &#34;udp_server_status&#34;: &#34;Inactive&#34;,
+        &#34;tcp_listener_status&#34;: &#34;Inactive&#34;,
+        &#34;tcp_server_status&#34;: &#34;Inactive&#34;,
+        &#34;tcp_connection_established&#34;: true,
+        &#34;tcp_discovery_enable&#34;: true,
+        &#34;tcp_security_enable&#34;: true,
+        &#34;tcp_security_required&#34;: true,
+        &#34;tcp_port_number&#34;: 0,
+        &#34;session_setup_requested&#34;: true,
+        &#34;authorization_requested&#34;: true,
+        &#34;charge_parameter_discovery_requested&#34;: true,
+        &#34;cable_check_requested&#34;: true,
+        &#34;pre_charge_requested&#34;: true,
+        &#34;current_demand_requested&#34;: true,
+        &#34;welding_detection_requested&#34;: true
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_telemetry_op_receive_v2g_ev_electrical:
+
+receive\_v2g\_ev\_electrical
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive V2G EV electrical telemetry</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest-telemetry/V2G/{telemetry_id}/ev_electrical">everest-telemetry/V2G/{telemetry_id}/ev_electrical</code></dd>
+      </dl>
+
+   Direction: EVerest to telemetry consumer
+
+   The topic payload contains the framework fields ``timestamp``\ , ``connector_id``\ , and ``type`` plus the ``V2gEvElectrical`` struct for the ``ev_electrical`` subcategory.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">V2G EV electrical telemetry</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_v2g_ev_electrical"><code>v2g_ev_electrical</code></a></p>
+      <div class="msg-summary"><p>EV electrical telemetry.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-TelemetryV2gEvElectrical" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-TelemetryV2gEvElectrical" title="telemetry.yaml">TelemetryV2gEvElectrical</a></summary>
+      <div class="s-desc"><p>V2G EV electrical payload (<code>V2G/{telemetry_id}/ev_electrical</code>) with framework fields.</p></div><p class="s-inline"><a href="#schema-TelemetryV2gEvElectrical">Definition of TelemetryV2gEvElectrical</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;connector_id&#34;: 0,
+        &#34;type&#34;: &#34;ev_electrical&#34;,
+        &#34;charge_progress&#34;: &#34;Start&#34;,
+        &#34;battery_soc_percent&#34;: 0,
+        &#34;error_code&#34;: &#34;NO_ERROR&#34;,
+        &#34;maximum_current_A&#34;: 0,
+        &#34;maximum_power_W&#34;: 0,
+        &#34;maximum_voltage_V&#34;: 0,
+        &#34;maximum_rated_current_A&#34;: 0,
+        &#34;maximum_rated_power_W&#34;: 0,
+        &#34;maximum_rated_voltage_V&#34;: 0,
+        &#34;target_current_A&#34;: 0,
+        &#34;target_voltage_V&#34;: 0,
+        &#34;remaining_time_bulk_min&#34;: 0,
+        &#34;remaining_time_full_min&#34;: 0,
+        &#34;energy_request_Wh&#34;: 0,
+        &#34;energy_capacity_Wh&#34;: 0
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_telemetry_op_receive_v2g_payment_service:
+
+receive\_v2g\_payment\_service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive V2G payment service telemetry</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest-telemetry/V2G/{telemetry_id}/payment_service">everest-telemetry/V2G/{telemetry_id}/payment_service</code></dd>
+      </dl>
+
+   Direction: EVerest to telemetry consumer
+
+   The topic payload contains the framework fields ``timestamp``\ , ``connector_id``\ , and ``type`` plus the ``V2gPaymentService`` struct for the ``payment_service`` subcategory.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">V2G payment service telemetry</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_v2g_payment_service"><code>v2g_payment_service</code></a></p>
+      <div class="msg-summary"><p>V2G payment service telemetry.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-TelemetryV2gPaymentService" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-TelemetryV2gPaymentService" title="telemetry.yaml">TelemetryV2gPaymentService</a></summary>
+      <div class="s-desc"><p>V2G payment-service payload (<code>V2G/{telemetry_id}/payment_service</code>) with framework fields.</p></div><p class="s-inline"><a href="#schema-TelemetryV2gPaymentService">Definition of TelemetryV2gPaymentService</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;connector_id&#34;: 0,
+        &#34;type&#34;: &#34;payment_service&#34;,
+        &#34;certificate_install_requested&#34;: true,
+        &#34;certificate_update_requested&#34;: true,
+        &#34;charging_service_requested&#34;: true,
+        &#34;external_payment_requested&#34;: true,
+        &#34;contract_payment_requested&#34;: true,
+        &#34;contract_payment_approved&#34;: true,
+        &#34;contract_payment_error&#34;: true,
+        &#34;internet_ftp20_requested&#34;: true,
+        &#34;internet_ftp21_requested&#34;: true,
+        &#34;internet_http80_requested&#34;: true,
+        &#34;internet_https443_requested&#34;: true
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+.. _everest_api_telemetry_op_receive_v2g_charger_status:
+
+receive\_v2g\_charger\_status
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. container:: everest-api op receive
+
+   .. raw:: html
+
+      <div class="op-head">
+      <span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+      <span class="op-title">Receive V2G charger status telemetry</span></div>
+      <dl class="op-facts">
+      <dt>Topic</dt>
+      <dd><code class="topic" data-copy="everest-telemetry/V2G/{telemetry_id}/charger_status">everest-telemetry/V2G/{telemetry_id}/charger_status</code></dd>
+      </dl>
+
+   Direction: EVerest to telemetry consumer
+
+   The topic payload contains the framework fields ``timestamp``\ , ``connector_id``\ , and ``type`` plus the ``V2gChargerStatus`` struct for the ``charger_status`` subcategory.
+
+   .. raw:: html
+
+      <details class="msg">
+      <summary><span class="msg-label">Message</span> <span class="msg-name">V2G charger status telemetry</span> <code class="ctype">application/json</code></summary>
+      <div class="msg-body">
+      <p class="msg-ref">Message <a href="#msg-receive_v2g_charger_status"><code>v2g_charger_status</code></a></p>
+      <div class="msg-summary"><p>V2G charger status telemetry.</p></div><div class="msg-grid">
+      <div>
+      <p class="msg-section">Payload</p>
+      <details class="s-node s-top" data-inline="schema-TelemetryV2gChargerStatus" open>
+      <summary><span class="s-type">object</span> <a class="s-ref" href="#schema-TelemetryV2gChargerStatus" title="telemetry.yaml">TelemetryV2gChargerStatus</a></summary>
+      <div class="s-desc"><p>V2G charger-status payload (<code>V2G/{telemetry_id}/charger_status</code>) with framework fields.</p></div><p class="s-inline"><a href="#schema-TelemetryV2gChargerStatus">Definition of TelemetryV2gChargerStatus</a></p>
+      </details>
+
+      </div>
+      <div>
+      <p class="msg-section">Example</p>
+      <figure class="example">
+      <figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+      <pre data-copy-block><code>{
+        &#34;timestamp&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+        &#34;connector_id&#34;: 0,
+        &#34;type&#34;: &#34;charger_status&#34;,
+        &#34;evcc_id&#34;: &#34;string&#34;,
+        &#34;selected_protocol&#34;: &#34;string&#34;,
+        &#34;cable_check_status&#34;: true,
+        &#34;param_discovery_finished&#34;: true,
+        &#34;isolation_status&#34;: &#34;string&#34;,
+        &#34;dynamic_max_current_A&#34;: 0,
+        &#34;dynamic_max_power_W&#34;: 0,
+        &#34;dynamic_max_voltage_V&#34;: 0
+      }</code></pre>
+      </figure>
+      </div>
+      </div>
+
+      </div>
+      </details>
+
+Messages
+========
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <div class="table-wrap">
+      <table class="messages">
+      <thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+      <tbody>
+      <tr id="msg-receive_cert_status">
+      <td><code>cert_status</code><br><span class="muted">Cert status telemetry</span></td>
+      <td><p>Certificate chain telemetry.</p></td>
+      <td><a href="#everest-api-telemetry-op-receive-cert-status">receive_cert_status</a></td>
+      </tr>
+      <tr id="msg-receive_evse_control">
+      <td><code>evse_control</code><br><span class="muted">EVSE control telemetry</span></td>
+      <td><p>EVSE control-state telemetry.</p></td>
+      <td><a href="#everest-api-telemetry-op-receive-evse-control">receive_evse_control</a></td>
+      </tr>
+      <tr id="msg-receive_v2g_transport">
+      <td><code>v2g_transport</code><br><span class="muted">V2G transport telemetry</span></td>
+      <td><p>V2G transport telemetry.</p></td>
+      <td><a href="#everest-api-telemetry-op-receive-v2g-transport">receive_v2g_transport</a></td>
+      </tr>
+      <tr id="msg-receive_v2g_ev_electrical">
+      <td><code>v2g_ev_electrical</code><br><span class="muted">V2G EV electrical telemetry</span></td>
+      <td><p>EV electrical telemetry.</p></td>
+      <td><a href="#everest-api-telemetry-op-receive-v2g-ev-electrical">receive_v2g_ev_electrical</a></td>
+      </tr>
+      <tr id="msg-receive_v2g_payment_service">
+      <td><code>v2g_payment_service</code><br><span class="muted">V2G payment service telemetry</span></td>
+      <td><p>V2G payment service telemetry.</p></td>
+      <td><a href="#everest-api-telemetry-op-receive-v2g-payment-service">receive_v2g_payment_service</a></td>
+      </tr>
+      <tr id="msg-receive_v2g_charger_status">
+      <td><code>v2g_charger_status</code><br><span class="muted">V2G charger status telemetry</span></td>
+      <td><p>V2G charger status telemetry.</p></td>
+      <td><a href="#everest-api-telemetry-op-receive-v2g-charger-status">receive_v2g_charger_status</a></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+
+Schemas
+=======
+
+.. container:: everest-api
+
+   .. raw:: html
+
+      <details class="schema" id="schema-TelemetryEnvelope">
+      <summary><span class="s-name">TelemetryEnvelope</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryEnvelope" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Timestamp in RFC3339 format, added by telemetry_publish.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">connector_id</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Numeric telemetry id injected by telemetry_publish under the connector_id key.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Telemetry subtype used in the topic publish call.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TelemetryCertStatus">
+      <summary><span class="s-name">TelemetryCertStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryCertStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Cert status payload (<code>Cert/{telemetry_id}/status</code>) with framework fields.</p></div><p class="s-note">Additional properties allowed.</p>
+      <p class="s-note">All of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-TelemetryEnvelope">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TelemetryEnvelope" title="telemetry.yaml">TelemetryEnvelope</a></summary>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-inline"><a href="#schema-TelemetryEnvelope">Definition of TelemetryEnvelope</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">#2</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-enum"><span class="s-label">enum</span><code>status</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-CertTelemetry">
+      <summary><span class="s-name">#3</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-CertTelemetry" title="telemetry.yaml">CertTelemetry</a></summary>
+      <div class="s-desc"><p>Certificate status for SECC and MO root chains.</p></div><p class="s-inline"><a href="#schema-CertTelemetry">Definition of CertTelemetry</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TelemetryEvseControl">
+      <summary><span class="s-name">TelemetryEvseControl</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryEvseControl" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>EVSE control payload (<code>Evse/{telemetry_id}/control</code>) with framework fields.</p></div><p class="s-note">Additional properties allowed.</p>
+      <p class="s-note">All of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-TelemetryEnvelope">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TelemetryEnvelope" title="telemetry.yaml">TelemetryEnvelope</a></summary>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-inline"><a href="#schema-TelemetryEnvelope">Definition of TelemetryEnvelope</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">#2</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-enum"><span class="s-label">enum</span><code>control</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-EvseControlStatus">
+      <summary><span class="s-name">#3</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-EvseControlStatus" title="telemetry.yaml">EvseControlStatus</a></summary>
+      <div class="s-desc"><p>EVSE control state flags.</p></div><p class="s-inline"><a href="#schema-EvseControlStatus">Definition of EvseControlStatus</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TelemetryV2gTransport">
+      <summary><span class="s-name">TelemetryV2gTransport</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryV2gTransport" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G transport payload (<code>V2G/{telemetry_id}/transport</code>) with framework fields.</p></div><p class="s-note">Additional properties allowed.</p>
+      <p class="s-note">All of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-TelemetryEnvelope">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TelemetryEnvelope" title="telemetry.yaml">TelemetryEnvelope</a></summary>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-inline"><a href="#schema-TelemetryEnvelope">Definition of TelemetryEnvelope</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">#2</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-enum"><span class="s-label">enum</span><code>transport</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-V2gTransport">
+      <summary><span class="s-name">#3</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-V2gTransport" title="telemetry.yaml">V2gTransport</a></summary>
+      <div class="s-desc"><p>V2G transport state.</p></div><p class="s-inline"><a href="#schema-V2gTransport">Definition of V2gTransport</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TelemetryV2gEvElectrical">
+      <summary><span class="s-name">TelemetryV2gEvElectrical</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryV2gEvElectrical" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G EV electrical payload (<code>V2G/{telemetry_id}/ev_electrical</code>) with framework fields.</p></div><p class="s-note">Additional properties allowed.</p>
+      <p class="s-note">All of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-TelemetryEnvelope">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TelemetryEnvelope" title="telemetry.yaml">TelemetryEnvelope</a></summary>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-inline"><a href="#schema-TelemetryEnvelope">Definition of TelemetryEnvelope</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">#2</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-enum"><span class="s-label">enum</span><code>ev_electrical</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-V2gEvElectrical">
+      <summary><span class="s-name">#3</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-V2gEvElectrical" title="telemetry.yaml">V2gEvElectrical</a></summary>
+      <div class="s-desc"><p>EV electrical telemetry.</p></div><p class="s-inline"><a href="#schema-V2gEvElectrical">Definition of V2gEvElectrical</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TelemetryV2gPaymentService">
+      <summary><span class="s-name">TelemetryV2gPaymentService</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryV2gPaymentService" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G payment-service payload (<code>V2G/{telemetry_id}/payment_service</code>) with framework fields.</p></div><p class="s-note">Additional properties allowed.</p>
+      <p class="s-note">All of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-TelemetryEnvelope">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TelemetryEnvelope" title="telemetry.yaml">TelemetryEnvelope</a></summary>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-inline"><a href="#schema-TelemetryEnvelope">Definition of TelemetryEnvelope</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">#2</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-enum"><span class="s-label">enum</span><code>payment_service</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-V2gPaymentService">
+      <summary><span class="s-name">#3</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-V2gPaymentService" title="telemetry.yaml">V2gPaymentService</a></summary>
+      <div class="s-desc"><p>V2G payment-service telemetry flags.</p></div><p class="s-inline"><a href="#schema-V2gPaymentService">Definition of V2gPaymentService</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-TelemetryV2gChargerStatus">
+      <summary><span class="s-name">TelemetryV2gChargerStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-TelemetryV2gChargerStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G charger-status payload (<code>V2G/{telemetry_id}/charger_status</code>) with framework fields.</p></div><p class="s-note">Additional properties allowed.</p>
+      <p class="s-note">All of:</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-TelemetryEnvelope">
+      <summary><span class="s-name">#1</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-TelemetryEnvelope" title="telemetry.yaml">TelemetryEnvelope</a></summary>
+      <div class="s-desc"><p>Common fields injected by the framework for all telemetry publications.</p></div><p class="s-inline"><a href="#schema-TelemetryEnvelope">Definition of TelemetryEnvelope</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node">
+      <summary><span class="s-name">#2</span><span class="s-type">object</span>
+      </summary>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+      </div>
+      <div class="s-enum"><span class="s-label">enum</span><code>charger_status</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-V2gChargerStatus">
+      <summary><span class="s-name">#3</span><span class="s-type">object</span>
+      <a class="s-ref" href="#schema-V2gChargerStatus" title="telemetry.yaml">V2gChargerStatus</a></summary>
+      <div class="s-desc"><p>V2G charger status telemetry.</p></div><p class="s-inline"><a href="#schema-V2gChargerStatus">Definition of V2gChargerStatus</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CertChainState">
+      <summary><span class="s-name">CertChainState</span> <span class="s-type">object</span><a class="anchor" href="#schema-CertChainState" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Cert chain status counters and flags.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">configured</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Certificate chain has been configured.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">synced</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Certificate chain is synced.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">num_files</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Number of certificate files.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">num_useful_files</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Number of useful certificate files.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-CertTelemetry">
+      <summary><span class="s-name">CertTelemetry</span> <span class="s-type">object</span><a class="anchor" href="#schema-CertTelemetry" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Certificate status for SECC and MO root chains.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">config_complete</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Whether all required certificate groups are configured.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">sync_complete</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Whether all required certificate groups are synced.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-CertChainState">
+      <summary><span class="s-name">secc_chain</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-CertChainState" title="telemetry.yaml">CertChainState</a></summary>
+      <div class="s-desc"><p>V2G certificate chain state.</p></div><p class="s-inline"><a href="#schema-CertChainState">Definition of CertChainState</a></p>
+      </details>
+      </li>
+
+      <li>
+      <details class="s-node" data-inline="schema-CertChainState">
+      <summary><span class="s-name">mo_root</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-CertChainState" title="telemetry.yaml">CertChainState</a></summary>
+      <div class="s-desc"><p>MO root certificate chain state.</p></div><p class="s-inline"><a href="#schema-CertChainState">Definition of CertChainState</a></p>
+      </details>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-EvseControlStatus">
+      <summary><span class="s-name">EvseControlStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-EvseControlStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>EVSE control state flags.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">authorisation_finished</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Authorization is finished.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">emergency_stop</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Emergency stop active.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">error_stop</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Error stop active.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">normal_stop</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Normal stop active.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">contract_payment_enabled</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Contract payment enabled.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">free_charging_enabled</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Free charging enabled.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gDin70121CommunicationState">
+      <summary><span class="s-name">V2gDin70121CommunicationState</span> <span class="s-type">string</span><a class="anchor" href="#schema-V2gDin70121CommunicationState" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>DIN 70121 transport communication state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>WaitForSessionSetup</code><code>WaitForServiceDiscovery</code><code>WaitForPaymentServiceSelection</code><code>WaitForAuthorization</code><code>WaitForChargeParameterDiscovery</code><code>WaitForCableCheck</code><code>WaitForPreCharge</code><code>WaitForPreChargePowerDelivery</code><code>WaitForCurrentDemand</code><code>WaitForCurrentDemandPowerDelivery</code><code>WaitForWeldingDetectionSessionStop</code><code>WaitForSessionStop</code><code>WaitForTerminatedSession</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gIso15118AcCommunicationState">
+      <summary><span class="s-name">V2gIso15118AcCommunicationState</span> <span class="s-type">string</span><a class="anchor" href="#schema-V2gIso15118AcCommunicationState" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>ISO 15118-2 AC transport communication state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>WaitForSessionSetup</code><code>WaitForServiceDiscovery</code><code>WaitForServiceDetailPaymentServiceSelection</code><code>WaitForPaymentDetailsCertificateInstallCertificateUpdate</code><code>WaitForPaymentDetails</code><code>WaitForAuthorization</code><code>WaitForChargeParameterDiscovery</code><code>WaitForPowerDelivery</code><code>WaitForChargingStatus</code><code>WaitForChargingStatusPowerDelivery</code><code>WaitForMeteringReceipt</code><code>WaitForSessionStop</code><code>WaitForTerminatedSession</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gIso15118DcCommunicationState">
+      <summary><span class="s-name">V2gIso15118DcCommunicationState</span> <span class="s-type">string</span><a class="anchor" href="#schema-V2gIso15118DcCommunicationState" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>ISO 15118-2 DC communication state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>WaitForSessionSetup</code><code>WaitForServiceDiscovery</code><code>WaitForServiceDetailPaymentServiceSelection</code><code>WaitForPaymentDetailsCertificateInstallCertificateUpdate</code><code>WaitForPaymentDetails</code><code>WaitForAuthorization</code><code>WaitForChargeParameterDiscovery</code><code>WaitForCableCheck</code><code>WaitForPreCharge</code><code>WaitForPreChargePowerDelivery</code><code>WaitForCurrentDemandPowerDelivery</code><code>WaitForCurrentDemand</code><code>WaitForMeteringReceipt</code><code>WaitForWeldingDetectionSessionStop</code><code>WaitForTerminatedSession</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gCommunicationState">
+      <summary><span class="s-name">V2gCommunicationState</span> <span class="s-type">object</span><a class="anchor" href="#schema-V2gCommunicationState" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>Communication state container. Optional fields are omitted when unset.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">din70121</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-V2gDin70121CommunicationState" title="telemetry.yaml">V2gDin70121CommunicationState</a></div>
+      <div class="s-desc"><p>DIN 70121 communication state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>WaitForSessionSetup</code><code>WaitForServiceDiscovery</code><code>WaitForPaymentServiceSelection</code><code>WaitForAuthorization</code><code>WaitForChargeParameterDiscovery</code><code>WaitForCableCheck</code><code>WaitForPreCharge</code><code>WaitForPreChargePowerDelivery</code><code>WaitForCurrentDemand</code><code>WaitForCurrentDemandPowerDelivery</code><code>WaitForWeldingDetectionSessionStop</code><code>WaitForSessionStop</code><code>WaitForTerminatedSession</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">iso15118_ac</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-V2gIso15118AcCommunicationState" title="telemetry.yaml">V2gIso15118AcCommunicationState</a></div>
+      <div class="s-desc"><p>ISO 15118-2 AC communication state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>WaitForSessionSetup</code><code>WaitForServiceDiscovery</code><code>WaitForServiceDetailPaymentServiceSelection</code><code>WaitForPaymentDetailsCertificateInstallCertificateUpdate</code><code>WaitForPaymentDetails</code><code>WaitForAuthorization</code><code>WaitForChargeParameterDiscovery</code><code>WaitForPowerDelivery</code><code>WaitForChargingStatus</code><code>WaitForChargingStatusPowerDelivery</code><code>WaitForMeteringReceipt</code><code>WaitForSessionStop</code><code>WaitForTerminatedSession</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">iso15118_dc</span><span class="s-type">string</span>
+      <a class="s-ref" href="#schema-V2gIso15118DcCommunicationState" title="telemetry.yaml">V2gIso15118DcCommunicationState</a></div>
+      <div class="s-desc"><p>ISO 15118-2 DC communication state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>WaitForSessionSetup</code><code>WaitForServiceDiscovery</code><code>WaitForServiceDetailPaymentServiceSelection</code><code>WaitForPaymentDetailsCertificateInstallCertificateUpdate</code><code>WaitForPaymentDetails</code><code>WaitForAuthorization</code><code>WaitForChargeParameterDiscovery</code><code>WaitForCableCheck</code><code>WaitForPreCharge</code><code>WaitForPreChargePowerDelivery</code><code>WaitForCurrentDemandPowerDelivery</code><code>WaitForCurrentDemand</code><code>WaitForMeteringReceipt</code><code>WaitForWeldingDetectionSessionStop</code><code>WaitForTerminatedSession</code></div>
+
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gMessageState">
+      <summary><span class="s-name">V2gMessageState</span> <span class="s-type">string</span><a class="anchor" href="#schema-V2gMessageState" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>ISO 15118 protocol message state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>SupportedAppProtocol</code><code>SessionSetup</code><code>ServiceDiscovery</code><code>ServiceDetail</code><code>PaymentServiceSelection</code><code>PaymentDetails</code><code>Authorization</code><code>ChargeParameterDiscovery</code><code>MeteringReceipt</code><code>CertificateUpdate</code><code>CertificateInstallation</code><code>ChargingStatus</code><code>CableCheck</code><code>PreCharge</code><code>PowerDelivery</code><code>CurrentDemand</code><code>WeldingDetection</code><code>SessionStop</code><code>Unknown</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gServerStatus">
+      <summary><span class="s-name">V2gServerStatus</span> <span class="s-type">string</span><a class="anchor" href="#schema-V2gServerStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>Transport server status.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Inactive</code><code>Active</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gTransport">
+      <summary><span class="s-name">V2gTransport</span> <span class="s-type">object</span><a class="anchor" href="#schema-V2gTransport" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G transport state.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <details class="s-node" data-inline="schema-V2gCommunicationState">
+      <summary><span class="s-name">comm_state</span><span class="s-type">object</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-V2gCommunicationState" title="telemetry.yaml">V2gCommunicationState</a></summary>
+      <div class="s-desc"><p>Communication state object.</p></div><p class="s-inline"><a href="#schema-V2gCommunicationState">Definition of V2gCommunicationState</a></p>
+      </details>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">message_state</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-V2gMessageState" title="telemetry.yaml">V2gMessageState</a></div>
+      <div class="s-desc"><p>Current message state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>SupportedAppProtocol</code><code>SessionSetup</code><code>ServiceDiscovery</code><code>ServiceDetail</code><code>PaymentServiceSelection</code><code>PaymentDetails</code><code>Authorization</code><code>ChargeParameterDiscovery</code><code>MeteringReceipt</code><code>CertificateUpdate</code><code>CertificateInstallation</code><code>ChargingStatus</code><code>CableCheck</code><code>PreCharge</code><code>PowerDelivery</code><code>CurrentDemand</code><code>WeldingDetection</code><code>SessionStop</code><code>Unknown</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">udp_server_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-V2gServerStatus" title="telemetry.yaml">V2gServerStatus</a></div>
+      <div class="s-desc"><p>UDP server status.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Inactive</code><code>Active</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_listener_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-V2gServerStatus" title="telemetry.yaml">V2gServerStatus</a></div>
+      <div class="s-desc"><p>TCP listener status.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Inactive</code><code>Active</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_server_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-V2gServerStatus" title="telemetry.yaml">V2gServerStatus</a></div>
+      <div class="s-desc"><p>TCP server status.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Inactive</code><code>Active</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_connection_established</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>TCP connection established.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_discovery_enable</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>TCP discovery enabled.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_security_enable</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>TCP security enabled.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_security_required</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>TCP security required.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">tcp_port_number</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>TCP port number.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">session_setup_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Session setup requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">authorization_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Authorization requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">charge_parameter_discovery_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Charge parameter discovery requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">cable_check_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Cable check requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">pre_charge_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Pre-charge requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">current_demand_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Current demand requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">welding_detection_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Welding detection requested.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-ChargeProgress">
+      <summary><span class="s-name">ChargeProgress</span> <span class="s-type">string</span><a class="anchor" href="#schema-ChargeProgress" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>EV charge progress state.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Start</code><code>Stop</code><code>Renegotiate</code><code>Pause</code><code>Terminate</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gEvElectrical">
+      <summary><span class="s-name">V2gEvElectrical</span> <span class="s-type">object</span><a class="anchor" href="#schema-V2gEvElectrical" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>EV electrical telemetry.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">charge_progress</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-ChargeProgress" title="telemetry.yaml">ChargeProgress</a></div>
+      <div class="s-desc"><p>Current EV charge progress.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Start</code><code>Stop</code><code>Renegotiate</code><code>Pause</code><code>Terminate</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">battery_soc_percent</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Battery state of charge.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">error_code</span><span class="s-type">string</span>
+      <span class="s-req">required</span><a class="s-ref" href="#schema-V2gEvErrorCode" title="telemetry.yaml">V2gEvErrorCode</a></div>
+      <div class="s-desc"><p>EV error code.</p></div><div class="s-enum"><span class="s-label">enum</span><code>NO_ERROR</code><code>FAILED_RESSTemperatureInhibit</code><code>FAILED_EVShiftPosition</code><code>FAILED_ChargerConnectorLockFault</code><code>FAILED_EVRESSMalfunction</code><code>FAILED_ChargingCurrentdifferential</code><code>FAILED_ChargingVoltageOutOfRange</code><code>Reserved_A</code><code>Reserved_B</code><code>Reserved_C</code><code>FAILED_ChargingSystemIncompatibility</code><code>NoData</code></div>
+
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum allowed current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_power_W</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum allowed power in W.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum allowed voltage in V.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_rated_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum rated current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_rated_power_W</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum rated power in W.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_rated_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum rated voltage in V.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">target_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Target current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">target_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Target voltage in V.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">remaining_time_bulk_min</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Estimated bulk charge time in minutes.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">remaining_time_full_min</span><span class="s-type">integer</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Estimated full charge time in minutes.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">energy_request_Wh</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Requested energy in Wh.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">energy_capacity_Wh</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Battery energy capacity in Wh.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gPaymentService">
+      <summary><span class="s-name">V2gPaymentService</span> <span class="s-type">object</span><a class="anchor" href="#schema-V2gPaymentService" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G payment-service telemetry flags.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_install_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Certificate install requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">certificate_update_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Certificate update requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">charging_service_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Charging service requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">external_payment_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>External payment requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">contract_payment_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Contract payment requested.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">contract_payment_approved</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Contract payment approved.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">contract_payment_error</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Contract payment error.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">internet_ftp20_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>FTP20 internet request raised.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">internet_ftp21_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>FTP21 internet request raised.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">internet_http80_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>HTTP 80 internet request raised.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">internet_https443_requested</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>HTTPS 443 internet request raised.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gChargerStatus">
+      <summary><span class="s-name">V2gChargerStatus</span> <span class="s-type">object</span><a class="anchor" href="#schema-V2gChargerStatus" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>V2G charger status telemetry.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">evcc_id</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>EVCC ID.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">selected_protocol</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Selected protocol identifier.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">cable_check_status</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Cable check status.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">param_discovery_finished</span><span class="s-type">boolean</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Parameter discovery complete.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">isolation_status</span><span class="s-type">string</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Isolation status string as reported by module.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">dynamic_max_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Dynamic maximum current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">dynamic_max_power_W</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Dynamic maximum power in W.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">dynamic_max_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Dynamic maximum voltage in V.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gEvErrorCode">
+      <summary><span class="s-name">V2gEvErrorCode</span> <span class="s-type">string</span><a class="anchor" href="#schema-V2gEvErrorCode" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">string</span></div>
+      <div class="s-desc"><p>V2G error code for EV side.</p></div><div class="s-enum"><span class="s-label">enum</span><code>NO_ERROR</code><code>FAILED_RESSTemperatureInhibit</code><code>FAILED_EVShiftPosition</code><code>FAILED_ChargerConnectorLockFault</code><code>FAILED_EVRESSMalfunction</code><code>FAILED_ChargingCurrentdifferential</code><code>FAILED_ChargingVoltageOutOfRange</code><code>Reserved_A</code><code>Reserved_B</code><code>Reserved_C</code><code>FAILED_ChargingSystemIncompatibility</code><code>NoData</code></div>
+
+      </div>
+
+      </details>
+      <details class="schema" id="schema-V2gEvseElectrical">
+      <summary><span class="s-name">V2gEvseElectrical</span> <span class="s-type">object</span><a class="anchor" href="#schema-V2gEvseElectrical" aria-label="Link to this definition">¶</a></summary>
+      <div class="s-root">
+      <div class="s-head"><span class="s-type">object</span></div>
+      <div class="s-desc"><p>EVSE-side electrical telemetry structure.</p></div><p class="s-note">Additional properties allowed.</p>
+      <ul class="s-tree">
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">present_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Present current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">present_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Present voltage in V.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_rated_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum rated current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_rated_power_W</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum rated power in W.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">maximum_rated_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Maximum rated voltage in V.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">minimum_rated_current_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Minimum rated current in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">minimum_rated_voltage_V</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Minimum rated voltage in V.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">current_ripple_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Current ripple in A.</p></div>
+      </div>
+      </li>
+
+      <li>
+      <div class="s-leaf">
+      <div class="s-head"><span class="s-name">current_tolerance_A</span><span class="s-type">number</span>
+      <span class="s-req">required</span></div>
+      <div class="s-desc"><p>Current tolerance in A.</p></div>
+      </div>
+      </li>
+
+      </ul>
+
+      </div>
+
+      </details>
+

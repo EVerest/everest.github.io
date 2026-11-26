@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>EVerest Configuration Service - EVerest Manual 2026.10.0-rc3</title>
+        <title>EVerest Configuration Service - EVerest Manual 2026.10.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">EVerest Manual 2026.10.0-rc3</div></a>
+      <a href="../index.html"><div class="brand">EVerest Manual 2026.10.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual 2026.10.0-rc3</span>
+  <span class="sidebar-brand-text">EVerest Manual 2026.10.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1032,6 +1032,40 @@ makes the Configuration API unavailable, and the modules are down as well. On
 restart the manager reinitializes the ConfigServiceCore, loads the boot slot and
 starts the modules.</p>
 </section>
+<section id="manifest-default-changes">
+<h2>Manifest Default Changes<a class="headerlink" href="#manifest-default-changes" title="Link to this heading">¶</a></h2>
+<p>Every stored parameter value records its origin: <code class="docutils literal notranslate"><span class="pre">default</span></code> if it was taken
+from the default in the module manifest, <code class="docutils literal notranslate"><span class="pre">user</span></code> if it was given explicitly,
+in the config file or via the Configuration API, even when it equals the
+default. Whenever a slot is loaded as the active configuration, at boot or on a
+module restart, values of origin <code class="docutils literal notranslate"><span class="pre">default</span></code> follow the current manifests:</p>
+<ul class="simple">
+<li><p>If the manifest default changed (in value or datatype), the new default
+replaces the stored value.</p></li>
+<li><p>If the manifest no longer defines a default, the stored value is kept and its
+origin becomes <code class="docutils literal notranslate"><span class="pre">user</span></code>. A stored integer is widened to a decimal if the
+manifest changed the datatype accordingly. If the datatype changed in any
+other way, the slot fails validation and is not loaded, just as for a value
+of origin <code class="docutils literal notranslate"><span class="pre">user</span></code> with the wrong datatype.</p></li>
+<li><p>If the manifest defines a new parameter with a default, the parameter is
+added to the slot with origin <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p></li>
+</ul>
+<p>Each such change is written to the database for the loaded slot only and is
+logged as a warning. Other slots are migrated when they are loaded. Values of
+origin <code class="docutils literal notranslate"><span class="pre">user</span></code> are never changed this way.</p>
+<p>Values stored by a release that did not record the origin have none in the
+database. Their origin is settled, and written to the database, the first time
+their slot is loaded as the active configuration:</p>
+<ul class="simple">
+<li><p>A value that equals the manifest default gets the origin <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p></li>
+<li><p>A value that the manifest rejects, because of its datatype or its allowed
+values, is replaced by the manifest default, gets the origin <code class="docutils literal notranslate"><span class="pre">default</span></code> and
+is logged as a warning. Such a value cannot be told apart from a former
+default, so a value that was set explicitly is replaced as well.</p></li>
+<li><p>Any other value gets the origin <code class="docutils literal notranslate"><span class="pre">user</span></code>, also if the manifest defines no
+default.</p></li>
+</ul>
+</section>
 <section id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">¶</a></h2>
 <p>The manager is the single long-lived process. It is started by the system init,
@@ -1339,6 +1373,7 @@ the order the changes were accepted.</p>
 <li><a class="reference internal" href="#manager-startup">Manager Startup</a></li>
 <li><a class="reference internal" href="#module-stop-and-restart">Module Stop and Restart</a></li>
 <li><a class="reference internal" href="#manager-unavailability">Manager Unavailability</a></li>
+<li><a class="reference internal" href="#manifest-default-changes">Manifest Default Changes</a></li>
 <li><a class="reference internal" href="#deployment">Deployment</a></li>
 <li><a class="reference internal" href="#read-operations">Read Operations</a><ul>
 <li><a class="reference internal" href="#by-a-configuration-api-client">By a Configuration API Client</a></li>
@@ -1362,7 +1397,7 @@ the order the changes were accepted.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=587283a2"></script>
+</div><script src="../_static/documentation_options.js?v=c1b729fb"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

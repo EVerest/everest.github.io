@@ -64,6 +64,9 @@ Provides
 |   **use_system_timezone**: *boolean* <optional>
 |   *default: False*
 |    When enabled, the timezone offset written to the device follows the time zone of the host (TZ or /etc/localtime), including daylight saving time changes, and timezone_offset_minutes is ignored. The offset is checked at device_state_read_interval_ms and a change is written right away, also during a transaction: every OCMF reading carries its own offset.
+|   **startup_transaction_state_timeout_s**: *integer* <optional>
+|   *default: 30*
+|    Maximum time in seconds a start or stop transaction request waits at start up until the device is configured and its transaction state (a running or closed transaction and its id) is known. EvseManager stops the transaction of the previous session at start up, possibly before that; without the wait such a stop does not find the transaction and its OCMF file is not returned. Waited for once only. The default of 30 s covers a device that answers but is slow to configure, including a few retries; a device that does not answer is not configured within any reasonable wait. 0 disables the wait.
 | **temperature_sensor**: :ref:`temperature_sensor <everest_interfaces_temperature_sensor>`
 |  Internal temperature readings from the EM580 device
 

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>ErrorHistory - EVerest Manual 2026.10.0-rc3</title>
+        <title>ErrorHistory - EVerest Manual 2026.10.0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual 2026.10.0-rc3</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual 2026.10.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual 2026.10.0-rc3</span>
+  <span class="sidebar-brand-text">EVerest Manual 2026.10.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -735,6 +735,29 @@
 <div class="line-block">
 <div class="line">This module provides a persistent error history</div>
 </div>
+<section id="handwritten-documentation">
+<h2>Handwritten Documentation<a class="headerlink" href="#handwritten-documentation" title="Link to this heading">¶</a></h2>
+<span class="target" id="everest-modules-handwritten-errorhistory"></span><p>Stores every error raised in the system in a SQLite database at <code class="docutils literal notranslate"><span class="pre">database_path</span></code> and
+returns the stored errors through the <code class="docutils literal notranslate"><span class="pre">get_errors</span></code> command of the <code class="docutils literal notranslate"><span class="pre">error_history</span></code>
+interface. An error is stored when it is raised and updated when it is cleared; errors
+still active at startup are marked <code class="docutils literal notranslate"><span class="pre">ClearedByReboot</span></code>.</p>
+<section id="database-schema">
+<h3>Database schema<a class="headerlink" href="#database-schema" title="Link to this heading">¶</a></h3>
+<p>The module checks the schema of an existing database at startup:</p>
+<ul class="simple">
+<li><p>A file that is not an SQLite database, a database without an <code class="docutils literal notranslate"><span class="pre">errors</span></code> table, or one
+whose <code class="docutils literal notranslate"><span class="pre">errors</span></code> table lacks one of the columns the module needs, is reset. Its stored
+errors are lost.</p></li>
+<li><p>Additional columns, for example from a newer version of the module, are ignored and
+kept, unless they are <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code> without a default. The module could not store errors
+in such a database, so it is reset as well.</p></li>
+<li><p>If the check itself fails, for example because the database is locked or can not be
+read, the database is kept as it is and the error is logged.</p></li>
+</ul>
+<p>If the database can not be reset or created, the error is logged and the module runs
+without storing errors.</p>
+</section>
+</section>
 <section id="auto-generated-reference">
 <h2>Auto-Generated Reference<a class="headerlink" href="#auto-generated-reference" title="Link to this heading">¶</a></h2>
 <section id="provides">
@@ -827,6 +850,10 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">ErrorHistory</a><ul>
+<li><a class="reference internal" href="#handwritten-documentation">Handwritten Documentation</a><ul>
+<li><a class="reference internal" href="#database-schema">Database schema</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#auto-generated-reference">Auto-Generated Reference</a><ul>
 <li><a class="reference internal" href="#provides">Provides</a></li>
 </ul>
@@ -847,7 +874,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=587283a2"></script>
+</div><script src="../../../../_static/documentation_options.js?v=c1b729fb"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>

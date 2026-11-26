@@ -1,0 +1,2555 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="slac_API" href="slac_API.html"><link rel="prev" title="session_cost_consumer_API" href="session_cost_consumer_API.html">
+        <link rel="prefetch" href="../../_static/everest_icon-color.png" as="image">
+
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>session_storage_consumer_API - EVerest Manual 2026.10.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=6a604523" />
+    <link rel="stylesheet" type="text/css" href="../../_static/everest-api/everest-api.css?v=81ca801c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">EVerest Manual 2026.10.0</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/everest_icon-color.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">EVerest Manual 2026.10.0</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-sw.html">Get started in Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-hw.html">Get started with Hardware</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/develop-new-module.html">Develop New Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp-combined.html">OCPP 1.6 and 2.x with the Combined Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp16.html">OCPP 1.6 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/ocpp2.html">OCPP 2.0.1 and 2.1 in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/plug-and-charge.html">Plug&amp;Charge with EVerest Software in the Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/management_apis.html">Management APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/bazel.html">Experimental Bazel Support</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../tutorials/setup-devcontainer/index.html">EVerest devcontainer</a><input aria-label="Toggle navigation of EVerest devcontainer" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/devrd.html">Managed by devrd CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/vscode.html">Managed by VSCode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/setup-devcontainer/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/everest_api.html">Using the EVerestAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to-guides/index.html">How To Guides</a><input aria-label="Toggle navigation of How To Guides" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how-to-guides/documenting-everest/index.html">Documenting EVerest</a><input aria-label="Toggle navigation of Documenting EVerest" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/documenting-everest/extending-everest-documentation.html">Extending the EVerest Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/documenting-everest/change-documentation-quickstart.html">Documenting Quickstart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/documenting-everest/sphinx-style-guide.html">Sphinx Style Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how-to-guides/getting-started/index.html">Getting Started with EVerest</a><input aria-label="Toggle navigation of Getting Started with EVerest" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-sw.html">Get started in Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/getting-started/get-started-hw.html">Get started with Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/error-framework-howto.html">Using the Error Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/configure-pnc.html">Configure Plug&amp;Charge in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/debug-iso15118.html">Debug ISO 15118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/debug-modules.html">Debug EVerest Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/yocto-cross-compilation.html">Cross-compilation of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/eichrecht.html">Eichrecht</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/uk-smart-charging-regulations.html">UK Smart Charging Regulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/renesas-mpu/index.html">How to for Renesas MPU (RZ/G2L family)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/security-best-practices.html">Security Best Practices</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how-to-guides/bringup/index.html">BringUp &amp; Qualification</a><input aria-label="Toggle navigation of BringUp &amp; Qualification" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/basic.html">Basic BringUp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/powermeter.html">BringUp Powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/ac.html">AC BringUp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../how-to-guides/bringup/dc.html">DC BringUp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/choosing-version-and-upgrading.html">Choosing an EVerest Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/pionix-belay-box.html">Pionix BelayBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/integrate-tariff-and-cost.html">Integrate Tariff and Cost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/devcontainer-usage/index.html">Use the EVerest Development Container (devrd managed)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/c%2B%2B-coding-guidelines.html">C++ Coding Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/ocpp-storage-migration.html">Migrate to the Combined OCPP Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/ocpp-custom-error-mapping.html">Customize How Errors Reach the CSMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to-guides/iso15118-stack-migration.html">Migrate from EvseV2G and IsoMux to Evse15118D20</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../explanation/index.html">Explanation</a><input aria-label="Toggle navigation of Explanation" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/high-level-overview.html">High-Level Overview of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/error-framework.html">Error Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/detail-module-concept.html">EVerest Modules in Detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/manager-lifecycle.html">Manager Lifecycle State Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/configuration-service.html">EVerest Configuration Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/tier-module-mappings.html">3-tier Module Mappings</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../explanation/adapt-everest/index.html">Adapt EVerest</a><input aria-label="Toggle navigation of Adapt EVerest" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/adapt-everest/sub-systems.html">Sub-systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/adapt-everest/apis.html">EVerest APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/adapt-everest/management_apis.html">Management APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/energymanagement/index.html">Energy Management in EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/dev-tools/edm.html">edm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/dev-tools/ev-cli.html">ev-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/dev-tools/management-api-cli.html">everest-management-api-cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/pnc-process.html">The Plug&amp;Charge Process in EVerest</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../explanation/linux-yocto/index.html">Linux / Yocto</a><input aria-label="Toggle navigation of Linux / Yocto" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/setting-up-linux-os.html">Setting up the Linux operating system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/building-yocto.html">Building Yocto for your custom hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/ota-updates.html">Over-the-air-updates (OTA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../explanation/linux-yocto/partitioning-schemes-for-rauc-ota.html">Partitioning schemes for RAUC OTA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/hardware-architecture.html">Hardware Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/hardware-drivers.html">Hardware Drivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/the-everest-documentation.html">The EVerest Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/powermeter-ocmf.html">Powermeter OCMF Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../explanation/devcontainer-internal/index.html">Internals of the EVerest Development Container</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference</a><input aria-label="Toggle navigation of Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../manager-cli.html">Manager Command Line Options</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../modules/index.html">Modules</a><input aria-label="Toggle navigation of Modules" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/API/autogenerated.html">API</a><input aria-label="Toggle navigation of API" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/API/API/autogenerated.html">API</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/API/EVerestAPI/autogenerated.html">EVerestAPI</a><input aria-label="Toggle navigation of EVerestAPI" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/auth_consumer_API/autogenerated.html">auth_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/auth_token_provider_API/autogenerated.html">auth_token_provider_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/auth_token_validator_API/autogenerated.html">auth_token_validator_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/charger_information_API/autogenerated.html">charger_information_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/dc_external_derate_consumer_API/autogenerated.html">dc_external_derate_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/display_message_API/autogenerated.html">display_message_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/error_history_consumer_API/autogenerated.html">error_history_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/ev_board_support_API/autogenerated.html">ev_board_support_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/evse_board_support_API/autogenerated.html">evse_board_support_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/evse_manager_consumer_API/autogenerated.html">evse_manager_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/evse_security_consumer_API/autogenerated.html">evse_security_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/external_energy_limits_consumer_API/autogenerated.html">external_energy_limits_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/generic_error_raiser_API/autogenerated.html">generic_error_raiser_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/isolation_monitor_API/autogenerated.html">isolation_monitor_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/ocpp_consumer_API/autogenerated.html">ocpp_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/over_voltage_monitor_API/autogenerated.html">over_voltage_monitor_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/power_supply_DC_API/autogenerated.html">power_supply_DC_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/powermeter_API/autogenerated.html">powermeter_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/session_cost_API/autogenerated.html">session_cost_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/session_cost_consumer_API/autogenerated.html">session_cost_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/session_storage_consumer_API/autogenerated.html">session_storage_consumer_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/slac_API/autogenerated.html">slac_API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/API/EVerestAPI/system_API/autogenerated.html">system_API</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/API/EvAPI/autogenerated.html">EvAPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/API/RpcApi/autogenerated.html">RpcApi</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/BringUp/autogenerated.html">BringUp</a><input aria-label="Toggle navigation of BringUp" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUDCExternalDerate/autogenerated.html">BUDCExternalDerate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUDisplayMessage/autogenerated.html">BUDisplayMessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUEvBoardSupport/autogenerated.html">BUEvBoardSupport</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUEvseBoardSupport/autogenerated.html">BUEvseBoardSupport</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUIsolationMonitor/autogenerated.html">BUIsolationMonitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUOcppConsumer/autogenerated.html">BUOcppConsumer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUOverVoltageMonitor/autogenerated.html">BUOverVoltageMonitor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUPowerSupplyDC/autogenerated.html">BUPowerSupplyDC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUPowermeter/autogenerated.html">BUPowermeter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUSlac/autogenerated.html">BUSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUSystem/autogenerated.html">BUSystem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/BringUp/BUTokenProvider/autogenerated.html">BUTokenProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/EV/autogenerated.html">EV</a><input aria-label="Toggle navigation of EV" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/Ev15118/autogenerated.html">Ev15118</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/EvManager/autogenerated.html">EvManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/EvSlac/autogenerated.html">EvSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EV/McsEvDataLink/autogenerated.html">McsEvDataLink</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/EVSE/autogenerated.html">EVSE</a><input aria-label="Toggle navigation of EVSE" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/Auth/autogenerated.html">Auth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/Evse15118D20/autogenerated.html">Evse15118D20</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseManager/autogenerated.html">EvseManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseSecurity/autogenerated.html">EvseSecurity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseSlac/autogenerated.html">EvseSlac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/EvseV2G/autogenerated.html">EvseV2G</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/Iso15118InternetVas/autogenerated.html">Iso15118InternetVas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/IsoMux/autogenerated.html">IsoMux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/McsDataLink/autogenerated.html">McsDataLink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/OCPP/autogenerated.html">OCPP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/OCPP201/autogenerated.html">OCPP201</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/OCPPmulti/autogenerated.html">OCPPmulti</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EVSE/StaticISO15118VASProvider/autogenerated.html">StaticISO15118VASProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/EnergyManagement/autogenerated.html">EnergyManagement</a><input aria-label="Toggle navigation of EnergyManagement" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/AcTemperatureDerating/autogenerated.html">AcTemperatureDerating</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/EEBUS/autogenerated.html">EEBUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/EnergyManager/autogenerated.html">EnergyManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/EnergyManagement/EnergyNode/autogenerated.html">EnergyNode</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Examples/autogenerated.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/Examples/CppExamples/autogenerated.html">CppExamples</a><input aria-label="Toggle navigation of CppExamples" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/Example/autogenerated.html">Example</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/ExampleUser/autogenerated.html">ExampleUser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/OCPPExtensionExample/autogenerated.html">OCPPExtensionExample</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/TerminalCostAndPriceMessage/autogenerated.html">TerminalCostAndPriceMessage</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/CppExamples/TerminalDisplayMessage/autogenerated.html">TerminalDisplayMessage</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/Examples/RustExamples/autogenerated.html">RustExamples</a><input aria-label="Toggle navigation of RustExamples" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/RustExamples/RsExample/autogenerated.html">RsExample</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/RustExamples/RsExampleUser/autogenerated.html">RsExampleUser</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/Examples/error-framework/autogenerated.html">error-framework</a><input aria-label="Toggle navigation of error-framework" class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/ExampleErrorGlobalSubscriber/autogenerated.html">ExampleErrorGlobalSubscriber</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/ExampleErrorRaiser/autogenerated.html">ExampleErrorRaiser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/ExampleErrorSubscriber/autogenerated.html">ExampleErrorSubscriber</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/PyExampleErrorRaiser/autogenerated.html">PyExampleErrorRaiser</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/Examples/error-framework/PyExampleErrorSubscriber/autogenerated.html">PyExampleErrorSubscriber</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/HardwareDrivers/autogenerated.html">HardwareDrivers</a><input aria-label="Toggle navigation of HardwareDrivers" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/EV/autogenerated.html">EV</a><input aria-label="Toggle navigation of EV" class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EV/YetiEvDriver/autogenerated.html">YetiEvDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/autogenerated.html">EVSE</a><input aria-label="Toggle navigation of EVSE" class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/AdAcEvse22KwzKitBSP/autogenerated.html">AdAcEvse22KwzKitBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/MicroMegaWattBSP/autogenerated.html">MicroMegaWattBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/PhyVersoBSP/autogenerated.html">PhyVersoBSP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/TIDA010939/autogenerated.html">TIDA010939</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/EVSE/YetiDriver/autogenerated.html">YetiDriver</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/IsolationMonitors/autogenerated.html">IsolationMonitors</a><input aria-label="Toggle navigation of IsolationMonitors" class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/IsolationMonitors/Bender_isoCHA425HV/autogenerated.html">Bender_isoCHA425HV</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/IsolationMonitors/DoldRN5893/autogenerated.html">DoldRN5893</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/autogenerated.html">NfcReaders</a><input aria-label="Toggle navigation of NfcReaders" class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/NxpNfcFrontendTokenProvider/autogenerated.html">NxpNfcFrontendTokenProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/PN532TokenProvider/autogenerated.html">PN532TokenProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/NfcReaders/PN7160TokenProvider/autogenerated.html">PN7160TokenProvider</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/Payment/autogenerated.html">Payment</a><input aria-label="Toggle navigation of Payment" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/Payment/RsPaymentTerminal/autogenerated.html">RsPaymentTerminal</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/autogenerated.html">PowerMeters</a><input aria-label="Toggle navigation of PowerMeters" class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/AST_DC650/autogenerated.html">AST_DC650</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/Acrel_DJSF1352_RN/autogenerated.html">Acrel_DJSF1352_RN</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/CarloGavazzi_EM580/autogenerated.html">CarloGavazzi_EM580</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/DZG_GSH01/autogenerated.html">DZG_GSH01</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/GenericPowermeter/autogenerated.html">GenericPowermeter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/IsabellenhuetteIemDcr/autogenerated.html">IsabellenhuetteIemDcr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/LemDCBM400600/autogenerated.html">LemDCBM400600</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerMeters/RsIskraMeter/autogenerated.html">RsIskraMeter</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/autogenerated.html">PowerSupplies</a><input aria-label="Toggle navigation of PowerSupplies" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/DPM1000/autogenerated.html">DPM1000</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/Huawei_R100040Gx/autogenerated.html">Huawei_R100040Gx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/Huawei_V100R023C10/autogenerated.html">Huawei_V100R023C10</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/InfyPower/autogenerated.html">InfyPower</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/InfyPower_BEG1K075G/autogenerated.html">InfyPower_BEG1K075G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/UUGreenPower_UR1000X0/autogenerated.html">UUGreenPower_UR1000X0</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../modules/HardwareDrivers/PowerSupplies/Winline/autogenerated.html">Winline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Misc/autogenerated.html">Misc</a><input aria-label="Toggle navigation of Misc" class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/ChargerInfo/autogenerated.html">ChargerInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/ErrorHistory/autogenerated.html">ErrorHistory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/Linux_Systemd_Rauc/autogenerated.html">Linux_Systemd_Rauc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/LocalAllowlistTokenValidator/autogenerated.html">LocalAllowlistTokenValidator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/PacketSniffer/autogenerated.html">PacketSniffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/PersistentSessionStorage/autogenerated.html">PersistentSessionStorage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/PersistentStore/autogenerated.html">PersistentStore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/SerialCommHub/autogenerated.html">SerialCommHub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/Setup/autogenerated.html">Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/Store/autogenerated.html">Store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/System/autogenerated.html">System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Misc/YamlStore/autogenerated.html">YamlStore</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Simulation/autogenerated.html">Simulation</a><input aria-label="Toggle navigation of Simulation" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/DCSupplySimulator/autogenerated.html">DCSupplySimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/EvseManagerSimulator/autogenerated.html">EvseManagerSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/IMDSimulator/autogenerated.html">IMDSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/ManagerLifecycleSimulator/autogenerated.html">ManagerLifecycleSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/OVMSimulator/autogenerated.html">OVMSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/SlacSimulator/autogenerated.html">SlacSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/TemperatureSensorSimulator/autogenerated.html">TemperatureSensorSimulator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Simulation/YetiSimulator/autogenerated.html">YetiSimulator</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../modules/Testing/autogenerated.html">Testing</a><input aria-label="Toggle navigation of Testing" class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyBankSessionTokenProvider/autogenerated.html">DummyBankSessionTokenProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummySessionCostProvider/autogenerated.html">DummySessionCostProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyTokenProvider/autogenerated.html">DummyTokenProvider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyTokenProviderManual/autogenerated.html">DummyTokenProviderManual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyTokenValidator/autogenerated.html">DummyTokenValidator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/Testing/DummyV2G/autogenerated.html">DummyV2G</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../interfaces_index.html">EVerest Interfaces</a><input aria-label="Toggle navigation of EVerest Interfaces" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ISO15118_charger.html">ISO15118_charger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ISO15118_ev.html">ISO15118_ev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ISO15118_vas.html">ISO15118_vas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ac_rcd.html">ac_rcd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/auth.html">auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/auth_token_provider.html">auth_token_provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/auth_token_validator.html">auth_token_validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/bank_session_token_provider.html">bank_session_token_provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/car_simulator.html">car_simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/charger_information.html">charger_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/connector_lock.html">connector_lock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/dc_external_derate.html">dc_external_derate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/debug_json.html">debug_json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/display_message.html">display_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/empty.html">empty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/energy.html">energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/energy_manager.html">energy_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/energy_price_information.html">energy_price_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/error_history.html">error_history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ev_board_support.html">ev_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ev_manager.html">ev_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ev_slac.html">ev_slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/evse_board_support.html">evse_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/evse_manager.html">evse_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/example.html">example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/example_error_framework.html">example_error_framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/example_user.html">example_user</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/external_energy_limits.html">external_energy_limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/generic_error.html">generic_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/grid_support.html">grid_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/iso15118_extensions.html">iso15118_extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/isolation_monitor.html">isolation_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/kvs.html">kvs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp.html">ocpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp_1_6_charge_point.html">ocpp_1_6_charge_point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/ocpp_data_transfer.html">ocpp_data_transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/over_voltage_monitor.html">over_voltage_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/payment_terminal.html">payment_terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/power.html">power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/power_supply_DC.html">power_supply_DC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/powermeter.html">powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/reservation.html">reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/serial_communication_hub.html">serial_communication_hub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/session_storage.html">session_storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/slac.html">slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/solar_forecast.html">solar_forecast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/system.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/temperature_sensor.html">temperature_sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/test_control.html">test_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/tibber_price_forecast.html">tibber_price_forecast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interfaces/uk_random_delay.html">uk_random_delay</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../types_index.html">EVerest Types</a><input aria-label="Toggle navigation of EVerest Types" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../types/authorization.html">authorization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/board_support_common.html">board_support_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/charger_information.html">charger_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/dc_external_derate.html">dc_external_derate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/display_message.html">display_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/energy.html">energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/energy_price_information.html">energy_price_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/error_history.html">error_history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/ev_board_support.html">ev_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/evse_board_support.html">evse_board_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/evse_manager.html">evse_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/evse_security.html">evse_security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/grid_support.html">grid_support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/iso15118.html">iso15118</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/iso15118_vas.html">iso15118_vas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/isolation_monitor.html">isolation_monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/money.html">money</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/network.html">network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/ocpp.html">ocpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/payment_terminal.html">payment_terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/power_supply_DC.html">power_supply_DC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/powermeter.html">powermeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/reservation.html">reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/serial_comm_hub_requests.html">serial_comm_hub_requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/session_cost.html">session_cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/session_storage.html">session_storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/slac.html">slac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/system.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/text_message.html">text_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/uk_random_delay.html">uk_random_delay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/units.html">units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../types/units_signed.html">units_signed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="autogenerated_api_index.html">EVerest API Specification</a><input aria-label="Toggle navigation of EVerest API Specification" checked="" class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="auth_consumer_API.html">auth_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth_token_provider_API.html">auth_token_provider_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auth_token_validator_API.html">auth_token_validator_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="charger_information_API.html">charger_information_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_API.html">configuration_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dc_external_derate_consumer_API.html">dc_external_derate_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="display_message_API.html">display_message_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entrypoint_API.html">entrypoint_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="error_history_consumer_API.html">error_history_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ev_board_support_API.html">ev_board_support_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evse_board_support_API.html">evse_board_support_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evse_manager_consumer_API.html">evse_manager_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evse_security_consumer_API.html">evse_security_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="external_energy_limits_consumer_API.html">external_energy_limits_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generic_error_raiser_API.html">generic_error_raiser_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="isolation_monitor_API.html">isolation_monitor_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lifecycle_API.html">lifecycle_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ocpp_consumer_API.html">ocpp_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="over_voltage_monitor_API.html">over_voltage_monitor_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="power_supply_DC_API.html">power_supply_DC_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermeter_API.html">powermeter_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="session_cost_API.html">session_cost_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="session_cost_consumer_API.html">session_cost_consumer_API</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">session_storage_consumer_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slac_API.html">slac_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system_API.html">system_API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="telemetry.html">telemetry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../snapshot.html">Dependencies Snapshot</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Help</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qa/index.html">Q &amp; A</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../project/index.html">Project &amp; Community</a><input aria-label="Toggle navigation of Project &amp; Community" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../project/community.html">Meet the EVerest Community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/contributing.html">Contributing to EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/roadmap.html">EVerest Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/governance/governance.html">EVerest project governance policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/governance/code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/governance/security.html">Security Policy</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../project/governance/tsc/index.html">Technical Steering Committee (TSC)</a><input aria-label="Toggle navigation of Technical Steering Committee (TSC)" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../project/governance/tsc/meetings/index.html">EVerest TSC Meeting notes</a><input aria-label="Toggle navigation of EVerest TSC Meeting notes" class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-10-22.html">EVerest TSC Meeting - 22 October 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-09-25.html">EVerest TSC Meeting - 24 September 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-08-27.html">EVerest TSC Meeting - 27 August 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-07-23.html">EVerest TSC Meeting - 23 July 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-07-02.html">EVerest TSC Meeting - 26 March 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-05-28.html">EVerest TSC Meeting - 28 May 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-04-23.html">EVerest TSC Meeting - 24 April 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-03-26.html">EVerest TSC Meeting - 26 March 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-02-26.html">EVerest TSC Meeting - 26 February 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2026-01-22.html">EVerest TSC Meeting - 22 January 2026</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-12-18.html">EVerest TSC Meeting - 18 December 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-11-27.html">EVerest TSC Meeting - 27 November 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-10-23.html">EVerest TSC Meeting - 23 October 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-09-25.html">EVerest TSC Meeting - 25 September 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-08-28.html">EVerest TSC Meeting - 28 August 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-07-24.html">EVerest TSC Meeting - 24 July 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-06-26.html">EVerest TSC Meeting - 26 June 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-05-22.html">EVerest TSC Meeting - 22 May 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-04-24.html">EVerest TSC Meeting - 24 April 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-03-27.html">EVerest TSC Meeting - 27 March 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-02-27.html">EVerest TSC Meeting - 27 February 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2025-01-23.html">EVerest TSC Meeting - 23 January 2025</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-12-19.html">EVerest TSC Meeting - 19 December 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-11-28.html">EVerest TSC Meeting - 28 November 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-10-24.html">EVerest TSC Meeting - 24 October 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-09-26.html">EVerest TSC Meeting - 26 September 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-08-22.html">EVerest TSC Meeting - 22 August 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-07-25.html">EVerest TSC Meeting - 25 July 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-06-27.html">EVerest TSC Meeting - 27 June 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-05-23.html">EVerest TSC Meeting - 23rd May 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-04-25.html">EVerest TSC Meeting - 25th April 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-03-28.html">EVerest TSC Meeting - 28th March 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-02-22.html">EVerest TSC Meeting - 22nd February 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2024-01-25.html">EVerest TSC Meeting - 25th January 2024</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-12-20.html">EVerest TSC Meeting - 20th December 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-11-23.html">EVerest TSC Meeting - 23rd November 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-10-26.html">EVerest TSC Meeting - 26th October 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-09-28.html">EVerest TSC Meeting - 28th September 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-08-24.html">EVerest TSC Meeting - 24th August 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-07-27.html">EVerest TSC Meeting - 27nd July 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-06-22.html">EVerest TSC Meeting - 22nd June 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-05-25.html">EVerest TSC Meeting - 25nd May 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-04-27.html">EVerest TSC Meeting - 27th April 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-03-23.html">EVerest TSC Meeting - 23rd March 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-02-23.html">EVerest TSC Meeting - 23rd February 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2023-01-26.html">EVerest TSC Meeting - 26th January 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-12-22.html">EVerest TSC Meeting - 22nd December 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-11-24.html">EVerest TSC Meeting - 24th November 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-10-27.html">EVerest TSC Meeting - 27th October 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-09-22.html">EVerest TSC Meeting - 22nd September 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-08-25.html">EVerest TSC Meeting - 25th August 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-07-28.html">EVerest TSC Meeting - 28th July 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-06-23.html">EVerest TSC Meeting - 23nd June 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-06-02.html">EVerest TSC Meeting - 2nd June 2022</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-04-28.html">EVerest TSC Meeting - [28th April 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-03-24.html">EVerest TSC Meeting - [24th March 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-02-24.html">EVerest TSC Meeting - [24th Feb 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2022-01-27.html">EVerest TSC Meeting - [27th Jan 2022]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../project/governance/tsc/meetings/2021-11-30.html">EVerest TSC Meeting - [30th Nov 2021]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/releases-and-versioning.html">Releases and Versioning of EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/release-notes.html">Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/upgrading-to-2026.10.html">Upgrading to 2026.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/breaking-changes.html">Breaking Changes Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/deprecation-policy.html">Deprecation Policy for EVerest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/deprecation-index.html">Active Deprecation Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/releases/experimental-index.html">Experimental Feature Index</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/reference/EVerestAPI/session_storage_consumer_API.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="session-storage-consumer-api">
+<span id="everest-api-session-storage-consumer-api"></span><h1>session_storage_consumer_API<a class="headerlink" href="#session-storage-consumer-api" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Experimental API</strong> since 2026.10.0.
+This API is exempt from the EVerest stability guarantees and the deprecation
+period. Its channels, operations and message payloads may change or be
+removed in any release without notice until it is promoted to stable. See
+the <a class="reference internal" href="../../project/releases/deprecation-policy.html#project-experimental-components"><span class="std std-ref">policy on experimental components</span></a>
+and the <a class="reference internal" href="../../project/releases/experimental-index.html#project-experimental-index"><span class="std std-ref">experimental feature index</span></a>.</p>
+</div>
+<div class="everest-api overview docutils container">
+<div class="facts">
+<span class="badge experimental" title="Exempt from the stability guarantees">experimental</span><span class="chip"><span class="s-label">version</span> 1.0.0</span><span class="chip"><span class="s-label">AsyncAPI</span> 3.0.0</span>
+<span class="chip"><span class="s-label">content type</span> application/json</span><span class="chip"><span class="s-label">license</span> <a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a></span><span class="chip tag">EVerest</span><span class="chip tag">SessionStorage</span></div><div class="lead docutils container">
+<p>EVerest API definition for session storage (consumer)</p>
+</div>
+<p>API for EVerest API clients to read and clear persistently stored session records.</p>
+<p><strong>Experimental.</strong> This API is exempt from the EVerest stability guarantees and the deprecation period; channels, operations and message payloads may change without further notice until it is promoted to stable.</p>
+<p><strong>Pagination.</strong> get_sessions returns records oldest first, one page per request. A reply carries a continuation_token if more matching records follow; pass it in the next request and iterate until a reply has no token. A page can hold fewer records than requested, in rare cases none, while still carrying a token. An invalid or outdated token starts the iteration from the beginning. The request payload is optional: an empty object requests the first page with the default page size. The started_after filter is compared at millisecond precision.</p>
+<p><strong>Deleting records.</strong> clear_sessions cannot be undone and also deletes records that are still open; when such a session finishes later, the finish is dropped. The payload is optional: an empty object deletes every stored record. To delete exactly the records already read, pass the session id of the last record received from get_sessions as up_to_session_id; that record and every older one are deleted, sessions that started in the meantime are kept.</p>
+<p><strong>Concurrent clients.</strong> Neither the bridge nor the store keeps per-client state, so several clients may use the API at the same time. A clear_sessions issued by one client while another is paging removes records from that iteration; the other client’s token stays valid and resumes at the oldest surviving record. Clients sharing one store should coordinate clearing, or clear only what they have read via up_to_session_id.</p>
+<p><strong>Missing records.</strong> get_session replies with the JSON literal null when no stored record matches the identifier.</p>
+<p class="spec-file">Specification: <code>session_storage_consumer_API.yaml</code> · <code>pionix:de:everest:session_storage_consumer_API</code></p>
+<div class="legend">
+<span><span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+ the client publishes, EVerest consumes (4)</span>
+<span><span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+ EVerest publishes, the client consumes (4)</span>
+</div></div>
+<section id="servers">
+<h2>Servers<a class="headerlink" href="#servers" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<div class="card server" id="server-default">
+<p class="card-title"><strong>default</strong> <span class="chip">mqtt</span></p>
+<div><p>default local MQTT</p></div><dl class="op-facts">
+<dt>Host</dt><dd><code>localhost:1883</code></dd><dt>Topic prefix</dt><dd><code class="topic" data-copy="everest_api/1/session_storage_consumer/{module_id}">everest_api/1/session_storage_consumer/{module_id}</code></dd>
+<dt><code>{module_id}</code></dt><dd><p>The ID of the module as defined in the EVerest config file.</p></dd>
+</dl>
+</div></div>
+</section>
+<section id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<div class="js-only toolbar">
+<button type="button" data-expand="all">Expand all</button>
+<button type="button" data-expand="none">Collapse all</button>
+</div></div>
+<section id="client-to-everest">
+<h3>Client to EVerest<a class="headerlink" href="#client-to-everest" title="Link to this heading">¶</a></h3>
+<section id="send-request-get-sessions">
+<span id="everest-api-session-storage-consumer-api-op-send-request-get-sessions"></span><h4>send_request_get_sessions<a class="headerlink" href="#send-request-get-sessions" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send request to transmit one page of stored session records</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/session_storage_consumer/{module_id}/m2e/get_sessions">everest_api/1/session_storage_consumer/{module_id}/m2e/get_sessions</code></dd>
+<dt>Reply</dt>
+<dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-session-storage-consumer-api-op-receive-reply-get-sessions">receive_reply_get_sessions</a>.</dd>
+</dl><p>Direction: Module to EVerest. Request one page of stored session records, oldest first. Iterate by passing the continuation_token of a reply into the next request until a reply carries no token.</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Request one page of stored session records</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_request_get_sessions"><code>send_request_get_sessions</code></a></p>
+<div class="msg-summary"><p>Request one page of stored session records.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<ul class="s-tree">
+<li>
+<details class="s-node">
+<summary><span class="s-name">headers</span><span class="s-type">object</span>
+</summary>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-GetSessionsRequest">
+<summary><span class="s-name">payload</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-GetSessionsRequest" title="session_storage_consumer_API.yaml">GetSessionsRequest</a></summary>
+<div class="s-desc"><p>Page request for stored session records. An empty object requests the first page of all records with the default page size.</p></div><p class="s-inline"><a href="#schema-GetSessionsRequest">Definition of GetSessionsRequest</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+<div>
+<p class="msg-section">Examples</p>
+<figure class="example">
+<figcaption>Request the first page of all stored sessions</figcaption>
+<pre data-copy-block><code>{
+  &#34;headers&#34;: {
+    &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+  },
+  &#34;payload&#34;: {}
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Request the next page of the finished sessions of EVSE 1</figcaption>
+<pre data-copy-block><code>{
+  &#34;headers&#34;: {
+    &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+  },
+  &#34;payload&#34;: {
+    &#34;limit&#34;: 100,
+    &#34;continuation_token&#34;: &#34;5f2a9c31d4e8b0a7:184&#34;,
+    &#34;filter&#34;: {
+      &#34;state&#34;: &#34;Finished&#34;,
+      &#34;evse_id&#34;: 1
+    }
+  }
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="send-request-get-session">
+<span id="everest-api-session-storage-consumer-api-op-send-request-get-session"></span><h4>send_request_get_session<a class="headerlink" href="#send-request-get-session" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send request to transmit a single stored session record</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/session_storage_consumer/{module_id}/m2e/get_session">everest_api/1/session_storage_consumer/{module_id}/m2e/get_session</code></dd>
+<dt>Reply</dt>
+<dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-session-storage-consumer-api-op-receive-reply-get-session">receive_reply_get_session</a>.</dd>
+</dl><p>Direction: Module to EVerest. Request one session record, identified either by its session id or by its OCPP transaction id. The reply will be sent to the replyTo address specified in the message headers. If no record matches the identifier, a null payload will be sent.</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Request a single stored session record</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_request_get_session"><code>send_request_get_session</code></a></p>
+<div class="msg-summary"><p>Request the session record matching the given identifier.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<ul class="s-tree">
+<li>
+<details class="s-node">
+<summary><span class="s-name">headers</span><span class="s-type">object</span>
+</summary>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-SessionIdentifier">
+<summary><span class="s-name">payload</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-SessionIdentifier" title="session_storage_consumer_API.yaml">SessionIdentifier</a></summary>
+<div class="s-desc"><p>Identifies a single session record. Exactly one of the members must be set. If both are set, session_id takes precedence.</p></div><p class="s-inline"><a href="#schema-SessionIdentifier">Definition of SessionIdentifier</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Request a session by session id</figcaption>
+<pre data-copy-block><code>{
+  &#34;headers&#34;: {
+    &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+  },
+  &#34;payload&#34;: {
+    &#34;session_id&#34;: &#34;550e8400-e29b-41d4-a716-446655440000&#34;
+  }
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="send-request-clear-sessions">
+<span id="everest-api-session-storage-consumer-api-op-send-request-clear-sessions"></span><h4>send_request_clear_sessions<a class="headerlink" href="#send-request-clear-sessions" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send request to delete stored session records</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/session_storage_consumer/{module_id}/m2e/clear_sessions">everest_api/1/session_storage_consumer/{module_id}/m2e/clear_sessions</code></dd>
+<dt>Reply</dt>
+<dd>Sent to <code>$message.header#/replyTo</code> as <a href="#everest-api-session-storage-consumer-api-op-receive-reply-clear-sessions">receive_reply_clear_sessions</a>.</dd>
+</dl><p>Direction: Module to EVerest. Deletes stored session records, including records that are still open. An absent payload deletes every record, up_to_session_id limits the deletion to that record and the records stored before it. This cannot be undone. When a deleted open session finishes later, the finish is dropped and the record does not reappear.</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Request deletion of stored session records</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_request_clear_sessions"><code>send_request_clear_sessions</code></a></p>
+<div class="msg-summary"><p>Delete all stored session records, or the records up to a given one.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<ul class="s-tree">
+<li>
+<details class="s-node">
+<summary><span class="s-name">headers</span><span class="s-type">object</span>
+</summary>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">replyTo</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Address to send the response to. Omit it to discard the response. An invalid address, see the EVerest API explanation, rejects the request.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 1</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-ClearSessionsRequest">
+<summary><span class="s-name">payload</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-ClearSessionsRequest" title="session_storage_consumer_API.yaml">ClearSessionsRequest</a></summary>
+<div class="s-desc"><p>Selects the session records to delete. An empty object deletes every stored record.</p></div><p class="s-inline"><a href="#schema-ClearSessionsRequest">Definition of ClearSessionsRequest</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+<div>
+<p class="msg-section">Examples</p>
+<figure class="example">
+<figcaption>Clear all stored sessions</figcaption>
+<pre data-copy-block><code>{
+  &#34;headers&#34;: {
+    &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+  }
+}</code></pre>
+</figure>
+<figure class="example">
+<figcaption>Clear the sessions read so far, keeping sessions started in the meantime</figcaption>
+<pre data-copy-block><code>{
+  &#34;headers&#34;: {
+    &#34;replyTo&#34;: &#34;everest_api/1/{interface_type}/{module_id}/e2m/{operation_name}/{uuid}&#34;
+  },
+  &#34;payload&#34;: {
+    &#34;up_to_session_id&#34;: &#34;550e8400-e29b-41d4-a716-446655440000&#34;
+  }
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="send-communication-check">
+<span id="everest-api-session-storage-consumer-api-op-send-communication-check"></span><h4>send_communication_check<a class="headerlink" href="#send-communication-check" title="Link to this heading">¶</a></h4>
+<div class="everest-api op send docutils container">
+<div class="op-head">
+<span class="badge send" title="Published by the client, consumed by EVerest">send</span>
+
+<span class="op-title">Send communication check</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/session_storage_consumer/{module_id}/m2e/communication_check">everest_api/1/session_storage_consumer/{module_id}/m2e/communication_check</code></dd>
+</dl><details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Send communication check</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-send_communication_check"><code>send_communication_check</code></a></p>
+<div class="msg-summary"><p>Signal to EVerest that communication is good or check shall be stopped</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">boolean</span> <a class="s-ref" href="#schema-CommunicationCheck" title="session_storage_consumer_API.yaml">CommunicationCheck</a></div>
+<div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>CommunicationCheck</figcaption>
+<pre data-copy-block><code>true</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+</section>
+<section id="everest-to-client">
+<h3>EVerest to client<a class="headerlink" href="#everest-to-client" title="Link to this heading">¶</a></h3>
+<section id="receive-reply-get-sessions">
+<span id="everest-api-session-storage-consumer-api-op-receive-reply-get-sessions"></span><h4>receive_reply_get_sessions<a class="headerlink" href="#receive-reply-get-sessions" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive reply with one page of stored session records</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+Answers <a href="#everest-api-session-storage-consumer-api-op-send-request-get-sessions">send_request_get_sessions</a>.</dd>
+</dl><p>Direction: EVerest to Module</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">One page of stored session records</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_reply_get_sessions"><code>receive_reply_get_sessions</code></a></p>
+<div class="msg-summary"><p>Reply to the request to send one page of stored session records</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<details class="s-node s-top" data-inline="schema-SessionList" open>
+<summary><span class="s-type">object</span> <a class="s-ref" href="#schema-SessionList" title="session_storage_consumer_API.yaml">SessionList</a></summary>
+<div class="s-desc"><p>One page of stored session records</p></div><p class="s-inline"><a href="#schema-SessionList">Definition of SessionList</a></p>
+</details>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+<pre data-copy-block><code>{
+  &#34;sessions&#34;: [
+    {
+      &#34;session_id&#34;: &#34;string&#34;,
+      &#34;evse_id&#34;: 1,
+      &#34;evse_id_string&#34;: &#34;string&#34;,
+      &#34;connector_id&#34;: 1,
+      &#34;state&#34;: &#34;Open&#34;,
+      &#34;timestamp_start&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+      &#34;start_reason&#34;: &#34;EVConnected&#34;
+    }
+  ]
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="receive-reply-get-session">
+<span id="everest-api-session-storage-consumer-api-op-receive-reply-get-session"></span><h4>receive_reply_get_session<a class="headerlink" href="#receive-reply-get-session" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive reply with a single stored session record</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+Answers <a href="#everest-api-session-storage-consumer-api-op-send-request-get-session">send_request_get_session</a>.</dd>
+</dl><p>Direction: EVerest to Module</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">A single stored session record</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_reply_get_session"><code>receive_reply_get_session</code></a></p>
+<div class="msg-summary"><p>Reply to the request to send a single session record. Null if no record matches the identifier.</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">oneOf</span></div>
+<p class="s-note">Exactly one of:</p>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-Session">
+<summary><span class="s-name">#1</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-Session" title="session_storage_consumer_API.yaml">Session</a></summary>
+<div class="s-desc"><p>One persistently stored session record. A record is created when the session starts and completed when it finishes, so the fields that are only known at the end of a session are absent while the record is open.</p></div><p class="s-inline"><a href="#schema-Session">Definition of Session</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">#2</span><span class="s-type">null</span>
+</div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+<pre data-copy-block><code>{
+  &#34;session_id&#34;: &#34;string&#34;,
+  &#34;evse_id&#34;: 1,
+  &#34;evse_id_string&#34;: &#34;string&#34;,
+  &#34;connector_id&#34;: 1,
+  &#34;state&#34;: &#34;Open&#34;,
+  &#34;timestamp_start&#34;: &#34;2019-08-24T14:15:22Z&#34;,
+  &#34;start_reason&#34;: &#34;EVConnected&#34;
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="receive-reply-clear-sessions">
+<span id="everest-api-session-storage-consumer-api-op-receive-reply-clear-sessions"></span><h4>receive_reply_clear_sessions<a class="headerlink" href="#receive-reply-clear-sessions" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive reply to the request to delete stored session records</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd>Dynamic: the <code>replyTo</code> address from the request's headers.
+Answers <a href="#everest-api-session-storage-consumer-api-op-send-request-clear-sessions">send_request_clear_sessions</a>.</dd>
+</dl><p>Direction: EVerest to Module</p>
+<details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Result of deleting stored session records</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_reply_clear_sessions"><code>receive_reply_clear_sessions</code></a></p>
+<div class="msg-summary"><p>Reply to the request to delete stored session records</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<details class="s-node s-top" data-inline="schema-ClearSessionsResult" open>
+<summary><span class="s-type">object</span> <a class="s-ref" href="#schema-ClearSessionsResult" title="session_storage_consumer_API.yaml">ClearSessionsResult</a></summary>
+<div class="s-desc"><p>Result of deleting stored session records</p></div><p class="s-inline"><a href="#schema-ClearSessionsResult">Definition of ClearSessionsResult</a></p>
+</details>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Minimal payload generated from the schema <span class="tag">generated</span></figcaption>
+<pre data-copy-block><code>{
+  &#34;cleared&#34;: 0
+}</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+<section id="receive-heartbeat">
+<span id="everest-api-session-storage-consumer-api-op-receive-heartbeat"></span><h4>receive_heartbeat<a class="headerlink" href="#receive-heartbeat" title="Link to this heading">¶</a></h4>
+<div class="everest-api op receive docutils container">
+<div class="op-head">
+<span class="badge receive" title="Published by EVerest, consumed by the client">receive</span>
+
+<span class="op-title">Receive heartbeat</span></div>
+<dl class="op-facts">
+<dt>Topic</dt>
+<dd><code class="topic" data-copy="everest_api/1/session_storage_consumer/{module_id}/e2m/heartbeat">everest_api/1/session_storage_consumer/{module_id}/e2m/heartbeat</code></dd>
+</dl><details class="msg">
+<summary><span class="msg-label">Message</span> <span class="msg-name">Receive heartbeat</span> <code class="ctype">application/json</code></summary>
+<div class="msg-body">
+<p class="msg-ref">Message <a href="#msg-receive_heartbeat"><code>receive_heartbeat</code></a></p>
+<div class="msg-summary"><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></div><div class="msg-grid">
+<div>
+<p class="msg-section">Payload</p>
+<div class="s-root">
+<div class="s-head"><span class="s-type">integer</span> <a class="s-ref" href="#schema-HeartBeatId" title="session_storage_consumer_API.yaml">HeartBeatId</a></div>
+<div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+</div>
+
+</div>
+<div>
+<p class="msg-section">Example</p>
+<figure class="example">
+<figcaption>Heartbeat</figcaption>
+<pre data-copy-block><code>42</code></pre>
+</figure>
+</div>
+</div>
+
+</div>
+</details></div>
+</section>
+</section>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<div class="table-wrap">
+<table class="messages">
+<thead><tr><th>Message</th><th>Summary</th><th>Used by</th></tr></thead>
+<tbody>
+<tr id="msg-send_request_get_sessions">
+<td><code>send_request_get_sessions</code><br><span class="muted">Request one page of stored session records</span></td>
+<td><p>Request one page of stored session records.</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-send-request-get-sessions">send_request_get_sessions</a></td>
+</tr>
+<tr id="msg-receive_reply_get_sessions">
+<td><code>receive_reply_get_sessions</code><br><span class="muted">One page of stored session records</span></td>
+<td><p>Reply to the request to send one page of stored session records</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-receive-reply-get-sessions">receive_reply_get_sessions</a></td>
+</tr>
+<tr id="msg-send_request_get_session">
+<td><code>send_request_get_session</code><br><span class="muted">Request a single stored session record</span></td>
+<td><p>Request the session record matching the given identifier.</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-send-request-get-session">send_request_get_session</a></td>
+</tr>
+<tr id="msg-receive_reply_get_session">
+<td><code>receive_reply_get_session</code><br><span class="muted">A single stored session record</span></td>
+<td><p>Reply to the request to send a single session record. Null if no record matches the identifier.</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-receive-reply-get-session">receive_reply_get_session</a></td>
+</tr>
+<tr id="msg-send_request_clear_sessions">
+<td><code>send_request_clear_sessions</code><br><span class="muted">Request deletion of stored session records</span></td>
+<td><p>Delete all stored session records, or the records up to a given one.</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-send-request-clear-sessions">send_request_clear_sessions</a></td>
+</tr>
+<tr id="msg-receive_reply_clear_sessions">
+<td><code>receive_reply_clear_sessions</code><br><span class="muted">Result of deleting stored session records</span></td>
+<td><p>Reply to the request to delete stored session records</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-receive-reply-clear-sessions">receive_reply_clear_sessions</a></td>
+</tr>
+<tr id="msg-receive_heartbeat">
+<td><code>receive_heartbeat</code><br><span class="muted">Receive heartbeat</span></td>
+<td><p>Heartbeat produced by EVerest as configured via cfg_heartbeat_interval_ms in the EVerest configuration</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-receive-heartbeat">receive_heartbeat</a></td>
+</tr>
+<tr id="msg-send_communication_check">
+<td><code>send_communication_check</code><br><span class="muted">Send communication check</span></td>
+<td><p>Signal to EVerest that communication is good or check shall be stopped</p></td>
+<td><a href="#everest-api-session-storage-consumer-api-op-send-communication-check">send_communication_check</a></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="schemas">
+<h2>Schemas<a class="headerlink" href="#schemas" title="Link to this heading">¶</a></h2>
+<div class="everest-api docutils container">
+<details class="schema" id="schema-SessionFilter">
+<summary><span class="s-name">SessionFilter</span> <span class="s-type">object</span><a class="anchor" href="#schema-SessionFilter" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Criteria a session record must match to be returned</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">state</span><span class="s-type">string</span>
+<a class="s-ref" href="#schema-SessionState" title="session_storage_consumer_API.yaml">SessionState</a></div>
+<div class="s-desc"><p>Only records in this lifecycle state</p></div><div class="s-enum"><span class="s-label">enum</span><code>Open</code><code>Finished</code><code>Stale</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">evse_id</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Only records of the EVSE with this numeric id</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span><span class="chip"><span class="s-label">max</span> 128</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">started_after</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Only records whose session started strictly after this point in time, in RFC3339 format. Compared as an instant, so any offset may be used. Fractional seconds are compared at millisecond precision. A request with a value that is not a date-time is discarded without a reply.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-GetSessionsRequest">
+<summary><span class="s-name">GetSessionsRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-GetSessionsRequest" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Page request for stored session records. An empty object requests the first page of all records with the default page size.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">limit</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Maximum number of records in the reply. EVerest may return fewer, and clamps the value to its supported maximum.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">continuation_token</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Opaque token from a previous reply to continue the iteration. Omit to start from the oldest record. An invalid or outdated token starts the iteration from the beginning.</p></div>
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-SessionFilter">
+<summary><span class="s-name">filter</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-SessionFilter" title="session_storage_consumer_API.yaml">SessionFilter</a></summary>
+<div class="s-desc"><p>Criteria the returned records must match</p></div><p class="s-inline"><a href="#schema-SessionFilter">Definition of SessionFilter</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-SessionList">
+<summary><span class="s-name">SessionList</span> <span class="s-type">object</span><a class="anchor" href="#schema-SessionList" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>One page of stored session records</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node">
+<summary><span class="s-name">sessions</span><span class="s-type">array</span>
+<span class="s-req">required</span></summary>
+<div class="s-desc"><p>The records of this page, in the order they were stored, oldest first. Empty if no more records match.</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="schema-Session">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-Session" title="session_storage_consumer_API.yaml">Session</a></summary>
+<div class="s-desc"><p>One persistently stored session record. A record is created when the session starts and completed when it finishes, so the fields that are only known at the end of a session are absent while the record is open.</p></div><p class="s-inline"><a href="#schema-Session">Definition of Session</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">continuation_token</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Present if more matching records follow this page. Pass it in the next request to continue the iteration; a reply without it means the iteration is complete.</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-Session">
+<summary><span class="s-name">Session</span> <span class="s-type">object</span><a class="anchor" href="#schema-Session" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>One persistently stored session record. A record is created when the session starts and completed when it finishes, so the fields that are only known at the end of a session are absent while the record is open.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">session_id</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The EVSE generated UUID of the session. A session contains at most one transaction, so this also identifies the transaction charged within it.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">evse_id</span><span class="s-type">integer</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The numeric id of the EVSE this session ran on, as used across EVerest interfaces (1-based).</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span><span class="chip"><span class="s-label">max</span> 128</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">evse_id_string</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The EVSEID of the EVSE this session ran on, as configured in the EvseManager. Empty if the EvseManager does not provide one.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">connector_id</span><span class="s-type">integer</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The id of the connector that was used for this session.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">state</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="#schema-SessionState" title="session_storage_consumer_API.yaml">SessionState</a></div>
+<div class="s-desc"><p>Lifecycle state of this record</p></div><div class="s-enum"><span class="s-label">enum</span><code>Open</code><code>Finished</code><code>Stale</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_start</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Time the session started, in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_stop</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Time the session finished, in RFC3339 format. Absent while the record is Open, and absent on Stale records.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">start_reason</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="evse_manager_consumer_API.html#schema-StartSessionReason" data-api-page="evse_manager_consumer_API" title="evse_manager_consumer_API.yaml">StartSessionReason ↗</a></div>
+<div class="s-desc"><p>Why this session was started</p></div><div class="s-enum"><span class="s-label">enum</span><code>EVConnected</code><code>Authorized</code></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="schema-Transaction">
+<summary><span class="s-name">transaction</span><span class="s-type">object</span>
+<a class="s-ref" href="#schema-Transaction" title="session_storage_consumer_API.yaml">Transaction</a></summary>
+<div class="s-desc"><p>The transaction charged within this session. Absent if the session never reached a transaction, for example when an EV was plugged in but never authorized.</p></div><p class="s-inline"><a href="#schema-Transaction">Definition of Transaction</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">ocpp_transaction_id</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>The transaction id known to the CSMS, always as a string. Only present in OCPP setups: for OCPP 2.0.1 and 2.1 it is identical to session_id, for OCPP 1.6 it is the numeric id assigned by the CSMS in decimal notation, which arrives only after the transaction has already started. With early OCPP TxStartPoints an OCPP transaction can exist for a session that never reaches an EVerest transaction, so this may be present while transaction is absent.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">ocpp_transaction_timestamp_start</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Time the OCPP transaction started, in RFC3339 format, as reported in the transaction events of the OCPP module. It is the charging station clock at the OCPP transaction start and can differ from timestamp_start and from the timestamps of transaction, because the point at which an OCPP 2.x transaction starts is configurable via its TxStartPoint. Absent if no OCPP module is connected or the event was not received.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">ocpp_transaction_timestamp_stop</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Time the OCPP transaction stopped, in RFC3339 format, as reported in the transaction events of the OCPP module. It is the charging station clock at the OCPP transaction stop and can differ from timestamp_stop and from the timestamps of transaction, because the point at which an OCPP 2.x transaction stops is configurable via its TxStopPoint. Absent if no OCPP module is connected or the event was not received.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-SessionCost">
+<summary><span class="s-name">cost</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-SessionCost" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionCost ↗</a></summary>
+<div class="s-desc"><p>Cost and tariff information reported for this session. Only present in setups where a cost source is connected, and all figures originate from the CSMS. The id_tag member is never populated, because the raw id token is not persisted.</p></div><p class="s-inline"><a href="#ext-session_cost_API-SessionCost">Definition of SessionCost</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-Transaction">
+<summary><span class="s-name">Transaction</span> <span class="s-type">object</span><a class="anchor" href="#schema-Transaction" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>The transaction charged within a session. It starts at the point where all preconditions for charging are met and finishes when one of them irrevocably becomes false, so the fields that are only known at the end of a transaction are absent while it is running.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_start</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Time the transaction started, in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_stop</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Time the transaction finished, in RFC3339 format. Absent while the transaction is still running.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">energy_Wh_import_start</span><span class="s-type">number</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Total imported energy reading taken when the transaction started, in Wh</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">energy_Wh_import_stop</span><span class="s-type">number</span>
+</div>
+<div class="s-desc"><p>Total imported energy reading taken when the transaction finished, in Wh. Absent while the transaction is still running.</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">id_token_hash</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Hash of the id token that started the transaction. The raw token is never stored as a dedicated field, but note that a stored signed meter value embeds it (OCMF ID field). Computed as the lower case hex encoded SHA256 digest of the id token type concatenated with the id token value, matching the hash the OCPP stack uses for its authorization cache, so a hash computed elsewhere in the stack can be compared to this one directly. Absent only if the digest could not be calculated.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 64</span><span class="chip"><span class="s-label">max length</span> 64</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">id_token_type</span><span class="s-type">string</span>
+<a class="s-ref" href="auth_consumer_API.html#schema-IdTokenType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdTokenType ↗</a></div>
+<div class="s-desc"><p>Type of the id token that started the transaction. Part of the input to id_token_hash, so it is needed to reproduce the hash.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Central</code><code>eMAID</code><code>MacAddress</code><code>ISO14443</code><code>ISO15693</code><code>KeyCode</code><code>Local</code><code>NoAuthorization</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">authorization_type</span><span class="s-type">string</span>
+<a class="s-ref" href="auth_consumer_API.html#schema-AuthorizationType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">AuthorizationType ↗</a></div>
+<div class="s-desc"><p>How the id token was presented, i.e. which authorization mechanism started this transaction.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OCPP</code><code>RFID</code><code>Autocharge</code><code>PlugAndCharge</code><code>BankCard</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">stop_reason</span><span class="s-type">string</span>
+<a class="s-ref" href="evse_manager_consumer_API.html#schema-StopTransactionReason" data-api-page="evse_manager_consumer_API" title="evse_manager_consumer_API.yaml">StopTransactionReason ↗</a></div>
+<div class="s-desc"><p>Why the transaction was stopped. Absent while the transaction is still running. A transaction that was interrupted by a power cycle and recovered on the next boot carries PowerLoss.</p></div><div class="s-enum"><span class="s-label">enum</span><code>EmergencyStop</code><code>EVDisconnected</code><code>HardReset</code><code>Local</code><code>Other</code><code>PowerLoss</code><code>Reboot</code><code>Remote</code><code>SoftReset</code><code>UnlockCommand</code><code>DeAuthorized</code><code>EnergyLimitReached</code><code>GroundFault</code><code>LocalOutOfCredit</code><code>MasterPass</code><code>OvercurrentFault</code><code>PowerQuality</code><code>SOCLimitReached</code><code>StoppedByEV</code><code>TimeLimitReached</code><code>Timeout</code><code>ReqEnergyTransferRejected</code><code>EVSEDisabled</code></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">signed_meter_value_start</span><span class="s-type">object</span>
+</summary>
+<div class="s-desc"><p>Signed meter value (e.g. an OCMF record) captured when the transaction started. Only populated when the module is configured to store signed meter values via its store_signed_meter_values config option. Be aware that the signed data typically embeds the raw id token (OCMF ID field), so enabling the option persists raw tokens. May only become available when the transaction finishes, in which case it is completed at that point.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Method used to create the signature</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">signed_meter_value_stop</span><span class="s-type">object</span>
+</summary>
+<div class="s-desc"><p>Signed meter value (e.g. an OCMF record) captured when the transaction finished, with the same config gate and raw-token caveat as signed_meter_value_start. Absent while the transaction is still running.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">signed_meter_data</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Signed meter data (encoded in a string representation with eg. Base64)</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">signing_method</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Method used to create the signature</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">encoding_method</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Method used to encode the meter values before signing them</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">public_key</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Public key (encoded in a string representation with eg. Base64)</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Timestamp of measurement in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-SessionState">
+<summary><span class="s-name">SessionState</span> <span class="s-type">string</span><a class="anchor" href="#schema-SessionState" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">string</span></div>
+<div class="s-desc"><p>Lifecycle state of a stored session record</p><ul><li>Open: The session is ongoing.</li><li>Finished: The session finished. Sessions with a running transaction that were interrupted by a power cycle are also closed by the module during recovery on the next boot, in which case the transaction carries stop reason PowerLoss and the session stop timestamp is the time of the recovery.</li><li>Stale: The session never finished and never will. A newer session was started on the same EVSE while this record was still Open, which means tracking of this one was lost, for example in a crash or a power cycle during a session without a running transaction.</li></ul></div><div class="s-enum"><span class="s-label">enum</span><code>Open</code><code>Finished</code><code>Stale</code></div>
+
+</div>
+
+</details>
+<details class="schema" id="schema-SessionIdentifier">
+<summary><span class="s-name">SessionIdentifier</span> <span class="s-type">object</span><a class="anchor" href="#schema-SessionIdentifier" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Identifies a single session record. Exactly one of the members must be set. If both are set, session_id takes precedence.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">session_id</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>The EVSE generated UUID of the session</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">ocpp_transaction_id</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>The transaction id known to the CSMS</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-ClearSessionsRequest">
+<summary><span class="s-name">ClearSessionsRequest</span> <span class="s-type">object</span><a class="anchor" href="#schema-ClearSessionsRequest" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Selects the session records to delete. An empty object deletes every stored record.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">up_to_session_id</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Session id of the newest record to delete. Deletes that record and every record stored before it, in the order get_sessions returns them, and keeps the records stored after it. A client that has read all records with get_sessions can pass the session id of the last record it received to delete exactly what it has read, without losing sessions that started in the meantime. If no record with this id exists, nothing is deleted.</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-ClearSessionsResult">
+<summary><span class="s-name">ClearSessionsResult</span> <span class="s-type">object</span><a class="anchor" href="#schema-ClearSessionsResult" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Result of deleting stored session records</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">cleared</span><span class="s-type">integer</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Number of session records that were deleted. With up_to_session_id set, 0 means that no record with that session id exists.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="schema-CommunicationCheck">
+<summary><span class="s-name">CommunicationCheck</span> <span class="s-type">boolean</span><a class="anchor" href="#schema-CommunicationCheck" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">boolean</span></div>
+<div class="s-desc"><p>Send true at least every cfg_communication_check_to_s seconds to signal that the client is alive, otherwise EVerest raises a CommunicationFault, which the next message clears. Send false to stop the check until the module restarts.</p></div>
+</div>
+
+</details>
+<details class="schema" id="schema-HeartBeatId">
+<summary><span class="s-name">HeartBeatId</span> <span class="s-type">integer</span><a class="anchor" href="#schema-HeartBeatId" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">integer</span></div>
+<div class="s-desc"><p>64bit unsigned integer. The id of every heartbeat increases by 1 and overflows when the maximum representable value is reached</p></div>
+</div>
+
+</details></div>
+<section id="schemas-from-other-apis">
+<h3>Schemas from other APIs<a class="headerlink" href="#schemas-from-other-apis" title="Link to this heading">¶</a></h3>
+<div class="everest-api docutils container">
+<details class="schema" id="ext-auth_consumer_API-CertificateHashDataInfo">
+<summary><span class="s-name">CertificateHashDataInfo</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-CertificateHashDataInfo" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-CertificateHashDataInfo" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Contains the certificate information</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">hashAlgorithm</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Used algorithms for the hashes provided</p></div><div class="s-enum"><span class="s-label">enum</span><code>SHA256</code><code>SHA384</code><code>SHA512</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">issuerNameHash</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Hashed value of the Issuer Distinguished Name</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">issuerKeyHash</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Hashed value of the issuers public key</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 128</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">serialNumber</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The serial number of the certificate</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 40</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">responderURL</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>This contains the responder URL</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 512</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-auth_consumer_API-CustomIdToken">
+<summary><span class="s-name">CustomIdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-CustomIdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-CustomIdToken" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Type for a custom id token with a free-form type</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Arbitrary value of the IdToken</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 36</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Custom type of the token</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 50</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-auth_consumer_API-IdToken">
+<summary><span class="s-name">IdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-IdToken" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Type for an id token</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Arbitrary value of the IdToken: This has to be printable case insensitive ascii</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 0</span><span class="chip"><span class="s-label">max length</span> 36</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">type</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-IdTokenType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdTokenType ↗</a></div>
+<div class="s-desc"><p>Type of the token</p></div><div class="s-enum"><span class="s-label">enum</span><code>Central</code><code>eMAID</code><code>MacAddress</code><code>ISO14443</code><code>ISO15693</code><code>KeyCode</code><code>Local</code><code>NoAuthorization</code></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">additional_info</span><span class="s-type">array&lt;object&gt;</span>
+</summary>
+<div class="s-desc"><p>A list of additional custom id tokens than can be used for providing additional information for validation</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-auth_consumer_API-CustomIdToken">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="auth_consumer_API.html#schema-CustomIdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">CustomIdToken ↗</a></summary>
+<div class="s-desc"><p>Type for a custom id token with a free-form type</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-CustomIdToken">Definition of CustomIdToken</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-auth_consumer_API-ProvidedIdToken">
+<summary><span class="s-name">ProvidedIdToken</span> <span class="s-type">object</span> <a class="s-ref" href="auth_consumer_API.html#schema-ProvidedIdToken" data-api-page="auth_consumer_API">defined in auth_consumer_API.yaml ↗</a><a class="anchor" href="#ext-auth_consumer_API-ProvidedIdToken" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Type for IdToken provided by auth token providers. Contains additional information about the IdToken like the source and purpose</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">request_id</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Id of the authorization request of this token. Could be used to put remoteStartId of OCPP2.0.1</p></div>
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+<summary><span class="s-name">id_token</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+<div class="s-desc"><p>IdToken of the provided token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-auth_consumer_API-IdToken">
+<summary><span class="s-name">parent_id_token</span><span class="s-type">object</span>
+<a class="s-ref" href="auth_consumer_API.html#schema-IdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">IdToken ↗</a></summary>
+<div class="s-desc"><p>Parent IdToken of the provided token</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-IdToken">Definition of IdToken</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">authorization_type</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="auth_consumer_API.html#schema-AuthorizationType" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">AuthorizationType ↗</a></div>
+<div class="s-desc"><p>Authorization type of the token.</p></div><div class="s-enum"><span class="s-label">enum</span><code>OCPP</code><code>RFID</code><code>Autocharge</code><code>PlugAndCharge</code><code>BankCard</code></div>
+<div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 2</span><span class="chip"><span class="s-label">max length</span> 32</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">connectors</span><span class="s-type">array&lt;integer&gt;</span>
+</summary>
+<div class="s-desc"><p>A list of connector ids to which the authorization can be assigned</p></div><ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">items</span><span class="s-type">integer</span>
+</div>
+<div class="s-constraints"><span class="chip"><span class="s-label">min</span> 1</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">prevalidated</span><span class="s-type">boolean</span>
+</div>
+<div class="s-desc"><p>Indicates that the id token is already validated by the provider</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">certificate</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>The X.509 certificated presented by EV and encoded in PEM format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">max length</span> 5500</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">iso15118CertificateHashData</span><span class="s-type">array&lt;object&gt;</span>
+</summary>
+<div class="s-desc"><p>Contains the information needed to verify the EV Contract Certificate via OCSP</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min items</span> 1</span><span class="chip"><span class="s-label">max items</span> 4</span></div>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-auth_consumer_API-CertificateHashDataInfo">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="auth_consumer_API.html#schema-CertificateHashDataInfo" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">CertificateHashDataInfo ↗</a></summary>
+<div class="s-desc"><p>An array of contract certificate infos</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-CertificateHashDataInfo">Definition of CertificateHashDataInfo</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-display_message_API-MessageContent">
+<summary><span class="s-name">MessageContent</span> <span class="s-type">object</span> <a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API">defined in display_message_API.yaml ↗</a><a class="anchor" href="#ext-display_message_API-MessageContent" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Contains message details</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">format</span><span class="s-type">string</span>
+<a class="s-ref" href="display_message_API.html#schema-MessageFormat" data-api-page="display_message_API" title="display_message_API.yaml">MessageFormat ↗</a></div>
+<div class="s-desc"><p>Format of the message to be displayed</p></div><div class="s-enum"><span class="s-label">enum</span><code>ASCII</code><code>HTML</code><code>URI</code><code>UTF8</code><code>QRCODE</code></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">language</span><span class="s-type">string</span>
+</div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">content</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-ChargingPriceComponent">
+<summary><span class="s-name">ChargingPriceComponent</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-ChargingPriceComponent" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-ChargingPriceComponent" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Charging price for a category</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">category</span><span class="s-type">string</span>
+<a class="s-ref" href="session_cost_API.html#schema-CostCategory" data-api-page="session_cost_API" title="session_cost_API.yaml">CostCategory ↗</a></div>
+<div class="s-desc"><p>Component type for this charging price</p></div><div class="s-enum"><span class="s-label">enum</span><code>Energy</code><code>Time</code><code>FlatFee</code><code>Other</code></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-Price">
+<summary><span class="s-name">price</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-Price" data-api-page="session_cost_API" title="session_cost_API.yaml">Price ↗</a></summary>
+<div class="s-desc"><p>Price for this component</p></div><p class="s-inline"><a href="#ext-session_cost_API-Price">Definition of Price</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-Currency">
+<summary><span class="s-name">Currency</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-Currency" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-Currency" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Currency object containing the currency code and the accuracy of the minor unit according to ISO 4217.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">code</span><span class="s-type">string</span>
+<a class="s-ref" href="session_cost_API.html#schema-CurrencyCode" data-api-page="session_cost_API" title="session_cost_API.yaml">CurrencyCode ↗</a></div>
+<div class="s-desc"><p>Currency code.</p></div><div class="s-enum"><span class="s-label">enum</span><code>AED</code><code>AFN</code><code>ALL</code><code>AMD</code><code>ANG</code><code>AOA</code><code>ARS</code><code>AUD</code><code>AWG</code><code>AZN</code><code>BAM</code><code>BBD</code><code>BDT</code><code>BGN</code><code>BHD</code><code>BIF</code><code>BMD</code><code>BND</code><code>BOB</code><code>BOV</code><code>BRL</code><code>BSD</code><code>BTN</code><code>BWP</code><code>BYN</code><code>BZD</code><code>CAD</code><code>CDF</code><code>CHE</code><code>CHF</code><code>CHW</code><code>CLF</code><code>CLP</code><code>CNY</code><code>COP</code><code>COU</code><code>CRC</code><code>CUC</code><code>CUP</code><code>CVE</code><code>CZK</code><code>DJF</code><code>DKK</code><code>DOP</code><code>DZD</code><code>EGP</code><code>ERN</code><code>ETB</code><code>EUR</code><code>FJD</code><code>FKP</code><code>GBP</code><code>GEL</code><code>GHS</code><code>GIP</code><code>GMD</code><code>GNF</code><code>GTQ</code><code>GYD</code><code>HKD</code><code>HNL</code><code>HTG</code><code>HUF</code><code>IDR</code><code>ILS</code><code>INR</code><code>IQD</code><code>IRR</code><code>ISK</code><code>JMD</code><code>JOD</code><code>JPY</code><code>KES</code><code>KGS</code><code>KHR</code><code>KMF</code><code>KPW</code><code>KRW</code><code>KWD</code><code>KYD</code><code>KZT</code><code>LAK</code><code>LBP</code><code>LKR</code><code>LRD</code><code>LSL</code><code>LYD</code><code>MAD</code><code>MDL</code><code>MGA</code><code>MKD</code><code>MMK</code><code>MNT</code><code>MOP</code><code>MRU</code><code>MUR</code><code>MVR</code><code>MWK</code><code>MXN</code><code>MXV</code><code>MYR</code><code>MZN</code><code>NAD</code><code>NGN</code><code>NIO</code><code>NOK</code><code>NPR</code><code>NZD</code><code>OMR</code><code>PAB</code><code>PEN</code><code>PGK</code><code>PHP</code><code>PKR</code><code>PLN</code><code>PYG</code><code>QAR</code><code>RON</code><code>RSD</code><code>RUB</code><code>RWF</code><code>SAR</code><code>SBD</code><code>SCR</code><code>SDG</code><code>SEK</code><code>SGD</code><code>SHP</code><code>SLE</code><code>SLL</code><code>SOS</code><code>SRD</code><code>SSP</code><code>STN</code><code>SVC</code><code>SYP</code><code>SZL</code><code>THB</code><code>TJS</code><code>TMT</code><code>TND</code><code>TOP</code><code>TRY</code><code>TTD</code><code>TWD</code><code>TZS</code><code>UAH</code><code>UGX</code><code>USD</code><code>USN</code><code>UYI</code><code>UYU</code><code>UYW</code><code>UZS</code><code>VED</code><code>VES</code><code>VND</code><code>VUV</code><code>WST</code><code>XAF</code><code>XCD</code><code>XDR</code><code>XOF</code><code>XPF</code><code>XSU</code><code>XUA</code><code>YER</code><code>ZAR</code><code>ZMW</code><code>ZWL</code></div>
+<div class="s-constraints"><span class="chip"><span class="s-label">min length</span> 3</span><span class="chip"><span class="s-label">max length</span> 3</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">decimals</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>The number of digits after the decimal separator, that are expressed by the minor units of the currency. For example for Euro, Euro cents express 2 digits after the decimal separator. In other words, the price in the main currency units would be the <code>value * 10^(-decimals)</code>.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">min</span> 0</span></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-IdlePrice">
+<summary><span class="s-name">IdlePrice</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-IdlePrice" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-IdlePrice" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Price components when idle</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">grace_minutes</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Grace period in minutes before idle time is charged. Grace minutes start counting from the timestamp of the message in which state changed from &#34;Charging&#34; to &#34;Idle&#34;.</p></div>
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-Price">
+<summary><span class="s-name">hour_price</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-Price" data-api-page="session_cost_API" title="session_cost_API.yaml">Price ↗</a></summary>
+<div class="s-desc"><p>Price per hour while idle</p></div><p class="s-inline"><a href="#ext-session_cost_API-Price">Definition of Price</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-MoneyAmount">
+<summary><span class="s-name">MoneyAmount</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-MoneyAmount" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-MoneyAmount" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>&#39;Money amount is expressed as an amount of minor units of the currency. Example price of 1.23 EUR is expressed as { value: 123 }&#39;</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">value</span><span class="s-type">integer</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The amount of minor units of the currency.</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-NextPeriodPrice">
+<summary><span class="s-name">NextPeriodPrice</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-NextPeriodPrice" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-NextPeriodPrice" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Pricing for the next period</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_from</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>Time when these prices become active, in RFC3339 format.</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">charging_price</span><span class="s-type">array&lt;object&gt;</span>
+<span class="s-req">required</span></summary>
+<div class="s-desc"><p>Price components while charging</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-ChargingPriceComponent">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-ChargingPriceComponent" data-api-page="session_cost_API" title="session_cost_API.yaml">ChargingPriceComponent ↗</a></summary>
+<div class="s-desc"><p>Charging price for a category</p></div><p class="s-inline"><a href="#ext-session_cost_API-ChargingPriceComponent">Definition of ChargingPriceComponent</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-IdlePrice">
+<summary><span class="s-name">idle_price</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-IdlePrice" data-api-page="session_cost_API" title="session_cost_API.yaml">IdlePrice ↗</a></summary>
+<div class="s-desc"><p>Price components while idle. Optional if no idle fee charged.</p></div><p class="s-inline"><a href="#ext-session_cost_API-IdlePrice">Definition of IdlePrice</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-Price">
+<summary><span class="s-name">Price</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-Price" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-Price" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Price object containing the currency and the value of money.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-Currency">
+<summary><span class="s-name">currency</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-Currency" data-api-page="session_cost_API" title="session_cost_API.yaml">Currency ↗</a></summary>
+<div class="s-desc"><p>Currency of the price.</p></div><p class="s-inline"><a href="#ext-session_cost_API-Currency">Definition of Currency</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-MoneyAmount">
+<summary><span class="s-name">value</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-MoneyAmount" data-api-page="session_cost_API" title="session_cost_API.yaml">MoneyAmount ↗</a></summary>
+<div class="s-desc"><p>Value in the minor units of the currency.</p></div><p class="s-inline"><a href="#ext-session_cost_API-MoneyAmount">Definition of MoneyAmount</a></p>
+</details>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-SessionCost">
+<summary><span class="s-name">SessionCost</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-SessionCost" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-SessionCost" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>Session cost object containing the total cost of the session and a list of chunks</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-auth_consumer_API-ProvidedIdToken">
+<summary><span class="s-name">id_tag</span><span class="s-type">object</span>
+<a class="s-ref" href="auth_consumer_API.html#schema-ProvidedIdToken" data-api-page="auth_consumer_API" title="auth_consumer_API.yaml">ProvidedIdToken ↗</a></summary>
+<div class="s-desc"><p>The id tag assigned to this transaction</p></div><p class="s-inline"><a href="#ext-auth_consumer_API-ProvidedIdToken">Definition of ProvidedIdToken</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">session_id</span><span class="s-type">string</span>
+<span class="s-req">required</span></div>
+<div class="s-desc"><p>The session id</p></div>
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-Currency">
+<summary><span class="s-name">currency</span><span class="s-type">object</span>
+<span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-Currency" data-api-page="session_cost_API" title="session_cost_API.yaml">Currency ↗</a></summary>
+<div class="s-desc"><p>Currency of the session cost. It applies to all chunks.</p></div><p class="s-inline"><a href="#ext-session_cost_API-Currency">Definition of Currency</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">cost_chunks</span><span class="s-type">array&lt;object&gt;</span>
+</summary>
+<div class="s-desc"><p>List of cost chunks. The total cost of the session is the sum of all chunks.</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-SessionCostChunk">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-SessionCostChunk" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionCostChunk ↗</a></summary>
+<div class="s-desc"><p>One chunk of the session cost</p></div><p class="s-inline"><a href="#ext-session_cost_API-SessionCostChunk">Definition of SessionCostChunk</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-IdlePrice">
+<summary><span class="s-name">idle_price</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-IdlePrice" data-api-page="session_cost_API" title="session_cost_API.yaml">IdlePrice ↗</a></summary>
+<div class="s-desc"><p>Prices for when the EV is idle.</p></div><p class="s-inline"><a href="#ext-session_cost_API-IdlePrice">Definition of IdlePrice</a></p>
+</details>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">charging_price</span><span class="s-type">array&lt;object&gt;</span>
+</summary>
+<div class="s-desc"><p>Charging prices.</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-ChargingPriceComponent">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-ChargingPriceComponent" data-api-page="session_cost_API" title="session_cost_API.yaml">ChargingPriceComponent ↗</a></summary>
+<div class="s-desc"><p>Charging price per type</p></div><p class="s-inline"><a href="#ext-session_cost_API-ChargingPriceComponent">Definition of ChargingPriceComponent</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-NextPeriodPrice">
+<summary><span class="s-name">next_period</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-NextPeriodPrice" data-api-page="session_cost_API" title="session_cost_API.yaml">NextPeriodPrice ↗</a></summary>
+<div class="s-desc"><p>Charging prices for the next period, starting from the given date/time</p></div><p class="s-inline"><a href="#ext-session_cost_API-NextPeriodPrice">Definition of NextPeriodPrice</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">status</span><span class="s-type">string</span>
+<span class="s-req">required</span><a class="s-ref" href="session_cost_API.html#schema-SessionStatus" data-api-page="session_cost_API" title="session_cost_API.yaml">SessionStatus ↗</a></div>
+<div class="s-desc"><p>Session status. Session can be running or finished. Costs of the running session are not final and can change. Only after the session is finished, the session cost can be committed to bank and/or backend.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Running</code><code>Idle</code><code>Finished</code></div>
+
+</div>
+</li>
+
+<li>
+<details class="s-node">
+<summary><span class="s-name">message</span><span class="s-type">array&lt;object&gt;</span>
+</summary>
+<div class="s-desc"><p>Message to show to the user containing information about the price</p></div><ul class="s-tree">
+<li>
+<details class="s-node" data-inline="ext-display_message_API-MessageContent">
+<summary><span class="s-name">items</span><span class="s-type">object</span>
+<a class="s-ref" href="display_message_API.html#schema-MessageContent" data-api-page="display_message_API" title="display_message_API.yaml">MessageContent ↗</a></summary>
+<div class="s-desc"><p>Message with pricing information in a specific language</p></div><p class="s-inline"><a href="#ext-display_message_API-MessageContent">Definition of MessageContent</a></p>
+</details>
+</li>
+
+</ul>
+
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">qr_code</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>QR Code with more information. For example when the charging is finished, to download the invoice from</p></div>
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details>
+<details class="schema" id="ext-session_cost_API-SessionCostChunk">
+<summary><span class="s-name">SessionCostChunk</span> <span class="s-type">object</span> <a class="s-ref" href="session_cost_API.html#schema-SessionCostChunk" data-api-page="session_cost_API">defined in session_cost_API.yaml ↗</a><a class="anchor" href="#ext-session_cost_API-SessionCostChunk" aria-label="Link to this definition">¶</a></summary>
+<div class="s-root">
+<div class="s-head"><span class="s-type">object</span></div>
+<div class="s-desc"><p>A chunk of the session cost. The total cost of the session is the sum of all chunks.</p></div><p class="s-note">Additional properties allowed.</p>
+<ul class="s-tree">
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_from</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Absolute timestamp for the start of this chunk in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">timestamp_to</span><span class="s-type">string</span>
+</div>
+<div class="s-desc"><p>Absolute timestamp for the end of this chunk in RFC3339 format</p></div><div class="s-constraints"><span class="chip"><span class="s-label">format</span> date-time</span></div>
+
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">metervalue_from</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Metervalue (energy Wh import) for the start of this chunk</p></div>
+</div>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">metervalue_to</span><span class="s-type">integer</span>
+</div>
+<div class="s-desc"><p>Metervalue (energy Wh import) for the end of this chunk</p></div>
+</div>
+</li>
+
+<li>
+<details class="s-node" data-inline="ext-session_cost_API-MoneyAmount">
+<summary><span class="s-name">cost</span><span class="s-type">object</span>
+<a class="s-ref" href="session_cost_API.html#schema-MoneyAmount" data-api-page="session_cost_API" title="session_cost_API.yaml">MoneyAmount ↗</a></summary>
+<div class="s-desc"><p>Cost of the energy (or other things like time, base price, ...)  consumed during this chunk in the currency specified in the session price</p></div><p class="s-inline"><a href="#ext-session_cost_API-MoneyAmount">Definition of MoneyAmount</a></p>
+</details>
+</li>
+
+<li>
+<div class="s-leaf">
+<div class="s-head"><span class="s-name">category</span><span class="s-type">string</span>
+<a class="s-ref" href="session_cost_API.html#schema-CostCategory" data-api-page="session_cost_API" title="session_cost_API.yaml">CostCategory ↗</a></div>
+<div class="s-desc"><p>Cost category. Typically this is energy, time or a flat fee.</p></div><div class="s-enum"><span class="s-label">enum</span><code>Energy</code><code>Time</code><code>FlatFee</code><code>Other</code></div>
+
+</div>
+</li>
+
+</ul>
+
+</div>
+
+</details></div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="slac_API.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">slac_API</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="session_cost_consumer_API.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">session_cost_consumer_API</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021-2026, EVerest community
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">session_storage_consumer_API</a><ul>
+<li><a class="reference internal" href="#servers">Servers</a></li>
+<li><a class="reference internal" href="#operations">Operations</a><ul>
+<li><a class="reference internal" href="#client-to-everest">Client to EVerest</a><ul>
+<li><a class="reference internal" href="#send-request-get-sessions">send_request_get_sessions</a></li>
+<li><a class="reference internal" href="#send-request-get-session">send_request_get_session</a></li>
+<li><a class="reference internal" href="#send-request-clear-sessions">send_request_clear_sessions</a></li>
+<li><a class="reference internal" href="#send-communication-check">send_communication_check</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#everest-to-client">EVerest to client</a><ul>
+<li><a class="reference internal" href="#receive-reply-get-sessions">receive_reply_get_sessions</a></li>
+<li><a class="reference internal" href="#receive-reply-get-session">receive_reply_get_session</a></li>
+<li><a class="reference internal" href="#receive-reply-clear-sessions">receive_reply_clear_sessions</a></li>
+<li><a class="reference internal" href="#receive-heartbeat">receive_heartbeat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#messages">Messages</a></li>
+<li><a class="reference internal" href="#schemas">Schemas</a><ul>
+<li><a class="reference internal" href="#schemas-from-other-apis">Schemas from other APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=c1b729fb"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script src="../../_static/everest-api/everest-api.js?v=6c16f528"></script>
+    <script src="../../_static/version-switcher.js?v=b5bc7450"></script>
+    </body>
+</html>

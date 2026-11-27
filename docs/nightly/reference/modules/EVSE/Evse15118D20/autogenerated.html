@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../../_static/everest_icon-color.png" as="image">
 
     <link rel="shortcut icon" href="../../../../_static/favicon.png"><!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
-        <title>Evse15118D20 - EVerest Manual main@3249a1b</title>
+        <title>Evse15118D20 - EVerest Manual main@46ad880</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -164,7 +164,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">EVerest Manual main@3249a1b</div></a>
+      <a href="../../../../index.html"><div class="brand">EVerest Manual main@46ad880</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -188,7 +188,7 @@
     <img class="sidebar-logo" src="../../../../_static/everest_icon-color.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">EVerest Manual main@3249a1b</span>
+  <span class="sidebar-brand-text">EVerest Manual main@46ad880</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -832,9 +832,11 @@ arrives. While that poll is open the EV repeats the request unaltered apart from
 the header timestamp ([V2G20-1582]) and a freshly computed header signature,
 which is verified on every repetition; a changed request is a sequence error,
 so a pending result can never be consumed by a different contract. The wait is
-bounded by <code class="docutils literal notranslate"><span class="pre">auth_timeout_pnc</span></code> ([V2G20-2102]); an <code class="docutils literal notranslate"><span class="pre">EIM</span></code> authorization left
-<code class="docutils literal notranslate"><span class="pre">Ongoing</span></code> stops the session after the 55 s <code class="docutils literal notranslate"><span class="pre">V2G_SECC_Ongoing_Performance_Time</span></code>
-(the next repetition is answered <code class="docutils literal notranslate"><span class="pre">FAILED</span></code>, [V2G20-2102]). <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> gives
+bounded by <code class="docutils literal notranslate"><span class="pre">auth_timeout_pnc</span></code> ([V2G20-2102]). If an <code class="docutils literal notranslate"><span class="pre">EIM</span></code> authorization is
+still <code class="docutils literal notranslate"><span class="pre">Ongoing</span></code> when the 55 s <code class="docutils literal notranslate"><span class="pre">V2G_SECC_Ongoing_Performance_Time</span></code> expires,
+the SECC answers the next authorization request with
+<code class="docutils literal notranslate"><span class="pre">WARNING_EIMAuthorizationFailure</span></code> and <code class="docutils literal notranslate"><span class="pre">EVSEProcessing</span></code> set to <code class="docutils literal notranslate"><span class="pre">Finished</span></code>,
+then ends the session ([V2G20-2102]). <code class="docutils literal notranslate"><span class="pre">Accepted</span></code> gives
 <code class="docutils literal notranslate"><span class="pre">OK</span></code>, or <code class="docutils literal notranslate"><span class="pre">OK_CertificateExpiresSoon</span></code> when the leaf expires within 14 days
 ([V2G20-2218]), which keeps <code class="docutils literal notranslate"><span class="pre">CertificateInstallationReq</span></code> available so the EV
 can install a fresh contract ([V2G20-2232]); a rejection maps the <code class="docutils literal notranslate"><span class="pre">CertificateStatus</span></code> onto
@@ -1638,7 +1640,7 @@ pause.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=ed0b8fe6"></script>
+</div><script src="../../../../_static/documentation_options.js?v=999f7395"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>
